@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 2,
+	"VersionName": "1.0",
+	"FriendlyName": "CloudConnector",
+	"Description": "AWS cloud connectivity",
+	"Category": "MooseWorks",
+	"CreatedBy": "Stephan Menzel",
+	"CreatedByURL": "https://www.linkedin.com/in/stephan-menzel-a032814/",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": true,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "CloudConnector",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
