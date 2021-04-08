@@ -61,14 +61,14 @@ bool GoogleCloudStorageImpl::exists(const FCloudStorageKey &n_key, const FCloudS
 		return false;
 	}
 
-	// technically it's a bit of an overkill to go async here but this impl
-	// is mostly a demo for what real impls are supposed to do, such as check
-	// a cloud backend. So I go async and back again
+	// go async here and do the actual network IO in the thread pool
 	Async(EAsyncExecution::ThreadPool, [n_key, n_completion]{
 
 		const std::string bucket_name{ TCHAR_TO_ANSI(*n_key.BucketName) };
 		const std::string object_key{ TCHAR_TO_ANSI(*n_key.ObjectKey) };
 
+		// This appears to be the recommended way of creating the GC client.
+		// It's basically an optional holding either the client or an error message
 		gc::StatusOr<gcs::Client> client = gcs::Client::CreateDefaultClient();
 		if (!client) {
 			const FString msg = FString::Printf(TEXT("Failed to create client for Google Storage bucket '%s': %s"),
@@ -136,6 +136,7 @@ bool GoogleCloudStorageImpl::write(const FCloudStorageKey &n_key, const TArrayVi
 		return false;
 	}
 
+	// go async here and do the actual upload in the thread pool
 	Async(EAsyncExecution::ThreadPool, [n_key, n_data, n_completion] {
 
 		UE_LOG(LogCloudConnector, Display, TEXT("Starting Google Storage upload"));
@@ -164,6 +165,8 @@ bool GoogleCloudStorageImpl::write(const FCloudStorageKey &n_key, const TArrayVi
 			// start the write op
 			gcs::ObjectWriteStream writer = client->WriteObject(bucket_name, object_key, gcs::ContentType(content_type));
 
+			// Yeah, let's hope the caller read our notice about having to maintain ownership
+			// over the buffer. If it disappears during this op, we crash.
 			writer.write(reinterpret_cast<const char *>(n_data.GetData()), n_data.Num());
 			writer.Close();
 			
@@ -184,9 +187,12 @@ bool GoogleCloudStorageImpl::write(const FCloudStorageKey &n_key, const TArrayVi
 				});
 			}
 
+		// So. I'm quite unsure whether or not the library does throw
+		// Since I have seen at least exceptions raising out of abseil, I think
+		// it's safe to assume the worst
 		} catch (const std::exception &sex) {
 			const FString msg = FString::Printf(TEXT("Exception uploading '%s' to bucket '%s': %s"),
-				*n_key.ObjectKey, *n_key.BucketName, UTF8_TO_TCHAR(sex.what()));
+					*n_key.ObjectKey, *n_key.BucketName, UTF8_TO_TCHAR(sex.what()));
 			UE_LOG(LogCloudConnector, Warning, TEXT("%s"), *msg);
 			Async(EAsyncExecution::TaskGraphMainThread, [n_key, msg, n_completion] {			
 				n_completion.ExecuteIfBound(false, msg);
