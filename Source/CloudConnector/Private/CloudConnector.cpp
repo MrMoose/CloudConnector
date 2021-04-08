@@ -61,9 +61,13 @@ void ACloudConnector::BeginPlay() {
 			begin_play_aws();
 			break;
 	}
+
+	ICloudConnector::Get().init_actor_config(this);
 }
 
 void ACloudConnector::EndPlay(const EEndPlayReason::Type n_reason) {
+
+	ICloudConnector::Get().init_actor_config(nullptr);
 
 	switch (CloudProvider) {
 		default:

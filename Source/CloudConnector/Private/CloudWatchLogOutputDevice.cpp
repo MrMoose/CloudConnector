@@ -12,11 +12,11 @@
 // AWS SDK
 #include "Windows/PreWindowsApi.h"
 #include <aws/core/client/ClientConfiguration.h>
-#include <aws/core/utils/memory/AWSMemory.h>
+#include <aws/core/utils/memory/AWSMemory.h> // for New and MakeUnique and stuff
 #include <aws/logs/CloudWatchLogsErrors.h>
-#include <aws/logs/model/PutLogEventsRequest.h>
 #include <aws/logs/model/CreateLogGroupRequest.h>
 #include <aws/logs/model/CreateLogStreamRequest.h>
+#include <aws/logs/model/PutLogEventsRequest.h>
 #include "Windows/PostWindowsApi.h"
 
 // Std
@@ -49,7 +49,7 @@ void FCloudWatchLogOutputDevice::TearDown() {
 		m_log_thread->Join();
 		m_log_thread.Reset();
 
-		m_cwl.reset();
+		m_cwclient.reset();
 	}
 }
 
@@ -143,12 +143,12 @@ void FCloudWatchLogOutputDevice::log_thread() noexcept {
 	if (!endpoint_override.IsEmpty()) {
 		config.endpointOverride = TCHAR_TO_UTF8(*endpoint_override);
 	}
-	m_cwl = Aws::MakeUnique<Aws::CloudWatchLogs::CloudWatchLogsClient>("CloudWatchLogs", config);
+	m_cwclient = Aws::MakeUnique<Aws::CloudWatchLogs::CloudWatchLogsClient>("CloudWatchLogs", config);
 
 	// Now we should have all the data to create a log group and stream for us
 	CreateLogGroupRequest clgr;
 	clgr.SetLogGroupName(m_log_group_name);
-	CreateLogGroupOutcome lgoc = m_cwl->CreateLogGroup(clgr);
+	CreateLogGroupOutcome lgoc = m_cwclient->CreateLogGroup(clgr);
 	if (!lgoc.IsSuccess()) {
 		const CloudWatchLogsError &err{ lgoc.GetError() };
 		if (err.GetErrorType() != CloudWatchLogsErrors::RESOURCE_ALREADY_EXISTS) {
@@ -160,7 +160,7 @@ void FCloudWatchLogOutputDevice::log_thread() noexcept {
 	CreateLogStreamRequest clsr;
 	clsr.SetLogGroupName(m_log_group_name);
 	clsr.SetLogStreamName(m_log_stream_name);
-	CreateLogStreamOutcome oc = m_cwl->CreateLogStream(clsr);
+	CreateLogStreamOutcome oc = m_cwclient->CreateLogStream(clsr);
 	if (!oc.IsSuccess()) {
 		UE_LOG(LogCloudConnector, Error, TEXT("Failed to create cloudwatch log stream: %s"), UTF8_TO_TCHAR(oc.GetError().GetMessage().c_str()));
 		return;
@@ -208,7 +208,7 @@ void FCloudWatchLogOutputDevice::send_log_messages() noexcept {
 	}
 
 	// Send the logs to CloudWatch.
-	PutLogEventsOutcome oc = m_cwl->PutLogEvents(request);
+	PutLogEventsOutcome oc = m_cwclient->PutLogEvents(request);
 
 	if (oc.IsSuccess()) {
 		m_upload_sequence_token = oc.GetResult().GetNextSequenceToken();

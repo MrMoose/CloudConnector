@@ -5,6 +5,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ICloudConnector.h"
+#include "CloudConnectorTypes.h"
 #include "GameFramework/Actor.h"
 #include "Misc/OutputDevice.h"
 
@@ -14,16 +16,6 @@
  */
 
 #include "CloudConnector.generated.h"
-
-
-/** @brief Well, we gotta start somewhere.
- *  So far it's AWS only but I really intend to add at least one more.
- */
-UENUM(BlueprintType, Category = "CloudConnector")
-enum class ECloudProvider : uint8 {
-	BLIND = 0,     //!< not implemented yet but this is supposed to become a "blind" impl for local tests withouut any cloud
-	AWS = 1        //!< Jeff Bezos' relentless little company
-};
 
 
 /**
@@ -91,7 +83,6 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		/// AWS icon texture
 		UPROPERTY()
 		class UTexture2D          *m_aws_icon_texture;
-
 
 		TUniquePtr<FOutputDevice>  m_log_device;
 };

@@ -17,11 +17,6 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include "Windows/PostWindowsApi.h"
 
-namespace Aws {
-namespace CloudWatchLogs {
-	class CloudWatchLogsClient;
-}
-}
 
 /** @brief logging backend for Engine logs
  *  which sends logs to AWS CloudWatch every 5 seconds
@@ -36,20 +31,16 @@ class FCloudWatchLogOutputDevice : public FOutputDevice {
 		FCloudWatchLogOutputDevice &operator=(FCloudWatchLogOutputDevice &&) = delete;
 		FCloudWatchLogOutputDevice &operator=(const FCloudWatchLogOutputDevice &) = delete;
 
-		 
-		 /** @defgroup FOutputDevice interface
+		/** @defgroup FOutputDevice interface
 		 *   For docs, see OutputDevice.h  ;-)
 		 *   @{
 		 */
-
 		void TearDown() override;
 		void Serialize(const TCHAR *n_message, ELogVerbosity::Type n_verbosity, const FName &n_category) override;
 		void Serialize(const TCHAR *n_message, ELogVerbosity::Type n_verbosity, const FName &n_category, const double n_time) override;
 		bool CanBeUsedOnMultipleThreads() const override;
 		bool CanBeUsedOnAnyThread() const override;
-
 		//! @}
-
 
 	private:
 		/// background thread that will loop and send logs as required
@@ -65,8 +56,8 @@ class FCloudWatchLogOutputDevice : public FOutputDevice {
 		// and then attach date stamp
 		static FString get_log_stream_name(const FString &n_instance_id) noexcept;
 
-		// AWS SDK Client object is owned here and instantiated by thread.
-		Aws::UniquePtr<Aws::CloudWatchLogs::CloudWatchLogsClient> m_cwl;
+		// AWS SDK Client object, owned and accessed by thread.
+		Aws::UniquePtr<Aws::CloudWatchLogs::CloudWatchLogsClient> m_cwclient;
 
 		struct LogEntry {
 			long long            m_timestamp;   //!< millis since epoch (type required by InputLogEvent)
