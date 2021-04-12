@@ -8,7 +8,6 @@
 #include "ICloudConnector.h"
 #include "CloudConnectorTypes.h"
 #include "GameFramework/Actor.h"
-#include "Misc/OutputDevice.h"
 
 /*
  Make absolutely sure to never include any private provider specific
@@ -69,13 +68,17 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		UPROPERTY(EditAnywhere, Category = "CloudConnector|AWS")
 		bool AWSLogs = false;
 
+		/** @brief Set the Project scope on Google Cloud
+		 *  AWS doesn't have an equivalent of the "Project" scope Google uses,
+		 *  yet this is needed all over the place for Google.
+		 *  I didn't want to expose this on the C++ interface so you have to set
+		 *  this here when you use Google Cloud
+		 */
+		UPROPERTY(EditAnywhere, Category = "CloudConnector|GoogleCloud")
+		FString GoogleProjectId = TEXT("CloudConnectorTest");
+
 	private:
-		void begin_play_blind();
-		void end_play_blind();
-
-		void begin_play_aws();
-		void end_play_aws();
-
+#if WITH_EDITORONLY_DATA
 		/// AWS icon sprite
 		UPROPERTY()
 		class UBillboardComponent *m_sprite_component;
@@ -83,6 +86,5 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		/// AWS icon texture
 		UPROPERTY()
 		class UTexture2D          *m_aws_icon_texture;
-
-		TUniquePtr<FOutputDevice>  m_log_device;
+#endif
 };

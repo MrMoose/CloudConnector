@@ -12,5 +12,5 @@
 class AWSPubsubImpl : public ICloudPubsub {
 
 	public:
-		FSubscription subscribe(const FString &n_topic, const FPubsubMessageReceived n_handler) override;
+		bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) override;
 };

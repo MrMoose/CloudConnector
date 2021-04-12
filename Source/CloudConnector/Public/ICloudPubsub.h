@@ -18,8 +18,13 @@ struct CLOUDCONNECTOR_API FSubscription {
 
 	GENERATED_BODY();
 
-	/**
-	 */ 
+	/// This appears to map on pubsub only for now.
+	/// Let's see...
+	UPROPERTY()
+	FString Id;
+
+	/// This is the topic name for Google Pubsub
+	/// and the Q URL for AWS SQS
 	UPROPERTY()
 	FString Topic;
 
@@ -95,13 +100,19 @@ DECLARE_DELEGATE_TwoParams(FPubsubMessageReceived, const FPubsubMessage, PubsubR
 class CLOUDCONNECTOR_API ICloudPubsub {
 
 	public:
+		/// This maps to visibility timeout on SQS and ACK deadline on Pubsub
+		enum { VisibilityTimeout = 30 };
+
 		virtual ~ICloudPubsub() = default;
 
 		/** @brief Make up this interface as I go
-		 *  @param n_key the identifier for this object
+		 *  @param n_topic the Queue URL (SQS) or Topic (Pubsub) you want to subscribe to
+		 *  @param n_subscription will hold the subscription handle (to unsubscribe)
+		 *			if return is false, contents are undefined
 		 *  @param n_completion will fire on the game thread when the operation is complete
 		 *  @return true when the operation was successfully started, in which case the delegate will always fire
+		 *			if false, the delegate will never fire
 		 */
-		virtual FSubscription subscribe(const FString &n_topic, const FPubsubMessageReceived n_handler) = 0;
+		virtual bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) = 0;
 
 };

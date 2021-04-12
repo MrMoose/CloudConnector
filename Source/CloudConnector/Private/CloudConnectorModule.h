@@ -6,7 +6,7 @@
 
 #include "CoreMinimal.h"
 #include "ICloudConnector.h"
-
+#include "Misc/OutputDevice.h"
 
 /// Implementation module for Cloud connectivity
 /// Totally experimental work in progress. Do not use.

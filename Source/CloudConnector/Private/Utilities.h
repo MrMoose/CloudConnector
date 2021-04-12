@@ -40,3 +40,9 @@ bool logs_enabled(const bool n_default);
  * If not on EC, will return "LocalInstance" after timeout
  */
 FString get_aws_instance_id();
+
+/** @brief Query the Google Cloud metadata server for the Compute Engine Instance ID.
+ * Blocking for 3 seconds at worst case
+ * If not on Compute Engine, will return "LocalInstance" after timeout
+ */
+FString get_google_cloud_instance_id();

@@ -30,7 +30,8 @@
 
 using namespace Aws::S3::Model;
 
-FSubscription AWSPubsubImpl::subscribe(const FString &n_topic, const FPubsubMessageReceived n_handler) {
+bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) {
 
-	return {};
+	return false;
 }
+

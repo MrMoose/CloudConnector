@@ -99,3 +99,47 @@ FString get_aws_instance_id() {
 
 	return instance_id;
 }
+
+// See https://cloud.google.com/compute/docs/storing-retrieving-metadata
+FString get_google_cloud_instance_id() {
+
+	FString instance_id{ TEXT("LocalInstance") };
+
+	const float timeout_before_call = FHttpModule::Get().GetHttpTimeout();
+	FHttpModule::Get().SetHttpTimeout(3.0);
+	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> md_request = FHttpModule::Get().CreateRequest();
+	md_request->SetVerb("GET");
+	md_request->AppendToHeader(TEXT("Metadata-Flavor"), TEXT("Google"));
+	md_request->SetURL(TEXT("http://metadata.google.internal/computeMetadata/v1/instance/id"));
+
+	// There seems to be no sync Http request in this module. Mock it by using a future.
+	TSharedPtr<TPromise<bool>, ESPMode::ThreadSafe> promise = MakeShareable<TPromise<bool> >(new TPromise<bool>());
+	TFuture<bool> return_future = promise->GetFuture();
+
+	md_request->OnProcessRequestComplete().BindLambda(
+		[promise, &instance_id](FHttpRequestPtr /*Request*/, FHttpResponsePtr n_response, bool n_success) {
+			if (!n_success) {
+				promise->SetValue(false);
+				return;
+			}
+
+			if (n_response->GetResponseCode() != 200) {
+				promise->SetValue(false);
+				return;
+			}
+
+			instance_id = n_response->GetContentAsString();
+			promise->SetValue(true);
+		});
+
+	// This starts the Http request, return lambda will be called async, so we sit and wait
+	md_request->ProcessRequest();
+	return_future.WaitFor(FTimespan::FromSeconds(4.0));
+	const bool result = return_future.Get();
+
+	// This timeoout value appears to be global and I think it might be
+	// best to set it back to the value it had before I touched it
+	FHttpModule::Get().SetHttpTimeout(timeout_before_call);
+
+	return instance_id;
+}
