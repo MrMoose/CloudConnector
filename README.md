@@ -114,37 +114,42 @@ Google Cloud.
 Usage is encapsulated by the `IStorage` interface. Use like this:
 
 ```C++
-	#include "ICloudConnector.h"
+#include "ICloudConnector.h"
 
-	...
+...
 
-	ICloudStorage &storage = ICloudConnector::Get().storage();
+ICloudStorage &storage = ICloudConnector::Get().storage();
 
-	// Get or fill your data buffer. You are responsible 
-	// for its lifetime.
-	TArray64<uint8> data;
+// Get or fill your data buffer. You are responsible 
+// for its lifetime.
+TArray64<uint8> data;
 
-	// Create information about where to put your data
-	FCloudStorageKey key;
-	key.ObjectKey = TEXT("PictureOfMyCat.jpg");
-	key.BucketName = TEXT("super-cat-pic-bucket");
-	key.ContentType = TEXT("image/jpg");
+// Create information about where to put your data
+FCloudStorageKey key;
+key.ObjectKey = TEXT("PictureOfMyCat.jpg");
+key.BucketName = TEXT("super-cat-pic-bucket");
+key.ContentType = TEXT("image/jpg");
 
-	// Create a non-owning view of your data
-	TArrayView<const uint8> view{ data };
+// Create a non-owning view of your data
+TArrayView<const uint8> view{ data };
 
-	// Trigger the write operation. Lambda will fire upon return
-	storage.write(key, view,
-		FCloudStorageWriteFinishedDelegate::CreateLambda(
-			[key](const bool n_success, const FString n_message) {
-				if (n_success) {
-					UE_LOG(LogRayStudio, Display, TEXT("'%s' uploaded: %s"), *key.ObjectKey, *n_message);
-				} else {
-					UE_LOG(LogRayStudio, Error, TEXT("'%s' not uploaded: %s"), *key.ObjectKey, *n_message);
-				}
+// Trigger the write operation. Lambda will fire upon return
+storage.write(key, view,
+	FCloudStorageWriteFinishedDelegate::CreateLambda(
+		[key](const bool n_success, const FString n_message) {
+			if (n_success) {
+				UE_LOG(LogRayStudio, Display, TEXT("'%s' uploaded: %s"), *key.ObjectKey, *n_message);
+			} else {
+				UE_LOG(LogRayStudio, Error, TEXT("'%s' not uploaded: %s"), *key.ObjectKey, *n_message);
 			}
-		)
-	);
+		}
+	)
+);
+
+// If we would return here, our buffer would go out of scope
+// during the operation, causing a crash or undefined behavior.
+// So whatever happens here, data must not be deleted.
+
 ```
 
 Note that the write operation happens asynchronously in 
