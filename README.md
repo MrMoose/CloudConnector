@@ -73,7 +73,7 @@ the cloud services.
 
 On AWS this is often being done using `~/.aws/credentials`. 
 [See here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html)
-for AWS documentation on this. In involves creating a 
+for AWS documentation on this. It involves creating a 
 key for programmatic access and then putting it into a file
 called `~/.aws/credentials` in your user dir.
 
@@ -81,6 +81,9 @@ For Google Cloud the process is similar.
 [Here is the documentation](https://cloud.google.com/docs/authentication/production).
 You create a service account for programmatic access, get a key pair and 
 store it in a local json file, where an env variable points to.
+
+In both cases CloudConnector will use the credentials provided 
+much like any other cloud tool would.
 
 When running on a cloud instance, this is generally not necessary.
 On AWS for example, a role will be attached to the instance 
