@@ -9,8 +9,8 @@ CloudConnector is a plugin for the
 implements elementary cloud native connectivity functions
 for use within C++ Unreal Engine projects.
 Primary use case are remote rendering cases in industry contexts.
-To this end, it focuses on Logging, tracing and monitoring
-as well as Storage access capabilities and queue messages.
+To this end, it focuses on logging, tracing and monitoring
+as well as storage access capabilities and queue messages.
 CloudConnector hides the actual cloud implementation behind
 and abstracted common interface and aims for easy deployment
 on AWS or Google Cloud with little or no code changes.
@@ -40,12 +40,12 @@ Then start the editor.
 
 ### Activation
 
-To activate this plugin, you need to create _one_ Actor of type
+To activate this plugin, you need to create _one_ actor of type
 `ACloudConnector` in your scene. Within the editor, navigate to 
-the Content folder of
+the content folder of
 `CloudConnector C++ Classes/CloudConnector/Public/` and drag 
 the actor icon into your scene. Clicking on it allows for configuring 
-Properties in its "Details" window.
+properties in its "Details" window.
 
 _Cloud Provider_:<br>
 * Blind - Inactive dormant implementation. Will be for testing purposes
@@ -101,7 +101,7 @@ When starting up, CC creates a log group with the name
 of your instance (or `LocalInstance`) when outside of the cloud
 and a log stream with the current date.
 
-Note that Google Cloud Logging is not yet implemented, as there is
+Note that Google Cloud logging is not yet implemented, as there is
 no SDK support for it yet. Once this is available, it will be added. 
 Until then, it's only AWS CloudWatch.
 
@@ -111,7 +111,7 @@ Storage capabilities map to [S3](https://aws.amazon.com/s3/) on
 AWS and to [Storage](https://cloud.google.com/storage) on 
 Google Cloud.
 
-Usage is encapsulated by the `IStorage` interface. Use like this:
+Usage is encapsulated by the `ICloudStorage` interface. Use like this:
 
 ```C++
 #include "ICloudConnector.h"
