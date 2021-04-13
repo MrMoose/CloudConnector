@@ -79,7 +79,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				}
 
 				m_storage = MakeUnique<AWSStorageImpl>();
-				m_pubsub  = MakeUnique<AWSPubsubImpl>();
+				m_pubsub  = MakeUnique<AWSPubsubImpl>(n_config->HandleOnGameThread);
 				break;
 
 			case ECloudProvider::GOOGLE:

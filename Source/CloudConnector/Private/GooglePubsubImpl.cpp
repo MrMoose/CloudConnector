@@ -41,23 +41,28 @@ GooglePubsubImpl::GooglePubsubImpl(const FString &n_project_id, const bool n_han
 	));
 }
 
-GooglePubsubImpl::~GooglePubsubImpl() {
+GooglePubsubImpl::~GooglePubsubImpl() noexcept {
 
-	// user may have not unsubscribed
-	TArray<FSubscription> remaining_subs;
-	remaining_subs.Reserve(m_subscriptions.Num());
-	for (const TPair<FSubscription, SubscriptionTuple> &i : m_subscriptions) {
-		remaining_subs.Add(i.Key);
+	try {
+		// user may have not unsubscribed
+		TArray<FSubscription> remaining_subs;
+		remaining_subs.Reserve(m_subscriptions.Num());
+		for (const TPair<FSubscription, GoogleSubscriptionTuple> &i : m_subscriptions) {
+			remaining_subs.Add(i.Key);
+		}
+
+		for (FSubscription &s : remaining_subs) {
+			unsubscribe(MoveTemp(s));
+		}
+	
+		m_completion_q.Shutdown();
+
+		m_runner->Join();
+		m_runner.Reset();
+
+	} catch (const std::exception &sex) {
+		UE_LOG(LogCloudConnector, Error, TEXT("Unexpected exception tearing down pubsub: %s"), UTF8_TO_TCHAR(sex.what()));
 	}
-
-	for (FSubscription &s : remaining_subs) {
-		unsubscribe(MoveTemp(s));
-	}
-
-	m_completion_q.Shutdown();
-
-	m_runner->Join();
-	m_runner.Reset();
 }
 
 bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) {
@@ -73,6 +78,11 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	const FString instance_id = get_google_cloud_instance_id();
 	n_subscription.Topic = n_topic;
 	n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), *instance_id, *n_subscription.Topic);
+
+	if (m_subscriptions.Contains(n_subscription)) {
+		UE_LOG(LogCloudConnector, Error, TEXT("Already subscribed to '%s'"), *n_topic);
+		return false;
+	}
 
 	// So, let's see if we can create a subscription for us
 	pubsub::SubscriptionAdminClient subscription_admin_client(pubsub::MakeSubscriptionAdminConnection());
@@ -117,7 +127,7 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 		connection_options));
 
 	// remember our subscription in a map
-	SubscriptionTuple &new_entry = m_subscriptions.Emplace(n_subscription, SubscriptionTuple{
+	GoogleSubscriptionTuple &new_entry = m_subscriptions.Emplace(n_subscription, GoogleSubscriptionTuple{
 				MoveTemp(sub),
 				MoveTemp(subscriber),
 				gc::future<gc::Status>{}
@@ -183,7 +193,7 @@ void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const F
 bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 
 	// Locate the subscriber
-	SubscriptionTuple *s = m_subscriptions.Find(n_subscription);
+	GoogleSubscriptionTuple *s = m_subscriptions.Find(n_subscription);
 	if (!s) {
 		UE_LOG(LogCloudConnector, Error, TEXT("Cannot unsubscribe from '%s', internal data missing"), *n_subscription.Id);
 		return false;

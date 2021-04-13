@@ -50,7 +50,6 @@ struct FPubsubMessage {
 
 	GENERATED_BODY();
 
-
 	/// internally used
 	FString m_message_id;
 
@@ -72,10 +71,15 @@ struct FPubsubMessage {
 	FString m_xray_header;
 
 	/**
+	 * depending on the impl we may be able to tell how often the message has been received.
+	 * 0 means unknown
+	 */
+	int m_receive_count = 0;
+
+	/**
 	 * message body
 	 */
 	FString m_body;
-
 
 	private:
 
@@ -85,8 +89,7 @@ struct FPubsubMessage {
 	/// details such as message IDs and stuff along with the message.
 	/// They are free to do this in here. Please do not mess with the
 	/// contents of this field. 
-	UPROPERTY()
-	FString Details;
+	FString m_details;
 };
 
 
@@ -120,19 +123,26 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 
 		virtual ~ICloudPubsub() = default;
 
-		/** @brief Make up this interface as I go
-		 * 
-		 *  which in this case means, you can only call this once.
-		 *  
+		/** @brief Subscribe to a "topic" which maps to a SQS Queue URL or a Pubsub topic
+		 *  You can subscribe to multiple topics but only once to each. Meaning
+		 *  Subscribing twice to the same topic results in undefined behavior.
+		 *  Users are strongly encouraged to unsubscribe() from each topic. 
 		 * 
 		 *  @param n_topic the Queue URL (SQS) or Topic (Pubsub) you want to subscribe to
 		 *  @param n_subscription will hold the subscription handle (to unsubscribe)
 		 *			if return is false, contents are undefined
-		 *  @param n_completion will fire on the game thread when the operation is complete
-		 *  @return true when the operation was successfully started, in which case the delegate will always fire
-		 *			if false, the delegate will never fire
+		 *  @param n_completion will fire on the game thread (or in its own, depending on config) when the operation is complete
+		 *  @return true when the operation was successfully started
 		 */
 		virtual bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) = 0;
-
+	
+		/** @brief Unsubscribe from a subscription
+		 *  Remaining messages may be in flight. This blocks until all remaining handlers
+		 *  have been called.
+		 * 
+		 *  @param n_subscription As given by subscribe(). Do not attempt to create this yourself.
+		 *  
+		 *  @return true when the operation was successful
+		 */
 		virtual bool unsubscribe(FSubscription &&n_subscription) = 0;
 };

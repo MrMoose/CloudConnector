@@ -29,7 +29,7 @@ class GooglePubsubImpl : public ICloudPubsub {
 
 	public:
 		GooglePubsubImpl(const FString &n_project_id, const bool n_handle_in_game_thread);
-		~GooglePubsubImpl() noexcept;
+		virtual ~GooglePubsubImpl() noexcept;
 
 		// see ICloudPubsub docs for these
 		bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) override;
@@ -42,18 +42,18 @@ class GooglePubsubImpl : public ICloudPubsub {
 
 		// internal information to maintain a subscription
 		// including a future to shut it down.
-		using SubscriptionTuple = TTuple<
+		using GoogleSubscriptionTuple = TTuple<
 				google::cloud::pubsub::Subscription,
 				TUniquePtr<google::cloud::pubsub::Subscriber>,
 				google::cloud::future<google::cloud::Status>
 		>;
 
 		// A map to store them with my FSubscription info as key
-		using SubscriptionMap = TMap<FSubscription, SubscriptionTuple>;
+		using GoogleSubscriptionMap = TMap<FSubscription, GoogleSubscriptionTuple>;
 
 		const FString                  m_project_id;
 		const bool                     m_handle_in_game_thread;
-		SubscriptionMap                m_subscriptions;
+		GoogleSubscriptionMap          m_subscriptions;
 
 		/* The Pubsub SDK normally spawns and maintains its own background threads.
 		 * However, tests have shown that I cannot seem to interact with the engine
