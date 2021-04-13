@@ -92,7 +92,7 @@ bool AWSStorageImpl::exists(const FCloudStorageKey &n_key, const FCloudStorageEx
 	// technically it's a bit of an overkill to go async here but this impl
 	// is mostly a demo for what real impls are supposed to do, such as check
 	// a cloud backend. So I go async and back again
-	Async(EAsyncExecution::ThreadPool, [n_key, n_completion]{
+	Async(EAsyncExecution::ThreadPool, [n_key, n_completion] {
 
 		ListObjectsRequest request;
 		request.SetBucket(TCHAR_TO_ANSI(*n_key.BucketName));

@@ -134,12 +134,14 @@ FString get_google_cloud_instance_id() {
 
 	// This starts the Http request, return lambda will be called async, so we sit and wait
 	md_request->ProcessRequest();
-	return_future.WaitFor(FTimespan::FromSeconds(4.0));
-	const bool result = return_future.Get();
-
-	// This timeoout value appears to be global and I think it might be
-	// best to set it back to the value it had before I touched it
-	FHttpModule::Get().SetHttpTimeout(timeout_before_call);
-
-	return instance_id;
+	
+	if (return_future.WaitFor(FTimespan::FromSeconds(4.0))) {
+		// This timeoout value appears to be global and I think it might be
+		// best to set it back to the value it had before I touched it
+		FHttpModule::Get().SetHttpTimeout(timeout_before_call);
+		return instance_id;
+	} else {
+		FHttpModule::Get().SetHttpTimeout(timeout_before_call);
+		return TEXT("LocalInstance");
+	}
 }

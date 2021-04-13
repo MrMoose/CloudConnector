@@ -76,6 +76,16 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		 */
 		UPROPERTY(EditAnywhere, Category = "CloudConnector|GoogleCloud")
 		FString GoogleProjectId = TEXT("CloudConnectorTest");
+	
+		/** @brief Set this to false if you want message handle delegates to be called on any thread.
+		 *  Normally received message handlers will be called on the game thread.
+		 *  If you do not require this or you want to stay in concurrency while processing
+		 *  the message you can set this to false. In that case you cannot call into most
+		 *  engine functionality in your handle delegate.
+		 *  When in doubt, leave this true.
+		 */
+		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector|Pubsub")
+		bool HandleOnGameThread = true;
 
 	private:
 #if WITH_EDITORONLY_DATA

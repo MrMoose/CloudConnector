@@ -35,3 +35,7 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	return false;
 }
 
+bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
+
+	return false;
+}

@@ -85,7 +85,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 			case ECloudProvider::GOOGLE:
 				UE_LOG(LogCloudConnector, Display, TEXT("Starting Cloud Connector in Google mode"));
 				m_storage = MakeUnique<GoogleCloudStorageImpl>();
-				m_pubsub  = MakeUnique<GooglePubsubImpl>(n_config->GoogleProjectId);
+				m_pubsub  = MakeUnique<GooglePubsubImpl>(n_config->GoogleProjectId, n_config->HandleOnGameThread);
 				break;
 		}
 	} else {
@@ -122,8 +122,8 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 		}
 
 		m_provider = ECloudProvider::BLIND;
-		m_storage.Reset();
-		m_pubsub.Reset();
+		//m_storage.Reset();
+		//m_pubsub.Reset();
 	}
 }
 
@@ -135,7 +135,7 @@ ICloudStorage &FCloudConnectorModule::storage() const {
 
 ICloudPubsub &FCloudConnectorModule::pubsub() const {
 
-	checkf(m_pubsub, TEXT("You are calling this too early, please wait for the game to start"))
+	checkf(m_pubsub, TEXT("You are calling this too early or too late, please wait for the game to start"))
 	return *m_pubsub;
 }
 

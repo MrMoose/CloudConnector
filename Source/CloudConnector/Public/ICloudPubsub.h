@@ -28,7 +28,22 @@ struct CLOUDCONNECTOR_API FSubscription {
 	UPROPERTY()
 	FString Topic;
 
+	/// These are needed to be able to use FSubscription as key to a TMap
+	bool operator==(const FSubscription &n_other) const {
+
+		return Equals(n_other);
+	}
+
+	bool Equals(const FSubscription &n_other) const {
+
+		return Id.Equals(n_other.Id) || Topic.Equals(n_other.Topic);
+	}
 };
+
+FORCEINLINE uint32 GetTypeHash(const FSubscription &n_sub) {
+
+	return FCrc::MemCrc32(&n_sub, sizeof(FSubscription));
+}
 
 USTRUCT(Category = "CloudConnector")
 struct FPubsubMessage {
@@ -106,6 +121,10 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		virtual ~ICloudPubsub() = default;
 
 		/** @brief Make up this interface as I go
+		 * 
+		 *  which in this case means, you can only call this once.
+		 *  
+		 * 
 		 *  @param n_topic the Queue URL (SQS) or Topic (Pubsub) you want to subscribe to
 		 *  @param n_subscription will hold the subscription handle (to unsubscribe)
 		 *			if return is false, contents are undefined
@@ -115,4 +134,5 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		 */
 		virtual bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) = 0;
 
+		virtual bool unsubscribe(FSubscription &&n_subscription) = 0;
 };
