@@ -33,7 +33,11 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 	public:
 		ACloudConnector();
 
-		void BeginPlay() override;
+		// Other actors may want to use this in their BeginPlay()
+		// so I should register that a bit earlier
+		void PostInitializeComponents() override;
+
+		//void BeginPlay() override;
 		void EndPlay(const EEndPlayReason::Type n_reason) override;
 
 		/// Choose the cloud provider to use.

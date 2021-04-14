@@ -36,9 +36,9 @@ ACloudConnector::ACloudConnector()
 }
 
 // Called when the game starts or when spawned
-void ACloudConnector::BeginPlay() {
+void ACloudConnector::PostInitializeComponents() {
 
-	Super::BeginPlay();
+	Super::PostInitializeComponents();
 	ICloudConnector::Get().init_actor_config(this);
 }
 

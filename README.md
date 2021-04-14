@@ -218,7 +218,9 @@ class UQueueListener : public UActorComponent {
 
 	GENERATED_BODY()
 	
-		// ...
+	public:
+		void BeginPlay() override;
+		void EndPlay(const EEndPlayReason::Type n_reason) override;
 
 	private:
 		// we want this to be called for every incoming message
@@ -228,20 +230,25 @@ class UQueueListener : public UActorComponent {
 };
 ```
 
-In our code, we can subscribe to a topic. In this case an AWS SQS Url:
+In our code, we can subscribe to a topic when the component begins play.
+In this case an AWS SQS Url:
 
 ```C++
-// Insert your Queue URL
-const FString topic = TEXT("https://sqs.eu-central-1.amazonaws.com/your-account/your-queue");
+void UQueueListener::BeginPlay() {
 
-ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
+	Super::BeginPlay();
 
-const bool result = pubsub.subscribe(topic, m_subscription,
+	// Insert your Queue URL
+	const FString topic = TEXT("https://sqs.eu-central-1.amazonaws.com/your-account/your-queue");
+
+	ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
+	pubsub.subscribe(topic, m_subscription,
 		FPubsubMessageReceived::CreateUObject(this, &UQueueListener::receive_message));
+}
 ```
 
 If result is `true` the connection was established and our method will be called when
-messages are received:
+messages are received. Here's a null implementation:
 
 ```C++
 void UQueueListener::receive_message(const FPubsubMessage n_message, PubsubReturnPromisePtr n_retval) {
@@ -251,8 +258,8 @@ void UQueueListener::receive_message(const FPubsubMessage n_message, PubsubRetur
 }
 ```
 
-It is crucial that each and every message being called this was will at some point
-acknowledge the message by calling `SetValue()` on the return promise.
+It is crucial that every call to this handler will at some point acknowledge 
+the message by calling `SetValue()` on the return promise.
 
 If this is set to true, the implementation will acknowledge (or delete) the message
 so other listeners will not receive it anymore. If you set it to false, it will 
@@ -272,9 +279,13 @@ not be able to call into most engine functionality. Use with care.
 When your application is done receiving messages, you must unsubscribe:
 
 ```C++
+void UQueueListener::EndPlay(const EEndPlayReason::Type n_reason) {
 
-ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
-const bool result = pubsub.unsubscribe(m_subscription);
+	ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
+	pubsub.unsubscribe(MoveTemp(m_subscription));
+
+	Super::EndPlay(n_reason);
+}
 ```
 
 After this, no further handlers will be called. Those still in flight 
