@@ -18,6 +18,7 @@ class FCloudConnectorModule : public ICloudConnector {
 		void ShutdownModule() override;
 		bool SupportsDynamicReloading() override;
 
+		// ICloudConnector interface
 		ICloudStorage &storage() const override;
 		ICloudPubsub &pubsub() const override;
 

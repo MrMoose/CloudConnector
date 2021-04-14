@@ -33,9 +33,9 @@ class AWSPubsubImpl : public ICloudPubsub {
 		>;
 
 		// A map to store them with my FSubscription info as key
-		//using SQSSubscriptionMap = TMap<FSubscription, TSharedPtr<class SQSRunner> >;
 		using SQSSubscriptionMap = TMap<FSubscription, SQSSubscriptionTuple>;
 
-		const bool          m_handle_in_game_thread;
-		SQSSubscriptionMap  m_subscriptions;
+		const bool              m_handle_in_game_thread;
+		SQSSubscriptionMap      m_subscriptions;
+		static FCriticalSection s_subscriptions_mutex;
 };

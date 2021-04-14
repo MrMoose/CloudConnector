@@ -27,6 +27,7 @@
 #include <aws/sqs/model/ChangeMessageVisibilityRequest.h>
 #include "Windows/PostWindowsApi.h"
 
+FCriticalSection AWSPubsubImpl::s_subscriptions_mutex;
 
 using namespace Aws::SQS::Model;
 
@@ -41,8 +42,11 @@ AWSPubsubImpl::~AWSPubsubImpl() {
 		// user may have not unsubscribed
 		TArray<FSubscription> remaining_subs;
 		remaining_subs.Reserve(m_subscriptions.Num());
-		for (const TPair<FSubscription, SQSSubscriptionTuple> &i : m_subscriptions) {
-			remaining_subs.Add(i.Key);
+		{
+			FScopeLock slock(&s_subscriptions_mutex);
+			for (const TPair<FSubscription, SQSSubscriptionTuple> &i : m_subscriptions) {
+				remaining_subs.Add(i.Key);
+			}
 		}
 
 		for (FSubscription &s : remaining_subs) {
@@ -271,9 +275,12 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	n_subscription.Id = n_topic;
 	n_subscription.Topic = n_topic;
 
-	if (m_subscriptions.Contains(n_subscription)) {
-		UE_LOG(LogCloudConnector, Error, TEXT("Already subscribed to '%s'"), *n_topic);
-		return false;
+	{
+		FScopeLock slock(&s_subscriptions_mutex);
+		if (m_subscriptions.Contains(n_subscription)) {
+			UE_LOG(LogCloudConnector, Error, TEXT("Already subscribed to '%s'"), *n_topic);
+			return false;
+		}
 	}
 
 	// So, about that tuple here. I chose to use FRunnableThread for no good reason
@@ -296,6 +303,7 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	);
 
 	// Take ownership over both by inserting it into our subscription map
+	FScopeLock slock(&s_subscriptions_mutex);
 	m_subscriptions.Emplace(n_subscription, MoveTemp(info));
 
 	return true;
@@ -306,17 +314,23 @@ bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 	// Unsubscribing here simply means to stop the pull
 
 	// Locate the subscriber
-	SQSSubscriptionTuple *s = m_subscriptions.Find(n_subscription);
-	if (!s) {
-		UE_LOG(LogCloudConnector, Error, TEXT("Cannot unsubscribe from '%s', internal data missing"), *n_subscription.Id);
-		return false;
+	SQSSubscriptionTuple *s = nullptr;
+	
+	{
+		FScopeLock slock(&s_subscriptions_mutex);
+		s = m_subscriptions.Find(n_subscription);
+		if (!s) {
+			UE_LOG(LogCloudConnector, Error, TEXT("Cannot unsubscribe from '%s', internal data missing"), *n_subscription.Id);
+			return false;
+		}
 	}
-
+	
 	// First stop the thread.
 	// Killing it this way waits for the thread to join.
 	s->Get< TUniquePtr<FRunnableThread> >()->Kill(true);
 
 	// And delete all the data
+	FScopeLock slock(&s_subscriptions_mutex);
 	m_subscriptions.Remove(n_subscription);
 
 	// And we're done

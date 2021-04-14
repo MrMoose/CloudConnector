@@ -20,7 +20,7 @@ class CLOUDCONNECTOR_API ICloudConnector : public IModuleInterface {
 
 	public:
 		/// Virtual destructor.
-		~ICloudConnector() = default;
+		virtual ~ICloudConnector() = default;
 
 		/// Get a reference to the module instance.
 		static ICloudConnector &Get() {
@@ -33,6 +33,6 @@ class CLOUDCONNECTOR_API ICloudConnector : public IModuleInterface {
 
 	private:
 		friend class ACloudConnector;
-		virtual void init_actor_config(const class ACloudConnector *n_config) {};
+		virtual void init_actor_config(const class ACloudConnector *n_config) = 0;
 };
 

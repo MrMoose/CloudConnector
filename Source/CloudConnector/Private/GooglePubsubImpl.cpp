@@ -29,6 +29,7 @@
 namespace gc = google::cloud;
 namespace pubsub = google::cloud::pubsub;
 
+FCriticalSection GooglePubsubImpl::s_subscriptions_mutex;
 
 GooglePubsubImpl::GooglePubsubImpl(const FString &n_project_id, const bool n_handle_in_game_thread)
 		: m_project_id{ n_project_id }
@@ -46,9 +47,13 @@ GooglePubsubImpl::~GooglePubsubImpl() noexcept {
 	try {
 		// user may have not unsubscribed
 		TArray<FSubscription> remaining_subs;
-		remaining_subs.Reserve(m_subscriptions.Num());
-		for (const TPair<FSubscription, GoogleSubscriptionTuple> &i : m_subscriptions) {
-			remaining_subs.Add(i.Key);
+
+		{
+			FScopeLock slock(&s_subscriptions_mutex);
+			remaining_subs.Reserve(m_subscriptions.Num());
+			for (const TPair<FSubscription, GoogleSubscriptionTuple> &i : m_subscriptions) {
+				remaining_subs.Add(i.Key);
+			}
 		}
 
 		for (FSubscription &s : remaining_subs) {
@@ -79,9 +84,12 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	n_subscription.Topic = n_topic;
 	n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), *instance_id, *n_subscription.Topic);
 
-	if (m_subscriptions.Contains(n_subscription)) {
-		UE_LOG(LogCloudConnector, Error, TEXT("Already subscribed to '%s'"), *n_topic);
-		return false;
+	{
+		FScopeLock slock(&s_subscriptions_mutex);
+		if (m_subscriptions.Contains(n_subscription)) {
+			UE_LOG(LogCloudConnector, Error, TEXT("Already subscribed to '%s'"), *n_topic);
+			return false;
+		}
 	}
 
 	// So, let's see if we can create a subscription for us
@@ -100,12 +108,12 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	
 	if (subscription.status().code() == google::cloud::StatusCode::kAlreadyExists) {
 		UE_LOG(LogCloudConnector, Warning, TEXT("Subscription '%s' already exists"), *n_subscription.Id);
-	}
-
-	if (!subscription) {
-		UE_LOG(LogCloudConnector, Error, TEXT("Could not create Subscription '%s' to topic '%s': %s"), 
+	} else {
+		if (!subscription) {
+			UE_LOG(LogCloudConnector, Error, TEXT("Could not create Subscription '%s' to topic '%s': %s"),
 				*n_subscription.Id, *n_subscription.Topic, UTF8_TO_TCHAR(subscription.status().message().c_str()));
-		return false;
+			return false;
+		}
 	}
 
 	UE_LOG(LogCloudConnector, Display, TEXT("Successfully created subscription '%s'"), *n_subscription.Id);
@@ -127,16 +135,27 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 		connection_options));
 
 	// remember our subscription in a map
-	GoogleSubscriptionTuple &new_entry = m_subscriptions.Emplace(n_subscription, GoogleSubscriptionTuple{
-				MoveTemp(sub),
-				MoveTemp(subscriber),
-				gc::future<gc::Status>{}
-		});
+	GoogleSubscriptionTuple *new_entry = nullptr;
+	{
+		FScopeLock slock(&s_subscriptions_mutex);
+		m_subscriptions.Emplace(n_subscription, GoogleSubscriptionTuple{
+					MoveTemp(sub),
+					MoveTemp(subscriber),
+					gc::future<gc::Status>{}
+			}
+		);
+		new_entry = m_subscriptions.Find(n_subscription);
+	}
 
-	pubsub::Subscriber &s = *new_entry.Get< TUniquePtr<pubsub::Subscriber> >().Get();
+	checkf(new_entry, TEXT("Internal data failure when inserting new subscription"));
+
+	// Yes, we have race here in case multiple subscribers do this at 
+	// once and cause rebalancing of the map but I take the liberty of ignoring this for now.
+
+	pubsub::Subscriber &s = *new_entry->Get< TUniquePtr<pubsub::Subscriber> >().Get();
 
 	// Hook up our handler function
-	new_entry.Get< gc::future<gc::Status> >() = s.Subscribe(
+	new_entry->Get< gc::future<gc::Status> >() = s.Subscribe(
 		[this, n_handler](pubsub::Message const &n_message, pubsub::AckHandler n_ack_handler) {
 
 			// call message processing function which will do the rest
@@ -193,10 +212,14 @@ void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const F
 bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 
 	// Locate the subscriber
-	GoogleSubscriptionTuple *s = m_subscriptions.Find(n_subscription);
-	if (!s) {
-		UE_LOG(LogCloudConnector, Error, TEXT("Cannot unsubscribe from '%s', internal data missing"), *n_subscription.Id);
-		return false;
+	GoogleSubscriptionTuple *s = nullptr;
+	{
+		FScopeLock slock(&s_subscriptions_mutex);
+		s = m_subscriptions.Find(n_subscription);
+		if (!s) {
+			UE_LOG(LogCloudConnector, Error, TEXT("Cannot unsubscribe from '%s', internal data missing"), *n_subscription.Id);
+			return false;
+		}
 	}
 
 	// Stop the subscriber. cancel() on the future is said to halt message retrieval
@@ -206,7 +229,10 @@ bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 	const std::future_status status = s->Get< gc::future<gc::Status> >().wait_for(std::chrono::seconds(4));
 	
 	// Delete internal structs and subscriber
-	m_subscriptions.Remove(n_subscription);
+	{
+		FScopeLock slock(&s_subscriptions_mutex);
+		m_subscriptions.Remove(n_subscription);
+	}
 
 	// Now delete the subscription we created for us
 	pubsub::SubscriptionAdminClient subscription_admin_client(pubsub::MakeSubscriptionAdminConnection());

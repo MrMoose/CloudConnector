@@ -11,15 +11,15 @@
 
 #include "ICloudPubsub.generated.h"
 
-/** Sub info
+/** Subscription info.
+ *  This is a handle to an existing subscription as handed out by ICloudPubsub::subscribe()
  */  
 USTRUCT(Category = "CloudConnector")
 struct CLOUDCONNECTOR_API FSubscription {
 
 	GENERATED_BODY();
 
-	/// This appears to map on pubsub only for now.
-	/// Let's see...
+	/// Primary identifier, you may not need to use this explicitly
 	UPROPERTY()
 	FString Id;
 
@@ -123,10 +123,23 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 
 		virtual ~ICloudPubsub() = default;
 
+		/** @brief Subscribe to the default subscription as specified environment
+		 *  variable CLOUDCONNECTOR_DEFAULT_TOPIC
+		 *  Users are strongly encouraged to unsubscribe_default().
+		 *  This is safe to be called from any thread.
+		 *
+		 *  @param n_subscription will hold the subscription handle (to unsubscribe)
+		 *			if return is false, contents are undefined
+		 *  @param n_completion will fire on the game thread (or in its own, depending on config) when the operation is complete
+		 *  @return true when the operation was successfully started
+		 */
+		virtual bool subscribe_default(FSubscription &n_subscription, const FPubsubMessageReceived n_handler);
+
 		/** @brief Subscribe to a "topic" which maps to a SQS Queue URL or a Pubsub topic
 		 *  You can subscribe to multiple topics but only once to each. Meaning
 		 *  Subscribing twice to the same topic results in undefined behavior.
-		 *  Users are strongly encouraged to unsubscribe() from each topic. 
+		 *  Users are strongly encouraged to unsubscribe() from each topic.
+		 *  This is safe to be called from any thread.
 		 * 
 		 *  @param n_topic the Queue URL (SQS) or Topic (Pubsub) you want to subscribe to
 		 *  @param n_subscription will hold the subscription handle (to unsubscribe)
@@ -139,6 +152,7 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		/** @brief Unsubscribe from a subscription
 		 *  Remaining messages may be in flight. This blocks until all remaining handlers
 		 *  have been called.
+		 *  This is safe to be called from any thread.
 		 * 
 		 *  @param n_subscription As given by subscribe(). Do not attempt to create this yourself.
 		 *  

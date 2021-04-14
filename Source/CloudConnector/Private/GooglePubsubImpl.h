@@ -54,6 +54,7 @@ class GooglePubsubImpl : public ICloudPubsub {
 		const FString                  m_project_id;
 		const bool                     m_handle_in_game_thread;
 		GoogleSubscriptionMap          m_subscriptions;
+		static FCriticalSection        s_subscriptions_mutex;
 
 		/* The Pubsub SDK normally spawns and maintains its own background threads.
 		 * However, tests have shown that I cannot seem to interact with the engine

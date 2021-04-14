@@ -35,8 +35,41 @@ if not present.
  > git clone --depth 0 https://github.com/MrMoose/CloudConnector.git
 ```
 
+In your `build.cs` of your module, add CloudConnector to the private or public
+dependencies.
+
+```c#
+PrivateDependencyModuleNames.AddRange(new string[] { 
+		"CloudConnector"
+});
+```
+
 After this, rebuild your Visual Studio solution and build your project.
 Then start the editor.
+
+### Environment
+
+Some environment variables influence CloudConnector's behavior 
+for ease of use on cloud instances. Some are cloud specific.
+
+*General:*<br>
+
+_CLOUDCONNECTOR_DEFAULT_TOPIC_:<br>
+
+When using ICloudPubsub::subscribe_default(), this is the topic 
+you will subscribe to.
+
+_CLOUDCONNECTOR_LOGS_ENABLED_:<br>
+
+Even when the configuration actor has Cloud Logging disabled, you can
+override at runtime by setting this to `True`.
+
+*AWS specific:*<br>
+
+CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED:<br>
+If set to `True`, AWS client objects will be created with the 
+"endpoint discovery" option enabled, which is opt-in.
+
 
 ### Activation
 
@@ -161,7 +194,91 @@ buffer in that time. It must be kept alive until the delegate fires.
 The delegate will only fire when `write()` returns `true`. 
 If such is the case, it will always fire.
 
+## Pubsub
 
+This interface aims at mimicking a generic message retrieval system, 
+making lots of concessions on the way. In any case, this is how you can use 
+it.
+
+First you need a function that will be called when a message comes in.
+This can be any regular or member function, or a Lambda if you chose.
+In this example I have an actor component that wants to subscribe to such messages.
+Like this:
+
+```C++
+#include "CoreMinimal.h"
+#include "Components/ActorComponent.h"
+
+#include "ICloudConnector.h"
+
+#include "QueueListener.generated.h"
+
+UCLASS()
+class UQueueListener : public UActorComponent {
+
+	GENERATED_BODY()
+	
+		// ...
+
+	private:
+		// we want this to be called for every incoming message
+		void receive_message(const FPubsubMessage n_message, PubsubReturnPromisePtr n_promise);
+
+		FSubscription m_subscription; // store this to unsubscribe
+};
+```
+
+In our code, we can subscribe to a topic. In this case an AWS SQS Url:
+
+```C++
+// Insert your Queue URL
+const FString topic = TEXT("https://sqs.eu-central-1.amazonaws.com/your-account/your-queue");
+
+ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
+
+const bool result = pubsub.subscribe(topic, m_subscription,
+		FPubsubMessageReceived::CreateUObject(this, &UQueueListener::receive_message));
+```
+
+If result is `true` the connection was established and our method will be called when
+messages are received:
+
+```C++
+void UQueueListener::receive_message(const FPubsubMessage n_message, PubsubReturnPromisePtr n_retval) {
+
+	UE_LOG(MyLog, Display, TEXT("Received message '%s'"), *n_message.m_body);
+	n_promise->SetValue(false);
+}
+```
+
+It is crucial that each and every message being called this was will at some point
+acknowledge the message by calling `SetValue()` on the return promise.
+
+If this is set to true, the implementation will acknowledge (or delete) the message
+so other listeners will not receive it anymore. If you set it to false, it will 
+not be acknowledged and may be received again. In SQS case that is after the 
+visibiliy timeout expires. In Pubsub it may mean right away.
+
+Before the return promise is called, no other handlers are invoked and 
+message retrieval pauses. You may freely leave the scope of your message handler
+and go async at will, as long as you maintain ownership over the return promise.
+`SetValue()` may be called from any thread.
+
+By using the configuration actor's property `HandleOnGameThread` it is possible 
+to control if your handler is called on the game thread or on the receiving 
+component's own threads (which are all engine threads). By setting the property 
+to false, the handler is called immediately when a message is received but you may
+not be able to call into most engine functionality. Use with care.
+When your application is done receiving messages, you must unsubscribe:
+
+```C++
+
+ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
+const bool result = pubsub.unsubscribe(m_subscription);
+```
+
+After this, no further handlers will be called. Those still in flight 
+will be handled.
 
 ## License
 
