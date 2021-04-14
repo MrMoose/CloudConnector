@@ -5,9 +5,10 @@
 #include "CloudConnectorModule.h"
 #include "CloudConnector.h"
 #include "BlindStorageImpl.h"
+#include "BlindPubsubImpl.h"
 #include "AWSStorageImpl.h"
-#include "GoogleCloudStorageImpl.h"
 #include "AWSPubsubImpl.h"
+#include "GoogleCloudStorageImpl.h"
 #include "GooglePubsubImpl.h"
 #include "Utilities.h"
 #include "CloudWatchLogOutputDevice.h"
@@ -51,6 +52,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 			case ECloudProvider::BLIND:
 				UE_LOG(LogCloudConnector, Display, TEXT("Starting Cloud Connector in Blind mode"));
 				m_storage = MakeUnique<BlindStorageImpl>();
+				m_pubsub = MakeUnique<BlindPubsubImpl>();
 				break;
 
 			case ECloudProvider::AWS:
@@ -93,7 +95,6 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 			default:
 			case ECloudProvider::BLIND:
 				UE_LOG(LogCloudConnector, Display, TEXT("Stopping blind Cloud Connector"));
-				m_storage = MakeUnique<BlindStorageImpl>();
 				break;
 
 			case ECloudProvider::AWS:
