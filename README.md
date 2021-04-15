@@ -329,6 +329,26 @@ void UQueueListener::EndPlay(const EEndPlayReason::Type n_reason) {
 After this, no further handlers will be called. Those still in flight 
 will be handled.
 
+## Troubleshooting
+
+_I have configured logging but see no logs in the CloudWatch console_:
+
+You may have been missing a `config` file in `~/.aws/`. Try this:
+```
+[default]
+region = eu-central-1
+output = json
+```
+... but of course insert the correct region you want to use. Also 
+see if your console browser is pointing into that region. Lastly 
+note that logging is unavailable in shipping build configuration.
+
+_I have configured logging but see no logs in the Google Logging console_:
+
+Google logging is not yet implemented. Also 
+note that logging is unavailable in shipping build configuration.
+
+
 ## License
 
 Copyright 2021 by Stephan Menzel
