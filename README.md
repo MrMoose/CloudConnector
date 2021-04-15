@@ -52,19 +52,33 @@ Then start the editor.
 Some environment variables influence CloudConnector's behavior 
 for ease of use on cloud instances. Some are cloud specific.
 
-*General:*<br>
+#### General
 
 _CLOUDCONNECTOR_DEFAULT_TOPIC_:<br>
-
 When using ICloudPubsub::subscribe_default(), this is the topic 
 you will subscribe to.
 
 _CLOUDCONNECTOR_LOGS_ENABLED_:<br>
-
 Even when the configuration actor has Cloud Logging disabled, you can
 override at runtime by setting this to `True`.
 
-*AWS specific:*<br>
+_CLOUDCONNECTOR_STACK_NAME_:<br>
+This environment variable is taken whenever it comes to identifying a stack.
+Normally this should always be injected by your IaC system.
+When not set, it defaults to `UnknownStack`.
+
+_CLOUDCONNECTOR_INSTANCE_ID_:<br>
+CloudConnector will query the cloud provider's metadata server for the local
+instance ID. For example, when creating log streams. This behavior can 
+be overridden by setting this environment variable to a custom instance id.
+Please note that this may lead to unsatisfactory results when using characters
+that are not allowed in either log stream names or in pubsub subscriptions.
+Use something simple that only contains "0-9a-zA-Z-".
+If this is not set and a query to the metadata server is unsuccessful
+(for example because you're not running in the cloud), it will
+default to `LocalInstance`.
+
+#### AWS specific 
 
 CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED:<br>
 If set to `True`, AWS client objects will be created with the 
@@ -109,6 +123,9 @@ On AWS this is often being done using `~/.aws/credentials`.
 for AWS documentation on this. It involves creating a 
 key for programmatic access and then putting it into a file
 called `~/.aws/credentials` in your user dir.
+If you do not have this yet, it is likely that you also need a
+`config` file in the same directory with the region you would 
+like to use.
 
 For Google Cloud the process is similar.
 [Here is the documentation](https://cloud.google.com/docs/authentication/production).
@@ -131,12 +148,33 @@ to [AWS CloudWatch](https://aws.amazon.com/cloudwatch/) or
 This works transparently.
 
 When starting up, CC creates a log group with the name 
-of your instance (or `LocalInstance`) when outside of the cloud
-and a log stream with the current date.
+specified in the property `LogGroupPrefix` of your configuration
+actor. This will be appended by the value of the environment variable
+`CLOUDCONNECTOR_STACK_NAME` if set, or "UnknownStack" otherwise.
+So for a CloudWatch example, a log group named
+
+`/cc/unreal/MyTestStack`
+
+will be created. If it already exists, it will be used.
+
+Each running instance of your application will then create a log stream with the
+date and time of start plus the instance ID as a name.
+`LocalInstance` when outside of the cloud.
 
 Note that Google Cloud logging is not yet implemented, as there is
 no SDK support for it yet. Once this is available, it will be added. 
 Until then, it's only AWS CloudWatch.
+
+!! *WARNING* !!<br>
+A distributed Unreal engine has no logging in Shipping builds.
+Meaning you won't see any logs out of CloudConnector in Shipping packages.
+To enable logs in Shipping builds, you must build the engine from source and set:
+```C#
+bUseLoggingInShipping = true;
+BuildEnvironment = TargetBuildEnvironment.Unique;
+```
+... in your Target.cs.
+
 
 ## Storage
 

@@ -60,6 +60,11 @@ bool logs_enabled(const bool n_default) {
 
 FString get_aws_instance_id() {
 
+	const FString env_instance_id{ readenv(TEXT("CLOUDCONNECTOR_INSTANCE_ID")) };
+	if (!env_instance_id.IsEmpty()) {
+		return env_instance_id;
+	}
+
 	FString instance_id{ TEXT("LocalInstance") };
 
 	const float timeout_before_call = FHttpModule::Get().GetHttpTimeout();
@@ -102,6 +107,11 @@ FString get_aws_instance_id() {
 
 // See https://cloud.google.com/compute/docs/storing-retrieving-metadata
 FString get_google_cloud_instance_id() {
+
+	const FString env_instance_id{ readenv(TEXT("CLOUDCONNECTOR_INSTANCE_ID")) };
+	if (!env_instance_id.IsEmpty()) {
+		return env_instance_id;
+	}
 
 	FString instance_id{ TEXT("LocalInstance") };
 

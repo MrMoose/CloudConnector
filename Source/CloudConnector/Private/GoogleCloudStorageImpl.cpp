@@ -16,9 +16,9 @@
 #pragma warning(disable:4582)
 
 // Google Cloud SDK. Surprisingly few headers
-// #include "Windows/PreWindowsApi.h"
+#include "Windows/PreWindowsApi.h"
 #include "google/cloud/storage/client.h"
-// #include "Windows/PostWindowsApi.h"
+#include "Windows/PostWindowsApi.h"
 #pragma warning(pop)
 
 // std

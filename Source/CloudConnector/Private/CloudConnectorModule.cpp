@@ -19,6 +19,7 @@
 #include <aws/core/utils/logging/DefaultLogSystem.h>
 #include "Windows/PostWindowsApi.h"
 
+
 DEFINE_LOG_CATEGORY(LogCloudConnector)
 #define LOCTEXT_NAMESPACE "FCloudConnectorModule"
 

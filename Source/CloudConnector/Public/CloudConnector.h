@@ -45,7 +45,7 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		UPROPERTY(EditAnywhere, Category = "CloudConnector")
 		ECloudProvider CloudProvider = ECloudProvider::AWS;
 
-		/** @brief Set to true to enable logs.
+		/** Set to true to enable logs.
 		 * All engine logs are sent to the appropriate logging provider, 
 		 * CloudWatch in case of AWS.
 		 * A log group called $LogGroupPrefix/$instance_id.
@@ -57,14 +57,14 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		UPROPERTY(EditAnywhere, Category = "CloudConnector|Logging")
 		bool CloudLogs = false;
 		
-		/** @brief specify prefix for CloudWatch log group.
+		/** Specify prefix for CloudWatch log group.
 		 * CLOUDCONNECTOR_STACK_NAME and Instance ID will be read and appended.
 		 * Please have it start and end with a '/' character.
 		 */
 		UPROPERTY(EditAnywhere, Category = "CloudConnector|Logging")
 		FString LogGroupPrefix = TEXT("/cc/unreal/");
 
-		/** @brief Set to true to make the AWS SDK log if used.
+		/** Set to true to make the AWS SDK log if used.
 		 * Log files will be generated in the current directory the application
 		 * (or editor) is started in and begin with aws_sdk_
 		 * This shouldn't be required.
@@ -72,7 +72,7 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		UPROPERTY(EditAnywhere, Category = "CloudConnector|AWS")
 		bool AWSLogs = false;
 
-		/** @brief Set the Project scope on Google Cloud
+		/** Set the Project scope on Google Cloud
 		 *  AWS doesn't have an equivalent of the "Project" scope Google uses,
 		 *  yet this is needed all over the place for Google.
 		 *  I didn't want to expose this on the C++ interface so you have to set
@@ -81,14 +81,14 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		UPROPERTY(EditAnywhere, Category = "CloudConnector|GoogleCloud")
 		FString GoogleProjectId = TEXT("CloudConnectorTest");
 	
-		/** @brief Set this to false if you want message handle delegates to be called on any thread.
+		/** Set this to false if you want message handle delegates to be called on any thread.
 		 *  Normally received message handlers will be called on the game thread.
 		 *  If you do not require this or you want to stay in concurrency while processing
 		 *  the message you can set this to false. In that case you cannot call into most
 		 *  engine functionality in your handle delegate.
 		 *  When in doubt, leave this true.
 		 */
-		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector|Pubsub")
+		UPROPERTY(EditAnywhere, Category = "CloudConnector|Pubsub")
 		bool HandleOnGameThread = true;
 
 	private:

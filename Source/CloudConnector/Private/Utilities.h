@@ -38,11 +38,17 @@ bool logs_enabled(const bool n_default);
 /** @brief Query the AWS metadata server for the EC2 Instance ID.
  * Blocking for 3 seconds at worst case
  * If not on EC, will return "LocalInstance" after timeout
+ * 
+ * If the environment variable CLOUDCONNECTOR_INSTANCE_ID is set,
+ * its value will be taken instead and the metadata server will not be queried
  */
 FString get_aws_instance_id();
 
 /** @brief Query the Google Cloud metadata server for the Compute Engine Instance ID.
  * Blocking for 3 seconds at worst case
  * If not on Compute Engine, will return "LocalInstance" after timeout
+ * 
+ * If the environment variable CLOUDCONNECTOR_INSTANCE_ID is set,
+ * its value will be taken instead and the metadata server will not be queried
  */
 FString get_google_cloud_instance_id();
