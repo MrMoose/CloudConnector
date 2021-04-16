@@ -10,9 +10,9 @@ implements elementary cloud native connectivity functions
 for use within C++ Unreal Engine projects.
 Primary use case are remote rendering cases in industry contexts.
 To this end, it focuses on logging, tracing and monitoring
-as well as storage access capabilities and queue messages.
+as well as storage access capabilities and message retrieval.
 CloudConnector hides the actual cloud implementation behind
-and abstracted common interface and aims for easy deployment
+an abstracted common interface and aims for easy deployment
 on AWS or Google Cloud with little or no code changes.
 
 This is work in progress, there are no releases yet.
