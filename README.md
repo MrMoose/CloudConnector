@@ -209,9 +209,9 @@ storage.write(key, view,
 	FCloudStorageWriteFinishedDelegate::CreateLambda(
 		[key](const bool n_success, const FString n_message) {
 			if (n_success) {
-				UE_LOG(LogRayStudio, Display, TEXT("'%s' uploaded: %s"), *key.ObjectKey, *n_message);
+				UE_LOG(MyLog, Display, TEXT("'%s' uploaded: %s"), *key.ObjectKey, *n_message);
 			} else {
-				UE_LOG(LogRayStudio, Error, TEXT("'%s' not uploaded: %s"), *key.ObjectKey, *n_message);
+				UE_LOG(MyLog, Error, TEXT("'%s' not uploaded: %s"), *key.ObjectKey, *n_message);
 			}
 		}
 	)
