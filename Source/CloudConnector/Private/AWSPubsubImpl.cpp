@@ -36,7 +36,7 @@ AWSPubsubImpl::AWSPubsubImpl(const bool n_handle_in_game_thread)
 
 }
 
-AWSPubsubImpl::~AWSPubsubImpl() {
+AWSPubsubImpl::~AWSPubsubImpl() noexcept {
 
 	try {
 		// user may have not unsubscribed
@@ -174,7 +174,6 @@ class SQSRunner : public FRunnable {
 			// Determine message age
 			const int64_t current_epoch = Aws::Utils::DateTime::CurrentTimeMillis();
 			int64_t sent_epoch = 0;
-			FString trace_id;
 
 			const Aws::Map<MessageSystemAttributeName, Aws::String> &attributes = n_message.GetAttributes();
 
@@ -185,40 +184,54 @@ class SQSRunner : public FRunnable {
 			};
 			const int64_t age = current_epoch - sent_epoch;
 
-			// Get the AWS trace header for xray
-			i = attributes.find(MessageSystemAttributeName::AWSTraceHeader);
-			if (i != attributes.cend()) 	{
-				trace_id = UTF8_TO_TCHAR(i->second.c_str());
-			};
-
 			// Get ApproximateReceiveCount
 			int received = 0;
 			i = attributes.find(MessageSystemAttributeName::ApproximateReceiveCount);
-			if (i != attributes.cend()) 	{
+			if (i != attributes.cend()) {
 				received = std::atoi(i->second.c_str());
 			};
 
-			// The trace header comes in the form of "Root=1-235345something"
-			// but all the examples I saw only use "1-235345something". With the Root=
-			// xray upload doesn't work so I remove this
-			trace_id = trace_id.Replace(TEXT("Root="), TEXT(""));
+			// Extract trace id
+			const FString trace_id = [&] {
 
-			// I have also seen more stuff coming after the first ID, separated by ;
-			// Let's remove this as well. I wish that stuff was documented
-			int32 idx;
-			if (trace_id.FindChar(';', idx)) 	{
-				trace_id = trace_id.Left(idx);
-			}
+				FString trace_id;
 
+				// Get the AWS trace header for xray
+				i = attributes.find(MessageSystemAttributeName::AWSTraceHeader);
+				if (i != attributes.cend()) {
+					trace_id = UTF8_TO_TCHAR(i->second.c_str());
+				} else {
+					return trace_id;
+				};
+
+				// The trace header comes in the form of "Root=1-235345something"
+				// but all the examples I saw only use "1-235345something". With the Root=
+				// xray upload doesn't work so I remove this
+				trace_id = trace_id.Replace(TEXT("Root="), TEXT(""));
+
+				// I have also seen more stuff coming after the first ID, separated by ;
+				// Let's remove this as well. I wish that stuff was documented
+				int32 idx;
+				if (trace_id.FindChar(';', idx)) {
+					trace_id = trace_id.Left(idx);
+				}
+				
+				return trace_id;
+			} ();
+			
 			// Now construct a message which will be given into the handler
 			FPubsubMessage msg;
-			msg.m_message_id = UTF8_TO_TCHAR(n_message.GetMessageId().c_str());
-			msg.m_receipt = UTF8_TO_TCHAR(n_message.GetReceiptHandle().c_str());
+			msg.m_aws_sqs_message_id = UTF8_TO_TCHAR(n_message.GetMessageId().c_str());
+			msg.m_aws_sqs_receipt = UTF8_TO_TCHAR(n_message.GetReceiptHandle().c_str());
 			msg.m_message_age = current_epoch - sent_epoch;
-			msg.m_xray_header = trace_id;
 			msg.m_receive_count = received;
 			msg.m_body = UTF8_TO_TCHAR(n_message.GetBody().c_str());
-				
+			
+			// If we have a trace id, we construct a fresh trace right away
+			if (!trace_id.IsEmpty()) {
+				msg.m_trace = ICloudConnector::Get().tracing().start_trace(trace_id);
+			}
+
 			// This promise will be fulfilled by the delegate implementation
 			const PubsubReturnPromisePtr rp = MakeShared<PubsubReturnPromise, ESPMode::ThreadSafe>();
 			TFuture<bool> return_future = rp->GetFuture();
@@ -239,7 +252,7 @@ class SQSRunner : public FRunnable {
 			if (return_future.Get()) {
 				delete_message(n_message);
 			} else {
-				UE_LOG(LogCloudConnector, Display, TEXT("Msg handler returned false, not deleting message '%s'"), *msg.m_message_id);
+				UE_LOG(LogCloudConnector, Display, TEXT("Msg handler returned false, not deleting message '%s'"), *msg.m_aws_sqs_message_id);
 			}
 		}
 

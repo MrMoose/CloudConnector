@@ -4,6 +4,7 @@
  */
 #include "AWSStorageImpl.h"
 #include "ICloudConnector.h"
+#include "TraceMacros.h"
 
 #include "Async/Async.h"
 #include "Internationalization/Regex.h"
@@ -34,6 +35,10 @@ using namespace Aws::S3::Model;
  * it seems to be safe to concurrently access this from multiple threads at once
  */
 static Aws::UniquePtr<Aws::S3::S3Client> s_s3_client;
+
+// we use those as identifiers for our segments in case traces are enabled
+static const FString s_s3_exists_segment = TEXT("S3 Exists");
+static const FString s_s3_write_segment  = TEXT("S3 Write");
 
 namespace {
 
@@ -70,15 +75,19 @@ bool valid_s3_object_key(const FString &n_object_key) {
 
 } // anon ns
 
+bool AWSStorageImpl::exists(const FCloudStorageKey &n_key, 
+		const FCloudStorageExistsFinishedDelegate n_completion, CloudTracePtr n_trace /*= CloudTracePtr{}*/) {
 
-bool AWSStorageImpl::exists(const FCloudStorageKey &n_key, const FCloudStorageExistsFinishedDelegate n_completion) {
+	CC_START_TRACE_SEGMENT(n_trace, s_s3_exists_segment);
 
 	// Let's do some sanity checks on the bucket and key names
 	if (!valid_s3_bucket_name(n_key.BucketName)) {
+		CC_END_TRACE_SEGMENT_ERROR(n_trace, s_s3_exists_segment);
 		return false;
 	}
 
 	if (!valid_s3_object_key(n_key.ObjectKey)) {
+		CC_END_TRACE_SEGMENT_ERROR(n_trace, s_s3_exists_segment);
 		return false;
 	}
 
@@ -92,7 +101,7 @@ bool AWSStorageImpl::exists(const FCloudStorageKey &n_key, const FCloudStorageEx
 	// technically it's a bit of an overkill to go async here but this impl
 	// is mostly a demo for what real impls are supposed to do, such as check
 	// a cloud backend. So I go async and back again
-	Async(EAsyncExecution::ThreadPool, [n_key, n_completion] {
+	Async(EAsyncExecution::ThreadPool, [n_key, n_completion, n_trace] {
 
 		ListObjectsRequest request;
 		request.SetBucket(TCHAR_TO_ANSI(*n_key.BucketName));
@@ -102,7 +111,13 @@ bool AWSStorageImpl::exists(const FCloudStorageKey &n_key, const FCloudStorageEx
 		// send the list request
 		const ListObjectsOutcome outcome = s_s3_client->ListObjects(request);
 
-		Async(EAsyncExecution::TaskGraphMainThread, [outcome, n_key, n_completion] {
+		// When completing the trace, I chose not to include the times for 
+		// the return handler
+		if (n_trace) {
+			n_trace->end_segment(s_s3_exists_segment, !outcome.IsSuccess());
+		}
+
+		Async(EAsyncExecution::TaskGraphMainThread, [outcome, n_key, n_completion, n_trace] {
 			if (!outcome.IsSuccess()) {
 				const FString msg = FString::Printf(TEXT("Failed to check for existance of '%s' in bucket '%s': %s"),
 						*n_key.ObjectKey, *n_key.BucketName, UTF8_TO_TCHAR(outcome.GetError().GetMessage().c_str()));
@@ -128,18 +143,23 @@ bool AWSStorageImpl::exists(const FCloudStorageKey &n_key, const FCloudStorageEx
 }
 
 bool AWSStorageImpl::write(const FCloudStorageKey &n_key, const TArrayView<const uint8> n_data,
-		const FCloudStorageWriteFinishedDelegate n_completion) {
+		const FCloudStorageWriteFinishedDelegate n_completion, CloudTracePtr n_trace /* = CloudTracePtr{}*/) {
+
+	CC_START_TRACE_SEGMENT(n_trace, s_s3_write_segment);
 
 	if (!n_data.Num()) {
+		CC_END_TRACE_SEGMENT_ERROR(n_trace, s_s3_write_segment);
 		return false;
 	}
 
 	// Let's do some sanity checks on the bucket and key names
 	if (!valid_s3_bucket_name(n_key.BucketName)) {
+		CC_END_TRACE_SEGMENT_ERROR(n_trace, s_s3_write_segment);
 		return false;
 	}
 
 	if (!valid_s3_object_key(n_key.ObjectKey)) {
+		CC_END_TRACE_SEGMENT_ERROR(n_trace, s_s3_write_segment);
 		return false;
 	}
 
@@ -148,7 +168,7 @@ bool AWSStorageImpl::write(const FCloudStorageKey &n_key, const TArrayView<const
 		s_s3_client = Aws::MakeUnique<Aws::S3::S3Client>("CCS3Allocation");
 	}
 
-	Async(EAsyncExecution::ThreadPool, [n_key, n_data, n_completion]{
+	Async(EAsyncExecution::ThreadPool, [n_key, n_data, n_completion, n_trace] {
 
 		UE_LOG(LogCloudConnector, Display, TEXT("Starting S3 upload"));
 
@@ -168,6 +188,11 @@ bool AWSStorageImpl::write(const FCloudStorageKey &n_key, const TArrayView<const
 
 		// send the put request
 		const PutObjectOutcome outcome = s_s3_client->PutObject(request);
+		
+		// When completing the trace, I chose not to include the times for return handler
+		if (n_trace) {
+			n_trace->end_segment(s_s3_write_segment, !outcome.IsSuccess());
+		}
 
 		// Sync back to the game thread when done and call delegate
 		Async(EAsyncExecution::TaskGraphMainThread, [outcome, n_key, n_completion] {

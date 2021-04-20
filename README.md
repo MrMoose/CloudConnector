@@ -329,6 +329,13 @@ void UQueueListener::EndPlay(const EEndPlayReason::Type n_reason) {
 After this, no further handlers will be called. Those still in flight 
 will be handled.
 
+### AWS SQS Setting
+
+When using AWS with CloudConnector your Queue needs to be configured for 
+Long Polling with "Receive message wait time" of 4 seconds. CloudConnector
+expects this setting to be the case. Short polling is not supported and 
+longer wait times are not recommended.
+
 ## Troubleshooting
 
 _I have configured logging but see no logs in the CloudWatch console_:

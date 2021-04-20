@@ -6,10 +6,13 @@
 #include "CloudConnector.h"
 #include "BlindStorageImpl.h"
 #include "BlindPubsubImpl.h"
+#include "BlindTracingImpl.h"
 #include "AWSStorageImpl.h"
 #include "AWSPubsubImpl.h"
+#include "AWSTracingImpl.h"
 #include "GoogleCloudStorageImpl.h"
 #include "GooglePubsubImpl.h"
+#include "GoogleTracingImpl.h"
 #include "Utilities.h"
 #include "CloudWatchLogOutputDevice.h"
 
@@ -19,6 +22,7 @@
 #include <aws/core/utils/logging/DefaultLogSystem.h>
 #include "Windows/PostWindowsApi.h"
 
+#include "Misc/OutputDeviceFile.h"
 
 DEFINE_LOG_CATEGORY(LogCloudConnector)
 #define LOCTEXT_NAMESPACE "FCloudConnectorModule"
@@ -54,6 +58,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				UE_LOG(LogCloudConnector, Display, TEXT("Starting Cloud Connector in Blind mode"));
 				m_storage = MakeUnique<BlindStorageImpl>();
 				m_pubsub = MakeUnique<BlindPubsubImpl>();
+				m_tracing = MakeUnique<BlindTracingImpl>();
 				break;
 
 			case ECloudProvider::AWS:
@@ -83,12 +88,14 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 
 				m_storage = MakeUnique<AWSStorageImpl>();
 				m_pubsub  = MakeUnique<AWSPubsubImpl>(n_config->HandleOnGameThread);
+				m_tracing = MakeUnique<AWSTracingImpl>();
 				break;
 
 			case ECloudProvider::GOOGLE:
 				UE_LOG(LogCloudConnector, Display, TEXT("Starting Cloud Connector in Google mode"));
 				m_storage = MakeUnique<GoogleCloudStorageImpl>();
 				m_pubsub  = MakeUnique<GooglePubsubImpl>(n_config->GoogleProjectId, n_config->HandleOnGameThread);
+				m_tracing = MakeUnique<GoogleTracingImpl>();
 				break;
 		}
 	} else {
@@ -126,6 +133,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 		m_provider = ECloudProvider::BLIND;
 		//m_storage.Reset();
 		//m_pubsub.Reset();
+		//m_tracing.Reset();
 	}
 }
 
@@ -141,6 +149,11 @@ ICloudPubsub &FCloudConnectorModule::pubsub() const {
 	return *m_pubsub;
 }
 
+ICloudTracing &FCloudConnectorModule::tracing() const {
+
+	checkf(m_tracing, TEXT("You are calling this too early or too late, please wait for the game to start"))
+	return *m_tracing;
+}
 
 #undef LOCTEXT_NAMESPACE
 

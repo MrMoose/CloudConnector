@@ -5,6 +5,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ICloudTracing.h"
 #include "Containers/ArrayView.h"
 
 #include "ICloudStorage.generated.h"
@@ -62,28 +63,30 @@ DECLARE_DELEGATE_TwoParams(FCloudStorageWriteFinishedDelegate, const bool, const
 class CLOUDCONNECTOR_API ICloudStorage {
 
 	public:
-		virtual ~ICloudStorage() = default;
+		virtual ~ICloudStorage() noexcept = default;
 
 		/** @brief tell if an object by key exists in storage
 		 *  @param n_key the identifier for this object
 		 *  @param n_completion will fire on the game thread when the operation is complete
+		 *  @param n_trace use this to instrument the operation in a trace. Handler execution times will not be included.
 		 *  @return true when the operation was successfully started, in which case the delegate will always fire
 		 */
-		virtual bool exists(const FCloudStorageKey &n_key, const FCloudStorageExistsFinishedDelegate n_completion) = 0;
+		virtual bool exists(const FCloudStorageKey &n_key, const FCloudStorageExistsFinishedDelegate n_completion, 
+				CloudTracePtr n_trace = CloudTracePtr{}) = 0;
 
 		/** @brief write the contents of the buffer to storage
 		 *  potentially existing object of same key may or may not be overwritten.
 		 *  Decision is at the impl.
 		 *  @param n_key the identifier for the new object
 		 *  @param n_data must not be null. Underlying buffer must remain valid until delegate fires.
-					This is the caller's responsibility.
+		 *			This is the caller's responsibility.
 		 *  @param n_completion will fire on the game thread when the operation is complete
 		 *                 note that you don't have to bind this if the result is not important.
-		 *                 
+		 *  @param n_trace use this to instrument the operation in a trace. Handler execution times will not be included.            
 		 *  @return true when the operation was successfully started, in which case the delegate will always fire
 		 */
 		virtual bool write(const FCloudStorageKey &n_key, const TArrayView<const uint8> n_data,
-					const FCloudStorageWriteFinishedDelegate n_completion) = 0;
+				const FCloudStorageWriteFinishedDelegate n_completion, CloudTracePtr n_trace = CloudTracePtr{}) = 0;
 
 };
 

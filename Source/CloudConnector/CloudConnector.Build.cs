@@ -27,6 +27,7 @@ public class CloudConnector : ModuleRules {
 			"AWS_SDK",
 			"GoogleCloud_SDK",
 			"HTTP",
+			"Json",
 			"JsonUtilities",
 			"Http"
 		});

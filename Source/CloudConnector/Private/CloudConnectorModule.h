@@ -20,7 +20,8 @@ class FCloudConnectorModule : public ICloudConnector {
 
 		// ICloudConnector interface
 		ICloudStorage &storage() const override;
-		ICloudPubsub &pubsub() const override;
+		ICloudPubsub  &pubsub() const override;
+		ICloudTracing &tracing() const override;
 
 	private:
 
@@ -30,5 +31,6 @@ class FCloudConnectorModule : public ICloudConnector {
 
 		TUniquePtr<ICloudStorage>  m_storage;
 		TUniquePtr<ICloudPubsub>   m_pubsub;
+		TUniquePtr<ICloudTracing>  m_tracing;
 		TUniquePtr<FOutputDevice>  m_log_device;
 };

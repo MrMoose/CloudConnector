@@ -14,10 +14,11 @@ class GoogleCloudStorageImpl : public ICloudStorage {
 	public:
 		/** see ICloudStorage for docs
 		 */
-		bool exists(const FCloudStorageKey &n_key, const FCloudStorageExistsFinishedDelegate n_completion) override;
+		bool exists(const FCloudStorageKey &n_key, const FCloudStorageExistsFinishedDelegate n_completion,
+				CloudTracePtr n_trace = CloudTracePtr{}) override;
 
 		/** see ICloudStorage for docs
 		 */
 		bool write(const FCloudStorageKey &n_key, const TArrayView<const uint8> n_data,
-					const FCloudStorageWriteFinishedDelegate n_completion) override;
+				const FCloudStorageWriteFinishedDelegate n_completion, CloudTracePtr n_trace = CloudTracePtr{}) override;
 };

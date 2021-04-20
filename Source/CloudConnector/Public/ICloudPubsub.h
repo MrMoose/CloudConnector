@@ -5,6 +5,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ICloudTracing.h"
+
 #include "Templates/UniquePtr.h"
 #include "Templates/SharedPointer.h"
 #include "Async/Future.h"
@@ -28,6 +30,15 @@ struct CLOUDCONNECTOR_API FSubscription {
 	UPROPERTY()
 	FString Topic;
 
+	/// If this is true, each message, when coming in, will result in an implicit 
+	/// call to ICloudTracing::start_trace() and a new trace will be created if the received
+	/// message contains implementation specific information to do so.
+	/// This trace object can then be used to collect profiling information.
+	/// As all tracing code is required to deal with a no-trace-situation, it doesn't 
+	/// hurt much to put this to true unless you rarely or never want traces.
+	UPROPERTY()
+	bool ImplicitTrace = false;
+
 	/// These are needed to be able to use FSubscription as key to a TMap
 	bool operator==(const FSubscription &n_other) const {
 
@@ -50,46 +61,46 @@ struct FPubsubMessage {
 
 	GENERATED_BODY();
 
-	/// internally used
-	FString m_message_id;
+		/** A trace object which (if present) allows for
+		 *  performance tracing using ICloudTracing
+		 */
+		CloudTracePtr m_trace = nullptr;
 
-	/**
-	 * use this to delete (acknowledge reception) the message
-	 */
-	FString m_receipt;
+		/**
+		 * age is in milliseconds
+		 */
+		uint32  m_message_age;
 
-	/**
-	 * age is in milliseconds
-	 */
-	uint32  m_message_age;
+		/**
+		 * depending on the impl we may be able to tell how often the message has been received.
+		 * 0 means unknown
+		 */
+		int m_receive_count = 0;
 
-	/**
-	 * is set when contained in the message response.
-	 * This can be used as trace_id for start_trace_segment() and related functions
-	 * to measure steps along the way of this message being processed
-	 */
-	FString m_xray_header;
-
-	/**
-	 * depending on the impl we may be able to tell how often the message has been received.
-	 * 0 means unknown
-	 */
-	int m_receive_count = 0;
-
-	/**
-	 * message body
-	 */
-	FString m_body;
+		/**
+		 * message body
+		 */
+		FString m_body;
 
 	private:
+		friend class GooglePubsubImpl;
+		friend class AWSPubsubImpl;
+		friend class SQSRunner;
 
-	friend class AWSPubsubImpl;
-	
-	/// Pubsub providers have to store implementation specific
-	/// details such as message IDs and stuff along with the message.
-	/// They are free to do this in here. Please do not mess with the
-	/// contents of this field. 
-	FString m_details;
+		/// Pubsub providers have to store implementation specific
+		/// details such as message IDs and stuff along with the message.
+		/// They are free to do this in here. Please do not mess with the
+		/// contents of this field. 
+		FString m_details;
+
+		/// internally used by AWS
+		FString m_aws_sqs_message_id;
+
+		/// internally used by AWS
+		FString m_aws_sqs_receipt;
+
+		/// internally used by Google
+		FString m_google_pubsub_message_id;
 };
 
 
@@ -105,10 +116,8 @@ using PubsubReturnPromisePtr = TSharedPtr<PubsubReturnPromise, ESPMode::ThreadSa
 
 /// First parameter is message body
 /// Second parameter is a promise the delegate must fulfill. If it's set to true, the message will be deleted
+/// Third is a trace object. May be null if the received message did not contain trace info
 DECLARE_DELEGATE_TwoParams(FPubsubMessageReceived, const FPubsubMessage, PubsubReturnPromisePtr);
-
-
-
 
 
 /** Provide Pubsub equivalent functionality for AWS and Google Cloud.
@@ -121,7 +130,7 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		/// This maps to visibility timeout on SQS and ACK deadline on Pubsub
 		enum { VisibilityTimeout = 30 };
 
-		virtual ~ICloudPubsub() = default;
+		virtual ~ICloudPubsub() noexcept = default;
 
 		/** @brief Subscribe to the default subscription as specified environment
 		 *  variable CLOUDCONNECTOR_DEFAULT_TOPIC

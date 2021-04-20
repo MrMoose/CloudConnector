@@ -171,14 +171,13 @@ void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const F
 
 	// We have received a message. We are in the worker thread here.
 	FPubsubMessage message;
-	message.m_message_id = UTF8_TO_TCHAR(n_message.message_id().c_str());
+	message.m_google_pubsub_message_id = UTF8_TO_TCHAR(n_message.message_id().c_str());
 	message.m_body = UTF8_TO_TCHAR(n_message.data().c_str());
 
 	const std::chrono::system_clock::time_point now{ std::chrono::system_clock::now() };
 	message.m_message_age = std::chrono::duration_cast<std::chrono::milliseconds>(now - n_message.publish_time()).count();
 
-	UE_LOG(LogCloudConnector, Display, TEXT("Received message (%s): %s"),
-			*message.m_message_id, *message.m_body);
+	UE_LOG(LogCloudConnector, Display, TEXT("Received message (%s)"), *message.m_google_pubsub_message_id);
 
 	// Now I create the return Promise. It will be fulfilled by the delegate implementation
 	const PubsubReturnPromisePtr rp = MakeShared<PubsubReturnPromise, ESPMode::ThreadSafe>();
@@ -202,10 +201,10 @@ void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const F
 		// deleting one in SQS. I couldn't find any means to delete a message otherwise
 		// so that seems to be all I can do for now.
 		std::move(n_ack_handler).ack();
-		UE_LOG(LogCloudConnector, Verbose, TEXT("Acknowledged message '%s', handler returned true"), *message.m_message_id);
+		UE_LOG(LogCloudConnector, Verbose, TEXT("Acknowledged message '%s', handler returned true"), *message.m_google_pubsub_message_id);
 	} else {
 		std::move(n_ack_handler).nack();
-		UE_LOG(LogCloudConnector, Display, TEXT("Not acknowledging message '%s', handler returned false"), *message.m_message_id);
+		UE_LOG(LogCloudConnector, Display, TEXT("Not acknowledging message '%s', handler returned false"), *message.m_google_pubsub_message_id);
 	}
 }
 
