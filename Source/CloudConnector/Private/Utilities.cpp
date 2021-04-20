@@ -9,6 +9,7 @@
 #include "Interfaces/IHttpResponse.h"
 
 #include <cstdlib>
+#include <random>
 
 FString readenv(const FString &n_env_variable_name, const FString &n_default) {
 
@@ -154,4 +155,12 @@ FString get_google_cloud_instance_id() {
 		FHttpModule::Get().SetHttpTimeout(timeout_before_call);
 		return TEXT("LocalInstance");
 	}
+}
+
+FString random_aws_trace_id() {
+
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_real_distribution<double> dist(0, std::numeric_limits<uint64>::max());
+	return FString::Printf(TEXT("%016x"), dist(mt));
 }

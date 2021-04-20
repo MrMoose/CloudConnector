@@ -25,23 +25,11 @@
 
 // std
 #include <string>
-#include <chrono>
-#include <random>
 
 /* Those objects are supposedly threadsafe and tests have shown that they really appear to be so
  * it seems to be safe to concurrently access this from multiple threads at once
  */
 static Aws::UniquePtr<Aws::XRay::XRayClient> s_xray_client;
-
-namespace {
-	inline FString random_id() 	{
-
-		std::random_device rd;
-		std::mt19937 mt(rd());
-		std::uniform_real_distribution<double> dist(0, std::numeric_limits<uint64>::max());
-		return FString::Printf(TEXT("%016x"), dist(mt));
-	}
-}
 
 void AWSTracingImpl::write_trace_document(CloudTrace &n_trace) {
 
@@ -82,7 +70,7 @@ void AWSTracingImpl::write_trace_document(CloudTrace &n_trace) {
 
 		PutTraceSegmentsOutcome oc = s_xray_client->PutTraceSegments(request);
 		if (oc.IsSuccess()) 		{
-			if (oc.GetResult().GetUnprocessedTraceSegments().size()) 			{
+			if (oc.GetResult().GetUnprocessedTraceSegments().size()) {
 				UE_LOG(LogCloudConnector, Warning, TEXT("Unprocessed segments while sending X-Ray document."));
 			}
 		} else {
@@ -106,7 +94,7 @@ TSharedPtr<FJsonObject> AWSTracingImpl::create_trace_document(const TracePayload
 
 	// Each document needs to contain a segment ID.
 	// I am assuming a random id is needed but I don't know
-	document->SetStringField(TEXT("id"), random_id());
+	document->SetStringField(TEXT("id"), random_aws_trace_id());
 
 	// begin and end, seconds since epoch in milli precision
 	document->SetNumberField(TEXT("start_time"), n_trace.m_start);
@@ -122,7 +110,7 @@ TSharedPtr<FJsonObject> AWSTracingImpl::create_trace_document(const TracePayload
 		segment_doc->SetNumberField(TEXT("end_time"), s.m_end);
 		segment_doc->SetStringField(TEXT("name"), s.m_name);
 		segment_doc->SetStringField(TEXT("namespace"), TEXT("remote"));
-		segment_doc->SetStringField(TEXT("id"), random_id());
+		segment_doc->SetStringField(TEXT("id"), random_aws_trace_id());
 		segment_doc->SetBoolField(TEXT("in_progress"), false);
 		if (s.m_error) {
 			segment_doc->SetBoolField(TEXT("fault"), true);

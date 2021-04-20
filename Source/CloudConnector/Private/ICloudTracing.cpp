@@ -77,18 +77,43 @@ bool CloudTrace::end_segment(const FString &n_name, const bool n_error /* = fals
 	return true;
 }
 
-CloudTracePtr ICloudTracing::start_trace(const FString &n_trace_id) const {
+CloudTracePtr ICloudTracing::start_trace(const FString &n_trace_id) {
 
 	if (n_trace_id.IsEmpty()) {
-		return CloudTracePtr{};
+		return {};
 	}
 
-	return MakeShared<CloudTrace, ESPMode::ThreadSafe>(n_trace_id);
+	CloudTracePtr new_trace = MakeShared<CloudTrace, ESPMode::ThreadSafe>(n_trace_id);
+
+	FScopeLock slock(&m_mutex);
+	m_open_traces.Emplace(n_trace_id, new_trace);
+	return new_trace;
+}
+
+CloudTracePtr ICloudTracing::get_trace(const FString &n_trace_id) {
+
+	if (n_trace_id.IsEmpty()) {
+		return {};
+	}
+
+	FScopeLock slock(&m_mutex);
+	CloudTraceWeakPtr *t = m_open_traces.Find(n_trace_id);
+
+	if (t && t->IsValid()) {
+		return t->Pin();
+	}
+
+	return {};
 }
 
 void ICloudTracing::finish_trace(CloudTrace &n_trace) {
 
 	n_trace.m_payload->m_end = epoch_millis();
+
+	{
+		FScopeLock slock(&m_mutex);
+		m_open_traces.Remove(n_trace.id());
+	}
 
 	return write_trace_document(n_trace);
 }

@@ -52,3 +52,6 @@ FString get_aws_instance_id();
  * its value will be taken instead and the metadata server will not be queried
  */
 FString get_google_cloud_instance_id();
+
+/// generate what I think is a random trace ID for use in XRay
+FString random_aws_trace_id();

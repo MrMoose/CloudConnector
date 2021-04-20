@@ -87,13 +87,12 @@ class CLOUDCONNECTOR_API CloudTrace final {
 
 		/** open up a new scoped segment upon this trace which will end itself upon deletion
 		 *  @param n_name the human readable name of the segment
-		 *  
 		 */ 
 		ScopedSegment scoped_segment(const FString &n_name);
 
 		/**
 		 * @brief start a new trace segment with a given name.
-		 * This will appear as a part of a larger trace. Choose a name that will
+		 * This will appear as a part of the trace. A segment. Choose a name that will
 		 * tell which operation takes how long.
 		 * Using the same name for multiple segments will result in undefined behavior.
 		 * Note that this is thread safe on object level.
@@ -128,6 +127,7 @@ class CLOUDCONNECTOR_API CloudTrace final {
 };
 
 using CloudTracePtr = TSharedPtr<CloudTrace, ESPMode::ThreadSafe>;
+using CloudTraceWeakPtr = TWeakPtr<CloudTrace, ESPMode::ThreadSafe>;
 
 
 /** Trace mechanism to gather performance data.
@@ -145,11 +145,23 @@ class CLOUDCONNECTOR_API ICloudTracing {
 		 * @param n_trace_id this came in via your cloud system.
 		 * @return a new trace or null if your backend doesn't support it or the trace id was invalid
 		*/
-		virtual CloudTracePtr start_trace(const FString &n_trace_id) const;
-		
+		virtual CloudTracePtr start_trace(const FString &n_trace_id);
+
+		/**
+		 * @brief Call this to get an existing trace
+		 * You can use this to get a trace that you have reason to believe still exists.
+		 * If it does, and this returns a valild ptr, you can add additional segments.
+		 * @param n_trace_id this came in via your cloud system. The same you used in start_trace()
+		 * @return shared ptr to your trace or null if the trace went out of scope.
+		 */
+		virtual CloudTracePtr get_trace(const FString &n_trace_id);
+
 	protected:
 		friend class CloudTrace;
 		virtual void finish_trace(CloudTrace &n_trace);
 
 		virtual void write_trace_document(CloudTrace &n_trace) = 0;
+
+		FCriticalSection                 m_mutex;
+		TMap<FString, CloudTraceWeakPtr> m_open_traces;
 };
