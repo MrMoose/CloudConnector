@@ -137,7 +137,7 @@ using CloudTraceWeakPtr = TWeakPtr<CloudTrace, ESPMode::ThreadSafe>;
 class CLOUDCONNECTOR_API ICloudTracing {
 
 	public:
-		virtual ~ICloudTracing() noexcept = default;
+		virtual ~ICloudTracing() = default;
 
 		/**
 		 * @brief Call this to create a new trace
@@ -154,7 +154,7 @@ class CLOUDCONNECTOR_API ICloudTracing {
 		 * @param n_trace_id this came in via your cloud system. The same you used in start_trace()
 		 * @return shared ptr to your trace or null if the trace went out of scope.
 		 */
-		virtual CloudTracePtr get_trace(const FString &n_trace_id);
+		// virtual CloudTracePtr get_trace(const FString &n_trace_id);
 
 	protected:
 		friend class CloudTrace;
@@ -162,6 +162,8 @@ class CLOUDCONNECTOR_API ICloudTracing {
 
 		virtual void write_trace_document(CloudTrace &n_trace) = 0;
 
+		/*
 		FCriticalSection                 m_mutex;
 		TMap<FString, CloudTraceWeakPtr> m_open_traces;
+		*/
 };

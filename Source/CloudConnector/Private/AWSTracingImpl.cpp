@@ -33,6 +33,8 @@ static Aws::UniquePtr<Aws::XRay::XRayClient> s_xray_client;
 
 void AWSTracingImpl::write_trace_document(CloudTrace &n_trace) {
 
+	checkf(n_trace.m_payload, TEXT("Broken trace object. What happened to you?"));
+
 	// We go async right away to not block the game thread for this.
 	// Since this is called while the trace itself is getting destroyed, I will steal its payload
 	// to keep it around in our handler while it does its job.

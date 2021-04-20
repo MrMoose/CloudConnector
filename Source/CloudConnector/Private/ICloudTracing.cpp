@@ -8,10 +8,11 @@
 
 #include <chrono>
 
-inline double epoch_millis() {
-
-	return std::chrono::duration_cast<std::chrono::milliseconds>(
-		std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0;
+namespace {
+	inline double epoch_millis() {
+		return std::chrono::duration_cast<std::chrono::milliseconds>(
+			std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0;
+	}
 }
 
 CloudTrace::CloudTrace(const FString &n_trace_id)
@@ -21,7 +22,7 @@ CloudTrace::CloudTrace(const FString &n_trace_id)
 	const_cast<double &>(m_payload->m_start)  = epoch_millis();
 }
 
-CloudTrace::~CloudTrace() noexcept {
+CloudTrace::~CloudTrace() {
 
 	static const FName CCModuleName = "CloudConnector";
 
@@ -85,11 +86,12 @@ CloudTracePtr ICloudTracing::start_trace(const FString &n_trace_id) {
 
 	CloudTracePtr new_trace = MakeShared<CloudTrace, ESPMode::ThreadSafe>(n_trace_id);
 
-	FScopeLock slock(&m_mutex);
-	m_open_traces.Emplace(n_trace_id, new_trace);
+	// FScopeLock slock(&m_mutex);
+	// m_open_traces.Emplace(n_trace_id, new_trace);
 	return new_trace;
 }
 
+/*
 CloudTracePtr ICloudTracing::get_trace(const FString &n_trace_id) {
 
 	if (n_trace_id.IsEmpty()) {
@@ -105,15 +107,26 @@ CloudTracePtr ICloudTracing::get_trace(const FString &n_trace_id) {
 
 	return {};
 }
+*/
 
 void ICloudTracing::finish_trace(CloudTrace &n_trace) {
 
+	// We check if the user has forgotten to close any open segments.
+	// I don't want this in the serialization
+	for (TracePayload::Segment &s : n_trace.m_payload->m_segments) {
+		if (s.m_end < 1.0) {
+			s.m_end = epoch_millis();
+		}
+	}
+
 	n_trace.m_payload->m_end = epoch_millis();
 
+	/*
 	{
 		FScopeLock slock(&m_mutex);
 		m_open_traces.Remove(n_trace.id());
 	}
+	*/
 
 	return write_trace_document(n_trace);
 }

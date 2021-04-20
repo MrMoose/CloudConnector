@@ -86,16 +86,30 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 					GLog->AddOutputDevice(m_log_device.Get());
 				}
 
+				// If tracing is not enabled, we use the blind tracing impl to be able to do all that 
+				// without code changes
+				if (tracing_enabled(n_config->Tracing)) {
+					m_tracing = MakeUnique<AWSTracingImpl>();
+				} else {
+					m_tracing = MakeUnique<BlindTracingImpl>();
+				}
+
 				m_storage = MakeUnique<AWSStorageImpl>();
 				m_pubsub  = MakeUnique<AWSPubsubImpl>(n_config->HandleOnGameThread);
-				m_tracing = MakeUnique<AWSTracingImpl>();
+				
 				break;
 
 			case ECloudProvider::GOOGLE:
 				UE_LOG(LogCloudConnector, Display, TEXT("Starting Cloud Connector in Google mode"));
 				m_storage = MakeUnique<GoogleCloudStorageImpl>();
 				m_pubsub  = MakeUnique<GooglePubsubImpl>(n_config->GoogleProjectId, n_config->HandleOnGameThread);
-				m_tracing = MakeUnique<GoogleTracingImpl>();
+
+				if (tracing_enabled(n_config->Tracing)) {
+					m_tracing = MakeUnique<GoogleTracingImpl>();
+				} else {
+					m_tracing = MakeUnique<BlindTracingImpl>();
+				}
+
 				break;
 		}
 	} else {

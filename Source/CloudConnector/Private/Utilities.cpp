@@ -59,6 +59,11 @@ bool logs_enabled(const bool n_default) {
 	return true_or_false_env(TEXT("CLOUDCONNECTOR_LOGS_ENABLED"), n_default);
 }
 
+bool tracing_enabled(const bool n_default) {
+
+	return true_or_false_env(TEXT("CLOUDCONNECTOR_TRACING_ENABLED"), n_default);
+}
+
 FString get_aws_instance_id() {
 
 	const FString env_instance_id{ readenv(TEXT("CLOUDCONNECTOR_INSTANCE_ID")) };

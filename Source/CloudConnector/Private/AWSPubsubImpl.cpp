@@ -194,29 +194,29 @@ class SQSRunner : public FRunnable {
 			// Extract trace id
 			const FString trace_id = [&] {
 
-				FString trace_id;
+				FString ret;
 
 				// Get the AWS trace header for xray
 				i = attributes.find(MessageSystemAttributeName::AWSTraceHeader);
 				if (i != attributes.cend()) {
-					trace_id = UTF8_TO_TCHAR(i->second.c_str());
+					ret = UTF8_TO_TCHAR(i->second.c_str());
 				} else {
-					return trace_id;
+					return ret;
 				};
 
 				// The trace header comes in the form of "Root=1-235345something"
 				// but all the examples I saw only use "1-235345something". With the Root=
 				// xray upload doesn't work so I remove this
-				trace_id = trace_id.Replace(TEXT("Root="), TEXT(""));
+				ret = ret.Replace(TEXT("Root="), TEXT(""));
 
 				// I have also seen more stuff coming after the first ID, separated by ;
 				// Let's remove this as well. I wish that stuff was documented
 				int32 idx;
-				if (trace_id.FindChar(';', idx)) {
-					trace_id = trace_id.Left(idx);
+				if (ret.FindChar(';', idx)) {
+					ret = ret.Left(idx);
 				}
 				
-				return trace_id;
+				return ret;
 			} ();
 			
 			// Now construct a message which will be given into the handler

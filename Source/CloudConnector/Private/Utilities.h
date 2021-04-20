@@ -35,6 +35,12 @@ bool use_endpoint_discovery();
  */
 bool logs_enabled(const bool n_default);
 
+/**
+ * @brief Read env variable CLOUDCONNECTOR_TRACING_ENABLED to determine if we should activate tracing
+ * @return defaults to n_default, true if env set to "True", false if env set to "False"
+ */
+bool tracing_enabled(const bool n_default);
+
 /** @brief Query the AWS metadata server for the EC2 Instance ID.
  * Blocking for 3 seconds at worst case
  * If not on EC, will return "LocalInstance" after timeout

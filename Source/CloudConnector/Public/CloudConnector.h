@@ -54,9 +54,17 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		 * At startup time, you can override this setting with the environment 
 		 * variable CLOUDCONNECTOR_LOGS_ENABLED to "True" or "False"
 		 */
-		UPROPERTY(EditAnywhere, Category = "CloudConnector|Logging")
+		UPROPERTY(EditAnywhere, Category = "CloudConnector")
 		bool CloudLogs = false;
-		
+
+		/** Set to true to enable performance tracing.
+		 * 
+		 * At startup time, you can override this setting with the environment
+		 * variable CLOUDCONNECTOR_TRACING_ENABLED to "True" or "False"
+		 */
+		UPROPERTY(EditAnywhere, Category = "CloudConnector")
+		bool Tracing = false;
+
 		/** Specify prefix for CloudWatch log group.
 		 * CLOUDCONNECTOR_STACK_NAME and Instance ID will be read and appended.
 		 * Please have it start and end with a '/' character.
