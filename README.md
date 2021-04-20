@@ -397,7 +397,7 @@ When your tracer goes out of scope (the shared pointer has no references anymore
 it will write the trace information to AWS XRay or Google Cloud Trace.
 
 If you are the reckless daredevil, you can also use macros. They remove the need 
-of the tedious `if` statements.
+for the tedious `if` statements.
 
 ```C++
 #include "ICloudConnector.h"
@@ -421,8 +421,8 @@ void UQueueListener::receive_message(const FPubsubMessage n_message, PubsubRetur
 }
 ```
 
-When using `ICloudStorage`, you can pass the tracer object into each
-to have storage implicitly trace. Just pass the object into the call.
+When using `ICloudStorage`, you can pass the tracer object into each call
+to have storage implicitly trace.
 
 If your trace ID comes in by other means than SQS/Pubsub, you can explicitly 
 create a trace object like this:
