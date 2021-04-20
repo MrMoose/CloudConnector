@@ -421,6 +421,9 @@ void UQueueListener::receive_message(const FPubsubMessage n_message, PubsubRetur
 }
 ```
 
+When using `ICloudStorage`, you can pass the tracer object into each
+to have storage implicitly trace. Just pass the object into the call.
+
 If your trace ID comes in by other means than SQS/Pubsub, you can explicitly 
 create a trace object like this:
 
