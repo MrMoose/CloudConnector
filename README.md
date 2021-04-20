@@ -15,6 +15,12 @@ CloudConnector hides the actual cloud implementation behind
 an abstracted common interface and aims for easy deployment
 on AWS or Google Cloud with little or no code changes.
 
+Using it you can:
+* Receive messages from SQS or Pubsub
+* Upload data into buckets on S3 or Storage
+* Log to CloudWatch
+* Write performance traces to XRay or Tracing (planned, not available yet)
+
 This is work in progress, there are no releases yet.
 
 It only supports Win64 as of now. Other platforms are not planned. 
@@ -209,9 +215,9 @@ storage.write(key, view,
 	FCloudStorageWriteFinishedDelegate::CreateLambda(
 		[key](const bool n_success, const FString n_message) {
 			if (n_success) {
-				UE_LOG(LogRayStudio, Display, TEXT("'%s' uploaded: %s"), *key.ObjectKey, *n_message);
+				UE_LOG(MyLog, Display, TEXT("'%s' uploaded: %s"), *key.ObjectKey, *n_message);
 			} else {
-				UE_LOG(LogRayStudio, Error, TEXT("'%s' not uploaded: %s"), *key.ObjectKey, *n_message);
+				UE_LOG(MyLog, Error, TEXT("'%s' not uploaded: %s"), *key.ObjectKey, *n_message);
 			}
 		}
 	)
