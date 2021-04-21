@@ -10,21 +10,20 @@
 #include "Async/AsyncWork.h"
 
 // Google Cloud SDK, well, not yet.
+
+#pragma warning(push)
+#pragma warning(disable:4583)
+#pragma warning(disable:4582)
+
+// Google Cloud SDK. Surprisingly few headers
 #include "Windows/PreWindowsApi.h"
-#include <aws/core/client/ClientConfiguration.h>
-#include <aws/core/utils/memory/AWSMemory.h> // for New and MakeUnique and stuff
-#include <aws/logs/CloudWatchLogsErrors.h>
-#include <aws/logs/model/CreateLogGroupRequest.h>
-#include <aws/logs/model/CreateLogStreamRequest.h>
-#include <aws/logs/model/PutLogEventsRequest.h>
+//#include "google/
 #include "Windows/PostWindowsApi.h"
+#pragma warning(pop)
 
 // Std
 #include <string>
 
-using namespace Aws::CloudWatchLogs::Model;
-using Aws::CloudWatchLogs::CloudWatchLogsError;
-using Aws::CloudWatchLogs::CloudWatchLogsErrors;
 
 FGoogleLoggingOutputDevice::FGoogleLoggingOutputDevice(const FString &n_log_group_prefix)
 		: m_interrupted{ false }
@@ -33,7 +32,7 @@ FGoogleLoggingOutputDevice::FGoogleLoggingOutputDevice(const FString &n_log_grou
 
 	bAutoEmitLineTerminator = false;
 	m_log_group_name.append("unspecified");
-	m_log_thread = MakeUnique<FThread>(TEXT("AWS_Logging"), [this] { this->log_thread(); });
+	m_log_thread = MakeUnique<FThread>(TEXT("Google_Logging"), [this] { this->log_thread(); });
 }
 
 FGoogleLoggingOutputDevice::~FGoogleLoggingOutputDevice() noexcept {
@@ -49,16 +48,23 @@ void FGoogleLoggingOutputDevice::TearDown() {
 		m_log_thread->Join();
 		m_log_thread.Reset();
 
-		m_cwclient.reset();
+		//m_cwclient.reset();
 	}
 }
 
 void FGoogleLoggingOutputDevice::Serialize(const TCHAR *n_message, ELogVerbosity::Type n_verbosity, const FName &n_category, const double n_time) {
+	
+	// blind impl until SDK is ready
+	return;
 
 	Serialize(n_message, n_verbosity, n_category);
 }
 
 void FGoogleLoggingOutputDevice::Serialize(const TCHAR* n_message, ELogVerbosity::Type n_verbosity, const FName &n_category) {
+
+	// blind impl until SDK is ready
+	return;
+
 
 	FGoogleLoggingOutputDevice::LogEntry entry;
 	entry.m_timestamp = millis_since_epoch();
@@ -66,28 +72,28 @@ void FGoogleLoggingOutputDevice::Serialize(const TCHAR* n_message, ELogVerbosity
 
 	switch (n_verbosity) {
 		case ELogVerbosity::NoLogging:
-			entry.m_message = Aws::String("[NOLOGGING] (");
+			entry.m_message = "[NOLOGGING] (";
 			break;
 		case ELogVerbosity::Fatal:
-			entry.m_message = Aws::String("[FATAL] (");
+			entry.m_message = "[FATAL] (";
 			break;
 		case ELogVerbosity::Error:
-			entry.m_message = Aws::String("[ERROR] (");
+			entry.m_message = "[ERROR] (";
 			break;
 		case ELogVerbosity::Warning:
-			entry.m_message = Aws::String("[WARNING] (");
+			entry.m_message = "[WARNING] (";
 			break;
 		case ELogVerbosity::Display:
-			entry.m_message = Aws::String("[INFO] (");
+			entry.m_message = "[INFO] (";
 			break;
 		case ELogVerbosity::Log:
-			entry.m_message = Aws::String("[LOG] (");
+			entry.m_message = "[LOG] (";
 			break;
 		case ELogVerbosity::Verbose:
-			entry.m_message = Aws::String("[VERBOSE] (");
+			entry.m_message = "[VERBOSE] (";
 			break;
 		default:
-			entry.m_message = Aws::String("[CATCH_ALL] (");
+			entry.m_message = "[CATCH_ALL] (";
 	}
 
 	entry.m_message.append(TCHAR_TO_UTF8(*n_category.ToString()));
@@ -137,34 +143,9 @@ void FGoogleLoggingOutputDevice::log_thread() noexcept {
 	// timestamp ++
 	m_log_stream_name = TCHAR_TO_UTF8(*get_log_stream_name(m_instance_id));
 
-	Aws::Client::ClientConfiguration config;
-	config.enableEndpointDiscovery = use_endpoint_discovery();
-	const FString endpoint_override = readenv(TEXT("CLOUDCONNECTOR_CLOUDWATCH_ENDPOINT"));
-	if (!endpoint_override.IsEmpty()) {
-		config.endpointOverride = TCHAR_TO_UTF8(*endpoint_override);
-	}
-	m_cwclient = Aws::MakeUnique<Aws::CloudWatchLogs::CloudWatchLogsClient>("CloudWatchLogs", config);
 
-	// Now we should have all the data to create a log group and stream for us
-	CreateLogGroupRequest clgr;
-	clgr.SetLogGroupName(m_log_group_name);
-	CreateLogGroupOutcome lgoc = m_cwclient->CreateLogGroup(clgr);
-	if (!lgoc.IsSuccess()) {
-		const CloudWatchLogsError &err{ lgoc.GetError() };
-		if (err.GetErrorType() != CloudWatchLogsErrors::RESOURCE_ALREADY_EXISTS) {
-			UE_LOG(LogCloudConnector, Warning, TEXT("Failed to create cloudwatch log group: %s"), UTF8_TO_TCHAR(err.GetMessage().c_str()));
-			return;
-		}
-	}
+	// prepare client object for google
 
-	CreateLogStreamRequest clsr;
-	clsr.SetLogGroupName(m_log_group_name);
-	clsr.SetLogStreamName(m_log_stream_name);
-	CreateLogStreamOutcome oc = m_cwclient->CreateLogStream(clsr);
-	if (!oc.IsSuccess()) {
-		UE_LOG(LogCloudConnector, Error, TEXT("Failed to create cloudwatch log stream: %s"), UTF8_TO_TCHAR(oc.GetError().GetMessage().c_str()));
-		return;
-	}
 
 	while (!m_interrupted) {
 		// We blocked at least a little since we started this thread so send right away.
@@ -189,32 +170,18 @@ void FGoogleLoggingOutputDevice::send_log_messages() noexcept {
 
 	int max_log_events = 42;
 
-	PutLogEventsRequest request;
-	if (!m_upload_sequence_token.empty()) {
-		request.SetSequenceToken(m_upload_sequence_token);
-	}
-	request.SetLogGroupName(m_log_group_name);
-	request.SetLogStreamName(m_log_stream_name);
+	// prepare request
 
 	// One by one, pop log entries from the q and add them to the CloudWatch
 	// request. Not more than 42 to not overload the body of the request.
 	FGoogleLoggingOutputDevice::LogEntry entry;
 
 	while (m_log_q.Dequeue(entry) && max_log_events--) {
-		InputLogEvent ile;
-		ile.SetTimestamp(entry.m_timestamp);
-		ile.SetMessage(entry.m_message);
-		request.AddLogEvents(std::move(ile));
+		
+
+		// request.AddLogEvents(std::move(ile));
 	}
 
-	// Send the logs to CloudWatch.
-	PutLogEventsOutcome oc = m_cwclient->PutLogEvents(request);
-
-	if (oc.IsSuccess()) {
-		m_upload_sequence_token = oc.GetResult().GetNextSequenceToken();
-	} else {
-		const CloudWatchLogsError &error{ oc.GetError() };
-		// It may not be such a good idea to log in here. But during development I need to know
-		UE_LOG(LogCloudConnector, Error, TEXT("Failed to send CloudWatch Logs: %s"), UTF8_TO_TCHAR(error.GetMessage().c_str()));
-	}
+	// Send request
+	
 }

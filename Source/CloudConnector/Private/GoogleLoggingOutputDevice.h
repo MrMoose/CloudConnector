@@ -11,18 +11,14 @@
 #include "Misc/OutputDevice.h"
 #include "Containers/Queue.h"
 
- // Google Cloud SDK
-#include "Windows/PreWindowsApi.h"
-#include <aws/core/Aws.h>
-#include <aws/logs/CloudWatchLogsClient.h>
-#include <aws/core/utils/memory/stl/AWSString.h>
-#include "Windows/PostWindowsApi.h"
-
+#include <string>
 
 /** @brief logging backend for Engine logs
  *  which sends logs to Google Cloud every 5 seconds.
- *  This is still the AWS impl so it compiles as the Google Cloud C++ SDK logging
- *  appears to be unavailable still (1.26.0)
+ *  This is still empty as the Google Cloud C++ SDK logging
+ *  appears to be unavailable still (1.26.1).
+ *  It does look like it will be at some point, which is why
+ *  I left that skeleton here to ease integration later.
  */
 class FGoogleLoggingOutputDevice : public FOutputDevice {
 
@@ -59,12 +55,9 @@ class FGoogleLoggingOutputDevice : public FOutputDevice {
 		// and then attach date stamp
 		static FString get_log_stream_name(const FString &n_instance_id) noexcept;
 
-		// AWS SDK Client object, owned and accessed by thread.
-		Aws::UniquePtr<Aws::CloudWatchLogs::CloudWatchLogsClient> m_cwclient;
-
 		struct LogEntry {
 			long long            m_timestamp;   //!< millis since epoch (type required by InputLogEvent)
-			Aws::String          m_message;
+			std::string          m_message;
 		};
 
 		using LogQueue = TQueue<LogEntry, EQueueMode::Mpsc>;
@@ -75,8 +68,8 @@ class FGoogleLoggingOutputDevice : public FOutputDevice {
 		LogQueue                 m_log_q;
 		FString                  m_instance_id;
 		const FString            m_log_group_prefix;
-		Aws::String              m_log_group_name;
-		Aws::String              m_log_stream_name;
-		Aws::String              m_upload_sequence_token;
+		std::string              m_log_group_name;
+		std::string              m_log_stream_name;
+		std::string              m_upload_sequence_token;
 };
 
