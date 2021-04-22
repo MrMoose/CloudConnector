@@ -16,7 +16,10 @@
 
 DECLARE_LOG_CATEGORY_EXTERN(LogCloudConnector, Log, All);
 
-
+/** Main interface to CloudConnector.
+ *  Use getters storage(), pubsub() and tracing() for specific
+ *  functionalities
+ */
 class CLOUDCONNECTOR_API ICloudConnector : public IModuleInterface {
 
 	public:

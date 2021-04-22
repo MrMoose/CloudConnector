@@ -57,9 +57,11 @@ FORCEINLINE uint32 GetTypeHash(const FSubscription &n_sub) {
 }
 
 USTRUCT(Category = "CloudConnector")
-struct FPubsubMessage {
+struct CLOUDCONNECTOR_API FPubsubMessage {
 
 	GENERATED_BODY();
+
+	public:
 
 		/** A trace object which (if present) allows for
 		 *  performance tracing using ICloudTracing
@@ -103,14 +105,13 @@ struct FPubsubMessage {
 		FString m_google_pubsub_message_id;
 };
 
-
 /** conveys results of a write() operation
  *  first bool is "was the operation successful"?
  *  FString may contain an error message
  */
 DECLARE_DELEGATE_TwoParams(FCloudStorageWriteFinishedDelegate, const bool, const FString);
 
-
+/// a promise created for each message which must be fulfilled by receivers
 using PubsubReturnPromise = TPromise<bool>;
 using PubsubReturnPromisePtr = TSharedPtr<PubsubReturnPromise, ESPMode::ThreadSafe>;
 
@@ -118,7 +119,6 @@ using PubsubReturnPromisePtr = TSharedPtr<PubsubReturnPromise, ESPMode::ThreadSa
 /// Second parameter is a promise the delegate must fulfill. If it's set to true, the message will be deleted
 /// Third is a trace object. May be null if the received message did not contain trace info
 DECLARE_DELEGATE_TwoParams(FPubsubMessageReceived, const FPubsubMessage, PubsubReturnPromisePtr);
-
 
 /** Provide Pubsub equivalent functionality for AWS and Google Cloud.
  *  I'm trying to consolidate the two behind a common interface.

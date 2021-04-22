@@ -5,6 +5,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CloudConnectorTypes.h"
 
 #include <chrono>
 
@@ -22,6 +23,11 @@ inline long long millis_since_epoch() {
  * @param n_default return default value if not found
  */
 FString readenv(const FString &n_env_variable_name, const FString &n_default = FString{});
+
+/**
+ * @brief Read env variable CLOUDCONNECTOR_CLOUD_PROVIDER to determine which impl to use
+ */
+ECloudProvider cloud_provider(const ECloudProvider n_default);
 
 /**
  * @brief Read env variable CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED to see if we are to use endpoint discovery

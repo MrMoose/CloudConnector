@@ -50,7 +50,7 @@ bool FCloudConnectorModule::SupportsDynamicReloading() {
 void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 	
 	if (n_config) {
-		m_provider = n_config->CloudProvider;
+		m_provider = cloud_provider(n_config->CloudProvider);
 
 		switch (m_provider) {
 			default:

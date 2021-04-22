@@ -7,25 +7,27 @@
 CloudConnector is a plugin for the
 [Unreal Engine](https://www.unrealengine.com/) which 
 implements elementary cloud native connectivity functions
-for use within C++ Unreal Engine projects.
+for use within C++ Unreal Engine 4 projects.
 Primary use case are remote rendering cases in industry contexts.
-To this end, it focuses on logging, tracing and monitoring
+It focuses on logging, tracing and monitoring
 as well as storage access capabilities and message retrieval.
 CloudConnector hides the actual cloud implementation behind
 an abstracted common interface and aims for easy deployment
 on AWS or Google Cloud with little or no code changes.
 
 Using it you can:
-* Receive messages from SQS or Pubsub
-* Upload data into buckets on S3 or Storage
+* Receive messages from SQS or Google Pubsub
+* Upload data into buckets on S3 or Google Storage
 * Log to CloudWatch
-* Write performance traces to XRay or Tracing (only XRay implemented now)
-
-This is work in progress, there are no releases yet.
+* Write performance traces to XRay
 
 It only supports Win64 as of now. Other platforms are not planned. 
 If you are interested in any other, 
 contact [MrMoose](https://github.com/MrMoose).
+
+Supported Engine version:
+* 4.26
+
 
 ## Usage
 
@@ -59,6 +61,14 @@ Some environment variables influence CloudConnector's behavior
 for ease of use on cloud instances. Some are cloud specific.
 
 #### General
+
+_CLOUDCONNECTOR_CLOUD_PROVIDER_:<br>
+Using this you can override the cloud provider setting in
+the configuration actor to use a different impl. Values are:
+* "None" - for none. Won't do anything
+* "AWS"
+* "Google"
+All other values are ignored.
 
 _CLOUDCONNECTOR_DEFAULT_TOPIC_:<br>
 When using ICloudPubsub::subscribe_default(), this is the topic 

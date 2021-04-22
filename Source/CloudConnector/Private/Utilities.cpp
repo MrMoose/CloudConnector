@@ -49,6 +49,25 @@ inline bool true_or_false_env(const FString &n_env_variable, const bool n_defaul
 
 } // anon ns
 
+ECloudProvider cloud_provider(const ECloudProvider n_default) {
+
+	const FString env{ readenv(TEXT("CLOUDCONNECTOR_CLOUD_PROVIDER")) };
+
+	if (env.Equals(TEXT("AWS"))) {
+		return ECloudProvider::AWS;
+	}
+
+	if (env.Equals(TEXT("Google"))) {
+		return ECloudProvider::GOOGLE;
+	}
+
+	if (env.Equals(TEXT("None"))) {
+		return ECloudProvider::BLIND;
+	}
+
+	return n_default;
+}
+
 bool use_endpoint_discovery() {
 
 	return true_or_false_env(TEXT("CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED"), false);
