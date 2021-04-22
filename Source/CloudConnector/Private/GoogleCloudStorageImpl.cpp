@@ -4,6 +4,7 @@
  */
 #include "GoogleCloudStorageImpl.h"
 #include "ICloudConnector.h"
+#include "TraceMacros.h"
 
 #include "Async/Async.h"
 #include "Internationalization/Regex.h"
