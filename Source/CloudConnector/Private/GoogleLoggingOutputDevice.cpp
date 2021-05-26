@@ -2,6 +2,9 @@
  * Licensed under the Apache License, Version 2.0.
  * See attached file LICENSE for full details
  */
+
+#ifdef WITH_GOOGLECLOUD_SDK
+
 #include "GoogleLoggingOutputDevice.h"
 #include "ICloudConnector.h"
 #include "Utilities.h"
@@ -185,3 +188,5 @@ void FGoogleLoggingOutputDevice::send_log_messages() noexcept {
 	// Send request
 	
 }
+
+#endif // WITH_GOOGLECLOUD_SDK

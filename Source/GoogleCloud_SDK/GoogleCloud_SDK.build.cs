@@ -12,10 +12,6 @@ public class GoogleCloud_SDK : ModuleRules {
 
 		Type = ModuleType.External;
 
-		// During Link, some static symbols in 
-		// the SDK weren't found. This fixes it but it should always be the case for DLL linkage
-		PublicDefinitions.Add("USE_IMPORT_EXPORT");
-
 		// add any macros that need to be set. This is just an example define.
 		PublicDefinitions.Add("WITH_GOOGLECLOUD_SDK=1");
 

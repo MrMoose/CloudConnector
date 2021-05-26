@@ -2,6 +2,9 @@
  * Licensed under the Apache License, Version 2.0.
  * See attached file LICENSE for full details
  */
+
+#ifdef WITH_GOOGLECLOUD_SDK
+
 #include "GooglePubsubImpl.h"
 #include "ICloudConnector.h"
 #include "Utilities.h"
@@ -248,3 +251,5 @@ bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 
 	return true;
 };
+
+#endif // WITH_GOOGLECLOUD_SDK

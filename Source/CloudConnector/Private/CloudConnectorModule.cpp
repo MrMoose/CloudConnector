@@ -110,8 +110,11 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 			case ECloudProvider::GOOGLE:
 				UE_LOG(LogCloudConnector, Display, TEXT("Starting Cloud Connector in Google mode"));
 				m_storage = MakeUnique<GoogleCloudStorageImpl>();
+#ifdef WITH_GOOGLECLOUD_SDK
 				m_pubsub  = MakeUnique<GooglePubsubImpl>(n_config->GoogleProjectId, n_config->HandleOnGameThread);
-
+#else
+				m_pubsub = MakeUnique<BlindPubsubImpl>();
+#endif
 				if (tracing_enabled(n_config->Tracing)) {
 					m_tracing = MakeUnique<GoogleTracingImpl>();
 				} else {

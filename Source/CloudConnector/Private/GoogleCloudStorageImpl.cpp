@@ -2,6 +2,9 @@
  * Licensed under the Apache License, Version 2.0.
  * See attached file LICENSE for full details
  */
+
+#ifdef WITH_GOOGLECLOUD_SDK
+
 #include "GoogleCloudStorageImpl.h"
 #include "ICloudConnector.h"
 #include "TraceMacros.h"
@@ -236,3 +239,5 @@ bool GoogleCloudStorageImpl::write(const FCloudStorageKey &n_key, const TArrayVi
 
 	return true;
 }
+
+#endif // WITH_GOOGLECLOUD_SDK

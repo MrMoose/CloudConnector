@@ -85,7 +85,9 @@ struct CLOUDCONNECTOR_API FPubsubMessage {
 		FString m_body;
 
 	private:
+#ifdef WITH_GOOGLECLOUD_SDK
 		friend class GooglePubsubImpl;
+#endif
 		friend class AWSPubsubImpl;
 		friend class SQSRunner;
 

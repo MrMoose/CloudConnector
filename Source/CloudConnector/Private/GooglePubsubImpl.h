@@ -4,6 +4,10 @@
  */
 #pragma once
 
+// I have not found a way to exclude those files from the build if Google Cloud is 
+// not required. So I fake it blind this sway
+#ifdef WITH_GOOGLECLOUD_SDK
+
 #include "CoreMinimal.h"
 #include "ICloudPubsub.h"
 #include "Templates/Tuple.h"
@@ -66,3 +70,11 @@ class GooglePubsubImpl : public ICloudPubsub {
 		google::cloud::CompletionQueue m_completion_q;
 		TUniquePtr<FThread>            m_runner;   //!< background thread for the SDK
 };
+
+// I have not found a way to exclude those files from the build if Google Cloud is 
+// not required. So I fake it blind this sway
+#else // WITH_GOOGLECLOUD_SDK
+#include "CoreMinimal.h"
+#include "BlindPubsubImpl.h"
+using GooglePubsubImpl = BlindPubsubImpl;
+#endif // WITH_GOOGLECLOUD_SDK

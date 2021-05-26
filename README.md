@@ -503,6 +503,16 @@ If not, check the following:
 * are you creating a tracer object?
 * are you opening and closing segments
 
+_When trying to build a package, I get weird protobuf related llinker errors_:
+
+Check if you use the PixelStreaming plugin. It can not coexist with CloudConnector.
+At least it can't in 4.26. See here:
+See here: https://github.com/MrMoose/CloudConnector/issues/2.
+This is a problem that occurrs when linking both together. If you need PixelStreaming,
+you can avoid the problem by setting `SupportGoogleCloud` to `false` in
+`CloudConnector.build.cs`. In which case you will be able to build but no Google
+Cloud Support will be available.
+
 ## License
 
 Copyright 2021 by Stephan Menzel

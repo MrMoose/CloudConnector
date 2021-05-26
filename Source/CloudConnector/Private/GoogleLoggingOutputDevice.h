@@ -4,6 +4,8 @@
  */
 #pragma once
 
+#ifdef WITH_GOOGLECLOUD_SDK
+
 #include "CoreMinimal.h"
 #include "HAL/Thread.h"
 #include "Templates/Atomic.h"
@@ -73,3 +75,4 @@ class FGoogleLoggingOutputDevice : public FOutputDevice {
 		std::string              m_upload_sequence_token;
 };
 
+#endif // WITH_GOOGLECLOUD_SDK

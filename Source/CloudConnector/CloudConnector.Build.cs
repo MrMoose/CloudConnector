@@ -7,6 +7,20 @@ using UnrealBuildTool;
 
 public class CloudConnector : ModuleRules {
 
+	/* The Google Cloud SDK links statically against libprotobuf (via grpc)
+	 * So does webrtc (via PixelStreaming plugin) but against a much older
+	 * version. Those two cannot coexist in one process. See here:
+	 * https://github.com/MrMoose/CloudConnector/issues/2
+	 * 
+	 * Using this value you can inhibit usage of the Google Cloud SDK.
+	 * Of course in this case you are restricted to AWS only. 
+	 * Nothing else will work.
+	 * 
+	 * If you have further information about this or know how to safely link
+	 * both, please contact MrMoose
+	 */
+	bool SupportGoogleCloud = true;
+
 	public CloudConnector(ReadOnlyTargetRules Target) : base(Target) {
 
 		PrivatePCHHeaderFile = "Private/CloudConnectorPrivatePCH.h";
@@ -25,11 +39,16 @@ public class CloudConnector : ModuleRules {
 
 		PrivateDependencyModuleNames.AddRange(new string[] { 
 			"AWS_SDK",
-			"GoogleCloud_SDK",
-			"HTTP",
 			"Json",
 			"JsonUtilities",
 			"Http"
 		});
+
+		if (SupportGoogleCloud) {
+			PrivateDependencyModuleNames.AddRange(new string[] {
+				"GoogleCloud_SDK"
+			});
+		}
+
 	}
 }
