@@ -80,21 +80,34 @@ struct aws_client_factory {
 };
 
 
+
 template<>
-const char *aws_client_factory<Aws::CloudWatchLogs::CloudWatchLogsClient>::
-s_memtag = "CloudWatch";
+const char *aws_client_factory<Aws::CloudWatchLogs::CloudWatchLogsClient>::s_memtag = "CloudWatch";
+
+template<>
+const char *aws_client_factory<Aws::SQS::SQSClient>::s_memtag = "Sqs";
+
+template<>
+const char *aws_client_factory<Aws::S3::S3Client>::s_memtag = "S3";
+
+template<>
+const char *aws_client_factory<Aws::XRay::XRayClient>::s_memtag = "XRay";
 
 template<>
 const FString aws_client_factory<Aws::CloudWatchLogs::CloudWatchLogsClient>::
 s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_CLOUDWATCH_ENDPOINT") };
 
 template<>
-const char *aws_client_factory<Aws::SQS::SQSClient>::
-s_memtag = "Sqs";
-
-template<>
 const FString aws_client_factory<Aws::SQS::SQSClient>::
 s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_SQS_ENDPOINT") };
+
+template<>
+const FString aws_client_factory<Aws::S3::S3Client>::
+s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_S3_ENDPOINT") };
+
+template<>
+const FString aws_client_factory<Aws::XRay::XRayClient>::
+s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_XRAY_ENDPOINT") };
 
 // Experiments have shown very strange behavior of the SQS client
 // when used with timeouts too high or poll times above 4 seconds.
@@ -109,19 +122,4 @@ client_config() {
 	return ret;
 }
 
-template<>
-const char *aws_client_factory<Aws::S3::S3Client>::
-s_memtag = "S3";
-
-template<>
-const FString aws_client_factory<Aws::S3::S3Client>::
-s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_S3_ENDPOINT") };
-
-template<>
-const char *aws_client_factory<Aws::XRay::XRayClient>::
-s_memtag = "XRay";
-
-template<>
-const FString aws_client_factory<Aws::XRay::XRayClient>::
-s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_XRAY_ENDPOINT") };
 

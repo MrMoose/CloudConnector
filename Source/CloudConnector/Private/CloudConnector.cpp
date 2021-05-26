@@ -4,6 +4,7 @@
  */
 #include "CloudConnector.h"
 #include "ICloudConnector.h"
+#include "Utilities.h"
 
 #include "Components/SceneComponent.h"
 #include "Components/BillboardComponent.h"
@@ -39,6 +40,26 @@ ACloudConnector::ACloudConnector()
 void ACloudConnector::PostInitializeComponents() {
 
 	Super::PostInitializeComponents();
+
+	/* Instead of dragging those values back and forth to the factory if needed
+	 * I communicate them by setting the env which is read there instead.
+	 * I believe this is less invasive and compley as I foresee no long lifetime
+	 * of this feature anyway.
+	 * Don't overwrite when already set in env for consistency
+	 */
+	if (!AWSAccessKey.IsEmpty()) {
+		writeenv(TEXT("CLOUDCONNECTOR_AWS_ACCESS_KEY"), AWSAccessKey, false);
+	}
+	if (!AWSSecretKey.IsEmpty()) {
+		writeenv(TEXT("CLOUDCONNECTOR_AWS_SECRET_KEY"), AWSSecretKey, false);
+	}
+	if (!AWSRegion.IsEmpty()) {
+		writeenv(TEXT("CLOUDCONNECTOR_AWS_REGION"), AWSRegion, false);
+	}
+	if (AWSEnableEndpointDiscovery) {
+		writeenv(TEXT("CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED"), TEXT("True"), false);
+	}
+
 	ICloudConnector::Get().init_actor_config(this);
 }
 

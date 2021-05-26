@@ -25,6 +25,15 @@ inline long long millis_since_epoch() {
 FString readenv(const FString &n_env_variable_name, const FString &n_default = FString{});
 
 /**
+ * @brief encapsulate putenv as well
+ * Not threadsafe.
+ * @param n_env_variable_name name of the environment variable
+ * @param n_value value string
+ * @return true on success
+ */
+bool writeenv(const FString &n_env_variable_name, const FString &n_value, const bool n_overwrite);
+
+/**
  * @brief Read env variable CLOUDCONNECTOR_CLOUD_PROVIDER to determine which impl to use
  */
 ECloudProvider cloud_provider(const ECloudProvider n_default);

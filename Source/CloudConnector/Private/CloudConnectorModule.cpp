@@ -22,6 +22,7 @@
 #include <aws/core/utils/logging/DefaultLogSystem.h>
 #include "Windows/PostWindowsApi.h"
 
+#include "Engine/World.h"   // for optional suppression of CloudWatch when PIE
 #include "Misc/OutputDeviceFile.h"
 
 DEFINE_LOG_CATEGORY(LogCloudConnector)
@@ -82,8 +83,15 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 
 				// If the user wants logs, an outputdevice is injected into the engine logs
 				if (logs_enabled(n_config->CloudLogs)) {
-					m_log_device = MakeUnique<FCloudWatchLogOutputDevice>(n_config->LogGroupPrefix);
-					GLog->AddOutputDevice(m_log_device.Get());
+
+					// ... but not when PIE if so requested. This is a feature only requested by one 
+					// so I put it in with as little complexity as possible. Everything else shall work
+					// as intended, except CloudWatch.
+					// #moep remove this when no longer required
+					if (!(n_config->AWSSuppressCloudWatchLogsInPIE && n_config->GetWorld()->IsPlayInEditor())) {
+						m_log_device = MakeUnique<FCloudWatchLogOutputDevice>(n_config->LogGroupPrefix);
+						GLog->AddOutputDevice(m_log_device.Get());
+					}
 				}
 
 				// If tracing is not enabled, we use the blind tracing impl to be able to do all that 

@@ -21,9 +21,10 @@
  * Placing this Actor in your persistent level activates usage 
  * of Cloud Connectivity for Unreal Engine.
  * 
- * As this is experimental, a few notes:
+ * A few notes:
  *    -> Do not spawn multiple actors of this type. Really, I'm serious.
- *    -> Do not use in production
+ *    -> Use with care in production. This is a beta
+ * 
  */
 UCLASS(Category = "CloudConnector")
 class CLOUDCONNECTOR_API ACloudConnector : public AActor {
@@ -77,8 +78,36 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		 * (or editor) is started in and begin with aws_sdk_
 		 * This shouldn't be required.
 		 */
-		UPROPERTY(EditAnywhere, Category = "CloudConnector|AWS")
+		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector")
 		bool AWSLogs = false;
+	
+		/** In cases where you don't want the AWS SDK to take its credentials
+		 *  from ~/.aws/credentials you can inject your access key and
+		 *  secret key.
+		 *  You should leave this empty unless you know exactly what you are doing.
+		 *  If this is not empty, ~/.aws/credentials will be ignored.
+		 *  You can override this at runtime using environment
+		 *  variable CLOUDCONNECTOR_AWS_ACCESS_KEY and
+		 *  CLOUDCONNECTOR_AWS_SECRET_KEY.
+		 */
+		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector")
+		FString AWSAccessKey = FString{};
+
+		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector")
+		FString AWSSecretKey = FString{};
+
+		/// Tell AWS to use a specific region. This is needed when setting
+		/// AWS Access Key and secret key above.
+		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector")
+		FString AWSRegion = FString{};
+
+		/// Tell AWS client objects to use the optional endpoint discovery feature
+		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector")
+		bool AWSEnableEndpointDiscovery = false;
+
+		/// Requested feature. When set to true, CloudConnector will not log when PIE
+		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector")
+		bool AWSSuppressCloudWatchLogsInPIE = false;
 
 		/** Set the Project scope on Google Cloud
 		 *  AWS doesn't have an equivalent of the "Project" scope Google uses,

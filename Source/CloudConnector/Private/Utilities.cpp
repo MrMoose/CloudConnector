@@ -30,6 +30,22 @@ FString readenv(const FString &n_env_variable_name, const FString &n_default) {
 #endif
 }
 
+bool writeenv(const FString &n_env_variable_name, const FString &n_value, const bool n_overwrite) {
+
+#ifdef _WIN32
+	char *buffer = nullptr;
+	size_t size = 0;
+	if (_dupenv_s(&buffer, &size, TCHAR_TO_UTF8(*n_env_variable_name)) == 0 && buffer != nullptr && !n_overwrite) {
+		return false;
+	}
+
+	return !_putenv_s(TCHAR_TO_UTF8(*n_env_variable_name), TCHAR_TO_UTF8(*n_value));
+#else
+	return !putenv(TCHAR_TO_UTF8(*n_env_variable_name), TCHAR_TO_UTF8(*n_value), n_overwrite);
+#endif
+}
+
+
 namespace {
 
 inline bool true_or_false_env(const FString &n_env_variable, const bool n_default = false) {
