@@ -5,12 +5,14 @@
 #include "CloudWatchLogOutputDevice.h"
 #include "ICloudConnector.h"
 #include "Utilities.h"
+#include "ClientFactory.h"
 
 // Engine
 #include "Async/AsyncWork.h"
 
 // AWS SDK
 #include "Windows/PreWindowsApi.h"
+#include <aws/core/auth/AWSCredentials.h>
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/core/utils/memory/AWSMemory.h> // for New and MakeUnique and stuff
 #include <aws/logs/CloudWatchLogsErrors.h>
@@ -137,13 +139,8 @@ void FCloudWatchLogOutputDevice::log_thread() noexcept {
 	// timestamp ++
 	m_log_stream_name = TCHAR_TO_UTF8(*get_log_stream_name(m_instance_id));
 
-	Aws::Client::ClientConfiguration config;
-	config.enableEndpointDiscovery = use_endpoint_discovery();
-	const FString endpoint_override = readenv(TEXT("CLOUDCONNECTOR_CLOUDWATCH_ENDPOINT"));
-	if (!endpoint_override.IsEmpty()) {
-		config.endpointOverride = TCHAR_TO_UTF8(*endpoint_override);
-	}
-	m_cwclient = Aws::MakeUnique<Aws::CloudWatchLogs::CloudWatchLogsClient>("CloudWatchLogs", config);
+	// We're ready to create our client object
+	m_cwclient = aws_client_factory<Aws::CloudWatchLogs::CloudWatchLogsClient>::create();
 
 	// Now we should have all the data to create a log group and stream for us
 	CreateLogGroupRequest clgr;

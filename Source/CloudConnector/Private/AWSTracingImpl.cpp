@@ -5,6 +5,7 @@
 #include "AWSTracingImpl.h"
 #include "ICloudConnector.h"
 #include "Utilities.h"
+#include "ClientFactory.h"
 
 #include "JsonObjectConverter.h"
 #include "Serialization/JsonSerializer.h"
@@ -45,15 +46,7 @@ void AWSTracingImpl::write_trace_document(CloudTrace &n_trace) {
 
 		// First check for the global client object and create it if needed
 		if (!s_xray_client) {
-			// Using a pool executor is supposed to render the client thread safe
-			Aws::Client::ClientConfiguration client_config;
-			client_config.enableEndpointDiscovery = use_endpoint_discovery();
-			const FString xray_endpoint = readenv(TEXT("CLOUDCONNECTOR_XRAY_ENDPOINT"));
-			if (!xray_endpoint.IsEmpty()) {
-				client_config.endpointOverride = TCHAR_TO_UTF8(*xray_endpoint);
-			}
-
-			s_xray_client = Aws::MakeUnique<Aws::XRay::XRayClient>("CCXRayAllocation", client_config);
+			s_xray_client = aws_client_factory<Aws::XRay::XRayClient>::create();
 		}
 
 		// Now create an XRay trace document from our trace

@@ -5,12 +5,14 @@
 #include "AWSStorageImpl.h"
 #include "ICloudConnector.h"
 #include "TraceMacros.h"
+//#include "ClientFactory.h"
 
 #include "Async/Async.h"
 #include "Internationalization/Regex.h"
 
  // AWS SDK
 #include "Windows/PreWindowsApi.h"
+#include <aws/core/auth/AWSAuthSigner.h>
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/core/client/AWSError.h>
 #include <aws/core/utils/Outcome.h>
@@ -95,7 +97,7 @@ bool AWSStorageImpl::exists(const FCloudStorageKey &n_key,
 	// We have to do that outside our thread to avoid the possible race of
 	// two ops
 	if (!s_s3_client) {
-		s_s3_client = Aws::MakeUnique<Aws::S3::S3Client>("CCS3Allocation");
+		s_s3_client = aws_client_factory<Aws::S3::S3Client>::create();
 	}
 
 	// technically it's a bit of an overkill to go async here but this impl
@@ -165,7 +167,7 @@ bool AWSStorageImpl::write(const FCloudStorageKey &n_key, const TArrayView<const
 
 	// Create a S3 client object and assemble request
 	if (!s_s3_client) {
-		s_s3_client = Aws::MakeUnique<Aws::S3::S3Client>("CCS3Allocation");
+		s_s3_client = aws_client_factory<Aws::S3::S3Client>::create();
 	}
 
 	Async(EAsyncExecution::ThreadPool, [n_key, n_data, n_completion, n_trace] {

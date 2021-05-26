@@ -9,3 +9,5 @@
 #include "HAL/Thread.h"
 #include "Async/AsyncWork.h"
 #include "Async/TaskGraphInterfaces.h"
+
+#include "ClientFactory.h"

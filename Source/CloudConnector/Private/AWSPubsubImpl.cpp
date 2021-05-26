@@ -5,6 +5,7 @@
 #include "AWSPubsubImpl.h"
 #include "ICloudConnector.h"
 #include "Utilities.h"
+#include "ClientFactory.h"
 
 #include "Async/Async.h"
 #include "Internationalization/Regex.h"
@@ -68,23 +69,14 @@ class SQSRunner : public FRunnable {
 
 		bool Init() override {
 
-			Aws::Client::ClientConfiguration client_config;
-			client_config.enableEndpointDiscovery = use_endpoint_discovery();
-			const FString sqs_endpoint = readenv(TEXT("CLOUDCONNECTOR_SQS_ENDPOINT"));
-			if (!sqs_endpoint.IsEmpty()) {
-				client_config.endpointOverride = TCHAR_TO_UTF8(*sqs_endpoint);
-			}
-
-			// Must be longer than long polling wait time
-			client_config.httpRequestTimeoutMs = 7000;
-			client_config.requestTimeoutMs = 6000;
-
-			m_sqs = MakeShared<Aws::SQS::SQSClient>(client_config);
-
+			// Sanity please
 			if (!m_handler.IsBound()) {
 				UE_LOG(LogCloudConnector, Warning, TEXT("Cannot start to poll without a bound delegate"));
 				return false;
 			}
+
+			// Then create our client object
+			m_sqs = aws_client_factory<Aws::SQS::SQSClient>::create();
 
 			return true;
 		}
@@ -272,11 +264,11 @@ class SQSRunner : public FRunnable {
 			}
 		}
 
-		const Aws::String                m_queue_url;
-		const bool                       m_handle_on_game_thread;
-		const FPubsubMessageReceived     m_handler;
-		TAtomic<bool>                    m_interrupted = false;
-		TSharedPtr<Aws::SQS::SQSClient>  m_sqs;
+		const Aws::String                    m_queue_url;
+		const bool                           m_handle_on_game_thread;
+		const FPubsubMessageReceived         m_handler;
+		TAtomic<bool>                        m_interrupted = false;
+		Aws::UniquePtr<Aws::SQS::SQSClient>  m_sqs;
 };
 
 
@@ -341,6 +333,7 @@ bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 	// First stop the thread.
 	// Killing it this way waits for the thread to join.
 	s->Get< TUniquePtr<FRunnableThread> >()->Kill(true);
+	s->Get< TUniquePtr<FRunnableThread> >()->WaitForCompletion();
 
 	// And delete all the data
 	FScopeLock slock(&s_subscriptions_mutex);

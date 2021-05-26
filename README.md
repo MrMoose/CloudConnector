@@ -104,6 +104,24 @@ CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED:<br>
 If set to `True`, AWS client objects will be created with the 
 "endpoint discovery" option enabled, which is opt-in.
 
+CLOUDCONNECTOR_AWS_ACCESS_KEY, CLOUDCONNECTOR_AWS_SECRET_KEY:<br>
+When both are set to a programmatic's users's keypair, these credentials are used
+instead of the `~/.aws/credentials` mechanism.
+It is not recommended to use this option. If you do, you should set
+`CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED` and `CLOUDCONNECTOR_AWS_REGION` as well
+
+CLOUDCONNECTOR_AWS_REGION:<br>
+If set, this region will be used when instantiating client objects.
+All services will use that region.
+It is not recommended to use this option.
+
+CLOUDCONNECTOR_AWS_CLOUDWATCH_ENDPOINT,<br>
+CLOUDCONNECTOR_AWS_SQS_ENDPOINT,<br>
+CLOUDCONNECTOR_AWS_S3_ENDPOINT,<br>
+CLOUDCONNECTOR_AWS_XRAY_ENDPOINT:<br>
+If set, the SDK's automatic endpoint chosing mechanics will be
+overridden with the appropriate value.
+It is not recommended to use this option.
 
 ### Activation
 
