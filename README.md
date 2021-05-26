@@ -478,7 +478,7 @@ AWS may have remedied the situation by the time you read this, so better double 
 
 ## Troubleshooting
 
-_I have configured logging but see no logs in the CloudWatch console_:
+##### I have configured logging but see no logs in the CloudWatch console
 
 You may have been missing a `config` file in `~/.aws/`. Try this:
 ```
@@ -490,12 +490,12 @@ output = json
 see if your console browser is pointing into that region. Lastly 
 note that logging is unavailable in shipping build configuration.
 
-_I have configured logging but see no logs in the Google Logging console_:
+##### I have configured logging but see no logs in the Google Logging console
 
 Google logging is not yet implemented. Also 
 note that logging is unavailable in shipping build configuration.
 
-_I want to trace with XRay but no traces appear_:
+##### I want to trace with XRay but no traces appear
 
 If in an isolated subnet, XRay will not work due to the lack of VPC endpoints for it.
 If not, check the following:
@@ -503,7 +503,7 @@ If not, check the following:
 * are you creating a tracer object?
 * are you opening and closing segments
 
-_When trying to build a package, I get weird protobuf related llinker errors_:
+##### When trying to build a package, I get weird protobuf related linker errors
 
 Check if you use the PixelStreaming plugin. It can not coexist with CloudConnector.
 At least it can't in 4.26. See here:
