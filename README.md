@@ -48,8 +48,7 @@ void receive_message(const FPubsubMessage n_message, PubsubReturnPromisePtr n_pr
 ... then start the listening process by:
 
 ```C++
-ICloudConnector::Get().pubsub().subscribe(topic, m_subscription,
-		delegate_bound_to_your_handler);
+ICloudConnector::Get().pubsub().subscribe(topic, m_subscription, delegate_bound_to_your_handler);
 ```
 
 Upload files to S3 or Storage by:
