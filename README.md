@@ -28,6 +28,46 @@ contact [MrMoose](https://github.com/MrMoose).
 Supported Engine version:
 * 4.26
 
+## Quickstart
+
+This section gives a quick overview but omits lots of details. It's only an appetizer. 
+Look in the sections below for full documentation.
+
+First install the plugin by cloning the repo into your Unreal 
+project's `Plugins` folder and build the Editor.
+
+Open the Editor, create an actor of type `ACloudConnector` in your persistent level.
+
+You should already have CloudWatch logging if you activate it in the actor's properties.<br>
+To receive messages from SQS, implement a function like this
+
+```C++
+void receive_message(const FPubsubMessage n_message, PubsubReturnPromisePtr n_promise);
+```
+
+... then start the listening process by:
+
+```C++
+ICloudConnector::Get().pubsub().subscribe(topic, m_subscription,
+		delegate_bound_to_your_handler);
+```
+
+Upload files to S3 or Storage by:
+
+```C++
+// Key is like bucket + filename + mime type
+FCloudStorageKey key{
+	TEXT("PictureOfMyCat.jpg"),
+	TEXT("super-cat-pic-bucket"),
+	TEXT("image/jpg")
+};
+
+// a non-owning view of your data
+TArrayView<const uint8> view{ data };
+
+// Trigger the write operation. Lambda will fire upon return
+ICloudConnector::Get().storage().write(key, view, FCloudStorageWriteFinishedDelegate::CreateLambda(...));
+```
 
 ## Usage
 
@@ -58,70 +98,8 @@ Then start the editor.
 ### Environment
 
 Some environment variables influence CloudConnector's behavior 
-for ease of use on cloud instances. Some are cloud specific.
-
-#### General
-
-_CLOUDCONNECTOR_CLOUD_PROVIDER_:<br>
-Using this you can override the cloud provider setting in
-the configuration actor to use a different impl. Values are:
-* "None" - for none. Won't do anything
-* "AWS"
-* "Google"
-All other values are ignored.
-
-_CLOUDCONNECTOR_DEFAULT_TOPIC_:<br>
-When using ICloudPubsub::subscribe_default(), this is the topic 
-you will subscribe to.
-
-_CLOUDCONNECTOR_LOGS_ENABLED_:<br>
-Even when the configuration actor has Cloud Logging disabled, you can
-override at runtime by setting this to `True`.
-
-_CLOUDCONNECTOR_TRACING_ENABLED_:<br>
-Even when the configuration actor has Cloud Tracing disabled, you can
-override at runtime by setting this to `True`.
-
-_CLOUDCONNECTOR_STACK_NAME_:<br>
-This environment variable is taken whenever it comes to identifying a stack.
-Normally this should always be injected by your IaC system.
-When not set, it defaults to `UnknownStack`.
-
-_CLOUDCONNECTOR_INSTANCE_ID_:<br>
-CloudConnector will query the cloud provider's metadata server for the local
-instance ID. For example, when creating log streams. This behavior can 
-be overridden by setting this environment variable to a custom instance id.
-Please note that this may lead to unsatisfactory results when using characters
-that are not allowed in either log stream names or in pubsub subscriptions.
-Use something simple that only contains "0-9a-zA-Z-".
-If this is not set and a query to the metadata server is unsuccessful
-(for example because you're not running in the cloud), it will
-default to `LocalInstance`.
-
-#### AWS specific 
-
-CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED:<br>
-If set to `True`, AWS client objects will be created with the 
-"endpoint discovery" option enabled, which is opt-in.
-
-CLOUDCONNECTOR_AWS_ACCESS_KEY, CLOUDCONNECTOR_AWS_SECRET_KEY:<br>
-When both are set to a programmatic's users's keypair, these credentials are used
-instead of the `~/.aws/credentials` mechanism.
-It is not recommended to use this option. If you do, you should set
-`CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED` and `CLOUDCONNECTOR_AWS_REGION` as well
-
-CLOUDCONNECTOR_AWS_REGION:<br>
-If set, this region will be used when instantiating client objects.
-All services will use that region.
-It is not recommended to use this option.
-
-CLOUDCONNECTOR_AWS_CLOUDWATCH_ENDPOINT,<br>
-CLOUDCONNECTOR_AWS_SQS_ENDPOINT,<br>
-CLOUDCONNECTOR_AWS_S3_ENDPOINT,<br>
-CLOUDCONNECTOR_AWS_XRAY_ENDPOINT:<br>
-If set, the SDK's automatic endpoint chosing mechanics will be
-overridden with the appropriate value.
-It is not recommended to use this option.
+for ease of use on cloud instances. Some are cloud specific. See section 
+"Environment Variables" below for full details. 
 
 ### Activation
 
@@ -475,6 +453,75 @@ There are no VPC endpoints for it like for most other services and therefore
 you cannot trace unless your instance can reach the internet. However,
 AWS may have remedied the situation by the time you read this, so better double check.
 
+
+## Environment Variables
+
+In most scenarios stack specific configuration of running Unreal instances is best 
+achieved using environment variables. You should prefer this over setting defaults in
+the properties section of the config actor.
+
+### General
+
+_CLOUDCONNECTOR_CLOUD_PROVIDER_:<br>
+Using this you can override the cloud provider setting in
+the configuration actor to use a different impl. Values are:
+* "None" - for none. Won't do anything
+* "AWS"
+* "Google"
+All other values are ignored.
+
+_CLOUDCONNECTOR_DEFAULT_TOPIC_:<br>
+When using ICloudPubsub::subscribe_default(), this is the topic 
+you will subscribe to.
+
+_CLOUDCONNECTOR_LOGS_ENABLED_:<br>
+Even when the configuration actor has Cloud Logging disabled, you can
+override at runtime by setting this to `True`.
+
+_CLOUDCONNECTOR_TRACING_ENABLED_:<br>
+Even when the configuration actor has Cloud Tracing disabled, you can
+override at runtime by setting this to `True`.
+
+_CLOUDCONNECTOR_STACK_NAME_:<br>
+This environment variable is taken whenever it comes to identifying a stack.
+Normally this should always be injected by your IaC system.
+When not set, it defaults to `UnknownStack`.
+
+_CLOUDCONNECTOR_INSTANCE_ID_:<br>
+CloudConnector will query the cloud provider's metadata server for the local
+instance ID. For example, when creating log streams. This behavior can 
+be overridden by setting this environment variable to a custom instance id.
+Please note that this may lead to unsatisfactory results when using characters
+that are not allowed in either log stream names or in pubsub subscriptions.
+Use something simple that only contains "0-9a-zA-Z-".
+If this is not set and a query to the metadata server is unsuccessful
+(for example because you're not running in the cloud), it will
+default to `LocalInstance`.
+
+### AWS specific 
+
+CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED:<br>
+If set to `True`, AWS client objects will be created with the 
+"endpoint discovery" option enabled, which is opt-in.
+
+CLOUDCONNECTOR_AWS_ACCESS_KEY, CLOUDCONNECTOR_AWS_SECRET_KEY:<br>
+When both are set to a programmatic's users's keypair, these credentials are used
+instead of the `~/.aws/credentials` mechanism.
+It is not recommended to use this option. If you do, you should set
+`CLOUDCONNECTOR_ENDPOINT_DISCOVERY_ENABLED` and `CLOUDCONNECTOR_AWS_REGION` as well
+
+CLOUDCONNECTOR_AWS_REGION:<br>
+If set, this region will be used when instantiating client objects.
+All services will use that region.
+It is not recommended to use this option.
+
+CLOUDCONNECTOR_AWS_CLOUDWATCH_ENDPOINT,<br>
+CLOUDCONNECTOR_AWS_SQS_ENDPOINT,<br>
+CLOUDCONNECTOR_AWS_S3_ENDPOINT,<br>
+CLOUDCONNECTOR_AWS_XRAY_ENDPOINT:<br>
+If set, the SDK's automatic endpoint chosing mechanics will be
+overridden with the appropriate value.
+It is not recommended to use this option.
 
 ## Troubleshooting
 
