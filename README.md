@@ -68,6 +68,9 @@ TArrayView<const uint8> view{ data };
 ICloudConnector::Get().storage().write(key, view, FCloudStorageWriteFinishedDelegate::CreateLambda(...));
 ```
 
+Interested? I thought so. Please see below for full documentation. If you find anything lacking, feel 
+free to start a discussion.
+
 ## Usage
 
 ### Installation
