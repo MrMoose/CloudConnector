@@ -89,7 +89,8 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 					// as intended, except CloudWatch.
 					// #moep remove this when no longer required
 					if (!(n_config->AWSSuppressCloudWatchLogsInPIE && n_config->GetWorld()->IsPlayInEditor())) {
-						m_log_device = MakeUnique<FCloudWatchLogOutputDevice>(n_config->LogGroupPrefix);
+						m_log_device = MakeUnique<FCloudWatchLogOutputDevice>(n_config->LogGroupPrefix, 
+								static_cast<ELogVerbosity::Type>(n_config->AWSCloudWatchVerbosityLimit));
 						GLog->AddOutputDevice(m_log_device.Get());
 					}
 				}

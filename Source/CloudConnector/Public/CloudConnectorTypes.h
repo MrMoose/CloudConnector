@@ -24,3 +24,19 @@ enum class ECloudProvider : uint8 {
 	GOOGLE = 2
 };
 
+/** @brief Unreal's internal log verbosity type cannot be used as a Property
+ *  so I need to copy it here in order to expose this value on ACloudConnector.
+ *  Not recommended to do so. See LogVerbosity.h for description
+ */
+UENUM(Category = "CloudConnector")
+enum class  ECloudLogVerbosityLimit : uint8 {
+
+	NoLogging = 0,
+	Fatal,
+	Error,
+	Warning,
+	Display,
+	Log,
+	Verbose,
+	All
+};

@@ -109,6 +109,16 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector")
 		bool AWSSuppressCloudWatchLogsInPIE = false;
 
+		/** You can restrict CloudWatch's log verbosity to only include messages 
+		 *  below a given verbosity.
+		 *  Note that this is a filter _after_ the engine's log filtered.
+		 *  Meaning if your log system is set to "Error", setting this to "Verbose"
+		 *  won't get you any more logs. It filters after the decision making in the engine
+		 *  has taken place.
+		 */
+		UPROPERTY(EditAnywhere, AdvancedDisplay, Category = "CloudConnector")
+		ECloudLogVerbosityLimit AWSCloudWatchVerbosityLimit = ECloudLogVerbosityLimit::All;
+
 		/** Set the Project scope on Google Cloud
 		 *  AWS doesn't have an equivalent of the "Project" scope Google uses,
 		 *  yet this is needed all over the place for Google.

@@ -24,7 +24,7 @@
 class FCloudWatchLogOutputDevice : public FOutputDevice {
 
 	public:
-		FCloudWatchLogOutputDevice(const FString &n_log_group_prefix);
+		FCloudWatchLogOutputDevice(const FString &n_log_group_prefix, const ELogVerbosity::Type n_min_verbosity);
 		~FCloudWatchLogOutputDevice() noexcept;
 		FCloudWatchLogOutputDevice(FCloudWatchLogOutputDevice &&) = delete;
 		FCloudWatchLogOutputDevice(const FCloudWatchLogOutputDevice &) = delete;
@@ -60,20 +60,22 @@ class FCloudWatchLogOutputDevice : public FOutputDevice {
 		Aws::UniquePtr<Aws::CloudWatchLogs::CloudWatchLogsClient> m_cwclient;
 
 		struct LogEntry {
-			long long            m_timestamp;   //!< millis since epoch (type required by InputLogEvent)
-			Aws::String          m_message;
+			long long             m_timestamp;   //!< millis since epoch (type required by InputLogEvent)
+			Aws::String           m_message;
 		};
 
 		using LogQueue = TQueue<LogEntry, EQueueMode::Mpsc>;
 
-		TUniquePtr<FThread>      m_log_thread;
-		TAtomic<bool>            m_interrupted;
+		TUniquePtr<FThread>       m_log_thread;
+		TAtomic<bool>             m_interrupted;
 
-		LogQueue                 m_log_q;
-		FString                  m_instance_id;
-		const FString            m_log_group_prefix;
-		Aws::String              m_log_group_name;
-		Aws::String              m_log_stream_name;
-		Aws::String              m_upload_sequence_token;
+		LogQueue                  m_log_q;
+		
+		FString                   m_instance_id;
+		const FString             m_log_group_prefix;
+		const ELogVerbosity::Type m_min_verbosity;
+		Aws::String               m_log_group_name;
+		Aws::String               m_log_stream_name;
+		Aws::String               m_upload_sequence_token;
 };
 

@@ -28,9 +28,10 @@ using namespace Aws::CloudWatchLogs::Model;
 using Aws::CloudWatchLogs::CloudWatchLogsError;
 using Aws::CloudWatchLogs::CloudWatchLogsErrors;
 
-FCloudWatchLogOutputDevice::FCloudWatchLogOutputDevice(const FString &n_log_group_prefix)
+FCloudWatchLogOutputDevice::FCloudWatchLogOutputDevice(const FString &n_log_group_prefix, const ELogVerbosity::Type n_min_verbosity)
 		: m_interrupted{ false }
 		, m_log_group_prefix(n_log_group_prefix)
+		, m_min_verbosity{ n_min_verbosity }
 		, m_log_group_name{ TCHAR_TO_UTF8(*n_log_group_prefix) } {
 
 	bAutoEmitLineTerminator = false;
@@ -57,10 +58,16 @@ void FCloudWatchLogOutputDevice::TearDown() {
 
 void FCloudWatchLogOutputDevice::Serialize(const TCHAR *n_message, ELogVerbosity::Type n_verbosity, const FName &n_category, const double n_time) {
 
-	Serialize(n_message, n_verbosity, n_category);
+	if (n_verbosity <= m_min_verbosity) {
+		Serialize(n_message, n_verbosity, n_category);
+	}
 }
 
 void FCloudWatchLogOutputDevice::Serialize(const TCHAR* n_message, ELogVerbosity::Type n_verbosity, const FName &n_category) {
+
+	if (n_verbosity > m_min_verbosity) {
+		return;
+	}
 
 	FCloudWatchLogOutputDevice::LogEntry entry;
 	entry.m_timestamp = millis_since_epoch();
