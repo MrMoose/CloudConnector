@@ -6,7 +6,6 @@
 
 #include "CoreMinimal.h"
 #include "HAL/Thread.h"
-#include "Templates/Atomic.h"
 #include "Logging/LogVerbosity.h"
 #include "Misc/OutputDevice.h"
 #include "Containers/Queue.h"
@@ -17,6 +16,7 @@
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include "Windows/PostWindowsApi.h"
 
+#include <atomic>
 
 /** @brief logging backend for Engine logs
  *  which sends logs to AWS CloudWatch every 5 seconds
@@ -67,7 +67,7 @@ class FCloudWatchLogOutputDevice : public FOutputDevice {
 		using LogQueue = TQueue<LogEntry, EQueueMode::Mpsc>;
 
 		TUniquePtr<FThread>       m_log_thread;
-		TAtomic<bool>             m_interrupted;
+		std::atomic<bool>         m_interrupted;
 
 		LogQueue                  m_log_q;
 		

@@ -5,7 +5,7 @@
 #include "AWSStorageImpl.h"
 #include "ICloudConnector.h"
 #include "TraceMacros.h"
-//#include "ClientFactory.h"
+#include "ClientFactory.h"
 
 #include "Async/Async.h"
 #include "Internationalization/Regex.h"
@@ -18,11 +18,11 @@
 #include <aws/core/utils/Outcome.h>
 #include <aws/core/utils/memory/AWSMemory.h>
 #include <aws/core/utils/memory/stl/AWSAllocator.h>
-#include <aws/s3/S3Client.h>
-#include <aws/s3/model/PutObjectRequest.h>
-#include <aws/s3/model/PutObjectResult.h>
-#include <aws/s3/model/ListObjectsRequest.h>
-#include <aws/s3/model/ListObjectsResult.h>
+#include <aws/s3-crt/S3CrtClient.h>
+#include <aws/s3-crt/model/PutObjectRequest.h>
+#include <aws/s3-crt/model/PutObjectResult.h>
+#include <aws/s3-crt/model/ListObjectsRequest.h>
+#include <aws/s3-crt/model/ListObjectsResult.h>
 #include "Windows/PostWindowsApi.h"
 
 // std
@@ -31,12 +31,12 @@
 #include <strstream>
 #include <fstream>
 
-using namespace Aws::S3::Model;
+using namespace Aws::S3Crt::Model;
 
 /* Those objects are supposedly threadsafe and tests have shown that they really appear to be so
  * it seems to be safe to concurrently access this from multiple threads at once
  */
-static Aws::UniquePtr<Aws::S3::S3Client> s_s3_client;
+static Aws::UniquePtr<Aws::S3Crt::S3CrtClient> s_s3_client;
 
 // we use those as identifiers for our segments in case traces are enabled
 static const FString s_s3_exists_segment = TEXT("S3 Exists");
@@ -97,7 +97,7 @@ bool AWSStorageImpl::exists(const FCloudStorageKey &n_key,
 	// We have to do that outside our thread to avoid the possible race of
 	// two ops
 	if (!s_s3_client) {
-		s_s3_client = aws_client_factory<Aws::S3::S3Client>::create();
+		s_s3_client = aws_client_factory<Aws::S3Crt::S3CrtClient>::create();
 	}
 
 	// technically it's a bit of an overkill to go async here but this impl
@@ -167,7 +167,7 @@ bool AWSStorageImpl::write(const FCloudStorageKey &n_key, const TArrayView<const
 
 	// Create a S3 client object and assemble request
 	if (!s_s3_client) {
-		s_s3_client = aws_client_factory<Aws::S3::S3Client>::create();
+		s_s3_client = aws_client_factory<Aws::S3Crt::S3CrtClient>::create();
 	}
 
 	Async(EAsyncExecution::ThreadPool, [n_key, n_data, n_completion, n_trace] {

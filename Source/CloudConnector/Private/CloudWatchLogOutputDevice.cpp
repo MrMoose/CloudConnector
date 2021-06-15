@@ -48,7 +48,7 @@ void FCloudWatchLogOutputDevice::TearDown() {
 
 	// we are running and must join
 	if (m_log_thread) {
-		m_interrupted.Store(true);
+		m_interrupted.store(true);
 		m_log_thread->Join();
 		m_log_thread.Reset();
 

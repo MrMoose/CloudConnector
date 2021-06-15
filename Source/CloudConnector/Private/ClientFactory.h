@@ -10,6 +10,7 @@
 #include "Windows/PreWindowsApi.h"
 #include <aws/core/auth/AWSCredentials.h>
 #include <aws/core/client/ClientConfiguration.h>
+#include <aws/s3-crt/ClientConfiguration.h>
 #include <aws/core/utils/memory/AWSMemory.h>  // for unique_ptr
 #include <aws/core/utils/memory/stl/AWSString.h>
 #include "Windows/PostWindowsApi.h"
@@ -17,7 +18,7 @@
 
 namespace Aws::CloudWatchLogs { class CloudWatchLogsClient; }
 namespace Aws::SQS { class SQSClient; }
-namespace Aws::S3 { class S3Client; }
+namespace Aws::S3Crt { class S3CrtClient; }
 namespace Aws::XRay { class XRayClient; }
 
 
@@ -27,16 +28,23 @@ namespace Aws::XRay { class XRayClient; }
 template<typename ClientType>
 struct aws_client_factory {
 
-	public:
+	public:	
+		// Damn AWS moved the ClientConfig into different namespaces and types
+		// when trying to use s3-crt.
+		// This factory is getting less worthwhile with every one of these changes
+		typedef typename std::conditional<
+			std::is_same<Aws::S3Crt::S3CrtClient, ClientType>::value,
+			Aws::S3Crt::ClientConfiguration,
+			Aws::Client::ClientConfiguration
+		>::type ClientConfigType;
+
 		/// Get us a preconfigured Aws client object depending on type
 		/// When adding new types, sadly they need to be fwd declared above
 		/// just in case you're here because of that. 
 		static Aws::UniquePtr<ClientType> create() {
 	
-			Aws::Client::ClientConfiguration config = client_config();
-			config.enableEndpointDiscovery = use_endpoint_discovery();
-			config.endpointOverride = TCHAR_TO_ANSI(*readenv(s_endpoint_override_env));
-
+			ClientConfigType config = client_config();
+			
 			// Careful tinkering with that
 			const FString aws_region = readenv(TEXT("CLOUDCONNECTOR_AWS_REGION"));
 			if (!aws_region.IsEmpty()) {
@@ -74,12 +82,14 @@ struct aws_client_factory {
 		static const FString s_endpoint_override_env;
 
 		// get us a client config for that type
-		static Aws::Client::ClientConfiguration client_config() {
-			return {};
+		static ClientConfigType client_config() {
+
+			ClientConfigType config;
+			config.enableEndpointDiscovery = use_endpoint_discovery();
+			config.endpointOverride = TCHAR_TO_ANSI(*readenv(s_endpoint_override_env));
+			return config;
 		};
 };
-
-
 
 template<>
 const char *aws_client_factory<Aws::CloudWatchLogs::CloudWatchLogsClient>::s_memtag = "CloudWatch";
@@ -88,7 +98,7 @@ template<>
 const char *aws_client_factory<Aws::SQS::SQSClient>::s_memtag = "Sqs";
 
 template<>
-const char *aws_client_factory<Aws::S3::S3Client>::s_memtag = "S3";
+const char *aws_client_factory<Aws::S3Crt::S3CrtClient>::s_memtag = "S3";
 
 template<>
 const char *aws_client_factory<Aws::XRay::XRayClient>::s_memtag = "XRay";
@@ -102,7 +112,7 @@ const FString aws_client_factory<Aws::SQS::SQSClient>::
 s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_SQS_ENDPOINT") };
 
 template<>
-const FString aws_client_factory<Aws::S3::S3Client>::
+const FString aws_client_factory<Aws::S3Crt::S3CrtClient>::
 s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_S3_ENDPOINT") };
 
 template<>
@@ -113,13 +123,21 @@ s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_XRAY_ENDPOINT") };
 // when used with timeouts too high or poll times above 4 seconds.
 // So we use somewhat tighter timeouts here
 template<>
+Aws::S3Crt::ClientConfiguration aws_client_factory<Aws::S3Crt::S3CrtClient>::
+client_config() {
+
+	Aws::S3Crt::ClientConfiguration ret;
+	return ret;
+}
+
+template<>
 Aws::Client::ClientConfiguration aws_client_factory<Aws::SQS::SQSClient>::
 client_config() {
 
 	Aws::Client::ClientConfiguration ret;
 	ret.httpRequestTimeoutMs = 7000;
 	ret.requestTimeoutMs = 6000;
+	ret.enableEndpointDiscovery = use_endpoint_discovery();
+	ret.endpointOverride = TCHAR_TO_ANSI(*readenv(s_endpoint_override_env));
 	return ret;
 }
-
-

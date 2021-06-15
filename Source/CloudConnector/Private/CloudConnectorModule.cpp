@@ -25,12 +25,14 @@
 #include "Engine/World.h"   // for optional suppression of CloudWatch when PIE
 #include "Misc/OutputDeviceFile.h"
 
+#include <atomic>
+
 DEFINE_LOG_CATEGORY(LogCloudConnector)
 #define LOCTEXT_NAMESPACE "FCloudConnectorModule"
 
 
-TAtomic<bool>    s_aws_sdk_initialized = false;
-Aws::SDKOptions  s_aws_sdk_options;
+std::atomic<bool>  s_aws_sdk_initialized = false;
+Aws::SDKOptions    s_aws_sdk_options;
 
 
 void FCloudConnectorModule::StartupModule() {
@@ -70,7 +72,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				if (!s_aws_sdk_initialized) {
 					s_aws_sdk_options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Info;
 					Aws::InitAPI(s_aws_sdk_options);
-					s_aws_sdk_initialized.Store(true);
+					s_aws_sdk_initialized.store(true);
 				}
 
 				if (n_config->AWSLogs) {
@@ -146,7 +148,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 					// Again, this will cause trouble if more than one module links against the AWS SDK.
 					// I am well aware of this
 					Aws::ShutdownAPI(s_aws_sdk_options);
-					s_aws_sdk_initialized.Store(false);
+					s_aws_sdk_initialized.store(false);
 				}
 
 				break;

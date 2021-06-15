@@ -9,6 +9,7 @@
 
 #include "Async/Async.h"
 #include "Internationalization/Regex.h"
+#include "HAL/Thread.h"
 
  // AWS SDK
 #include "Windows/PreWindowsApi.h"
@@ -22,13 +23,15 @@
 
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/SQSRequest.h>
+//#include <aws/sqs/model/ReceiveMessageAsyncRequest.h>
+//#include <aws/sqs/model/ReceiveMessageAsyncResult.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
 #include <aws/sqs/model/DeleteMessageRequest.h>
 #include <aws/sqs/model/ChangeMessageVisibilityRequest.h>
 #include "Windows/PostWindowsApi.h"
 
-FCriticalSection AWSPubsubImpl::s_subscriptions_mutex;
+#include <atomic>
 
 using namespace Aws::SQS::Model;
 
@@ -40,12 +43,14 @@ AWSPubsubImpl::AWSPubsubImpl(const bool n_handle_in_game_thread)
 AWSPubsubImpl::~AWSPubsubImpl() noexcept {
 
 	try {
+		UE_LOG(LogCloudConnector, Display, TEXT("MOEP: sqs d'tor"));
+
 		// user may have not unsubscribed
 		TArray<FSubscription> remaining_subs;
 		remaining_subs.Reserve(m_subscriptions.Num());
 		{
-			FScopeLock slock(&s_subscriptions_mutex);
-			for (const TPair<FSubscription, SQSSubscriptionTuple> &i : m_subscriptions) {
+			FScopeLock slock(&m_subscriptions_mutex);
+			for (const TPair<FSubscription, TUniquePtr<SQSRunner> > &i : m_subscriptions) {
 				remaining_subs.Add(i.Key);
 			}
 		}
@@ -58,104 +63,94 @@ AWSPubsubImpl::~AWSPubsubImpl() noexcept {
 	}
 }
 
-class SQSRunner : public FRunnable {
+class SQSRunner {
 
 	public:
 		SQSRunner(const FString &n_queue_url, const bool n_handle_on_game_thread, const FPubsubMessageReceived n_handler)
 				: m_queue_url{ TCHAR_TO_UTF8(*n_queue_url) }
 				, m_handle_on_game_thread{ n_handle_on_game_thread }
 				, m_handler{ n_handler } {
-		}
-
-		bool Init() override {
 
 			// Sanity please
-			if (!m_handler.IsBound()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("Cannot start to poll without a bound delegate"));
-				return false;
-			}
+			checkf(m_handler.IsBound(), TEXT("Handler for SQS must be bound"));
 
-			// Then create our client object
-			m_sqs = aws_client_factory<Aws::SQS::SQSClient>::create();
-
-			return true;
+			// And fire up a thread to run while we're gone
+			m_runner = MakeUnique<FThread>(TEXT("AWS SQS Runner"), [this] { this->run(); });
 		}
 
-		uint32 Run() override {
+		void run() noexcept {
 
-			while (!m_interrupted) 	{
-				// It may happen that this component is not yet set up once a caller says start_polling().
-				// Right now I only see the way of deferring the actual start until this is done.
-				// I do this by waiting for the caller to remedy this
-				if (m_queue_url.empty()) 		{
-					FPlatformProcess::Sleep(0.5);
-					continue;
-				}
+			// Now create our client object
+			m_sqs = aws_client_factory<Aws::SQS::SQSClient>::create();
 
-				ReceiveMessageRequest rm_req;
-				rm_req.SetQueueUrl(m_queue_url);
-				rm_req.SetMaxNumberOfMessages(1);
+			// Loop and receive messages, re-use request object
+			ReceiveMessageRequest rm_req;
+			rm_req.SetQueueUrl(m_queue_url);
+			rm_req.SetMaxNumberOfMessages(1);
 
-				// This is not a timeout per se but long polling, which means the call will return
-				// After this many seconds even if there are no messages, which is not an error.
-				// See https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html#sqs-long-polling
-				//
-				// I am hard-chosing 4 here as values of 5 and above caused weird errors in testing.
-				//
-				rm_req.SetWaitTimeSeconds(4);
+			// This is not a timeout per se but long polling, which means the call will return
+			// After this many seconds even if there are no messages, which is not an error.
+			// See https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html#sqs-long-polling
+			//
+			// I am hard-choosing 4 here as values of 5 and above caused weird errors in testing.
+			//
+			rm_req.SetWaitTimeSeconds(4);
 
-				// Request some additional info with each message
-				rm_req.SetAttributeNames({
+			// Request some additional info with each message
+			rm_req.SetAttributeNames({
 
-					// For X-Ray tracing, I need an AWSTraceHeader, which in the C++ SDK 
-					// seems to be not in the enum like the others. To have it included in the response,
-					// only All will do the trick.
-					QueueAttributeName::All,
+				// For X-Ray tracing, I need an AWSTraceHeader, which in the C++ SDK 
+				// seems to be not in the enum like the others. To have it included in the response,
+				// only All will do the trick.
+				QueueAttributeName::All,
 
-					QueueAttributeName::SentTimestamp,             // to calculate age
-					QueueAttributeName::ApproximateReceiveCount    // to see how often that message has been received (approximation)
-				});
+				QueueAttributeName::SentTimestamp,             // to calculate age
+				QueueAttributeName::ApproximateReceiveCount    // to see how often that message has been received (approximation)
+			});
 
-				// This is how it's supposed to work but it doesn't. Hence the 'All' above
-				rm_req.SetMessageAttributeNames({
-					MessageSystemAttributeNameMapper::GetNameForMessageSystemAttributeName(MessageSystemAttributeName::AWSTraceHeader)
-					});
+			// This is how it's supposed to work but it doesn't. Hence the 'All' above
+			rm_req.SetMessageAttributeNames({
+				MessageSystemAttributeNameMapper::GetNameForMessageSystemAttributeName(MessageSystemAttributeName::AWSTraceHeader)
+			});
 
-				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(rm_req);
-				if (!rm_out.IsSuccess()) 		{
+			while (!m_interrupted.load()) 	{
+
+				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(rm_req);	
+				if (!rm_out.IsSuccess()) {
 					UE_LOG(LogCloudConnector, Warning, TEXT("Failed to retrieve message from queue '%s': '%s'"),
 							UTF8_TO_TCHAR(m_queue_url.c_str()), UTF8_TO_TCHAR(rm_out.GetError().GetMessage().c_str()));
 					continue;
 				}
 
-				if (rm_out.GetResult().GetMessages().empty()) 		{
+				if (rm_out.GetResult().GetMessages().empty()) {
 					UE_LOG(LogCloudConnector, Display, TEXT("Long polling from queue '%s' returned with a timeout of 4s, no new messages"),
 							UTF8_TO_TCHAR(m_queue_url.c_str()));
 					continue;
 				}
 
 				UE_LOG(LogCloudConnector, Verbose, TEXT("Long polling with a timeout of 4s returned from queue '%s', %i messages"),
-							UTF8_TO_TCHAR(m_queue_url.c_str()), rm_out.GetResult().GetMessages().size());
+						UTF8_TO_TCHAR(m_queue_url.c_str()), rm_out.GetResult().GetMessages().size());
 
 				// Process the message and call handler
 				process_message(rm_out.GetResult().GetMessages()[0]);
 
 				// Rinse, repeat until interrupted
-				continue;
 			}
-
-			// I don't know what to return here
-			return 0;
 		}
 
 		/// Stops the runnable object from foreign thread
-		void Stop() override {
+		void interrupt() {
 
-			m_interrupted.Store(true);
+			m_interrupted.store(true);
 		}
 
-		/// We should have no cleanup needed
-		void Exit() override {}
+		/// call this on game thread
+		void join() {
+			
+			// There's a bug here. 
+			m_runner->Join();
+			m_runner.Reset();
+		}
 
 	private:
 
@@ -267,8 +262,9 @@ class SQSRunner : public FRunnable {
 		const Aws::String                    m_queue_url;
 		const bool                           m_handle_on_game_thread;
 		const FPubsubMessageReceived         m_handler;
-		TAtomic<bool>                        m_interrupted = false;
+		std::atomic<bool>                    m_interrupted = false;
 		Aws::UniquePtr<Aws::SQS::SQSClient>  m_sqs;
+		TUniquePtr<FThread>                  m_runner;
 };
 
 
@@ -281,35 +277,18 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	n_subscription.Topic = n_topic;
 
 	{
-		FScopeLock slock(&s_subscriptions_mutex);
+		FScopeLock slock(&m_subscriptions_mutex);
 		if (m_subscriptions.Contains(n_subscription)) {
 			UE_LOG(LogCloudConnector, Error, TEXT("Already subscribed to '%s'"), *n_topic);
 			return false;
 		}
 	}
 
-	// So, about that tuple here. I chose to use FRunnableThread for no good reason
-	// but FRunnableThread::Create() apparently does not take ownership over the impl
-	// FRunnable. Which means, I have to maintain ownership myself and release it once
-	// the thread is interrupted. Hence the awkwardness
-	SQSSubscriptionTuple info{
-		MakeUnique<SQSRunner>(n_topic, m_handle_in_game_thread, n_handler),
-		nullptr
-	};
-
-	// I didn't want to rely on initialization order because in order
-	// to do this here, I have to access the tuple getter and this appeared risky
-	// while it is not fully initialized.
-	info.Get< TUniquePtr<FRunnableThread> > ().Reset(
-			FRunnableThread::Create(
-					info.Get<TUniquePtr<SQSRunner>>().Get(),
-					TEXT("SQSRunner")
-			)
-	);
+	TUniquePtr<SQSRunner> runner = MakeUnique<SQSRunner>(n_topic, m_handle_in_game_thread, n_handler);
 
 	// Take ownership over both by inserting it into our subscription map
-	FScopeLock slock(&s_subscriptions_mutex);
-	m_subscriptions.Emplace(n_subscription, MoveTemp(info));
+	FScopeLock slock(&m_subscriptions_mutex);
+	m_subscriptions.Emplace(n_subscription, MoveTemp(runner));
 
 	return true;
 }
@@ -317,28 +296,29 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 
 	// Unsubscribing here simply means to stop the pull
-
+	
 	// Locate the subscriber
-	SQSSubscriptionTuple *s = nullptr;
+	TUniquePtr<SQSRunner> *r = nullptr;
 	
 	{
-		FScopeLock slock(&s_subscriptions_mutex);
-		s = m_subscriptions.Find(n_subscription);
-		if (!s) {
+		FScopeLock slock(&m_subscriptions_mutex);
+		r = m_subscriptions.Find(n_subscription);
+		if (!r) {
 			UE_LOG(LogCloudConnector, Error, TEXT("Cannot unsubscribe from '%s', internal data missing"), *n_subscription.Id);
 			return false;
 		}
-	}
 	
-	// First stop the thread.
-	// Killing it this way waits for the thread to join.
-	s->Get< TUniquePtr<FRunnableThread> >()->Kill(true);
-	s->Get< TUniquePtr<FRunnableThread> >()->WaitForCompletion();
+	
+		// First stop the thread.
+		// Killing it this way waits for the thread to join.
+		checkf(r, TEXT("internal data corruption"));
+		(*r)->interrupt();
+		(*r)->join();
 
-	// And delete all the data
-	FScopeLock slock(&s_subscriptions_mutex);
-	m_subscriptions.Remove(n_subscription);
-
+		// And delete all the data
+		//FScopeLock slock(&m_subscriptions_mutex);
+		m_subscriptions.Remove(n_subscription);
+	}
 	// And we're done
 	UE_LOG(LogCloudConnector, Display, TEXT("Unsubscribed from '%s'"), *n_subscription.Id);
 	return true;

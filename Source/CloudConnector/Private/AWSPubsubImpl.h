@@ -7,6 +7,8 @@
 #include "CoreMinimal.h"
 #include "ICloudPubsub.h"
 
+#include "Templates/UniquePtr.h"
+
 namespace Aws::SQS {
 	class SQSClient;
 }
@@ -26,16 +28,11 @@ class AWSPubsubImpl : public ICloudPubsub {
 
 	private:
 		// internal information to maintain a subscription
-		// including a future to shut it down.
-		using SQSSubscriptionTuple = TTuple<
-				TUniquePtr<class SQSRunner>,
-				TUniquePtr<FRunnableThread>
-		>;
-
+		
 		// A map to store them with my FSubscription info as key
-		using SQSSubscriptionMap = TMap<FSubscription, SQSSubscriptionTuple>;
+		using SQSSubscriptionMap = TMap<FSubscription, TUniquePtr<class SQSRunner> >;
 
 		const bool              m_handle_in_game_thread;
 		SQSSubscriptionMap      m_subscriptions;
-		static FCriticalSection s_subscriptions_mutex;
+		FCriticalSection        m_subscriptions_mutex;
 };
