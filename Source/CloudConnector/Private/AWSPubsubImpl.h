@@ -26,13 +26,21 @@ class AWSPubsubImpl : public ICloudPubsub {
 
 		bool unsubscribe(FSubscription &&n_subscription) override;
 
+		void shutdown() noexcept override;
+
+		// React on Alt+F4 to shutdown all pending runners		
+		void shutdown_runners(class FViewport *) noexcept;
+
 	private:
-		// internal information to maintain a subscription
 		
+		// internal information to maintain a subscription
 		// A map to store them with my FSubscription info as key
 		using SQSSubscriptionMap = TMap<FSubscription, TUniquePtr<class SQSRunner> >;
 
 		const bool              m_handle_in_game_thread;
 		SQSSubscriptionMap      m_subscriptions;
 		FCriticalSection        m_subscriptions_mutex;
+
+
+		FDelegateHandle         m_emergency_shutdown_handle;
 };

@@ -10,6 +10,8 @@
 #include "Async/Async.h"
 #include "Internationalization/Regex.h"
 #include "HAL/Thread.h"
+#include "Engine/Engine.h" // to get viewport
+#include "Engine/GameViewportClient.h" // to get viewport
 
  // AWS SDK
 #include "Windows/PreWindowsApi.h"
@@ -23,8 +25,6 @@
 
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/SQSRequest.h>
-//#include <aws/sqs/model/ReceiveMessageAsyncRequest.h>
-//#include <aws/sqs/model/ReceiveMessageAsyncResult.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
 #include <aws/sqs/model/DeleteMessageRequest.h>
@@ -42,9 +42,17 @@ AWSPubsubImpl::AWSPubsubImpl(const bool n_handle_in_game_thread)
 
 AWSPubsubImpl::~AWSPubsubImpl() noexcept {
 
-	try {
-		UE_LOG(LogCloudConnector, Display, TEXT("MOEP: sqs d'tor"));
+	shutdown();
+}
 
+void AWSPubsubImpl::shutdown() noexcept {
+
+	shutdown_runners(nullptr);
+}
+
+void AWSPubsubImpl::shutdown_runners(FViewport *n_viewport) noexcept {
+
+	try {
 		// user may have not unsubscribed
 		TArray<FSubscription> remaining_subs;
 		remaining_subs.Reserve(m_subscriptions.Num());
@@ -58,10 +66,17 @@ AWSPubsubImpl::~AWSPubsubImpl() noexcept {
 		for (FSubscription &s : remaining_subs) {
 			unsubscribe(MoveTemp(s));
 		}
+
+		// de-register from the Alt+F4 delegate
+		if (m_emergency_shutdown_handle.IsValid() && GEngine && GEngine->GameViewport) {
+
+			GEngine->GameViewport->OnCloseRequested().Remove(m_emergency_shutdown_handle);
+		}
+
 	} catch (const std::exception &sex) {
 		UE_LOG(LogCloudConnector, Error, TEXT("Unexpected exception tearing down SQS: %s"), UTF8_TO_TCHAR(sex.what()));
 	}
-}
+};
 
 class SQSRunner {
 
@@ -80,13 +95,16 @@ class SQSRunner {
 
 		void run() noexcept {
 
-			// Now create our client object
 			m_sqs = aws_client_factory<Aws::SQS::SQSClient>::create();
 
 			// Loop and receive messages, re-use request object
-			ReceiveMessageRequest rm_req;
-			rm_req.SetQueueUrl(m_queue_url);
-			rm_req.SetMaxNumberOfMessages(1);
+			// I've had horrendous problems tearing this thread down.
+			// When this object lives on the stack it will crash in the d'tor
+			// for unknown reasons. So I have to create it dynamic and leak it intentionally.
+			//
+			Aws::UniquePtr<ReceiveMessageRequest> rm_req = Aws::MakeUnique<ReceiveMessageRequest>("SQSREQ");
+			rm_req->SetQueueUrl(m_queue_url);
+			rm_req->SetMaxNumberOfMessages(1);
 
 			// This is not a timeout per se but long polling, which means the call will return
 			// After this many seconds even if there are no messages, which is not an error.
@@ -94,10 +112,10 @@ class SQSRunner {
 			//
 			// I am hard-choosing 4 here as values of 5 and above caused weird errors in testing.
 			//
-			rm_req.SetWaitTimeSeconds(4);
+			rm_req->SetWaitTimeSeconds(4);
 
 			// Request some additional info with each message
-			rm_req.SetAttributeNames({
+			rm_req->SetAttributeNames({
 
 				// For X-Ray tracing, I need an AWSTraceHeader, which in the C++ SDK 
 				// seems to be not in the enum like the others. To have it included in the response,
@@ -109,13 +127,34 @@ class SQSRunner {
 			});
 
 			// This is how it's supposed to work but it doesn't. Hence the 'All' above
-			rm_req.SetMessageAttributeNames({
+			rm_req->SetMessageAttributeNames({
 				MessageSystemAttributeNameMapper::GetNameForMessageSystemAttributeName(MessageSystemAttributeName::AWSTraceHeader)
 			});
 
 			while (!m_interrupted.load()) 	{
+				/*
+				// this returns a future now
+				ReceiveMessageOutcomeCallable future_out = s_sqs->ReceiveMessageCallable(*rm_req);
 
-				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(rm_req);	
+				// Hand-rolled interruptable wait for 4 seconds
+				for (unsigned int t = 0; t < 40, !future_out.valid(); t++) {
+
+					// We have a wait time of 4 so it should return before that
+					future_out.wait_for(std::chrono::milliseconds(100));
+					if (m_interrupted.load()) {
+						rm_req.release(); // yes, sad.
+										  // Leaking this object is the only way I found around
+						                  // https://github.com/MrMoose/CloudConnector/issues/3
+						return;
+					}
+				}
+
+				checkf(future_out.valid(), TEXT("waiting time mismatch in SQS"));
+
+				ReceiveMessageOutcome rm_out = future_out.get();
+				*/
+				
+				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(*rm_req);
 				if (!rm_out.IsSuccess()) {
 					UE_LOG(LogCloudConnector, Warning, TEXT("Failed to retrieve message from queue '%s': '%s'"),
 							UTF8_TO_TCHAR(m_queue_url.c_str()), UTF8_TO_TCHAR(rm_out.GetError().GetMessage().c_str()));
@@ -136,6 +175,10 @@ class SQSRunner {
 
 				// Rinse, repeat until interrupted
 			}
+
+			rm_req.release(); // yes, sad.
+							  // Leaking this object is the only way I found around
+							  // https://github.com/MrMoose/CloudConnector/issues/3
 		}
 
 		/// Stops the runnable object from foreign thread
@@ -153,6 +196,29 @@ class SQSRunner {
 		}
 
 	private:
+
+		void receive_message_handler(const Aws::SQS::SQSClient *n_client, const ReceiveMessageRequest &n_request,
+				const ReceiveMessageOutcome &n_outcome, const std::shared_ptr<const Aws::Client::AsyncCallerContext> &n_context) {
+	
+			if (!n_outcome.IsSuccess()) {
+				UE_LOG(LogCloudConnector, Warning, TEXT("Failed to retrieve message from queue '%s': '%s'"),
+						UTF8_TO_TCHAR(m_queue_url.c_str()), UTF8_TO_TCHAR(n_outcome.GetError().GetMessage().c_str()));
+				return;
+			}
+
+			if (n_outcome.GetResult().GetMessages().empty()) {
+				UE_LOG(LogCloudConnector, Display, TEXT("Long polling from queue '%s' returned with a timeout of 4s, no new messages"),
+					UTF8_TO_TCHAR(m_queue_url.c_str()));
+				return;
+			}
+
+			UE_LOG(LogCloudConnector, Verbose, TEXT("Long polling with a timeout of 4s returned from queue '%s', %i messages"),
+					UTF8_TO_TCHAR(m_queue_url.c_str()), n_outcome.GetResult().GetMessages().size());
+
+			// Process the message and call handler
+			process_message(n_outcome.GetResult().GetMessages()[0]);
+		}
+
 
 		void process_message(const Message &n_message) const noexcept {
 
@@ -263,6 +329,7 @@ class SQSRunner {
 		const bool                           m_handle_on_game_thread;
 		const FPubsubMessageReceived         m_handler;
 		std::atomic<bool>                    m_interrupted = false;
+		ReceiveMessageOutcomeCallable        m_future_out;
 		Aws::UniquePtr<Aws::SQS::SQSClient>  m_sqs;
 		TUniquePtr<FThread>                  m_runner;
 };
@@ -285,6 +352,12 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	}
 
 	TUniquePtr<SQSRunner> runner = MakeUnique<SQSRunner>(n_topic, m_handle_in_game_thread, n_handler);
+
+	// hooko up to Unreal's Alt+F4 catch-all delegate to shut down SQS gracefully in this case
+	if (!m_emergency_shutdown_handle.IsValid() && GEngine && GEngine->GameViewport) {
+
+		m_emergency_shutdown_handle = GEngine->GameViewport->OnCloseRequested().AddRaw(this, &AWSPubsubImpl::shutdown_runners);
+	}
 
 	// Take ownership over both by inserting it into our subscription map
 	FScopeLock slock(&m_subscriptions_mutex);

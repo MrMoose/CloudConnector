@@ -134,6 +134,8 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 
 		virtual ~ICloudPubsub() noexcept = default;
 
+		virtual void shutdown() noexcept;
+
 		/** @brief Subscribe to the default subscription as specified environment
 		 *  variable CLOUDCONNECTOR_DEFAULT_TOPIC
 		 *  Users are strongly encouraged to unsubscribe_default().

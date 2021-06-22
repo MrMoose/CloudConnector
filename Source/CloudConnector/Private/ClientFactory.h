@@ -13,6 +13,7 @@
 #include <aws/s3-crt/ClientConfiguration.h>
 #include <aws/core/utils/memory/AWSMemory.h>  // for unique_ptr
 #include <aws/core/utils/memory/stl/AWSString.h>
+//#include <aws/core/utils/threading/Executor.h>
 #include "Windows/PostWindowsApi.h"
 
 
@@ -139,5 +140,8 @@ client_config() {
 	ret.requestTimeoutMs = 6000;
 	ret.enableEndpointDiscovery = use_endpoint_discovery();
 	ret.endpointOverride = TCHAR_TO_ANSI(*readenv(s_endpoint_override_env));
+
+	//ret.executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>(s_memtag, 2);
+
 	return ret;
 }

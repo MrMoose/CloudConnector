@@ -140,14 +140,20 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 					m_log_device.Reset();  // Calling d'tor and joining thread.
 				}
 
+				m_pubsub->shutdown();
+
 				// I am not deleting this object as the engine should call TearDown()
 				// upon it to release resources
 				if (s_aws_sdk_initialized) {
 					Aws::Utils::Logging::ShutdownAWSLogging();
 
 					// Again, this will cause trouble if more than one module links against the AWS SDK.
-					// I am well aware of this
-					Aws::ShutdownAPI(s_aws_sdk_options);
+					// I am well aware of this.
+					// Also, I have to disable shutting down the API to mitigate the effects of 
+					// https://github.com/MrMoose/CloudConnector/issues/3
+					// It will crash when using SQS because there's no way of shutting  down outstanding 
+					// requests gracefully
+				//	Aws::ShutdownAPI(s_aws_sdk_options);
 					s_aws_sdk_initialized.store(false);
 				}
 
