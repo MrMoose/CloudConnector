@@ -242,7 +242,7 @@ class ServiceMonitoringService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CreateService(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest& request, ::google::monitoring::v3::Service* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::Service>> AsyncCreateService(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::Service>>(AsyncCreateServiceRaw(context, request, cq));

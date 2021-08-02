@@ -146,7 +146,7 @@ class IAMCredentials final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status GenerateAccessToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest& request, ::google::iam::credentials::v1::GenerateAccessTokenResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::credentials::v1::GenerateAccessTokenResponse>> AsyncGenerateAccessToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::credentials::v1::GenerateAccessTokenResponse>>(AsyncGenerateAccessTokenRaw(context, request, cq));

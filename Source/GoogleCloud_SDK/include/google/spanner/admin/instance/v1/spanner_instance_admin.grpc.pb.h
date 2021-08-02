@@ -451,7 +451,7 @@ class InstanceAdmin final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListInstanceConfigs(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigsRequest& request, ::google::spanner::admin::instance::v1::ListInstanceConfigsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstanceConfigsResponse>> AsyncListInstanceConfigs(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstanceConfigsResponse>>(AsyncListInstanceConfigsRaw(context, request, cq));

@@ -72,6 +72,10 @@ class EntityTypes final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::EntityType>>(PrepareAsyncGetEntityTypeRaw(context, request, cq));
     }
     // Creates an entity type in the specified agent.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest& request, ::google::cloud::dialogflow::v2::EntityType* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::EntityType>> AsyncCreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::EntityType>>(AsyncCreateEntityTypeRaw(context, request, cq));
@@ -80,6 +84,10 @@ class EntityTypes final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::EntityType>>(PrepareAsyncCreateEntityTypeRaw(context, request, cq));
     }
     // Updates the specified entity type.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest& request, ::google::cloud::dialogflow::v2::EntityType* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::EntityType>> AsyncUpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::EntityType>>(AsyncUpdateEntityTypeRaw(context, request, cq));
@@ -88,6 +96,10 @@ class EntityTypes final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::EntityType>>(PrepareAsyncUpdateEntityTypeRaw(context, request, cq));
     }
     // Deletes the specified entity type.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteEntityTypeRaw(context, request, cq));
@@ -97,7 +109,10 @@ class EntityTypes final {
     }
     // Updates/Creates multiple entity types in the specified agent.
     //
-    // Operation <response: [BatchUpdateEntityTypesResponse][google.cloud.dialogflow.v2.BatchUpdateEntityTypesResponse]>
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncBatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncBatchUpdateEntityTypesRaw(context, request, cq));
@@ -107,7 +122,9 @@ class EntityTypes final {
     }
     // Deletes entity types in the specified agent.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncBatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncBatchDeleteEntityTypesRaw(context, request, cq));
@@ -117,7 +134,9 @@ class EntityTypes final {
     }
     // Creates multiple new entities in the specified entity type.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncBatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncBatchCreateEntitiesRaw(context, request, cq));
@@ -129,8 +148,9 @@ class EntityTypes final {
     // method does not affect entities in the entity type that aren't explicitly
     // specified in the request.
     //
-    //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncBatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncBatchUpdateEntitiesRaw(context, request, cq));
@@ -140,8 +160,9 @@ class EntityTypes final {
     }
     // Deletes entities in the specified entity type.
     //
-    //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncBatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncBatchDeleteEntitiesRaw(context, request, cq));
@@ -167,6 +188,10 @@ class EntityTypes final {
       virtual void GetEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Creates an entity type in the specified agent.
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -174,6 +199,10 @@ class EntityTypes final {
       virtual void CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Updates the specified entity type.
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -181,6 +210,10 @@ class EntityTypes final {
       virtual void UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Deletes the specified entity type.
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -189,7 +222,10 @@ class EntityTypes final {
       #endif
       // Updates/Creates multiple entity types in the specified agent.
       //
-      // Operation <response: [BatchUpdateEntityTypesResponse][google.cloud.dialogflow.v2.BatchUpdateEntityTypesResponse]>
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -198,7 +234,9 @@ class EntityTypes final {
       #endif
       // Deletes entity types in the specified agent.
       //
-      // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -207,7 +245,9 @@ class EntityTypes final {
       #endif
       // Creates multiple new entities in the specified entity type.
       //
-      // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -218,8 +258,9 @@ class EntityTypes final {
       // method does not affect entities in the entity type that aren't explicitly
       // specified in the request.
       //
-      //
-      // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -228,8 +269,9 @@ class EntityTypes final {
       #endif
       // Deletes entities in the specified entity type.
       //
-      //
-      // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -268,7 +310,7 @@ class EntityTypes final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest& request, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListEntityTypesResponse>> AsyncListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListEntityTypesResponse>>(AsyncListEntityTypesRaw(context, request, cq));
@@ -455,34 +497,55 @@ class EntityTypes final {
     // Retrieves the specified entity type.
     virtual ::grpc::Status GetEntityType(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response);
     // Creates an entity type in the specified agent.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status CreateEntityType(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response);
     // Updates the specified entity type.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status UpdateEntityType(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response);
     // Deletes the specified entity type.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status DeleteEntityType(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response);
     // Updates/Creates multiple entity types in the specified agent.
     //
-    // Operation <response: [BatchUpdateEntityTypesResponse][google.cloud.dialogflow.v2.BatchUpdateEntityTypesResponse]>
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchUpdateEntityTypes(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response);
     // Deletes entity types in the specified agent.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchDeleteEntityTypes(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response);
     // Creates multiple new entities in the specified entity type.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchCreateEntities(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response);
     // Updates or creates multiple entities in the specified entity type. This
     // method does not affect entities in the entity type that aren't explicitly
     // specified in the request.
     //
-    //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchUpdateEntities(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response);
     // Deletes entities in the specified entity type.
     //
-    //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchDeleteEntities(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response);
   };
   template <class BaseClass>

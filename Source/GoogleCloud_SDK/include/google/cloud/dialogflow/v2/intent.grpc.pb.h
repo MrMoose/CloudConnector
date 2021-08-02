@@ -72,6 +72,10 @@ class Intents final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Intent>>(PrepareAsyncGetIntentRaw(context, request, cq));
     }
     // Creates an intent in the specified agent.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest& request, ::google::cloud::dialogflow::v2::Intent* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Intent>> AsyncCreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Intent>>(AsyncCreateIntentRaw(context, request, cq));
@@ -80,6 +84,10 @@ class Intents final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Intent>>(PrepareAsyncCreateIntentRaw(context, request, cq));
     }
     // Updates the specified intent.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest& request, ::google::cloud::dialogflow::v2::Intent* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Intent>> AsyncUpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Intent>>(AsyncUpdateIntentRaw(context, request, cq));
@@ -88,6 +96,10 @@ class Intents final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Intent>>(PrepareAsyncUpdateIntentRaw(context, request, cq));
     }
     // Deletes the specified intent and its direct or indirect followup intents.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteIntentRaw(context, request, cq));
@@ -97,7 +109,10 @@ class Intents final {
     }
     // Updates/Creates multiple intents in the specified agent.
     //
-    // Operation <response: [BatchUpdateIntentsResponse][google.cloud.dialogflow.v2.BatchUpdateIntentsResponse]>
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncBatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncBatchUpdateIntentsRaw(context, request, cq));
@@ -107,7 +122,10 @@ class Intents final {
     }
     // Deletes intents in the specified agent.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncBatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncBatchDeleteIntentsRaw(context, request, cq));
@@ -133,6 +151,10 @@ class Intents final {
       virtual void GetIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Creates an intent in the specified agent.
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -140,6 +162,10 @@ class Intents final {
       virtual void CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Updates the specified intent.
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -147,6 +173,10 @@ class Intents final {
       virtual void UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Deletes the specified intent and its direct or indirect followup intents.
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -155,7 +185,10 @@ class Intents final {
       #endif
       // Updates/Creates multiple intents in the specified agent.
       //
-      // Operation <response: [BatchUpdateIntentsResponse][google.cloud.dialogflow.v2.BatchUpdateIntentsResponse]>
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -164,7 +197,10 @@ class Intents final {
       #endif
       // Deletes intents in the specified agent.
       //
-      // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -197,7 +233,7 @@ class Intents final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest& request, ::google::cloud::dialogflow::v2::ListIntentsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListIntentsResponse>> AsyncListIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListIntentsResponse>>(AsyncListIntentsRaw(context, request, cq));
@@ -336,18 +372,36 @@ class Intents final {
     // Retrieves the specified intent.
     virtual ::grpc::Status GetIntent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response);
     // Creates an intent in the specified agent.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status CreateIntent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response);
     // Updates the specified intent.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status UpdateIntent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response);
     // Deletes the specified intent and its direct or indirect followup intents.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status DeleteIntent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response);
     // Updates/Creates multiple intents in the specified agent.
     //
-    // Operation <response: [BatchUpdateIntentsResponse][google.cloud.dialogflow.v2.BatchUpdateIntentsResponse]>
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchUpdateIntents(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response);
     // Deletes intents in the specified agent.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchDeleteIntents(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response);
   };
   template <class BaseClass>

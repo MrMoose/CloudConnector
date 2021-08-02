@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/pubsub/v1/pubsub.proto
 // Original file comments:
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -251,7 +251,7 @@ class Publisher final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CreateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic& request, ::google::pubsub::v1::Topic* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Topic>> AsyncCreateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Topic>>(AsyncCreateTopicRaw(context, request, cq));
@@ -2442,7 +2442,7 @@ class Subscriber final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CreateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription& request, ::google::pubsub::v1::Subscription* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Subscription>> AsyncCreateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Subscription>>(AsyncCreateSubscriptionRaw(context, request, cq));

@@ -107,7 +107,7 @@ class TextToSpeech final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListVoices(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest& request, ::google::cloud::texttospeech::v1::ListVoicesResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::texttospeech::v1::ListVoicesResponse>> AsyncListVoices(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::texttospeech::v1::ListVoicesResponse>>(AsyncListVoicesRaw(context, request, cq));

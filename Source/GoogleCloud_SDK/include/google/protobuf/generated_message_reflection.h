@@ -236,7 +236,7 @@ struct ReflectionSchema {
 
   // We tag offset values to provide additional data about fields (such as
   // "unused").
-  static uint32 OffsetValue(uint32 v, FieldDescriptor::Type type) {
+  static uint32 OffsetValue(uint32 v, FieldDescriptor::Type /* type */) {
     return v & 0x7FFFFFFFu;
   }
 };
@@ -253,25 +253,24 @@ struct MigrationSchema {
   int object_size;
 };
 
-struct SCCInfoBase;
-
+// This struct tries to reduce unnecessary padding.
+// The num_xxx might not be close to their respective pointer, but this saves
+// padding.
 struct PROTOBUF_EXPORT DescriptorTable {
   mutable bool is_initialized;
   bool is_eager;
+  int size;  // of serialized descriptor
   const char* descriptor;
   const char* filename;
-  int size;  // of serialized descriptor
   once_flag* once;
-  SCCInfoBase* const* init_default_instances;
   const DescriptorTable* const* deps;
-  int num_sccs;
   int num_deps;
+  int num_messages;
   const MigrationSchema* schemas;
   const Message* const* default_instances;
   const uint32* offsets;
   // update the following descriptor arrays.
   Metadata* file_level_metadata;
-  int num_messages;
   const EnumDescriptor** file_level_enum_descriptors;
   const ServiceDescriptor** file_level_service_descriptors;
 };
@@ -291,17 +290,14 @@ enum {
 void PROTOBUF_EXPORT AssignDescriptors(const DescriptorTable* table,
                                        bool eager = false);
 
-// AddDescriptors() is a file-level procedure which adds the encoded
-// FileDescriptorProto for this .proto file to the global DescriptorPool for
-// generated files (DescriptorPool::generated_pool()). It ordinarily runs at
-// static initialization time, but is not used at all in LITE_RUNTIME mode.
-// AddDescriptors() is *not* thread-safe.
-void PROTOBUF_EXPORT AddDescriptors(const DescriptorTable* table);
-
 // These cannot be in lite so we put them in the reflection.
 PROTOBUF_EXPORT void UnknownFieldSetSerializer(const uint8* base, uint32 offset,
                                                uint32 tag, uint32 has_offset,
                                                io::CodedOutputStream* output);
+
+struct PROTOBUF_EXPORT AddDescriptorsRunner {
+  explicit AddDescriptorsRunner(const DescriptorTable* table);
+};
 
 }  // namespace internal
 }  // namespace protobuf

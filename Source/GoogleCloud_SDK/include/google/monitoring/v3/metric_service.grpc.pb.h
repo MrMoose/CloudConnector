@@ -220,7 +220,7 @@ class MetricService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest& request, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>> AsyncListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>>(AsyncListMonitoredResourceDescriptorsRaw(context, request, cq));

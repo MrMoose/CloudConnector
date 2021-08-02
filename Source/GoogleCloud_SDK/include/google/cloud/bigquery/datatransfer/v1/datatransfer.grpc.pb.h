@@ -344,7 +344,7 @@ class DataTransferService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::DataSource>> AsyncGetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::DataSource>>(AsyncGetDataSourceRaw(context, request, cq));

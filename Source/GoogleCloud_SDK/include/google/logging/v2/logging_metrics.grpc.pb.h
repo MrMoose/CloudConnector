@@ -154,7 +154,7 @@ class MetricsServiceV2 final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListLogMetrics(::grpc::ClientContext* context, const ::google::logging::v2::ListLogMetricsRequest& request, ::google::logging::v2::ListLogMetricsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::ListLogMetricsResponse>> AsyncListLogMetrics(::grpc::ClientContext* context, const ::google::logging::v2::ListLogMetricsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::ListLogMetricsResponse>>(AsyncListLogMetricsRaw(context, request, cq));

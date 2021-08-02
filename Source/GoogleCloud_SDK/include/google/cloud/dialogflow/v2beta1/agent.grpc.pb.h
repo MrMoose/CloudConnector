@@ -297,7 +297,7 @@ class Agents final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status GetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetAgentRequest& request, ::google::cloud::dialogflow::v2beta1::Agent* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Agent>> AsyncGetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetAgentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Agent>>(AsyncGetAgentRaw(context, request, cq));

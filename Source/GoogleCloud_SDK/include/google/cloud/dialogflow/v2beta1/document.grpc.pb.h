@@ -89,6 +89,8 @@ class Documents final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncCreateDocumentRaw(context, request, cq));
     }
     // Create documents by importing data from external sources.
+    // Dialogflow supports up to 350 documents in each request. If you try to
+    // import more, Dialogflow will return an error.
     virtual ::grpc::Status ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncImportDocumentsRaw(context, request, cq));
@@ -169,6 +171,8 @@ class Documents final {
       virtual void CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Create documents by importing data from external sources.
+      // Dialogflow supports up to 350 documents in each request. If you try to
+      // import more, Dialogflow will return an error.
       virtual void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -237,7 +241,7 @@ class Documents final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest& request, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>> AsyncListDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>>(AsyncListDocumentsRaw(context, request, cq));
@@ -387,6 +391,8 @@ class Documents final {
     // only use `projects.knowledgeBases.documents`.
     virtual ::grpc::Status CreateDocument(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response);
     // Create documents by importing data from external sources.
+    // Dialogflow supports up to 350 documents in each request. If you try to
+    // import more, Dialogflow will return an error.
     virtual ::grpc::Status ImportDocuments(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response);
     // Deletes the specified document.
     //

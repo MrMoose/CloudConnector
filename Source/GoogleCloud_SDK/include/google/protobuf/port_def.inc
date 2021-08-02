@@ -61,6 +61,9 @@
 #ifdef PROTOBUF_ALWAYS_INLINE
 #error PROTOBUF_ALWAYS_INLINE was previously defined
 #endif
+#ifdef PROTOBUF_NDEBUG_INLINE
+#error PROTOBUF_NDEBUG_INLINE was previously defined
+#endif
 #ifdef PROTOBUF_COLD
 #error PROTOBUF_COLD was previously defined
 #endif
@@ -139,9 +142,6 @@
 #ifdef PROTOBUF_FINAL
 #error PROTOBUF_FINAL was previously defined
 #endif
-#ifdef PROTOBUF_DISABLE_MSVC_UNION_WARNING
-#error PROTOBUF_DISABLE_MSVC_UNION_WARNING was previously defined
-#endif
 #ifdef PROTOBUF_ENABLE_MSVC_UNION_WARNING
 #error PROTOBUF_ENABLE_MSVC_UNION_WARNING was previously defined
 #endif
@@ -150,6 +150,15 @@
 #endif
 #ifdef PROTOBUF_ATTRIBUTE_NO_DESTROY
 #error PROTOBUF_ATTRIBUTE_NO_DESTROY was previously defined
+#endif
+#ifdef PROTOBUF_ATTRIBUTE_INIT_PRIORITY
+#error PROTOBUF_ATTRIBUTE_INIT_PRIORITY was previously defined
+#endif
+#ifdef PROTOBUF_PRAGMA_INIT_SEG
+#error PROTOBUF_PRAGMA_INIT_SEG was previously defined
+#endif
+#ifdef PROTOBUF_ATTRIBUTE_WEAK
+#error PROTOBUF_ATTRIBUTE_WEAK was previously defined
 #endif
 
 
@@ -162,10 +171,18 @@
   } /* namespace protobuf */     \
   } /* namespace google */
 
-#if defined(__GNUC__) || defined(__clang__)
+#if defined(__clang__)
 #define PROTOBUF_DEPRECATED __attribute__((deprecated))
 #define PROTOBUF_DEPRECATED_ENUM __attribute__((deprecated))
 #define PROTOBUF_DEPRECATED_MSG(msg) __attribute__((deprecated(msg)))
+#elif defined(__GNUC__)
+#define PROTOBUF_DEPRECATED __attribute__((deprecated))
+#define PROTOBUF_DEPRECATED_MSG(msg) __attribute__((deprecated(msg)))
+#if __GNUC__ >= 6
+#define PROTOBUF_DEPRECATED_ENUM __attribute__((deprecated))
+#else
+#define PROTOBUF_DEPRECATED_ENUM
+#endif
 #elif defined(_MSC_VER)
 #define PROTOBUF_DEPRECATED __declspec(deprecated)
 #define PROTOBUF_DEPRECATED_ENUM
@@ -183,15 +200,18 @@
 
 #ifdef GOOGLE_ATTRIBUTE_ALWAYS_INLINE
 #define PROTOBUF_ALWAYS_INLINE GOOGLE_ATTRIBUTE_ALWAYS_INLINE
+#define PROTOBUF_NDEBUG_INLINE GOOGLE_ATTRIBUTE_ALWAYS_INLINE
 #else
 #if defined(__GNUC__) && \
     (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1))
 // For functions we want to force inline.
 // Introduced in gcc 3.1.
 #define PROTOBUF_ALWAYS_INLINE __attribute__((always_inline))
+#define PROTOBUF_NDEBUG_INLINE __attribute__((always_inline))
 #else
 // Other compilers will have to figure it out for themselves.
 #define PROTOBUF_ALWAYS_INLINE
+#define PROTOBUF_NDEBUG_INLINE
 #endif
 #endif
 
@@ -315,14 +335,14 @@
 
 // Shared google3/opensource definitions. //////////////////////////////////////
 
-#define PROTOBUF_VERSION 3014000
-#define PROTOBUF_MIN_HEADER_VERSION_FOR_PROTOC 3014000
-#define PROTOBUF_MIN_PROTOC_VERSION 3014000
+#define PROTOBUF_VERSION 3015008
+#define PROTOBUF_MIN_HEADER_VERSION_FOR_PROTOC 3015000
+#define PROTOBUF_MIN_PROTOC_VERSION 3015000
 #define PROTOBUF_VERSION_SUFFIX ""
 
 // The minimum library version which works with the current version of the
 // headers.
-#define GOOGLE_PROTOBUF_MIN_LIBRARY_VERSION 3014000
+#define GOOGLE_PROTOBUF_MIN_LIBRARY_VERSION 3015000
 
 #if defined(GOOGLE_PROTOBUF_NO_RTTI) && GOOGLE_PROTOBUF_NO_RTTI
 #define PROTOBUF_RTTI 0
@@ -461,10 +481,6 @@
 // name.
 #pragma push_macro("DEBUG")
 #undef DEBUG
-#pragma push_macro("TRUE")
-#undef TRUE
-#pragma push_macro("FALSE")
-#undef FALSE
 #endif // defined(__clang__) || defined(__GNUC__) || defined(_MSC_VER)
 
 #if defined(__clang__)
@@ -546,31 +562,9 @@
 // by this flag is supposed to be removed after this experiment.
 // #define PROTOBUF_MESSAGE_OWNED_ARENA_EXPERIMENT
 
-#if defined(__cpp_constinit)
-#define PROTOBUF_CONSTINIT constinit
-#elif defined(__has_cpp_attribute)
-#if __has_cpp_attribute(clang::require_constant_initialization)
-#define PROTOBUF_CONSTINIT [[clang::require_constant_initialization]]
-#endif
-#endif
-#ifndef PROTOBUF_CONSTINIT
-#define PROTOBUF_CONSTINIT
-#endif
-
-#if _MSC_VER
-#define PROTOBUF_DISABLE_MSVC_UNION_WARNING \
-  __pragma(warning(push)) \
-  __pragma(warning(disable : 4582)) \
-  __pragma(warning(disable : 4583))
-
-#define PROTOBUF_ENABLE_MSVC_UNION_WARNING \
-  __pragma(warning(pop))
-#else
-#define PROTOBUF_DISABLE_MSVC_UNION_WARNING
-#define PROTOBUF_ENABLE_MSVC_UNION_WARNING
-#endif
-
-#if defined(__cpp_constinit)
+// Our use of constinit does not yet work with GCC:
+// https://github.com/protocolbuffers/protobuf/issues/8310
+#if defined(__cpp_constinit) && !defined(__GNUC__)
 #define PROTOBUF_CONSTINIT constinit
 #elif defined(__has_cpp_attribute)
 #if __has_cpp_attribute(clang::require_constant_initialization)
@@ -591,4 +585,44 @@
 #endif
 #if !defined(PROTOBUF_ATTRIBUTE_NO_DESTROY)
 #define PROTOBUF_ATTRIBUTE_NO_DESTROY
+#endif
+
+#if defined(__GNUC__)
+// Protobuf extensions and reflection require registration of the protos linked
+// in the binary. Not until everything is registered does the runtime have a
+// complete view on all protos. When code is using reflection or extensions
+// in between registration calls this can lead to surprising behavior. By
+// having the registration run first we mitigate this scenario.
+// Highest priority is 101. We use 102 to allow code that really wants to
+// higher priority to still beat us.
+#define PROTOBUF_ATTRIBUTE_INIT_PRIORITY __attribute__((init_priority((102))))
+#else
+#define PROTOBUF_ATTRIBUTE_INIT_PRIORITY
+#endif
+
+#if _MSC_VER
+#define PROTOBUF_PRAGMA_INIT_SEG __pragma(init_seg(lib))
+#else
+#define PROTOBUF_PRAGMA_INIT_SEG
+#endif
+
+#if defined(__has_attribute) && !defined(__MINGW32__)
+#if __has_attribute(weak)
+#define PROTOBUF_ATTRIBUTE_WEAK __attribute__((weak))
+#endif
+#endif
+#if !defined(PROTOBUF_ATTRIBUTE_WEAK)
+#define PROTOBUF_ATTRIBUTE_WEAK
+#endif
+
+// Silence some MSVC warnings in all our code.
+#if _MSC_VER
+#pragma warning(push)
+// For non-trivial unions
+#pragma warning(disable : 4582)
+#pragma warning(disable : 4583)
+// For init_seg(lib)
+#pragma warning(disable : 4073)
+// To silence the fact that we will pop this push from another file
+#pragma warning(disable : 5031)
 #endif

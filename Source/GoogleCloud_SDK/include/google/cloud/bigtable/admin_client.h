@@ -28,8 +28,6 @@ inline namespace BIGTABLE_CLIENT_NS {
 // Forward declare some classes so we can be friends.
 class TableAdmin;
 namespace internal {
-class AsyncAwaitConsistency;
-class AsyncCheckConsistency;
 template <typename Client, typename Response>
 class AsyncLongrunningOperation;
 class LoggingAdminClient;
@@ -90,8 +88,6 @@ class AdminClient {
   // classes that do use them friends.
  protected:
   friend class TableAdmin;
-  friend class internal::AsyncAwaitConsistency;
-  friend class internal::AsyncCheckConsistency;
   template <typename Client, typename Response>
   friend class internal::AsyncLongrunningOperation;
   friend class internal::LoggingAdminClient;
@@ -255,14 +251,14 @@ class AdminClient {
       google::bigtable::admin::v2::GenerateConsistencyTokenResponse>>
   AsyncGenerateConsistencyToken(
       grpc::ClientContext* context,
-      const google::bigtable::admin::v2::GenerateConsistencyTokenRequest&
+      google::bigtable::admin::v2::GenerateConsistencyTokenRequest const&
           request,
       grpc::CompletionQueue* cq) = 0;
   virtual std::unique_ptr<grpc::ClientAsyncResponseReaderInterface<
       google::bigtable::admin::v2::CheckConsistencyResponse>>
   AsyncCheckConsistency(
       grpc::ClientContext* context,
-      const google::bigtable::admin::v2::CheckConsistencyRequest& request,
+      google::bigtable::admin::v2::CheckConsistencyRequest const& request,
       grpc::CompletionQueue* cq) = 0;
   virtual std::unique_ptr<grpc::ClientAsyncResponseReaderInterface<
       google::bigtable::admin::v2::ListTablesResponse>>
@@ -292,7 +288,7 @@ class AdminClient {
   virtual std::unique_ptr<
       grpc::ClientAsyncResponseReaderInterface<google::longrunning::Operation>>
   AsyncGetOperation(grpc::ClientContext* context,
-                    const google::longrunning::GetOperationRequest& request,
+                    google::longrunning::GetOperationRequest const& request,
                     grpc::CompletionQueue* cq) = 0;
   //@}
 };

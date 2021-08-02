@@ -139,7 +139,7 @@ class ModelService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status GetModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest& request, ::google::cloud::bigquery::v2::Model* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::v2::Model>> AsyncGetModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::v2::Model>>(AsyncGetModelRaw(context, request, cq));

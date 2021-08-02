@@ -223,7 +223,7 @@ class Operations final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListOperations(::grpc::ClientContext* context, const ::google::longrunning::ListOperationsRequest& request, ::google::longrunning::ListOperationsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::ListOperationsResponse>> AsyncListOperations(::grpc::ClientContext* context, const ::google::longrunning::ListOperationsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::ListOperationsResponse>>(AsyncListOperationsRaw(context, request, cq));

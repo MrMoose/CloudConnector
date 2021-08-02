@@ -256,7 +256,7 @@ class BigtableTableAdmin final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListBackupsResponse>>(PrepareAsyncListBackupsRaw(context, request, cq));
     }
     // Create a new table by restoring from a completed backup. The new table
-    // must be in the same instance as the instance containing the backup.  The
+    // must be in the same project as the instance containing the backup.  The
     // returned table [long-running operation][google.longrunning.Operation] can
     // be used to track the progress of the operation, and to cancel it.  The
     // [metadata][google.longrunning.Operation.metadata] field type is
@@ -479,7 +479,7 @@ class BigtableTableAdmin final {
       virtual void ListBackups(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Create a new table by restoring from a completed backup. The new table
-      // must be in the same instance as the instance containing the backup.  The
+      // must be in the same project as the instance containing the backup.  The
       // returned table [long-running operation][google.longrunning.Operation] can
       // be used to track the progress of the operation, and to cancel it.  The
       // [metadata][google.longrunning.Operation.metadata] field type is
@@ -572,7 +572,7 @@ class BigtableTableAdmin final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CreateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest& request, ::google::bigtable::admin::v2::Table* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>> AsyncCreateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>>(AsyncCreateTableRaw(context, request, cq));
@@ -1035,7 +1035,7 @@ class BigtableTableAdmin final {
     // backups.
     virtual ::grpc::Status ListBackups(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response);
     // Create a new table by restoring from a completed backup. The new table
-    // must be in the same instance as the instance containing the backup.  The
+    // must be in the same project as the instance containing the backup.  The
     // returned table [long-running operation][google.longrunning.Operation] can
     // be used to track the progress of the operation, and to cancel it.  The
     // [metadata][google.longrunning.Operation.metadata] field type is

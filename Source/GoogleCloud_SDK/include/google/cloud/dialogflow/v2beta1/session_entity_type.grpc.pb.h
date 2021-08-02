@@ -201,7 +201,7 @@ class SessionEntityTypes final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListSessionEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListSessionEntityTypesRequest& request, ::google::cloud::dialogflow::v2beta1::ListSessionEntityTypesResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListSessionEntityTypesResponse>> AsyncListSessionEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListSessionEntityTypesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListSessionEntityTypesResponse>>(AsyncListSessionEntityTypesRaw(context, request, cq));

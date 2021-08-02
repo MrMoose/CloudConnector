@@ -117,31 +117,9 @@ public class GoogleCloud_SDK : ModuleRules {
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_graphcycles_internal.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_hash.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_hashtablez_sampler.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_wyhash.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_int128.lib"));
-
-		/*
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_leak_check.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_leak_check_disable.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_log_severity.lib"));
-		*/
-
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_malloc_internal.lib"));
-		
-		/*
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_periodic_sampler.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_distributions.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_internal_distribution_test_util.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_internal_platform.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_internal_pool_urbg.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_internal_randen.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_internal_randen_hwaes.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_internal_randen_hwaes_impl.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_internal_randen_slow.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_internal_seed_material.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_seed_gen_exception.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_random_seed_sequences.lib"));
-		*/
-
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_raw_hash_set.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_raw_logging_internal.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_scoped_set_env.lib"));

@@ -248,7 +248,7 @@ class ConnectionService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CreateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest& request, ::google::cloud::bigquery::connection::v1beta1::Connection* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::connection::v1beta1::Connection>> AsyncCreateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::connection::v1beta1::Connection>>(AsyncCreateConnectionRaw(context, request, cq));

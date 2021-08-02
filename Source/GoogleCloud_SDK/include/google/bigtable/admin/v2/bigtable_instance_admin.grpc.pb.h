@@ -405,7 +405,7 @@ class BigtableInstanceAdmin final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CreateInstance(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateInstanceRequest& request, ::google::longrunning::Operation* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncCreateInstance(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateInstanceRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncCreateInstanceRaw(context, request, cq));

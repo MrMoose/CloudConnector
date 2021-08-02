@@ -302,7 +302,7 @@ class NotificationChannelService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListNotificationChannelDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest& request, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>> AsyncListNotificationChannelDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>>(AsyncListNotificationChannelDescriptorsRaw(context, request, cq));

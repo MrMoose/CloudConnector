@@ -37,6 +37,7 @@
 #undef PROTOBUF_NAMESPACE
 #undef PROTOBUF_NAMESPACE_ID
 #undef PROTOBUF_ALWAYS_INLINE
+#undef PROTOBUF_NDEBUG_INLINE
 #undef PROTOBUF_COLD
 #undef PROTOBUF_NOINLINE
 #undef PROTOBUF_SECTION_VARIABLE
@@ -72,10 +73,11 @@
 #undef PROTOBUF_FINAL
 #undef PROTOBUF_THREAD_LOCAL
 #undef PROTOBUF_MESSAGE_OWNED_ARENA_EXPERIMENT
-#undef PROTOBUF_DISABLE_MSVC_UNION_WARNING
-#undef PROTOBUF_ENABLE_MSVC_UNION_WARNING
 #undef PROTOBUF_CONSTINIT
+#undef PROTOBUF_ATTRIBUTE_WEAK
 #undef PROTOBUF_ATTRIBUTE_NO_DESTROY
+#undef PROTOBUF_ATTRIBUTE_INIT_PRIORITY
+#undef PROTOBUF_PRAGMA_INIT_SEG
 
 // Restore macro that may have been #undef'd in port_def.inc.
 #ifdef _MSC_VER
@@ -104,12 +106,15 @@
 
 #if defined(__clang__) || defined(__GNUC__) || defined(_MSC_VER)
 #pragma pop_macro("DEBUG")
-#pragma pop_macro("TRUE")
-#pragma pop_macro("FALSE")
 #endif // defined(__clang__) || defined(__GNUC__) || defined(_MSC_VER)
 
 #if defined(__clang__)
 #pragma clang diagnostic pop
 #elif defined(__GNUC__)
 #pragma GCC diagnostic pop
+#endif
+
+// Pop the warning(push) from port_def.inc
+#if _MSC_VER
+#pragma warning(pop)
 #endif

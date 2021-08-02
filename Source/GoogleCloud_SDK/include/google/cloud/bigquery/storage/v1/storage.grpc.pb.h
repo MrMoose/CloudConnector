@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/cloud/bigquery/storage/v1/storage.proto
 // Original file comments:
-// Copyright 2019 Google LLC.
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
 //
 #ifndef GRPC_google_2fcloud_2fbigquery_2fstorage_2fv1_2fstorage_2eproto__INCLUDED
 #define GRPC_google_2fcloud_2fbigquery_2fstorage_2fv1_2fstorage_2eproto__INCLUDED
@@ -156,9 +155,9 @@ class BigQueryRead final {
       // Each request also returns a set of stream statistics reflecting the current
       // state of the stream.
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ReadRows(::grpc::ClientContext* context, ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) = 0;
+      virtual void ReadRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) = 0;
       #else
-      virtual void ReadRows(::grpc::ClientContext* context, ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) = 0;
+      virtual void ReadRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) = 0;
       #endif
       // Splits a given `ReadStream` into two `ReadStream` objects. These
       // `ReadStream` objects are referred to as the primary and the residual
@@ -197,7 +196,7 @@ class BigQueryRead final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::google::cloud::bigquery::storage::v1::ReadSession* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::ReadSession>> AsyncCreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::ReadSession>>(AsyncCreateReadSessionRaw(context, request, cq));
@@ -231,9 +230,9 @@ class BigQueryRead final {
       void CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ReadRows(::grpc::ClientContext* context, ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) override;
+      void ReadRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) override;
       #else
-      void ReadRows(::grpc::ClientContext* context, ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) override;
+      void ReadRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) override;
       #endif
       void SplitReadStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* request, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL

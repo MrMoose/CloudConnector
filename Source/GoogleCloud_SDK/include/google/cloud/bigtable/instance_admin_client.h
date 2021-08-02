@@ -28,16 +28,8 @@ inline namespace BIGTABLE_CLIENT_NS {
 // Forward declare some classes so we can be friends.
 class InstanceAdmin;
 namespace internal {
-template <typename Client, typename ResponseType>
-class AsyncLongrunningOp;
 template <typename Client, typename Response>
 class AsyncLongrunningOperation;
-template <typename Client, typename Response, typename MemberFunctionType,
-          typename IdempotencyPolicy, typename Functor>
-class AsyncRetryAndPollUnaryRpc;
-class AsyncListClusters;
-class AsyncListInstances;
-class AsyncListAppProfiles;
 class LoggingInstanceAdminClient;
 }  // namespace internal
 
@@ -96,13 +88,8 @@ class InstanceAdminClient {
   // classes that do use them friends.
  protected:
   friend class InstanceAdmin;
-  template <typename Client, typename ResponseType>
-  friend class internal::AsyncLongrunningOp;
   template <typename Client, typename Response>
   friend class internal::AsyncLongrunningOperation;
-  friend class internal::AsyncListClusters;
-  friend class internal::AsyncListInstances;
-  friend class internal::AsyncListAppProfiles;
   friend class internal::LoggingInstanceAdminClient;
   //@{
   /// @name The `google.bigtable.v2.InstanceAdmin` wrappers.
@@ -238,27 +225,27 @@ class InstanceAdminClient {
       grpc::ClientAsyncResponseReaderInterface<google::longrunning::Operation>>
   AsyncCreateCluster(
       grpc::ClientContext* context,
-      const google::bigtable::admin::v2::CreateClusterRequest& request,
+      google::bigtable::admin::v2::CreateClusterRequest const& request,
       grpc::CompletionQueue* cq) = 0;
 
   virtual std::unique_ptr<
       grpc::ClientAsyncResponseReaderInterface<google::longrunning::Operation>>
   AsyncCreateInstance(
       grpc::ClientContext* context,
-      const google::bigtable::admin::v2::CreateInstanceRequest& request,
+      google::bigtable::admin::v2::CreateInstanceRequest const& request,
       grpc::CompletionQueue* cq) = 0;
 
   virtual std::unique_ptr<
       grpc::ClientAsyncResponseReaderInterface<google::longrunning::Operation>>
   AsyncUpdateInstance(
       grpc::ClientContext* context,
-      const google::bigtable::admin::v2::PartialUpdateInstanceRequest& request,
+      google::bigtable::admin::v2::PartialUpdateInstanceRequest const& request,
       grpc::CompletionQueue* cq) = 0;
 
   virtual std::unique_ptr<
       grpc::ClientAsyncResponseReaderInterface<google::longrunning::Operation>>
   AsyncUpdateCluster(grpc::ClientContext* context,
-                     const google::bigtable::admin::v2::Cluster& request,
+                     google::bigtable::admin::v2::Cluster const& request,
                      grpc::CompletionQueue* cq) = 0;
 
   virtual std::unique_ptr<
@@ -272,7 +259,7 @@ class InstanceAdminClient {
       google::bigtable::admin::v2::ListClustersResponse>>
   AsyncListClusters(
       grpc::ClientContext* context,
-      const google::bigtable::admin::v2::ListClustersRequest& request,
+      google::bigtable::admin::v2::ListClustersRequest const& request,
       grpc::CompletionQueue* cq) = 0;
 
   virtual std::unique_ptr<grpc::ClientAsyncResponseReaderInterface<
@@ -300,14 +287,14 @@ class InstanceAdminClient {
       grpc::ClientAsyncResponseReaderInterface<google::longrunning::Operation>>
   AsyncUpdateAppProfile(
       grpc::ClientContext* context,
-      const google::bigtable::admin::v2::UpdateAppProfileRequest& request,
+      google::bigtable::admin::v2::UpdateAppProfileRequest const& request,
       grpc::CompletionQueue* cq) = 0;
 
   virtual std::unique_ptr<grpc::ClientAsyncResponseReaderInterface<
       google::bigtable::admin::v2::ListAppProfilesResponse>>
   AsyncListAppProfiles(
       grpc::ClientContext* context,
-      const google::bigtable::admin::v2::ListAppProfilesRequest& request,
+      google::bigtable::admin::v2::ListAppProfilesRequest const& request,
       grpc::CompletionQueue* cq) = 0;
 
   virtual std::unique_ptr<
@@ -335,7 +322,7 @@ class InstanceAdminClient {
   virtual std::unique_ptr<
       grpc::ClientAsyncResponseReaderInterface<google::longrunning::Operation>>
   AsyncGetOperation(grpc::ClientContext* context,
-                    const google::longrunning::GetOperationRequest& request,
+                    google::longrunning::GetOperationRequest const& request,
                     grpc::CompletionQueue* cq) = 0;
   //@}
 };

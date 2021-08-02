@@ -190,7 +190,7 @@ class UptimeCheckService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListUptimeCheckConfigs(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest& request, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListUptimeCheckConfigsResponse>> AsyncListUptimeCheckConfigs(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListUptimeCheckConfigsResponse>>(AsyncListUptimeCheckConfigsRaw(context, request, cq));

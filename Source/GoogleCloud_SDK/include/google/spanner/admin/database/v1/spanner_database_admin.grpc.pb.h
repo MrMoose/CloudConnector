@@ -74,8 +74,8 @@ class DatabaseAdmin final {
     // have a name of the format `<database_name>/operations/<operation_id>` and
     // can be used to track preparation of the database. The
     // [metadata][google.longrunning.Operation.metadata] field type is
-    // [CreateDatabaseMetadata][google.spanner.admin.database.v1.CreateDatabaseMetadata].
-    // The [response][google.longrunning.Operation.response] field type is
+    // [CreateDatabaseMetadata][google.spanner.admin.database.v1.CreateDatabaseMetadata]. The
+    // [response][google.longrunning.Operation.response] field type is
     // [Database][google.spanner.admin.database.v1.Database], if successful.
     virtual ::grpc::Status CreateDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncCreateDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest& request, ::grpc::CompletionQueue* cq) {
@@ -98,8 +98,7 @@ class DatabaseAdmin final {
     // the format `<database_name>/operations/<operation_id>` and can be used to
     // track execution of the schema change(s). The
     // [metadata][google.longrunning.Operation.metadata] field type is
-    // [UpdateDatabaseDdlMetadata][google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata].
-    // The operation has no response.
+    // [UpdateDatabaseDdlMetadata][google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata].  The operation has no response.
     virtual ::grpc::Status UpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncUpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncUpdateDatabaseDdlRaw(context, request, cq));
@@ -179,12 +178,12 @@ class DatabaseAdmin final {
     // `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation_id>`
     // and can be used to track creation of the backup. The
     // [metadata][google.longrunning.Operation.metadata] field type is
-    // [CreateBackupMetadata][google.spanner.admin.database.v1.CreateBackupMetadata].
-    // The [response][google.longrunning.Operation.response] field type is
-    // [Backup][google.spanner.admin.database.v1.Backup], if successful.
-    // Cancelling the returned operation will stop the creation and delete the
-    // backup. There can be only one pending backup creation per database. Backup
-    // creation of different databases can run concurrently.
+    // [CreateBackupMetadata][google.spanner.admin.database.v1.CreateBackupMetadata]. The
+    // [response][google.longrunning.Operation.response] field type is
+    // [Backup][google.spanner.admin.database.v1.Backup], if successful. Cancelling the returned operation will stop the
+    // creation and delete the backup.
+    // There can be only one pending backup creation per database. Backup creation
+    // of different databases can run concurrently.
     virtual ::grpc::Status CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncCreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncCreateBackupRaw(context, request, cq));
@@ -192,8 +191,7 @@ class DatabaseAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncCreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncCreateBackupRaw(context, request, cq));
     }
-    // Gets metadata on a pending or completed
-    // [Backup][google.spanner.admin.database.v1.Backup].
+    // Gets metadata on a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
     virtual ::grpc::Status GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::google::spanner::admin::database::v1::Backup* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>> AsyncGetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>>(AsyncGetBackupRaw(context, request, cq));
@@ -201,8 +199,7 @@ class DatabaseAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>> PrepareAsyncGetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>>(PrepareAsyncGetBackupRaw(context, request, cq));
     }
-    // Updates a pending or completed
-    // [Backup][google.spanner.admin.database.v1.Backup].
+    // Updates a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
     virtual ::grpc::Status UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest& request, ::google::spanner::admin::database::v1::Backup* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>> AsyncUpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>>(AsyncUpdateBackupRaw(context, request, cq));
@@ -210,8 +207,7 @@ class DatabaseAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>> PrepareAsyncUpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>>(PrepareAsyncUpdateBackupRaw(context, request, cq));
     }
-    // Deletes a pending or completed
-    // [Backup][google.spanner.admin.database.v1.Backup].
+    // Deletes a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
     virtual ::grpc::Status DeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteBackupRaw(context, request, cq));
@@ -300,8 +296,8 @@ class DatabaseAdmin final {
       // have a name of the format `<database_name>/operations/<operation_id>` and
       // can be used to track preparation of the database. The
       // [metadata][google.longrunning.Operation.metadata] field type is
-      // [CreateDatabaseMetadata][google.spanner.admin.database.v1.CreateDatabaseMetadata].
-      // The [response][google.longrunning.Operation.response] field type is
+      // [CreateDatabaseMetadata][google.spanner.admin.database.v1.CreateDatabaseMetadata]. The
+      // [response][google.longrunning.Operation.response] field type is
       // [Database][google.spanner.admin.database.v1.Database], if successful.
       virtual void CreateDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -322,8 +318,7 @@ class DatabaseAdmin final {
       // the format `<database_name>/operations/<operation_id>` and can be used to
       // track execution of the schema change(s). The
       // [metadata][google.longrunning.Operation.metadata] field type is
-      // [UpdateDatabaseDdlMetadata][google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata].
-      // The operation has no response.
+      // [UpdateDatabaseDdlMetadata][google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata].  The operation has no response.
       virtual void UpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -397,36 +392,33 @@ class DatabaseAdmin final {
       // `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation_id>`
       // and can be used to track creation of the backup. The
       // [metadata][google.longrunning.Operation.metadata] field type is
-      // [CreateBackupMetadata][google.spanner.admin.database.v1.CreateBackupMetadata].
-      // The [response][google.longrunning.Operation.response] field type is
-      // [Backup][google.spanner.admin.database.v1.Backup], if successful.
-      // Cancelling the returned operation will stop the creation and delete the
-      // backup. There can be only one pending backup creation per database. Backup
-      // creation of different databases can run concurrently.
+      // [CreateBackupMetadata][google.spanner.admin.database.v1.CreateBackupMetadata]. The
+      // [response][google.longrunning.Operation.response] field type is
+      // [Backup][google.spanner.admin.database.v1.Backup], if successful. Cancelling the returned operation will stop the
+      // creation and delete the backup.
+      // There can be only one pending backup creation per database. Backup creation
+      // of different databases can run concurrently.
       virtual void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
       virtual void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
-      // Gets metadata on a pending or completed
-      // [Backup][google.spanner.admin.database.v1.Backup].
+      // Gets metadata on a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
       virtual void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
       virtual void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
-      // Updates a pending or completed
-      // [Backup][google.spanner.admin.database.v1.Backup].
+      // Updates a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
       virtual void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
       virtual void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
-      // Deletes a pending or completed
-      // [Backup][google.spanner.admin.database.v1.Backup].
+      // Deletes a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
       virtual void DeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -541,7 +533,7 @@ class DatabaseAdmin final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListDatabases(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest& request, ::google::spanner::admin::database::v1::ListDatabasesResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabasesResponse>> AsyncListDatabases(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabasesResponse>>(AsyncListDatabasesRaw(context, request, cq));
@@ -842,8 +834,8 @@ class DatabaseAdmin final {
     // have a name of the format `<database_name>/operations/<operation_id>` and
     // can be used to track preparation of the database. The
     // [metadata][google.longrunning.Operation.metadata] field type is
-    // [CreateDatabaseMetadata][google.spanner.admin.database.v1.CreateDatabaseMetadata].
-    // The [response][google.longrunning.Operation.response] field type is
+    // [CreateDatabaseMetadata][google.spanner.admin.database.v1.CreateDatabaseMetadata]. The
+    // [response][google.longrunning.Operation.response] field type is
     // [Database][google.spanner.admin.database.v1.Database], if successful.
     virtual ::grpc::Status CreateDatabase(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response);
     // Gets the state of a Cloud Spanner database.
@@ -854,8 +846,7 @@ class DatabaseAdmin final {
     // the format `<database_name>/operations/<operation_id>` and can be used to
     // track execution of the schema change(s). The
     // [metadata][google.longrunning.Operation.metadata] field type is
-    // [UpdateDatabaseDdlMetadata][google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata].
-    // The operation has no response.
+    // [UpdateDatabaseDdlMetadata][google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata].  The operation has no response.
     virtual ::grpc::Status UpdateDatabaseDdl(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response);
     // Drops (aka deletes) a Cloud Spanner database.
     // Completed backups for the database will be retained according to their
@@ -899,21 +890,18 @@ class DatabaseAdmin final {
     // `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation_id>`
     // and can be used to track creation of the backup. The
     // [metadata][google.longrunning.Operation.metadata] field type is
-    // [CreateBackupMetadata][google.spanner.admin.database.v1.CreateBackupMetadata].
-    // The [response][google.longrunning.Operation.response] field type is
-    // [Backup][google.spanner.admin.database.v1.Backup], if successful.
-    // Cancelling the returned operation will stop the creation and delete the
-    // backup. There can be only one pending backup creation per database. Backup
-    // creation of different databases can run concurrently.
+    // [CreateBackupMetadata][google.spanner.admin.database.v1.CreateBackupMetadata]. The
+    // [response][google.longrunning.Operation.response] field type is
+    // [Backup][google.spanner.admin.database.v1.Backup], if successful. Cancelling the returned operation will stop the
+    // creation and delete the backup.
+    // There can be only one pending backup creation per database. Backup creation
+    // of different databases can run concurrently.
     virtual ::grpc::Status CreateBackup(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response);
-    // Gets metadata on a pending or completed
-    // [Backup][google.spanner.admin.database.v1.Backup].
+    // Gets metadata on a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
     virtual ::grpc::Status GetBackup(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response);
-    // Updates a pending or completed
-    // [Backup][google.spanner.admin.database.v1.Backup].
+    // Updates a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
     virtual ::grpc::Status UpdateBackup(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response);
-    // Deletes a pending or completed
-    // [Backup][google.spanner.admin.database.v1.Backup].
+    // Deletes a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
     virtual ::grpc::Status DeleteBackup(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response);
     // Lists completed and pending backups.
     // Backups returned are ordered by `create_time` in descending order,

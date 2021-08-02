@@ -138,7 +138,7 @@ class Speech final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status Recognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest& request, ::google::cloud::speech::v1::RecognizeResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::speech::v1::RecognizeResponse>> AsyncRecognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::speech::v1::RecognizeResponse>>(AsyncRecognizeRaw(context, request, cq));

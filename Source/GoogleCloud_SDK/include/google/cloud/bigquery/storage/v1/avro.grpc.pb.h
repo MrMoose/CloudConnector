@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/cloud/bigquery/storage/v1/avro.proto
 // Original file comments:
-// Copyright 2019 Google LLC.
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
 //
 #ifndef GRPC_google_2fcloud_2fbigquery_2fstorage_2fv1_2favro_2eproto__INCLUDED
 #define GRPC_google_2fcloud_2fbigquery_2fstorage_2fv1_2favro_2eproto__INCLUDED

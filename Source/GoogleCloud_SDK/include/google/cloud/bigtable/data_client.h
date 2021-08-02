@@ -29,16 +29,9 @@ inline namespace BIGTABLE_CLIENT_NS {
 // Forward declare some classes so we can be friends.
 class Table;
 namespace internal {
-class AsyncBulkMutatorNoex;
 class AsyncRetryBulkApply;
-class AsyncSampleRowKeys;
+class AsyncRowSampler;
 class BulkMutator;
-template <typename ReadRowCallback,
-          typename std::enable_if<
-              google::cloud::internal::is_invocable<
-                  ReadRowCallback, CompletionQueue&, Row, grpc::Status&>::value,
-              int>::type>
-class AsyncRowReader;
 class LoggingDataClient;
 }  // namespace internal
 
@@ -96,19 +89,12 @@ class DataClient {
   // classes that do use them friends.
  protected:
   friend class Table;
-  friend class internal::AsyncBulkMutatorNoex;
   friend class internal::AsyncRetryBulkApply;
-  friend class internal::AsyncSampleRowKeys;
+  friend class internal::AsyncRowSampler;
   friend class internal::BulkMutator;
   friend class RowReader;
   template <typename RowFunctor, typename FinishFunctor>
   friend class AsyncRowReader;
-  template <typename ReadRowCallback,
-            typename std::enable_if<google::cloud::internal::is_invocable<
-                                        ReadRowCallback, CompletionQueue&, Row,
-                                        grpc::Status&>::value,
-                                    int>::type>
-  friend class internal::AsyncRowReader;
   friend class internal::LoggingDataClient;
 
   //@{
@@ -130,7 +116,7 @@ class DataClient {
       google::bigtable::v2::CheckAndMutateRowResponse>>
   AsyncCheckAndMutateRow(
       grpc::ClientContext* context,
-      const google::bigtable::v2::CheckAndMutateRowRequest& request,
+      google::bigtable::v2::CheckAndMutateRowRequest const& request,
       grpc::CompletionQueue* cq) = 0;
   virtual grpc::Status ReadModifyWriteRow(
       grpc::ClientContext* context,
@@ -149,12 +135,12 @@ class DataClient {
   virtual std::unique_ptr<
       grpc::ClientAsyncReaderInterface<google::bigtable::v2::ReadRowsResponse>>
   AsyncReadRows(grpc::ClientContext* context,
-                const google::bigtable::v2::ReadRowsRequest& request,
+                google::bigtable::v2::ReadRowsRequest const& request,
                 grpc::CompletionQueue* cq, void* tag) = 0;
   virtual std::unique_ptr<::grpc::ClientAsyncReaderInterface<
       ::google::bigtable::v2::ReadRowsResponse>>
   PrepareAsyncReadRows(::grpc::ClientContext* context,
-                       const ::google::bigtable::v2::ReadRowsRequest& request,
+                       ::google::bigtable::v2::ReadRowsRequest const& request,
                        ::grpc::CompletionQueue* cq) = 0;
   virtual std::unique_ptr<
       grpc::ClientReaderInterface<google::bigtable::v2::SampleRowKeysResponse>>
@@ -164,8 +150,14 @@ class DataClient {
       ::google::bigtable::v2::SampleRowKeysResponse>>
   AsyncSampleRowKeys(
       ::grpc::ClientContext* context,
-      const ::google::bigtable::v2::SampleRowKeysRequest& request,
+      ::google::bigtable::v2::SampleRowKeysRequest const& request,
       ::grpc::CompletionQueue* cq, void* tag) = 0;
+  virtual std::unique_ptr<::grpc::ClientAsyncReaderInterface<
+      ::google::bigtable::v2::SampleRowKeysResponse>>
+  PrepareAsyncSampleRowKeys(
+      ::grpc::ClientContext* context,
+      ::google::bigtable::v2::SampleRowKeysRequest const& request,
+      ::grpc::CompletionQueue* cq);
   virtual std::unique_ptr<
       grpc::ClientReaderInterface<google::bigtable::v2::MutateRowsResponse>>
   MutateRows(grpc::ClientContext* context,
@@ -173,13 +165,13 @@ class DataClient {
   virtual std::unique_ptr<::grpc::ClientAsyncReaderInterface<
       ::google::bigtable::v2::MutateRowsResponse>>
   AsyncMutateRows(::grpc::ClientContext* context,
-                  const ::google::bigtable::v2::MutateRowsRequest& request,
+                  ::google::bigtable::v2::MutateRowsRequest const& request,
                   ::grpc::CompletionQueue* cq, void* tag) = 0;
   virtual std::unique_ptr<::grpc::ClientAsyncReaderInterface<
       ::google::bigtable::v2::MutateRowsResponse>>
   PrepareAsyncMutateRows(
       ::grpc::ClientContext* context,
-      const ::google::bigtable::v2::MutateRowsRequest& request,
+      ::google::bigtable::v2::MutateRowsRequest const& request,
       ::grpc::CompletionQueue* cq) = 0;
   //@}
 };

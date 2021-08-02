@@ -110,7 +110,7 @@ class TraceService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status BatchWriteSpans(::grpc::ClientContext* context, const ::google::devtools::cloudtrace::v2::BatchWriteSpansRequest& request, ::google::protobuf::Empty* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncBatchWriteSpans(::grpc::ClientContext* context, const ::google::devtools::cloudtrace::v2::BatchWriteSpansRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncBatchWriteSpansRaw(context, request, cq));

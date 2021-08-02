@@ -438,7 +438,7 @@ class RepeatedField final {
   //
   // The first version executes at 7 cycles per iteration while the second
   // version near 1 or 2 cycles.
-  template <int = 0, bool = std::is_pod<Element>::value>
+  template <int = 0, bool = std::is_trivial<Element>::value>
   class FastAdderImpl {
    public:
     explicit FastAdderImpl(RepeatedField* rf) : repeated_field_(rf) {
@@ -500,8 +500,7 @@ namespace internal {
 // shouldn't be necessary, but our compiler doesn't optimize std::copy very
 // effectively.
 template <typename Element,
-          bool HasTrivialCopy =
-              std::is_pod<Element>::value>
+          bool HasTrivialCopy = std::is_trivial<Element>::value>
 struct ElementCopier {
   void operator()(Element* to, const Element* from, int array_size);
 };
@@ -657,7 +656,7 @@ class PROTOBUF_EXPORT RepeatedPtrFieldBase {
   const typename TypeHandler::Type* const* data() const;
 
   template <typename TypeHandler>
-  PROTOBUF_ALWAYS_INLINE void Swap(RepeatedPtrFieldBase* other);
+  PROTOBUF_NDEBUG_INLINE void Swap(RepeatedPtrFieldBase* other);
 
   void SwapElements(int index1, int index2);
 
@@ -1206,6 +1205,12 @@ RepeatedField<Element>::RepeatedField(Iter begin, const Iter& end)
 
 template <typename Element>
 RepeatedField<Element>::~RepeatedField() {
+#ifndef NDEBUG
+  // Try to trigger segfault / asan failure in non-opt builds. If arena_
+  // lifetime has ended before the destructor.
+  auto arena = GetArena();
+  if (arena) (void)arena->SpaceAllocated();
+#endif
   if (total_size_ > 0) {
     InternalDeallocate(rep(), total_size_);
   }

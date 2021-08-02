@@ -168,7 +168,7 @@ class AlertPolicyService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListAlertPolicies(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest& request, ::google::monitoring::v3::ListAlertPoliciesResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListAlertPoliciesResponse>> AsyncListAlertPolicies(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListAlertPoliciesResponse>>(AsyncListAlertPoliciesRaw(context, request, cq));

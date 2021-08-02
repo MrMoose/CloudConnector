@@ -36,44 +36,17 @@ class SubscriptionLeaseManagement
  public:
   static auto constexpr kAckDeadlineSlack = std::chrono::seconds(2);
   static auto constexpr kMinimumAckDeadline = std::chrono::seconds(10);
-  static auto constexpr kMaximumAckDeadline = std::chrono::seconds(600);
-
-  /**
-   * A wrapper to create timers.
-   *
-   * TODO(#4718) - this is only needed because we cannot mock CompletionQueue.
-   */
-  using TimerFactory =
-      std::function<future<Status>(std::chrono::system_clock::time_point)>;
 
   static std::shared_ptr<SubscriptionLeaseManagement> Create(
       google::cloud::CompletionQueue cq,
       std::shared_ptr<SessionShutdownManager> shutdown_manager,
       std::shared_ptr<SubscriptionBatchSource> child,
-      std::chrono::seconds max_deadline_time) {
-    auto timer_factory =
-        [cq](std::chrono::system_clock::time_point tp) mutable {
-          return cq.MakeDeadlineTimer(tp).then(
-              [](future<StatusOr<std::chrono::system_clock::time_point>> f) {
-                return f.get().status();
-              });
-        };
+      std::chrono::seconds max_deadline_time,
+      std::chrono::seconds max_deadline_extension) {
     return std::shared_ptr<SubscriptionLeaseManagement>(
         new SubscriptionLeaseManagement(
-            std::move(cq), std::move(shutdown_manager),
-            std::move(timer_factory), std::move(child), max_deadline_time));
-  }
-
-  static std::shared_ptr<SubscriptionLeaseManagement> CreateForTesting(
-      google::cloud::CompletionQueue cq,
-      std::shared_ptr<SessionShutdownManager> shutdown_manager,
-      TimerFactory timer_factory,
-      std::shared_ptr<SubscriptionBatchSource> child,
-      std::chrono::seconds max_deadline_time) {
-    return std::shared_ptr<SubscriptionLeaseManagement>(
-        new SubscriptionLeaseManagement(
-            std::move(cq), std::move(shutdown_manager),
-            std::move(timer_factory), std::move(child), max_deadline_time));
+            std::move(cq), std::move(shutdown_manager), std::move(child),
+            max_deadline_time, max_deadline_extension));
   }
 
   void Start(BatchCallback cb) override;
@@ -88,14 +61,14 @@ class SubscriptionLeaseManagement
   SubscriptionLeaseManagement(
       google::cloud::CompletionQueue cq,
       std::shared_ptr<SessionShutdownManager> shutdown_manager,
-      TimerFactory timer_factory,
       std::shared_ptr<SubscriptionBatchSource> child,
-      std::chrono::seconds max_deadline_time)
+      std::chrono::seconds max_deadline_time,
+      std::chrono::seconds max_deadline_extension)
       : cq_(std::move(cq)),
-        timer_factory_(std::move(timer_factory)),
         child_(std::move(child)),
         shutdown_manager_(std::move(shutdown_manager)),
-        max_deadline_time_(max_deadline_time) {}
+        max_deadline_time_(max_deadline_time),
+        max_deadline_extension_(max_deadline_extension) {}
 
   void OnRead(
       StatusOr<google::pubsub::v1::StreamingPullResponse> const& response);
@@ -114,10 +87,10 @@ class SubscriptionLeaseManagement
   void NackAll(std::unique_lock<std::mutex> lk);
 
   google::cloud::CompletionQueue cq_;
-  TimerFactory const timer_factory_;
   std::shared_ptr<SubscriptionBatchSource> const child_;
   std::shared_ptr<SessionShutdownManager> const shutdown_manager_;
   std::chrono::seconds const max_deadline_time_;
+  std::chrono::seconds const max_deadline_extension_;
 
   std::mutex mu_;
 

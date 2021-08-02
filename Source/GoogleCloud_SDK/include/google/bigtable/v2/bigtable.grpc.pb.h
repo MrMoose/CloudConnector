@@ -131,18 +131,18 @@ class Bigtable final {
       // atomicity of each row will still be preserved. See the
       // ReadRowsResponse documentation for details.
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ReadRows(::grpc::ClientContext* context, ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) = 0;
+      virtual void ReadRows(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) = 0;
       #else
-      virtual void ReadRows(::grpc::ClientContext* context, ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) = 0;
+      virtual void ReadRows(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) = 0;
       #endif
       // Returns a sample of row keys in the table. The returned row keys will
       // delimit contiguous sections of the table of approximately equal size,
       // which can be used to break up the data for distributed tasks like
       // mapreduces.
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void SampleRowKeys(::grpc::ClientContext* context, ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) = 0;
+      virtual void SampleRowKeys(::grpc::ClientContext* context, const ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) = 0;
       #else
-      virtual void SampleRowKeys(::grpc::ClientContext* context, ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) = 0;
+      virtual void SampleRowKeys(::grpc::ClientContext* context, const ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) = 0;
       #endif
       // Mutates a row atomically. Cells already present in the row are left
       // unchanged unless explicitly changed by `mutation`.
@@ -156,9 +156,9 @@ class Bigtable final {
       // atomically as in MutateRow, but the entire batch is not executed
       // atomically.
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void MutateRows(::grpc::ClientContext* context, ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) = 0;
+      virtual void MutateRows(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) = 0;
       #else
-      virtual void MutateRows(::grpc::ClientContext* context, ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) = 0;
+      virtual void MutateRows(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) = 0;
       #endif
       // Mutates a row atomically based on the output of a predicate Reader filter.
       virtual void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, std::function<void(::grpc::Status)>) = 0;
@@ -205,7 +205,7 @@ class Bigtable final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     std::unique_ptr< ::grpc::ClientReader< ::google::bigtable::v2::ReadRowsResponse>> ReadRows(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest& request) {
       return std::unique_ptr< ::grpc::ClientReader< ::google::bigtable::v2::ReadRowsResponse>>(ReadRowsRaw(context, request));
     }
@@ -258,14 +258,14 @@ class Bigtable final {
       public StubInterface::experimental_async_interface {
      public:
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ReadRows(::grpc::ClientContext* context, ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) override;
+      void ReadRows(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) override;
       #else
-      void ReadRows(::grpc::ClientContext* context, ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) override;
+      void ReadRows(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void SampleRowKeys(::grpc::ClientContext* context, ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) override;
+      void SampleRowKeys(::grpc::ClientContext* context, const ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) override;
       #else
-      void SampleRowKeys(::grpc::ClientContext* context, ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) override;
+      void SampleRowKeys(::grpc::ClientContext* context, const ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) override;
       #endif
       void MutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -274,9 +274,9 @@ class Bigtable final {
       void MutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void MutateRows(::grpc::ClientContext* context, ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) override;
+      void MutateRows(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) override;
       #else
-      void MutateRows(::grpc::ClientContext* context, ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) override;
+      void MutateRows(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) override;
       #endif
       void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL

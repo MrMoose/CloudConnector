@@ -260,7 +260,7 @@ class EntityTypes final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEntityTypesRequest& request, ::google::cloud::dialogflow::v2beta1::ListEntityTypesResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListEntityTypesResponse>> AsyncListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEntityTypesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListEntityTypesResponse>>(AsyncListEntityTypesRaw(context, request, cq));

@@ -874,9 +874,9 @@ class Storage final {
       #endif
       // Reads an object's data.
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void GetObjectMedia(::grpc::ClientContext* context, ::google::storage::v1::GetObjectMediaRequest* request, ::grpc::ClientReadReactor< ::google::storage::v1::GetObjectMediaResponse>* reactor) = 0;
+      virtual void GetObjectMedia(::grpc::ClientContext* context, const ::google::storage::v1::GetObjectMediaRequest* request, ::grpc::ClientReadReactor< ::google::storage::v1::GetObjectMediaResponse>* reactor) = 0;
       #else
-      virtual void GetObjectMedia(::grpc::ClientContext* context, ::google::storage::v1::GetObjectMediaRequest* request, ::grpc::experimental::ClientReadReactor< ::google::storage::v1::GetObjectMediaResponse>* reactor) = 0;
+      virtual void GetObjectMedia(::grpc::ClientContext* context, const ::google::storage::v1::GetObjectMediaRequest* request, ::grpc::experimental::ClientReadReactor< ::google::storage::v1::GetObjectMediaResponse>* reactor) = 0;
       #endif
       // Stores a new object and metadata.
       //
@@ -1163,7 +1163,7 @@ class Storage final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status DeleteBucketAccessControl(::grpc::ClientContext* context, const ::google::storage::v1::DeleteBucketAccessControlRequest& request, ::google::protobuf::Empty* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteBucketAccessControl(::grpc::ClientContext* context, const ::google::storage::v1::DeleteBucketAccessControlRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteBucketAccessControlRaw(context, request, cq));
@@ -1792,9 +1792,9 @@ class Storage final {
       void GetObject(::grpc::ClientContext* context, const ::google::storage::v1::GetObjectRequest* request, ::google::storage::v1::Object* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void GetObjectMedia(::grpc::ClientContext* context, ::google::storage::v1::GetObjectMediaRequest* request, ::grpc::ClientReadReactor< ::google::storage::v1::GetObjectMediaResponse>* reactor) override;
+      void GetObjectMedia(::grpc::ClientContext* context, const ::google::storage::v1::GetObjectMediaRequest* request, ::grpc::ClientReadReactor< ::google::storage::v1::GetObjectMediaResponse>* reactor) override;
       #else
-      void GetObjectMedia(::grpc::ClientContext* context, ::google::storage::v1::GetObjectMediaRequest* request, ::grpc::experimental::ClientReadReactor< ::google::storage::v1::GetObjectMediaResponse>* reactor) override;
+      void GetObjectMedia(::grpc::ClientContext* context, const ::google::storage::v1::GetObjectMediaRequest* request, ::grpc::experimental::ClientReadReactor< ::google::storage::v1::GetObjectMediaResponse>* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void InsertObject(::grpc::ClientContext* context, ::google::storage::v1::Object* response, ::grpc::ClientWriteReactor< ::google::storage::v1::InsertObjectRequest>* reactor) override;

@@ -135,7 +135,7 @@ class Sessions final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status DetectIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest& request, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>> AsyncDetectIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>>(AsyncDetectIntentRaw(context, request, cq));

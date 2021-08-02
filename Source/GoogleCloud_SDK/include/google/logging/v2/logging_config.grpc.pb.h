@@ -556,7 +556,7 @@ class ConfigServiceV2 final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListBuckets(::grpc::ClientContext* context, const ::google::logging::v2::ListBucketsRequest& request, ::google::logging::v2::ListBucketsResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::ListBucketsResponse>> AsyncListBuckets(::grpc::ClientContext* context, const ::google::logging::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::ListBucketsResponse>>(AsyncListBucketsRaw(context, request, cq));

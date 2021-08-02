@@ -171,7 +171,7 @@ class SchemaService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CreateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest& request, ::google::pubsub::v1::Schema* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>> AsyncCreateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>>(AsyncCreateSchemaRaw(context, request, cq));

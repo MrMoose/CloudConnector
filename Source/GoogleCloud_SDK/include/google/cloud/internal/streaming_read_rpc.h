@@ -21,12 +21,21 @@
 #include "absl/types/variant.h"
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/support/sync_stream.h>
+#include <map>
 #include <memory>
+#include <string>
 
 namespace google {
 namespace cloud {
 inline namespace GOOGLE_CLOUD_CPP_NS {
 namespace internal {
+
+/// A simple representation of request metadata.
+using StreamingRpcMetadata = std::multimap<std::string, std::string>;
+
+/// Return interesting bits of metadata stored in the client context.
+StreamingRpcMetadata GetRequestMetadataFromContext(
+    grpc::ClientContext const& context);
 
 /**
  * Defines the interface for wrappers around gRPC streaming read RPCs.
@@ -50,6 +59,15 @@ class StreamingReadRpc {
 
   /// Return the next element, or the final RPC status.
   virtual absl::variant<Status, ResponseType> Read() = 0;
+
+  /**
+   * Return the request metadata.
+   *
+   * Request metadata is useful for troubleshooting, but may be relatively
+   * expensive to extract.  Library developers should avoid this function in
+   * the critical path.
+   */
+  virtual StreamingRpcMetadata GetRequestMetadata() const = 0;
 };
 
 /// Report the errors in a standalone function to minimize includes
@@ -74,7 +92,8 @@ class StreamingReadRpcImpl : public StreamingReadRpc<ResponseType> {
     if (finished_) return;
     Cancel();
     auto status = Finish();
-    if (status.ok()) return;
+    // Getting a kCancelled here is expected, as we just canceled the RPC.
+    if (status.ok() && status.code() != StatusCode::kCancelled) return;
     StreamingReadRpcReportUnhandledError(status, typeid(ResponseType).name());
   }
 
@@ -84,6 +103,11 @@ class StreamingReadRpcImpl : public StreamingReadRpc<ResponseType> {
     ResponseType response;
     if (stream_->Read(&response)) return response;
     return Finish();
+  }
+
+  StreamingRpcMetadata GetRequestMetadata() const override {
+    if (!context_) return {};
+    return GetRequestMetadataFromContext(*context_);
   }
 
  private:
@@ -96,6 +120,32 @@ class StreamingReadRpcImpl : public StreamingReadRpc<ResponseType> {
   std::unique_ptr<grpc::ClientContext> const context_;
   std::unique_ptr<grpc::ClientReaderInterface<ResponseType>> const stream_;
   bool finished_ = false;
+};
+
+/**
+ * A stream returning a fixed error.
+ *
+ * This is used when the library cannot even start the streaming RPC, for
+ * example, because setting up the credentials for the call failed.  One could
+ * return `StatusOr<std::unique_ptr<StreamingReadRpc<T>>` in such cases, but
+ * the receiving code must deal with streams that fail anyway. It seems more
+ * elegant to represent the error as part of the stream.
+ */
+template <typename ResponseType>
+class StreamingReadRpcError : public StreamingReadRpc<ResponseType> {
+ public:
+  explicit StreamingReadRpcError(Status status) : status_(std::move(status)) {}
+
+  ~StreamingReadRpcError() override = default;
+
+  void Cancel() override {}
+
+  absl::variant<Status, ResponseType> Read() override { return status_; }
+
+  StreamingRpcMetadata GetRequestMetadata() const override { return {}; }
+
+ private:
+  Status status_;
 };
 
 }  // namespace internal

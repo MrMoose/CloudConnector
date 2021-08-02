@@ -185,7 +185,7 @@ class KnowledgeBases final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ListKnowledgeBases(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest& request, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>> AsyncListKnowledgeBases(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>>(AsyncListKnowledgeBasesRaw(context, request, cq));

@@ -18,6 +18,7 @@
 #include "google/cloud/storage/internal/curl_handle.h"
 #include "google/cloud/storage/internal/curl_wrappers.h"
 #include "google/cloud/storage/version.h"
+#include "google/cloud/options.h"
 #include <deque>
 #include <mutex>
 #include <string>
@@ -46,7 +47,6 @@ class CurlHandleFactory {
   // Only virtual for testing purposes.
   virtual void SetCurlStringOption(CURL* handle, CURLoption option_tag,
                                    char const* value);
-  void SetCurlOptions(CURL* handle, ChannelOptions const& options);
 
   static CURL* GetHandle(CurlHandle& h) { return h.handle_.get(); }
   static void ResetHandle(CurlHandle& h) { h.handle_.reset(); }
@@ -54,7 +54,7 @@ class CurlHandleFactory {
 };
 
 std::shared_ptr<CurlHandleFactory> GetDefaultCurlHandleFactory(
-    ChannelOptions const& options);
+    Options const& options);
 std::shared_ptr<CurlHandleFactory> GetDefaultCurlHandleFactory();
 
 /**
@@ -67,8 +67,7 @@ std::shared_ptr<CurlHandleFactory> GetDefaultCurlHandleFactory();
 class DefaultCurlHandleFactory : public CurlHandleFactory {
  public:
   DefaultCurlHandleFactory() = default;
-  explicit DefaultCurlHandleFactory(ChannelOptions options)
-      : options_(std::move(options)) {}
+  explicit DefaultCurlHandleFactory(Options const& o);
 
   CurlPtr CreateHandle() override;
   void CleanupHandle(CurlHandle&&) override;
@@ -82,9 +81,12 @@ class DefaultCurlHandleFactory : public CurlHandleFactory {
   }
 
  private:
+  void SetCurlOptions(CURL* handle);
+
   mutable std::mutex mu_;
   std::string last_client_ip_address_;
-  ChannelOptions options_;
+  absl::optional<std::string> cainfo_;
+  absl::optional<std::string> capath_;
 };
 
 /**
@@ -95,7 +97,7 @@ class DefaultCurlHandleFactory : public CurlHandleFactory {
  */
 class PooledCurlHandleFactory : public CurlHandleFactory {
  public:
-  PooledCurlHandleFactory(std::size_t maximum_size, ChannelOptions options);
+  PooledCurlHandleFactory(std::size_t maximum_size, Options const& o);
   explicit PooledCurlHandleFactory(std::size_t maximum_size)
       : PooledCurlHandleFactory(maximum_size, {}) {}
   ~PooledCurlHandleFactory() override;
@@ -112,12 +114,15 @@ class PooledCurlHandleFactory : public CurlHandleFactory {
   }
 
  private:
+  void SetCurlOptions(CURL* handle);
+
   std::size_t maximum_size_;
   mutable std::mutex mu_;
   std::deque<CURL*> handles_;
   std::deque<CURLM*> multi_handles_;
   std::string last_client_ip_address_;
-  ChannelOptions options_;
+  absl::optional<std::string> cainfo_;
+  absl::optional<std::string> capath_;
 };
 
 }  // namespace internal

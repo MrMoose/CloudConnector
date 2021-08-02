@@ -45,13 +45,11 @@
 namespace google {
 namespace cloud {
 namespace storage {
-namespace testing {
-class ClientTester;
-}  // namespace testing
 inline namespace STORAGE_CLIENT_NS {
 namespace internal {
 class NonResumableParallelUploadState;
 class ResumableParallelUploadState;
+struct ClientImplDetails;
 }  // namespace internal
 /**
  * The Google Cloud Storage (GCS) Client.
@@ -66,7 +64,7 @@ class ResumableParallelUploadState;
  * comparable to copying a few shared pointers. The first request (or any
  * request that requires a new connection) incurs the cost of creating the
  * connection and authenticating with the service. Note that the library may
- * need to perform other bookeeping operations that may impact performance.
+ * need to perform other bookkeeping operations that may impact performance.
  * For example, access tokens need to be refreshed from time to time, and this
  * may impact the performance of some operations.
  *
@@ -78,47 +76,34 @@ class ResumableParallelUploadState;
  *
  * @par Credentials
  * The default approach for creating a Client uses Google Application Default
- * %Credentials (ADCs). Because finding or loading ADCs can fail, the returned
- * `StatusOr<Client>` from `CreateDefaultClient()` should be verified before
- * using it. However, explicitly passing `Credentials` when creating a Client
- * does not have the same potential to fail, so the resulting `Client` is not
- * wrapped in a `StatusOr`.  If you wish to use `AnonymousCredentials` or to
- * supply a specific `Credentials` type, you can use the functions declared in
- * google_credentials.h:
- * @code
- * namespace gcs = google::cloud::storage;
+ * Credentials (ADCs). Note that a default-constructed client uses the ADCs:
  *
- * // Implicitly use ADCs:
- * StatusOr<gcs::Client> client = gcs::Client::CreateDefaultClient();
- * if (!client) {
- *   // Handle failure and return.
- * }
+ * @snippet storage_auth_samples.cc default-client
  *
- * // Or explicitly use ADCs:
- * auto creds = gcs::oauth2::GoogleDefaultCredentials();
- * if (!creds) {
- *   // Handle failure and return.
- * }
- * // Status was OK, so create a Client with the given Credentials.
- * gcs::Client client(gcs::ClientOptions(*creds));
+ * Finding or loading the ADCs can fail. This will result in run-time errors
+ * when making requests.
  *
- * // Use service account credentials from a JSON keyfile:
- * std::string path = "/path/to/keyfile.json";
- * auto creds =
- *     gcs::oauth2::CreateServiceAccountCredentialsFromJsonFilePath(path);
- * if (!creds) {
- *   // Handle failure and return.
- * }
- * gcs::Client client(gcs::ClientOptions(*creds));
+ * If you prefer to explicitly load the ADCs use:
  *
- * // Use Compute Engine credentials for the instance's default service account.
- * gcs::Client client(
- *     gcs::ClientOptions(gcs::oauth2::CreateComputeEngineCredentials()));
+ * @snippet storage_auth_samples.cc explicit-adcs
  *
- * // Use no credentials:
- * gcs::Client client(
- *     gcs::ClientOptions(gcs::oauth2::CreateAnonymousCredentials()));
- * @endcode
+ * To load a service account credentials key file use:
+ *
+ * @snippet storage_auth_samples.cc service-account-keyfile-json
+ *
+ * Other credential types are available, including:
+ *
+ * - `google::cloud::MakeInsecureCredentials()` for anonymous access to public
+ *   GCS buckets or objects.
+ * - `google::cloud::MakeAccessTokenCredentials()` to use an access token
+ *   obtained through any out-of-band mechanism.
+ * - `google::cloud::MakeImpersonateServiceAccountCredentials()` to use the IAM
+ *   credentials service and [impersonate a service account].
+ * - `google::cloud::MakeServiceAccountCredentials()` to use a service account
+ *   key file.
+ *
+ * [impersonate service account]:
+ * https://cloud.google.com/iam/docs/impersonating-service-accounts
  *
  * @par Error Handling
  * This class uses `StatusOr<T>` to report errors. When an operation fails to
@@ -210,6 +195,24 @@ class ResumableParallelUploadState;
 class Client {
  public:
   /**
+   * Build a new client.
+   *
+   * @param opts the configuration parameters for the `Client`.
+   *
+   * @see #ClientOptionList for a list of useful options.
+   *
+   * @par Idempotency Policy Example
+   * @snippet storage_object_samples.cc insert object strict idempotency
+   *
+   * @par Modified Retry Policy Example
+   * @snippet storage_object_samples.cc insert object modified retry
+   *
+   * @par Change Credentials Example
+   * @snippet storage_auth_samples.cc service-account-keyfile-json
+   */
+  explicit Client(Options opts = {});
+
+  /**
    * Creates the default client type given the options.
    *
    * @param options the client options, these are used to control credentials,
@@ -219,16 +222,13 @@ class Client {
    *   retried, or what operations cannot be retried because they are not
    *   idempotent.
    *
-   * @par Idempotency Policy Example
-   * @snippet storage_object_samples.cc insert object strict idempotency
-   *
-   * @par Modified Retry Policy Example
-   * @snippet storage_object_samples.cc insert object modified retry
+   * @deprecated use the constructor from `google::cloud::Options` instead.
    */
   template <typename... Policies>
   explicit Client(ClientOptions options, Policies&&... policies)
-      : Client(CreateDefaultInternalClient(std::move(options)),
-               std::forward<Policies>(policies)...) {}
+      : Client(InternalOnly{}, internal::ApplyPolicies(
+                                   internal::MakeOptions(std::move(options)),
+                                   std::forward<Policies>(policies)...)) {}
 
   /**
    * Creates the default client type given the credentials and policies.
@@ -239,37 +239,67 @@ class Client {
    *   retried, or what operations cannot be retried because they are not
    *   idempotent.
    *
-   * @par Idempotency Policy Example
-   * @snippet storage_object_samples.cc insert object strict idempotency
-   *
-   * @par Modified Retry Policy Example
-   * @snippet storage_object_samples.cc insert object modified retry
+   * @deprecated use the constructor from `google::cloud::Options` instead.
    */
   template <typename... Policies>
   explicit Client(std::shared_ptr<oauth2::Credentials> credentials,
                   Policies&&... policies)
-      : Client(ClientOptions(std::move(credentials)),
-               std::forward<Policies>(policies)...) {}
+      : Client(InternalOnly{},
+               internal::ApplyPolicies(
+                   internal::DefaultOptions(std::move(credentials), {}),
+                   std::forward<Policies>(policies)...)) {}
+
+  /**
+   * Create a Client using ClientOptions::CreateDefaultClientOptions().
+   *
+   * @deprecated use the constructor from `google::cloud::Options` instead.
+   */
+  static StatusOr<Client> CreateDefaultClient();
 
   /// Builds a client and maybe override the retry, idempotency, and/or backoff
   /// policies.
+  /// @deprecated This was intended only for test code, applications should not
+  /// use it.
   template <typename... Policies>
+#if !defined(_MSC_VER) || _MSC_VER >= 1920
+  GOOGLE_CLOUD_CPP_DEPRECATED(
+      "applications should not need this."
+      " Please use the constructors from ClientOptions instead."
+      " For mocking, please use testing::ClientFromMock() instead."
+      " Please file a bug at https://github.com/googleapis/google-cloud-cpp"
+      " if you have a use-case not covered by these.")
+#endif  // _MSC_VER
+  // NOLINTNEXTLINE(performance-unnecessary-value-param)
   explicit Client(std::shared_ptr<internal::RawClient> client,
                   Policies&&... policies)
-      : raw_client_(
-            Decorate(std::move(client), std::forward<Policies>(policies)...)) {}
+      : Client(InternalOnlyNoDecorations{},
+               CreateDefaultInternalClient(
+                   internal::ApplyPolicies(
+                       internal::DefaultOptions(
+                           client->client_options().credentials(), {}),
+                       std::forward<Policies>(policies)...),
+                   client)) {
+  }
 
   /// Define a tag to disable automatic decorations of the RawClient.
   struct NoDecorations {};
 
   /// Builds a client with a specific RawClient, without decorations.
+  /// @deprecated This was intended only for test code, applications should not
+  /// use it.
+  GOOGLE_CLOUD_CPP_DEPRECATED(
+      "applications should not need this."
+      " Please file a bug at https://github.com/googleapis/google-cloud-cpp"
+      " if you do.")
   explicit Client(std::shared_ptr<internal::RawClient> client, NoDecorations)
-      : raw_client_(std::move(client)) {}
-
-  /// Create a Client using ClientOptions::CreateDefaultClientOptions().
-  static StatusOr<Client> CreateDefaultClient();
+      : Client(InternalOnlyNoDecorations{}, std::move(client)) {}
 
   /// Access the underlying `RawClient`.
+  /// @deprecated Only intended for implementors, do not use.
+  GOOGLE_CLOUD_CPP_DEPRECATED(
+      "applications should not need this."
+      " Please file a bug at https://github.com/googleapis/google-cloud-cpp"
+      " if you do.")
   std::shared_ptr<internal::RawClient> raw_client() const {
     return raw_client_;
   }
@@ -1172,7 +1202,7 @@ class Client {
    *   `IfMetagenerationMatch`, `IfMetagenerationNotMatch`, `KmsKeyName`,
    *   `MD5HashValue`, `PredefinedAcl`, `Projection`,
    *   `UseResumableUploadSession`, `UserProject`, `WithObjectMetadata` and
-   *   `UploadContentLength`.
+   *   `UploadContentLength`, `AutoFinalize`.
    *
    * @par Idempotency
    * This operation is only idempotent if restricted by pre-conditions, in this
@@ -3103,20 +3133,20 @@ class Client {
   //@}
 
  private:
-  Client() = default;
-  static std::shared_ptr<internal::RawClient> CreateDefaultInternalClient(
-      ClientOptions options);
+  friend internal::ClientImplDetails;
 
-  template <typename... Policies>
-  std::shared_ptr<internal::RawClient> Decorate(
-      std::shared_ptr<internal::RawClient> client, Policies&&... policies) {
-    if (client->client_options().enable_raw_client_tracing()) {
-      client = std::make_shared<internal::LoggingClient>(std::move(client));
-    }
-    auto retry = std::make_shared<internal::RetryClient>(
-        std::move(client), std::forward<Policies>(policies)...);
-    return retry;
-  }
+  struct InternalOnly {};
+  struct InternalOnlyNoDecorations {};
+
+  Client(InternalOnly, Options const& opts)
+      : raw_client_(CreateDefaultInternalClient(opts)) {}
+  Client(InternalOnlyNoDecorations, std::shared_ptr<internal::RawClient> c)
+      : raw_client_(std::move(c)) {}
+
+  static std::shared_ptr<internal::RawClient> CreateDefaultInternalClient(
+      Options const& opts, std::shared_ptr<internal::RawClient> client);
+  static std::shared_ptr<internal::RawClient> CreateDefaultInternalClient(
+      Options const& opts);
 
   ObjectReadStream ReadObjectImpl(
       internal::ReadObjectRangeRequest const& request);
@@ -3199,7 +3229,6 @@ class Client {
 
   friend class internal::NonResumableParallelUploadState;
   friend class internal::ResumableParallelUploadState;
-  friend class testing::ClientTester;
 };
 
 /**
@@ -3221,6 +3250,32 @@ class Client {
 std::string CreateRandomPrefixName(std::string const& prefix = "");
 
 namespace internal {
+struct ClientImplDetails {
+  static std::shared_ptr<RawClient> GetRawClient(Client& c) {
+    return c.raw_client_;
+  }
+
+  static StatusOr<ObjectMetadata> UploadStreamResumable(
+      Client& client, std::istream& source,
+      internal::ResumableUploadRequest const& request) {
+    return client.UploadStreamResumable(source, request);
+  }
+  template <typename... Policies>
+
+  static Client CreateClient(std::shared_ptr<internal::RawClient> c,
+                             Policies&&... p) {
+    auto opts =
+        internal::ApplyPolicies(internal::MakeOptions(c->client_options()),
+                                std::forward<Policies>(p)...);
+    return Client(Client::InternalOnlyNoDecorations{},
+                  Client::CreateDefaultInternalClient(opts, std::move(c)));
+  }
+
+  static Client CreateWithoutDecorations(
+      std::shared_ptr<internal::RawClient> c) {
+    return Client(Client::InternalOnlyNoDecorations{}, std::move(c));
+  }
+};
 
 // Just a wrapper to allow for using in `google::cloud::internal::apply`.
 struct DeleteApplyHelper {
@@ -3297,10 +3352,10 @@ Status DeleteByPrefix(Client& client, std::string const& bucket_name,
   auto all_options = std::tie(options...);
 
   static_assert(
-      std::tuple_size<decltype(
-              StaticTupleFilter<
-                  NotAmong<QuotaUser, UserIp, UserProject, Versions>::TPred>(
-                  all_options))>::value == 0,
+      std::tuple_size<
+          decltype(StaticTupleFilter<
+                   NotAmong<QuotaUser, UserIp, UserProject, Versions>::TPred>(
+              all_options))>::value == 0,
       "This functions accepts only options of type QuotaUser, UserIp, "
       "UserProject or Versions.");
   for (auto const& object :
@@ -3433,12 +3488,13 @@ StatusOr<ObjectMetadata> ComposeMany(
 
   // TODO(#3247): this list of type should somehow be generated
   static_assert(
-      std::tuple_size<decltype(
-              StaticTupleFilter<NotAmong<
-                  DestinationPredefinedAcl, EncryptionKey, IfGenerationMatch,
-                  IfMetagenerationMatch, KmsKeyName, QuotaUser, UserIp,
-                  UserProject, WithObjectMetadata>::TPred>(
-                  all_options))>::value == 0,
+      std::tuple_size<
+          decltype(StaticTupleFilter<
+                   NotAmong<DestinationPredefinedAcl, EncryptionKey,
+                            IfGenerationMatch, IfMetagenerationMatch,
+                            KmsKeyName, QuotaUser, UserIp, UserProject,
+                            WithObjectMetadata>::TPred>(all_options))>::value ==
+          0,
       "This functions accepts only options of type DestinationPredefinedAcl, "
       "EncryptionKey, IfGenerationMatch, IfMetagenerationMatch, KmsKeyName, "
       "QuotaUser, UserIp, UserProject or WithObjectMetadata.");
@@ -3483,7 +3539,7 @@ StatusOr<ObjectMetadata> ComposeMany(
           internal::ComposeApplyHelper{client, bucket_name,
                                        std::move(compose_range),
                                        std::move(destination_object_name)},
-          std::tuple_cat(std::make_tuple(IfGenerationMatch(0)), all_options));
+          all_options);
     }
     return google::cloud::internal::apply(
         internal::ComposeApplyHelper{client, bucket_name,

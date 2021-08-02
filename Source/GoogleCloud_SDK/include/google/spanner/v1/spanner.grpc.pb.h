@@ -377,9 +377,9 @@ class Spanner final {
       // individual row in the result set can exceed 100 MiB, and no
       // column value can exceed 10 MiB.
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ExecuteStreamingSql(::grpc::ClientContext* context, ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
+      virtual void ExecuteStreamingSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
       #else
-      virtual void ExecuteStreamingSql(::grpc::ClientContext* context, ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
+      virtual void ExecuteStreamingSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
       #endif
       // Executes a batch of SQL DML statements. This method allows many statements
       // to be run with lower latency than submitting them sequentially with
@@ -423,9 +423,9 @@ class Spanner final {
       // the result set can exceed 100 MiB, and no column value can exceed
       // 10 MiB.
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void StreamingRead(::grpc::ClientContext* context, ::google::spanner::v1::ReadRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
+      virtual void StreamingRead(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
       #else
-      virtual void StreamingRead(::grpc::ClientContext* context, ::google::spanner::v1::ReadRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
+      virtual void StreamingRead(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
       #endif
       // Begins a new transaction. This step can often be skipped:
       // [Read][google.spanner.v1.Spanner.Read], [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] and
@@ -551,7 +551,7 @@ class Spanner final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CreateSession(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest& request, ::google::spanner::v1::Session* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::v1::Session>> AsyncCreateSession(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::v1::Session>>(AsyncCreateSessionRaw(context, request, cq));
@@ -701,9 +701,9 @@ class Spanner final {
       void ExecuteSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ExecuteStreamingSql(::grpc::ClientContext* context, ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
+      void ExecuteStreamingSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
       #else
-      void ExecuteStreamingSql(::grpc::ClientContext* context, ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
+      void ExecuteStreamingSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
       #endif
       void ExecuteBatchDml(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteBatchDmlRequest* request, ::google::spanner::v1::ExecuteBatchDmlResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -718,9 +718,9 @@ class Spanner final {
       void Read(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void StreamingRead(::grpc::ClientContext* context, ::google::spanner::v1::ReadRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
+      void StreamingRead(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
       #else
-      void StreamingRead(::grpc::ClientContext* context, ::google::spanner::v1::ReadRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
+      void StreamingRead(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
       #endif
       void BeginTransaction(::grpc::ClientContext* context, const ::google::spanner::v1::BeginTransactionRequest* request, ::google::spanner::v1::Transaction* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL

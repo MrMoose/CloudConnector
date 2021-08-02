@@ -64,6 +64,10 @@ class Agents final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Agent>>(PrepareAsyncGetAgentRaw(context, request, cq));
     }
     // Creates/updates the specified agent.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status SetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest& request, ::google::cloud::dialogflow::v2::Agent* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Agent>> AsyncSetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Agent>>(AsyncSetAgentRaw(context, request, cq));
@@ -95,7 +99,10 @@ class Agents final {
     }
     // Trains the specified agent.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncTrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncTrainAgentRaw(context, request, cq));
@@ -104,8 +111,6 @@ class Agents final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncTrainAgentRaw(context, request, cq));
     }
     // Exports the specified agent to a ZIP file.
-    //
-    // Operation <response: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]>
     virtual ::grpc::Status ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncExportAgentRaw(context, request, cq));
@@ -123,9 +128,12 @@ class Agents final {
     // call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it returns in order to train
     // explicitly.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
     // An operation which tracks when importing is complete. It only tracks
     // when the draft agent is updated not when it is done training.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status ImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncImportAgentRaw(context, request, cq));
@@ -142,9 +150,12 @@ class Agents final {
     // completed yet. Please call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it
     // returns in order to train explicitly.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
     // An operation which tracks when restoring is complete. It only tracks
     // when the draft agent is updated not when it is done training.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status RestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncRestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncRestoreAgentRaw(context, request, cq));
@@ -172,6 +183,10 @@ class Agents final {
       virtual void GetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Creates/updates the specified agent.
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void SetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -200,7 +215,10 @@ class Agents final {
       #endif
       // Trains the specified agent.
       //
-      // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -208,8 +226,6 @@ class Agents final {
       virtual void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       // Exports the specified agent to a ZIP file.
-      //
-      // Operation <response: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]>
       virtual void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -226,9 +242,12 @@ class Agents final {
       // call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it returns in order to train
       // explicitly.
       //
-      // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
       // An operation which tracks when importing is complete. It only tracks
       // when the draft agent is updated not when it is done training.
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void ImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -244,9 +263,12 @@ class Agents final {
       // completed yet. Please call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it
       // returns in order to train explicitly.
       //
-      // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
       // An operation which tracks when restoring is complete. It only tracks
       // when the draft agent is updated not when it is done training.
+      //
+      // Note: You should always train an agent prior to sending it queries. See the
+      // [training
+      // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void RestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void RestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -291,7 +313,7 @@ class Agents final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status GetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest& request, ::google::cloud::dialogflow::v2::Agent* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::Agent>> AsyncGetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::Agent>>(AsyncGetAgentRaw(context, request, cq));
@@ -460,6 +482,10 @@ class Agents final {
     // Retrieves the specified agent.
     virtual ::grpc::Status GetAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response);
     // Creates/updates the specified agent.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status SetAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response);
     // Deletes the specified agent.
     virtual ::grpc::Status DeleteAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* request, ::google::protobuf::Empty* response);
@@ -473,11 +499,12 @@ class Agents final {
     virtual ::grpc::Status SearchAgents(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response);
     // Trains the specified agent.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status TrainAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response);
     // Exports the specified agent to a ZIP file.
-    //
-    // Operation <response: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]>
     virtual ::grpc::Status ExportAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response);
     // Imports the specified agent from a ZIP file.
     //
@@ -489,9 +516,12 @@ class Agents final {
     // call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it returns in order to train
     // explicitly.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
     // An operation which tracks when importing is complete. It only tracks
     // when the draft agent is updated not when it is done training.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status ImportAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response);
     // Restores the specified agent from a ZIP file.
     //
@@ -502,9 +532,12 @@ class Agents final {
     // completed yet. Please call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it
     // returns in order to train explicitly.
     //
-    // Operation <response: [google.protobuf.Empty][google.protobuf.Empty]>
     // An operation which tracks when restoring is complete. It only tracks
     // when the draft agent is updated not when it is done training.
+    //
+    // Note: You should always train an agent prior to sending it queries. See the
+    // [training
+    // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status RestoreAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response);
     // Gets agent validation result. Agent validation is performed during
     // training time and is updated automatically when training is completed.
