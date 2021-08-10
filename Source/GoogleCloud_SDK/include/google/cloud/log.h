@@ -24,8 +24,10 @@
  * The functions and macros used for logging are defined in this file. In
  * general, we abide by the following principles:
  *
- * - Logging should controlled by the application developer, unless explicitly
- *   instructed, the libraries produce no output to the console.
+ * - Logging should controlled by the application developer. Unless explicitly
+ *   instructed, the libraries produce no output to the console, except
+ *   to emit a message to `std::clog` immediately before a GCP_LOG(FATAL)
+ *   terminates the process.
  * - Logging should have very low cost:
  *   - It should be possible to disable logs at compile time, they should
  *     disappear as-if there were `#%ifdef`/`#%endif` directives around them.
@@ -85,6 +87,7 @@
 #include "google/cloud/version.h"
 #include <atomic>
 #include <chrono>
+#include <cstdlib>
 #include <functional>
 #include <iostream>
 #include <map>
@@ -139,14 +142,14 @@ inline namespace GOOGLE_CLOUD_CPP_NS {
  * is to prevent problems if anybody uses this macro in a context where `Logger`
  * is defined by the enclosing namespaces.
  */
-#define GOOGLE_CLOUD_CPP_LOG_I(level, sink)                                \
-  for (auto GOOGLE_CLOUD_CPP_LOGGER_IDENTIFIER = ::google::cloud::Logger<  \
-           ::google::cloud::LogSink::CompileTimeEnabled(                   \
-               ::google::cloud::Severity::level)>(                         \
-           ::google::cloud::Severity::level, __func__, __FILE__, __LINE__, \
-           sink);                                                          \
-       GOOGLE_CLOUD_CPP_LOGGER_IDENTIFIER.enabled();                       \
-       GOOGLE_CLOUD_CPP_LOGGER_IDENTIFIER.LogTo(sink))                     \
+#define GOOGLE_CLOUD_CPP_LOG_I(level, sink)                                    \
+  for (::google::cloud::Logger<::google::cloud::LogSink::CompileTimeEnabled(   \
+           ::google::cloud::Severity::level)>                                  \
+           GOOGLE_CLOUD_CPP_LOGGER_IDENTIFIER(                                 \
+               ::google::cloud::Severity::level, __func__, __FILE__, __LINE__, \
+               sink);                                                          \
+       GOOGLE_CLOUD_CPP_LOGGER_IDENTIFIER.enabled();                           \
+       GOOGLE_CLOUD_CPP_LOGGER_IDENTIFIER.LogTo(sink))                         \
   GOOGLE_CLOUD_CPP_LOGGER_IDENTIFIER.Stream()
 
 // Note that we do not use `GOOGLE_CLOUD_CPP_PP_CONCAT` here: we actually want
@@ -195,7 +198,7 @@ enum class Severity : int {
   GCP_LS_CRITICAL,  // NOLINT(readability-identifier-naming)
   /// The system is at risk of immediate failure.
   GCP_LS_ALERT,  // NOLINT(readability-identifier-naming)
-  /// The system is about to crash or terminate.
+  /// The system is unusable.  GCP_LOG(FATAL) will call std::abort().
   GCP_LS_FATAL,  // NOLINT(readability-identifier-naming)
   /// The highest possible severity level.
   GCP_LS_HIGHEST = int(GCP_LS_FATAL),  // NOLINT(readability-identifier-naming)
@@ -322,13 +325,20 @@ class LogSink {
    * This is also enabled if the "GOOGLE_CLOUD_CPP_ENABLE_CLOG" environment
    * variable is set.
    */
-  static void EnableStdClog() { Instance().EnableStdClogImpl(); }
+  static void EnableStdClog(
+      Severity min_severity = Severity::GCP_LS_LOWEST_ENABLED) {
+    Instance().EnableStdClogImpl(min_severity);
+  }
 
-  /// Disable `std::clog` on `LogSink::Instance()`.
+  /**
+   * Disable `std::clog` on `LogSink::Instance()`.
+   *
+   * Note that this will remove the default logging backend.
+   */
   static void DisableStdClog() { Instance().DisableStdClogImpl(); }
 
  private:
-  void EnableStdClogImpl();
+  void EnableStdClogImpl(Severity min_severity);
   void DisableStdClogImpl();
   void SetDefaultBackend(std::shared_ptr<LogBackend> backend);
   BackendId AddBackendImpl(std::shared_ptr<LogBackend> backend);
@@ -372,11 +382,14 @@ class Logger {
  public:
   Logger(Severity severity, char const* function, char const* filename,
          int lineno, LogSink& sink)
-      : severity_(severity),
+      : enabled_(!sink.empty() && sink.is_enabled(severity)),
+        severity_(severity),
         function_(function),
         filename_(filename),
-        lineno_(lineno) {
-    enabled_ = !sink.empty() && sink.is_enabled(severity);
+        lineno_(lineno) {}
+
+  ~Logger() {
+    if (severity_ >= Severity::GCP_LS_FATAL) std::abort();
   }
 
   bool enabled() const { return enabled_; }
@@ -420,8 +433,12 @@ class Logger {
 template <>
 class Logger<false> {
  public:
-  Logger<false>() = default;
-  Logger<false>(Severity, char const*, char const*, int, LogSink&) {}
+  Logger<false>(Severity severity, char const*, char const*, int, LogSink&)
+      : severity_(severity) {}
+
+  ~Logger() {
+    if (severity_ >= Severity::GCP_LS_FATAL) std::abort();
+  }
 
   //@{
   /**
@@ -429,11 +446,14 @@ class Logger<false> {
    * interface.
    */
   // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
-  constexpr bool enabled() const { return false; }
+  bool enabled() const { return false; }
   void LogTo(LogSink&) {}
   // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
   NullStream Stream() { return NullStream(); }
   //@}
+
+ private:
+  Severity severity_;
 };
 
 namespace internal {

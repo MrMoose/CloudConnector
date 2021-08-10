@@ -53,7 +53,7 @@ class CurlRequestBuilder {
    * This function invalidates the builder. The application should not use this
    * builder once this function is called.
    */
-  CurlDownloadRequest BuildDownloadRequest(std::string payload);
+  std::unique_ptr<CurlDownloadRequest> BuildDownloadRequest() &&;
 
   /// Adds one of the well-known parameters as a query parameter
   template <typename P>
@@ -196,6 +196,7 @@ class CurlRequestBuilder {
   bool logging_enabled_;
   CurlHandle::SocketOptions socket_options_;
   std::chrono::seconds download_stall_timeout_;
+  std::string http_version_;
 };
 
 }  // namespace internal

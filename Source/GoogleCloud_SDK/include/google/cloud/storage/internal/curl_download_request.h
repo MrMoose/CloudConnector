@@ -19,6 +19,7 @@
 #include "google/cloud/storage/internal/http_response.h"
 #include "google/cloud/storage/internal/object_read_source.h"
 #include "google/cloud/storage/version.h"
+#include "absl/functional/function_ref.h"
 #include <chrono>
 #include <string>
 #include <vector>
@@ -47,18 +48,14 @@ extern "C" std::size_t CurlDownloadRequestHeader(char* contents,
  */
 class CurlDownloadRequest : public ObjectReadSource {
  public:
-  explicit CurlDownloadRequest();
+  CurlDownloadRequest(CurlHeaders headers, CurlHandle handle, CurlMulti multi);
 
-  ~CurlDownloadRequest() override {
-    if (!factory_) {
-      return;
-    }
-    factory_->CleanupHandle(std::move(handle_));
-    factory_->CleanupMultiHandle(std::move(multi_));
-  }
+  ~CurlDownloadRequest() override;
 
-  CurlDownloadRequest(CurlDownloadRequest&&) = default;
-  CurlDownloadRequest& operator=(CurlDownloadRequest&& rhs) = default;
+  CurlDownloadRequest(CurlDownloadRequest&&) = delete;
+  CurlDownloadRequest& operator=(CurlDownloadRequest&&) = delete;
+  CurlDownloadRequest(CurlDownloadRequest const&) = delete;
+  CurlDownloadRequest& operator=(CurlDownloadRequest const&) = delete;
 
   bool IsOpen() const override { return !(curl_closed_ && spill_offset_ == 0); }
   StatusOr<HttpResponse> Close() override;
@@ -75,16 +72,28 @@ class CurlDownloadRequest : public ObjectReadSource {
    */
   StatusOr<ReadSourceResult> Read(char* buf, std::size_t n) override;
 
+  /// Debug and test only, help identify download handles.
+  void* id() const { return handle_.handle_.get(); }
+
  private:
   friend class CurlRequestBuilder;
-  /// Set the underlying CurlHandle options on a new CurlDownloadRequest.
-  void SetOptions();
-
   friend std::size_t CurlDownloadRequestWrite(char* ptr, size_t size,
                                               size_t nmemb, void* userdata);
   friend std::size_t CurlDownloadRequestHeader(char* contents, std::size_t size,
                                                std::size_t nitems,
                                                void* userdata);
+
+  /// Cleanup the CURL handles, leaving them ready for reuse.
+  void CleanupHandles();
+
+  /// Set the underlying CurlHandle options on a new CurlDownloadRequest.
+  void SetOptions();
+
+  /// Handle a completed (even interrupted) download.
+  void OnTransferDone();
+
+  /// Handle an error during a transfer
+  Status OnTransferError(Status status);
 
   /// Copy any available data from the spill buffer to `buffer_`
   void DrainSpillBuffer();
@@ -96,8 +105,7 @@ class CurlDownloadRequest : public ObjectReadSource {
                              std::size_t nitems);
 
   /// Wait until a condition is met.
-  template <typename Predicate>
-  Status Wait(Predicate predicate);
+  Status Wait(absl::FunctionRef<bool()> predicate);
 
   /// Use libcurl to perform at least part of the transfer.
   StatusOr<int> PerformWork();
@@ -112,7 +120,9 @@ class CurlDownloadRequest : public ObjectReadSource {
   CurlHeaders headers_;
   std::string payload_;
   std::string user_agent_;
+  std::string http_version_;
   CurlReceivedHeaders received_headers_;
+  std::int32_t http_code_ = 0;
   bool logging_enabled_ = false;
   CurlHandle::SocketOptions socket_options_;
   std::chrono::seconds download_stall_timeout_;

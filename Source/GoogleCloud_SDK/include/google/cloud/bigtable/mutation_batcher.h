@@ -61,10 +61,7 @@ class MutationBatcher {
     Options();
 
     /// A single RPC will not have more mutations than this.
-    Options& SetMaxMutationsPerBatch(size_t max_mutations_per_batch_arg) {
-      max_mutations_per_batch = max_mutations_per_batch_arg;
-      return *this;
-    }
+    Options& SetMaxMutationsPerBatch(size_t max_mutations_per_batch_arg);
 
     /// Sum of mutations' sizes in a single RPC will not be larger than this.
     Options& SetMaxSizePerBatch(size_t max_size_per_batch_arg) {
@@ -84,10 +81,14 @@ class MutationBatcher {
       return *this;
     }
 
+    /// MutationBatcher will at most admit this many mutations.
+    Options& SetMaxOutstandingMutations(size_t max_outstanding_mutations_arg);
+
     std::size_t max_mutations_per_batch;
     std::size_t max_size_per_batch;
     std::size_t max_batches;
     std::size_t max_outstanding_size;
+    std::size_t max_outstanding_mutations;
   };
 
   explicit MutationBatcher(Table table, Options options = Options())
@@ -95,6 +96,7 @@ class MutationBatcher {
         options_(options),
         num_outstanding_batches_(),
         outstanding_size_(),
+        outstanding_mutations_(),
         num_requests_pending_(),
         cur_batch_(std::make_shared<Batch>()) {}
 
@@ -288,6 +290,8 @@ class MutationBatcher {
   size_t num_outstanding_batches_;
   /// Size of admitted but uncompleted mutations.
   size_t outstanding_size_;
+  /// Number of admitted but uncompleted mutations.
+  size_t outstanding_mutations_;
   // Number of uncompleted SingleRowMutations (including not admitted).
   size_t num_requests_pending_;
 

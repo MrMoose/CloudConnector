@@ -67,6 +67,17 @@ struct GrpcTracingOptionsOption {
 };
 
 /**
+ * The size of the background thread pool
+ *
+ * @note this is ingored if `GrpcBackgroundThreadsFactoryOption` is set.
+ */
+struct GrpcBackgroundThreadPoolSizeOption {
+  using Type = std::size_t;
+};
+
+using BackgroundThreadsFactory =
+    std::function<std::unique_ptr<BackgroundThreads>()>;
+/**
  * Changes the `BackgroundThreadsFactory`.
  *
  * Connections need to perform background work on behalf of the application.
@@ -76,8 +87,6 @@ struct GrpcTracingOptionsOption {
  * `BackgroundThreadsFactory` and it assumes responsibility for creating one or
  * more threads blocked on its `CompletionQueue::Run()`.
  */
-using BackgroundThreadsFactory =
-    std::function<std::unique_ptr<BackgroundThreads>()>;
 struct GrpcBackgroundThreadsFactoryOption {
   using Type = BackgroundThreadsFactory;
 };
@@ -95,8 +104,12 @@ namespace internal {
 /// Creates a new `grpc::ChannelArguments` configured with @p opts.
 grpc::ChannelArguments MakeChannelArguments(Options const& opts);
 
-/// Returns a factory to use if `GrpcBackgroundThreadsFactoryOption` is unset.
-std::unique_ptr<BackgroundThreads> DefaultBackgroundThreadsFactory();
+/**
+ * Returns a factory for generating `BackgroundThreads`. If
+ * `GrpcBackgroundThreadsFactoryOption` is unset, it will return a thread pool
+ * of size `GrpcBackgroundThreadPoolSizeOption`.
+ */
+BackgroundThreadsFactory MakeBackgroundThreadsFactory(Options const& opts = {});
 
 }  // namespace internal
 
