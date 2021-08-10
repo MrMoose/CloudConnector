@@ -83,9 +83,9 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	// So instead of relying on the user to create a subscription for us, I do it
 
 	// First we need a name for our subscription. Let's try this...
-	const FString instance_id = get_google_cloud_instance_id();
+	const std::string instance_id = get_google_cloud_instance_id();
 	n_subscription.Topic = n_topic;
-	n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), *instance_id, *n_subscription.Topic);
+	n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), UTF8_TO_TCHAR(instance_id.c_str()), *n_subscription.Topic);
 
 	{
 		FScopeLock slock(&s_subscriptions_mutex);

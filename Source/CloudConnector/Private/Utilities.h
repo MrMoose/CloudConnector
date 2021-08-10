@@ -8,6 +8,7 @@
 #include "CloudConnectorTypes.h"
 
 #include <chrono>
+#include <string>
 
 inline long long millis_since_epoch() {
 
@@ -72,7 +73,7 @@ FString get_aws_instance_id();
  * If the environment variable CLOUDCONNECTOR_INSTANCE_ID is set,
  * its value will be taken instead and the metadata server will not be queried
  */
-FString get_google_cloud_instance_id();
+std::string get_google_cloud_instance_id();
 
 /// generate what I think is a random trace ID for use in XRay
 FString random_aws_trace_id();

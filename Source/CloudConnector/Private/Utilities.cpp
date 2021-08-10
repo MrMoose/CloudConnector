@@ -147,11 +147,11 @@ FString get_aws_instance_id() {
 }
 
 // See https://cloud.google.com/compute/docs/storing-retrieving-metadata
-FString get_google_cloud_instance_id() {
+std::string get_google_cloud_instance_id() {
 
 	const FString env_instance_id{ readenv(TEXT("CLOUDCONNECTOR_INSTANCE_ID")) };
 	if (!env_instance_id.IsEmpty()) {
-		return env_instance_id;
+		return TCHAR_TO_UTF8(*env_instance_id);
 	}
 
 	FString instance_id{ TEXT("LocalInstance") };
@@ -190,10 +190,10 @@ FString get_google_cloud_instance_id() {
 		// This timeoout value appears to be global and I think it might be
 		// best to set it back to the value it had before I touched it
 		FHttpModule::Get().SetHttpTimeout(timeout_before_call);
-		return instance_id;
+		return TCHAR_TO_UTF8(*instance_id);
 	} else {
 		FHttpModule::Get().SetHttpTimeout(timeout_before_call);
-		return TEXT("LocalInstance");
+		return "LocalInstance";
 	}
 }
 

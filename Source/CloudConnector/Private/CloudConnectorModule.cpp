@@ -15,6 +15,7 @@
 #include "GoogleTracingImpl.h"
 #include "Utilities.h"
 #include "CloudWatchLogOutputDevice.h"
+#include "GoogleLoggingOutputDevice.h"
 
 #include "Windows/PreWindowsApi.h"
 #include <aws/core/Aws.h>
@@ -115,9 +116,15 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				m_storage = MakeUnique<GoogleCloudStorageImpl>();
 #ifdef WITH_GOOGLECLOUD_SDK
 				m_pubsub  = MakeUnique<GooglePubsubImpl>(n_config->GoogleProjectId, n_config->HandleOnGameThread);
+
+				if (logs_enabled(n_config->CloudLogs)) {
+					m_log_device = MakeUnique<FGoogleLoggingOutputDevice>(n_config->GoogleProjectId);
+					GLog->AddOutputDevice(m_log_device.Get());
+				}
 #else
 				m_pubsub = MakeUnique<BlindPubsubImpl>();
 #endif
+
 				if (tracing_enabled(n_config->Tracing)) {
 					m_tracing = MakeUnique<GoogleTracingImpl>();
 				} else {
@@ -161,6 +168,12 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 
 			case ECloudProvider::GOOGLE:
 				UE_LOG(LogCloudConnector, Display, TEXT("Stopping Google Cloud Connector"));
+				
+				if (m_log_device) {
+					GLog->RemoveOutputDevice(m_log_device.Get());
+					m_log_device.Reset();  // Calling d'tor and joining thread.
+				}
+
 				break;
 		}
 

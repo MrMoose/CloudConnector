@@ -18,7 +18,7 @@ on AWS or Google Cloud with little or no code changes.
 Using it you can:
 * Receive messages from SQS or Google Pubsub
 * Upload data into buckets on S3 or Google Storage
-* Log to CloudWatch
+* Log to CloudWatch or Google Logging
 * Write performance traces to XRay
 
 It only supports Win64 as of now. Other platforms are not planned. 
@@ -38,7 +38,7 @@ project's `Plugins` folder and build the Editor.
 
 Open the Editor, create an actor of type `ACloudConnector` in your persistent level.
 
-You should already have CloudWatch logging if you activate it in the actor's properties.<br>
+You should already have logging if you activate it in the actor's properties.<br>
 To receive messages from SQS, implement a function like this
 
 ```C++
@@ -165,7 +165,7 @@ to [AWS CloudWatch](https://aws.amazon.com/cloudwatch/) or
 [Google Cloud Logging](https://cloud.google.com/logging/docs/).
 This works transparently.
 
-When starting up, CC creates a log group with the name 
+When starting up, CC creates a AWS log group with the name 
 specified in the property `LogGroupPrefix` of your configuration
 actor. This will be appended by the value of the environment variable
 `CLOUDCONNECTOR_STACK_NAME` if set, or "UnknownStack" otherwise.
@@ -179,9 +179,13 @@ Each running instance of your application will then create a log stream with the
 date and time of start plus the instance ID as a name.
 `LocalInstance` when outside of the cloud.
 
-Note that Google Cloud logging is not yet implemented, as there is
-no SDK support for it yet. Once this is available, it will be added. 
-Until then, it's only AWS CloudWatch.
+In Google Cloud the log name has a predefined structure and depends on the property
+`GoogleProjectId` in the config actor.
+
+The log name will be:
+
+`projects/$YOUR_PROJECT_ID/logs/$UTC-$INSTANCE_ID_`
+
 
 !! *WARNING* !!<br>
 A distributed Unreal engine has no logging in Shipping builds.
@@ -446,15 +450,12 @@ of scope. Not before.
 
 ### AWS XRay
 
-If you are using AWS XRay there are a few things worth mentioning:
+If you are using AWS XRay there may be need for the standalone [AWS XRay daemon](https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html) on your local machine.
 
-There may be need for the standalone [AWS XRay daemon](https://docs.aws.amazon.com/xray/latest/devguide/xray-daemon.html) on your local machine.
-
-If you are in an isolated subnet (one without internet access), XRay will fail.
-There are no VPC endpoints for it like for most other services and therefore 
-you cannot trace unless your instance can reach the internet. However,
-AWS may have remedied the situation by the time you read this, so better double check.
-
+A previously existing restriction about using XRay in isolated subnets being impossible due to
+no XRay VPC Endpoints being available is no longer relevant. [There are now XRay VPC 
+endpoints available](https://aws.amazon.com/about-aws/whats-new/2021/05/aws-x-ray-now-supports-vpc-endpoints/).
+You just need to create one.
 
 ## Environment Variables
 
@@ -539,18 +540,9 @@ output = json
 see if your console browser is pointing into that region. Lastly 
 note that logging is unavailable in shipping build configuration.
 
-#### I have configured logging but see no logs in the Google Logging console
+#### I have configured logging but see no logs in my provider's Logging console
 
-Google logging is not yet implemented. Also 
-note that logging is unavailable in shipping build configuration.
-
-#### I want to trace with XRay but no traces appear
-
-If in an isolated subnet, XRay will not work due to the lack of VPC endpoints for it.
-If not, check the following:
-* is your infrastructure providing trace information? Is, for example, XRay active in your lambda? 
-* are you creating a tracer object?
-* are you opening and closing segments
+Logging is unavailable in shipping build configuration. Perhaps you are using Shipping?
 
 #### When trying to build a package, I get weird protobuf related linker errors
 

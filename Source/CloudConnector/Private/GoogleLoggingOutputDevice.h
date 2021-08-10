@@ -14,18 +14,18 @@
 #include "Containers/Queue.h"
 
 #include <string>
+#include <memory>
 
-/** @brief logging backend for Engine logs
- *  which sends logs to Google Cloud every 5 seconds.
- *  This is still empty as the Google Cloud C++ SDK logging
- *  appears to be unavailable still (1.26.1).
- *  It does look like it will be at some point, which is why
- *  I left that skeleton here to ease integration later.
+
+/** @brief logging backend for Engine logs which sends logs to Google Cloud every 5 seconds.
+	It will send logs into the following name:
+
+	"projects/$LOWERCASED_PROJECT_ID/logs/$DATE-$INSTANCEID;
  */
 class FGoogleLoggingOutputDevice : public FOutputDevice {
 
 	public:
-		FGoogleLoggingOutputDevice(const FString &n_log_group_prefix);
+		FGoogleLoggingOutputDevice(const FString &n_project_id);
 		~FGoogleLoggingOutputDevice() noexcept;
 		FGoogleLoggingOutputDevice(FGoogleLoggingOutputDevice &&) = delete;
 		FGoogleLoggingOutputDevice(const FGoogleLoggingOutputDevice &) = delete;
@@ -44,21 +44,18 @@ class FGoogleLoggingOutputDevice : public FOutputDevice {
 		//! @}
 
 	private:
+		/// Cannot stick any closer to what AWS does as there appear to be stricter rules about how
+		/// a log name is supposed to look like. Perhaps this is a wrong impression but I was doing it
+		/// wrong but the docs are quite specific about that
+		std::string get_log_name() noexcept;
+
 		/// background thread that will loop and send logs as required
 		void log_thread() noexcept;
 
-		/// called from thread
-		void send_log_messages() noexcept;
-
-		// Base log group name on environment variable CLOUDCONNECTOR_STACK_NAME
-		FString get_log_group_name() noexcept;
-
-		// Find a suitable log stream name by using the instance ID
-		// and then attach date stamp
-		static FString get_log_stream_name(const FString &n_instance_id) noexcept;
-
 		struct LogEntry {
-			long long            m_timestamp;   //!< millis since epoch (type required by InputLogEvent)
+			ELogVerbosity::Type  m_severity;
+			int64                m_timestamp_seconds;
+			int64                m_timestamp_nanos;
 			std::string          m_message;
 		};
 
@@ -68,11 +65,9 @@ class FGoogleLoggingOutputDevice : public FOutputDevice {
 		TAtomic<bool>            m_interrupted;
 
 		LogQueue                 m_log_q;
-		FString                  m_instance_id;
-		const FString            m_log_group_prefix;
-		std::string              m_log_group_name;
-		std::string              m_log_stream_name;
-		std::string              m_upload_sequence_token;
+		std::string              m_instance_id;
+		const FString            m_project_id;
+		std::string              m_log_name;     //!< assembled as logging starts
 };
 
 #endif // WITH_GOOGLECLOUD_SDK
