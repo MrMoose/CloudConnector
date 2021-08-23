@@ -120,9 +120,6 @@ template<>
 const FString aws_client_factory<Aws::XRay::XRayClient>::
 s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_XRAY_ENDPOINT") };
 
-// Experiments have shown very strange behavior of the SQS client
-// when used with timeouts too high or poll times above 4 seconds.
-// So we use somewhat tighter timeouts here
 template<>
 Aws::S3Crt::ClientConfiguration aws_client_factory<Aws::S3Crt::S3CrtClient>::
 client_config() {
@@ -131,6 +128,9 @@ client_config() {
 	return ret;
 }
 
+// Experiments have shown very strange behavior of the SQS client
+// when used with timeouts too high or poll times above 4 seconds.
+// So we use somewhat tighter timeouts here
 template<>
 Aws::Client::ClientConfiguration aws_client_factory<Aws::SQS::SQSClient>::
 client_config() {

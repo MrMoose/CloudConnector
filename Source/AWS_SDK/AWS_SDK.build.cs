@@ -36,6 +36,7 @@ public class AWS_SDK : ModuleRules {
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-c-event-stream.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-c-http.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-c-io.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-c-s3.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-c-mqtt.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-checksums.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-access-management.lib"));
@@ -44,6 +45,7 @@ public class AWS_SDK : ModuleRules {
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-iam.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-logs.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-monitoring.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-s3.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-s3-crt.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-sqs.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-xray.lib"));
@@ -73,6 +75,7 @@ public class AWS_SDK : ModuleRules {
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-c-event-stream.dll", Path.Combine(DLLPath, "aws-c-event-stream.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-c-http.dll", Path.Combine(DLLPath, "aws-c-http.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-c-io.dll", Path.Combine(DLLPath, "aws-c-io.dll"));
+		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-c-s3.dll", Path.Combine(DLLPath, "aws-c-s3.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-c-mqtt.dll", Path.Combine(DLLPath, "aws-c-mqtt.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-checksums.dll", Path.Combine(DLLPath, "aws-checksums.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-access-management.dll", Path.Combine(DLLPath, "aws-cpp-sdk-access-management.dll"));
@@ -81,6 +84,7 @@ public class AWS_SDK : ModuleRules {
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-iam.dll", Path.Combine(DLLPath, "aws-cpp-sdk-iam.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-logs.dll", Path.Combine(DLLPath, "aws-cpp-sdk-logs.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-monitoring.dll", Path.Combine(DLLPath, "aws-cpp-sdk-monitoring.dll"));
+		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-s3.dll", Path.Combine(DLLPath, "aws-cpp-sdk-s3.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-s3-crt.dll", Path.Combine(DLLPath, "aws-cpp-sdk-s3-crt.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-sqs.dll", Path.Combine(DLLPath, "aws-cpp-sdk-sqs.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-xray.dll", Path.Combine(DLLPath, "aws-cpp-sdk-xray.dll"));
