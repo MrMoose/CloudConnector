@@ -169,7 +169,7 @@ bool GoogleCloudStorageImpl::write(const FCloudStorageKey &n_key, const TArrayVi
 
 		const std::string bucket_name{ TCHAR_TO_ANSI(*n_key.BucketName) };
 		const std::string object_key{ TCHAR_TO_ANSI(*n_key.ObjectKey) };
-		const std::string content_type{ TCHAR_TO_ANSI(*n_key.ObjectKey) };
+		const std::string content_type{ TCHAR_TO_ANSI(*n_key.ContentType) };
 
 		try {
 			// Create a client to communicate with Google Cloud Storage. Clients are said to 
