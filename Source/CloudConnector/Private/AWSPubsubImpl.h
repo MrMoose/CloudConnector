@@ -9,6 +9,8 @@
 
 #include "Templates/UniquePtr.h"
 
+#include <atomic>
+
 namespace Aws::SQS {
 	class SQSClient;
 }
@@ -40,7 +42,7 @@ class AWSPubsubImpl : public ICloudPubsub {
 		const bool              m_handle_in_game_thread;
 		SQSSubscriptionMap      m_subscriptions;
 		FCriticalSection        m_subscriptions_mutex;
-
+		std::atomic<bool>       m_shut_down = false;         // Will be set true once we are shut down and don't accept any calls
 
 		FDelegateHandle         m_emergency_shutdown_handle;
 };

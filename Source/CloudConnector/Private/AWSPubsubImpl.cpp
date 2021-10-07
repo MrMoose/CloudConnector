@@ -47,6 +47,7 @@ AWSPubsubImpl::~AWSPubsubImpl() noexcept {
 
 void AWSPubsubImpl::shutdown() noexcept {
 
+	m_shut_down.store(true);
 	shutdown_runners(nullptr);
 }
 
@@ -337,6 +338,11 @@ class SQSRunner {
 
 bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) {
 
+	if (m_shut_down) {
+		UE_LOG(LogCloudConnector, Display, TEXT("AWS Pubsub Object is being shut down. Ignore subscribe cmd"));
+		return false;
+	}
+
 	// Well, there is no subscription mechanism in SQS, so we just hook up to the Q
 	
 	// In here it is enough to remember the id aka Queue URL
@@ -367,6 +373,11 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 }
 
 bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
+	
+	if (m_shut_down) {
+		UE_LOG(LogCloudConnector, Display, TEXT("AWS Pubsub Object is being shut down. Ignore unsubscribe cmd"));
+		return false;
+	}
 
 	// Unsubscribing here simply means to stop the pull
 	
