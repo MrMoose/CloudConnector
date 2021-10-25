@@ -45,9 +45,6 @@ public class CloudConnector : ModuleRules {
 		});
 
 		if (SupportGoogleCloud) {
-
-			//  PrivateDefinitions.Add("ABSL_USES_STD_STRING_VIEW=1");
-
 			PrivateDependencyModuleNames.AddRange(new string[] {
 				"GoogleCloud_SDK"
 			});

@@ -47,19 +47,10 @@ public class AWS_SDK : ModuleRules {
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-monitoring.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-s3.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-s3-crt.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-sns.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-sqs.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-cpp-sdk-xray.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "aws-crt-cpp.lib"));
-
-		/*
-		PublicAdditionalLibraries.Add("Secur32.lib");
-		PublicAdditionalLibraries.Add("Advapi32.lib");
-
-		PublicAdditionalLibraries.Add("userenv.lib");
-		PublicAdditionalLibraries.Add("ws2_32.lib");
-		PublicAdditionalLibraries.Add("Wininet.lib");
-		PublicAdditionalLibraries.Add("bcrypt.lib");
-		*/
 
 		// add the appropriate DLLs to the package by 
 		// copying the DDLs to the appropriate output dir.
@@ -86,6 +77,7 @@ public class AWS_SDK : ModuleRules {
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-monitoring.dll", Path.Combine(DLLPath, "aws-cpp-sdk-monitoring.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-s3.dll", Path.Combine(DLLPath, "aws-cpp-sdk-s3.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-s3-crt.dll", Path.Combine(DLLPath, "aws-cpp-sdk-s3-crt.dll"));
+		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-sns.dll", Path.Combine(DLLPath, "aws-cpp-sdk-sns.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-sqs.dll", Path.Combine(DLLPath, "aws-cpp-sdk-sqs.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-cpp-sdk-xray.dll", Path.Combine(DLLPath, "aws-cpp-sdk-xray.dll"));
 		RuntimeDependencies.Add("$(BinaryOutputDir)/aws-crt-cpp.dll", Path.Combine(DLLPath, "aws-crt-cpp.dll"));
