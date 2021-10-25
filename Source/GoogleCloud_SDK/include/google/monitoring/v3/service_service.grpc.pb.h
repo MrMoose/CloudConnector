@@ -22,7 +22,6 @@
 #include "google/monitoring/v3/service_service.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -137,87 +136,43 @@ class ServiceMonitoringService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteServiceLevelObjectiveRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Create a `Service`.
       virtual void CreateService(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest* request, ::google::monitoring::v3::Service* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateService(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateService(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Get the named `Service`.
       virtual void GetService(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceRequest* request, ::google::monitoring::v3::Service* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetService(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetService(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // List `Service`s for this workspace.
       virtual void ListServices(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServicesRequest* request, ::google::monitoring::v3::ListServicesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListServices(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServicesRequest* request, ::google::monitoring::v3::ListServicesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListServices(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServicesRequest* request, ::google::monitoring::v3::ListServicesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Update this `Service`.
       virtual void UpdateService(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceRequest* request, ::google::monitoring::v3::Service* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateService(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateService(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Soft delete this `Service`.
       virtual void DeleteService(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteService(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteService(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Create a `ServiceLevelObjective` for the given `Service`.
       virtual void CreateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Get a `ServiceLevelObjective` by name.
       virtual void GetServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // List the `ServiceLevelObjective`s for the given `Service`.
       virtual void ListServiceLevelObjectives(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* request, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListServiceLevelObjectives(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* request, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListServiceLevelObjectives(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* request, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Update the given `ServiceLevelObjective`.
       virtual void UpdateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Delete the given `ServiceLevelObjective`.
       virtual void DeleteServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::Service>* AsyncCreateServiceRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::Service>* PrepareAsyncCreateServiceRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -313,80 +268,40 @@ class ServiceMonitoringService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteServiceLevelObjectiveRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CreateService(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest* request, ::google::monitoring::v3::Service* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateService(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateService(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetService(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceRequest* request, ::google::monitoring::v3::Service* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetService(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetService(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListServices(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServicesRequest* request, ::google::monitoring::v3::ListServicesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListServices(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServicesRequest* request, ::google::monitoring::v3::ListServicesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListServices(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServicesRequest* request, ::google::monitoring::v3::ListServicesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateService(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceRequest* request, ::google::monitoring::v3::Service* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateService(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateService(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceRequest* request, ::google::monitoring::v3::Service* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteService(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteService(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteService(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListServiceLevelObjectives(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* request, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListServiceLevelObjectives(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* request, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListServiceLevelObjectives(::grpc::ClientContext* context, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* request, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteServiceLevelObjective(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::Service>* AsyncCreateServiceRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::Service>* PrepareAsyncCreateServiceRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateServiceRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::Service>* AsyncGetServiceRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::GetServiceRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -647,36 +562,22 @@ class ServiceMonitoringService final {
   };
   typedef WithAsyncMethod_CreateService<WithAsyncMethod_GetService<WithAsyncMethod_ListServices<WithAsyncMethod_UpdateService<WithAsyncMethod_DeleteService<WithAsyncMethod_CreateServiceLevelObjective<WithAsyncMethod_GetServiceLevelObjective<WithAsyncMethod_ListServiceLevelObjectives<WithAsyncMethod_UpdateServiceLevelObjective<WithAsyncMethod_DeleteServiceLevelObjective<Service > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateService : public BaseClass {
+  class WithCallbackMethod_CreateService : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateService() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_CreateService() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateServiceRequest, ::google::monitoring::v3::Service>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::CreateServiceRequest* request, ::google::monitoring::v3::Service* response) { return this->CreateService(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::CreateServiceRequest* request, ::google::monitoring::v3::Service* response) { return this->CreateService(context, request, response); }));}
     void SetMessageAllocatorFor_CreateService(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::CreateServiceRequest, ::google::monitoring::v3::Service>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::CreateServiceRequest, ::google::monitoring::v3::Service>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateServiceRequest, ::google::monitoring::v3::Service>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateService() override {
+    ~WithCallbackMethod_CreateService() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -684,46 +585,26 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateService(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateServiceRequest* /*request*/, ::google::monitoring::v3::Service* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateService(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateServiceRequest* /*request*/, ::google::monitoring::v3::Service* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateServiceRequest* /*request*/, ::google::monitoring::v3::Service* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetService : public BaseClass {
+  class WithCallbackMethod_GetService : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetService() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetService() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetServiceRequest, ::google::monitoring::v3::Service>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetServiceRequest* request, ::google::monitoring::v3::Service* response) { return this->GetService(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetServiceRequest* request, ::google::monitoring::v3::Service* response) { return this->GetService(context, request, response); }));}
     void SetMessageAllocatorFor_GetService(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetServiceRequest, ::google::monitoring::v3::Service>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetServiceRequest, ::google::monitoring::v3::Service>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetServiceRequest, ::google::monitoring::v3::Service>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetService() override {
+    ~WithCallbackMethod_GetService() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -731,46 +612,26 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetService(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetServiceRequest* /*request*/, ::google::monitoring::v3::Service* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetService(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetServiceRequest* /*request*/, ::google::monitoring::v3::Service* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetServiceRequest* /*request*/, ::google::monitoring::v3::Service* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListServices : public BaseClass {
+  class WithCallbackMethod_ListServices : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListServices() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_ListServices() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListServicesRequest, ::google::monitoring::v3::ListServicesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListServicesRequest* request, ::google::monitoring::v3::ListServicesResponse* response) { return this->ListServices(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListServicesRequest* request, ::google::monitoring::v3::ListServicesResponse* response) { return this->ListServices(context, request, response); }));}
     void SetMessageAllocatorFor_ListServices(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListServicesRequest, ::google::monitoring::v3::ListServicesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListServicesRequest, ::google::monitoring::v3::ListServicesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListServicesRequest, ::google::monitoring::v3::ListServicesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListServices() override {
+    ~WithCallbackMethod_ListServices() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -778,46 +639,26 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListServices(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListServicesRequest* /*request*/, ::google::monitoring::v3::ListServicesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListServices(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListServicesRequest* /*request*/, ::google::monitoring::v3::ListServicesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListServicesRequest* /*request*/, ::google::monitoring::v3::ListServicesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateService : public BaseClass {
+  class WithCallbackMethod_UpdateService : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateService() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateService() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateServiceRequest, ::google::monitoring::v3::Service>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::UpdateServiceRequest* request, ::google::monitoring::v3::Service* response) { return this->UpdateService(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::UpdateServiceRequest* request, ::google::monitoring::v3::Service* response) { return this->UpdateService(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateService(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::UpdateServiceRequest, ::google::monitoring::v3::Service>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::UpdateServiceRequest, ::google::monitoring::v3::Service>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateServiceRequest, ::google::monitoring::v3::Service>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateService() override {
+    ~WithCallbackMethod_UpdateService() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -825,46 +666,26 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateService(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateServiceRequest* /*request*/, ::google::monitoring::v3::Service* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateService(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateServiceRequest* /*request*/, ::google::monitoring::v3::Service* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateServiceRequest* /*request*/, ::google::monitoring::v3::Service* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteService : public BaseClass {
+  class WithCallbackMethod_DeleteService : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteService() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteService() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteServiceRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::DeleteServiceRequest* request, ::google::protobuf::Empty* response) { return this->DeleteService(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::DeleteServiceRequest* request, ::google::protobuf::Empty* response) { return this->DeleteService(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteService(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::DeleteServiceRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::DeleteServiceRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteServiceRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteService() override {
+    ~WithCallbackMethod_DeleteService() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -872,46 +693,26 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteService(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteServiceRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteService(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteServiceRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteServiceRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateServiceLevelObjective : public BaseClass {
+  class WithCallbackMethod_CreateServiceLevelObjective : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateServiceLevelObjective() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_CreateServiceLevelObjective() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response) { return this->CreateServiceLevelObjective(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response) { return this->CreateServiceLevelObjective(context, request, response); }));}
     void SetMessageAllocatorFor_CreateServiceLevelObjective(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::CreateServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::CreateServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateServiceLevelObjective() override {
+    ~WithCallbackMethod_CreateServiceLevelObjective() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -919,46 +720,26 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateServiceLevelObjective(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* /*request*/, ::google::monitoring::v3::ServiceLevelObjective* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateServiceLevelObjective(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* /*request*/, ::google::monitoring::v3::ServiceLevelObjective* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateServiceLevelObjectiveRequest* /*request*/, ::google::monitoring::v3::ServiceLevelObjective* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetServiceLevelObjective : public BaseClass {
+  class WithCallbackMethod_GetServiceLevelObjective : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetServiceLevelObjective() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_GetServiceLevelObjective() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response) { return this->GetServiceLevelObjective(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response) { return this->GetServiceLevelObjective(context, request, response); }));}
     void SetMessageAllocatorFor_GetServiceLevelObjective(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetServiceLevelObjective() override {
+    ~WithCallbackMethod_GetServiceLevelObjective() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -966,46 +747,26 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetServiceLevelObjective(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* /*request*/, ::google::monitoring::v3::ServiceLevelObjective* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetServiceLevelObjective(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* /*request*/, ::google::monitoring::v3::ServiceLevelObjective* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetServiceLevelObjectiveRequest* /*request*/, ::google::monitoring::v3::ServiceLevelObjective* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListServiceLevelObjectives : public BaseClass {
+  class WithCallbackMethod_ListServiceLevelObjectives : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListServiceLevelObjectives() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_ListServiceLevelObjectives() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListServiceLevelObjectivesRequest, ::google::monitoring::v3::ListServiceLevelObjectivesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* request, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* response) { return this->ListServiceLevelObjectives(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* request, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* response) { return this->ListServiceLevelObjectives(context, request, response); }));}
     void SetMessageAllocatorFor_ListServiceLevelObjectives(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListServiceLevelObjectivesRequest, ::google::monitoring::v3::ListServiceLevelObjectivesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListServiceLevelObjectivesRequest, ::google::monitoring::v3::ListServiceLevelObjectivesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListServiceLevelObjectivesRequest, ::google::monitoring::v3::ListServiceLevelObjectivesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListServiceLevelObjectives() override {
+    ~WithCallbackMethod_ListServiceLevelObjectives() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1013,46 +774,26 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListServiceLevelObjectives(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* /*request*/, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListServiceLevelObjectives(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* /*request*/, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListServiceLevelObjectivesRequest* /*request*/, ::google::monitoring::v3::ListServiceLevelObjectivesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateServiceLevelObjective : public BaseClass {
+  class WithCallbackMethod_UpdateServiceLevelObjective : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateServiceLevelObjective() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_UpdateServiceLevelObjective() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response) { return this->UpdateServiceLevelObjective(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* request, ::google::monitoring::v3::ServiceLevelObjective* response) { return this->UpdateServiceLevelObjective(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateServiceLevelObjective(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest, ::google::monitoring::v3::ServiceLevelObjective>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateServiceLevelObjective() override {
+    ~WithCallbackMethod_UpdateServiceLevelObjective() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1060,46 +801,26 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateServiceLevelObjective(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* /*request*/, ::google::monitoring::v3::ServiceLevelObjective* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateServiceLevelObjective(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* /*request*/, ::google::monitoring::v3::ServiceLevelObjective* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateServiceLevelObjectiveRequest* /*request*/, ::google::monitoring::v3::ServiceLevelObjective* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteServiceLevelObjective : public BaseClass {
+  class WithCallbackMethod_DeleteServiceLevelObjective : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteServiceLevelObjective() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_DeleteServiceLevelObjective() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* request, ::google::protobuf::Empty* response) { return this->DeleteServiceLevelObjective(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* request, ::google::protobuf::Empty* response) { return this->DeleteServiceLevelObjective(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteServiceLevelObjective(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteServiceLevelObjective() override {
+    ~WithCallbackMethod_DeleteServiceLevelObjective() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1107,20 +828,11 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteServiceLevelObjective(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteServiceLevelObjective(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteServiceLevelObjectiveRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_CreateService<ExperimentalWithCallbackMethod_GetService<ExperimentalWithCallbackMethod_ListServices<ExperimentalWithCallbackMethod_UpdateService<ExperimentalWithCallbackMethod_DeleteService<ExperimentalWithCallbackMethod_CreateServiceLevelObjective<ExperimentalWithCallbackMethod_GetServiceLevelObjective<ExperimentalWithCallbackMethod_ListServiceLevelObjectives<ExperimentalWithCallbackMethod_UpdateServiceLevelObjective<ExperimentalWithCallbackMethod_DeleteServiceLevelObjective<Service > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_CreateService<ExperimentalWithCallbackMethod_GetService<ExperimentalWithCallbackMethod_ListServices<ExperimentalWithCallbackMethod_UpdateService<ExperimentalWithCallbackMethod_DeleteService<ExperimentalWithCallbackMethod_CreateServiceLevelObjective<ExperimentalWithCallbackMethod_GetServiceLevelObjective<ExperimentalWithCallbackMethod_ListServiceLevelObjectives<ExperimentalWithCallbackMethod_UpdateServiceLevelObjective<ExperimentalWithCallbackMethod_DeleteServiceLevelObjective<Service > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_CreateService<WithCallbackMethod_GetService<WithCallbackMethod_ListServices<WithCallbackMethod_UpdateService<WithCallbackMethod_DeleteService<WithCallbackMethod_CreateServiceLevelObjective<WithCallbackMethod_GetServiceLevelObjective<WithCallbackMethod_ListServiceLevelObjectives<WithCallbackMethod_UpdateServiceLevelObjective<WithCallbackMethod_DeleteServiceLevelObjective<Service > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateService : public BaseClass {
    private:
@@ -1492,27 +1204,17 @@ class ServiceMonitoringService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateService : public BaseClass {
+  class WithRawCallbackMethod_CreateService : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateService() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_CreateService() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateService(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateService(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateService() override {
+    ~WithRawCallbackMethod_CreateService() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1520,37 +1222,21 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateService(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateService(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetService : public BaseClass {
+  class WithRawCallbackMethod_GetService : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetService() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetService() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetService(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetService(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetService() override {
+    ~WithRawCallbackMethod_GetService() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1558,37 +1244,21 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetService(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetService(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListServices : public BaseClass {
+  class WithRawCallbackMethod_ListServices : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListServices() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_ListServices() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListServices(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListServices(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListServices() override {
+    ~WithRawCallbackMethod_ListServices() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1596,37 +1266,21 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListServices(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListServices(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateService : public BaseClass {
+  class WithRawCallbackMethod_UpdateService : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateService() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateService() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateService(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateService(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateService() override {
+    ~WithRawCallbackMethod_UpdateService() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1634,37 +1288,21 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateService(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateService(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteService : public BaseClass {
+  class WithRawCallbackMethod_DeleteService : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteService() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteService() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteService(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteService(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteService() override {
+    ~WithRawCallbackMethod_DeleteService() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1672,37 +1310,21 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteService(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteService(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateServiceLevelObjective : public BaseClass {
+  class WithRawCallbackMethod_CreateServiceLevelObjective : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateServiceLevelObjective() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_CreateServiceLevelObjective() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateServiceLevelObjective(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateServiceLevelObjective(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateServiceLevelObjective() override {
+    ~WithRawCallbackMethod_CreateServiceLevelObjective() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1710,37 +1332,21 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateServiceLevelObjective(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateServiceLevelObjective(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetServiceLevelObjective : public BaseClass {
+  class WithRawCallbackMethod_GetServiceLevelObjective : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetServiceLevelObjective() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_GetServiceLevelObjective() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServiceLevelObjective(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServiceLevelObjective(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetServiceLevelObjective() override {
+    ~WithRawCallbackMethod_GetServiceLevelObjective() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1748,37 +1354,21 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetServiceLevelObjective(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetServiceLevelObjective(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListServiceLevelObjectives : public BaseClass {
+  class WithRawCallbackMethod_ListServiceLevelObjectives : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListServiceLevelObjectives() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_ListServiceLevelObjectives() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListServiceLevelObjectives(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListServiceLevelObjectives(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListServiceLevelObjectives() override {
+    ~WithRawCallbackMethod_ListServiceLevelObjectives() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1786,37 +1376,21 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListServiceLevelObjectives(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListServiceLevelObjectives(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateServiceLevelObjective : public BaseClass {
+  class WithRawCallbackMethod_UpdateServiceLevelObjective : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateServiceLevelObjective() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_UpdateServiceLevelObjective() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateServiceLevelObjective(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateServiceLevelObjective(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateServiceLevelObjective() override {
+    ~WithRawCallbackMethod_UpdateServiceLevelObjective() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1824,37 +1398,21 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateServiceLevelObjective(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateServiceLevelObjective(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteServiceLevelObjective : public BaseClass {
+  class WithRawCallbackMethod_DeleteServiceLevelObjective : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteServiceLevelObjective() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_DeleteServiceLevelObjective() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteServiceLevelObjective(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteServiceLevelObjective(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteServiceLevelObjective() override {
+    ~WithRawCallbackMethod_DeleteServiceLevelObjective() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1862,14 +1420,8 @@ class ServiceMonitoringService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteServiceLevelObjective(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteServiceLevelObjective(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CreateService : public BaseClass {

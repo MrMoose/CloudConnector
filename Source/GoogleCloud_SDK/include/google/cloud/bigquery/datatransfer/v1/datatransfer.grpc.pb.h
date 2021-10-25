@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/cloud/bigquery/datatransfer/v1/datatransfer.proto
 // Original file comments:
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 #include "google/cloud/bigquery/datatransfer/v1/datatransfer.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -111,7 +110,8 @@ class DataTransferService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::TransferConfig>> PrepareAsyncGetTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::TransferConfig>>(PrepareAsyncGetTransferConfigRaw(context, request, cq));
     }
-    // Returns information about all data transfers in the project.
+    // Returns information about all transfer configs owned by a project in the
+    // specified location.
     virtual ::grpc::Status ListTransferConfigs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest& request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse>> AsyncListTransferConfigs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse>>(AsyncListTransferConfigsRaw(context, request, cq));
@@ -187,111 +187,60 @@ class DataTransferService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>> PrepareAsyncCheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>>(PrepareAsyncCheckValidCredsRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Retrieves a supported data source and returns its settings,
       // which can be used for UI rendering.
       virtual void GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists supported data sources and returns their settings,
       // which can be used for UI rendering.
       virtual void ListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new data transfer configuration.
       virtual void CreateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates a data transfer configuration.
       // All fields must be set, even if they are not updated.
       virtual void UpdateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes a data transfer configuration,
       // including any associated transfer runs and logs.
       virtual void DeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns information about a data transfer config.
       virtual void GetTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-      // Returns information about all data transfers in the project.
+      // Returns information about all transfer configs owned by a project in the
+      // specified location.
       virtual void ListTransferConfigs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListTransferConfigs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListTransferConfigs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates transfer runs for a time range [start_time, end_time].
       // For each date - or whatever granularity the data source supports - in the
       // range, one transfer run is created.
       // Note that runs are created per UTC time in the time range.
       // DEPRECATED: use StartManualTransferRuns instead.
       virtual void ScheduleTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ScheduleTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ScheduleTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Start manual transfer runs to be executed now with schedule_time equal to
       // current time. The transfer runs can be created for a time range where the
       // run_time is between start_time (inclusive) and end_time (exclusive), or for
       // a specific run_time.
       virtual void StartManualTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void StartManualTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void StartManualTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns information about the particular transfer run.
       virtual void GetTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferRun* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferRun* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferRun* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the specified transfer run.
       virtual void DeleteTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns information about running and completed jobs.
       virtual void ListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns user facing log messages for the data transfer run.
       virtual void ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns true if valid credentials exist for the given data source and
       // requesting user.
       // Some data sources doesn't support service account, so we need to talk to
@@ -299,19 +248,11 @@ class DataTransferService final {
       // token for the particular user, which is a pre-requisite before user can
       // create a transfer config.
       virtual void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::DataSource>* AsyncGetDataSourceRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::DataSource>* PrepareAsyncGetDataSourceRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -443,104 +384,48 @@ class DataTransferService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>> PrepareAsyncCheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>>(PrepareAsyncCheckValidCredsRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListTransferConfigs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListTransferConfigs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListTransferConfigs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ScheduleTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ScheduleTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ScheduleTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void StartManualTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void StartManualTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void StartManualTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferRun* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferRun* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferRun* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::DataSource>* AsyncGetDataSourceRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::DataSource>* PrepareAsyncGetDataSourceRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse>* AsyncListDataSourcesRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -606,7 +491,8 @@ class DataTransferService final {
     virtual ::grpc::Status DeleteTransferConfig(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response);
     // Returns information about a data transfer config.
     virtual ::grpc::Status GetTransferConfig(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response);
-    // Returns information about all data transfers in the project.
+    // Returns information about all transfer configs owned by a project in the
+    // specified location.
     virtual ::grpc::Status ListTransferConfigs(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response);
     // Creates transfer runs for a time range [start_time, end_time].
     // For each date - or whatever granularity the data source supports - in the
@@ -917,36 +803,22 @@ class DataTransferService final {
   };
   typedef WithAsyncMethod_GetDataSource<WithAsyncMethod_ListDataSources<WithAsyncMethod_CreateTransferConfig<WithAsyncMethod_UpdateTransferConfig<WithAsyncMethod_DeleteTransferConfig<WithAsyncMethod_GetTransferConfig<WithAsyncMethod_ListTransferConfigs<WithAsyncMethod_ScheduleTransferRuns<WithAsyncMethod_StartManualTransferRuns<WithAsyncMethod_GetTransferRun<WithAsyncMethod_DeleteTransferRun<WithAsyncMethod_ListTransferRuns<WithAsyncMethod_ListTransferLogs<WithAsyncMethod_CheckValidCreds<Service > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetDataSource : public BaseClass {
+  class WithCallbackMethod_GetDataSource : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetDataSource() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_GetDataSource() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest, ::google::cloud::bigquery::datatransfer::v1::DataSource>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response) { return this->GetDataSource(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response) { return this->GetDataSource(context, request, response); }));}
     void SetMessageAllocatorFor_GetDataSource(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest, ::google::cloud::bigquery::datatransfer::v1::DataSource>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest, ::google::cloud::bigquery::datatransfer::v1::DataSource>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest, ::google::cloud::bigquery::datatransfer::v1::DataSource>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetDataSource() override {
+    ~WithCallbackMethod_GetDataSource() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -954,46 +826,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetDataSource(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::DataSource* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetDataSource(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::DataSource* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::DataSource* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListDataSources : public BaseClass {
+  class WithCallbackMethod_ListDataSources : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListDataSources() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_ListDataSources() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response) { return this->ListDataSources(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response) { return this->ListDataSources(context, request, response); }));}
     void SetMessageAllocatorFor_ListDataSources(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListDataSources() override {
+    ~WithCallbackMethod_ListDataSources() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1001,46 +853,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListDataSources(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListDataSources(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateTransferConfig : public BaseClass {
+  class WithCallbackMethod_CreateTransferConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateTransferConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateTransferConfig() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response) { return this->CreateTransferConfig(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response) { return this->CreateTransferConfig(context, request, response); }));}
     void SetMessageAllocatorFor_CreateTransferConfig(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateTransferConfig() override {
+    ~WithCallbackMethod_CreateTransferConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1048,46 +880,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTransferConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTransferConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateTransferConfig : public BaseClass {
+  class WithCallbackMethod_UpdateTransferConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateTransferConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateTransferConfig() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response) { return this->UpdateTransferConfig(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response) { return this->UpdateTransferConfig(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateTransferConfig(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateTransferConfig() override {
+    ~WithCallbackMethod_UpdateTransferConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1095,46 +907,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateTransferConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateTransferConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteTransferConfig : public BaseClass {
+  class WithCallbackMethod_DeleteTransferConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteTransferConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteTransferConfig() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response) { return this->DeleteTransferConfig(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response) { return this->DeleteTransferConfig(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteTransferConfig(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteTransferConfig() override {
+    ~WithCallbackMethod_DeleteTransferConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1142,46 +934,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteTransferConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteTransferConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetTransferConfig : public BaseClass {
+  class WithCallbackMethod_GetTransferConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetTransferConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_GetTransferConfig() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response) { return this->GetTransferConfig(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response) { return this->GetTransferConfig(context, request, response); }));}
     void SetMessageAllocatorFor_GetTransferConfig(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest, ::google::cloud::bigquery::datatransfer::v1::TransferConfig>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetTransferConfig() override {
+    ~WithCallbackMethod_GetTransferConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1189,46 +961,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetTransferConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetTransferConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListTransferConfigs : public BaseClass {
+  class WithCallbackMethod_ListTransferConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListTransferConfigs() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_ListTransferConfigs() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response) { return this->ListTransferConfigs(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* response) { return this->ListTransferConfigs(context, request, response); }));}
     void SetMessageAllocatorFor_ListTransferConfigs(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListTransferConfigs() override {
+    ~WithCallbackMethod_ListTransferConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1236,46 +988,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTransferConfigs(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTransferConfigs(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListTransferConfigsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ScheduleTransferRuns : public BaseClass {
+  class WithCallbackMethod_ScheduleTransferRuns : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ScheduleTransferRuns() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_ScheduleTransferRuns() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* response) { return this->ScheduleTransferRuns(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* response) { return this->ScheduleTransferRuns(context, request, response); }));}
     void SetMessageAllocatorFor_ScheduleTransferRuns(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ScheduleTransferRuns() override {
+    ~WithCallbackMethod_ScheduleTransferRuns() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1283,46 +1015,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ScheduleTransferRuns(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ScheduleTransferRuns(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ScheduleTransferRunsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_StartManualTransferRuns : public BaseClass {
+  class WithCallbackMethod_StartManualTransferRuns : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_StartManualTransferRuns() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_StartManualTransferRuns() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* response) { return this->StartManualTransferRuns(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* response) { return this->StartManualTransferRuns(context, request, response); }));}
     void SetMessageAllocatorFor_StartManualTransferRuns(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_StartManualTransferRuns() override {
+    ~WithCallbackMethod_StartManualTransferRuns() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1330,46 +1042,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* StartManualTransferRuns(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* StartManualTransferRuns(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::StartManualTransferRunsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetTransferRun : public BaseClass {
+  class WithCallbackMethod_GetTransferRun : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetTransferRun() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_GetTransferRun() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest, ::google::cloud::bigquery::datatransfer::v1::TransferRun>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferRun* response) { return this->GetTransferRun(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferRun* response) { return this->GetTransferRun(context, request, response); }));}
     void SetMessageAllocatorFor_GetTransferRun(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest, ::google::cloud::bigquery::datatransfer::v1::TransferRun>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest, ::google::cloud::bigquery::datatransfer::v1::TransferRun>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest, ::google::cloud::bigquery::datatransfer::v1::TransferRun>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetTransferRun() override {
+    ~WithCallbackMethod_GetTransferRun() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1377,46 +1069,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetTransferRun(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferRun* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetTransferRun(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferRun* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::TransferRun* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteTransferRun : public BaseClass {
+  class WithCallbackMethod_DeleteTransferRun : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteTransferRun() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(10,
+    WithCallbackMethod_DeleteTransferRun() {
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response) { return this->DeleteTransferRun(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response) { return this->DeleteTransferRun(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteTransferRun(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(10);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteTransferRun() override {
+    ~WithCallbackMethod_DeleteTransferRun() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1424,46 +1096,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteTransferRun(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteTransferRun(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListTransferRuns : public BaseClass {
+  class WithCallbackMethod_ListTransferRuns : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListTransferRuns() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(11,
+    WithCallbackMethod_ListTransferRuns() {
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response) { return this->ListTransferRuns(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response) { return this->ListTransferRuns(context, request, response); }));}
     void SetMessageAllocatorFor_ListTransferRuns(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(11);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListTransferRuns() override {
+    ~WithCallbackMethod_ListTransferRuns() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1471,46 +1123,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTransferRuns(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTransferRuns(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListTransferLogs : public BaseClass {
+  class WithCallbackMethod_ListTransferLogs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListTransferLogs() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(12,
+    WithCallbackMethod_ListTransferLogs() {
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response) { return this->ListTransferLogs(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response) { return this->ListTransferLogs(context, request, response); }));}
     void SetMessageAllocatorFor_ListTransferLogs(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(12);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListTransferLogs() override {
+    ~WithCallbackMethod_ListTransferLogs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1518,46 +1150,26 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTransferLogs(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTransferLogs(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CheckValidCreds : public BaseClass {
+  class WithCallbackMethod_CheckValidCreds : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CheckValidCreds() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(13,
+    WithCallbackMethod_CheckValidCreds() {
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response) { return this->CheckValidCreds(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response) { return this->CheckValidCreds(context, request, response); }));}
     void SetMessageAllocatorFor_CheckValidCreds(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(13);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CheckValidCreds() override {
+    ~WithCallbackMethod_CheckValidCreds() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1565,20 +1177,11 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CheckValidCreds(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CheckValidCreds(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_GetDataSource<ExperimentalWithCallbackMethod_ListDataSources<ExperimentalWithCallbackMethod_CreateTransferConfig<ExperimentalWithCallbackMethod_UpdateTransferConfig<ExperimentalWithCallbackMethod_DeleteTransferConfig<ExperimentalWithCallbackMethod_GetTransferConfig<ExperimentalWithCallbackMethod_ListTransferConfigs<ExperimentalWithCallbackMethod_ScheduleTransferRuns<ExperimentalWithCallbackMethod_StartManualTransferRuns<ExperimentalWithCallbackMethod_GetTransferRun<ExperimentalWithCallbackMethod_DeleteTransferRun<ExperimentalWithCallbackMethod_ListTransferRuns<ExperimentalWithCallbackMethod_ListTransferLogs<ExperimentalWithCallbackMethod_CheckValidCreds<Service > > > > > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_GetDataSource<ExperimentalWithCallbackMethod_ListDataSources<ExperimentalWithCallbackMethod_CreateTransferConfig<ExperimentalWithCallbackMethod_UpdateTransferConfig<ExperimentalWithCallbackMethod_DeleteTransferConfig<ExperimentalWithCallbackMethod_GetTransferConfig<ExperimentalWithCallbackMethod_ListTransferConfigs<ExperimentalWithCallbackMethod_ScheduleTransferRuns<ExperimentalWithCallbackMethod_StartManualTransferRuns<ExperimentalWithCallbackMethod_GetTransferRun<ExperimentalWithCallbackMethod_DeleteTransferRun<ExperimentalWithCallbackMethod_ListTransferRuns<ExperimentalWithCallbackMethod_ListTransferLogs<ExperimentalWithCallbackMethod_CheckValidCreds<Service > > > > > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_GetDataSource<WithCallbackMethod_ListDataSources<WithCallbackMethod_CreateTransferConfig<WithCallbackMethod_UpdateTransferConfig<WithCallbackMethod_DeleteTransferConfig<WithCallbackMethod_GetTransferConfig<WithCallbackMethod_ListTransferConfigs<WithCallbackMethod_ScheduleTransferRuns<WithCallbackMethod_StartManualTransferRuns<WithCallbackMethod_GetTransferRun<WithCallbackMethod_DeleteTransferRun<WithCallbackMethod_ListTransferRuns<WithCallbackMethod_ListTransferLogs<WithCallbackMethod_CheckValidCreds<Service > > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetDataSource : public BaseClass {
    private:
@@ -2098,27 +1701,17 @@ class DataTransferService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetDataSource : public BaseClass {
+  class WithRawCallbackMethod_GetDataSource : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetDataSource() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_GetDataSource() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDataSource(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDataSource(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetDataSource() override {
+    ~WithRawCallbackMethod_GetDataSource() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2126,37 +1719,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetDataSource(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetDataSource(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListDataSources : public BaseClass {
+  class WithRawCallbackMethod_ListDataSources : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListDataSources() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_ListDataSources() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDataSources(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDataSources(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListDataSources() override {
+    ~WithRawCallbackMethod_ListDataSources() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2164,37 +1741,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListDataSources(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListDataSources(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateTransferConfig : public BaseClass {
+  class WithRawCallbackMethod_CreateTransferConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateTransferConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateTransferConfig() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTransferConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTransferConfig(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateTransferConfig() override {
+    ~WithRawCallbackMethod_CreateTransferConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2202,37 +1763,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTransferConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTransferConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateTransferConfig : public BaseClass {
+  class WithRawCallbackMethod_UpdateTransferConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateTransferConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateTransferConfig() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateTransferConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateTransferConfig(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateTransferConfig() override {
+    ~WithRawCallbackMethod_UpdateTransferConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2240,37 +1785,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateTransferConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateTransferConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteTransferConfig : public BaseClass {
+  class WithRawCallbackMethod_DeleteTransferConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteTransferConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteTransferConfig() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteTransferConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteTransferConfig(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteTransferConfig() override {
+    ~WithRawCallbackMethod_DeleteTransferConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2278,37 +1807,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteTransferConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteTransferConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetTransferConfig : public BaseClass {
+  class WithRawCallbackMethod_GetTransferConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetTransferConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_GetTransferConfig() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetTransferConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetTransferConfig(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetTransferConfig() override {
+    ~WithRawCallbackMethod_GetTransferConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2316,37 +1829,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetTransferConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetTransferConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListTransferConfigs : public BaseClass {
+  class WithRawCallbackMethod_ListTransferConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListTransferConfigs() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_ListTransferConfigs() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTransferConfigs(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTransferConfigs(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListTransferConfigs() override {
+    ~WithRawCallbackMethod_ListTransferConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2354,37 +1851,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTransferConfigs(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTransferConfigs(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ScheduleTransferRuns : public BaseClass {
+  class WithRawCallbackMethod_ScheduleTransferRuns : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ScheduleTransferRuns() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_ScheduleTransferRuns() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ScheduleTransferRuns(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ScheduleTransferRuns(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ScheduleTransferRuns() override {
+    ~WithRawCallbackMethod_ScheduleTransferRuns() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2392,37 +1873,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ScheduleTransferRuns(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ScheduleTransferRuns(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_StartManualTransferRuns : public BaseClass {
+  class WithRawCallbackMethod_StartManualTransferRuns : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_StartManualTransferRuns() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_StartManualTransferRuns() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartManualTransferRuns(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartManualTransferRuns(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_StartManualTransferRuns() override {
+    ~WithRawCallbackMethod_StartManualTransferRuns() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2430,37 +1895,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* StartManualTransferRuns(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* StartManualTransferRuns(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetTransferRun : public BaseClass {
+  class WithRawCallbackMethod_GetTransferRun : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetTransferRun() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_GetTransferRun() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetTransferRun(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetTransferRun(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetTransferRun() override {
+    ~WithRawCallbackMethod_GetTransferRun() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2468,37 +1917,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetTransferRun(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetTransferRun(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteTransferRun : public BaseClass {
+  class WithRawCallbackMethod_DeleteTransferRun : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteTransferRun() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(10,
+    WithRawCallbackMethod_DeleteTransferRun() {
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteTransferRun(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteTransferRun(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteTransferRun() override {
+    ~WithRawCallbackMethod_DeleteTransferRun() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2506,37 +1939,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteTransferRun(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteTransferRun(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListTransferRuns : public BaseClass {
+  class WithRawCallbackMethod_ListTransferRuns : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListTransferRuns() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(11,
+    WithRawCallbackMethod_ListTransferRuns() {
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTransferRuns(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTransferRuns(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListTransferRuns() override {
+    ~WithRawCallbackMethod_ListTransferRuns() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2544,37 +1961,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTransferRuns(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTransferRuns(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListTransferLogs : public BaseClass {
+  class WithRawCallbackMethod_ListTransferLogs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListTransferLogs() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(12,
+    WithRawCallbackMethod_ListTransferLogs() {
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTransferLogs(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTransferLogs(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListTransferLogs() override {
+    ~WithRawCallbackMethod_ListTransferLogs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2582,37 +1983,21 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTransferLogs(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTransferLogs(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CheckValidCreds : public BaseClass {
+  class WithRawCallbackMethod_CheckValidCreds : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CheckValidCreds() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(13,
+    WithRawCallbackMethod_CheckValidCreds() {
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckValidCreds(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckValidCreds(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CheckValidCreds() override {
+    ~WithRawCallbackMethod_CheckValidCreds() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2620,14 +2005,8 @@ class DataTransferService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CheckValidCreds(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CheckValidCreds(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetDataSource : public BaseClass {

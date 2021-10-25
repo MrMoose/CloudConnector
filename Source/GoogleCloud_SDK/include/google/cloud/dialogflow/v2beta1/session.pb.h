@@ -2751,6 +2751,7 @@ class StreamingRecognitionResult PROTOBUF_FINAL :
   enum : int {
     kSpeechWordInfoFieldNumber = 7,
     kTranscriptFieldNumber = 2,
+    kLanguageCodeFieldNumber = 10,
     kDtmfDigitsFieldNumber = 5,
     kSpeechEndOffsetFieldNumber = 8,
     kMessageTypeFieldNumber = 1,
@@ -2790,6 +2791,22 @@ class StreamingRecognitionResult PROTOBUF_FINAL :
   const std::string& _internal_transcript() const;
   void _internal_set_transcript(const std::string& value);
   std::string* _internal_mutable_transcript();
+  public:
+
+  // string language_code = 10;
+  void clear_language_code();
+  const std::string& language_code() const;
+  void set_language_code(const std::string& value);
+  void set_language_code(std::string&& value);
+  void set_language_code(const char* value);
+  void set_language_code(const char* value, size_t size);
+  std::string* mutable_language_code();
+  std::string* release_language_code();
+  void set_allocated_language_code(std::string* language_code);
+  private:
+  const std::string& _internal_language_code() const;
+  void _internal_set_language_code(const std::string& value);
+  std::string* _internal_mutable_language_code();
   public:
 
   // .google.cloud.dialogflow.v2beta1.TelephonyDtmfEvents dtmf_digits = 5;
@@ -2873,6 +2890,7 @@ class StreamingRecognitionResult PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::dialogflow::v2beta1::SpeechWordInfo > speech_word_info_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr transcript_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr language_code_;
   ::google::cloud::dialogflow::v2beta1::TelephonyDtmfEvents* dtmf_digits_;
   PROTOBUF_NAMESPACE_ID::Duration* speech_end_offset_;
   int message_type_;
@@ -7748,6 +7766,67 @@ inline void StreamingRecognitionResult::set_allocated_speech_end_offset(PROTOBUF
   }
   speech_end_offset_ = speech_end_offset;
   // @@protoc_insertion_point(field_set_allocated:google.cloud.dialogflow.v2beta1.StreamingRecognitionResult.speech_end_offset)
+}
+
+// string language_code = 10;
+inline void StreamingRecognitionResult::clear_language_code() {
+  language_code_.ClearToEmpty();
+}
+inline const std::string& StreamingRecognitionResult::language_code() const {
+  // @@protoc_insertion_point(field_get:google.cloud.dialogflow.v2beta1.StreamingRecognitionResult.language_code)
+  return _internal_language_code();
+}
+inline void StreamingRecognitionResult::set_language_code(const std::string& value) {
+  _internal_set_language_code(value);
+  // @@protoc_insertion_point(field_set:google.cloud.dialogflow.v2beta1.StreamingRecognitionResult.language_code)
+}
+inline std::string* StreamingRecognitionResult::mutable_language_code() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.dialogflow.v2beta1.StreamingRecognitionResult.language_code)
+  return _internal_mutable_language_code();
+}
+inline const std::string& StreamingRecognitionResult::_internal_language_code() const {
+  return language_code_.Get();
+}
+inline void StreamingRecognitionResult::_internal_set_language_code(const std::string& value) {
+  
+  language_code_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void StreamingRecognitionResult::set_language_code(std::string&& value) {
+  
+  language_code_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.cloud.dialogflow.v2beta1.StreamingRecognitionResult.language_code)
+}
+inline void StreamingRecognitionResult::set_language_code(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  language_code_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.cloud.dialogflow.v2beta1.StreamingRecognitionResult.language_code)
+}
+inline void StreamingRecognitionResult::set_language_code(const char* value,
+    size_t size) {
+  
+  language_code_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.dialogflow.v2beta1.StreamingRecognitionResult.language_code)
+}
+inline std::string* StreamingRecognitionResult::_internal_mutable_language_code() {
+  
+  return language_code_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* StreamingRecognitionResult::release_language_code() {
+  // @@protoc_insertion_point(field_release:google.cloud.dialogflow.v2beta1.StreamingRecognitionResult.language_code)
+  return language_code_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void StreamingRecognitionResult::set_allocated_language_code(std::string* language_code) {
+  if (language_code != nullptr) {
+    
+  } else {
+    
+  }
+  language_code_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), language_code,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.dialogflow.v2beta1.StreamingRecognitionResult.language_code)
 }
 
 // .google.cloud.dialogflow.v2beta1.TelephonyDtmfEvents dtmf_digits = 5;

@@ -39,6 +39,7 @@
 #include <google/protobuf/any.pb.h>
 #include <google/protobuf/duration.pb.h>
 #include <google/protobuf/timestamp.pb.h>
+#include <google/protobuf/wrappers.pb.h>
 #include "google/rpc/status.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -2379,6 +2380,7 @@ class RecognizeResponse PROTOBUF_FINAL :
 
   enum : int {
     kResultsFieldNumber = 2,
+    kTotalBilledTimeFieldNumber = 3,
   };
   // repeated .google.cloud.speech.v1.SpeechRecognitionResult results = 2;
   int results_size() const;
@@ -2398,6 +2400,24 @@ class RecognizeResponse PROTOBUF_FINAL :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::speech::v1::SpeechRecognitionResult >&
       results() const;
 
+  // .google.protobuf.Duration total_billed_time = 3;
+  bool has_total_billed_time() const;
+  private:
+  bool _internal_has_total_billed_time() const;
+  public:
+  void clear_total_billed_time();
+  const PROTOBUF_NAMESPACE_ID::Duration& total_billed_time() const;
+  PROTOBUF_NAMESPACE_ID::Duration* release_total_billed_time();
+  PROTOBUF_NAMESPACE_ID::Duration* mutable_total_billed_time();
+  void set_allocated_total_billed_time(PROTOBUF_NAMESPACE_ID::Duration* total_billed_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Duration& _internal_total_billed_time() const;
+  PROTOBUF_NAMESPACE_ID::Duration* _internal_mutable_total_billed_time();
+  public:
+  void unsafe_arena_set_allocated_total_billed_time(
+      PROTOBUF_NAMESPACE_ID::Duration* total_billed_time);
+  PROTOBUF_NAMESPACE_ID::Duration* unsafe_arena_release_total_billed_time();
+
   // @@protoc_insertion_point(class_scope:google.cloud.speech.v1.RecognizeResponse)
  private:
   class _Internal;
@@ -2406,6 +2426,7 @@ class RecognizeResponse PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::speech::v1::SpeechRecognitionResult > results_;
+  PROTOBUF_NAMESPACE_ID::Duration* total_billed_time_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fcloud_2fspeech_2fv1_2fcloud_5fspeech_2eproto;
 };
@@ -2525,6 +2546,7 @@ class LongRunningRecognizeResponse PROTOBUF_FINAL :
 
   enum : int {
     kResultsFieldNumber = 2,
+    kTotalBilledTimeFieldNumber = 3,
   };
   // repeated .google.cloud.speech.v1.SpeechRecognitionResult results = 2;
   int results_size() const;
@@ -2544,6 +2566,24 @@ class LongRunningRecognizeResponse PROTOBUF_FINAL :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::speech::v1::SpeechRecognitionResult >&
       results() const;
 
+  // .google.protobuf.Duration total_billed_time = 3;
+  bool has_total_billed_time() const;
+  private:
+  bool _internal_has_total_billed_time() const;
+  public:
+  void clear_total_billed_time();
+  const PROTOBUF_NAMESPACE_ID::Duration& total_billed_time() const;
+  PROTOBUF_NAMESPACE_ID::Duration* release_total_billed_time();
+  PROTOBUF_NAMESPACE_ID::Duration* mutable_total_billed_time();
+  void set_allocated_total_billed_time(PROTOBUF_NAMESPACE_ID::Duration* total_billed_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Duration& _internal_total_billed_time() const;
+  PROTOBUF_NAMESPACE_ID::Duration* _internal_mutable_total_billed_time();
+  public:
+  void unsafe_arena_set_allocated_total_billed_time(
+      PROTOBUF_NAMESPACE_ID::Duration* total_billed_time);
+  PROTOBUF_NAMESPACE_ID::Duration* unsafe_arena_release_total_billed_time();
+
   // @@protoc_insertion_point(class_scope:google.cloud.speech.v1.LongRunningRecognizeResponse)
  private:
   class _Internal;
@@ -2552,6 +2592,7 @@ class LongRunningRecognizeResponse PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::speech::v1::SpeechRecognitionResult > results_;
+  PROTOBUF_NAMESPACE_ID::Duration* total_billed_time_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fcloud_2fspeech_2fv1_2fcloud_5fspeech_2eproto;
 };
@@ -2670,10 +2711,27 @@ class LongRunningRecognizeMetadata PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kUriFieldNumber = 4,
     kStartTimeFieldNumber = 2,
     kLastUpdateTimeFieldNumber = 3,
     kProgressPercentFieldNumber = 1,
   };
+  // string uri = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  void clear_uri();
+  const std::string& uri() const;
+  void set_uri(const std::string& value);
+  void set_uri(std::string&& value);
+  void set_uri(const char* value);
+  void set_uri(const char* value, size_t size);
+  std::string* mutable_uri();
+  std::string* release_uri();
+  void set_allocated_uri(std::string* uri);
+  private:
+  const std::string& _internal_uri() const;
+  void _internal_set_uri(const std::string& value);
+  std::string* _internal_mutable_uri();
+  public:
+
   // .google.protobuf.Timestamp start_time = 2;
   bool has_start_time() const;
   private:
@@ -2726,6 +2784,7 @@ class LongRunningRecognizeMetadata PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr uri_;
   PROTOBUF_NAMESPACE_ID::Timestamp* start_time_;
   PROTOBUF_NAMESPACE_ID::Timestamp* last_update_time_;
   ::PROTOBUF_NAMESPACE_ID::int32 progress_percent_;
@@ -2879,6 +2938,7 @@ class StreamingRecognizeResponse PROTOBUF_FINAL :
   enum : int {
     kResultsFieldNumber = 2,
     kErrorFieldNumber = 1,
+    kTotalBilledTimeFieldNumber = 5,
     kSpeechEventTypeFieldNumber = 4,
   };
   // repeated .google.cloud.speech.v1.StreamingRecognitionResult results = 2;
@@ -2917,6 +2977,24 @@ class StreamingRecognizeResponse PROTOBUF_FINAL :
       ::google::rpc::Status* error);
   ::google::rpc::Status* unsafe_arena_release_error();
 
+  // .google.protobuf.Duration total_billed_time = 5;
+  bool has_total_billed_time() const;
+  private:
+  bool _internal_has_total_billed_time() const;
+  public:
+  void clear_total_billed_time();
+  const PROTOBUF_NAMESPACE_ID::Duration& total_billed_time() const;
+  PROTOBUF_NAMESPACE_ID::Duration* release_total_billed_time();
+  PROTOBUF_NAMESPACE_ID::Duration* mutable_total_billed_time();
+  void set_allocated_total_billed_time(PROTOBUF_NAMESPACE_ID::Duration* total_billed_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Duration& _internal_total_billed_time() const;
+  PROTOBUF_NAMESPACE_ID::Duration* _internal_mutable_total_billed_time();
+  public:
+  void unsafe_arena_set_allocated_total_billed_time(
+      PROTOBUF_NAMESPACE_ID::Duration* total_billed_time);
+  PROTOBUF_NAMESPACE_ID::Duration* unsafe_arena_release_total_billed_time();
+
   // .google.cloud.speech.v1.StreamingRecognizeResponse.SpeechEventType speech_event_type = 4;
   void clear_speech_event_type();
   ::google::cloud::speech::v1::StreamingRecognizeResponse_SpeechEventType speech_event_type() const;
@@ -2935,6 +3013,7 @@ class StreamingRecognizeResponse PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::speech::v1::StreamingRecognitionResult > results_;
   ::google::rpc::Status* error_;
+  PROTOBUF_NAMESPACE_ID::Duration* total_billed_time_;
   int speech_event_type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fcloud_2fspeech_2fv1_2fcloud_5fspeech_2eproto;
@@ -5589,6 +5668,83 @@ RecognizeResponse::results() const {
   return results_;
 }
 
+// .google.protobuf.Duration total_billed_time = 3;
+inline bool RecognizeResponse::_internal_has_total_billed_time() const {
+  return this != internal_default_instance() && total_billed_time_ != nullptr;
+}
+inline bool RecognizeResponse::has_total_billed_time() const {
+  return _internal_has_total_billed_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& RecognizeResponse::_internal_total_billed_time() const {
+  const PROTOBUF_NAMESPACE_ID::Duration* p = total_billed_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Duration&>(
+      PROTOBUF_NAMESPACE_ID::_Duration_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& RecognizeResponse::total_billed_time() const {
+  // @@protoc_insertion_point(field_get:google.cloud.speech.v1.RecognizeResponse.total_billed_time)
+  return _internal_total_billed_time();
+}
+inline void RecognizeResponse::unsafe_arena_set_allocated_total_billed_time(
+    PROTOBUF_NAMESPACE_ID::Duration* total_billed_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_billed_time_);
+  }
+  total_billed_time_ = total_billed_time;
+  if (total_billed_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.speech.v1.RecognizeResponse.total_billed_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* RecognizeResponse::release_total_billed_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = total_billed_time_;
+  total_billed_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* RecognizeResponse::unsafe_arena_release_total_billed_time() {
+  // @@protoc_insertion_point(field_release:google.cloud.speech.v1.RecognizeResponse.total_billed_time)
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = total_billed_time_;
+  total_billed_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* RecognizeResponse::_internal_mutable_total_billed_time() {
+  
+  if (total_billed_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Duration>(GetArena());
+    total_billed_time_ = p;
+  }
+  return total_billed_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* RecognizeResponse::mutable_total_billed_time() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.speech.v1.RecognizeResponse.total_billed_time)
+  return _internal_mutable_total_billed_time();
+}
+inline void RecognizeResponse::set_allocated_total_billed_time(PROTOBUF_NAMESPACE_ID::Duration* total_billed_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_billed_time_);
+  }
+  if (total_billed_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_billed_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      total_billed_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, total_billed_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  total_billed_time_ = total_billed_time;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.speech.v1.RecognizeResponse.total_billed_time)
+}
+
 // -------------------------------------------------------------------
 
 // LongRunningRecognizeResponse
@@ -5630,6 +5786,83 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::speech:
 LongRunningRecognizeResponse::results() const {
   // @@protoc_insertion_point(field_list:google.cloud.speech.v1.LongRunningRecognizeResponse.results)
   return results_;
+}
+
+// .google.protobuf.Duration total_billed_time = 3;
+inline bool LongRunningRecognizeResponse::_internal_has_total_billed_time() const {
+  return this != internal_default_instance() && total_billed_time_ != nullptr;
+}
+inline bool LongRunningRecognizeResponse::has_total_billed_time() const {
+  return _internal_has_total_billed_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& LongRunningRecognizeResponse::_internal_total_billed_time() const {
+  const PROTOBUF_NAMESPACE_ID::Duration* p = total_billed_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Duration&>(
+      PROTOBUF_NAMESPACE_ID::_Duration_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& LongRunningRecognizeResponse::total_billed_time() const {
+  // @@protoc_insertion_point(field_get:google.cloud.speech.v1.LongRunningRecognizeResponse.total_billed_time)
+  return _internal_total_billed_time();
+}
+inline void LongRunningRecognizeResponse::unsafe_arena_set_allocated_total_billed_time(
+    PROTOBUF_NAMESPACE_ID::Duration* total_billed_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_billed_time_);
+  }
+  total_billed_time_ = total_billed_time;
+  if (total_billed_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.speech.v1.LongRunningRecognizeResponse.total_billed_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* LongRunningRecognizeResponse::release_total_billed_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = total_billed_time_;
+  total_billed_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* LongRunningRecognizeResponse::unsafe_arena_release_total_billed_time() {
+  // @@protoc_insertion_point(field_release:google.cloud.speech.v1.LongRunningRecognizeResponse.total_billed_time)
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = total_billed_time_;
+  total_billed_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* LongRunningRecognizeResponse::_internal_mutable_total_billed_time() {
+  
+  if (total_billed_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Duration>(GetArena());
+    total_billed_time_ = p;
+  }
+  return total_billed_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* LongRunningRecognizeResponse::mutable_total_billed_time() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.speech.v1.LongRunningRecognizeResponse.total_billed_time)
+  return _internal_mutable_total_billed_time();
+}
+inline void LongRunningRecognizeResponse::set_allocated_total_billed_time(PROTOBUF_NAMESPACE_ID::Duration* total_billed_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_billed_time_);
+  }
+  if (total_billed_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_billed_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      total_billed_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, total_billed_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  total_billed_time_ = total_billed_time;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.speech.v1.LongRunningRecognizeResponse.total_billed_time)
 }
 
 // -------------------------------------------------------------------
@@ -5810,6 +6043,67 @@ inline void LongRunningRecognizeMetadata::set_allocated_last_update_time(PROTOBU
   // @@protoc_insertion_point(field_set_allocated:google.cloud.speech.v1.LongRunningRecognizeMetadata.last_update_time)
 }
 
+// string uri = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline void LongRunningRecognizeMetadata::clear_uri() {
+  uri_.ClearToEmpty();
+}
+inline const std::string& LongRunningRecognizeMetadata::uri() const {
+  // @@protoc_insertion_point(field_get:google.cloud.speech.v1.LongRunningRecognizeMetadata.uri)
+  return _internal_uri();
+}
+inline void LongRunningRecognizeMetadata::set_uri(const std::string& value) {
+  _internal_set_uri(value);
+  // @@protoc_insertion_point(field_set:google.cloud.speech.v1.LongRunningRecognizeMetadata.uri)
+}
+inline std::string* LongRunningRecognizeMetadata::mutable_uri() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.speech.v1.LongRunningRecognizeMetadata.uri)
+  return _internal_mutable_uri();
+}
+inline const std::string& LongRunningRecognizeMetadata::_internal_uri() const {
+  return uri_.Get();
+}
+inline void LongRunningRecognizeMetadata::_internal_set_uri(const std::string& value) {
+  
+  uri_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void LongRunningRecognizeMetadata::set_uri(std::string&& value) {
+  
+  uri_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.cloud.speech.v1.LongRunningRecognizeMetadata.uri)
+}
+inline void LongRunningRecognizeMetadata::set_uri(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  uri_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.cloud.speech.v1.LongRunningRecognizeMetadata.uri)
+}
+inline void LongRunningRecognizeMetadata::set_uri(const char* value,
+    size_t size) {
+  
+  uri_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.speech.v1.LongRunningRecognizeMetadata.uri)
+}
+inline std::string* LongRunningRecognizeMetadata::_internal_mutable_uri() {
+  
+  return uri_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* LongRunningRecognizeMetadata::release_uri() {
+  // @@protoc_insertion_point(field_release:google.cloud.speech.v1.LongRunningRecognizeMetadata.uri)
+  return uri_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void LongRunningRecognizeMetadata::set_allocated_uri(std::string* uri) {
+  if (uri != nullptr) {
+    
+  } else {
+    
+  }
+  uri_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), uri,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.speech.v1.LongRunningRecognizeMetadata.uri)
+}
+
 // -------------------------------------------------------------------
 
 // StreamingRecognizeResponse
@@ -5948,6 +6242,83 @@ inline void StreamingRecognizeResponse::_internal_set_speech_event_type(::google
 inline void StreamingRecognizeResponse::set_speech_event_type(::google::cloud::speech::v1::StreamingRecognizeResponse_SpeechEventType value) {
   _internal_set_speech_event_type(value);
   // @@protoc_insertion_point(field_set:google.cloud.speech.v1.StreamingRecognizeResponse.speech_event_type)
+}
+
+// .google.protobuf.Duration total_billed_time = 5;
+inline bool StreamingRecognizeResponse::_internal_has_total_billed_time() const {
+  return this != internal_default_instance() && total_billed_time_ != nullptr;
+}
+inline bool StreamingRecognizeResponse::has_total_billed_time() const {
+  return _internal_has_total_billed_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& StreamingRecognizeResponse::_internal_total_billed_time() const {
+  const PROTOBUF_NAMESPACE_ID::Duration* p = total_billed_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Duration&>(
+      PROTOBUF_NAMESPACE_ID::_Duration_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& StreamingRecognizeResponse::total_billed_time() const {
+  // @@protoc_insertion_point(field_get:google.cloud.speech.v1.StreamingRecognizeResponse.total_billed_time)
+  return _internal_total_billed_time();
+}
+inline void StreamingRecognizeResponse::unsafe_arena_set_allocated_total_billed_time(
+    PROTOBUF_NAMESPACE_ID::Duration* total_billed_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_billed_time_);
+  }
+  total_billed_time_ = total_billed_time;
+  if (total_billed_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.speech.v1.StreamingRecognizeResponse.total_billed_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* StreamingRecognizeResponse::release_total_billed_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = total_billed_time_;
+  total_billed_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* StreamingRecognizeResponse::unsafe_arena_release_total_billed_time() {
+  // @@protoc_insertion_point(field_release:google.cloud.speech.v1.StreamingRecognizeResponse.total_billed_time)
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = total_billed_time_;
+  total_billed_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* StreamingRecognizeResponse::_internal_mutable_total_billed_time() {
+  
+  if (total_billed_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Duration>(GetArena());
+    total_billed_time_ = p;
+  }
+  return total_billed_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* StreamingRecognizeResponse::mutable_total_billed_time() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.speech.v1.StreamingRecognizeResponse.total_billed_time)
+  return _internal_mutable_total_billed_time();
+}
+inline void StreamingRecognizeResponse::set_allocated_total_billed_time(PROTOBUF_NAMESPACE_ID::Duration* total_billed_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_billed_time_);
+  }
+  if (total_billed_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(total_billed_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      total_billed_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, total_billed_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  total_billed_time_ = total_billed_time;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.speech.v1.StreamingRecognizeResponse.total_billed_time)
 }
 
 // -------------------------------------------------------------------

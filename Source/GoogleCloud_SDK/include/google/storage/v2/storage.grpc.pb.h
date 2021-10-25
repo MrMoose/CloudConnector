@@ -22,7 +22,6 @@
 #include "google/storage/v2/storage.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -127,15 +126,11 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::QueryWriteStatusResponse>> PrepareAsyncQueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::QueryWriteStatusResponse>>(PrepareAsyncQueryWriteStatusRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Reads an object's data.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest* request, ::grpc::ClientReadReactor< ::google::storage::v2::ReadObjectResponse>* reactor) = 0;
-      #else
-      virtual void ReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest* request, ::grpc::experimental::ClientReadReactor< ::google::storage::v2::ReadObjectResponse>* reactor) = 0;
-      #endif
       // Stores a new object and metadata.
       //
       // An object can be written either in a single message stream or in a
@@ -160,20 +155,12 @@ class Storage final {
       // `true` will cause an error. The client **should** check the response it
       // receives to determine how much data the service was able to commit and
       // whether the service views the object as complete.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void WriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::ClientWriteReactor< ::google::storage::v2::WriteObjectRequest>* reactor) = 0;
-      #else
-      virtual void WriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::experimental::ClientWriteReactor< ::google::storage::v2::WriteObjectRequest>* reactor) = 0;
-      #endif
       // Starts a resumable write. How long the write operation remains valid, and
       // what happens when the write operation becomes invalid, are
       // service-dependent.
       virtual void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Determines the `committed_size` for an object that is being written, which
       // can then be used as the `write_offset` for the next `Write()` call.
       //
@@ -188,19 +175,11 @@ class Storage final {
       // object name, the sequence of returned `committed_size` values will be
       // non-decreasing.
       virtual void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientReaderInterface< ::google::storage::v2::ReadObjectResponse>* ReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::google::storage::v2::ReadObjectResponse>* AsyncReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
@@ -248,42 +227,26 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::QueryWriteStatusResponse>> PrepareAsyncQueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::QueryWriteStatusResponse>>(PrepareAsyncQueryWriteStatusRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest* request, ::grpc::ClientReadReactor< ::google::storage::v2::ReadObjectResponse>* reactor) override;
-      #else
-      void ReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest* request, ::grpc::experimental::ClientReadReactor< ::google::storage::v2::ReadObjectResponse>* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void WriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::ClientWriteReactor< ::google::storage::v2::WriteObjectRequest>* reactor) override;
-      #else
-      void WriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::experimental::ClientWriteReactor< ::google::storage::v2::WriteObjectRequest>* reactor) override;
-      #endif
       void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientReader< ::google::storage::v2::ReadObjectResponse>* ReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request) override;
     ::grpc::ClientAsyncReader< ::google::storage::v2::ReadObjectResponse>* AsyncReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncReader< ::google::storage::v2::ReadObjectResponse>* PrepareAsyncReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -433,27 +396,17 @@ class Storage final {
   };
   typedef WithAsyncMethod_ReadObject<WithAsyncMethod_WriteObject<WithAsyncMethod_StartResumableWrite<WithAsyncMethod_QueryWriteStatus<Service > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ReadObject : public BaseClass {
+  class WithCallbackMethod_ReadObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ReadObject() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ReadObject() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackServerStreamingHandler< ::google::storage::v2::ReadObjectRequest, ::google::storage::v2::ReadObjectResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::storage::v2::ReadObjectRequest* request) { return this->ReadObject(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::ReadObjectRequest* request) { return this->ReadObject(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_ReadObject() override {
+    ~WithCallbackMethod_ReadObject() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -461,37 +414,21 @@ class Storage final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::google::storage::v2::ReadObjectResponse>* ReadObject(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ReadObjectRequest* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::google::storage::v2::ReadObjectResponse>* ReadObject(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::storage::v2::ReadObjectRequest* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ReadObjectRequest* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_WriteObject : public BaseClass {
+  class WithCallbackMethod_WriteObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_WriteObject() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_WriteObject() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackClientStreamingHandler< ::google::storage::v2::WriteObjectRequest, ::google::storage::v2::WriteObjectResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, ::google::storage::v2::WriteObjectResponse* response) { return this->WriteObject(context, response); }));
+                   ::grpc::CallbackServerContext* context, ::google::storage::v2::WriteObjectResponse* response) { return this->WriteObject(context, response); }));
     }
-    ~ExperimentalWithCallbackMethod_WriteObject() override {
+    ~WithCallbackMethod_WriteObject() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -499,46 +436,26 @@ class Storage final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerReadReactor< ::google::storage::v2::WriteObjectRequest>* WriteObject(
-      ::grpc::CallbackServerContext* /*context*/, ::google::storage::v2::WriteObjectResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerReadReactor< ::google::storage::v2::WriteObjectRequest>* WriteObject(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::google::storage::v2::WriteObjectResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, ::google::storage::v2::WriteObjectResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_StartResumableWrite : public BaseClass {
+  class WithCallbackMethod_StartResumableWrite : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_StartResumableWrite() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_StartResumableWrite() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response) { return this->StartResumableWrite(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response) { return this->StartResumableWrite(context, request, response); }));}
     void SetMessageAllocatorFor_StartResumableWrite(
-        ::grpc::experimental::MessageAllocator< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_StartResumableWrite() override {
+    ~WithCallbackMethod_StartResumableWrite() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -546,46 +463,26 @@ class Storage final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* StartResumableWrite(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::StartResumableWriteRequest* /*request*/, ::google::storage::v2::StartResumableWriteResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* StartResumableWrite(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::storage::v2::StartResumableWriteRequest* /*request*/, ::google::storage::v2::StartResumableWriteResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::StartResumableWriteRequest* /*request*/, ::google::storage::v2::StartResumableWriteResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_QueryWriteStatus : public BaseClass {
+  class WithCallbackMethod_QueryWriteStatus : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_QueryWriteStatus() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_QueryWriteStatus() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response) { return this->QueryWriteStatus(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response) { return this->QueryWriteStatus(context, request, response); }));}
     void SetMessageAllocatorFor_QueryWriteStatus(
-        ::grpc::experimental::MessageAllocator< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_QueryWriteStatus() override {
+    ~WithCallbackMethod_QueryWriteStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -593,20 +490,11 @@ class Storage final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* QueryWriteStatus(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::QueryWriteStatusRequest* /*request*/, ::google::storage::v2::QueryWriteStatusResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* QueryWriteStatus(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::storage::v2::QueryWriteStatusRequest* /*request*/, ::google::storage::v2::QueryWriteStatusResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::QueryWriteStatusRequest* /*request*/, ::google::storage::v2::QueryWriteStatusResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ReadObject<ExperimentalWithCallbackMethod_WriteObject<ExperimentalWithCallbackMethod_StartResumableWrite<ExperimentalWithCallbackMethod_QueryWriteStatus<Service > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ReadObject<ExperimentalWithCallbackMethod_WriteObject<ExperimentalWithCallbackMethod_StartResumableWrite<ExperimentalWithCallbackMethod_QueryWriteStatus<Service > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ReadObject<WithCallbackMethod_WriteObject<WithCallbackMethod_StartResumableWrite<WithCallbackMethod_QueryWriteStatus<Service > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ReadObject : public BaseClass {
    private:
@@ -756,27 +644,17 @@ class Storage final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ReadObject : public BaseClass {
+  class WithRawCallbackMethod_ReadObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ReadObject() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ReadObject() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->ReadObject(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->ReadObject(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ReadObject() override {
+    ~WithRawCallbackMethod_ReadObject() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -784,37 +662,21 @@ class Storage final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* ReadObject(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* ReadObject(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_WriteObject : public BaseClass {
+  class WithRawCallbackMethod_WriteObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_WriteObject() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_WriteObject() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackClientStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, ::grpc::ByteBuffer* response) { return this->WriteObject(context, response); }));
+                   ::grpc::CallbackServerContext* context, ::grpc::ByteBuffer* response) { return this->WriteObject(context, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_WriteObject() override {
+    ~WithRawCallbackMethod_WriteObject() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -822,37 +684,21 @@ class Storage final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerReadReactor< ::grpc::ByteBuffer>* WriteObject(
-      ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerReadReactor< ::grpc::ByteBuffer>* WriteObject(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_StartResumableWrite : public BaseClass {
+  class WithRawCallbackMethod_StartResumableWrite : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_StartResumableWrite() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_StartResumableWrite() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartResumableWrite(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartResumableWrite(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_StartResumableWrite() override {
+    ~WithRawCallbackMethod_StartResumableWrite() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -860,37 +706,21 @@ class Storage final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* StartResumableWrite(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* StartResumableWrite(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_QueryWriteStatus : public BaseClass {
+  class WithRawCallbackMethod_QueryWriteStatus : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_QueryWriteStatus() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_QueryWriteStatus() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryWriteStatus(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryWriteStatus(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_QueryWriteStatus() override {
+    ~WithRawCallbackMethod_QueryWriteStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -898,14 +728,8 @@ class Storage final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* QueryWriteStatus(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* QueryWriteStatus(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_StartResumableWrite : public BaseClass {

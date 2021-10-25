@@ -26,7 +26,7 @@ namespace pubsub_internal {
 inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
 
 /// Create a gRPC channel with the right configuration.
-std::shared_ptr<grpc::Channel> CreateChannel(pubsub::ConnectionOptions options,
+std::shared_ptr<grpc::Channel> CreateChannel(Options const& opts,
                                              int channel_id);
 
 }  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS

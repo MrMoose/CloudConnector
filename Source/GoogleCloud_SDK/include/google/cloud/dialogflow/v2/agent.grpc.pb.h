@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2/agent.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -172,34 +171,22 @@ class Agents final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ValidationResult>> PrepareAsyncGetValidationResult(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ValidationResult>>(PrepareAsyncGetValidationResultRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Retrieves the specified agent.
       virtual void GetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates/updates the specified agent.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void SetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the specified agent.
       virtual void DeleteAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns the list of agents.
       //
       // Since there is at most one conversational agent per project, this method is
@@ -208,11 +195,7 @@ class Agents final {
       // Refer to [List
       // Sub-Collections](https://cloud.google.com/apis/design/design_patterns#list_sub-collections).
       virtual void SearchAgents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SearchAgents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SearchAgents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Trains the specified agent.
       //
       //
@@ -220,18 +203,10 @@ class Agents final {
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Exports the specified agent to a ZIP file.
       virtual void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Imports the specified agent from a ZIP file.
       //
       // Uploads new intents and entity types without deleting the existing ones.
@@ -249,11 +224,7 @@ class Agents final {
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void ImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Restores the specified agent from a ZIP file.
       //
       // Replaces the current agent version with a new one. All the intents and
@@ -270,27 +241,15 @@ class Agents final {
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void RestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void RestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void RestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets agent validation result. Agent validation is performed during
       // training time and is updated automatically when training is completed.
       virtual void GetValidationResult(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* request, ::google::cloud::dialogflow::v2::ValidationResult* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetValidationResult(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* request, ::google::cloud::dialogflow::v2::ValidationResult* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetValidationResult(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* request, ::google::cloud::dialogflow::v2::ValidationResult* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Agent>* AsyncGetAgentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Agent>* PrepareAsyncGetAgentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -377,74 +336,38 @@ class Agents final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ValidationResult>> PrepareAsyncGetValidationResult(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ValidationResult>>(PrepareAsyncGetValidationResultRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void GetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SetAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SearchAgents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SearchAgents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SearchAgents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ImportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void RestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void RestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void RestoreAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetValidationResult(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* request, ::google::cloud::dialogflow::v2::ValidationResult* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetValidationResult(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* request, ::google::cloud::dialogflow::v2::ValidationResult* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetValidationResult(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* request, ::google::cloud::dialogflow::v2::ValidationResult* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::Agent>* AsyncGetAgentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::Agent>* PrepareAsyncGetAgentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::Agent>* AsyncSetAgentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -725,36 +648,22 @@ class Agents final {
   };
   typedef WithAsyncMethod_GetAgent<WithAsyncMethod_SetAgent<WithAsyncMethod_DeleteAgent<WithAsyncMethod_SearchAgents<WithAsyncMethod_TrainAgent<WithAsyncMethod_ExportAgent<WithAsyncMethod_ImportAgent<WithAsyncMethod_RestoreAgent<WithAsyncMethod_GetValidationResult<Service > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetAgent : public BaseClass {
+  class WithCallbackMethod_GetAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_GetAgent() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetAgentRequest, ::google::cloud::dialogflow::v2::Agent>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response) { return this->GetAgent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response) { return this->GetAgent(context, request, response); }));}
     void SetMessageAllocatorFor_GetAgent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::GetAgentRequest, ::google::cloud::dialogflow::v2::Agent>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::GetAgentRequest, ::google::cloud::dialogflow::v2::Agent>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetAgentRequest, ::google::cloud::dialogflow::v2::Agent>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetAgent() override {
+    ~WithCallbackMethod_GetAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -762,46 +671,26 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetAgentRequest* /*request*/, ::google::cloud::dialogflow::v2::Agent* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetAgentRequest* /*request*/, ::google::cloud::dialogflow::v2::Agent* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetAgentRequest* /*request*/, ::google::cloud::dialogflow::v2::Agent* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SetAgent : public BaseClass {
+  class WithCallbackMethod_SetAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SetAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_SetAgent() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SetAgentRequest, ::google::cloud::dialogflow::v2::Agent>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response) { return this->SetAgent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest* request, ::google::cloud::dialogflow::v2::Agent* response) { return this->SetAgent(context, request, response); }));}
     void SetMessageAllocatorFor_SetAgent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::SetAgentRequest, ::google::cloud::dialogflow::v2::Agent>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::SetAgentRequest, ::google::cloud::dialogflow::v2::Agent>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SetAgentRequest, ::google::cloud::dialogflow::v2::Agent>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SetAgent() override {
+    ~WithCallbackMethod_SetAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -809,46 +698,26 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetAgentRequest* /*request*/, ::google::cloud::dialogflow::v2::Agent* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetAgentRequest* /*request*/, ::google::cloud::dialogflow::v2::Agent* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetAgentRequest* /*request*/, ::google::cloud::dialogflow::v2::Agent* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteAgent : public BaseClass {
+  class WithCallbackMethod_DeleteAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_DeleteAgent() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::DeleteAgentRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* request, ::google::protobuf::Empty* response) { return this->DeleteAgent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* request, ::google::protobuf::Empty* response) { return this->DeleteAgent(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteAgent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::DeleteAgentRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::DeleteAgentRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::DeleteAgentRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteAgent() override {
+    ~WithCallbackMethod_DeleteAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -856,46 +725,26 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteAgentRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SearchAgents : public BaseClass {
+  class WithCallbackMethod_SearchAgents : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SearchAgents() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_SearchAgents() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SearchAgentsRequest, ::google::cloud::dialogflow::v2::SearchAgentsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response) { return this->SearchAgents(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response) { return this->SearchAgents(context, request, response); }));}
     void SetMessageAllocatorFor_SearchAgents(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::SearchAgentsRequest, ::google::cloud::dialogflow::v2::SearchAgentsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::SearchAgentsRequest, ::google::cloud::dialogflow::v2::SearchAgentsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SearchAgentsRequest, ::google::cloud::dialogflow::v2::SearchAgentsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SearchAgents() override {
+    ~WithCallbackMethod_SearchAgents() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -903,46 +752,26 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SearchAgents(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* /*request*/, ::google::cloud::dialogflow::v2::SearchAgentsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SearchAgents(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* /*request*/, ::google::cloud::dialogflow::v2::SearchAgentsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* /*request*/, ::google::cloud::dialogflow::v2::SearchAgentsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_TrainAgent : public BaseClass {
+  class WithCallbackMethod_TrainAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_TrainAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_TrainAgent() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::TrainAgentRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response) { return this->TrainAgent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response) { return this->TrainAgent(context, request, response); }));}
     void SetMessageAllocatorFor_TrainAgent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::TrainAgentRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::TrainAgentRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::TrainAgentRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_TrainAgent() override {
+    ~WithCallbackMethod_TrainAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -950,46 +779,26 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TrainAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::TrainAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TrainAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::TrainAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::TrainAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ExportAgent : public BaseClass {
+  class WithCallbackMethod_ExportAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ExportAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_ExportAgent() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ExportAgentRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response) { return this->ExportAgent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response) { return this->ExportAgent(context, request, response); }));}
     void SetMessageAllocatorFor_ExportAgent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::ExportAgentRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::ExportAgentRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ExportAgentRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ExportAgent() override {
+    ~WithCallbackMethod_ExportAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -997,46 +806,26 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ExportAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ExportAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ExportAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ExportAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ExportAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ImportAgent : public BaseClass {
+  class WithCallbackMethod_ImportAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ImportAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_ImportAgent() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ImportAgentRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response) { return this->ImportAgent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::ImportAgentRequest* request, ::google::longrunning::Operation* response) { return this->ImportAgent(context, request, response); }));}
     void SetMessageAllocatorFor_ImportAgent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::ImportAgentRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::ImportAgentRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ImportAgentRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ImportAgent() override {
+    ~WithCallbackMethod_ImportAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1044,46 +833,26 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ImportAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ImportAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ImportAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ImportAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ImportAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_RestoreAgent : public BaseClass {
+  class WithCallbackMethod_RestoreAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_RestoreAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_RestoreAgent() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::RestoreAgentRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response) { return this->RestoreAgent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* request, ::google::longrunning::Operation* response) { return this->RestoreAgent(context, request, response); }));}
     void SetMessageAllocatorFor_RestoreAgent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::RestoreAgentRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::RestoreAgentRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::RestoreAgentRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_RestoreAgent() override {
+    ~WithCallbackMethod_RestoreAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1091,46 +860,26 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* RestoreAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* RestoreAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::RestoreAgentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetValidationResult : public BaseClass {
+  class WithCallbackMethod_GetValidationResult : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetValidationResult() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_GetValidationResult() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetValidationResultRequest, ::google::cloud::dialogflow::v2::ValidationResult>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* request, ::google::cloud::dialogflow::v2::ValidationResult* response) { return this->GetValidationResult(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* request, ::google::cloud::dialogflow::v2::ValidationResult* response) { return this->GetValidationResult(context, request, response); }));}
     void SetMessageAllocatorFor_GetValidationResult(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::GetValidationResultRequest, ::google::cloud::dialogflow::v2::ValidationResult>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::GetValidationResultRequest, ::google::cloud::dialogflow::v2::ValidationResult>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetValidationResultRequest, ::google::cloud::dialogflow::v2::ValidationResult>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetValidationResult() override {
+    ~WithCallbackMethod_GetValidationResult() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1138,20 +887,11 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetValidationResult(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* /*request*/, ::google::cloud::dialogflow::v2::ValidationResult* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetValidationResult(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* /*request*/, ::google::cloud::dialogflow::v2::ValidationResult* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetValidationResultRequest* /*request*/, ::google::cloud::dialogflow::v2::ValidationResult* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_GetAgent<ExperimentalWithCallbackMethod_SetAgent<ExperimentalWithCallbackMethod_DeleteAgent<ExperimentalWithCallbackMethod_SearchAgents<ExperimentalWithCallbackMethod_TrainAgent<ExperimentalWithCallbackMethod_ExportAgent<ExperimentalWithCallbackMethod_ImportAgent<ExperimentalWithCallbackMethod_RestoreAgent<ExperimentalWithCallbackMethod_GetValidationResult<Service > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_GetAgent<ExperimentalWithCallbackMethod_SetAgent<ExperimentalWithCallbackMethod_DeleteAgent<ExperimentalWithCallbackMethod_SearchAgents<ExperimentalWithCallbackMethod_TrainAgent<ExperimentalWithCallbackMethod_ExportAgent<ExperimentalWithCallbackMethod_ImportAgent<ExperimentalWithCallbackMethod_RestoreAgent<ExperimentalWithCallbackMethod_GetValidationResult<Service > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_GetAgent<WithCallbackMethod_SetAgent<WithCallbackMethod_DeleteAgent<WithCallbackMethod_SearchAgents<WithCallbackMethod_TrainAgent<WithCallbackMethod_ExportAgent<WithCallbackMethod_ImportAgent<WithCallbackMethod_RestoreAgent<WithCallbackMethod_GetValidationResult<Service > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetAgent : public BaseClass {
    private:
@@ -1486,27 +1226,17 @@ class Agents final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetAgent : public BaseClass {
+  class WithRawCallbackMethod_GetAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_GetAgent() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAgent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAgent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetAgent() override {
+    ~WithRawCallbackMethod_GetAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1514,37 +1244,21 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SetAgent : public BaseClass {
+  class WithRawCallbackMethod_SetAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SetAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_SetAgent() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetAgent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetAgent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SetAgent() override {
+    ~WithRawCallbackMethod_SetAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1552,37 +1266,21 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteAgent : public BaseClass {
+  class WithRawCallbackMethod_DeleteAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_DeleteAgent() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteAgent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteAgent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteAgent() override {
+    ~WithRawCallbackMethod_DeleteAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1590,37 +1288,21 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SearchAgents : public BaseClass {
+  class WithRawCallbackMethod_SearchAgents : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SearchAgents() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_SearchAgents() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SearchAgents(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SearchAgents(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SearchAgents() override {
+    ~WithRawCallbackMethod_SearchAgents() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1628,37 +1310,21 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SearchAgents(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SearchAgents(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_TrainAgent : public BaseClass {
+  class WithRawCallbackMethod_TrainAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_TrainAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_TrainAgent() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TrainAgent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TrainAgent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_TrainAgent() override {
+    ~WithRawCallbackMethod_TrainAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1666,37 +1332,21 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TrainAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TrainAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ExportAgent : public BaseClass {
+  class WithRawCallbackMethod_ExportAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ExportAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_ExportAgent() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ExportAgent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ExportAgent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ExportAgent() override {
+    ~WithRawCallbackMethod_ExportAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1704,37 +1354,21 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ExportAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ExportAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ImportAgent : public BaseClass {
+  class WithRawCallbackMethod_ImportAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ImportAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_ImportAgent() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ImportAgent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ImportAgent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ImportAgent() override {
+    ~WithRawCallbackMethod_ImportAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1742,37 +1376,21 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ImportAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ImportAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_RestoreAgent : public BaseClass {
+  class WithRawCallbackMethod_RestoreAgent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_RestoreAgent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_RestoreAgent() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RestoreAgent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RestoreAgent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_RestoreAgent() override {
+    ~WithRawCallbackMethod_RestoreAgent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1780,37 +1398,21 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* RestoreAgent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* RestoreAgent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetValidationResult : public BaseClass {
+  class WithRawCallbackMethod_GetValidationResult : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetValidationResult() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_GetValidationResult() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetValidationResult(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetValidationResult(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetValidationResult() override {
+    ~WithRawCallbackMethod_GetValidationResult() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1818,14 +1420,8 @@ class Agents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetValidationResult(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetValidationResult(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetAgent : public BaseClass {

@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2beta1/session.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -89,9 +88,9 @@ class Sessions final {
     std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest, ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>> PrepareAsyncStreamingDetectIntent(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest, ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>>(PrepareAsyncStreamingDetectIntentRaw(context, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Processes a natural language query and returns structured, actionable data
       // as a result. This method is not idempotent, because it may cause contexts
       // and session entity types to be updated, which in turn might affect
@@ -101,11 +100,7 @@ class Sessions final {
       // See [Versions and
       // environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
       virtual void DetectIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* request, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DetectIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* request, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DetectIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* request, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Processes a natural language query in audio format in a streaming fashion
       // and returns structured, actionable data as a result. This method is only
       // available via the gRPC API (not REST).
@@ -113,19 +108,11 @@ class Sessions final {
       // Note: Always use agent versions for production traffic.
       // See [Versions and
       // environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void StreamingDetectIntent(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest,::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>* reactor) = 0;
-      #else
-      virtual void StreamingDetectIntent(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest,::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>* AsyncDetectIntentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>* PrepareAsyncDetectIntentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -152,31 +139,23 @@ class Sessions final {
     std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest, ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>> PrepareAsyncStreamingDetectIntent(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest, ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>>(PrepareAsyncStreamingDetectIntentRaw(context, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void DetectIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* request, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DetectIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* request, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DetectIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* request, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void StreamingDetectIntent(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest,::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>* reactor) override;
-      #else
-      void StreamingDetectIntent(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest,::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>* AsyncDetectIntentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>* PrepareAsyncDetectIntentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientReaderWriter< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest, ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>* StreamingDetectIntentRaw(::grpc::ClientContext* context) override;
@@ -251,36 +230,22 @@ class Sessions final {
   };
   typedef WithAsyncMethod_DetectIntent<WithAsyncMethod_StreamingDetectIntent<Service > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DetectIntent : public BaseClass {
+  class WithCallbackMethod_DetectIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DetectIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_DetectIntent() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DetectIntentRequest, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* request, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* response) { return this->DetectIntent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* request, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* response) { return this->DetectIntent(context, request, response); }));}
     void SetMessageAllocatorFor_DetectIntent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DetectIntentRequest, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DetectIntentRequest, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DetectIntentRequest, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DetectIntent() override {
+    ~WithCallbackMethod_DetectIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -288,37 +253,21 @@ class Sessions final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DetectIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DetectIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DetectIntentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::DetectIntentResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_StreamingDetectIntent : public BaseClass {
+  class WithCallbackMethod_StreamingDetectIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_StreamingDetectIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_StreamingDetectIntent() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackBidiHandler< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest, ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->StreamingDetectIntent(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->StreamingDetectIntent(context); }));
     }
-    ~ExperimentalWithCallbackMethod_StreamingDetectIntent() override {
+    ~WithCallbackMethod_StreamingDetectIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -326,20 +275,12 @@ class Sessions final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest, ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>* StreamingDetectIntent(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentRequest, ::google::cloud::dialogflow::v2beta1::StreamingDetectIntentResponse>* StreamingDetectIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_DetectIntent<ExperimentalWithCallbackMethod_StreamingDetectIntent<Service > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_DetectIntent<ExperimentalWithCallbackMethod_StreamingDetectIntent<Service > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_DetectIntent<WithCallbackMethod_StreamingDetectIntent<Service > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_DetectIntent : public BaseClass {
    private:
@@ -415,27 +356,17 @@ class Sessions final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DetectIntent : public BaseClass {
+  class WithRawCallbackMethod_DetectIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DetectIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_DetectIntent() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DetectIntent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DetectIntent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DetectIntent() override {
+    ~WithRawCallbackMethod_DetectIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -443,37 +374,21 @@ class Sessions final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DetectIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DetectIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_StreamingDetectIntent : public BaseClass {
+  class WithRawCallbackMethod_StreamingDetectIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_StreamingDetectIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_StreamingDetectIntent() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->StreamingDetectIntent(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->StreamingDetectIntent(context); }));
     }
-    ~ExperimentalWithRawCallbackMethod_StreamingDetectIntent() override {
+    ~WithRawCallbackMethod_StreamingDetectIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -481,13 +396,8 @@ class Sessions final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StreamingDetectIntent(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StreamingDetectIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
   template <class BaseClass>

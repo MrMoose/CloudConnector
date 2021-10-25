@@ -22,7 +22,6 @@
 #include "google/bigtable/v2/bigtable.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -122,70 +121,42 @@ class Bigtable final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::ReadModifyWriteRowResponse>> PrepareAsyncReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::ReadModifyWriteRowResponse>>(PrepareAsyncReadModifyWriteRowRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Streams back the contents of all requested rows in key order, optionally
       // applying the same Reader filter to each. Depending on their size,
       // rows and cells may be broken up across multiple responses, but
       // atomicity of each row will still be preserved. See the
       // ReadRowsResponse documentation for details.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ReadRows(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) = 0;
-      #else
-      virtual void ReadRows(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) = 0;
-      #endif
       // Returns a sample of row keys in the table. The returned row keys will
       // delimit contiguous sections of the table of approximately equal size,
       // which can be used to break up the data for distributed tasks like
       // mapreduces.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SampleRowKeys(::grpc::ClientContext* context, const ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) = 0;
-      #else
-      virtual void SampleRowKeys(::grpc::ClientContext* context, const ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) = 0;
-      #endif
       // Mutates a row atomically. Cells already present in the row are left
       // unchanged unless explicitly changed by `mutation`.
       virtual void MutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void MutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void MutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Mutates multiple rows in a batch. Each individual row is mutated
       // atomically as in MutateRow, but the entire batch is not executed
       // atomically.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void MutateRows(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) = 0;
-      #else
-      virtual void MutateRows(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) = 0;
-      #endif
       // Mutates a row atomically based on the output of a predicate Reader filter.
       virtual void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Modifies a row atomically on the server. The method reads the latest
       // existing timestamp and value from the specified columns and writes a new
       // entry based on pre-defined read/modify/write rules. The new value for the
       // timestamp is the greater of the existing timestamp or the current server
       // time. The method returns the new contents of all modified cells.
       virtual void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientReaderInterface< ::google::bigtable::v2::ReadRowsResponse>* ReadRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::ReadRowsResponse>* AsyncReadRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
@@ -254,53 +225,29 @@ class Bigtable final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>> PrepareAsyncReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>>(PrepareAsyncReadModifyWriteRowRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ReadRows(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) override;
-      #else
-      void ReadRows(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::ReadRowsResponse>* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SampleRowKeys(::grpc::ClientContext* context, const ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) override;
-      #else
-      void SampleRowKeys(::grpc::ClientContext* context, const ::google::bigtable::v2::SampleRowKeysRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::SampleRowKeysResponse>* reactor) override;
-      #endif
       void MutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void MutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void MutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void MutateRows(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) override;
-      #else
-      void MutateRows(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) override;
-      #endif
       void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientReader< ::google::bigtable::v2::ReadRowsResponse>* ReadRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest& request) override;
     ::grpc::ClientAsyncReader< ::google::bigtable::v2::ReadRowsResponse>* AsyncReadRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest& request, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncReader< ::google::bigtable::v2::ReadRowsResponse>* PrepareAsyncReadRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -478,27 +425,17 @@ class Bigtable final {
   };
   typedef WithAsyncMethod_ReadRows<WithAsyncMethod_SampleRowKeys<WithAsyncMethod_MutateRow<WithAsyncMethod_MutateRows<WithAsyncMethod_CheckAndMutateRow<WithAsyncMethod_ReadModifyWriteRow<Service > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ReadRows : public BaseClass {
+  class WithCallbackMethod_ReadRows : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ReadRows() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ReadRows() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackServerStreamingHandler< ::google::bigtable::v2::ReadRowsRequest, ::google::bigtable::v2::ReadRowsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::v2::ReadRowsRequest* request) { return this->ReadRows(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::ReadRowsRequest* request) { return this->ReadRows(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_ReadRows() override {
+    ~WithCallbackMethod_ReadRows() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -506,37 +443,21 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::google::bigtable::v2::ReadRowsResponse>* ReadRows(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::ReadRowsRequest* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::google::bigtable::v2::ReadRowsResponse>* ReadRows(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::v2::ReadRowsRequest* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::ReadRowsRequest* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SampleRowKeys : public BaseClass {
+  class WithCallbackMethod_SampleRowKeys : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SampleRowKeys() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_SampleRowKeys() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackServerStreamingHandler< ::google::bigtable::v2::SampleRowKeysRequest, ::google::bigtable::v2::SampleRowKeysResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::v2::SampleRowKeysRequest* request) { return this->SampleRowKeys(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::SampleRowKeysRequest* request) { return this->SampleRowKeys(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_SampleRowKeys() override {
+    ~WithCallbackMethod_SampleRowKeys() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -544,46 +465,26 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::google::bigtable::v2::SampleRowKeysResponse>* SampleRowKeys(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::SampleRowKeysRequest* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::google::bigtable::v2::SampleRowKeysResponse>* SampleRowKeys(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::v2::SampleRowKeysRequest* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::SampleRowKeysRequest* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_MutateRow : public BaseClass {
+  class WithCallbackMethod_MutateRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_MutateRow() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_MutateRow() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::MutateRowRequest, ::google::bigtable::v2::MutateRowResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response) { return this->MutateRow(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::MutateRowRequest* request, ::google::bigtable::v2::MutateRowResponse* response) { return this->MutateRow(context, request, response); }));}
     void SetMessageAllocatorFor_MutateRow(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::v2::MutateRowRequest, ::google::bigtable::v2::MutateRowResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::v2::MutateRowRequest, ::google::bigtable::v2::MutateRowResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::MutateRowRequest, ::google::bigtable::v2::MutateRowResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_MutateRow() override {
+    ~WithCallbackMethod_MutateRow() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -591,37 +492,21 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* MutateRow(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::MutateRowRequest* /*request*/, ::google::bigtable::v2::MutateRowResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* MutateRow(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::v2::MutateRowRequest* /*request*/, ::google::bigtable::v2::MutateRowResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::MutateRowRequest* /*request*/, ::google::bigtable::v2::MutateRowResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_MutateRows : public BaseClass {
+  class WithCallbackMethod_MutateRows : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_MutateRows() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_MutateRows() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackServerStreamingHandler< ::google::bigtable::v2::MutateRowsRequest, ::google::bigtable::v2::MutateRowsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::v2::MutateRowsRequest* request) { return this->MutateRows(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::MutateRowsRequest* request) { return this->MutateRows(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_MutateRows() override {
+    ~WithCallbackMethod_MutateRows() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -629,46 +514,26 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::google::bigtable::v2::MutateRowsResponse>* MutateRows(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::MutateRowsRequest* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::google::bigtable::v2::MutateRowsResponse>* MutateRows(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::v2::MutateRowsRequest* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::MutateRowsRequest* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CheckAndMutateRow : public BaseClass {
+  class WithCallbackMethod_CheckAndMutateRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CheckAndMutateRow() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_CheckAndMutateRow() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::CheckAndMutateRowRequest, ::google::bigtable::v2::CheckAndMutateRowResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response) { return this->CheckAndMutateRow(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response) { return this->CheckAndMutateRow(context, request, response); }));}
     void SetMessageAllocatorFor_CheckAndMutateRow(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::v2::CheckAndMutateRowRequest, ::google::bigtable::v2::CheckAndMutateRowResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::v2::CheckAndMutateRowRequest, ::google::bigtable::v2::CheckAndMutateRowResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::CheckAndMutateRowRequest, ::google::bigtable::v2::CheckAndMutateRowResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CheckAndMutateRow() override {
+    ~WithCallbackMethod_CheckAndMutateRow() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -676,46 +541,26 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CheckAndMutateRow(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::CheckAndMutateRowRequest* /*request*/, ::google::bigtable::v2::CheckAndMutateRowResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CheckAndMutateRow(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::v2::CheckAndMutateRowRequest* /*request*/, ::google::bigtable::v2::CheckAndMutateRowResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::CheckAndMutateRowRequest* /*request*/, ::google::bigtable::v2::CheckAndMutateRowResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ReadModifyWriteRow : public BaseClass {
+  class WithCallbackMethod_ReadModifyWriteRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ReadModifyWriteRow() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_ReadModifyWriteRow() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::ReadModifyWriteRowRequest, ::google::bigtable::v2::ReadModifyWriteRowResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response) { return this->ReadModifyWriteRow(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response) { return this->ReadModifyWriteRow(context, request, response); }));}
     void SetMessageAllocatorFor_ReadModifyWriteRow(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::v2::ReadModifyWriteRowRequest, ::google::bigtable::v2::ReadModifyWriteRowResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::v2::ReadModifyWriteRowRequest, ::google::bigtable::v2::ReadModifyWriteRowResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::ReadModifyWriteRowRequest, ::google::bigtable::v2::ReadModifyWriteRowResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ReadModifyWriteRow() override {
+    ~WithCallbackMethod_ReadModifyWriteRow() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -723,20 +568,11 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ReadModifyWriteRow(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::ReadModifyWriteRowRequest* /*request*/, ::google::bigtable::v2::ReadModifyWriteRowResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ReadModifyWriteRow(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::v2::ReadModifyWriteRowRequest* /*request*/, ::google::bigtable::v2::ReadModifyWriteRowResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::ReadModifyWriteRowRequest* /*request*/, ::google::bigtable::v2::ReadModifyWriteRowResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ReadRows<ExperimentalWithCallbackMethod_SampleRowKeys<ExperimentalWithCallbackMethod_MutateRow<ExperimentalWithCallbackMethod_MutateRows<ExperimentalWithCallbackMethod_CheckAndMutateRow<ExperimentalWithCallbackMethod_ReadModifyWriteRow<Service > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ReadRows<ExperimentalWithCallbackMethod_SampleRowKeys<ExperimentalWithCallbackMethod_MutateRow<ExperimentalWithCallbackMethod_MutateRows<ExperimentalWithCallbackMethod_CheckAndMutateRow<ExperimentalWithCallbackMethod_ReadModifyWriteRow<Service > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ReadRows<WithCallbackMethod_SampleRowKeys<WithCallbackMethod_MutateRow<WithCallbackMethod_MutateRows<WithCallbackMethod_CheckAndMutateRow<WithCallbackMethod_ReadModifyWriteRow<Service > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ReadRows : public BaseClass {
    private:
@@ -960,27 +796,17 @@ class Bigtable final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ReadRows : public BaseClass {
+  class WithRawCallbackMethod_ReadRows : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ReadRows() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ReadRows() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->ReadRows(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->ReadRows(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ReadRows() override {
+    ~WithRawCallbackMethod_ReadRows() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -988,37 +814,21 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* ReadRows(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* ReadRows(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SampleRowKeys : public BaseClass {
+  class WithRawCallbackMethod_SampleRowKeys : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SampleRowKeys() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_SampleRowKeys() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->SampleRowKeys(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->SampleRowKeys(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SampleRowKeys() override {
+    ~WithRawCallbackMethod_SampleRowKeys() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1026,37 +836,21 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* SampleRowKeys(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* SampleRowKeys(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_MutateRow : public BaseClass {
+  class WithRawCallbackMethod_MutateRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_MutateRow() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_MutateRow() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->MutateRow(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->MutateRow(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_MutateRow() override {
+    ~WithRawCallbackMethod_MutateRow() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1064,37 +858,21 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* MutateRow(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* MutateRow(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_MutateRows : public BaseClass {
+  class WithRawCallbackMethod_MutateRows : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_MutateRows() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_MutateRows() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->MutateRows(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->MutateRows(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_MutateRows() override {
+    ~WithRawCallbackMethod_MutateRows() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1102,37 +880,21 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* MutateRows(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* MutateRows(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CheckAndMutateRow : public BaseClass {
+  class WithRawCallbackMethod_CheckAndMutateRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CheckAndMutateRow() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_CheckAndMutateRow() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckAndMutateRow(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckAndMutateRow(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CheckAndMutateRow() override {
+    ~WithRawCallbackMethod_CheckAndMutateRow() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1140,37 +902,21 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CheckAndMutateRow(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CheckAndMutateRow(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ReadModifyWriteRow : public BaseClass {
+  class WithRawCallbackMethod_ReadModifyWriteRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ReadModifyWriteRow() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_ReadModifyWriteRow() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ReadModifyWriteRow(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ReadModifyWriteRow(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ReadModifyWriteRow() override {
+    ~WithRawCallbackMethod_ReadModifyWriteRow() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1178,14 +924,8 @@ class Bigtable final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ReadModifyWriteRow(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ReadModifyWriteRow(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_MutateRow : public BaseClass {

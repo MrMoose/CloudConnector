@@ -180,7 +180,6 @@ class TableAdmin {
    *     LimitedErrorCountRetryPolicy, LimitedTimeRetryPolicy.
    */
   template <typename... Policies>
-  // NOLINTNEXTLINE(performance-unnecessary-value-param) TODO(#4112)
   TableAdmin(std::shared_ptr<AdminClient> client, std::string instance_id,
              Policies&&... policies)
       : TableAdmin(std::move(client), std::move(instance_id)) {
@@ -192,7 +191,7 @@ class TableAdmin {
 
   //@{
   /// @name Convenience shorthands for the schema views.
-  using TableView = google::bigtable::admin::v2::Table::View;
+  using TableView = ::google::bigtable::admin::v2::Table::View;
   /// Only populate 'name' and fields related to the table's encryption state.
   static auto constexpr ENCRYPTION_VIEW =  // NOLINT(readability-identifier-naming)
       google::bigtable::admin::v2::Table::ENCRYPTION_VIEW;

@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2/intent.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -133,56 +132,36 @@ class Intents final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncBatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncBatchDeleteIntentsRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Returns the list of all intents in the specified agent.
       virtual void ListIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest* request, ::google::cloud::dialogflow::v2::ListIntentsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest* request, ::google::cloud::dialogflow::v2::ListIntentsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest* request, ::google::cloud::dialogflow::v2::ListIntentsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Retrieves the specified intent.
       virtual void GetIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates an intent in the specified agent.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the specified intent.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the specified intent and its direct or indirect followup intents.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates/Creates multiple intents in the specified agent.
       //
       //
@@ -190,11 +169,7 @@ class Intents final {
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes intents in the specified agent.
       //
       //
@@ -202,19 +177,11 @@ class Intents final {
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void BatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListIntentsResponse>* AsyncListIntentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListIntentsResponse>* PrepareAsyncListIntentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -283,62 +250,34 @@ class Intents final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncBatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncBatchDeleteIntentsRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest* request, ::google::cloud::dialogflow::v2::ListIntentsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest* request, ::google::cloud::dialogflow::v2::ListIntentsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest* request, ::google::cloud::dialogflow::v2::ListIntentsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void BatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void BatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void BatchDeleteIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListIntentsResponse>* AsyncListIntentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListIntentsResponse>* PrepareAsyncListIntentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::Intent>* AsyncGetIntentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -546,36 +485,22 @@ class Intents final {
   };
   typedef WithAsyncMethod_ListIntents<WithAsyncMethod_GetIntent<WithAsyncMethod_CreateIntent<WithAsyncMethod_UpdateIntent<WithAsyncMethod_DeleteIntent<WithAsyncMethod_BatchUpdateIntents<WithAsyncMethod_BatchDeleteIntents<Service > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListIntents : public BaseClass {
+  class WithCallbackMethod_ListIntents : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListIntents() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListIntents() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ListIntentsRequest, ::google::cloud::dialogflow::v2::ListIntentsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::ListIntentsRequest* request, ::google::cloud::dialogflow::v2::ListIntentsResponse* response) { return this->ListIntents(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest* request, ::google::cloud::dialogflow::v2::ListIntentsResponse* response) { return this->ListIntents(context, request, response); }));}
     void SetMessageAllocatorFor_ListIntents(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::ListIntentsRequest, ::google::cloud::dialogflow::v2::ListIntentsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::ListIntentsRequest, ::google::cloud::dialogflow::v2::ListIntentsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ListIntentsRequest, ::google::cloud::dialogflow::v2::ListIntentsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListIntents() override {
+    ~WithCallbackMethod_ListIntents() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -583,46 +508,26 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListIntents(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListIntentsRequest* /*request*/, ::google::cloud::dialogflow::v2::ListIntentsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListIntents(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListIntentsRequest* /*request*/, ::google::cloud::dialogflow::v2::ListIntentsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListIntentsRequest* /*request*/, ::google::cloud::dialogflow::v2::ListIntentsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetIntent : public BaseClass {
+  class WithCallbackMethod_GetIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetIntent() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetIntentRequest, ::google::cloud::dialogflow::v2::Intent>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response) { return this->GetIntent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response) { return this->GetIntent(context, request, response); }));}
     void SetMessageAllocatorFor_GetIntent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::GetIntentRequest, ::google::cloud::dialogflow::v2::Intent>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::GetIntentRequest, ::google::cloud::dialogflow::v2::Intent>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetIntentRequest, ::google::cloud::dialogflow::v2::Intent>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetIntent() override {
+    ~WithCallbackMethod_GetIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -630,46 +535,26 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetIntentRequest* /*request*/, ::google::cloud::dialogflow::v2::Intent* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetIntentRequest* /*request*/, ::google::cloud::dialogflow::v2::Intent* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetIntentRequest* /*request*/, ::google::cloud::dialogflow::v2::Intent* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateIntent : public BaseClass {
+  class WithCallbackMethod_CreateIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateIntent() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::CreateIntentRequest, ::google::cloud::dialogflow::v2::Intent>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response) { return this->CreateIntent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::CreateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response) { return this->CreateIntent(context, request, response); }));}
     void SetMessageAllocatorFor_CreateIntent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::CreateIntentRequest, ::google::cloud::dialogflow::v2::Intent>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::CreateIntentRequest, ::google::cloud::dialogflow::v2::Intent>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::CreateIntentRequest, ::google::cloud::dialogflow::v2::Intent>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateIntent() override {
+    ~WithCallbackMethod_CreateIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -677,46 +562,26 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::CreateIntentRequest* /*request*/, ::google::cloud::dialogflow::v2::Intent* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::CreateIntentRequest* /*request*/, ::google::cloud::dialogflow::v2::Intent* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::CreateIntentRequest* /*request*/, ::google::cloud::dialogflow::v2::Intent* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateIntent : public BaseClass {
+  class WithCallbackMethod_UpdateIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateIntent() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::UpdateIntentRequest, ::google::cloud::dialogflow::v2::Intent>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response) { return this->UpdateIntent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* request, ::google::cloud::dialogflow::v2::Intent* response) { return this->UpdateIntent(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateIntent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::UpdateIntentRequest, ::google::cloud::dialogflow::v2::Intent>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::UpdateIntentRequest, ::google::cloud::dialogflow::v2::Intent>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::UpdateIntentRequest, ::google::cloud::dialogflow::v2::Intent>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateIntent() override {
+    ~WithCallbackMethod_UpdateIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -724,46 +589,26 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* /*request*/, ::google::cloud::dialogflow::v2::Intent* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* /*request*/, ::google::cloud::dialogflow::v2::Intent* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::UpdateIntentRequest* /*request*/, ::google::cloud::dialogflow::v2::Intent* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteIntent : public BaseClass {
+  class WithCallbackMethod_DeleteIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteIntent() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::DeleteIntentRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response) { return this->DeleteIntent(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response) { return this->DeleteIntent(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteIntent(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::DeleteIntentRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::DeleteIntentRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::DeleteIntentRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteIntent() override {
+    ~WithCallbackMethod_DeleteIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -771,46 +616,26 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_BatchUpdateIntents : public BaseClass {
+  class WithCallbackMethod_BatchUpdateIntents : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_BatchUpdateIntents() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_BatchUpdateIntents() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response) { return this->BatchUpdateIntents(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response) { return this->BatchUpdateIntents(context, request, response); }));}
     void SetMessageAllocatorFor_BatchUpdateIntents(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_BatchUpdateIntents() override {
+    ~WithCallbackMethod_BatchUpdateIntents() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -818,46 +643,26 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchUpdateIntents(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchUpdateIntents(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_BatchDeleteIntents : public BaseClass {
+  class WithCallbackMethod_BatchDeleteIntents : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_BatchDeleteIntents() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_BatchDeleteIntents() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response) { return this->BatchDeleteIntents(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* request, ::google::longrunning::Operation* response) { return this->BatchDeleteIntents(context, request, response); }));}
     void SetMessageAllocatorFor_BatchDeleteIntents(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_BatchDeleteIntents() override {
+    ~WithCallbackMethod_BatchDeleteIntents() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -865,20 +670,11 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchDeleteIntents(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchDeleteIntents(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchDeleteIntentsRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListIntents<ExperimentalWithCallbackMethod_GetIntent<ExperimentalWithCallbackMethod_CreateIntent<ExperimentalWithCallbackMethod_UpdateIntent<ExperimentalWithCallbackMethod_DeleteIntent<ExperimentalWithCallbackMethod_BatchUpdateIntents<ExperimentalWithCallbackMethod_BatchDeleteIntents<Service > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListIntents<ExperimentalWithCallbackMethod_GetIntent<ExperimentalWithCallbackMethod_CreateIntent<ExperimentalWithCallbackMethod_UpdateIntent<ExperimentalWithCallbackMethod_DeleteIntent<ExperimentalWithCallbackMethod_BatchUpdateIntents<ExperimentalWithCallbackMethod_BatchDeleteIntents<Service > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListIntents<WithCallbackMethod_GetIntent<WithCallbackMethod_CreateIntent<WithCallbackMethod_UpdateIntent<WithCallbackMethod_DeleteIntent<WithCallbackMethod_BatchUpdateIntents<WithCallbackMethod_BatchDeleteIntents<Service > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListIntents : public BaseClass {
    private:
@@ -1139,27 +935,17 @@ class Intents final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListIntents : public BaseClass {
+  class WithRawCallbackMethod_ListIntents : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListIntents() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListIntents() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListIntents(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListIntents(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListIntents() override {
+    ~WithRawCallbackMethod_ListIntents() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1167,37 +953,21 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListIntents(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListIntents(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetIntent : public BaseClass {
+  class WithRawCallbackMethod_GetIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetIntent() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIntent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIntent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetIntent() override {
+    ~WithRawCallbackMethod_GetIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1205,37 +975,21 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateIntent : public BaseClass {
+  class WithRawCallbackMethod_CreateIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateIntent() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateIntent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateIntent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateIntent() override {
+    ~WithRawCallbackMethod_CreateIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1243,37 +997,21 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateIntent : public BaseClass {
+  class WithRawCallbackMethod_UpdateIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateIntent() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateIntent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateIntent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateIntent() override {
+    ~WithRawCallbackMethod_UpdateIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1281,37 +1019,21 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteIntent : public BaseClass {
+  class WithRawCallbackMethod_DeleteIntent : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteIntent() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteIntent() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteIntent(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteIntent(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteIntent() override {
+    ~WithRawCallbackMethod_DeleteIntent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1319,37 +1041,21 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteIntent(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteIntent(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_BatchUpdateIntents : public BaseClass {
+  class WithRawCallbackMethod_BatchUpdateIntents : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_BatchUpdateIntents() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_BatchUpdateIntents() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchUpdateIntents(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchUpdateIntents(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_BatchUpdateIntents() override {
+    ~WithRawCallbackMethod_BatchUpdateIntents() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1357,37 +1063,21 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchUpdateIntents(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchUpdateIntents(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_BatchDeleteIntents : public BaseClass {
+  class WithRawCallbackMethod_BatchDeleteIntents : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_BatchDeleteIntents() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_BatchDeleteIntents() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchDeleteIntents(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchDeleteIntents(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_BatchDeleteIntents() override {
+    ~WithRawCallbackMethod_BatchDeleteIntents() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1395,14 +1085,8 @@ class Intents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchDeleteIntents(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchDeleteIntents(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListIntents : public BaseClass {

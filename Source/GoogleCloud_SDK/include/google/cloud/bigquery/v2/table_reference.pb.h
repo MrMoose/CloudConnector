@@ -190,10 +190,85 @@ class TableReference PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kProjectIdAlternativeFieldNumber = 4,
+    kDatasetIdAlternativeFieldNumber = 5,
+    kTableIdAlternativeFieldNumber = 6,
     kProjectIdFieldNumber = 1,
     kDatasetIdFieldNumber = 2,
     kTableIdFieldNumber = 3,
   };
+  // repeated string project_id_alternative = 4;
+  int project_id_alternative_size() const;
+  private:
+  int _internal_project_id_alternative_size() const;
+  public:
+  void clear_project_id_alternative();
+  const std::string& project_id_alternative(int index) const;
+  std::string* mutable_project_id_alternative(int index);
+  void set_project_id_alternative(int index, const std::string& value);
+  void set_project_id_alternative(int index, std::string&& value);
+  void set_project_id_alternative(int index, const char* value);
+  void set_project_id_alternative(int index, const char* value, size_t size);
+  std::string* add_project_id_alternative();
+  void add_project_id_alternative(const std::string& value);
+  void add_project_id_alternative(std::string&& value);
+  void add_project_id_alternative(const char* value);
+  void add_project_id_alternative(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& project_id_alternative() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_project_id_alternative();
+  private:
+  const std::string& _internal_project_id_alternative(int index) const;
+  std::string* _internal_add_project_id_alternative();
+  public:
+
+  // repeated string dataset_id_alternative = 5;
+  int dataset_id_alternative_size() const;
+  private:
+  int _internal_dataset_id_alternative_size() const;
+  public:
+  void clear_dataset_id_alternative();
+  const std::string& dataset_id_alternative(int index) const;
+  std::string* mutable_dataset_id_alternative(int index);
+  void set_dataset_id_alternative(int index, const std::string& value);
+  void set_dataset_id_alternative(int index, std::string&& value);
+  void set_dataset_id_alternative(int index, const char* value);
+  void set_dataset_id_alternative(int index, const char* value, size_t size);
+  std::string* add_dataset_id_alternative();
+  void add_dataset_id_alternative(const std::string& value);
+  void add_dataset_id_alternative(std::string&& value);
+  void add_dataset_id_alternative(const char* value);
+  void add_dataset_id_alternative(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& dataset_id_alternative() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_dataset_id_alternative();
+  private:
+  const std::string& _internal_dataset_id_alternative(int index) const;
+  std::string* _internal_add_dataset_id_alternative();
+  public:
+
+  // repeated string table_id_alternative = 6;
+  int table_id_alternative_size() const;
+  private:
+  int _internal_table_id_alternative_size() const;
+  public:
+  void clear_table_id_alternative();
+  const std::string& table_id_alternative(int index) const;
+  std::string* mutable_table_id_alternative(int index);
+  void set_table_id_alternative(int index, const std::string& value);
+  void set_table_id_alternative(int index, std::string&& value);
+  void set_table_id_alternative(int index, const char* value);
+  void set_table_id_alternative(int index, const char* value, size_t size);
+  std::string* add_table_id_alternative();
+  void add_table_id_alternative(const std::string& value);
+  void add_table_id_alternative(std::string&& value);
+  void add_table_id_alternative(const char* value);
+  void add_table_id_alternative(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& table_id_alternative() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_table_id_alternative();
+  private:
+  const std::string& _internal_table_id_alternative(int index) const;
+  std::string* _internal_add_table_id_alternative();
+  public:
+
   // string project_id = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_project_id();
   const std::string& project_id() const;
@@ -249,6 +324,9 @@ class TableReference PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> project_id_alternative_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> dataset_id_alternative_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> table_id_alternative_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr project_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dataset_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr table_id_;
@@ -447,6 +525,228 @@ inline void TableReference::set_allocated_table_id(std::string* table_id) {
   table_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), table_id,
       GetArena());
   // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.TableReference.table_id)
+}
+
+// repeated string project_id_alternative = 4;
+inline int TableReference::_internal_project_id_alternative_size() const {
+  return project_id_alternative_.size();
+}
+inline int TableReference::project_id_alternative_size() const {
+  return _internal_project_id_alternative_size();
+}
+inline void TableReference::clear_project_id_alternative() {
+  project_id_alternative_.Clear();
+}
+inline std::string* TableReference::add_project_id_alternative() {
+  // @@protoc_insertion_point(field_add_mutable:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+  return _internal_add_project_id_alternative();
+}
+inline const std::string& TableReference::_internal_project_id_alternative(int index) const {
+  return project_id_alternative_.Get(index);
+}
+inline const std::string& TableReference::project_id_alternative(int index) const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+  return _internal_project_id_alternative(index);
+}
+inline std::string* TableReference::mutable_project_id_alternative(int index) {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+  return project_id_alternative_.Mutable(index);
+}
+inline void TableReference::set_project_id_alternative(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+  project_id_alternative_.Mutable(index)->assign(value);
+}
+inline void TableReference::set_project_id_alternative(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+  project_id_alternative_.Mutable(index)->assign(std::move(value));
+}
+inline void TableReference::set_project_id_alternative(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  project_id_alternative_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+}
+inline void TableReference::set_project_id_alternative(int index, const char* value, size_t size) {
+  project_id_alternative_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+}
+inline std::string* TableReference::_internal_add_project_id_alternative() {
+  return project_id_alternative_.Add();
+}
+inline void TableReference::add_project_id_alternative(const std::string& value) {
+  project_id_alternative_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+}
+inline void TableReference::add_project_id_alternative(std::string&& value) {
+  project_id_alternative_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+}
+inline void TableReference::add_project_id_alternative(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  project_id_alternative_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+}
+inline void TableReference::add_project_id_alternative(const char* value, size_t size) {
+  project_id_alternative_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+TableReference::project_id_alternative() const {
+  // @@protoc_insertion_point(field_list:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+  return project_id_alternative_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+TableReference::mutable_project_id_alternative() {
+  // @@protoc_insertion_point(field_mutable_list:google.cloud.bigquery.v2.TableReference.project_id_alternative)
+  return &project_id_alternative_;
+}
+
+// repeated string dataset_id_alternative = 5;
+inline int TableReference::_internal_dataset_id_alternative_size() const {
+  return dataset_id_alternative_.size();
+}
+inline int TableReference::dataset_id_alternative_size() const {
+  return _internal_dataset_id_alternative_size();
+}
+inline void TableReference::clear_dataset_id_alternative() {
+  dataset_id_alternative_.Clear();
+}
+inline std::string* TableReference::add_dataset_id_alternative() {
+  // @@protoc_insertion_point(field_add_mutable:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+  return _internal_add_dataset_id_alternative();
+}
+inline const std::string& TableReference::_internal_dataset_id_alternative(int index) const {
+  return dataset_id_alternative_.Get(index);
+}
+inline const std::string& TableReference::dataset_id_alternative(int index) const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+  return _internal_dataset_id_alternative(index);
+}
+inline std::string* TableReference::mutable_dataset_id_alternative(int index) {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+  return dataset_id_alternative_.Mutable(index);
+}
+inline void TableReference::set_dataset_id_alternative(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+  dataset_id_alternative_.Mutable(index)->assign(value);
+}
+inline void TableReference::set_dataset_id_alternative(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+  dataset_id_alternative_.Mutable(index)->assign(std::move(value));
+}
+inline void TableReference::set_dataset_id_alternative(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  dataset_id_alternative_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+}
+inline void TableReference::set_dataset_id_alternative(int index, const char* value, size_t size) {
+  dataset_id_alternative_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+}
+inline std::string* TableReference::_internal_add_dataset_id_alternative() {
+  return dataset_id_alternative_.Add();
+}
+inline void TableReference::add_dataset_id_alternative(const std::string& value) {
+  dataset_id_alternative_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+}
+inline void TableReference::add_dataset_id_alternative(std::string&& value) {
+  dataset_id_alternative_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+}
+inline void TableReference::add_dataset_id_alternative(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  dataset_id_alternative_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+}
+inline void TableReference::add_dataset_id_alternative(const char* value, size_t size) {
+  dataset_id_alternative_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+TableReference::dataset_id_alternative() const {
+  // @@protoc_insertion_point(field_list:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+  return dataset_id_alternative_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+TableReference::mutable_dataset_id_alternative() {
+  // @@protoc_insertion_point(field_mutable_list:google.cloud.bigquery.v2.TableReference.dataset_id_alternative)
+  return &dataset_id_alternative_;
+}
+
+// repeated string table_id_alternative = 6;
+inline int TableReference::_internal_table_id_alternative_size() const {
+  return table_id_alternative_.size();
+}
+inline int TableReference::table_id_alternative_size() const {
+  return _internal_table_id_alternative_size();
+}
+inline void TableReference::clear_table_id_alternative() {
+  table_id_alternative_.Clear();
+}
+inline std::string* TableReference::add_table_id_alternative() {
+  // @@protoc_insertion_point(field_add_mutable:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+  return _internal_add_table_id_alternative();
+}
+inline const std::string& TableReference::_internal_table_id_alternative(int index) const {
+  return table_id_alternative_.Get(index);
+}
+inline const std::string& TableReference::table_id_alternative(int index) const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+  return _internal_table_id_alternative(index);
+}
+inline std::string* TableReference::mutable_table_id_alternative(int index) {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+  return table_id_alternative_.Mutable(index);
+}
+inline void TableReference::set_table_id_alternative(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+  table_id_alternative_.Mutable(index)->assign(value);
+}
+inline void TableReference::set_table_id_alternative(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+  table_id_alternative_.Mutable(index)->assign(std::move(value));
+}
+inline void TableReference::set_table_id_alternative(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  table_id_alternative_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+}
+inline void TableReference::set_table_id_alternative(int index, const char* value, size_t size) {
+  table_id_alternative_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+}
+inline std::string* TableReference::_internal_add_table_id_alternative() {
+  return table_id_alternative_.Add();
+}
+inline void TableReference::add_table_id_alternative(const std::string& value) {
+  table_id_alternative_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+}
+inline void TableReference::add_table_id_alternative(std::string&& value) {
+  table_id_alternative_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+}
+inline void TableReference::add_table_id_alternative(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  table_id_alternative_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+}
+inline void TableReference::add_table_id_alternative(const char* value, size_t size) {
+  table_id_alternative_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+TableReference::table_id_alternative() const {
+  // @@protoc_insertion_point(field_list:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+  return table_id_alternative_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+TableReference::mutable_table_id_alternative() {
+  // @@protoc_insertion_point(field_mutable_list:google.cloud.bigquery.v2.TableReference.table_id_alternative)
+  return &table_id_alternative_;
 }
 
 #ifdef __GNUC__

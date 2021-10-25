@@ -22,7 +22,6 @@
 #include "google/monitoring/v3/uptime_service.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -115,65 +114,37 @@ class UptimeCheckService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListUptimeCheckIpsResponse>> PrepareAsyncListUptimeCheckIps(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListUptimeCheckIpsResponse>>(PrepareAsyncListUptimeCheckIpsRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Lists the existing valid Uptime check configurations for the project
       // (leaving out any invalid configurations).
       virtual void ListUptimeCheckConfigs(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* request, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListUptimeCheckConfigs(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* request, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListUptimeCheckConfigs(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* request, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a single Uptime check configuration.
       virtual void GetUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new Uptime check configuration.
       virtual void CreateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates an Uptime check configuration. You can either replace the entire
       // configuration with a new one or replace only certain fields in the current
       // configuration by specifying the fields to be updated via `updateMask`.
       // Returns the updated configuration.
       virtual void UpdateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes an Uptime check configuration. Note that this method will fail
       // if the Uptime check configuration is referenced by an alert policy or
       // other dependent configs that would be rendered invalid by the deletion.
       virtual void DeleteUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns the list of IP addresses that checkers run from
       virtual void ListUptimeCheckIps(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* request, ::google::monitoring::v3::ListUptimeCheckIpsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListUptimeCheckIps(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* request, ::google::monitoring::v3::ListUptimeCheckIpsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListUptimeCheckIps(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* request, ::google::monitoring::v3::ListUptimeCheckIpsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListUptimeCheckConfigsResponse>* AsyncListUptimeCheckConfigsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListUptimeCheckConfigsResponse>* PrepareAsyncListUptimeCheckConfigsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -233,56 +204,32 @@ class UptimeCheckService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListUptimeCheckIpsResponse>> PrepareAsyncListUptimeCheckIps(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListUptimeCheckIpsResponse>>(PrepareAsyncListUptimeCheckIpsRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListUptimeCheckConfigs(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* request, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListUptimeCheckConfigs(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* request, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListUptimeCheckConfigs(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* request, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteUptimeCheckConfig(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListUptimeCheckIps(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* request, ::google::monitoring::v3::ListUptimeCheckIpsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListUptimeCheckIps(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* request, ::google::monitoring::v3::ListUptimeCheckIpsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListUptimeCheckIps(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* request, ::google::monitoring::v3::ListUptimeCheckIpsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListUptimeCheckConfigsResponse>* AsyncListUptimeCheckConfigsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListUptimeCheckConfigsResponse>* PrepareAsyncListUptimeCheckConfigsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::UptimeCheckConfig>* AsyncGetUptimeCheckConfigRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::GetUptimeCheckConfigRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -449,36 +396,22 @@ class UptimeCheckService final {
   };
   typedef WithAsyncMethod_ListUptimeCheckConfigs<WithAsyncMethod_GetUptimeCheckConfig<WithAsyncMethod_CreateUptimeCheckConfig<WithAsyncMethod_UpdateUptimeCheckConfig<WithAsyncMethod_DeleteUptimeCheckConfig<WithAsyncMethod_ListUptimeCheckIps<Service > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListUptimeCheckConfigs : public BaseClass {
+  class WithCallbackMethod_ListUptimeCheckConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListUptimeCheckConfigs() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListUptimeCheckConfigs() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListUptimeCheckConfigsRequest, ::google::monitoring::v3::ListUptimeCheckConfigsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* request, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* response) { return this->ListUptimeCheckConfigs(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* request, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* response) { return this->ListUptimeCheckConfigs(context, request, response); }));}
     void SetMessageAllocatorFor_ListUptimeCheckConfigs(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListUptimeCheckConfigsRequest, ::google::monitoring::v3::ListUptimeCheckConfigsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListUptimeCheckConfigsRequest, ::google::monitoring::v3::ListUptimeCheckConfigsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListUptimeCheckConfigsRequest, ::google::monitoring::v3::ListUptimeCheckConfigsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListUptimeCheckConfigs() override {
+    ~WithCallbackMethod_ListUptimeCheckConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -486,46 +419,26 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListUptimeCheckConfigs(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* /*request*/, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListUptimeCheckConfigs(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* /*request*/, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListUptimeCheckConfigsRequest* /*request*/, ::google::monitoring::v3::ListUptimeCheckConfigsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetUptimeCheckConfig : public BaseClass {
+  class WithCallbackMethod_GetUptimeCheckConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetUptimeCheckConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetUptimeCheckConfig() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response) { return this->GetUptimeCheckConfig(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response) { return this->GetUptimeCheckConfig(context, request, response); }));}
     void SetMessageAllocatorFor_GetUptimeCheckConfig(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetUptimeCheckConfig() override {
+    ~WithCallbackMethod_GetUptimeCheckConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -533,46 +446,26 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetUptimeCheckConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* /*request*/, ::google::monitoring::v3::UptimeCheckConfig* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetUptimeCheckConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* /*request*/, ::google::monitoring::v3::UptimeCheckConfig* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetUptimeCheckConfigRequest* /*request*/, ::google::monitoring::v3::UptimeCheckConfig* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateUptimeCheckConfig : public BaseClass {
+  class WithCallbackMethod_CreateUptimeCheckConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateUptimeCheckConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateUptimeCheckConfig() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response) { return this->CreateUptimeCheckConfig(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response) { return this->CreateUptimeCheckConfig(context, request, response); }));}
     void SetMessageAllocatorFor_CreateUptimeCheckConfig(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::CreateUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::CreateUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateUptimeCheckConfig() override {
+    ~WithCallbackMethod_CreateUptimeCheckConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -580,46 +473,26 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateUptimeCheckConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* /*request*/, ::google::monitoring::v3::UptimeCheckConfig* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateUptimeCheckConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* /*request*/, ::google::monitoring::v3::UptimeCheckConfig* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateUptimeCheckConfigRequest* /*request*/, ::google::monitoring::v3::UptimeCheckConfig* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateUptimeCheckConfig : public BaseClass {
+  class WithCallbackMethod_UpdateUptimeCheckConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateUptimeCheckConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateUptimeCheckConfig() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response) { return this->UpdateUptimeCheckConfig(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* request, ::google::monitoring::v3::UptimeCheckConfig* response) { return this->UpdateUptimeCheckConfig(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateUptimeCheckConfig(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::UpdateUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::UpdateUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateUptimeCheckConfigRequest, ::google::monitoring::v3::UptimeCheckConfig>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateUptimeCheckConfig() override {
+    ~WithCallbackMethod_UpdateUptimeCheckConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -627,46 +500,26 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateUptimeCheckConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* /*request*/, ::google::monitoring::v3::UptimeCheckConfig* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateUptimeCheckConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* /*request*/, ::google::monitoring::v3::UptimeCheckConfig* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateUptimeCheckConfigRequest* /*request*/, ::google::monitoring::v3::UptimeCheckConfig* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteUptimeCheckConfig : public BaseClass {
+  class WithCallbackMethod_DeleteUptimeCheckConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteUptimeCheckConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteUptimeCheckConfig() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteUptimeCheckConfigRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* request, ::google::protobuf::Empty* response) { return this->DeleteUptimeCheckConfig(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* request, ::google::protobuf::Empty* response) { return this->DeleteUptimeCheckConfig(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteUptimeCheckConfig(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::DeleteUptimeCheckConfigRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::DeleteUptimeCheckConfigRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteUptimeCheckConfigRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteUptimeCheckConfig() override {
+    ~WithCallbackMethod_DeleteUptimeCheckConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -674,46 +527,26 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteUptimeCheckConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteUptimeCheckConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteUptimeCheckConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListUptimeCheckIps : public BaseClass {
+  class WithCallbackMethod_ListUptimeCheckIps : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListUptimeCheckIps() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_ListUptimeCheckIps() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListUptimeCheckIpsRequest, ::google::monitoring::v3::ListUptimeCheckIpsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* request, ::google::monitoring::v3::ListUptimeCheckIpsResponse* response) { return this->ListUptimeCheckIps(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* request, ::google::monitoring::v3::ListUptimeCheckIpsResponse* response) { return this->ListUptimeCheckIps(context, request, response); }));}
     void SetMessageAllocatorFor_ListUptimeCheckIps(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListUptimeCheckIpsRequest, ::google::monitoring::v3::ListUptimeCheckIpsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListUptimeCheckIpsRequest, ::google::monitoring::v3::ListUptimeCheckIpsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListUptimeCheckIpsRequest, ::google::monitoring::v3::ListUptimeCheckIpsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListUptimeCheckIps() override {
+    ~WithCallbackMethod_ListUptimeCheckIps() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -721,20 +554,11 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListUptimeCheckIps(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* /*request*/, ::google::monitoring::v3::ListUptimeCheckIpsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListUptimeCheckIps(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* /*request*/, ::google::monitoring::v3::ListUptimeCheckIpsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListUptimeCheckIpsRequest* /*request*/, ::google::monitoring::v3::ListUptimeCheckIpsResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListUptimeCheckConfigs<ExperimentalWithCallbackMethod_GetUptimeCheckConfig<ExperimentalWithCallbackMethod_CreateUptimeCheckConfig<ExperimentalWithCallbackMethod_UpdateUptimeCheckConfig<ExperimentalWithCallbackMethod_DeleteUptimeCheckConfig<ExperimentalWithCallbackMethod_ListUptimeCheckIps<Service > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListUptimeCheckConfigs<ExperimentalWithCallbackMethod_GetUptimeCheckConfig<ExperimentalWithCallbackMethod_CreateUptimeCheckConfig<ExperimentalWithCallbackMethod_UpdateUptimeCheckConfig<ExperimentalWithCallbackMethod_DeleteUptimeCheckConfig<ExperimentalWithCallbackMethod_ListUptimeCheckIps<Service > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListUptimeCheckConfigs<WithCallbackMethod_GetUptimeCheckConfig<WithCallbackMethod_CreateUptimeCheckConfig<WithCallbackMethod_UpdateUptimeCheckConfig<WithCallbackMethod_DeleteUptimeCheckConfig<WithCallbackMethod_ListUptimeCheckIps<Service > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListUptimeCheckConfigs : public BaseClass {
    private:
@@ -958,27 +782,17 @@ class UptimeCheckService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListUptimeCheckConfigs : public BaseClass {
+  class WithRawCallbackMethod_ListUptimeCheckConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListUptimeCheckConfigs() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListUptimeCheckConfigs() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListUptimeCheckConfigs(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListUptimeCheckConfigs(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListUptimeCheckConfigs() override {
+    ~WithRawCallbackMethod_ListUptimeCheckConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -986,37 +800,21 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListUptimeCheckConfigs(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListUptimeCheckConfigs(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetUptimeCheckConfig : public BaseClass {
+  class WithRawCallbackMethod_GetUptimeCheckConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetUptimeCheckConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetUptimeCheckConfig() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetUptimeCheckConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetUptimeCheckConfig(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetUptimeCheckConfig() override {
+    ~WithRawCallbackMethod_GetUptimeCheckConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1024,37 +822,21 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetUptimeCheckConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetUptimeCheckConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateUptimeCheckConfig : public BaseClass {
+  class WithRawCallbackMethod_CreateUptimeCheckConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateUptimeCheckConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateUptimeCheckConfig() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateUptimeCheckConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateUptimeCheckConfig(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateUptimeCheckConfig() override {
+    ~WithRawCallbackMethod_CreateUptimeCheckConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1062,37 +844,21 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateUptimeCheckConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateUptimeCheckConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateUptimeCheckConfig : public BaseClass {
+  class WithRawCallbackMethod_UpdateUptimeCheckConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateUptimeCheckConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateUptimeCheckConfig() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateUptimeCheckConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateUptimeCheckConfig(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateUptimeCheckConfig() override {
+    ~WithRawCallbackMethod_UpdateUptimeCheckConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1100,37 +866,21 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateUptimeCheckConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateUptimeCheckConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteUptimeCheckConfig : public BaseClass {
+  class WithRawCallbackMethod_DeleteUptimeCheckConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteUptimeCheckConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteUptimeCheckConfig() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteUptimeCheckConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteUptimeCheckConfig(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteUptimeCheckConfig() override {
+    ~WithRawCallbackMethod_DeleteUptimeCheckConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1138,37 +888,21 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteUptimeCheckConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteUptimeCheckConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListUptimeCheckIps : public BaseClass {
+  class WithRawCallbackMethod_ListUptimeCheckIps : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListUptimeCheckIps() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_ListUptimeCheckIps() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListUptimeCheckIps(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListUptimeCheckIps(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListUptimeCheckIps() override {
+    ~WithRawCallbackMethod_ListUptimeCheckIps() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1176,14 +910,8 @@ class UptimeCheckService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListUptimeCheckIps(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListUptimeCheckIps(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListUptimeCheckConfigs : public BaseClass {

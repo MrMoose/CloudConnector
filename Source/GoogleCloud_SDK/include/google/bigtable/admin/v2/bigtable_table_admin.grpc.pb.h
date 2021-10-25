@@ -22,7 +22,6 @@
 #include "google/bigtable/admin/v2/bigtable_table_admin.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -297,18 +296,14 @@ class BigtableTableAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>> PrepareAsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>>(PrepareAsyncTestIamPermissionsRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Creates a new table in the specified instance.
       // The table can be created with a full set of initial column families,
       // specified in the request.
       virtual void CreateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest* request, ::google::bigtable::admin::v2::Table* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new table from the specified snapshot. The target table must
       // not exist. The snapshot and the table must be in the same instance.
       //
@@ -318,70 +313,38 @@ class BigtableTableAdmin final {
       // recommended for production use. It is not subject to any SLA or deprecation
       // policy.
       virtual void CreateTableFromSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateTableFromSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateTableFromSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists all tables served from a specified instance.
       virtual void ListTables(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListTables(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListTables(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets metadata information about the specified table.
       virtual void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Permanently deletes a specified table and all of its data.
       virtual void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Performs a series of column family modifications on the specified table.
       // Either all or none of the modifications will occur before this method
       // returns, but data requests received prior to that point may see a table
       // where only some modifications have taken effect.
       virtual void ModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Permanently drop/delete a row range from a specified table. The request can
       // specify whether to delete all rows in a table, or only those that match a
       // particular prefix.
       virtual void DropRowRange(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DropRowRange(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DropRowRange(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Generates a consistency token for a Table, which can be used in
       // CheckConsistency to check whether mutations to the table that finished
       // before this call started have been replicated. The tokens will be available
       // for 90 days.
       virtual void GenerateConsistencyToken(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GenerateConsistencyToken(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GenerateConsistencyToken(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Checks replication consistency based on a consistency token, that is, if
       // replication has caught up based on the conditions specified in the token
       // and the check request.
       virtual void CheckConsistency(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::google::bigtable::admin::v2::CheckConsistencyResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CheckConsistency(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::google::bigtable::admin::v2::CheckConsistencyResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CheckConsistency(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::google::bigtable::admin::v2::CheckConsistencyResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new snapshot in the specified cluster from the specified
       // source table. The cluster and the table must be in the same instance.
       //
@@ -391,11 +354,7 @@ class BigtableTableAdmin final {
       // recommended for production use. It is not subject to any SLA or deprecation
       // policy.
       virtual void SnapshotTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SnapshotTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SnapshotTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets metadata information about the specified snapshot.
       //
       // Note: This is a private alpha release of Cloud Bigtable snapshots. This
@@ -404,11 +363,7 @@ class BigtableTableAdmin final {
       // recommended for production use. It is not subject to any SLA or deprecation
       // policy.
       virtual void GetSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::google::bigtable::admin::v2::Snapshot* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::google::bigtable::admin::v2::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::google::bigtable::admin::v2::Snapshot* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists all snapshots associated with the specified cluster.
       //
       // Note: This is a private alpha release of Cloud Bigtable snapshots. This
@@ -417,11 +372,7 @@ class BigtableTableAdmin final {
       // recommended for production use. It is not subject to any SLA or deprecation
       // policy.
       virtual void ListSnapshots(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::google::bigtable::admin::v2::ListSnapshotsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListSnapshots(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::google::bigtable::admin::v2::ListSnapshotsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListSnapshots(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::google::bigtable::admin::v2::ListSnapshotsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Permanently deletes the specified snapshot.
       //
       // Note: This is a private alpha release of Cloud Bigtable snapshots. This
@@ -430,11 +381,7 @@ class BigtableTableAdmin final {
       // recommended for production use. It is not subject to any SLA or deprecation
       // policy.
       virtual void DeleteSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Starts creating a new Cloud Bigtable Backup.  The returned backup
       // [long-running operation][google.longrunning.Operation] can be used to
       // track creation of the backup. The
@@ -444,40 +391,20 @@ class BigtableTableAdmin final {
       // [Backup][google.bigtable.admin.v2.Backup], if successful. Cancelling the returned operation will stop the
       // creation and delete the backup.
       virtual void CreateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateBackupRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets metadata on a pending or completed Cloud Bigtable Backup.
       virtual void GetBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates a pending or completed Cloud Bigtable Backup.
       virtual void UpdateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes a pending or completed Cloud Bigtable backup.
       virtual void DeleteBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists Cloud Bigtable backups. Returns both completed and pending
       // backups.
       virtual void ListBackups(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListBackups(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListBackups(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Create a new table by restoring from a completed backup. The new table
       // must be in the same project as the instance containing the backup.  The
       // returned table [long-running operation][google.longrunning.Operation] can
@@ -487,43 +414,23 @@ class BigtableTableAdmin final {
       // [response][google.longrunning.Operation.response] type is
       // [Table][google.bigtable.admin.v2.Table], if successful.
       virtual void RestoreTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::RestoreTableRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void RestoreTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::RestoreTableRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void RestoreTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::RestoreTableRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the access control policy for a Table or Backup resource.
       // Returns an empty policy if the resource exists but does not have a policy
       // set.
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Sets the access control policy on a Table or Backup resource.
       // Replaces any existing policy.
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns permissions that the caller has on the specified Table or Backup resource.
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>* AsyncCreateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>* PrepareAsyncCreateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -727,152 +634,64 @@ class BigtableTableAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>> PrepareAsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>>(PrepareAsyncTestIamPermissionsRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CreateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest* request, ::google::bigtable::admin::v2::Table* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateTableFromSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateTableFromSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateTableFromSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListTables(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListTables(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListTables(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DropRowRange(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DropRowRange(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DropRowRange(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GenerateConsistencyToken(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GenerateConsistencyToken(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GenerateConsistencyToken(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CheckConsistency(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::google::bigtable::admin::v2::CheckConsistencyResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CheckConsistency(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::google::bigtable::admin::v2::CheckConsistencyResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CheckConsistency(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::google::bigtable::admin::v2::CheckConsistencyResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SnapshotTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SnapshotTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SnapshotTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::google::bigtable::admin::v2::Snapshot* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::google::bigtable::admin::v2::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::google::bigtable::admin::v2::Snapshot* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListSnapshots(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::google::bigtable::admin::v2::ListSnapshotsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListSnapshots(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::google::bigtable::admin::v2::ListSnapshotsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListSnapshots(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::google::bigtable::admin::v2::ListSnapshotsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteSnapshot(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateBackupRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::google::bigtable::admin::v2::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteBackup(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListBackups(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListBackups(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListBackups(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void RestoreTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::RestoreTableRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void RestoreTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::RestoreTableRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void RestoreTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::RestoreTableRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>* AsyncCreateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>* PrepareAsyncCreateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncCreateTableFromSnapshotRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -1495,36 +1314,22 @@ class BigtableTableAdmin final {
   };
   typedef WithAsyncMethod_CreateTable<WithAsyncMethod_CreateTableFromSnapshot<WithAsyncMethod_ListTables<WithAsyncMethod_GetTable<WithAsyncMethod_DeleteTable<WithAsyncMethod_ModifyColumnFamilies<WithAsyncMethod_DropRowRange<WithAsyncMethod_GenerateConsistencyToken<WithAsyncMethod_CheckConsistency<WithAsyncMethod_SnapshotTable<WithAsyncMethod_GetSnapshot<WithAsyncMethod_ListSnapshots<WithAsyncMethod_DeleteSnapshot<WithAsyncMethod_CreateBackup<WithAsyncMethod_GetBackup<WithAsyncMethod_UpdateBackup<WithAsyncMethod_DeleteBackup<WithAsyncMethod_ListBackups<WithAsyncMethod_RestoreTable<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateTable : public BaseClass {
+  class WithCallbackMethod_CreateTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_CreateTable() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateTableRequest, ::google::bigtable::admin::v2::Table>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::CreateTableRequest* request, ::google::bigtable::admin::v2::Table* response) { return this->CreateTable(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::CreateTableRequest* request, ::google::bigtable::admin::v2::Table* response) { return this->CreateTable(context, request, response); }));}
     void SetMessageAllocatorFor_CreateTable(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::CreateTableRequest, ::google::bigtable::admin::v2::Table>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::CreateTableRequest, ::google::bigtable::admin::v2::Table>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateTableRequest, ::google::bigtable::admin::v2::Table>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateTable() override {
+    ~WithCallbackMethod_CreateTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1532,46 +1337,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CreateTableRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CreateTableRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CreateTableRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateTableFromSnapshot : public BaseClass {
+  class WithCallbackMethod_CreateTableFromSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateTableFromSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_CreateTableFromSnapshot() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* request, ::google::longrunning::Operation* response) { return this->CreateTableFromSnapshot(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* request, ::google::longrunning::Operation* response) { return this->CreateTableFromSnapshot(context, request, response); }));}
     void SetMessageAllocatorFor_CreateTableFromSnapshot(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateTableFromSnapshot() override {
+    ~WithCallbackMethod_CreateTableFromSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1579,46 +1364,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTableFromSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTableFromSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListTables : public BaseClass {
+  class WithCallbackMethod_ListTables : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListTables() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_ListTables() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListTablesRequest, ::google::bigtable::admin::v2::ListTablesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response) { return this->ListTables(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response) { return this->ListTables(context, request, response); }));}
     void SetMessageAllocatorFor_ListTables(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::ListTablesRequest, ::google::bigtable::admin::v2::ListTablesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::ListTablesRequest, ::google::bigtable::admin::v2::ListTablesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListTablesRequest, ::google::bigtable::admin::v2::ListTablesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListTables() override {
+    ~WithCallbackMethod_ListTables() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1626,46 +1391,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTables(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListTablesRequest* /*request*/, ::google::bigtable::admin::v2::ListTablesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTables(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListTablesRequest* /*request*/, ::google::bigtable::admin::v2::ListTablesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListTablesRequest* /*request*/, ::google::bigtable::admin::v2::ListTablesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetTable : public BaseClass {
+  class WithCallbackMethod_GetTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_GetTable() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetTableRequest, ::google::bigtable::admin::v2::Table>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response) { return this->GetTable(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response) { return this->GetTable(context, request, response); }));}
     void SetMessageAllocatorFor_GetTable(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::GetTableRequest, ::google::bigtable::admin::v2::Table>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::GetTableRequest, ::google::bigtable::admin::v2::Table>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetTableRequest, ::google::bigtable::admin::v2::Table>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetTable() override {
+    ~WithCallbackMethod_GetTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1673,46 +1418,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetTableRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetTableRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetTableRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteTable : public BaseClass {
+  class WithCallbackMethod_DeleteTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteTable() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteTableRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response) { return this->DeleteTable(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response) { return this->DeleteTable(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteTable(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::DeleteTableRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DeleteTableRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteTableRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteTable() override {
+    ~WithCallbackMethod_DeleteTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1720,46 +1445,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteTableRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteTableRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteTableRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ModifyColumnFamilies : public BaseClass {
+  class WithCallbackMethod_ModifyColumnFamilies : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ModifyColumnFamilies() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_ModifyColumnFamilies() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest, ::google::bigtable::admin::v2::Table>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response) { return this->ModifyColumnFamilies(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response) { return this->ModifyColumnFamilies(context, request, response); }));}
     void SetMessageAllocatorFor_ModifyColumnFamilies(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest, ::google::bigtable::admin::v2::Table>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest, ::google::bigtable::admin::v2::Table>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest, ::google::bigtable::admin::v2::Table>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ModifyColumnFamilies() override {
+    ~WithCallbackMethod_ModifyColumnFamilies() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1767,46 +1472,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ModifyColumnFamilies(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ModifyColumnFamilies(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DropRowRange : public BaseClass {
+  class WithCallbackMethod_DropRowRange : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DropRowRange() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_DropRowRange() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DropRowRangeRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response) { return this->DropRowRange(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response) { return this->DropRowRange(context, request, response); }));}
     void SetMessageAllocatorFor_DropRowRange(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::DropRowRangeRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DropRowRangeRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DropRowRangeRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DropRowRange() override {
+    ~WithCallbackMethod_DropRowRange() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1814,46 +1499,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DropRowRange(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DropRowRangeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DropRowRange(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DropRowRangeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DropRowRangeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GenerateConsistencyToken : public BaseClass {
+  class WithCallbackMethod_GenerateConsistencyToken : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GenerateConsistencyToken() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_GenerateConsistencyToken() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* response) { return this->GenerateConsistencyToken(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* response) { return this->GenerateConsistencyToken(context, request, response); }));}
     void SetMessageAllocatorFor_GenerateConsistencyToken(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GenerateConsistencyToken() override {
+    ~WithCallbackMethod_GenerateConsistencyToken() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1861,46 +1526,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GenerateConsistencyToken(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* /*request*/, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GenerateConsistencyToken(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* /*request*/, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* /*request*/, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CheckConsistency : public BaseClass {
+  class WithCallbackMethod_CheckConsistency : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CheckConsistency() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_CheckConsistency() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CheckConsistencyRequest, ::google::bigtable::admin::v2::CheckConsistencyResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::google::bigtable::admin::v2::CheckConsistencyResponse* response) { return this->CheckConsistency(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::google::bigtable::admin::v2::CheckConsistencyResponse* response) { return this->CheckConsistency(context, request, response); }));}
     void SetMessageAllocatorFor_CheckConsistency(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::CheckConsistencyRequest, ::google::bigtable::admin::v2::CheckConsistencyResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::CheckConsistencyRequest, ::google::bigtable::admin::v2::CheckConsistencyResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CheckConsistencyRequest, ::google::bigtable::admin::v2::CheckConsistencyResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CheckConsistency() override {
+    ~WithCallbackMethod_CheckConsistency() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1908,46 +1553,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CheckConsistency(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CheckConsistencyRequest* /*request*/, ::google::bigtable::admin::v2::CheckConsistencyResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CheckConsistency(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CheckConsistencyRequest* /*request*/, ::google::bigtable::admin::v2::CheckConsistencyResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CheckConsistencyRequest* /*request*/, ::google::bigtable::admin::v2::CheckConsistencyResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SnapshotTable : public BaseClass {
+  class WithCallbackMethod_SnapshotTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SnapshotTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_SnapshotTable() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::SnapshotTableRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::google::longrunning::Operation* response) { return this->SnapshotTable(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::google::longrunning::Operation* response) { return this->SnapshotTable(context, request, response); }));}
     void SetMessageAllocatorFor_SnapshotTable(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::SnapshotTableRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::SnapshotTableRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::SnapshotTableRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SnapshotTable() override {
+    ~WithCallbackMethod_SnapshotTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1955,46 +1580,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SnapshotTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::SnapshotTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SnapshotTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::SnapshotTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::SnapshotTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetSnapshot : public BaseClass {
+  class WithCallbackMethod_GetSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(10,
+    WithCallbackMethod_GetSnapshot() {
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetSnapshotRequest, ::google::bigtable::admin::v2::Snapshot>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::google::bigtable::admin::v2::Snapshot* response) { return this->GetSnapshot(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::google::bigtable::admin::v2::Snapshot* response) { return this->GetSnapshot(context, request, response); }));}
     void SetMessageAllocatorFor_GetSnapshot(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::GetSnapshotRequest, ::google::bigtable::admin::v2::Snapshot>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::GetSnapshotRequest, ::google::bigtable::admin::v2::Snapshot>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(10);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetSnapshotRequest, ::google::bigtable::admin::v2::Snapshot>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetSnapshot() override {
+    ~WithCallbackMethod_GetSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2002,46 +1607,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetSnapshotRequest* /*request*/, ::google::bigtable::admin::v2::Snapshot* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetSnapshotRequest* /*request*/, ::google::bigtable::admin::v2::Snapshot* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetSnapshotRequest* /*request*/, ::google::bigtable::admin::v2::Snapshot* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListSnapshots : public BaseClass {
+  class WithCallbackMethod_ListSnapshots : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListSnapshots() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(11,
+    WithCallbackMethod_ListSnapshots() {
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListSnapshotsRequest, ::google::bigtable::admin::v2::ListSnapshotsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::google::bigtable::admin::v2::ListSnapshotsResponse* response) { return this->ListSnapshots(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::google::bigtable::admin::v2::ListSnapshotsResponse* response) { return this->ListSnapshots(context, request, response); }));}
     void SetMessageAllocatorFor_ListSnapshots(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::ListSnapshotsRequest, ::google::bigtable::admin::v2::ListSnapshotsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::ListSnapshotsRequest, ::google::bigtable::admin::v2::ListSnapshotsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(11);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListSnapshotsRequest, ::google::bigtable::admin::v2::ListSnapshotsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListSnapshots() override {
+    ~WithCallbackMethod_ListSnapshots() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2049,46 +1634,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSnapshots(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListSnapshotsRequest* /*request*/, ::google::bigtable::admin::v2::ListSnapshotsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSnapshots(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListSnapshotsRequest* /*request*/, ::google::bigtable::admin::v2::ListSnapshotsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListSnapshotsRequest* /*request*/, ::google::bigtable::admin::v2::ListSnapshotsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteSnapshot : public BaseClass {
+  class WithCallbackMethod_DeleteSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(12,
+    WithCallbackMethod_DeleteSnapshot() {
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteSnapshotRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSnapshot(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSnapshot(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteSnapshot(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::DeleteSnapshotRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DeleteSnapshotRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(12);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteSnapshotRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteSnapshot() override {
+    ~WithCallbackMethod_DeleteSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2096,46 +1661,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateBackup : public BaseClass {
+  class WithCallbackMethod_CreateBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(13,
+    WithCallbackMethod_CreateBackup() {
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateBackupRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::CreateBackupRequest* request, ::google::longrunning::Operation* response) { return this->CreateBackup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::CreateBackupRequest* request, ::google::longrunning::Operation* response) { return this->CreateBackup(context, request, response); }));}
     void SetMessageAllocatorFor_CreateBackup(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::CreateBackupRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::CreateBackupRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(13);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateBackupRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateBackup() override {
+    ~WithCallbackMethod_CreateBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2143,46 +1688,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CreateBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CreateBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::CreateBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetBackup : public BaseClass {
+  class WithCallbackMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(14,
+    WithCallbackMethod_GetBackup() {
+      ::grpc::Service::MarkMethodCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetBackupRequest, ::google::bigtable::admin::v2::Backup>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::GetBackupRequest* request, ::google::bigtable::admin::v2::Backup* response) { return this->GetBackup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::GetBackupRequest* request, ::google::bigtable::admin::v2::Backup* response) { return this->GetBackup(context, request, response); }));}
     void SetMessageAllocatorFor_GetBackup(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::GetBackupRequest, ::google::bigtable::admin::v2::Backup>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::GetBackupRequest, ::google::bigtable::admin::v2::Backup>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(14);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetBackupRequest, ::google::bigtable::admin::v2::Backup>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetBackup() override {
+    ~WithCallbackMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2190,46 +1715,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetBackupRequest* /*request*/, ::google::bigtable::admin::v2::Backup* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetBackupRequest* /*request*/, ::google::bigtable::admin::v2::Backup* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetBackupRequest* /*request*/, ::google::bigtable::admin::v2::Backup* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateBackup : public BaseClass {
+  class WithCallbackMethod_UpdateBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(15,
+    WithCallbackMethod_UpdateBackup() {
+      ::grpc::Service::MarkMethodCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UpdateBackupRequest, ::google::bigtable::admin::v2::Backup>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::google::bigtable::admin::v2::Backup* response) { return this->UpdateBackup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::google::bigtable::admin::v2::Backup* response) { return this->UpdateBackup(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateBackup(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::UpdateBackupRequest, ::google::bigtable::admin::v2::Backup>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::UpdateBackupRequest, ::google::bigtable::admin::v2::Backup>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(15);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UpdateBackupRequest, ::google::bigtable::admin::v2::Backup>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateBackup() override {
+    ~WithCallbackMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2237,46 +1742,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateBackupRequest* /*request*/, ::google::bigtable::admin::v2::Backup* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateBackupRequest* /*request*/, ::google::bigtable::admin::v2::Backup* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateBackupRequest* /*request*/, ::google::bigtable::admin::v2::Backup* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteBackup : public BaseClass {
+  class WithCallbackMethod_DeleteBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(16,
+    WithCallbackMethod_DeleteBackup() {
+      ::grpc::Service::MarkMethodCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteBackupRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::google::protobuf::Empty* response) { return this->DeleteBackup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::google::protobuf::Empty* response) { return this->DeleteBackup(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteBackup(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::DeleteBackupRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DeleteBackupRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(16);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteBackupRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteBackup() override {
+    ~WithCallbackMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2284,46 +1769,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteBackupRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteBackupRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteBackupRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListBackups : public BaseClass {
+  class WithCallbackMethod_ListBackups : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListBackups() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(17,
+    WithCallbackMethod_ListBackups() {
+      ::grpc::Service::MarkMethodCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListBackupsRequest, ::google::bigtable::admin::v2::ListBackupsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response) { return this->ListBackups(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response) { return this->ListBackups(context, request, response); }));}
     void SetMessageAllocatorFor_ListBackups(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::ListBackupsRequest, ::google::bigtable::admin::v2::ListBackupsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::ListBackupsRequest, ::google::bigtable::admin::v2::ListBackupsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(17);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListBackupsRequest, ::google::bigtable::admin::v2::ListBackupsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListBackups() override {
+    ~WithCallbackMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2331,46 +1796,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListBackups(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListBackupsRequest* /*request*/, ::google::bigtable::admin::v2::ListBackupsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListBackups(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListBackupsRequest* /*request*/, ::google::bigtable::admin::v2::ListBackupsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListBackupsRequest* /*request*/, ::google::bigtable::admin::v2::ListBackupsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_RestoreTable : public BaseClass {
+  class WithCallbackMethod_RestoreTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_RestoreTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(18,
+    WithCallbackMethod_RestoreTable() {
+      ::grpc::Service::MarkMethodCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::RestoreTableRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::bigtable::admin::v2::RestoreTableRequest* request, ::google::longrunning::Operation* response) { return this->RestoreTable(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::RestoreTableRequest* request, ::google::longrunning::Operation* response) { return this->RestoreTable(context, request, response); }));}
     void SetMessageAllocatorFor_RestoreTable(
-        ::grpc::experimental::MessageAllocator< ::google::bigtable::admin::v2::RestoreTableRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::RestoreTableRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(18);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::RestoreTableRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_RestoreTable() override {
+    ~WithCallbackMethod_RestoreTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2378,46 +1823,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* RestoreTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::RestoreTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* RestoreTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::RestoreTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::RestoreTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetIamPolicy : public BaseClass {
+  class WithCallbackMethod_GetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(19,
+    WithCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_GetIamPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(19);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetIamPolicy() override {
+    ~WithCallbackMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2425,46 +1850,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SetIamPolicy : public BaseClass {
+  class WithCallbackMethod_SetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(20,
+    WithCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_SetIamPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(20);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SetIamPolicy() override {
+    ~WithCallbackMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2472,46 +1877,26 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_TestIamPermissions : public BaseClass {
+  class WithCallbackMethod_TestIamPermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_TestIamPermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(21,
+    WithCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
     void SetMessageAllocatorFor_TestIamPermissions(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(21);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_TestIamPermissions() override {
+    ~WithCallbackMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2519,20 +1904,11 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_CreateTable<ExperimentalWithCallbackMethod_CreateTableFromSnapshot<ExperimentalWithCallbackMethod_ListTables<ExperimentalWithCallbackMethod_GetTable<ExperimentalWithCallbackMethod_DeleteTable<ExperimentalWithCallbackMethod_ModifyColumnFamilies<ExperimentalWithCallbackMethod_DropRowRange<ExperimentalWithCallbackMethod_GenerateConsistencyToken<ExperimentalWithCallbackMethod_CheckConsistency<ExperimentalWithCallbackMethod_SnapshotTable<ExperimentalWithCallbackMethod_GetSnapshot<ExperimentalWithCallbackMethod_ListSnapshots<ExperimentalWithCallbackMethod_DeleteSnapshot<ExperimentalWithCallbackMethod_CreateBackup<ExperimentalWithCallbackMethod_GetBackup<ExperimentalWithCallbackMethod_UpdateBackup<ExperimentalWithCallbackMethod_DeleteBackup<ExperimentalWithCallbackMethod_ListBackups<ExperimentalWithCallbackMethod_RestoreTable<ExperimentalWithCallbackMethod_GetIamPolicy<ExperimentalWithCallbackMethod_SetIamPolicy<ExperimentalWithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_CreateTable<ExperimentalWithCallbackMethod_CreateTableFromSnapshot<ExperimentalWithCallbackMethod_ListTables<ExperimentalWithCallbackMethod_GetTable<ExperimentalWithCallbackMethod_DeleteTable<ExperimentalWithCallbackMethod_ModifyColumnFamilies<ExperimentalWithCallbackMethod_DropRowRange<ExperimentalWithCallbackMethod_GenerateConsistencyToken<ExperimentalWithCallbackMethod_CheckConsistency<ExperimentalWithCallbackMethod_SnapshotTable<ExperimentalWithCallbackMethod_GetSnapshot<ExperimentalWithCallbackMethod_ListSnapshots<ExperimentalWithCallbackMethod_DeleteSnapshot<ExperimentalWithCallbackMethod_CreateBackup<ExperimentalWithCallbackMethod_GetBackup<ExperimentalWithCallbackMethod_UpdateBackup<ExperimentalWithCallbackMethod_DeleteBackup<ExperimentalWithCallbackMethod_ListBackups<ExperimentalWithCallbackMethod_RestoreTable<ExperimentalWithCallbackMethod_GetIamPolicy<ExperimentalWithCallbackMethod_SetIamPolicy<ExperimentalWithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_CreateTable<WithCallbackMethod_CreateTableFromSnapshot<WithCallbackMethod_ListTables<WithCallbackMethod_GetTable<WithCallbackMethod_DeleteTable<WithCallbackMethod_ModifyColumnFamilies<WithCallbackMethod_DropRowRange<WithCallbackMethod_GenerateConsistencyToken<WithCallbackMethod_CheckConsistency<WithCallbackMethod_SnapshotTable<WithCallbackMethod_GetSnapshot<WithCallbackMethod_ListSnapshots<WithCallbackMethod_DeleteSnapshot<WithCallbackMethod_CreateBackup<WithCallbackMethod_GetBackup<WithCallbackMethod_UpdateBackup<WithCallbackMethod_DeleteBackup<WithCallbackMethod_ListBackups<WithCallbackMethod_RestoreTable<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateTable : public BaseClass {
    private:
@@ -3348,27 +2724,17 @@ class BigtableTableAdmin final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateTable : public BaseClass {
+  class WithRawCallbackMethod_CreateTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_CreateTable() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTable(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTable(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateTable() override {
+    ~WithRawCallbackMethod_CreateTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3376,37 +2742,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateTableFromSnapshot : public BaseClass {
+  class WithRawCallbackMethod_CreateTableFromSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateTableFromSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_CreateTableFromSnapshot() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTableFromSnapshot(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTableFromSnapshot(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateTableFromSnapshot() override {
+    ~WithRawCallbackMethod_CreateTableFromSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3414,37 +2764,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTableFromSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTableFromSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListTables : public BaseClass {
+  class WithRawCallbackMethod_ListTables : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListTables() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_ListTables() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTables(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTables(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListTables() override {
+    ~WithRawCallbackMethod_ListTables() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3452,37 +2786,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTables(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTables(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetTable : public BaseClass {
+  class WithRawCallbackMethod_GetTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_GetTable() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetTable(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetTable(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetTable() override {
+    ~WithRawCallbackMethod_GetTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3490,37 +2808,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteTable : public BaseClass {
+  class WithRawCallbackMethod_DeleteTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteTable() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteTable(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteTable(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteTable() override {
+    ~WithRawCallbackMethod_DeleteTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3528,37 +2830,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ModifyColumnFamilies : public BaseClass {
+  class WithRawCallbackMethod_ModifyColumnFamilies : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ModifyColumnFamilies() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_ModifyColumnFamilies() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ModifyColumnFamilies(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ModifyColumnFamilies(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ModifyColumnFamilies() override {
+    ~WithRawCallbackMethod_ModifyColumnFamilies() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3566,37 +2852,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ModifyColumnFamilies(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ModifyColumnFamilies(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DropRowRange : public BaseClass {
+  class WithRawCallbackMethod_DropRowRange : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DropRowRange() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_DropRowRange() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DropRowRange(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DropRowRange(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DropRowRange() override {
+    ~WithRawCallbackMethod_DropRowRange() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3604,37 +2874,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DropRowRange(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DropRowRange(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GenerateConsistencyToken : public BaseClass {
+  class WithRawCallbackMethod_GenerateConsistencyToken : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GenerateConsistencyToken() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_GenerateConsistencyToken() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GenerateConsistencyToken(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GenerateConsistencyToken(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GenerateConsistencyToken() override {
+    ~WithRawCallbackMethod_GenerateConsistencyToken() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3642,37 +2896,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GenerateConsistencyToken(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GenerateConsistencyToken(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CheckConsistency : public BaseClass {
+  class WithRawCallbackMethod_CheckConsistency : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CheckConsistency() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_CheckConsistency() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckConsistency(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckConsistency(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CheckConsistency() override {
+    ~WithRawCallbackMethod_CheckConsistency() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3680,37 +2918,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CheckConsistency(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CheckConsistency(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SnapshotTable : public BaseClass {
+  class WithRawCallbackMethod_SnapshotTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SnapshotTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_SnapshotTable() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SnapshotTable(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SnapshotTable(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SnapshotTable() override {
+    ~WithRawCallbackMethod_SnapshotTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3718,37 +2940,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SnapshotTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SnapshotTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetSnapshot : public BaseClass {
+  class WithRawCallbackMethod_GetSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(10,
+    WithRawCallbackMethod_GetSnapshot() {
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSnapshot(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSnapshot(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetSnapshot() override {
+    ~WithRawCallbackMethod_GetSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3756,37 +2962,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListSnapshots : public BaseClass {
+  class WithRawCallbackMethod_ListSnapshots : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListSnapshots() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(11,
+    WithRawCallbackMethod_ListSnapshots() {
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSnapshots(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSnapshots(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListSnapshots() override {
+    ~WithRawCallbackMethod_ListSnapshots() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3794,37 +2984,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSnapshots(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSnapshots(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteSnapshot : public BaseClass {
+  class WithRawCallbackMethod_DeleteSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(12,
+    WithRawCallbackMethod_DeleteSnapshot() {
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSnapshot(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSnapshot(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteSnapshot() override {
+    ~WithRawCallbackMethod_DeleteSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3832,37 +3006,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateBackup : public BaseClass {
+  class WithRawCallbackMethod_CreateBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(13,
+    WithRawCallbackMethod_CreateBackup() {
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateBackup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateBackup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateBackup() override {
+    ~WithRawCallbackMethod_CreateBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3870,37 +3028,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetBackup : public BaseClass {
+  class WithRawCallbackMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(14,
+    WithRawCallbackMethod_GetBackup() {
+      ::grpc::Service::MarkMethodRawCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBackup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBackup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetBackup() override {
+    ~WithRawCallbackMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3908,37 +3050,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateBackup : public BaseClass {
+  class WithRawCallbackMethod_UpdateBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(15,
+    WithRawCallbackMethod_UpdateBackup() {
+      ::grpc::Service::MarkMethodRawCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateBackup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateBackup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateBackup() override {
+    ~WithRawCallbackMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3946,37 +3072,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteBackup : public BaseClass {
+  class WithRawCallbackMethod_DeleteBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(16,
+    WithRawCallbackMethod_DeleteBackup() {
+      ::grpc::Service::MarkMethodRawCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteBackup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteBackup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteBackup() override {
+    ~WithRawCallbackMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3984,37 +3094,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListBackups : public BaseClass {
+  class WithRawCallbackMethod_ListBackups : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListBackups() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(17,
+    WithRawCallbackMethod_ListBackups() {
+      ::grpc::Service::MarkMethodRawCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBackups(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBackups(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListBackups() override {
+    ~WithRawCallbackMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4022,37 +3116,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListBackups(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListBackups(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_RestoreTable : public BaseClass {
+  class WithRawCallbackMethod_RestoreTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_RestoreTable() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(18,
+    WithRawCallbackMethod_RestoreTable() {
+      ::grpc::Service::MarkMethodRawCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RestoreTable(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RestoreTable(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_RestoreTable() override {
+    ~WithRawCallbackMethod_RestoreTable() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4060,37 +3138,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* RestoreTable(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* RestoreTable(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetIamPolicy : public BaseClass {
+  class WithRawCallbackMethod_GetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(19,
+    WithRawCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetIamPolicy() override {
+    ~WithRawCallbackMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4098,37 +3160,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SetIamPolicy : public BaseClass {
+  class WithRawCallbackMethod_SetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(20,
+    WithRawCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SetIamPolicy() override {
+    ~WithRawCallbackMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4136,37 +3182,21 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_TestIamPermissions : public BaseClass {
+  class WithRawCallbackMethod_TestIamPermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_TestIamPermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(21,
+    WithRawCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodRawCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_TestIamPermissions() override {
+    ~WithRawCallbackMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4174,14 +3204,8 @@ class BigtableTableAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CreateTable : public BaseClass {

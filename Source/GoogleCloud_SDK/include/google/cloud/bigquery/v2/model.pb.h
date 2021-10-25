@@ -310,12 +310,13 @@ enum Model_ModelType : int {
   Model_ModelType_ARIMA = 11,
   Model_ModelType_AUTOML_REGRESSOR = 12,
   Model_ModelType_AUTOML_CLASSIFIER = 13,
+  Model_ModelType_ARIMA_PLUS = 19,
   Model_ModelType_Model_ModelType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   Model_ModelType_Model_ModelType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool Model_ModelType_IsValid(int value);
 constexpr Model_ModelType Model_ModelType_ModelType_MIN = Model_ModelType_MODEL_TYPE_UNSPECIFIED;
-constexpr Model_ModelType Model_ModelType_ModelType_MAX = Model_ModelType_AUTOML_CLASSIFIER;
+constexpr Model_ModelType Model_ModelType_ModelType_MAX = Model_ModelType_ARIMA_PLUS;
 constexpr int Model_ModelType_ModelType_ARRAYSIZE = Model_ModelType_ModelType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Model_ModelType_descriptor();
@@ -422,12 +423,13 @@ enum Model_DataFrequency : int {
   Model_DataFrequency_WEEKLY = 5,
   Model_DataFrequency_DAILY = 6,
   Model_DataFrequency_HOURLY = 7,
+  Model_DataFrequency_PER_MINUTE = 8,
   Model_DataFrequency_Model_DataFrequency_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   Model_DataFrequency_Model_DataFrequency_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool Model_DataFrequency_IsValid(int value);
 constexpr Model_DataFrequency Model_DataFrequency_DataFrequency_MIN = Model_DataFrequency_DATA_FREQUENCY_UNSPECIFIED;
-constexpr Model_DataFrequency Model_DataFrequency_DataFrequency_MAX = Model_DataFrequency_HOURLY;
+constexpr Model_DataFrequency Model_DataFrequency_DataFrequency_MAX = Model_DataFrequency_PER_MINUTE;
 constexpr int Model_DataFrequency_DataFrequency_ARRAYSIZE = Model_DataFrequency_DataFrequency_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Model_DataFrequency_descriptor();
@@ -3809,9 +3811,13 @@ class Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics PROTOBUF_
 
   enum : int {
     kSeasonalPeriodsFieldNumber = 5,
+    kTimeSeriesIdsFieldNumber = 9,
     kTimeSeriesIdFieldNumber = 4,
     kNonSeasonalOrderFieldNumber = 1,
     kArimaFittingMetricsFieldNumber = 2,
+    kHasHolidayEffectFieldNumber = 6,
+    kHasSpikesAndDipsFieldNumber = 7,
+    kHasStepChangesFieldNumber = 8,
     kHasDriftFieldNumber = 3,
   };
   // repeated .google.cloud.bigquery.v2.Model.SeasonalPeriod.SeasonalPeriodType seasonal_periods = 5;
@@ -3830,6 +3836,30 @@ class Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics PROTOBUF_
   void add_seasonal_periods(::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& seasonal_periods() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_seasonal_periods();
+
+  // repeated string time_series_ids = 9;
+  int time_series_ids_size() const;
+  private:
+  int _internal_time_series_ids_size() const;
+  public:
+  void clear_time_series_ids();
+  const std::string& time_series_ids(int index) const;
+  std::string* mutable_time_series_ids(int index);
+  void set_time_series_ids(int index, const std::string& value);
+  void set_time_series_ids(int index, std::string&& value);
+  void set_time_series_ids(int index, const char* value);
+  void set_time_series_ids(int index, const char* value, size_t size);
+  std::string* add_time_series_ids();
+  void add_time_series_ids(const std::string& value);
+  void add_time_series_ids(std::string&& value);
+  void add_time_series_ids(const char* value);
+  void add_time_series_ids(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& time_series_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_time_series_ids();
+  private:
+  const std::string& _internal_time_series_ids(int index) const;
+  std::string* _internal_add_time_series_ids();
+  public:
 
   // string time_series_id = 4;
   void clear_time_series_id();
@@ -3883,6 +3913,60 @@ class Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics PROTOBUF_
       ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* arima_fitting_metrics);
   ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* unsafe_arena_release_arima_fitting_metrics();
 
+  // .google.protobuf.BoolValue has_holiday_effect = 6;
+  bool has_has_holiday_effect() const;
+  private:
+  bool _internal_has_has_holiday_effect() const;
+  public:
+  void clear_has_holiday_effect();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& has_holiday_effect() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_has_holiday_effect();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_has_holiday_effect();
+  void set_allocated_has_holiday_effect(PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_has_holiday_effect() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_has_holiday_effect();
+  public:
+  void unsafe_arena_set_allocated_has_holiday_effect(
+      PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_has_holiday_effect();
+
+  // .google.protobuf.BoolValue has_spikes_and_dips = 7;
+  bool has_has_spikes_and_dips() const;
+  private:
+  bool _internal_has_has_spikes_and_dips() const;
+  public:
+  void clear_has_spikes_and_dips();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& has_spikes_and_dips() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_has_spikes_and_dips();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_has_spikes_and_dips();
+  void set_allocated_has_spikes_and_dips(PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_has_spikes_and_dips() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_has_spikes_and_dips();
+  public:
+  void unsafe_arena_set_allocated_has_spikes_and_dips(
+      PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_has_spikes_and_dips();
+
+  // .google.protobuf.BoolValue has_step_changes = 8;
+  bool has_has_step_changes() const;
+  private:
+  bool _internal_has_has_step_changes() const;
+  public:
+  void clear_has_step_changes();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& has_step_changes() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_has_step_changes();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_has_step_changes();
+  void set_allocated_has_step_changes(PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_has_step_changes() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_has_step_changes();
+  public:
+  void unsafe_arena_set_allocated_has_step_changes(
+      PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_has_step_changes();
+
   // bool has_drift = 3;
   void clear_has_drift();
   bool has_drift() const;
@@ -3901,9 +3985,13 @@ class Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics PROTOBUF_
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> seasonal_periods_;
   mutable std::atomic<int> _seasonal_periods_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> time_series_ids_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr time_series_id_;
   ::google::cloud::bigquery::v2::Model_ArimaOrder* non_seasonal_order_;
   ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* arima_fitting_metrics_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes_;
   bool has_drift_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fcloud_2fbigquery_2fv2_2fmodel_2eproto;
@@ -4032,65 +4120,65 @@ class Model_ArimaForecastingMetrics PROTOBUF_FINAL :
     kTimeSeriesIdFieldNumber = 5,
     kArimaSingleModelForecastingMetricsFieldNumber = 6,
   };
-  // repeated .google.cloud.bigquery.v2.Model.ArimaOrder non_seasonal_order = 1;
-  int non_seasonal_order_size() const;
+  // repeated .google.cloud.bigquery.v2.Model.ArimaOrder non_seasonal_order = 1 [deprecated = true];
+  PROTOBUF_DEPRECATED int non_seasonal_order_size() const;
   private:
   int _internal_non_seasonal_order_size() const;
   public:
-  void clear_non_seasonal_order();
-  ::google::cloud::bigquery::v2::Model_ArimaOrder* mutable_non_seasonal_order(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::Model_ArimaOrder >*
+  PROTOBUF_DEPRECATED void clear_non_seasonal_order();
+  PROTOBUF_DEPRECATED ::google::cloud::bigquery::v2::Model_ArimaOrder* mutable_non_seasonal_order(int index);
+  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::Model_ArimaOrder >*
       mutable_non_seasonal_order();
   private:
   const ::google::cloud::bigquery::v2::Model_ArimaOrder& _internal_non_seasonal_order(int index) const;
   ::google::cloud::bigquery::v2::Model_ArimaOrder* _internal_add_non_seasonal_order();
   public:
-  const ::google::cloud::bigquery::v2::Model_ArimaOrder& non_seasonal_order(int index) const;
-  ::google::cloud::bigquery::v2::Model_ArimaOrder* add_non_seasonal_order();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::Model_ArimaOrder >&
+  PROTOBUF_DEPRECATED const ::google::cloud::bigquery::v2::Model_ArimaOrder& non_seasonal_order(int index) const;
+  PROTOBUF_DEPRECATED ::google::cloud::bigquery::v2::Model_ArimaOrder* add_non_seasonal_order();
+  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::Model_ArimaOrder >&
       non_seasonal_order() const;
 
-  // repeated .google.cloud.bigquery.v2.Model.ArimaFittingMetrics arima_fitting_metrics = 2;
-  int arima_fitting_metrics_size() const;
+  // repeated .google.cloud.bigquery.v2.Model.ArimaFittingMetrics arima_fitting_metrics = 2 [deprecated = true];
+  PROTOBUF_DEPRECATED int arima_fitting_metrics_size() const;
   private:
   int _internal_arima_fitting_metrics_size() const;
   public:
-  void clear_arima_fitting_metrics();
-  ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* mutable_arima_fitting_metrics(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics >*
+  PROTOBUF_DEPRECATED void clear_arima_fitting_metrics();
+  PROTOBUF_DEPRECATED ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* mutable_arima_fitting_metrics(int index);
+  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics >*
       mutable_arima_fitting_metrics();
   private:
   const ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics& _internal_arima_fitting_metrics(int index) const;
   ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* _internal_add_arima_fitting_metrics();
   public:
-  const ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics& arima_fitting_metrics(int index) const;
-  ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* add_arima_fitting_metrics();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics >&
+  PROTOBUF_DEPRECATED const ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics& arima_fitting_metrics(int index) const;
+  PROTOBUF_DEPRECATED ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* add_arima_fitting_metrics();
+  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics >&
       arima_fitting_metrics() const;
 
-  // repeated .google.cloud.bigquery.v2.Model.SeasonalPeriod.SeasonalPeriodType seasonal_periods = 3;
-  int seasonal_periods_size() const;
+  // repeated .google.cloud.bigquery.v2.Model.SeasonalPeriod.SeasonalPeriodType seasonal_periods = 3 [deprecated = true];
+  PROTOBUF_DEPRECATED int seasonal_periods_size() const;
   private:
   int _internal_seasonal_periods_size() const;
   public:
-  void clear_seasonal_periods();
+  PROTOBUF_DEPRECATED void clear_seasonal_periods();
   private:
   ::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType _internal_seasonal_periods(int index) const;
   void _internal_add_seasonal_periods(::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType value);
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_seasonal_periods();
   public:
-  ::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType seasonal_periods(int index) const;
-  void set_seasonal_periods(int index, ::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType value);
-  void add_seasonal_periods(::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& seasonal_periods() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_seasonal_periods();
+  PROTOBUF_DEPRECATED ::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType seasonal_periods(int index) const;
+  PROTOBUF_DEPRECATED void set_seasonal_periods(int index, ::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType value);
+  PROTOBUF_DEPRECATED void add_seasonal_periods(::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType value);
+  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& seasonal_periods() const;
+  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_seasonal_periods();
 
-  // repeated bool has_drift = 4;
-  int has_drift_size() const;
+  // repeated bool has_drift = 4 [deprecated = true];
+  PROTOBUF_DEPRECATED int has_drift_size() const;
   private:
   int _internal_has_drift_size() const;
   public:
-  void clear_has_drift();
+  PROTOBUF_DEPRECATED void clear_has_drift();
   private:
   bool _internal_has_drift(int index) const;
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField< bool >&
@@ -4099,33 +4187,33 @@ class Model_ArimaForecastingMetrics PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< bool >*
       _internal_mutable_has_drift();
   public:
-  bool has_drift(int index) const;
-  void set_has_drift(int index, bool value);
-  void add_has_drift(bool value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< bool >&
+  PROTOBUF_DEPRECATED bool has_drift(int index) const;
+  PROTOBUF_DEPRECATED void set_has_drift(int index, bool value);
+  PROTOBUF_DEPRECATED void add_has_drift(bool value);
+  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedField< bool >&
       has_drift() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< bool >*
+  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedField< bool >*
       mutable_has_drift();
 
-  // repeated string time_series_id = 5;
-  int time_series_id_size() const;
+  // repeated string time_series_id = 5 [deprecated = true];
+  PROTOBUF_DEPRECATED int time_series_id_size() const;
   private:
   int _internal_time_series_id_size() const;
   public:
-  void clear_time_series_id();
-  const std::string& time_series_id(int index) const;
-  std::string* mutable_time_series_id(int index);
-  void set_time_series_id(int index, const std::string& value);
-  void set_time_series_id(int index, std::string&& value);
-  void set_time_series_id(int index, const char* value);
-  void set_time_series_id(int index, const char* value, size_t size);
-  std::string* add_time_series_id();
-  void add_time_series_id(const std::string& value);
-  void add_time_series_id(std::string&& value);
-  void add_time_series_id(const char* value);
-  void add_time_series_id(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& time_series_id() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_time_series_id();
+  PROTOBUF_DEPRECATED void clear_time_series_id();
+  PROTOBUF_DEPRECATED const std::string& time_series_id(int index) const;
+  PROTOBUF_DEPRECATED std::string* mutable_time_series_id(int index);
+  PROTOBUF_DEPRECATED void set_time_series_id(int index, const std::string& value);
+  PROTOBUF_DEPRECATED void set_time_series_id(int index, std::string&& value);
+  PROTOBUF_DEPRECATED void set_time_series_id(int index, const char* value);
+  PROTOBUF_DEPRECATED void set_time_series_id(int index, const char* value, size_t size);
+  PROTOBUF_DEPRECATED std::string* add_time_series_id();
+  PROTOBUF_DEPRECATED void add_time_series_id(const std::string& value);
+  PROTOBUF_DEPRECATED void add_time_series_id(std::string&& value);
+  PROTOBUF_DEPRECATED void add_time_series_id(const char* value);
+  PROTOBUF_DEPRECATED void add_time_series_id(const char* value, size_t size);
+  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& time_series_id() const;
+  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_time_series_id();
   private:
   const std::string& _internal_time_series_id(int index) const;
   std::string* _internal_add_time_series_id();
@@ -5405,6 +5493,7 @@ class Model_TrainingRun_TrainingOptions PROTOBUF_FINAL :
     kInputLabelColumnsFieldNumber = 9,
     kLabelClassWeightsFieldNumber = 17,
     kHiddenUnitsFieldNumber = 24,
+    kTimeSeriesIdColumnsFieldNumber = 51,
     kDataSplitColumnFieldNumber = 12,
     kUserColumnFieldNumber = 18,
     kItemColumnFieldNumber = 19,
@@ -5422,6 +5511,9 @@ class Model_TrainingRun_TrainingOptions PROTOBUF_FINAL :
     kMinSplitLossFieldNumber = 29,
     kWalsAlphaFieldNumber = 32,
     kNonSeasonalOrderFieldNumber = 38,
+    kDecomposeTimeSeriesFieldNumber = 50,
+    kCleanSpikesAndDipsFieldNumber = 52,
+    kAdjustStepChangesFieldNumber = 53,
     kMaxIterationsFieldNumber = 1,
     kLearnRateFieldNumber = 3,
     kLossTypeFieldNumber = 2,
@@ -5508,6 +5600,30 @@ class Model_TrainingRun_TrainingOptions PROTOBUF_FINAL :
       hidden_units() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 >*
       mutable_hidden_units();
+
+  // repeated string time_series_id_columns = 51;
+  int time_series_id_columns_size() const;
+  private:
+  int _internal_time_series_id_columns_size() const;
+  public:
+  void clear_time_series_id_columns();
+  const std::string& time_series_id_columns(int index) const;
+  std::string* mutable_time_series_id_columns(int index);
+  void set_time_series_id_columns(int index, const std::string& value);
+  void set_time_series_id_columns(int index, std::string&& value);
+  void set_time_series_id_columns(int index, const char* value);
+  void set_time_series_id_columns(int index, const char* value, size_t size);
+  std::string* add_time_series_id_columns();
+  void add_time_series_id_columns(const std::string& value);
+  void add_time_series_id_columns(std::string&& value);
+  void add_time_series_id_columns(const char* value);
+  void add_time_series_id_columns(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& time_series_id_columns() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_time_series_id_columns();
+  private:
+  const std::string& _internal_time_series_id_columns(int index) const;
+  std::string* _internal_add_time_series_id_columns();
+  public:
 
   // string data_split_column = 12;
   void clear_data_split_column();
@@ -5799,6 +5915,60 @@ class Model_TrainingRun_TrainingOptions PROTOBUF_FINAL :
       ::google::cloud::bigquery::v2::Model_ArimaOrder* non_seasonal_order);
   ::google::cloud::bigquery::v2::Model_ArimaOrder* unsafe_arena_release_non_seasonal_order();
 
+  // .google.protobuf.BoolValue decompose_time_series = 50;
+  bool has_decompose_time_series() const;
+  private:
+  bool _internal_has_decompose_time_series() const;
+  public:
+  void clear_decompose_time_series();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& decompose_time_series() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_decompose_time_series();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_decompose_time_series();
+  void set_allocated_decompose_time_series(PROTOBUF_NAMESPACE_ID::BoolValue* decompose_time_series);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_decompose_time_series() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_decompose_time_series();
+  public:
+  void unsafe_arena_set_allocated_decompose_time_series(
+      PROTOBUF_NAMESPACE_ID::BoolValue* decompose_time_series);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_decompose_time_series();
+
+  // .google.protobuf.BoolValue clean_spikes_and_dips = 52;
+  bool has_clean_spikes_and_dips() const;
+  private:
+  bool _internal_has_clean_spikes_and_dips() const;
+  public:
+  void clear_clean_spikes_and_dips();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& clean_spikes_and_dips() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_clean_spikes_and_dips();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_clean_spikes_and_dips();
+  void set_allocated_clean_spikes_and_dips(PROTOBUF_NAMESPACE_ID::BoolValue* clean_spikes_and_dips);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_clean_spikes_and_dips() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_clean_spikes_and_dips();
+  public:
+  void unsafe_arena_set_allocated_clean_spikes_and_dips(
+      PROTOBUF_NAMESPACE_ID::BoolValue* clean_spikes_and_dips);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_clean_spikes_and_dips();
+
+  // .google.protobuf.BoolValue adjust_step_changes = 53;
+  bool has_adjust_step_changes() const;
+  private:
+  bool _internal_has_adjust_step_changes() const;
+  public:
+  void clear_adjust_step_changes();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& adjust_step_changes() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_adjust_step_changes();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_adjust_step_changes();
+  void set_allocated_adjust_step_changes(PROTOBUF_NAMESPACE_ID::BoolValue* adjust_step_changes);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_adjust_step_changes() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_adjust_step_changes();
+  public:
+  void unsafe_arena_set_allocated_adjust_step_changes(
+      PROTOBUF_NAMESPACE_ID::BoolValue* adjust_step_changes);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_adjust_step_changes();
+
   // int64 max_iterations = 1;
   void clear_max_iterations();
   ::PROTOBUF_NAMESPACE_ID::int64 max_iterations() const;
@@ -6021,6 +6191,7 @@ class Model_TrainingRun_TrainingOptions PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_DOUBLE> label_class_weights_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int64 > hidden_units_;
   mutable std::atomic<int> _hidden_units_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> time_series_id_columns_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_split_column_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_column_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr item_column_;
@@ -6038,6 +6209,9 @@ class Model_TrainingRun_TrainingOptions PROTOBUF_FINAL :
   PROTOBUF_NAMESPACE_ID::DoubleValue* min_split_loss_;
   PROTOBUF_NAMESPACE_ID::DoubleValue* wals_alpha_;
   ::google::cloud::bigquery::v2::Model_ArimaOrder* non_seasonal_order_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* decompose_time_series_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* clean_spikes_and_dips_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* adjust_step_changes_;
   ::PROTOBUF_NAMESPACE_ID::int64 max_iterations_;
   double learn_rate_;
   int loss_type_;
@@ -6544,10 +6718,14 @@ class Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo PROTOBUF_FINA
 
   enum : int {
     kSeasonalPeriodsFieldNumber = 6,
+    kTimeSeriesIdsFieldNumber = 10,
     kTimeSeriesIdFieldNumber = 5,
     kNonSeasonalOrderFieldNumber = 1,
     kArimaCoefficientsFieldNumber = 2,
     kArimaFittingMetricsFieldNumber = 3,
+    kHasHolidayEffectFieldNumber = 7,
+    kHasSpikesAndDipsFieldNumber = 8,
+    kHasStepChangesFieldNumber = 9,
     kHasDriftFieldNumber = 4,
   };
   // repeated .google.cloud.bigquery.v2.Model.SeasonalPeriod.SeasonalPeriodType seasonal_periods = 6;
@@ -6566,6 +6744,30 @@ class Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo PROTOBUF_FINA
   void add_seasonal_periods(::google::cloud::bigquery::v2::Model_SeasonalPeriod_SeasonalPeriodType value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& seasonal_periods() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_seasonal_periods();
+
+  // repeated string time_series_ids = 10;
+  int time_series_ids_size() const;
+  private:
+  int _internal_time_series_ids_size() const;
+  public:
+  void clear_time_series_ids();
+  const std::string& time_series_ids(int index) const;
+  std::string* mutable_time_series_ids(int index);
+  void set_time_series_ids(int index, const std::string& value);
+  void set_time_series_ids(int index, std::string&& value);
+  void set_time_series_ids(int index, const char* value);
+  void set_time_series_ids(int index, const char* value, size_t size);
+  std::string* add_time_series_ids();
+  void add_time_series_ids(const std::string& value);
+  void add_time_series_ids(std::string&& value);
+  void add_time_series_ids(const char* value);
+  void add_time_series_ids(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& time_series_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_time_series_ids();
+  private:
+  const std::string& _internal_time_series_ids(int index) const;
+  std::string* _internal_add_time_series_ids();
+  public:
 
   // string time_series_id = 5;
   void clear_time_series_id();
@@ -6637,6 +6839,60 @@ class Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo PROTOBUF_FINA
       ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* arima_fitting_metrics);
   ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* unsafe_arena_release_arima_fitting_metrics();
 
+  // .google.protobuf.BoolValue has_holiday_effect = 7;
+  bool has_has_holiday_effect() const;
+  private:
+  bool _internal_has_has_holiday_effect() const;
+  public:
+  void clear_has_holiday_effect();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& has_holiday_effect() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_has_holiday_effect();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_has_holiday_effect();
+  void set_allocated_has_holiday_effect(PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_has_holiday_effect() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_has_holiday_effect();
+  public:
+  void unsafe_arena_set_allocated_has_holiday_effect(
+      PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_has_holiday_effect();
+
+  // .google.protobuf.BoolValue has_spikes_and_dips = 8;
+  bool has_has_spikes_and_dips() const;
+  private:
+  bool _internal_has_has_spikes_and_dips() const;
+  public:
+  void clear_has_spikes_and_dips();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& has_spikes_and_dips() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_has_spikes_and_dips();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_has_spikes_and_dips();
+  void set_allocated_has_spikes_and_dips(PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_has_spikes_and_dips() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_has_spikes_and_dips();
+  public:
+  void unsafe_arena_set_allocated_has_spikes_and_dips(
+      PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_has_spikes_and_dips();
+
+  // .google.protobuf.BoolValue has_step_changes = 9;
+  bool has_has_step_changes() const;
+  private:
+  bool _internal_has_has_step_changes() const;
+  public:
+  void clear_has_step_changes();
+  const PROTOBUF_NAMESPACE_ID::BoolValue& has_step_changes() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* release_has_step_changes();
+  PROTOBUF_NAMESPACE_ID::BoolValue* mutable_has_step_changes();
+  void set_allocated_has_step_changes(PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes);
+  private:
+  const PROTOBUF_NAMESPACE_ID::BoolValue& _internal_has_step_changes() const;
+  PROTOBUF_NAMESPACE_ID::BoolValue* _internal_mutable_has_step_changes();
+  public:
+  void unsafe_arena_set_allocated_has_step_changes(
+      PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes);
+  PROTOBUF_NAMESPACE_ID::BoolValue* unsafe_arena_release_has_step_changes();
+
   // bool has_drift = 4;
   void clear_has_drift();
   bool has_drift() const;
@@ -6655,10 +6911,14 @@ class Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo PROTOBUF_FINA
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> seasonal_periods_;
   mutable std::atomic<int> _seasonal_periods_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> time_series_ids_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr time_series_id_;
   ::google::cloud::bigquery::v2::Model_ArimaOrder* non_seasonal_order_;
   ::google::cloud::bigquery::v2::Model_TrainingRun_IterationResult_ArimaResult_ArimaCoefficients* arima_coefficients_;
   ::google::cloud::bigquery::v2::Model_ArimaFittingMetrics* arima_fitting_metrics_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips_;
+  PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes_;
   bool has_drift_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fcloud_2fbigquery_2fv2_2fmodel_2eproto;
@@ -7530,6 +7790,8 @@ class Model PROTOBUF_FINAL :
     Model_ModelType_AUTOML_REGRESSOR;
   static constexpr ModelType AUTOML_CLASSIFIER =
     Model_ModelType_AUTOML_CLASSIFIER;
+  static constexpr ModelType ARIMA_PLUS =
+    Model_ModelType_ARIMA_PLUS;
   static inline bool ModelType_IsValid(int value) {
     return Model_ModelType_IsValid(value);
   }
@@ -7674,6 +7936,8 @@ class Model PROTOBUF_FINAL :
     Model_DataFrequency_DAILY;
   static constexpr DataFrequency HOURLY =
     Model_DataFrequency_HOURLY;
+  static constexpr DataFrequency PER_MINUTE =
+    Model_DataFrequency_PER_MINUTE;
   static inline bool DataFrequency_IsValid(int value) {
     return Model_DataFrequency_IsValid(value);
   }
@@ -7974,8 +8238,9 @@ class Model PROTOBUF_FINAL :
     kEncryptionConfigurationFieldNumber = 17,
     kCreationTimeFieldNumber = 5,
     kLastModifiedTimeFieldNumber = 6,
-    kModelTypeFieldNumber = 7,
     kExpirationTimeFieldNumber = 16,
+    kModelTypeFieldNumber = 7,
+    kBestTrialIdFieldNumber = 19,
   };
   // repeated .google.cloud.bigquery.v2.Model.TrainingRun training_runs = 9 [(.google.api.field_behavior) = OUTPUT_ONLY];
   int training_runs_size() const;
@@ -8166,6 +8431,15 @@ class Model PROTOBUF_FINAL :
   void _internal_set_last_modified_time(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
+  // int64 expiration_time = 16 [(.google.api.field_behavior) = OPTIONAL];
+  void clear_expiration_time();
+  ::PROTOBUF_NAMESPACE_ID::int64 expiration_time() const;
+  void set_expiration_time(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_expiration_time() const;
+  void _internal_set_expiration_time(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
   // .google.cloud.bigquery.v2.Model.ModelType model_type = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];
   void clear_model_type();
   ::google::cloud::bigquery::v2::Model_ModelType model_type() const;
@@ -8175,13 +8449,13 @@ class Model PROTOBUF_FINAL :
   void _internal_set_model_type(::google::cloud::bigquery::v2::Model_ModelType value);
   public:
 
-  // int64 expiration_time = 16 [(.google.api.field_behavior) = OPTIONAL];
-  void clear_expiration_time();
-  ::PROTOBUF_NAMESPACE_ID::int64 expiration_time() const;
-  void set_expiration_time(::PROTOBUF_NAMESPACE_ID::int64 value);
+  // int64 best_trial_id = 19 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_best_trial_id();
+  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::int64 best_trial_id() const;
+  PROTOBUF_DEPRECATED void set_best_trial_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_expiration_time() const;
-  void _internal_set_expiration_time(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_best_trial_id() const;
+  void _internal_set_best_trial_id(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
   // @@protoc_insertion_point(class_scope:google.cloud.bigquery.v2.Model)
@@ -8207,8 +8481,9 @@ class Model PROTOBUF_FINAL :
   ::google::cloud::bigquery::v2::EncryptionConfiguration* encryption_configuration_;
   ::PROTOBUF_NAMESPACE_ID::int64 creation_time_;
   ::PROTOBUF_NAMESPACE_ID::int64 last_modified_time_;
-  int model_type_;
   ::PROTOBUF_NAMESPACE_ID::int64 expiration_time_;
+  int model_type_;
+  ::PROTOBUF_NAMESPACE_ID::int64 best_trial_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fcloud_2fbigquery_2fv2_2fmodel_2eproto;
 };
@@ -12817,6 +13092,80 @@ inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::se
   // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_id)
 }
 
+// repeated string time_series_ids = 9;
+inline int Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_time_series_ids_size() const {
+  return time_series_ids_.size();
+}
+inline int Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::time_series_ids_size() const {
+  return _internal_time_series_ids_size();
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::clear_time_series_ids() {
+  time_series_ids_.Clear();
+}
+inline std::string* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::add_time_series_ids() {
+  // @@protoc_insertion_point(field_add_mutable:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+  return _internal_add_time_series_ids();
+}
+inline const std::string& Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_time_series_ids(int index) const {
+  return time_series_ids_.Get(index);
+}
+inline const std::string& Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::time_series_ids(int index) const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+  return _internal_time_series_ids(index);
+}
+inline std::string* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::mutable_time_series_ids(int index) {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+  return time_series_ids_.Mutable(index);
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::set_time_series_ids(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+  time_series_ids_.Mutable(index)->assign(value);
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::set_time_series_ids(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+  time_series_ids_.Mutable(index)->assign(std::move(value));
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::set_time_series_ids(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  time_series_ids_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::set_time_series_ids(int index, const char* value, size_t size) {
+  time_series_ids_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+}
+inline std::string* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_add_time_series_ids() {
+  return time_series_ids_.Add();
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::add_time_series_ids(const std::string& value) {
+  time_series_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::add_time_series_ids(std::string&& value) {
+  time_series_ids_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::add_time_series_ids(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  time_series_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::add_time_series_ids(const char* value, size_t size) {
+  time_series_ids_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::time_series_ids() const {
+  // @@protoc_insertion_point(field_list:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+  return time_series_ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::mutable_time_series_ids() {
+  // @@protoc_insertion_point(field_mutable_list:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.time_series_ids)
+  return &time_series_ids_;
+}
+
 // repeated .google.cloud.bigquery.v2.Model.SeasonalPeriod.SeasonalPeriodType seasonal_periods = 5;
 inline int Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_seasonal_periods_size() const {
   return seasonal_periods_.size();
@@ -12860,11 +13209,242 @@ Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::mutable_season
   return _internal_mutable_seasonal_periods();
 }
 
+// .google.protobuf.BoolValue has_holiday_effect = 6;
+inline bool Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_has_has_holiday_effect() const {
+  return this != internal_default_instance() && has_holiday_effect_ != nullptr;
+}
+inline bool Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::has_has_holiday_effect() const {
+  return _internal_has_has_holiday_effect();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_has_holiday_effect() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = has_holiday_effect_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::has_holiday_effect() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_holiday_effect)
+  return _internal_has_holiday_effect();
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::unsafe_arena_set_allocated_has_holiday_effect(
+    PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_holiday_effect_);
+  }
+  has_holiday_effect_ = has_holiday_effect;
+  if (has_holiday_effect) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_holiday_effect)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::release_has_holiday_effect() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_holiday_effect_;
+  has_holiday_effect_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::unsafe_arena_release_has_holiday_effect() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_holiday_effect)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_holiday_effect_;
+  has_holiday_effect_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_mutable_has_holiday_effect() {
+  
+  if (has_holiday_effect_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    has_holiday_effect_ = p;
+  }
+  return has_holiday_effect_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::mutable_has_holiday_effect() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_holiday_effect)
+  return _internal_mutable_has_holiday_effect();
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::set_allocated_has_holiday_effect(PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_holiday_effect_);
+  }
+  if (has_holiday_effect) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_holiday_effect)->GetArena();
+    if (message_arena != submessage_arena) {
+      has_holiday_effect = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, has_holiday_effect, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  has_holiday_effect_ = has_holiday_effect;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_holiday_effect)
+}
+
+// .google.protobuf.BoolValue has_spikes_and_dips = 7;
+inline bool Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_has_has_spikes_and_dips() const {
+  return this != internal_default_instance() && has_spikes_and_dips_ != nullptr;
+}
+inline bool Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::has_has_spikes_and_dips() const {
+  return _internal_has_has_spikes_and_dips();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_has_spikes_and_dips() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = has_spikes_and_dips_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::has_spikes_and_dips() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_spikes_and_dips)
+  return _internal_has_spikes_and_dips();
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::unsafe_arena_set_allocated_has_spikes_and_dips(
+    PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_spikes_and_dips_);
+  }
+  has_spikes_and_dips_ = has_spikes_and_dips;
+  if (has_spikes_and_dips) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_spikes_and_dips)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::release_has_spikes_and_dips() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_spikes_and_dips_;
+  has_spikes_and_dips_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::unsafe_arena_release_has_spikes_and_dips() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_spikes_and_dips)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_spikes_and_dips_;
+  has_spikes_and_dips_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_mutable_has_spikes_and_dips() {
+  
+  if (has_spikes_and_dips_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    has_spikes_and_dips_ = p;
+  }
+  return has_spikes_and_dips_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::mutable_has_spikes_and_dips() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_spikes_and_dips)
+  return _internal_mutable_has_spikes_and_dips();
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::set_allocated_has_spikes_and_dips(PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_spikes_and_dips_);
+  }
+  if (has_spikes_and_dips) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_spikes_and_dips)->GetArena();
+    if (message_arena != submessage_arena) {
+      has_spikes_and_dips = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, has_spikes_and_dips, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  has_spikes_and_dips_ = has_spikes_and_dips;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_spikes_and_dips)
+}
+
+// .google.protobuf.BoolValue has_step_changes = 8;
+inline bool Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_has_has_step_changes() const {
+  return this != internal_default_instance() && has_step_changes_ != nullptr;
+}
+inline bool Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::has_has_step_changes() const {
+  return _internal_has_has_step_changes();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_has_step_changes() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = has_step_changes_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::has_step_changes() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_step_changes)
+  return _internal_has_step_changes();
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::unsafe_arena_set_allocated_has_step_changes(
+    PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_step_changes_);
+  }
+  has_step_changes_ = has_step_changes;
+  if (has_step_changes) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_step_changes)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::release_has_step_changes() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_step_changes_;
+  has_step_changes_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::unsafe_arena_release_has_step_changes() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_step_changes)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_step_changes_;
+  has_step_changes_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::_internal_mutable_has_step_changes() {
+  
+  if (has_step_changes_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    has_step_changes_ = p;
+  }
+  return has_step_changes_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::mutable_has_step_changes() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_step_changes)
+  return _internal_mutable_has_step_changes();
+}
+inline void Model_ArimaForecastingMetrics_ArimaSingleModelForecastingMetrics::set_allocated_has_step_changes(PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_step_changes_);
+  }
+  if (has_step_changes) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_step_changes)->GetArena();
+    if (message_arena != submessage_arena) {
+      has_step_changes = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, has_step_changes, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  has_step_changes_ = has_step_changes;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.ArimaForecastingMetrics.ArimaSingleModelForecastingMetrics.has_step_changes)
+}
+
 // -------------------------------------------------------------------
 
 // Model_ArimaForecastingMetrics
 
-// repeated .google.cloud.bigquery.v2.Model.ArimaOrder non_seasonal_order = 1;
+// repeated .google.cloud.bigquery.v2.Model.ArimaOrder non_seasonal_order = 1 [deprecated = true];
 inline int Model_ArimaForecastingMetrics::_internal_non_seasonal_order_size() const {
   return non_seasonal_order_.size();
 }
@@ -12903,7 +13483,7 @@ Model_ArimaForecastingMetrics::non_seasonal_order() const {
   return non_seasonal_order_;
 }
 
-// repeated .google.cloud.bigquery.v2.Model.ArimaFittingMetrics arima_fitting_metrics = 2;
+// repeated .google.cloud.bigquery.v2.Model.ArimaFittingMetrics arima_fitting_metrics = 2 [deprecated = true];
 inline int Model_ArimaForecastingMetrics::_internal_arima_fitting_metrics_size() const {
   return arima_fitting_metrics_.size();
 }
@@ -12942,7 +13522,7 @@ Model_ArimaForecastingMetrics::arima_fitting_metrics() const {
   return arima_fitting_metrics_;
 }
 
-// repeated .google.cloud.bigquery.v2.Model.SeasonalPeriod.SeasonalPeriodType seasonal_periods = 3;
+// repeated .google.cloud.bigquery.v2.Model.SeasonalPeriod.SeasonalPeriodType seasonal_periods = 3 [deprecated = true];
 inline int Model_ArimaForecastingMetrics::_internal_seasonal_periods_size() const {
   return seasonal_periods_.size();
 }
@@ -12985,7 +13565,7 @@ Model_ArimaForecastingMetrics::mutable_seasonal_periods() {
   return _internal_mutable_seasonal_periods();
 }
 
-// repeated bool has_drift = 4;
+// repeated bool has_drift = 4 [deprecated = true];
 inline int Model_ArimaForecastingMetrics::_internal_has_drift_size() const {
   return has_drift_.size();
 }
@@ -13032,7 +13612,7 @@ Model_ArimaForecastingMetrics::mutable_has_drift() {
   return _internal_mutable_has_drift();
 }
 
-// repeated string time_series_id = 5;
+// repeated string time_series_id = 5 [deprecated = true];
 inline int Model_ArimaForecastingMetrics::_internal_time_series_id_size() const {
   return time_series_id_.size();
 }
@@ -15871,6 +16451,80 @@ inline void Model_TrainingRun_TrainingOptions::set_allocated_time_series_id_colu
   // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_column)
 }
 
+// repeated string time_series_id_columns = 51;
+inline int Model_TrainingRun_TrainingOptions::_internal_time_series_id_columns_size() const {
+  return time_series_id_columns_.size();
+}
+inline int Model_TrainingRun_TrainingOptions::time_series_id_columns_size() const {
+  return _internal_time_series_id_columns_size();
+}
+inline void Model_TrainingRun_TrainingOptions::clear_time_series_id_columns() {
+  time_series_id_columns_.Clear();
+}
+inline std::string* Model_TrainingRun_TrainingOptions::add_time_series_id_columns() {
+  // @@protoc_insertion_point(field_add_mutable:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+  return _internal_add_time_series_id_columns();
+}
+inline const std::string& Model_TrainingRun_TrainingOptions::_internal_time_series_id_columns(int index) const {
+  return time_series_id_columns_.Get(index);
+}
+inline const std::string& Model_TrainingRun_TrainingOptions::time_series_id_columns(int index) const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+  return _internal_time_series_id_columns(index);
+}
+inline std::string* Model_TrainingRun_TrainingOptions::mutable_time_series_id_columns(int index) {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+  return time_series_id_columns_.Mutable(index);
+}
+inline void Model_TrainingRun_TrainingOptions::set_time_series_id_columns(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+  time_series_id_columns_.Mutable(index)->assign(value);
+}
+inline void Model_TrainingRun_TrainingOptions::set_time_series_id_columns(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+  time_series_id_columns_.Mutable(index)->assign(std::move(value));
+}
+inline void Model_TrainingRun_TrainingOptions::set_time_series_id_columns(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  time_series_id_columns_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+}
+inline void Model_TrainingRun_TrainingOptions::set_time_series_id_columns(int index, const char* value, size_t size) {
+  time_series_id_columns_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+}
+inline std::string* Model_TrainingRun_TrainingOptions::_internal_add_time_series_id_columns() {
+  return time_series_id_columns_.Add();
+}
+inline void Model_TrainingRun_TrainingOptions::add_time_series_id_columns(const std::string& value) {
+  time_series_id_columns_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+}
+inline void Model_TrainingRun_TrainingOptions::add_time_series_id_columns(std::string&& value) {
+  time_series_id_columns_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+}
+inline void Model_TrainingRun_TrainingOptions::add_time_series_id_columns(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  time_series_id_columns_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+}
+inline void Model_TrainingRun_TrainingOptions::add_time_series_id_columns(const char* value, size_t size) {
+  time_series_id_columns_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+Model_TrainingRun_TrainingOptions::time_series_id_columns() const {
+  // @@protoc_insertion_point(field_list:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+  return time_series_id_columns_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+Model_TrainingRun_TrainingOptions::mutable_time_series_id_columns() {
+  // @@protoc_insertion_point(field_mutable_list:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.time_series_id_columns)
+  return &time_series_id_columns_;
+}
+
 // int64 horizon = 44;
 inline void Model_TrainingRun_TrainingOptions::clear_horizon() {
   horizon_ = PROTOBUF_LONGLONG(0);
@@ -15929,6 +16583,237 @@ inline void Model_TrainingRun_TrainingOptions::_internal_set_auto_arima_max_orde
 inline void Model_TrainingRun_TrainingOptions::set_auto_arima_max_order(::PROTOBUF_NAMESPACE_ID::int64 value) {
   _internal_set_auto_arima_max_order(value);
   // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.auto_arima_max_order)
+}
+
+// .google.protobuf.BoolValue decompose_time_series = 50;
+inline bool Model_TrainingRun_TrainingOptions::_internal_has_decompose_time_series() const {
+  return this != internal_default_instance() && decompose_time_series_ != nullptr;
+}
+inline bool Model_TrainingRun_TrainingOptions::has_decompose_time_series() const {
+  return _internal_has_decompose_time_series();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_TrainingOptions::_internal_decompose_time_series() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = decompose_time_series_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_TrainingOptions::decompose_time_series() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.decompose_time_series)
+  return _internal_decompose_time_series();
+}
+inline void Model_TrainingRun_TrainingOptions::unsafe_arena_set_allocated_decompose_time_series(
+    PROTOBUF_NAMESPACE_ID::BoolValue* decompose_time_series) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(decompose_time_series_);
+  }
+  decompose_time_series_ = decompose_time_series;
+  if (decompose_time_series) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.decompose_time_series)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::release_decompose_time_series() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = decompose_time_series_;
+  decompose_time_series_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::unsafe_arena_release_decompose_time_series() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.decompose_time_series)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = decompose_time_series_;
+  decompose_time_series_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::_internal_mutable_decompose_time_series() {
+  
+  if (decompose_time_series_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    decompose_time_series_ = p;
+  }
+  return decompose_time_series_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::mutable_decompose_time_series() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.decompose_time_series)
+  return _internal_mutable_decompose_time_series();
+}
+inline void Model_TrainingRun_TrainingOptions::set_allocated_decompose_time_series(PROTOBUF_NAMESPACE_ID::BoolValue* decompose_time_series) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(decompose_time_series_);
+  }
+  if (decompose_time_series) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(decompose_time_series)->GetArena();
+    if (message_arena != submessage_arena) {
+      decompose_time_series = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, decompose_time_series, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  decompose_time_series_ = decompose_time_series;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.decompose_time_series)
+}
+
+// .google.protobuf.BoolValue clean_spikes_and_dips = 52;
+inline bool Model_TrainingRun_TrainingOptions::_internal_has_clean_spikes_and_dips() const {
+  return this != internal_default_instance() && clean_spikes_and_dips_ != nullptr;
+}
+inline bool Model_TrainingRun_TrainingOptions::has_clean_spikes_and_dips() const {
+  return _internal_has_clean_spikes_and_dips();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_TrainingOptions::_internal_clean_spikes_and_dips() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = clean_spikes_and_dips_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_TrainingOptions::clean_spikes_and_dips() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.clean_spikes_and_dips)
+  return _internal_clean_spikes_and_dips();
+}
+inline void Model_TrainingRun_TrainingOptions::unsafe_arena_set_allocated_clean_spikes_and_dips(
+    PROTOBUF_NAMESPACE_ID::BoolValue* clean_spikes_and_dips) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(clean_spikes_and_dips_);
+  }
+  clean_spikes_and_dips_ = clean_spikes_and_dips;
+  if (clean_spikes_and_dips) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.clean_spikes_and_dips)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::release_clean_spikes_and_dips() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = clean_spikes_and_dips_;
+  clean_spikes_and_dips_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::unsafe_arena_release_clean_spikes_and_dips() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.clean_spikes_and_dips)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = clean_spikes_and_dips_;
+  clean_spikes_and_dips_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::_internal_mutable_clean_spikes_and_dips() {
+  
+  if (clean_spikes_and_dips_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    clean_spikes_and_dips_ = p;
+  }
+  return clean_spikes_and_dips_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::mutable_clean_spikes_and_dips() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.clean_spikes_and_dips)
+  return _internal_mutable_clean_spikes_and_dips();
+}
+inline void Model_TrainingRun_TrainingOptions::set_allocated_clean_spikes_and_dips(PROTOBUF_NAMESPACE_ID::BoolValue* clean_spikes_and_dips) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(clean_spikes_and_dips_);
+  }
+  if (clean_spikes_and_dips) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(clean_spikes_and_dips)->GetArena();
+    if (message_arena != submessage_arena) {
+      clean_spikes_and_dips = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, clean_spikes_and_dips, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  clean_spikes_and_dips_ = clean_spikes_and_dips;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.clean_spikes_and_dips)
+}
+
+// .google.protobuf.BoolValue adjust_step_changes = 53;
+inline bool Model_TrainingRun_TrainingOptions::_internal_has_adjust_step_changes() const {
+  return this != internal_default_instance() && adjust_step_changes_ != nullptr;
+}
+inline bool Model_TrainingRun_TrainingOptions::has_adjust_step_changes() const {
+  return _internal_has_adjust_step_changes();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_TrainingOptions::_internal_adjust_step_changes() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = adjust_step_changes_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_TrainingOptions::adjust_step_changes() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.adjust_step_changes)
+  return _internal_adjust_step_changes();
+}
+inline void Model_TrainingRun_TrainingOptions::unsafe_arena_set_allocated_adjust_step_changes(
+    PROTOBUF_NAMESPACE_ID::BoolValue* adjust_step_changes) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(adjust_step_changes_);
+  }
+  adjust_step_changes_ = adjust_step_changes;
+  if (adjust_step_changes) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.adjust_step_changes)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::release_adjust_step_changes() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = adjust_step_changes_;
+  adjust_step_changes_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::unsafe_arena_release_adjust_step_changes() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.adjust_step_changes)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = adjust_step_changes_;
+  adjust_step_changes_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::_internal_mutable_adjust_step_changes() {
+  
+  if (adjust_step_changes_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    adjust_step_changes_ = p;
+  }
+  return adjust_step_changes_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_TrainingOptions::mutable_adjust_step_changes() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.adjust_step_changes)
+  return _internal_mutable_adjust_step_changes();
+}
+inline void Model_TrainingRun_TrainingOptions::set_allocated_adjust_step_changes(PROTOBUF_NAMESPACE_ID::BoolValue* adjust_step_changes) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(adjust_step_changes_);
+  }
+  if (adjust_step_changes) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(adjust_step_changes)->GetArena();
+    if (message_arena != submessage_arena) {
+      adjust_step_changes = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, adjust_step_changes, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  adjust_step_changes_ = adjust_step_changes;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.TrainingOptions.adjust_step_changes)
 }
 
 // -------------------------------------------------------------------
@@ -16561,6 +17446,80 @@ inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::set_al
   // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_id)
 }
 
+// repeated string time_series_ids = 10;
+inline int Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_time_series_ids_size() const {
+  return time_series_ids_.size();
+}
+inline int Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::time_series_ids_size() const {
+  return _internal_time_series_ids_size();
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::clear_time_series_ids() {
+  time_series_ids_.Clear();
+}
+inline std::string* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::add_time_series_ids() {
+  // @@protoc_insertion_point(field_add_mutable:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+  return _internal_add_time_series_ids();
+}
+inline const std::string& Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_time_series_ids(int index) const {
+  return time_series_ids_.Get(index);
+}
+inline const std::string& Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::time_series_ids(int index) const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+  return _internal_time_series_ids(index);
+}
+inline std::string* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::mutable_time_series_ids(int index) {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+  return time_series_ids_.Mutable(index);
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::set_time_series_ids(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+  time_series_ids_.Mutable(index)->assign(value);
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::set_time_series_ids(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+  time_series_ids_.Mutable(index)->assign(std::move(value));
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::set_time_series_ids(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  time_series_ids_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::set_time_series_ids(int index, const char* value, size_t size) {
+  time_series_ids_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+}
+inline std::string* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_add_time_series_ids() {
+  return time_series_ids_.Add();
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::add_time_series_ids(const std::string& value) {
+  time_series_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::add_time_series_ids(std::string&& value) {
+  time_series_ids_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::add_time_series_ids(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  time_series_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::add_time_series_ids(const char* value, size_t size) {
+  time_series_ids_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::time_series_ids() const {
+  // @@protoc_insertion_point(field_list:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+  return time_series_ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::mutable_time_series_ids() {
+  // @@protoc_insertion_point(field_mutable_list:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.time_series_ids)
+  return &time_series_ids_;
+}
+
 // repeated .google.cloud.bigquery.v2.Model.SeasonalPeriod.SeasonalPeriodType seasonal_periods = 6;
 inline int Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_seasonal_periods_size() const {
   return seasonal_periods_.size();
@@ -16602,6 +17561,237 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
 Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::mutable_seasonal_periods() {
   // @@protoc_insertion_point(field_mutable_list:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.seasonal_periods)
   return _internal_mutable_seasonal_periods();
+}
+
+// .google.protobuf.BoolValue has_holiday_effect = 7;
+inline bool Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_has_has_holiday_effect() const {
+  return this != internal_default_instance() && has_holiday_effect_ != nullptr;
+}
+inline bool Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::has_has_holiday_effect() const {
+  return _internal_has_has_holiday_effect();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_has_holiday_effect() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = has_holiday_effect_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::has_holiday_effect() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_holiday_effect)
+  return _internal_has_holiday_effect();
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::unsafe_arena_set_allocated_has_holiday_effect(
+    PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_holiday_effect_);
+  }
+  has_holiday_effect_ = has_holiday_effect;
+  if (has_holiday_effect) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_holiday_effect)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::release_has_holiday_effect() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_holiday_effect_;
+  has_holiday_effect_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::unsafe_arena_release_has_holiday_effect() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_holiday_effect)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_holiday_effect_;
+  has_holiday_effect_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_mutable_has_holiday_effect() {
+  
+  if (has_holiday_effect_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    has_holiday_effect_ = p;
+  }
+  return has_holiday_effect_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::mutable_has_holiday_effect() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_holiday_effect)
+  return _internal_mutable_has_holiday_effect();
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::set_allocated_has_holiday_effect(PROTOBUF_NAMESPACE_ID::BoolValue* has_holiday_effect) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_holiday_effect_);
+  }
+  if (has_holiday_effect) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_holiday_effect)->GetArena();
+    if (message_arena != submessage_arena) {
+      has_holiday_effect = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, has_holiday_effect, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  has_holiday_effect_ = has_holiday_effect;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_holiday_effect)
+}
+
+// .google.protobuf.BoolValue has_spikes_and_dips = 8;
+inline bool Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_has_has_spikes_and_dips() const {
+  return this != internal_default_instance() && has_spikes_and_dips_ != nullptr;
+}
+inline bool Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::has_has_spikes_and_dips() const {
+  return _internal_has_has_spikes_and_dips();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_has_spikes_and_dips() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = has_spikes_and_dips_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::has_spikes_and_dips() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_spikes_and_dips)
+  return _internal_has_spikes_and_dips();
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::unsafe_arena_set_allocated_has_spikes_and_dips(
+    PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_spikes_and_dips_);
+  }
+  has_spikes_and_dips_ = has_spikes_and_dips;
+  if (has_spikes_and_dips) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_spikes_and_dips)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::release_has_spikes_and_dips() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_spikes_and_dips_;
+  has_spikes_and_dips_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::unsafe_arena_release_has_spikes_and_dips() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_spikes_and_dips)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_spikes_and_dips_;
+  has_spikes_and_dips_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_mutable_has_spikes_and_dips() {
+  
+  if (has_spikes_and_dips_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    has_spikes_and_dips_ = p;
+  }
+  return has_spikes_and_dips_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::mutable_has_spikes_and_dips() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_spikes_and_dips)
+  return _internal_mutable_has_spikes_and_dips();
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::set_allocated_has_spikes_and_dips(PROTOBUF_NAMESPACE_ID::BoolValue* has_spikes_and_dips) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_spikes_and_dips_);
+  }
+  if (has_spikes_and_dips) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_spikes_and_dips)->GetArena();
+    if (message_arena != submessage_arena) {
+      has_spikes_and_dips = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, has_spikes_and_dips, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  has_spikes_and_dips_ = has_spikes_and_dips;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_spikes_and_dips)
+}
+
+// .google.protobuf.BoolValue has_step_changes = 9;
+inline bool Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_has_has_step_changes() const {
+  return this != internal_default_instance() && has_step_changes_ != nullptr;
+}
+inline bool Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::has_has_step_changes() const {
+  return _internal_has_has_step_changes();
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_has_step_changes() const {
+  const PROTOBUF_NAMESPACE_ID::BoolValue* p = has_step_changes_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::BoolValue&>(
+      PROTOBUF_NAMESPACE_ID::_BoolValue_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::BoolValue& Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::has_step_changes() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_step_changes)
+  return _internal_has_step_changes();
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::unsafe_arena_set_allocated_has_step_changes(
+    PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_step_changes_);
+  }
+  has_step_changes_ = has_step_changes;
+  if (has_step_changes) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_step_changes)
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::release_has_step_changes() {
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_step_changes_;
+  has_step_changes_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::unsafe_arena_release_has_step_changes() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_step_changes)
+  
+  PROTOBUF_NAMESPACE_ID::BoolValue* temp = has_step_changes_;
+  has_step_changes_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::_internal_mutable_has_step_changes() {
+  
+  if (has_step_changes_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::BoolValue>(GetArena());
+    has_step_changes_ = p;
+  }
+  return has_step_changes_;
+}
+inline PROTOBUF_NAMESPACE_ID::BoolValue* Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::mutable_has_step_changes() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_step_changes)
+  return _internal_mutable_has_step_changes();
+}
+inline void Model_TrainingRun_IterationResult_ArimaResult_ArimaModelInfo::set_allocated_has_step_changes(PROTOBUF_NAMESPACE_ID::BoolValue* has_step_changes) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_step_changes_);
+  }
+  if (has_step_changes) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(has_step_changes)->GetArena();
+    if (message_arena != submessage_arena) {
+      has_step_changes = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, has_step_changes, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  has_step_changes_ = has_step_changes;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.v2.Model.TrainingRun.IterationResult.ArimaResult.ArimaModelInfo.has_step_changes)
 }
 
 // -------------------------------------------------------------------
@@ -18174,6 +19364,26 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquer
 Model::label_columns() const {
   // @@protoc_insertion_point(field_list:google.cloud.bigquery.v2.Model.label_columns)
   return label_columns_;
+}
+
+// int64 best_trial_id = 19 [deprecated = true];
+inline void Model::clear_best_trial_id() {
+  best_trial_id_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 Model::_internal_best_trial_id() const {
+  return best_trial_id_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 Model::best_trial_id() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.Model.best_trial_id)
+  return _internal_best_trial_id();
+}
+inline void Model::_internal_set_best_trial_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  best_trial_id_ = value;
+}
+inline void Model::set_best_trial_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_best_trial_id(value);
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.v2.Model.best_trial_id)
 }
 
 // -------------------------------------------------------------------

@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/cloud/bigquery/v2/model.proto
 // Original file comments:
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 #include "google/cloud/bigquery/v2/model.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -63,7 +62,8 @@ class ModelService final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::v2::Model>>(PrepareAsyncGetModelRaw(context, request, cq));
     }
     // Lists all models in the specified dataset. Requires the READER dataset
-    // role.
+    // role. After retrieving the list of models, you can get information about a
+    // particular model by calling the models.get method.
     virtual ::grpc::Status ListModels(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest& request, ::google::cloud::bigquery::v2::ListModelsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::v2::ListModelsResponse>> AsyncListModels(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::v2::ListModelsResponse>>(AsyncListModelsRaw(context, request, cq));
@@ -87,46 +87,27 @@ class ModelService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::DeleteModelRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteModelRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Gets the specified model resource by model ID.
       virtual void GetModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest* request, ::google::cloud::bigquery::v2::Model* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest* request, ::google::cloud::bigquery::v2::Model* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest* request, ::google::cloud::bigquery::v2::Model* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists all models in the specified dataset. Requires the READER dataset
-      // role.
+      // role. After retrieving the list of models, you can get information about a
+      // particular model by calling the models.get method.
       virtual void ListModels(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest* request, ::google::cloud::bigquery::v2::ListModelsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListModels(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest* request, ::google::cloud::bigquery::v2::ListModelsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListModels(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest* request, ::google::cloud::bigquery::v2::ListModelsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Patch specific fields in the specified model.
       virtual void PatchModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::PatchModelRequest* request, ::google::cloud::bigquery::v2::Model* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void PatchModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::PatchModelRequest* request, ::google::cloud::bigquery::v2::Model* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void PatchModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::PatchModelRequest* request, ::google::cloud::bigquery::v2::Model* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the model specified by modelId from the dataset.
       virtual void DeleteModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::DeleteModelRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::DeleteModelRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::DeleteModelRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::v2::Model>* AsyncGetModelRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::v2::Model>* PrepareAsyncGetModelRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -168,44 +149,28 @@ class ModelService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::DeleteModelRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteModelRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void GetModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest* request, ::google::cloud::bigquery::v2::Model* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest* request, ::google::cloud::bigquery::v2::Model* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest* request, ::google::cloud::bigquery::v2::Model* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListModels(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest* request, ::google::cloud::bigquery::v2::ListModelsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListModels(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest* request, ::google::cloud::bigquery::v2::ListModelsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListModels(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest* request, ::google::cloud::bigquery::v2::ListModelsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void PatchModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::PatchModelRequest* request, ::google::cloud::bigquery::v2::Model* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void PatchModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::PatchModelRequest* request, ::google::cloud::bigquery::v2::Model* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void PatchModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::PatchModelRequest* request, ::google::cloud::bigquery::v2::Model* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::DeleteModelRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::DeleteModelRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteModel(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::DeleteModelRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::v2::Model>* AsyncGetModelRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::v2::Model>* PrepareAsyncGetModelRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::GetModelRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::v2::ListModelsResponse>* AsyncListModelsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -228,7 +193,8 @@ class ModelService final {
     // Gets the specified model resource by model ID.
     virtual ::grpc::Status GetModel(::grpc::ServerContext* context, const ::google::cloud::bigquery::v2::GetModelRequest* request, ::google::cloud::bigquery::v2::Model* response);
     // Lists all models in the specified dataset. Requires the READER dataset
-    // role.
+    // role. After retrieving the list of models, you can get information about a
+    // particular model by calling the models.get method.
     virtual ::grpc::Status ListModels(::grpc::ServerContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest* request, ::google::cloud::bigquery::v2::ListModelsResponse* response);
     // Patch specific fields in the specified model.
     virtual ::grpc::Status PatchModel(::grpc::ServerContext* context, const ::google::cloud::bigquery::v2::PatchModelRequest* request, ::google::cloud::bigquery::v2::Model* response);
@@ -317,36 +283,22 @@ class ModelService final {
   };
   typedef WithAsyncMethod_GetModel<WithAsyncMethod_ListModels<WithAsyncMethod_PatchModel<WithAsyncMethod_DeleteModel<Service > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetModel : public BaseClass {
+  class WithCallbackMethod_GetModel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetModel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_GetModel() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::v2::GetModelRequest, ::google::cloud::bigquery::v2::Model>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::v2::GetModelRequest* request, ::google::cloud::bigquery::v2::Model* response) { return this->GetModel(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::v2::GetModelRequest* request, ::google::cloud::bigquery::v2::Model* response) { return this->GetModel(context, request, response); }));}
     void SetMessageAllocatorFor_GetModel(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::v2::GetModelRequest, ::google::cloud::bigquery::v2::Model>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::v2::GetModelRequest, ::google::cloud::bigquery::v2::Model>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::v2::GetModelRequest, ::google::cloud::bigquery::v2::Model>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetModel() override {
+    ~WithCallbackMethod_GetModel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -354,46 +306,26 @@ class ModelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetModel(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::GetModelRequest* /*request*/, ::google::cloud::bigquery::v2::Model* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetModel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::GetModelRequest* /*request*/, ::google::cloud::bigquery::v2::Model* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::GetModelRequest* /*request*/, ::google::cloud::bigquery::v2::Model* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListModels : public BaseClass {
+  class WithCallbackMethod_ListModels : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListModels() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_ListModels() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::v2::ListModelsRequest, ::google::cloud::bigquery::v2::ListModelsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::v2::ListModelsRequest* request, ::google::cloud::bigquery::v2::ListModelsResponse* response) { return this->ListModels(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::v2::ListModelsRequest* request, ::google::cloud::bigquery::v2::ListModelsResponse* response) { return this->ListModels(context, request, response); }));}
     void SetMessageAllocatorFor_ListModels(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::v2::ListModelsRequest, ::google::cloud::bigquery::v2::ListModelsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::v2::ListModelsRequest, ::google::cloud::bigquery::v2::ListModelsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::v2::ListModelsRequest, ::google::cloud::bigquery::v2::ListModelsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListModels() override {
+    ~WithCallbackMethod_ListModels() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -401,46 +333,26 @@ class ModelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListModels(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::ListModelsRequest* /*request*/, ::google::cloud::bigquery::v2::ListModelsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListModels(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::ListModelsRequest* /*request*/, ::google::cloud::bigquery::v2::ListModelsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::ListModelsRequest* /*request*/, ::google::cloud::bigquery::v2::ListModelsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_PatchModel : public BaseClass {
+  class WithCallbackMethod_PatchModel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_PatchModel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_PatchModel() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::v2::PatchModelRequest, ::google::cloud::bigquery::v2::Model>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::v2::PatchModelRequest* request, ::google::cloud::bigquery::v2::Model* response) { return this->PatchModel(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::v2::PatchModelRequest* request, ::google::cloud::bigquery::v2::Model* response) { return this->PatchModel(context, request, response); }));}
     void SetMessageAllocatorFor_PatchModel(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::v2::PatchModelRequest, ::google::cloud::bigquery::v2::Model>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::v2::PatchModelRequest, ::google::cloud::bigquery::v2::Model>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::v2::PatchModelRequest, ::google::cloud::bigquery::v2::Model>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_PatchModel() override {
+    ~WithCallbackMethod_PatchModel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -448,46 +360,26 @@ class ModelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PatchModel(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::PatchModelRequest* /*request*/, ::google::cloud::bigquery::v2::Model* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PatchModel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::PatchModelRequest* /*request*/, ::google::cloud::bigquery::v2::Model* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::PatchModelRequest* /*request*/, ::google::cloud::bigquery::v2::Model* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteModel : public BaseClass {
+  class WithCallbackMethod_DeleteModel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteModel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_DeleteModel() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::v2::DeleteModelRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::v2::DeleteModelRequest* request, ::google::protobuf::Empty* response) { return this->DeleteModel(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::v2::DeleteModelRequest* request, ::google::protobuf::Empty* response) { return this->DeleteModel(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteModel(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::v2::DeleteModelRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::v2::DeleteModelRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::v2::DeleteModelRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteModel() override {
+    ~WithCallbackMethod_DeleteModel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -495,20 +387,11 @@ class ModelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteModel(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::DeleteModelRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteModel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::DeleteModelRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::v2::DeleteModelRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_GetModel<ExperimentalWithCallbackMethod_ListModels<ExperimentalWithCallbackMethod_PatchModel<ExperimentalWithCallbackMethod_DeleteModel<Service > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_GetModel<ExperimentalWithCallbackMethod_ListModels<ExperimentalWithCallbackMethod_PatchModel<ExperimentalWithCallbackMethod_DeleteModel<Service > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_GetModel<WithCallbackMethod_ListModels<WithCallbackMethod_PatchModel<WithCallbackMethod_DeleteModel<Service > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetModel : public BaseClass {
    private:
@@ -658,27 +541,17 @@ class ModelService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetModel : public BaseClass {
+  class WithRawCallbackMethod_GetModel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetModel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_GetModel() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetModel(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetModel(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetModel() override {
+    ~WithRawCallbackMethod_GetModel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -686,37 +559,21 @@ class ModelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetModel(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetModel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListModels : public BaseClass {
+  class WithRawCallbackMethod_ListModels : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListModels() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_ListModels() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListModels(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListModels(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListModels() override {
+    ~WithRawCallbackMethod_ListModels() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -724,37 +581,21 @@ class ModelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListModels(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListModels(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_PatchModel : public BaseClass {
+  class WithRawCallbackMethod_PatchModel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_PatchModel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_PatchModel() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PatchModel(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PatchModel(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_PatchModel() override {
+    ~WithRawCallbackMethod_PatchModel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -762,37 +603,21 @@ class ModelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PatchModel(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PatchModel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteModel : public BaseClass {
+  class WithRawCallbackMethod_DeleteModel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteModel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_DeleteModel() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteModel(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteModel(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteModel() override {
+    ~WithRawCallbackMethod_DeleteModel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -800,14 +625,8 @@ class ModelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteModel(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteModel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetModel : public BaseClass {

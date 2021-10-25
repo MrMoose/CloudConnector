@@ -233,7 +233,7 @@ class Table {
    * @par Example
    * @code
    * using namespace std::chrono_literals; // assuming C++14.
-   * auto client = bigtable::CreateDefaultClient(...); // details omitted
+   * auto client = bigtable::MakeClient(...); // details omitted
    * bigtable::Table table(client, "my-table",
    *                       // Allow up to 20 minutes to retry operations
    *                       bigtable::LimitedTimeRetryPolicy(20min),
@@ -280,7 +280,6 @@ class Table {
   template <
       typename... Policies,
       typename std::enable_if<ValidPolicies<Policies...>::value, int>::type = 0>
-  // NOLINTNEXTLINE(performance-unnecessary-value-param) TODO(#4112)
   Table(std::shared_ptr<DataClient> client, std::string const& table_id,
         Policies&&... policies)
       : Table(std::move(client), table_id) {
@@ -296,7 +295,7 @@ class Table {
    * @par Example
    * @code
    * using namespace std::chrono_literals; // assuming C++14.
-   * auto client = bigtable::CreateDefaultClient(...); // details omitted
+   * auto client = bigtable::MakeClient(...); // details omitted
    * bigtable::Table table(client, "app_id", "my-table",
    *                       // Allow up to 20 minutes to retry operations
    *                       bigtable::LimitedTimeRetryPolicy(20min),
@@ -344,7 +343,6 @@ class Table {
   template <
       typename... Policies,
       typename std::enable_if<ValidPolicies<Policies...>::value, int>::type = 0>
-  // NOLINTNEXTLINE(performance-unnecessary-value-param) TODO(#4112)
   Table(std::shared_ptr<DataClient> client, std::string app_profile_id,
         std::string const& table_id, Policies&&... policies)
       : Table(std::move(client), std::move(app_profile_id), table_id) {
@@ -590,10 +588,9 @@ class Table {
   /**
    * Sample of the row keys in the table, including approximate data sizes.
    *
-   * @returns Note that the sample may only include one element for small
-   *     tables.  In addition, the sample may include row keys that do not exist
-   *     on the table, and may include the empty row key to indicate
-   *     "end of table".
+   * @note The sample may only include one element for small tables.  In
+   *     addition, the sample may include row keys that do not exist on the
+   *     table, and may include the empty row key to indicate "end of table".
    *
    * @par Idempotency
    * This operation is always treated as idempotent.
@@ -612,11 +609,11 @@ class Table {
    * Asynchronously obtains a sample of the row keys in the table, including
    * approximate data sizes.
    *
-   * @returns A future, that becomes satisfied when the operation completes.
-   *     Note that the sample may only include one element for small tables.
-   *     In addition, the sample may include row keys that do not exist on
-   *     the table, and may include the empty row key to indicate "end of
-   *     table".
+   * @returns a future, that becomes satisfied when the operation completes.
+   *
+   * @note The sample may only include one element for small tables. In
+   *     addition, the sample may include row keys that do not exist on the
+   *     table, and may include the empty row key to indicate "end of table".
    *
    * @par Idempotency
    * This operation is always treated as idempotent.
@@ -644,7 +641,7 @@ class Table {
    *     and add the value provided.
    *     Both rules accept the family and column identifier to modify.
    * @param rules is the zero or more ReadModifyWriteRules to apply on a row.
-   * @returns The new contents of all modified cells.
+   * @returns the new contents of all modified cells.
    *
    * @par Idempotency
    * This operation is always treated as non-idempotent.
@@ -693,7 +690,7 @@ class Table {
    *     and add the value provided.
    *     Both rules accept the family and column identifier to modify.
    * @param rules is the zero or more ReadModifyWriteRules to apply on a row.
-   * @returns A future, that becomes satisfied when the operation completes,
+   * @returns a future, that becomes satisfied when the operation completes,
    *     at that point the future has the contents of all modified cells.
    *
    * @par Idempotency

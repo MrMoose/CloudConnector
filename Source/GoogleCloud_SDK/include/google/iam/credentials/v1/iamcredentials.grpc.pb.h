@@ -22,7 +22,6 @@
 #include "google/iam/credentials/v1/iamcredentials.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -95,45 +94,25 @@ class IAMCredentials final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::credentials::v1::SignJwtResponse>> PrepareAsyncSignJwt(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignJwtRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::credentials::v1::SignJwtResponse>>(PrepareAsyncSignJwtRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Generates an OAuth 2.0 access token for a service account.
       virtual void GenerateAccessToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* request, ::google::iam::credentials::v1::GenerateAccessTokenResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GenerateAccessToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* request, ::google::iam::credentials::v1::GenerateAccessTokenResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GenerateAccessToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* request, ::google::iam::credentials::v1::GenerateAccessTokenResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Generates an OpenID Connect ID token for a service account.
       virtual void GenerateIdToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateIdTokenRequest* request, ::google::iam::credentials::v1::GenerateIdTokenResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GenerateIdToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateIdTokenRequest* request, ::google::iam::credentials::v1::GenerateIdTokenResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GenerateIdToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateIdTokenRequest* request, ::google::iam::credentials::v1::GenerateIdTokenResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Signs a blob using a service account's system-managed private key.
       virtual void SignBlob(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignBlobRequest* request, ::google::iam::credentials::v1::SignBlobResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SignBlob(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignBlobRequest* request, ::google::iam::credentials::v1::SignBlobResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SignBlob(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignBlobRequest* request, ::google::iam::credentials::v1::SignBlobResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Signs a JWT using a service account's system-managed private key.
       virtual void SignJwt(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignJwtRequest* request, ::google::iam::credentials::v1::SignJwtResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SignJwt(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignJwtRequest* request, ::google::iam::credentials::v1::SignJwtResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SignJwt(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignJwtRequest* request, ::google::iam::credentials::v1::SignJwtResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::credentials::v1::GenerateAccessTokenResponse>* AsyncGenerateAccessTokenRaw(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::credentials::v1::GenerateAccessTokenResponse>* PrepareAsyncGenerateAccessTokenRaw(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -175,44 +154,28 @@ class IAMCredentials final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::credentials::v1::SignJwtResponse>> PrepareAsyncSignJwt(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignJwtRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::credentials::v1::SignJwtResponse>>(PrepareAsyncSignJwtRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void GenerateAccessToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* request, ::google::iam::credentials::v1::GenerateAccessTokenResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GenerateAccessToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* request, ::google::iam::credentials::v1::GenerateAccessTokenResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GenerateAccessToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* request, ::google::iam::credentials::v1::GenerateAccessTokenResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GenerateIdToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateIdTokenRequest* request, ::google::iam::credentials::v1::GenerateIdTokenResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GenerateIdToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateIdTokenRequest* request, ::google::iam::credentials::v1::GenerateIdTokenResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GenerateIdToken(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateIdTokenRequest* request, ::google::iam::credentials::v1::GenerateIdTokenResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SignBlob(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignBlobRequest* request, ::google::iam::credentials::v1::SignBlobResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SignBlob(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignBlobRequest* request, ::google::iam::credentials::v1::SignBlobResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SignBlob(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignBlobRequest* request, ::google::iam::credentials::v1::SignBlobResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SignJwt(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignJwtRequest* request, ::google::iam::credentials::v1::SignJwtResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SignJwt(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignJwtRequest* request, ::google::iam::credentials::v1::SignJwtResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SignJwt(::grpc::ClientContext* context, const ::google::iam::credentials::v1::SignJwtRequest* request, ::google::iam::credentials::v1::SignJwtResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::iam::credentials::v1::GenerateAccessTokenResponse>* AsyncGenerateAccessTokenRaw(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::iam::credentials::v1::GenerateAccessTokenResponse>* PrepareAsyncGenerateAccessTokenRaw(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::iam::credentials::v1::GenerateIdTokenResponse>* AsyncGenerateIdTokenRaw(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateIdTokenRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -323,36 +286,22 @@ class IAMCredentials final {
   };
   typedef WithAsyncMethod_GenerateAccessToken<WithAsyncMethod_GenerateIdToken<WithAsyncMethod_SignBlob<WithAsyncMethod_SignJwt<Service > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GenerateAccessToken : public BaseClass {
+  class WithCallbackMethod_GenerateAccessToken : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GenerateAccessToken() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_GenerateAccessToken() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::credentials::v1::GenerateAccessTokenRequest, ::google::iam::credentials::v1::GenerateAccessTokenResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* request, ::google::iam::credentials::v1::GenerateAccessTokenResponse* response) { return this->GenerateAccessToken(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* request, ::google::iam::credentials::v1::GenerateAccessTokenResponse* response) { return this->GenerateAccessToken(context, request, response); }));}
     void SetMessageAllocatorFor_GenerateAccessToken(
-        ::grpc::experimental::MessageAllocator< ::google::iam::credentials::v1::GenerateAccessTokenRequest, ::google::iam::credentials::v1::GenerateAccessTokenResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::credentials::v1::GenerateAccessTokenRequest, ::google::iam::credentials::v1::GenerateAccessTokenResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::credentials::v1::GenerateAccessTokenRequest, ::google::iam::credentials::v1::GenerateAccessTokenResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GenerateAccessToken() override {
+    ~WithCallbackMethod_GenerateAccessToken() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -360,46 +309,26 @@ class IAMCredentials final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GenerateAccessToken(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* /*request*/, ::google::iam::credentials::v1::GenerateAccessTokenResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GenerateAccessToken(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* /*request*/, ::google::iam::credentials::v1::GenerateAccessTokenResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::GenerateAccessTokenRequest* /*request*/, ::google::iam::credentials::v1::GenerateAccessTokenResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GenerateIdToken : public BaseClass {
+  class WithCallbackMethod_GenerateIdToken : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GenerateIdToken() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GenerateIdToken() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::credentials::v1::GenerateIdTokenRequest, ::google::iam::credentials::v1::GenerateIdTokenResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::credentials::v1::GenerateIdTokenRequest* request, ::google::iam::credentials::v1::GenerateIdTokenResponse* response) { return this->GenerateIdToken(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::credentials::v1::GenerateIdTokenRequest* request, ::google::iam::credentials::v1::GenerateIdTokenResponse* response) { return this->GenerateIdToken(context, request, response); }));}
     void SetMessageAllocatorFor_GenerateIdToken(
-        ::grpc::experimental::MessageAllocator< ::google::iam::credentials::v1::GenerateIdTokenRequest, ::google::iam::credentials::v1::GenerateIdTokenResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::credentials::v1::GenerateIdTokenRequest, ::google::iam::credentials::v1::GenerateIdTokenResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::credentials::v1::GenerateIdTokenRequest, ::google::iam::credentials::v1::GenerateIdTokenResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GenerateIdToken() override {
+    ~WithCallbackMethod_GenerateIdToken() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -407,46 +336,26 @@ class IAMCredentials final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GenerateIdToken(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::GenerateIdTokenRequest* /*request*/, ::google::iam::credentials::v1::GenerateIdTokenResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GenerateIdToken(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::GenerateIdTokenRequest* /*request*/, ::google::iam::credentials::v1::GenerateIdTokenResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::GenerateIdTokenRequest* /*request*/, ::google::iam::credentials::v1::GenerateIdTokenResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SignBlob : public BaseClass {
+  class WithCallbackMethod_SignBlob : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SignBlob() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_SignBlob() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::credentials::v1::SignBlobRequest, ::google::iam::credentials::v1::SignBlobResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::credentials::v1::SignBlobRequest* request, ::google::iam::credentials::v1::SignBlobResponse* response) { return this->SignBlob(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::credentials::v1::SignBlobRequest* request, ::google::iam::credentials::v1::SignBlobResponse* response) { return this->SignBlob(context, request, response); }));}
     void SetMessageAllocatorFor_SignBlob(
-        ::grpc::experimental::MessageAllocator< ::google::iam::credentials::v1::SignBlobRequest, ::google::iam::credentials::v1::SignBlobResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::credentials::v1::SignBlobRequest, ::google::iam::credentials::v1::SignBlobResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::credentials::v1::SignBlobRequest, ::google::iam::credentials::v1::SignBlobResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SignBlob() override {
+    ~WithCallbackMethod_SignBlob() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -454,46 +363,26 @@ class IAMCredentials final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SignBlob(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::SignBlobRequest* /*request*/, ::google::iam::credentials::v1::SignBlobResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SignBlob(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::SignBlobRequest* /*request*/, ::google::iam::credentials::v1::SignBlobResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::SignBlobRequest* /*request*/, ::google::iam::credentials::v1::SignBlobResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SignJwt : public BaseClass {
+  class WithCallbackMethod_SignJwt : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SignJwt() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_SignJwt() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::credentials::v1::SignJwtRequest, ::google::iam::credentials::v1::SignJwtResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::credentials::v1::SignJwtRequest* request, ::google::iam::credentials::v1::SignJwtResponse* response) { return this->SignJwt(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::credentials::v1::SignJwtRequest* request, ::google::iam::credentials::v1::SignJwtResponse* response) { return this->SignJwt(context, request, response); }));}
     void SetMessageAllocatorFor_SignJwt(
-        ::grpc::experimental::MessageAllocator< ::google::iam::credentials::v1::SignJwtRequest, ::google::iam::credentials::v1::SignJwtResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::credentials::v1::SignJwtRequest, ::google::iam::credentials::v1::SignJwtResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::credentials::v1::SignJwtRequest, ::google::iam::credentials::v1::SignJwtResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SignJwt() override {
+    ~WithCallbackMethod_SignJwt() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -501,20 +390,11 @@ class IAMCredentials final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SignJwt(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::SignJwtRequest* /*request*/, ::google::iam::credentials::v1::SignJwtResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SignJwt(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::SignJwtRequest* /*request*/, ::google::iam::credentials::v1::SignJwtResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::credentials::v1::SignJwtRequest* /*request*/, ::google::iam::credentials::v1::SignJwtResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_GenerateAccessToken<ExperimentalWithCallbackMethod_GenerateIdToken<ExperimentalWithCallbackMethod_SignBlob<ExperimentalWithCallbackMethod_SignJwt<Service > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_GenerateAccessToken<ExperimentalWithCallbackMethod_GenerateIdToken<ExperimentalWithCallbackMethod_SignBlob<ExperimentalWithCallbackMethod_SignJwt<Service > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_GenerateAccessToken<WithCallbackMethod_GenerateIdToken<WithCallbackMethod_SignBlob<WithCallbackMethod_SignJwt<Service > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GenerateAccessToken : public BaseClass {
    private:
@@ -664,27 +544,17 @@ class IAMCredentials final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GenerateAccessToken : public BaseClass {
+  class WithRawCallbackMethod_GenerateAccessToken : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GenerateAccessToken() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_GenerateAccessToken() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GenerateAccessToken(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GenerateAccessToken(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GenerateAccessToken() override {
+    ~WithRawCallbackMethod_GenerateAccessToken() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -692,37 +562,21 @@ class IAMCredentials final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GenerateAccessToken(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GenerateAccessToken(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GenerateIdToken : public BaseClass {
+  class WithRawCallbackMethod_GenerateIdToken : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GenerateIdToken() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GenerateIdToken() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GenerateIdToken(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GenerateIdToken(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GenerateIdToken() override {
+    ~WithRawCallbackMethod_GenerateIdToken() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -730,37 +584,21 @@ class IAMCredentials final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GenerateIdToken(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GenerateIdToken(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SignBlob : public BaseClass {
+  class WithRawCallbackMethod_SignBlob : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SignBlob() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_SignBlob() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SignBlob(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SignBlob(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SignBlob() override {
+    ~WithRawCallbackMethod_SignBlob() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -768,37 +606,21 @@ class IAMCredentials final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SignBlob(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SignBlob(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SignJwt : public BaseClass {
+  class WithRawCallbackMethod_SignJwt : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SignJwt() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_SignJwt() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SignJwt(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SignJwt(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SignJwt() override {
+    ~WithRawCallbackMethod_SignJwt() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -806,14 +628,8 @@ class IAMCredentials final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SignJwt(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SignJwt(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_GenerateAccessToken : public BaseClass {

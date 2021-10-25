@@ -748,6 +748,7 @@ class Topic PROTOBUF_FINAL :
     kKmsKeyNameFieldNumber = 5,
     kMessageStoragePolicyFieldNumber = 3,
     kSchemaSettingsFieldNumber = 6,
+    kMessageRetentionDurationFieldNumber = 8,
     kSatisfiesPzsFieldNumber = 7,
   };
   // map<string, string> labels = 2;
@@ -835,6 +836,24 @@ class Topic PROTOBUF_FINAL :
       ::google::pubsub::v1::SchemaSettings* schema_settings);
   ::google::pubsub::v1::SchemaSettings* unsafe_arena_release_schema_settings();
 
+  // .google.protobuf.Duration message_retention_duration = 8;
+  bool has_message_retention_duration() const;
+  private:
+  bool _internal_has_message_retention_duration() const;
+  public:
+  void clear_message_retention_duration();
+  const PROTOBUF_NAMESPACE_ID::Duration& message_retention_duration() const;
+  PROTOBUF_NAMESPACE_ID::Duration* release_message_retention_duration();
+  PROTOBUF_NAMESPACE_ID::Duration* mutable_message_retention_duration();
+  void set_allocated_message_retention_duration(PROTOBUF_NAMESPACE_ID::Duration* message_retention_duration);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Duration& _internal_message_retention_duration() const;
+  PROTOBUF_NAMESPACE_ID::Duration* _internal_mutable_message_retention_duration();
+  public:
+  void unsafe_arena_set_allocated_message_retention_duration(
+      PROTOBUF_NAMESPACE_ID::Duration* message_retention_duration);
+  PROTOBUF_NAMESPACE_ID::Duration* unsafe_arena_release_message_retention_duration();
+
   // bool satisfies_pzs = 7;
   void clear_satisfies_pzs();
   bool satisfies_pzs() const;
@@ -860,6 +879,7 @@ class Topic PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr kms_key_name_;
   ::google::pubsub::v1::MessageStoragePolicy* message_storage_policy_;
   ::google::pubsub::v1::SchemaSettings* schema_settings_;
+  PROTOBUF_NAMESPACE_ID::Duration* message_retention_duration_;
   bool satisfies_pzs_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fpubsub_2fv1_2fpubsub_2eproto;
@@ -3342,6 +3362,7 @@ class Subscription PROTOBUF_FINAL :
     kExpirationPolicyFieldNumber = 11,
     kDeadLetterPolicyFieldNumber = 13,
     kRetryPolicyFieldNumber = 14,
+    kTopicMessageRetentionDurationFieldNumber = 17,
     kAckDeadlineSecondsFieldNumber = 5,
     kRetainAckedMessagesFieldNumber = 7,
     kEnableMessageOrderingFieldNumber = 10,
@@ -3502,6 +3523,24 @@ class Subscription PROTOBUF_FINAL :
       ::google::pubsub::v1::RetryPolicy* retry_policy);
   ::google::pubsub::v1::RetryPolicy* unsafe_arena_release_retry_policy();
 
+  // .google.protobuf.Duration topic_message_retention_duration = 17 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  bool has_topic_message_retention_duration() const;
+  private:
+  bool _internal_has_topic_message_retention_duration() const;
+  public:
+  void clear_topic_message_retention_duration();
+  const PROTOBUF_NAMESPACE_ID::Duration& topic_message_retention_duration() const;
+  PROTOBUF_NAMESPACE_ID::Duration* release_topic_message_retention_duration();
+  PROTOBUF_NAMESPACE_ID::Duration* mutable_topic_message_retention_duration();
+  void set_allocated_topic_message_retention_duration(PROTOBUF_NAMESPACE_ID::Duration* topic_message_retention_duration);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Duration& _internal_topic_message_retention_duration() const;
+  PROTOBUF_NAMESPACE_ID::Duration* _internal_mutable_topic_message_retention_duration();
+  public:
+  void unsafe_arena_set_allocated_topic_message_retention_duration(
+      PROTOBUF_NAMESPACE_ID::Duration* topic_message_retention_duration);
+  PROTOBUF_NAMESPACE_ID::Duration* unsafe_arena_release_topic_message_retention_duration();
+
   // int32 ack_deadline_seconds = 5;
   void clear_ack_deadline_seconds();
   ::PROTOBUF_NAMESPACE_ID::int32 ack_deadline_seconds() const;
@@ -3558,6 +3597,7 @@ class Subscription PROTOBUF_FINAL :
   ::google::pubsub::v1::ExpirationPolicy* expiration_policy_;
   ::google::pubsub::v1::DeadLetterPolicy* dead_letter_policy_;
   ::google::pubsub::v1::RetryPolicy* retry_policy_;
+  PROTOBUF_NAMESPACE_ID::Duration* topic_message_retention_duration_;
   ::PROTOBUF_NAMESPACE_ID::int32 ack_deadline_seconds_;
   bool retain_acked_messages_;
   bool enable_message_ordering_;
@@ -8897,6 +8937,83 @@ inline void Topic::set_satisfies_pzs(bool value) {
   // @@protoc_insertion_point(field_set:google.pubsub.v1.Topic.satisfies_pzs)
 }
 
+// .google.protobuf.Duration message_retention_duration = 8;
+inline bool Topic::_internal_has_message_retention_duration() const {
+  return this != internal_default_instance() && message_retention_duration_ != nullptr;
+}
+inline bool Topic::has_message_retention_duration() const {
+  return _internal_has_message_retention_duration();
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& Topic::_internal_message_retention_duration() const {
+  const PROTOBUF_NAMESPACE_ID::Duration* p = message_retention_duration_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Duration&>(
+      PROTOBUF_NAMESPACE_ID::_Duration_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& Topic::message_retention_duration() const {
+  // @@protoc_insertion_point(field_get:google.pubsub.v1.Topic.message_retention_duration)
+  return _internal_message_retention_duration();
+}
+inline void Topic::unsafe_arena_set_allocated_message_retention_duration(
+    PROTOBUF_NAMESPACE_ID::Duration* message_retention_duration) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(message_retention_duration_);
+  }
+  message_retention_duration_ = message_retention_duration;
+  if (message_retention_duration) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.pubsub.v1.Topic.message_retention_duration)
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* Topic::release_message_retention_duration() {
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = message_retention_duration_;
+  message_retention_duration_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* Topic::unsafe_arena_release_message_retention_duration() {
+  // @@protoc_insertion_point(field_release:google.pubsub.v1.Topic.message_retention_duration)
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = message_retention_duration_;
+  message_retention_duration_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* Topic::_internal_mutable_message_retention_duration() {
+  
+  if (message_retention_duration_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Duration>(GetArena());
+    message_retention_duration_ = p;
+  }
+  return message_retention_duration_;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* Topic::mutable_message_retention_duration() {
+  // @@protoc_insertion_point(field_mutable:google.pubsub.v1.Topic.message_retention_duration)
+  return _internal_mutable_message_retention_duration();
+}
+inline void Topic::set_allocated_message_retention_duration(PROTOBUF_NAMESPACE_ID::Duration* message_retention_duration) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(message_retention_duration_);
+  }
+  if (message_retention_duration) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(message_retention_duration)->GetArena();
+    if (message_arena != submessage_arena) {
+      message_retention_duration = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, message_retention_duration, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  message_retention_duration_ = message_retention_duration;
+  // @@protoc_insertion_point(field_set_allocated:google.pubsub.v1.Topic.message_retention_duration)
+}
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -11262,6 +11379,83 @@ inline void Subscription::_internal_set_detached(bool value) {
 inline void Subscription::set_detached(bool value) {
   _internal_set_detached(value);
   // @@protoc_insertion_point(field_set:google.pubsub.v1.Subscription.detached)
+}
+
+// .google.protobuf.Duration topic_message_retention_duration = 17 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline bool Subscription::_internal_has_topic_message_retention_duration() const {
+  return this != internal_default_instance() && topic_message_retention_duration_ != nullptr;
+}
+inline bool Subscription::has_topic_message_retention_duration() const {
+  return _internal_has_topic_message_retention_duration();
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& Subscription::_internal_topic_message_retention_duration() const {
+  const PROTOBUF_NAMESPACE_ID::Duration* p = topic_message_retention_duration_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Duration&>(
+      PROTOBUF_NAMESPACE_ID::_Duration_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& Subscription::topic_message_retention_duration() const {
+  // @@protoc_insertion_point(field_get:google.pubsub.v1.Subscription.topic_message_retention_duration)
+  return _internal_topic_message_retention_duration();
+}
+inline void Subscription::unsafe_arena_set_allocated_topic_message_retention_duration(
+    PROTOBUF_NAMESPACE_ID::Duration* topic_message_retention_duration) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(topic_message_retention_duration_);
+  }
+  topic_message_retention_duration_ = topic_message_retention_duration;
+  if (topic_message_retention_duration) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.pubsub.v1.Subscription.topic_message_retention_duration)
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* Subscription::release_topic_message_retention_duration() {
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = topic_message_retention_duration_;
+  topic_message_retention_duration_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* Subscription::unsafe_arena_release_topic_message_retention_duration() {
+  // @@protoc_insertion_point(field_release:google.pubsub.v1.Subscription.topic_message_retention_duration)
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = topic_message_retention_duration_;
+  topic_message_retention_duration_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* Subscription::_internal_mutable_topic_message_retention_duration() {
+  
+  if (topic_message_retention_duration_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Duration>(GetArena());
+    topic_message_retention_duration_ = p;
+  }
+  return topic_message_retention_duration_;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* Subscription::mutable_topic_message_retention_duration() {
+  // @@protoc_insertion_point(field_mutable:google.pubsub.v1.Subscription.topic_message_retention_duration)
+  return _internal_mutable_topic_message_retention_duration();
+}
+inline void Subscription::set_allocated_topic_message_retention_duration(PROTOBUF_NAMESPACE_ID::Duration* topic_message_retention_duration) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(topic_message_retention_duration_);
+  }
+  if (topic_message_retention_duration) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(topic_message_retention_duration)->GetArena();
+    if (message_arena != submessage_arena) {
+      topic_message_retention_duration = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, topic_message_retention_duration, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  topic_message_retention_duration_ = topic_message_retention_duration;
+  // @@protoc_insertion_point(field_set_allocated:google.pubsub.v1.Subscription.topic_message_retention_duration)
 }
 
 // -------------------------------------------------------------------

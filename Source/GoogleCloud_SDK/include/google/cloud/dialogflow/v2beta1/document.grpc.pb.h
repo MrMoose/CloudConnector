@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2beta1/document.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -137,68 +136,44 @@ class Documents final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncReloadDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncReloadDocumentRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Returns the list of all documents of the knowledge base.
       //
       // Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
       // only use `projects.knowledgeBases.documents`.
       virtual void ListDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Retrieves the specified document.
       //
       // Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
       // only use `projects.knowledgeBases.documents`.
       virtual void GetDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* request, ::google::cloud::dialogflow::v2beta1::Document* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* request, ::google::cloud::dialogflow::v2beta1::Document* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* request, ::google::cloud::dialogflow::v2beta1::Document* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new document.
       //
       // Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
       // only use `projects.knowledgeBases.documents`.
       virtual void CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Create documents by importing data from external sources.
       // Dialogflow supports up to 350 documents in each request. If you try to
       // import more, Dialogflow will return an error.
       virtual void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the specified document.
       //
       // Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
       // only use `projects.knowledgeBases.documents`.
       virtual void DeleteDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the specified document.
       //
       // Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
       // only use `projects.knowledgeBases.documents`.
       virtual void UpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Reloads the specified document from its specified source, content_uri or
       // content. The previously loaded content of the document will be deleted.
       // Note: Even when the content of the document has not changed, there still
@@ -210,19 +185,11 @@ class Documents final {
       // Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
       // only use `projects.knowledgeBases.documents`.
       virtual void ReloadDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ReloadDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ReloadDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>* AsyncListDocumentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>* PrepareAsyncListDocumentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -291,62 +258,34 @@ class Documents final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncReloadDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncReloadDocumentRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* request, ::google::cloud::dialogflow::v2beta1::Document* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* request, ::google::cloud::dialogflow::v2beta1::Document* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* request, ::google::cloud::dialogflow::v2beta1::Document* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ReloadDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ReloadDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ReloadDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>* AsyncListDocumentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>* PrepareAsyncListDocumentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Document>* AsyncGetDocumentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -558,36 +497,22 @@ class Documents final {
   };
   typedef WithAsyncMethod_ListDocuments<WithAsyncMethod_GetDocument<WithAsyncMethod_CreateDocument<WithAsyncMethod_ImportDocuments<WithAsyncMethod_DeleteDocument<WithAsyncMethod_UpdateDocument<WithAsyncMethod_ReloadDocument<Service > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListDocuments : public BaseClass {
+  class WithCallbackMethod_ListDocuments : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListDocuments() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListDocuments() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* response) { return this->ListDocuments(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* response) { return this->ListDocuments(context, request, response); }));}
     void SetMessageAllocatorFor_ListDocuments(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListDocuments() override {
+    ~WithCallbackMethod_ListDocuments() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -595,46 +520,26 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListDocuments(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListDocuments(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListDocumentsRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListDocumentsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetDocument : public BaseClass {
+  class WithCallbackMethod_GetDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetDocument() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetDocumentRequest, ::google::cloud::dialogflow::v2beta1::Document>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* request, ::google::cloud::dialogflow::v2beta1::Document* response) { return this->GetDocument(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* request, ::google::cloud::dialogflow::v2beta1::Document* response) { return this->GetDocument(context, request, response); }));}
     void SetMessageAllocatorFor_GetDocument(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetDocumentRequest, ::google::cloud::dialogflow::v2beta1::Document>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetDocumentRequest, ::google::cloud::dialogflow::v2beta1::Document>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetDocumentRequest, ::google::cloud::dialogflow::v2beta1::Document>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetDocument() override {
+    ~WithCallbackMethod_GetDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -642,46 +547,26 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Document* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Document* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetDocumentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Document* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateDocument : public BaseClass {
+  class WithCallbackMethod_CreateDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateDocument() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response) { return this->CreateDocument(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* request, ::google::longrunning::Operation* response) { return this->CreateDocument(context, request, response); }));}
     void SetMessageAllocatorFor_CreateDocument(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateDocument() override {
+    ~WithCallbackMethod_CreateDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -689,46 +574,26 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ImportDocuments : public BaseClass {
+  class WithCallbackMethod_ImportDocuments : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ImportDocuments() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_ImportDocuments() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response) { return this->ImportDocuments(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* request, ::google::longrunning::Operation* response) { return this->ImportDocuments(context, request, response); }));}
     void SetMessageAllocatorFor_ImportDocuments(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ImportDocuments() override {
+    ~WithCallbackMethod_ImportDocuments() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -736,46 +601,26 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ImportDocuments(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ImportDocuments(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ImportDocumentsRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteDocument : public BaseClass {
+  class WithCallbackMethod_DeleteDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteDocument() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* request, ::google::longrunning::Operation* response) { return this->DeleteDocument(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* request, ::google::longrunning::Operation* response) { return this->DeleteDocument(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteDocument(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteDocument() override {
+    ~WithCallbackMethod_DeleteDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -783,46 +628,26 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateDocument : public BaseClass {
+  class WithCallbackMethod_UpdateDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_UpdateDocument() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* request, ::google::longrunning::Operation* response) { return this->UpdateDocument(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* request, ::google::longrunning::Operation* response) { return this->UpdateDocument(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateDocument(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateDocument() override {
+    ~WithCallbackMethod_UpdateDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -830,46 +655,26 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ReloadDocument : public BaseClass {
+  class WithCallbackMethod_ReloadDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ReloadDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_ReloadDocument() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* request, ::google::longrunning::Operation* response) { return this->ReloadDocument(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* request, ::google::longrunning::Operation* response) { return this->ReloadDocument(context, request, response); }));}
     void SetMessageAllocatorFor_ReloadDocument(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ReloadDocument() override {
+    ~WithCallbackMethod_ReloadDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -877,20 +682,11 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ReloadDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ReloadDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ReloadDocumentRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListDocuments<ExperimentalWithCallbackMethod_GetDocument<ExperimentalWithCallbackMethod_CreateDocument<ExperimentalWithCallbackMethod_ImportDocuments<ExperimentalWithCallbackMethod_DeleteDocument<ExperimentalWithCallbackMethod_UpdateDocument<ExperimentalWithCallbackMethod_ReloadDocument<Service > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListDocuments<ExperimentalWithCallbackMethod_GetDocument<ExperimentalWithCallbackMethod_CreateDocument<ExperimentalWithCallbackMethod_ImportDocuments<ExperimentalWithCallbackMethod_DeleteDocument<ExperimentalWithCallbackMethod_UpdateDocument<ExperimentalWithCallbackMethod_ReloadDocument<Service > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListDocuments<WithCallbackMethod_GetDocument<WithCallbackMethod_CreateDocument<WithCallbackMethod_ImportDocuments<WithCallbackMethod_DeleteDocument<WithCallbackMethod_UpdateDocument<WithCallbackMethod_ReloadDocument<Service > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListDocuments : public BaseClass {
    private:
@@ -1151,27 +947,17 @@ class Documents final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListDocuments : public BaseClass {
+  class WithRawCallbackMethod_ListDocuments : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListDocuments() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListDocuments() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDocuments(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDocuments(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListDocuments() override {
+    ~WithRawCallbackMethod_ListDocuments() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1179,37 +965,21 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListDocuments(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListDocuments(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetDocument : public BaseClass {
+  class WithRawCallbackMethod_GetDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetDocument() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDocument(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDocument(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetDocument() override {
+    ~WithRawCallbackMethod_GetDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1217,37 +987,21 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateDocument : public BaseClass {
+  class WithRawCallbackMethod_CreateDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateDocument() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateDocument(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateDocument(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateDocument() override {
+    ~WithRawCallbackMethod_CreateDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1255,37 +1009,21 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ImportDocuments : public BaseClass {
+  class WithRawCallbackMethod_ImportDocuments : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ImportDocuments() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_ImportDocuments() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ImportDocuments(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ImportDocuments(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ImportDocuments() override {
+    ~WithRawCallbackMethod_ImportDocuments() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1293,37 +1031,21 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ImportDocuments(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ImportDocuments(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteDocument : public BaseClass {
+  class WithRawCallbackMethod_DeleteDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteDocument() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteDocument(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteDocument(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteDocument() override {
+    ~WithRawCallbackMethod_DeleteDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1331,37 +1053,21 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateDocument : public BaseClass {
+  class WithRawCallbackMethod_UpdateDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_UpdateDocument() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateDocument(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateDocument(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateDocument() override {
+    ~WithRawCallbackMethod_UpdateDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1369,37 +1075,21 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ReloadDocument : public BaseClass {
+  class WithRawCallbackMethod_ReloadDocument : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ReloadDocument() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_ReloadDocument() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ReloadDocument(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ReloadDocument(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ReloadDocument() override {
+    ~WithRawCallbackMethod_ReloadDocument() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1407,14 +1097,8 @@ class Documents final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ReloadDocument(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ReloadDocument(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListDocuments : public BaseClass {

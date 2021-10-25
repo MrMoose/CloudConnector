@@ -23,7 +23,6 @@
 #include "google/cloud/texttospeech/v1/cloud_tts.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -73,32 +72,20 @@ class TextToSpeech final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>> PrepareAsyncSynthesizeSpeech(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>>(PrepareAsyncSynthesizeSpeechRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Returns a list of Voice supported for synthesis.
       virtual void ListVoices(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest* request, ::google::cloud::texttospeech::v1::ListVoicesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListVoices(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest* request, ::google::cloud::texttospeech::v1::ListVoicesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListVoices(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest* request, ::google::cloud::texttospeech::v1::ListVoicesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Synthesizes speech synchronously: receive results after all text input
       // has been processed.
       virtual void SynthesizeSpeech(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* request, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SynthesizeSpeech(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* request, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SynthesizeSpeech(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* request, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::texttospeech::v1::ListVoicesResponse>* AsyncListVoicesRaw(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::texttospeech::v1::ListVoicesResponse>* PrepareAsyncListVoicesRaw(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -122,32 +109,24 @@ class TextToSpeech final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>> PrepareAsyncSynthesizeSpeech(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>>(PrepareAsyncSynthesizeSpeechRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListVoices(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest* request, ::google::cloud::texttospeech::v1::ListVoicesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListVoices(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest* request, ::google::cloud::texttospeech::v1::ListVoicesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListVoices(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest* request, ::google::cloud::texttospeech::v1::ListVoicesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SynthesizeSpeech(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* request, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SynthesizeSpeech(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* request, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SynthesizeSpeech(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* request, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::texttospeech::v1::ListVoicesResponse>* AsyncListVoicesRaw(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::texttospeech::v1::ListVoicesResponse>* PrepareAsyncListVoicesRaw(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>* AsyncSynthesizeSpeechRaw(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -209,36 +188,22 @@ class TextToSpeech final {
   };
   typedef WithAsyncMethod_ListVoices<WithAsyncMethod_SynthesizeSpeech<Service > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListVoices : public BaseClass {
+  class WithCallbackMethod_ListVoices : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListVoices() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListVoices() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::texttospeech::v1::ListVoicesRequest, ::google::cloud::texttospeech::v1::ListVoicesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::texttospeech::v1::ListVoicesRequest* request, ::google::cloud::texttospeech::v1::ListVoicesResponse* response) { return this->ListVoices(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest* request, ::google::cloud::texttospeech::v1::ListVoicesResponse* response) { return this->ListVoices(context, request, response); }));}
     void SetMessageAllocatorFor_ListVoices(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::texttospeech::v1::ListVoicesRequest, ::google::cloud::texttospeech::v1::ListVoicesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::texttospeech::v1::ListVoicesRequest, ::google::cloud::texttospeech::v1::ListVoicesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::texttospeech::v1::ListVoicesRequest, ::google::cloud::texttospeech::v1::ListVoicesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListVoices() override {
+    ~WithCallbackMethod_ListVoices() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -246,46 +211,26 @@ class TextToSpeech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListVoices(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::texttospeech::v1::ListVoicesRequest* /*request*/, ::google::cloud::texttospeech::v1::ListVoicesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListVoices(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::texttospeech::v1::ListVoicesRequest* /*request*/, ::google::cloud::texttospeech::v1::ListVoicesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::texttospeech::v1::ListVoicesRequest* /*request*/, ::google::cloud::texttospeech::v1::ListVoicesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SynthesizeSpeech : public BaseClass {
+  class WithCallbackMethod_SynthesizeSpeech : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SynthesizeSpeech() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_SynthesizeSpeech() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* request, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* response) { return this->SynthesizeSpeech(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* request, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* response) { return this->SynthesizeSpeech(context, request, response); }));}
     void SetMessageAllocatorFor_SynthesizeSpeech(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SynthesizeSpeech() override {
+    ~WithCallbackMethod_SynthesizeSpeech() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -293,20 +238,11 @@ class TextToSpeech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SynthesizeSpeech(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* /*request*/, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SynthesizeSpeech(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* /*request*/, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest* /*request*/, ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListVoices<ExperimentalWithCallbackMethod_SynthesizeSpeech<Service > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListVoices<ExperimentalWithCallbackMethod_SynthesizeSpeech<Service > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListVoices<WithCallbackMethod_SynthesizeSpeech<Service > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListVoices : public BaseClass {
    private:
@@ -382,27 +318,17 @@ class TextToSpeech final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListVoices : public BaseClass {
+  class WithRawCallbackMethod_ListVoices : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListVoices() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListVoices() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListVoices(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListVoices(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListVoices() override {
+    ~WithRawCallbackMethod_ListVoices() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -410,37 +336,21 @@ class TextToSpeech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListVoices(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListVoices(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SynthesizeSpeech : public BaseClass {
+  class WithRawCallbackMethod_SynthesizeSpeech : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SynthesizeSpeech() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_SynthesizeSpeech() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SynthesizeSpeech(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SynthesizeSpeech(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SynthesizeSpeech() override {
+    ~WithRawCallbackMethod_SynthesizeSpeech() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -448,14 +358,8 @@ class TextToSpeech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SynthesizeSpeech(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SynthesizeSpeech(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListVoices : public BaseClass {

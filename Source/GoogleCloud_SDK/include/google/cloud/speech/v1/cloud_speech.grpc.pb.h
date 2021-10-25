@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/cloud/speech/v1/cloud_speech.proto
 // Original file comments:
-// Copyright 2019 Google LLC.
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,14 +16,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-//
 #ifndef GRPC_google_2fcloud_2fspeech_2fv1_2fcloud_5fspeech_2eproto__INCLUDED
 #define GRPC_google_2fcloud_2fspeech_2fv1_2fcloud_5fspeech_2eproto__INCLUDED
 
 #include "google/cloud/speech/v1/cloud_speech.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -89,17 +87,13 @@ class Speech final {
     std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::speech::v1::StreamingRecognizeRequest, ::google::cloud::speech::v1::StreamingRecognizeResponse>> PrepareAsyncStreamingRecognize(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::speech::v1::StreamingRecognizeRequest, ::google::cloud::speech::v1::StreamingRecognizeResponse>>(PrepareAsyncStreamingRecognizeRaw(context, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Performs synchronous speech recognition: receive results after all audio
       // has been sent and processed.
       virtual void Recognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest* request, ::google::cloud::speech::v1::RecognizeResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void Recognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest* request, ::google::cloud::speech::v1::RecognizeResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void Recognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest* request, ::google::cloud::speech::v1::RecognizeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Performs asynchronous speech recognition: receive results via the
       // google.longrunning.Operations interface. Returns either an
       // `Operation.error` or an `Operation.response` which contains
@@ -107,26 +101,14 @@ class Speech final {
       // For more information on asynchronous speech recognition, see the
       // [how-to](https://cloud.google.com/speech-to-text/docs/async-recognize).
       virtual void LongRunningRecognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void LongRunningRecognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void LongRunningRecognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Performs bidirectional streaming speech recognition: receive results while
       // sending audio. This method is only available via the gRPC API (not REST).
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void StreamingRecognize(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::cloud::speech::v1::StreamingRecognizeRequest,::google::cloud::speech::v1::StreamingRecognizeResponse>* reactor) = 0;
-      #else
-      virtual void StreamingRecognize(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::google::cloud::speech::v1::StreamingRecognizeRequest,::google::cloud::speech::v1::StreamingRecognizeResponse>* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::speech::v1::RecognizeResponse>* AsyncRecognizeRaw(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::speech::v1::RecognizeResponse>* PrepareAsyncRecognizeRaw(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -162,37 +144,25 @@ class Speech final {
     std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::google::cloud::speech::v1::StreamingRecognizeRequest, ::google::cloud::speech::v1::StreamingRecognizeResponse>> PrepareAsyncStreamingRecognize(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::google::cloud::speech::v1::StreamingRecognizeRequest, ::google::cloud::speech::v1::StreamingRecognizeResponse>>(PrepareAsyncStreamingRecognizeRaw(context, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void Recognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest* request, ::google::cloud::speech::v1::RecognizeResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void Recognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest* request, ::google::cloud::speech::v1::RecognizeResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void Recognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest* request, ::google::cloud::speech::v1::RecognizeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void LongRunningRecognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void LongRunningRecognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void LongRunningRecognize(::grpc::ClientContext* context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void StreamingRecognize(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::cloud::speech::v1::StreamingRecognizeRequest,::google::cloud::speech::v1::StreamingRecognizeResponse>* reactor) override;
-      #else
-      void StreamingRecognize(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::google::cloud::speech::v1::StreamingRecognizeRequest,::google::cloud::speech::v1::StreamingRecognizeResponse>* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::speech::v1::RecognizeResponse>* AsyncRecognizeRaw(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::speech::v1::RecognizeResponse>* PrepareAsyncRecognizeRaw(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncLongRunningRecognizeRaw(::grpc::ClientContext* context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -286,36 +256,22 @@ class Speech final {
   };
   typedef WithAsyncMethod_Recognize<WithAsyncMethod_LongRunningRecognize<WithAsyncMethod_StreamingRecognize<Service > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Recognize : public BaseClass {
+  class WithCallbackMethod_Recognize : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Recognize() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_Recognize() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::speech::v1::RecognizeRequest, ::google::cloud::speech::v1::RecognizeResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::speech::v1::RecognizeRequest* request, ::google::cloud::speech::v1::RecognizeResponse* response) { return this->Recognize(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::speech::v1::RecognizeRequest* request, ::google::cloud::speech::v1::RecognizeResponse* response) { return this->Recognize(context, request, response); }));}
     void SetMessageAllocatorFor_Recognize(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::speech::v1::RecognizeRequest, ::google::cloud::speech::v1::RecognizeResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::speech::v1::RecognizeRequest, ::google::cloud::speech::v1::RecognizeResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::speech::v1::RecognizeRequest, ::google::cloud::speech::v1::RecognizeResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Recognize() override {
+    ~WithCallbackMethod_Recognize() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -323,46 +279,26 @@ class Speech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Recognize(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::speech::v1::RecognizeRequest* /*request*/, ::google::cloud::speech::v1::RecognizeResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Recognize(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::speech::v1::RecognizeRequest* /*request*/, ::google::cloud::speech::v1::RecognizeResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::speech::v1::RecognizeRequest* /*request*/, ::google::cloud::speech::v1::RecognizeResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_LongRunningRecognize : public BaseClass {
+  class WithCallbackMethod_LongRunningRecognize : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_LongRunningRecognize() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_LongRunningRecognize() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::speech::v1::LongRunningRecognizeRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* request, ::google::longrunning::Operation* response) { return this->LongRunningRecognize(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* request, ::google::longrunning::Operation* response) { return this->LongRunningRecognize(context, request, response); }));}
     void SetMessageAllocatorFor_LongRunningRecognize(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::speech::v1::LongRunningRecognizeRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::speech::v1::LongRunningRecognizeRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::speech::v1::LongRunningRecognizeRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_LongRunningRecognize() override {
+    ~WithCallbackMethod_LongRunningRecognize() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -370,37 +306,21 @@ class Speech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* LongRunningRecognize(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* LongRunningRecognize(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::speech::v1::LongRunningRecognizeRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_StreamingRecognize : public BaseClass {
+  class WithCallbackMethod_StreamingRecognize : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_StreamingRecognize() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_StreamingRecognize() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackBidiHandler< ::google::cloud::speech::v1::StreamingRecognizeRequest, ::google::cloud::speech::v1::StreamingRecognizeResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->StreamingRecognize(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->StreamingRecognize(context); }));
     }
-    ~ExperimentalWithCallbackMethod_StreamingRecognize() override {
+    ~WithCallbackMethod_StreamingRecognize() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -408,20 +328,12 @@ class Speech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::google::cloud::speech::v1::StreamingRecognizeRequest, ::google::cloud::speech::v1::StreamingRecognizeResponse>* StreamingRecognize(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::google::cloud::speech::v1::StreamingRecognizeRequest, ::google::cloud::speech::v1::StreamingRecognizeResponse>* StreamingRecognize(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_Recognize<ExperimentalWithCallbackMethod_LongRunningRecognize<ExperimentalWithCallbackMethod_StreamingRecognize<Service > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_Recognize<ExperimentalWithCallbackMethod_LongRunningRecognize<ExperimentalWithCallbackMethod_StreamingRecognize<Service > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_Recognize<WithCallbackMethod_LongRunningRecognize<WithCallbackMethod_StreamingRecognize<Service > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Recognize : public BaseClass {
    private:
@@ -534,27 +446,17 @@ class Speech final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_Recognize : public BaseClass {
+  class WithRawCallbackMethod_Recognize : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_Recognize() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_Recognize() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Recognize(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Recognize(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_Recognize() override {
+    ~WithRawCallbackMethod_Recognize() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -562,37 +464,21 @@ class Speech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Recognize(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Recognize(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_LongRunningRecognize : public BaseClass {
+  class WithRawCallbackMethod_LongRunningRecognize : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_LongRunningRecognize() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_LongRunningRecognize() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LongRunningRecognize(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LongRunningRecognize(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_LongRunningRecognize() override {
+    ~WithRawCallbackMethod_LongRunningRecognize() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -600,37 +486,21 @@ class Speech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* LongRunningRecognize(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* LongRunningRecognize(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_StreamingRecognize : public BaseClass {
+  class WithRawCallbackMethod_StreamingRecognize : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_StreamingRecognize() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_StreamingRecognize() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->StreamingRecognize(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->StreamingRecognize(context); }));
     }
-    ~ExperimentalWithRawCallbackMethod_StreamingRecognize() override {
+    ~WithRawCallbackMethod_StreamingRecognize() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -638,13 +508,8 @@ class Speech final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StreamingRecognize(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StreamingRecognize(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
   template <class BaseClass>

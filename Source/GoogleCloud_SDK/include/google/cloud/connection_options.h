@@ -71,7 +71,6 @@ class ConnectionOptions {
 
   /// Change the gRPC credentials value.
   ConnectionOptions& set_credentials(
-      // NOLINTNEXTLINE(performance-unnecessary-value-param) TODO(#4112)
       std::shared_ptr<grpc::ChannelCredentials> v) {
     opts_.set<GrpcCredentialOption>(std::move(v));
     return *this;
@@ -91,7 +90,6 @@ class ConnectionOptions {
    *
    * The default value is set by `ConnectionTraits::default_endpoint()`.
    */
-  // NOLINTNEXTLINE(performance-unnecessary-value-param) TODO(#4112)
   ConnectionOptions& set_endpoint(std::string v) {
     opts_.set<EndpointOption>(std::move(v));
     return *this;
@@ -172,7 +170,6 @@ class ConnectionOptions {
   }
 
   /// Set the value for `channel_pool_domain()`.
-  // NOLINTNEXTLINE(performance-unnecessary-value-param) TODO(#4112)
   ConnectionOptions& set_channel_pool_domain(std::string v) {
     channel_pool_domain_ = std::move(v);
     return *this;
@@ -209,7 +206,7 @@ class ConnectionOptions {
   /**
    * Set the number of background threads.
    *
-   * @note this value is not used if `DisableBackgroundThreads()` is called.
+   * @note This value is not used if `DisableBackgroundThreads()` is called.
    */
   ConnectionOptions& set_background_thread_pool_size(std::size_t s) {
     background_thread_pool_size_ = s;
@@ -237,7 +234,7 @@ class ConnectionOptions {
     return *this;
   }
 
-  using BackgroundThreadsFactory = google::cloud::BackgroundThreadsFactory;
+  using BackgroundThreadsFactory = ::google::cloud::BackgroundThreadsFactory;
   BackgroundThreadsFactory background_threads_factory() const {
     if (background_threads_factory_) return background_threads_factory_;
     auto const s = background_thread_pool_size_;

@@ -22,7 +22,6 @@
 #include "google/cloud/bigquery/storage/v1/storage.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -119,9 +118,9 @@ class BigQueryRead final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse>> PrepareAsyncSplitReadStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse>>(PrepareAsyncSplitReadStreamRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Creates a new read session. A read session divides the contents of a
       // BigQuery table into one or more streams, which can then be used to read
       // data from the table. The read session also specifies properties of the
@@ -142,11 +141,7 @@ class BigQueryRead final {
       // Read sessions automatically expire 24 hours after they are created and do
       // not require manual clean-up by the caller.
       virtual void CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Reads rows from the stream in the format prescribed by the ReadSession.
       // Each response contains one or more table rows, up to a maximum of 100 MiB
       // per response; read requests which attempt to read individual rows larger
@@ -154,11 +149,7 @@ class BigQueryRead final {
       //
       // Each request also returns a set of stream statistics reflecting the current
       // state of the stream.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ReadRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) = 0;
-      #else
-      virtual void ReadRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) = 0;
-      #endif
       // Splits a given `ReadStream` into two `ReadStream` objects. These
       // `ReadStream` objects are referred to as the primary and the residual
       // streams of the split. The original `ReadStream` can still be read from in
@@ -172,19 +163,11 @@ class BigQueryRead final {
       // original[j-n] = residual[0-m] once the streams have been read to
       // completion.
       virtual void SplitReadStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* request, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SplitReadStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* request, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SplitReadStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* request, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::ReadSession>* AsyncCreateReadSessionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::ReadSession>* PrepareAsyncCreateReadSessionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -220,37 +203,25 @@ class BigQueryRead final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse>> PrepareAsyncSplitReadStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse>>(PrepareAsyncSplitReadStreamRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ReadRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) override;
-      #else
-      void ReadRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request, ::grpc::experimental::ClientReadReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* reactor) override;
-      #endif
       void SplitReadStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* request, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SplitReadStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* request, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SplitReadStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* request, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::ReadSession>* AsyncCreateReadSessionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::ReadSession>* PrepareAsyncCreateReadSessionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientReader< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* ReadRowsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest& request) override;
@@ -372,36 +343,22 @@ class BigQueryRead final {
   };
   typedef WithAsyncMethod_CreateReadSession<WithAsyncMethod_ReadRows<WithAsyncMethod_SplitReadStream<Service > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateReadSession : public BaseClass {
+  class WithCallbackMethod_CreateReadSession : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateReadSession() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_CreateReadSession() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest, ::google::cloud::bigquery::storage::v1::ReadSession>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response) { return this->CreateReadSession(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response) { return this->CreateReadSession(context, request, response); }));}
     void SetMessageAllocatorFor_CreateReadSession(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest, ::google::cloud::bigquery::storage::v1::ReadSession>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest, ::google::cloud::bigquery::storage::v1::ReadSession>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest, ::google::cloud::bigquery::storage::v1::ReadSession>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateReadSession() override {
+    ~WithCallbackMethod_CreateReadSession() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -409,37 +366,21 @@ class BigQueryRead final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateReadSession(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* /*request*/, ::google::cloud::bigquery::storage::v1::ReadSession* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateReadSession(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* /*request*/, ::google::cloud::bigquery::storage::v1::ReadSession* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* /*request*/, ::google::cloud::bigquery::storage::v1::ReadSession* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ReadRows : public BaseClass {
+  class WithCallbackMethod_ReadRows : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ReadRows() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_ReadRows() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackServerStreamingHandler< ::google::cloud::bigquery::storage::v1::ReadRowsRequest, ::google::cloud::bigquery::storage::v1::ReadRowsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request) { return this->ReadRows(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* request) { return this->ReadRows(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_ReadRows() override {
+    ~WithCallbackMethod_ReadRows() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -447,46 +388,26 @@ class BigQueryRead final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* ReadRows(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* ReadRows(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SplitReadStream : public BaseClass {
+  class WithCallbackMethod_SplitReadStream : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SplitReadStream() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_SplitReadStream() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* request, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* response) { return this->SplitReadStream(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* request, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* response) { return this->SplitReadStream(context, request, response); }));}
     void SetMessageAllocatorFor_SplitReadStream(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SplitReadStream() override {
+    ~WithCallbackMethod_SplitReadStream() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -494,20 +415,11 @@ class BigQueryRead final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SplitReadStream(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SplitReadStream(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::SplitReadStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::SplitReadStreamResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_CreateReadSession<ExperimentalWithCallbackMethod_ReadRows<ExperimentalWithCallbackMethod_SplitReadStream<Service > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_CreateReadSession<ExperimentalWithCallbackMethod_ReadRows<ExperimentalWithCallbackMethod_SplitReadStream<Service > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_CreateReadSession<WithCallbackMethod_ReadRows<WithCallbackMethod_SplitReadStream<Service > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateReadSession : public BaseClass {
    private:
@@ -620,27 +532,17 @@ class BigQueryRead final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateReadSession : public BaseClass {
+  class WithRawCallbackMethod_CreateReadSession : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateReadSession() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_CreateReadSession() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateReadSession(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateReadSession(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateReadSession() override {
+    ~WithRawCallbackMethod_CreateReadSession() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -648,37 +550,21 @@ class BigQueryRead final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateReadSession(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateReadSession(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ReadRows : public BaseClass {
+  class WithRawCallbackMethod_ReadRows : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ReadRows() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_ReadRows() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->ReadRows(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->ReadRows(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ReadRows() override {
+    ~WithRawCallbackMethod_ReadRows() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -686,37 +572,21 @@ class BigQueryRead final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* ReadRows(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* ReadRows(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SplitReadStream : public BaseClass {
+  class WithRawCallbackMethod_SplitReadStream : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SplitReadStream() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_SplitReadStream() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SplitReadStream(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SplitReadStream(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SplitReadStream() override {
+    ~WithRawCallbackMethod_SplitReadStream() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -724,14 +594,8 @@ class BigQueryRead final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SplitReadStream(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SplitReadStream(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CreateReadSession : public BaseClass {

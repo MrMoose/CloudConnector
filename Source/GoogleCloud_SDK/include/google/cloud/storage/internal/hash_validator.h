@@ -40,8 +40,7 @@ class HashValidator {
   virtual void ProcessMetadata(ObjectMetadata const& meta) = 0;
 
   /// Update the received hash value based on a response header.
-  virtual void ProcessHeader(std::string const& key,
-                             std::string const& value) = 0;
+  virtual void ProcessHashValues(HashValues const& hashes) = 0;
 
   struct Result {
     /// The value reported by the server, based on the calls to ProcessHeader().
@@ -60,7 +59,7 @@ class HashValidator {
   /**
    * Compute the final hash values.
    *
-   * @returns The two hashes, expected is the locally computed value, actual is
+   * @returns the two hashes. Expected is the locally computed value, actual is
    *   the value reported by the service. Note that this can be empty for
    *   validators that disable validation.
    */

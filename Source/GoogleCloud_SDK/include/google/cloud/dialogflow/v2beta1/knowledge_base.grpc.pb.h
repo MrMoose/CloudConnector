@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2beta1/knowledge_base.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -110,67 +109,43 @@ class KnowledgeBases final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::KnowledgeBase>> PrepareAsyncUpdateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::KnowledgeBase>>(PrepareAsyncUpdateKnowledgeBaseRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Returns the list of all knowledge bases of the specified agent.
       //
       // Note: The `projects.agent.knowledgeBases` resource is deprecated;
       // only use `projects.knowledgeBases`.
       virtual void ListKnowledgeBases(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* request, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListKnowledgeBases(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* request, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListKnowledgeBases(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* request, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Retrieves the specified knowledge base.
       //
       // Note: The `projects.agent.knowledgeBases` resource is deprecated;
       // only use `projects.knowledgeBases`.
       virtual void GetKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a knowledge base.
       //
       // Note: The `projects.agent.knowledgeBases` resource is deprecated;
       // only use `projects.knowledgeBases`.
       virtual void CreateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the specified knowledge base.
       //
       // Note: The `projects.agent.knowledgeBases` resource is deprecated;
       // only use `projects.knowledgeBases`.
       virtual void DeleteKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the specified knowledge base.
       //
       // Note: The `projects.agent.knowledgeBases` resource is deprecated;
       // only use `projects.knowledgeBases`.
       virtual void UpdateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>* AsyncListKnowledgeBasesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>* PrepareAsyncListKnowledgeBasesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -221,50 +196,30 @@ class KnowledgeBases final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::KnowledgeBase>> PrepareAsyncUpdateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::KnowledgeBase>>(PrepareAsyncUpdateKnowledgeBaseRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListKnowledgeBases(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* request, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListKnowledgeBases(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* request, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListKnowledgeBases(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* request, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateKnowledgeBase(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>* AsyncListKnowledgeBasesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>* PrepareAsyncListKnowledgeBasesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::KnowledgeBase>* AsyncGetKnowledgeBaseRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -415,36 +370,22 @@ class KnowledgeBases final {
   };
   typedef WithAsyncMethod_ListKnowledgeBases<WithAsyncMethod_GetKnowledgeBase<WithAsyncMethod_CreateKnowledgeBase<WithAsyncMethod_DeleteKnowledgeBase<WithAsyncMethod_UpdateKnowledgeBase<Service > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListKnowledgeBases : public BaseClass {
+  class WithCallbackMethod_ListKnowledgeBases : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListKnowledgeBases() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListKnowledgeBases() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* request, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* response) { return this->ListKnowledgeBases(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* request, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* response) { return this->ListKnowledgeBases(context, request, response); }));}
     void SetMessageAllocatorFor_ListKnowledgeBases(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListKnowledgeBases() override {
+    ~WithCallbackMethod_ListKnowledgeBases() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -452,46 +393,26 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListKnowledgeBases(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListKnowledgeBases(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListKnowledgeBasesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetKnowledgeBase : public BaseClass {
+  class WithCallbackMethod_GetKnowledgeBase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetKnowledgeBase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetKnowledgeBase() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response) { return this->GetKnowledgeBase(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response) { return this->GetKnowledgeBase(context, request, response); }));}
     void SetMessageAllocatorFor_GetKnowledgeBase(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetKnowledgeBase() override {
+    ~WithCallbackMethod_GetKnowledgeBase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -499,46 +420,26 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetKnowledgeBase(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetKnowledgeBase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetKnowledgeBaseRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateKnowledgeBase : public BaseClass {
+  class WithCallbackMethod_CreateKnowledgeBase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateKnowledgeBase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateKnowledgeBase() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response) { return this->CreateKnowledgeBase(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response) { return this->CreateKnowledgeBase(context, request, response); }));}
     void SetMessageAllocatorFor_CreateKnowledgeBase(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateKnowledgeBase() override {
+    ~WithCallbackMethod_CreateKnowledgeBase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -546,46 +447,26 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateKnowledgeBase(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateKnowledgeBase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateKnowledgeBaseRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteKnowledgeBase : public BaseClass {
+  class WithCallbackMethod_DeleteKnowledgeBase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteKnowledgeBase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_DeleteKnowledgeBase() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* request, ::google::protobuf::Empty* response) { return this->DeleteKnowledgeBase(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* request, ::google::protobuf::Empty* response) { return this->DeleteKnowledgeBase(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteKnowledgeBase(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteKnowledgeBase() override {
+    ~WithCallbackMethod_DeleteKnowledgeBase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -593,46 +474,26 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteKnowledgeBase(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteKnowledgeBase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteKnowledgeBaseRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateKnowledgeBase : public BaseClass {
+  class WithCallbackMethod_UpdateKnowledgeBase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateKnowledgeBase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_UpdateKnowledgeBase() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response) { return this->UpdateKnowledgeBase(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* request, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* response) { return this->UpdateKnowledgeBase(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateKnowledgeBase(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest, ::google::cloud::dialogflow::v2beta1::KnowledgeBase>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateKnowledgeBase() override {
+    ~WithCallbackMethod_UpdateKnowledgeBase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -640,20 +501,11 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateKnowledgeBase(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateKnowledgeBase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateKnowledgeBaseRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::KnowledgeBase* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListKnowledgeBases<ExperimentalWithCallbackMethod_GetKnowledgeBase<ExperimentalWithCallbackMethod_CreateKnowledgeBase<ExperimentalWithCallbackMethod_DeleteKnowledgeBase<ExperimentalWithCallbackMethod_UpdateKnowledgeBase<Service > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListKnowledgeBases<ExperimentalWithCallbackMethod_GetKnowledgeBase<ExperimentalWithCallbackMethod_CreateKnowledgeBase<ExperimentalWithCallbackMethod_DeleteKnowledgeBase<ExperimentalWithCallbackMethod_UpdateKnowledgeBase<Service > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListKnowledgeBases<WithCallbackMethod_GetKnowledgeBase<WithCallbackMethod_CreateKnowledgeBase<WithCallbackMethod_DeleteKnowledgeBase<WithCallbackMethod_UpdateKnowledgeBase<Service > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListKnowledgeBases : public BaseClass {
    private:
@@ -840,27 +692,17 @@ class KnowledgeBases final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListKnowledgeBases : public BaseClass {
+  class WithRawCallbackMethod_ListKnowledgeBases : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListKnowledgeBases() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListKnowledgeBases() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListKnowledgeBases(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListKnowledgeBases(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListKnowledgeBases() override {
+    ~WithRawCallbackMethod_ListKnowledgeBases() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -868,37 +710,21 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListKnowledgeBases(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListKnowledgeBases(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetKnowledgeBase : public BaseClass {
+  class WithRawCallbackMethod_GetKnowledgeBase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetKnowledgeBase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetKnowledgeBase() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetKnowledgeBase(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetKnowledgeBase(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetKnowledgeBase() override {
+    ~WithRawCallbackMethod_GetKnowledgeBase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -906,37 +732,21 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetKnowledgeBase(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetKnowledgeBase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateKnowledgeBase : public BaseClass {
+  class WithRawCallbackMethod_CreateKnowledgeBase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateKnowledgeBase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateKnowledgeBase() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateKnowledgeBase(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateKnowledgeBase(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateKnowledgeBase() override {
+    ~WithRawCallbackMethod_CreateKnowledgeBase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -944,37 +754,21 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateKnowledgeBase(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateKnowledgeBase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteKnowledgeBase : public BaseClass {
+  class WithRawCallbackMethod_DeleteKnowledgeBase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteKnowledgeBase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_DeleteKnowledgeBase() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteKnowledgeBase(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteKnowledgeBase(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteKnowledgeBase() override {
+    ~WithRawCallbackMethod_DeleteKnowledgeBase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -982,37 +776,21 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteKnowledgeBase(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteKnowledgeBase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateKnowledgeBase : public BaseClass {
+  class WithRawCallbackMethod_UpdateKnowledgeBase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateKnowledgeBase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_UpdateKnowledgeBase() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateKnowledgeBase(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateKnowledgeBase(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateKnowledgeBase() override {
+    ~WithRawCallbackMethod_UpdateKnowledgeBase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1020,14 +798,8 @@ class KnowledgeBases final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateKnowledgeBase(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateKnowledgeBase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListKnowledgeBases : public BaseClass {

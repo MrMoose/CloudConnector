@@ -22,7 +22,6 @@
 #include "google/monitoring/v3/alert_service.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -105,55 +104,31 @@ class AlertPolicyService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::AlertPolicy>> PrepareAsyncUpdateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateAlertPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::AlertPolicy>>(PrepareAsyncUpdateAlertPolicyRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Lists the existing alerting policies for the workspace.
       virtual void ListAlertPolicies(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest* request, ::google::monitoring::v3::ListAlertPoliciesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListAlertPolicies(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest* request, ::google::monitoring::v3::ListAlertPoliciesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListAlertPolicies(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest* request, ::google::monitoring::v3::ListAlertPoliciesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a single alerting policy.
       virtual void GetAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::GetAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::GetAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::GetAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new alerting policy.
       virtual void CreateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes an alerting policy.
       virtual void DeleteAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteAlertPolicyRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteAlertPolicyRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteAlertPolicyRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates an alerting policy. You can either replace the entire policy with
       // a new one or replace only certain fields in the current alerting policy by
       // specifying the fields to be updated via `updateMask`. Returns the
       // updated alerting policy.
       virtual void UpdateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListAlertPoliciesResponse>* AsyncListAlertPoliciesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListAlertPoliciesResponse>* PrepareAsyncListAlertPoliciesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -204,50 +179,30 @@ class AlertPolicyService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::AlertPolicy>> PrepareAsyncUpdateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateAlertPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::AlertPolicy>>(PrepareAsyncUpdateAlertPolicyRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListAlertPolicies(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest* request, ::google::monitoring::v3::ListAlertPoliciesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListAlertPolicies(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest* request, ::google::monitoring::v3::ListAlertPoliciesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListAlertPolicies(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest* request, ::google::monitoring::v3::ListAlertPoliciesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::GetAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::GetAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::GetAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteAlertPolicyRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteAlertPolicyRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteAlertPolicyRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateAlertPolicy(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListAlertPoliciesResponse>* AsyncListAlertPoliciesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListAlertPoliciesResponse>* PrepareAsyncListAlertPoliciesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::AlertPolicy>* AsyncGetAlertPolicyRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::GetAlertPolicyRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -386,36 +341,22 @@ class AlertPolicyService final {
   };
   typedef WithAsyncMethod_ListAlertPolicies<WithAsyncMethod_GetAlertPolicy<WithAsyncMethod_CreateAlertPolicy<WithAsyncMethod_DeleteAlertPolicy<WithAsyncMethod_UpdateAlertPolicy<Service > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListAlertPolicies : public BaseClass {
+  class WithCallbackMethod_ListAlertPolicies : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListAlertPolicies() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListAlertPolicies() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListAlertPoliciesRequest, ::google::monitoring::v3::ListAlertPoliciesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListAlertPoliciesRequest* request, ::google::monitoring::v3::ListAlertPoliciesResponse* response) { return this->ListAlertPolicies(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest* request, ::google::monitoring::v3::ListAlertPoliciesResponse* response) { return this->ListAlertPolicies(context, request, response); }));}
     void SetMessageAllocatorFor_ListAlertPolicies(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListAlertPoliciesRequest, ::google::monitoring::v3::ListAlertPoliciesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListAlertPoliciesRequest, ::google::monitoring::v3::ListAlertPoliciesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListAlertPoliciesRequest, ::google::monitoring::v3::ListAlertPoliciesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListAlertPolicies() override {
+    ~WithCallbackMethod_ListAlertPolicies() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -423,46 +364,26 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListAlertPolicies(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListAlertPoliciesRequest* /*request*/, ::google::monitoring::v3::ListAlertPoliciesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListAlertPolicies(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListAlertPoliciesRequest* /*request*/, ::google::monitoring::v3::ListAlertPoliciesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListAlertPoliciesRequest* /*request*/, ::google::monitoring::v3::ListAlertPoliciesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetAlertPolicy : public BaseClass {
+  class WithCallbackMethod_GetAlertPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetAlertPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetAlertPolicy() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response) { return this->GetAlertPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response) { return this->GetAlertPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_GetAlertPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetAlertPolicy() override {
+    ~WithCallbackMethod_GetAlertPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -470,46 +391,26 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetAlertPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetAlertPolicyRequest* /*request*/, ::google::monitoring::v3::AlertPolicy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetAlertPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetAlertPolicyRequest* /*request*/, ::google::monitoring::v3::AlertPolicy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetAlertPolicyRequest* /*request*/, ::google::monitoring::v3::AlertPolicy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateAlertPolicy : public BaseClass {
+  class WithCallbackMethod_CreateAlertPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateAlertPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateAlertPolicy() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::CreateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response) { return this->CreateAlertPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::CreateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response) { return this->CreateAlertPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_CreateAlertPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::CreateAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::CreateAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateAlertPolicy() override {
+    ~WithCallbackMethod_CreateAlertPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -517,46 +418,26 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateAlertPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateAlertPolicyRequest* /*request*/, ::google::monitoring::v3::AlertPolicy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateAlertPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateAlertPolicyRequest* /*request*/, ::google::monitoring::v3::AlertPolicy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateAlertPolicyRequest* /*request*/, ::google::monitoring::v3::AlertPolicy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteAlertPolicy : public BaseClass {
+  class WithCallbackMethod_DeleteAlertPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteAlertPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_DeleteAlertPolicy() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteAlertPolicyRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::DeleteAlertPolicyRequest* request, ::google::protobuf::Empty* response) { return this->DeleteAlertPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::DeleteAlertPolicyRequest* request, ::google::protobuf::Empty* response) { return this->DeleteAlertPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteAlertPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::DeleteAlertPolicyRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::DeleteAlertPolicyRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteAlertPolicyRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteAlertPolicy() override {
+    ~WithCallbackMethod_DeleteAlertPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -564,46 +445,26 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteAlertPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteAlertPolicyRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteAlertPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteAlertPolicyRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteAlertPolicyRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateAlertPolicy : public BaseClass {
+  class WithCallbackMethod_UpdateAlertPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateAlertPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_UpdateAlertPolicy() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::UpdateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response) { return this->UpdateAlertPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::UpdateAlertPolicyRequest* request, ::google::monitoring::v3::AlertPolicy* response) { return this->UpdateAlertPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateAlertPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::UpdateAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::UpdateAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateAlertPolicyRequest, ::google::monitoring::v3::AlertPolicy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateAlertPolicy() override {
+    ~WithCallbackMethod_UpdateAlertPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -611,20 +472,11 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateAlertPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateAlertPolicyRequest* /*request*/, ::google::monitoring::v3::AlertPolicy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateAlertPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateAlertPolicyRequest* /*request*/, ::google::monitoring::v3::AlertPolicy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateAlertPolicyRequest* /*request*/, ::google::monitoring::v3::AlertPolicy* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListAlertPolicies<ExperimentalWithCallbackMethod_GetAlertPolicy<ExperimentalWithCallbackMethod_CreateAlertPolicy<ExperimentalWithCallbackMethod_DeleteAlertPolicy<ExperimentalWithCallbackMethod_UpdateAlertPolicy<Service > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListAlertPolicies<ExperimentalWithCallbackMethod_GetAlertPolicy<ExperimentalWithCallbackMethod_CreateAlertPolicy<ExperimentalWithCallbackMethod_DeleteAlertPolicy<ExperimentalWithCallbackMethod_UpdateAlertPolicy<Service > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListAlertPolicies<WithCallbackMethod_GetAlertPolicy<WithCallbackMethod_CreateAlertPolicy<WithCallbackMethod_DeleteAlertPolicy<WithCallbackMethod_UpdateAlertPolicy<Service > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListAlertPolicies : public BaseClass {
    private:
@@ -811,27 +663,17 @@ class AlertPolicyService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListAlertPolicies : public BaseClass {
+  class WithRawCallbackMethod_ListAlertPolicies : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListAlertPolicies() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListAlertPolicies() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListAlertPolicies(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListAlertPolicies(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListAlertPolicies() override {
+    ~WithRawCallbackMethod_ListAlertPolicies() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -839,37 +681,21 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListAlertPolicies(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListAlertPolicies(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetAlertPolicy : public BaseClass {
+  class WithRawCallbackMethod_GetAlertPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetAlertPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetAlertPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAlertPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAlertPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetAlertPolicy() override {
+    ~WithRawCallbackMethod_GetAlertPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -877,37 +703,21 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetAlertPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetAlertPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateAlertPolicy : public BaseClass {
+  class WithRawCallbackMethod_CreateAlertPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateAlertPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateAlertPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateAlertPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateAlertPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateAlertPolicy() override {
+    ~WithRawCallbackMethod_CreateAlertPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -915,37 +725,21 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateAlertPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateAlertPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteAlertPolicy : public BaseClass {
+  class WithRawCallbackMethod_DeleteAlertPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteAlertPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_DeleteAlertPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteAlertPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteAlertPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteAlertPolicy() override {
+    ~WithRawCallbackMethod_DeleteAlertPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -953,37 +747,21 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteAlertPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteAlertPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateAlertPolicy : public BaseClass {
+  class WithRawCallbackMethod_UpdateAlertPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateAlertPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_UpdateAlertPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateAlertPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateAlertPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateAlertPolicy() override {
+    ~WithRawCallbackMethod_UpdateAlertPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -991,14 +769,8 @@ class AlertPolicyService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateAlertPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateAlertPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListAlertPolicies : public BaseClass {

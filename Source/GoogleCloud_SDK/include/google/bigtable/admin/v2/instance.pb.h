@@ -1001,6 +1001,33 @@ class AppProfile_MultiClusterRoutingUseAny PROTOBUF_FINAL :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kClusterIdsFieldNumber = 1,
+  };
+  // repeated string cluster_ids = 1;
+  int cluster_ids_size() const;
+  private:
+  int _internal_cluster_ids_size() const;
+  public:
+  void clear_cluster_ids();
+  const std::string& cluster_ids(int index) const;
+  std::string* mutable_cluster_ids(int index);
+  void set_cluster_ids(int index, const std::string& value);
+  void set_cluster_ids(int index, std::string&& value);
+  void set_cluster_ids(int index, const char* value);
+  void set_cluster_ids(int index, const char* value, size_t size);
+  std::string* add_cluster_ids();
+  void add_cluster_ids(const std::string& value);
+  void add_cluster_ids(std::string&& value);
+  void add_cluster_ids(const char* value);
+  void add_cluster_ids(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& cluster_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_cluster_ids();
+  private:
+  const std::string& _internal_cluster_ids(int index) const;
+  std::string* _internal_add_cluster_ids();
+  public:
+
   // @@protoc_insertion_point(class_scope:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny)
  private:
   class _Internal;
@@ -1008,6 +1035,7 @@ class AppProfile_MultiClusterRoutingUseAny PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> cluster_ids_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto;
 };
@@ -1949,6 +1977,80 @@ inline void Cluster::set_allocated_encryption_config(::google::bigtable::admin::
 // -------------------------------------------------------------------
 
 // AppProfile_MultiClusterRoutingUseAny
+
+// repeated string cluster_ids = 1;
+inline int AppProfile_MultiClusterRoutingUseAny::_internal_cluster_ids_size() const {
+  return cluster_ids_.size();
+}
+inline int AppProfile_MultiClusterRoutingUseAny::cluster_ids_size() const {
+  return _internal_cluster_ids_size();
+}
+inline void AppProfile_MultiClusterRoutingUseAny::clear_cluster_ids() {
+  cluster_ids_.Clear();
+}
+inline std::string* AppProfile_MultiClusterRoutingUseAny::add_cluster_ids() {
+  // @@protoc_insertion_point(field_add_mutable:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+  return _internal_add_cluster_ids();
+}
+inline const std::string& AppProfile_MultiClusterRoutingUseAny::_internal_cluster_ids(int index) const {
+  return cluster_ids_.Get(index);
+}
+inline const std::string& AppProfile_MultiClusterRoutingUseAny::cluster_ids(int index) const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+  return _internal_cluster_ids(index);
+}
+inline std::string* AppProfile_MultiClusterRoutingUseAny::mutable_cluster_ids(int index) {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+  return cluster_ids_.Mutable(index);
+}
+inline void AppProfile_MultiClusterRoutingUseAny::set_cluster_ids(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+  cluster_ids_.Mutable(index)->assign(value);
+}
+inline void AppProfile_MultiClusterRoutingUseAny::set_cluster_ids(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+  cluster_ids_.Mutable(index)->assign(std::move(value));
+}
+inline void AppProfile_MultiClusterRoutingUseAny::set_cluster_ids(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  cluster_ids_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+}
+inline void AppProfile_MultiClusterRoutingUseAny::set_cluster_ids(int index, const char* value, size_t size) {
+  cluster_ids_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+}
+inline std::string* AppProfile_MultiClusterRoutingUseAny::_internal_add_cluster_ids() {
+  return cluster_ids_.Add();
+}
+inline void AppProfile_MultiClusterRoutingUseAny::add_cluster_ids(const std::string& value) {
+  cluster_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+}
+inline void AppProfile_MultiClusterRoutingUseAny::add_cluster_ids(std::string&& value) {
+  cluster_ids_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+}
+inline void AppProfile_MultiClusterRoutingUseAny::add_cluster_ids(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  cluster_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+}
+inline void AppProfile_MultiClusterRoutingUseAny::add_cluster_ids(const char* value, size_t size) {
+  cluster_ids_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+AppProfile_MultiClusterRoutingUseAny::cluster_ids() const {
+  // @@protoc_insertion_point(field_list:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+  return cluster_ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+AppProfile_MultiClusterRoutingUseAny::mutable_cluster_ids() {
+  // @@protoc_insertion_point(field_mutable_list:google.bigtable.admin.v2.AppProfile.MultiClusterRoutingUseAny.cluster_ids)
+  return &cluster_ids_;
+}
 
 // -------------------------------------------------------------------
 

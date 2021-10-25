@@ -49,7 +49,7 @@ struct TableStruct_google_2fcloud_2fbigquery_2fv2_2fstandard_5fsql_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -70,6 +70,9 @@ extern StandardSqlFieldDefaultTypeInternal _StandardSqlField_default_instance_;
 class StandardSqlStructType;
 struct StandardSqlStructTypeDefaultTypeInternal;
 extern StandardSqlStructTypeDefaultTypeInternal _StandardSqlStructType_default_instance_;
+class StandardSqlTableType;
+struct StandardSqlTableTypeDefaultTypeInternal;
+extern StandardSqlTableTypeDefaultTypeInternal _StandardSqlTableType_default_instance_;
 }  // namespace v2
 }  // namespace bigquery
 }  // namespace cloud
@@ -78,6 +81,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::google::cloud::bigquery::v2::StandardSqlDataType* Arena::CreateMaybeMessage<::google::cloud::bigquery::v2::StandardSqlDataType>(Arena*);
 template<> ::google::cloud::bigquery::v2::StandardSqlField* Arena::CreateMaybeMessage<::google::cloud::bigquery::v2::StandardSqlField>(Arena*);
 template<> ::google::cloud::bigquery::v2::StandardSqlStructType* Arena::CreateMaybeMessage<::google::cloud::bigquery::v2::StandardSqlStructType>(Arena*);
+template<> ::google::cloud::bigquery::v2::StandardSqlTableType* Arena::CreateMaybeMessage<::google::cloud::bigquery::v2::StandardSqlTableType>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace google {
 namespace cloud {
@@ -95,9 +99,11 @@ enum StandardSqlDataType_TypeKind : int {
   StandardSqlDataType_TypeKind_DATE = 10,
   StandardSqlDataType_TypeKind_TIME = 20,
   StandardSqlDataType_TypeKind_DATETIME = 21,
+  StandardSqlDataType_TypeKind_INTERVAL = 26,
   StandardSqlDataType_TypeKind_GEOGRAPHY = 22,
   StandardSqlDataType_TypeKind_NUMERIC = 23,
   StandardSqlDataType_TypeKind_BIGNUMERIC = 24,
+  StandardSqlDataType_TypeKind_JSON = 25,
   StandardSqlDataType_TypeKind_ARRAY = 16,
   StandardSqlDataType_TypeKind_STRUCT = 17,
   StandardSqlDataType_TypeKind_StandardSqlDataType_TypeKind_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
@@ -105,7 +111,7 @@ enum StandardSqlDataType_TypeKind : int {
 };
 bool StandardSqlDataType_TypeKind_IsValid(int value);
 constexpr StandardSqlDataType_TypeKind StandardSqlDataType_TypeKind_TypeKind_MIN = StandardSqlDataType_TypeKind_TYPE_KIND_UNSPECIFIED;
-constexpr StandardSqlDataType_TypeKind StandardSqlDataType_TypeKind_TypeKind_MAX = StandardSqlDataType_TypeKind_BIGNUMERIC;
+constexpr StandardSqlDataType_TypeKind StandardSqlDataType_TypeKind_TypeKind_MAX = StandardSqlDataType_TypeKind_INTERVAL;
 constexpr int StandardSqlDataType_TypeKind_TypeKind_ARRAYSIZE = StandardSqlDataType_TypeKind_TypeKind_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* StandardSqlDataType_TypeKind_descriptor();
@@ -261,12 +267,16 @@ class StandardSqlDataType PROTOBUF_FINAL :
     StandardSqlDataType_TypeKind_TIME;
   static constexpr TypeKind DATETIME =
     StandardSqlDataType_TypeKind_DATETIME;
+  static constexpr TypeKind INTERVAL =
+    StandardSqlDataType_TypeKind_INTERVAL;
   static constexpr TypeKind GEOGRAPHY =
     StandardSqlDataType_TypeKind_GEOGRAPHY;
   static constexpr TypeKind NUMERIC =
     StandardSqlDataType_TypeKind_NUMERIC;
   static constexpr TypeKind BIGNUMERIC =
     StandardSqlDataType_TypeKind_BIGNUMERIC;
+  static constexpr TypeKind JSON =
+    StandardSqlDataType_TypeKind_JSON;
   static constexpr TypeKind ARRAY =
     StandardSqlDataType_TypeKind_ARRAY;
   static constexpr TypeKind STRUCT =
@@ -684,6 +694,152 @@ class StandardSqlStructType PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fcloud_2fbigquery_2fv2_2fstandard_5fsql_2eproto;
 };
+// -------------------------------------------------------------------
+
+class StandardSqlTableType PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.cloud.bigquery.v2.StandardSqlTableType) */ {
+ public:
+  inline StandardSqlTableType() : StandardSqlTableType(nullptr) {}
+  virtual ~StandardSqlTableType();
+  explicit constexpr StandardSqlTableType(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StandardSqlTableType(const StandardSqlTableType& from);
+  StandardSqlTableType(StandardSqlTableType&& from) noexcept
+    : StandardSqlTableType() {
+    *this = ::std::move(from);
+  }
+
+  inline StandardSqlTableType& operator=(const StandardSqlTableType& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StandardSqlTableType& operator=(StandardSqlTableType&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const StandardSqlTableType& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StandardSqlTableType* internal_default_instance() {
+    return reinterpret_cast<const StandardSqlTableType*>(
+               &_StandardSqlTableType_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(StandardSqlTableType& a, StandardSqlTableType& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(StandardSqlTableType* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StandardSqlTableType* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline StandardSqlTableType* New() const final {
+    return CreateMaybeMessage<StandardSqlTableType>(nullptr);
+  }
+
+  StandardSqlTableType* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<StandardSqlTableType>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const StandardSqlTableType& from);
+  void MergeFrom(const StandardSqlTableType& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(StandardSqlTableType* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.cloud.bigquery.v2.StandardSqlTableType";
+  }
+  protected:
+  explicit StandardSqlTableType(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fcloud_2fbigquery_2fv2_2fstandard_5fsql_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kColumnsFieldNumber = 1,
+  };
+  // repeated .google.cloud.bigquery.v2.StandardSqlField columns = 1;
+  int columns_size() const;
+  private:
+  int _internal_columns_size() const;
+  public:
+  void clear_columns();
+  ::google::cloud::bigquery::v2::StandardSqlField* mutable_columns(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::StandardSqlField >*
+      mutable_columns();
+  private:
+  const ::google::cloud::bigquery::v2::StandardSqlField& _internal_columns(int index) const;
+  ::google::cloud::bigquery::v2::StandardSqlField* _internal_add_columns();
+  public:
+  const ::google::cloud::bigquery::v2::StandardSqlField& columns(int index) const;
+  ::google::cloud::bigquery::v2::StandardSqlField* add_columns();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::StandardSqlField >&
+      columns() const;
+
+  // @@protoc_insertion_point(class_scope:google.cloud.bigquery.v2.StandardSqlTableType)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::StandardSqlField > columns_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fcloud_2fbigquery_2fv2_2fstandard_5fsql_2eproto;
+};
 // ===================================================================
 
 
@@ -1061,9 +1217,54 @@ StandardSqlStructType::fields() const {
   return fields_;
 }
 
+// -------------------------------------------------------------------
+
+// StandardSqlTableType
+
+// repeated .google.cloud.bigquery.v2.StandardSqlField columns = 1;
+inline int StandardSqlTableType::_internal_columns_size() const {
+  return columns_.size();
+}
+inline int StandardSqlTableType::columns_size() const {
+  return _internal_columns_size();
+}
+inline void StandardSqlTableType::clear_columns() {
+  columns_.Clear();
+}
+inline ::google::cloud::bigquery::v2::StandardSqlField* StandardSqlTableType::mutable_columns(int index) {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.v2.StandardSqlTableType.columns)
+  return columns_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::StandardSqlField >*
+StandardSqlTableType::mutable_columns() {
+  // @@protoc_insertion_point(field_mutable_list:google.cloud.bigquery.v2.StandardSqlTableType.columns)
+  return &columns_;
+}
+inline const ::google::cloud::bigquery::v2::StandardSqlField& StandardSqlTableType::_internal_columns(int index) const {
+  return columns_.Get(index);
+}
+inline const ::google::cloud::bigquery::v2::StandardSqlField& StandardSqlTableType::columns(int index) const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.v2.StandardSqlTableType.columns)
+  return _internal_columns(index);
+}
+inline ::google::cloud::bigquery::v2::StandardSqlField* StandardSqlTableType::_internal_add_columns() {
+  return columns_.Add();
+}
+inline ::google::cloud::bigquery::v2::StandardSqlField* StandardSqlTableType::add_columns() {
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.v2.StandardSqlTableType.columns)
+  return _internal_add_columns();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::cloud::bigquery::v2::StandardSqlField >&
+StandardSqlTableType::columns() const {
+  // @@protoc_insertion_point(field_list:google.cloud.bigquery.v2.StandardSqlTableType.columns)
+  return columns_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -22,7 +22,6 @@
 #include "google/spanner/admin/database/v1/spanner_database_admin.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -281,16 +280,12 @@ class DatabaseAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>> PrepareAsyncListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>>(PrepareAsyncListBackupOperationsRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Lists Cloud Spanner databases.
       virtual void ListDatabases(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest* request, ::google::spanner::admin::database::v1::ListDatabasesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListDatabases(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest* request, ::google::spanner::admin::database::v1::ListDatabasesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListDatabases(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest* request, ::google::spanner::admin::database::v1::ListDatabasesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new Cloud Spanner database and starts to prepare it for serving.
       // The returned [long-running operation][google.longrunning.Operation] will
       // have a name of the format `<database_name>/operations/<operation_id>` and
@@ -300,18 +295,10 @@ class DatabaseAdmin final {
       // [response][google.longrunning.Operation.response] field type is
       // [Database][google.spanner.admin.database.v1.Database], if successful.
       virtual void CreateDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the state of a Cloud Spanner database.
       virtual void GetDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseRequest* request, ::google::spanner::admin::database::v1::Database* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseRequest* request, ::google::spanner::admin::database::v1::Database* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseRequest* request, ::google::spanner::admin::database::v1::Database* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the schema of a Cloud Spanner database by
       // creating/altering/dropping tables, columns, indexes, etc. The returned
       // [long-running operation][google.longrunning.Operation] will have a name of
@@ -320,29 +307,17 @@ class DatabaseAdmin final {
       // [metadata][google.longrunning.Operation.metadata] field type is
       // [UpdateDatabaseDdlMetadata][google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata].  The operation has no response.
       virtual void UpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Drops (aka deletes) a Cloud Spanner database.
       // Completed backups for the database will be retained according to their
       // `expire_time`.
       virtual void DropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns the schema of a Cloud Spanner database as a list of formatted
       // DDL statements. This method does not show pending schema updates, those may
       // be queried using the [Operations][google.longrunning.Operations] API.
       virtual void GetDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* request, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* request, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* request, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Sets the access control policy on a database or backup resource.
       // Replaces any existing policy.
       //
@@ -351,11 +326,7 @@ class DatabaseAdmin final {
       // For backups, authorization requires `spanner.backups.setIamPolicy`
       // permission on [resource][google.iam.v1.SetIamPolicyRequest.resource].
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the access control policy for a database or backup resource.
       // Returns an empty policy if a database or backup exists but does not have a
       // policy set.
@@ -365,11 +336,7 @@ class DatabaseAdmin final {
       // For backups, authorization requires `spanner.backups.getIamPolicy`
       // permission on [resource][google.iam.v1.GetIamPolicyRequest.resource].
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns permissions that the caller has on the specified database or backup
       // resource.
       //
@@ -381,11 +348,7 @@ class DatabaseAdmin final {
       // result in a NOT_FOUND error if the user has
       // `spanner.backups.list` permission on the containing instance.
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Starts creating a new Cloud Spanner Backup.
       // The returned backup [long-running operation][google.longrunning.Operation]
       // will have a name of the format
@@ -399,41 +362,21 @@ class DatabaseAdmin final {
       // There can be only one pending backup creation per database. Backup creation
       // of different databases can run concurrently.
       virtual void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets metadata on a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
       virtual void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
       virtual void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
       virtual void DeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists completed and pending backups.
       // Backups returned are ordered by `create_time` in descending order,
       // starting from the most recent `create_time`.
       virtual void ListBackups(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::google::spanner::admin::database::v1::ListBackupsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListBackups(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::google::spanner::admin::database::v1::ListBackupsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListBackups(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::google::spanner::admin::database::v1::ListBackupsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Create a new database by restoring from a completed backup. The new
       // database must be in the same project and in an instance with the same
       // instance configuration as the instance containing
@@ -452,11 +395,7 @@ class DatabaseAdmin final {
       // initiated, without waiting for the optimize operation associated with the
       // first restore to complete.
       virtual void RestoreDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void RestoreDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void RestoreDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists database [longrunning-operations][google.longrunning.Operation].
       // A database operation has a name of the form
       // `projects/<project>/instances/<instance>/databases/<database>/operations/<operation>`.
@@ -466,11 +405,7 @@ class DatabaseAdmin final {
       // include those that have completed/failed/canceled within the last 7 days,
       // and pending operations.
       virtual void ListDatabaseOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListDatabaseOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListDatabaseOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists the backup [long-running operations][google.longrunning.Operation] in
       // the given instance. A backup operation has a name of the form
       // `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation>`.
@@ -482,19 +417,11 @@ class DatabaseAdmin final {
       // `operation.metadata.value.progress.start_time` in descending order starting
       // from the most recently started operation.
       virtual void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabasesResponse>* AsyncListDatabasesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabasesResponse>* PrepareAsyncListDatabasesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -653,122 +580,54 @@ class DatabaseAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>> PrepareAsyncListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>>(PrepareAsyncListBackupOperationsRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListDatabases(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest* request, ::google::spanner::admin::database::v1::ListDatabasesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListDatabases(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest* request, ::google::spanner::admin::database::v1::ListDatabasesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListDatabases(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest* request, ::google::spanner::admin::database::v1::ListDatabasesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseRequest* request, ::google::spanner::admin::database::v1::Database* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseRequest* request, ::google::spanner::admin::database::v1::Database* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseRequest* request, ::google::spanner::admin::database::v1::Database* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* request, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* request, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetDatabaseDdl(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* request, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListBackups(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::google::spanner::admin::database::v1::ListBackupsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListBackups(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::google::spanner::admin::database::v1::ListBackupsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListBackups(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::google::spanner::admin::database::v1::ListBackupsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void RestoreDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void RestoreDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void RestoreDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListDatabaseOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListDatabaseOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListDatabaseOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabasesResponse>* AsyncListDatabasesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabasesResponse>* PrepareAsyncListDatabasesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncCreateDatabaseRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -1288,36 +1147,22 @@ class DatabaseAdmin final {
   };
   typedef WithAsyncMethod_ListDatabases<WithAsyncMethod_CreateDatabase<WithAsyncMethod_GetDatabase<WithAsyncMethod_UpdateDatabaseDdl<WithAsyncMethod_DropDatabase<WithAsyncMethod_GetDatabaseDdl<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_CreateBackup<WithAsyncMethod_GetBackup<WithAsyncMethod_UpdateBackup<WithAsyncMethod_DeleteBackup<WithAsyncMethod_ListBackups<WithAsyncMethod_RestoreDatabase<WithAsyncMethod_ListDatabaseOperations<WithAsyncMethod_ListBackupOperations<Service > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListDatabases : public BaseClass {
+  class WithCallbackMethod_ListDatabases : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListDatabases() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListDatabases() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListDatabasesRequest, ::google::spanner::admin::database::v1::ListDatabasesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::ListDatabasesRequest* request, ::google::spanner::admin::database::v1::ListDatabasesResponse* response) { return this->ListDatabases(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest* request, ::google::spanner::admin::database::v1::ListDatabasesResponse* response) { return this->ListDatabases(context, request, response); }));}
     void SetMessageAllocatorFor_ListDatabases(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::ListDatabasesRequest, ::google::spanner::admin::database::v1::ListDatabasesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::ListDatabasesRequest, ::google::spanner::admin::database::v1::ListDatabasesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListDatabasesRequest, ::google::spanner::admin::database::v1::ListDatabasesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListDatabases() override {
+    ~WithCallbackMethod_ListDatabases() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1325,46 +1170,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListDatabases(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabasesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabasesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListDatabases(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabasesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabasesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabasesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabasesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateDatabase : public BaseClass {
+  class WithCallbackMethod_CreateDatabase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateDatabase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_CreateDatabase() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::CreateDatabaseRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response) { return this->CreateDatabase(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* request, ::google::longrunning::Operation* response) { return this->CreateDatabase(context, request, response); }));}
     void SetMessageAllocatorFor_CreateDatabase(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::CreateDatabaseRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::CreateDatabaseRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::CreateDatabaseRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateDatabase() override {
+    ~WithCallbackMethod_CreateDatabase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1372,46 +1197,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateDatabase(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateDatabase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::CreateDatabaseRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetDatabase : public BaseClass {
+  class WithCallbackMethod_GetDatabase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetDatabase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_GetDatabase() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::GetDatabaseRequest, ::google::spanner::admin::database::v1::Database>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::GetDatabaseRequest* request, ::google::spanner::admin::database::v1::Database* response) { return this->GetDatabase(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::GetDatabaseRequest* request, ::google::spanner::admin::database::v1::Database* response) { return this->GetDatabase(context, request, response); }));}
     void SetMessageAllocatorFor_GetDatabase(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::GetDatabaseRequest, ::google::spanner::admin::database::v1::Database>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::GetDatabaseRequest, ::google::spanner::admin::database::v1::Database>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::GetDatabaseRequest, ::google::spanner::admin::database::v1::Database>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetDatabase() override {
+    ~WithCallbackMethod_GetDatabase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1419,46 +1224,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetDatabase(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::GetDatabaseRequest* /*request*/, ::google::spanner::admin::database::v1::Database* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetDatabase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::GetDatabaseRequest* /*request*/, ::google::spanner::admin::database::v1::Database* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::GetDatabaseRequest* /*request*/, ::google::spanner::admin::database::v1::Database* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateDatabaseDdl : public BaseClass {
+  class WithCallbackMethod_UpdateDatabaseDdl : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateDatabaseDdl() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateDatabaseDdl() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response) { return this->UpdateDatabaseDdl(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* request, ::google::longrunning::Operation* response) { return this->UpdateDatabaseDdl(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateDatabaseDdl(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateDatabaseDdl() override {
+    ~WithCallbackMethod_UpdateDatabaseDdl() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1466,46 +1251,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateDatabaseDdl(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateDatabaseDdl(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::UpdateDatabaseDdlRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DropDatabase : public BaseClass {
+  class WithCallbackMethod_DropDatabase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DropDatabase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DropDatabase() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::DropDatabaseRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response) { return this->DropDatabase(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response) { return this->DropDatabase(context, request, response); }));}
     void SetMessageAllocatorFor_DropDatabase(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::DropDatabaseRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::DropDatabaseRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::DropDatabaseRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DropDatabase() override {
+    ~WithCallbackMethod_DropDatabase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1513,46 +1278,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DropDatabase(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::DropDatabaseRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DropDatabase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::DropDatabaseRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::DropDatabaseRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetDatabaseDdl : public BaseClass {
+  class WithCallbackMethod_GetDatabaseDdl : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetDatabaseDdl() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_GetDatabaseDdl() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::GetDatabaseDdlRequest, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* request, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* response) { return this->GetDatabaseDdl(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* request, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* response) { return this->GetDatabaseDdl(context, request, response); }));}
     void SetMessageAllocatorFor_GetDatabaseDdl(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::GetDatabaseDdlRequest, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::GetDatabaseDdlRequest, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::GetDatabaseDdlRequest, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetDatabaseDdl() override {
+    ~WithCallbackMethod_GetDatabaseDdl() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1560,46 +1305,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetDatabaseDdl(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* /*request*/, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetDatabaseDdl(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* /*request*/, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::GetDatabaseDdlRequest* /*request*/, ::google::spanner::admin::database::v1::GetDatabaseDdlResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SetIamPolicy : public BaseClass {
+  class WithCallbackMethod_SetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_SetIamPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SetIamPolicy() override {
+    ~WithCallbackMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1607,46 +1332,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetIamPolicy : public BaseClass {
+  class WithCallbackMethod_GetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_GetIamPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetIamPolicy() override {
+    ~WithCallbackMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1654,46 +1359,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_TestIamPermissions : public BaseClass {
+  class WithCallbackMethod_TestIamPermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_TestIamPermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
     void SetMessageAllocatorFor_TestIamPermissions(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_TestIamPermissions() override {
+    ~WithCallbackMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1701,46 +1386,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateBackup : public BaseClass {
+  class WithCallbackMethod_CreateBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_CreateBackup() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::CreateBackupRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response) { return this->CreateBackup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response) { return this->CreateBackup(context, request, response); }));}
     void SetMessageAllocatorFor_CreateBackup(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::CreateBackupRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::CreateBackupRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::CreateBackupRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateBackup() override {
+    ~WithCallbackMethod_CreateBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1748,46 +1413,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::CreateBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::CreateBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::CreateBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetBackup : public BaseClass {
+  class WithCallbackMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(10,
+    WithCallbackMethod_GetBackup() {
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::GetBackupRequest, ::google::spanner::admin::database::v1::Backup>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response) { return this->GetBackup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response) { return this->GetBackup(context, request, response); }));}
     void SetMessageAllocatorFor_GetBackup(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::GetBackupRequest, ::google::spanner::admin::database::v1::Backup>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::GetBackupRequest, ::google::spanner::admin::database::v1::Backup>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(10);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::GetBackupRequest, ::google::spanner::admin::database::v1::Backup>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetBackup() override {
+    ~WithCallbackMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1795,46 +1440,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::GetBackupRequest* /*request*/, ::google::spanner::admin::database::v1::Backup* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::GetBackupRequest* /*request*/, ::google::spanner::admin::database::v1::Backup* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::GetBackupRequest* /*request*/, ::google::spanner::admin::database::v1::Backup* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateBackup : public BaseClass {
+  class WithCallbackMethod_UpdateBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(11,
+    WithCallbackMethod_UpdateBackup() {
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::UpdateBackupRequest, ::google::spanner::admin::database::v1::Backup>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response) { return this->UpdateBackup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response) { return this->UpdateBackup(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateBackup(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::UpdateBackupRequest, ::google::spanner::admin::database::v1::Backup>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::UpdateBackupRequest, ::google::spanner::admin::database::v1::Backup>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(11);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::UpdateBackupRequest, ::google::spanner::admin::database::v1::Backup>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateBackup() override {
+    ~WithCallbackMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1842,46 +1467,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::UpdateBackupRequest* /*request*/, ::google::spanner::admin::database::v1::Backup* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::UpdateBackupRequest* /*request*/, ::google::spanner::admin::database::v1::Backup* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::UpdateBackupRequest* /*request*/, ::google::spanner::admin::database::v1::Backup* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteBackup : public BaseClass {
+  class WithCallbackMethod_DeleteBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(12,
+    WithCallbackMethod_DeleteBackup() {
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::DeleteBackupRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response) { return this->DeleteBackup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response) { return this->DeleteBackup(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteBackup(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::DeleteBackupRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::DeleteBackupRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(12);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::DeleteBackupRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteBackup() override {
+    ~WithCallbackMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1889,46 +1494,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::DeleteBackupRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::DeleteBackupRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::DeleteBackupRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListBackups : public BaseClass {
+  class WithCallbackMethod_ListBackups : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListBackups() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(13,
+    WithCallbackMethod_ListBackups() {
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListBackupsRequest, ::google::spanner::admin::database::v1::ListBackupsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::google::spanner::admin::database::v1::ListBackupsResponse* response) { return this->ListBackups(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::google::spanner::admin::database::v1::ListBackupsResponse* response) { return this->ListBackups(context, request, response); }));}
     void SetMessageAllocatorFor_ListBackups(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::ListBackupsRequest, ::google::spanner::admin::database::v1::ListBackupsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::ListBackupsRequest, ::google::spanner::admin::database::v1::ListBackupsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(13);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListBackupsRequest, ::google::spanner::admin::database::v1::ListBackupsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListBackups() override {
+    ~WithCallbackMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1936,46 +1521,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListBackups(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListBackupsRequest* /*request*/, ::google::spanner::admin::database::v1::ListBackupsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListBackups(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListBackupsRequest* /*request*/, ::google::spanner::admin::database::v1::ListBackupsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListBackupsRequest* /*request*/, ::google::spanner::admin::database::v1::ListBackupsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_RestoreDatabase : public BaseClass {
+  class WithCallbackMethod_RestoreDatabase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_RestoreDatabase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(14,
+    WithCallbackMethod_RestoreDatabase() {
+      ::grpc::Service::MarkMethodCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::RestoreDatabaseRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::google::longrunning::Operation* response) { return this->RestoreDatabase(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::google::longrunning::Operation* response) { return this->RestoreDatabase(context, request, response); }));}
     void SetMessageAllocatorFor_RestoreDatabase(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::RestoreDatabaseRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::RestoreDatabaseRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(14);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::RestoreDatabaseRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_RestoreDatabase() override {
+    ~WithCallbackMethod_RestoreDatabase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1983,46 +1548,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* RestoreDatabase(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* RestoreDatabase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListDatabaseOperations : public BaseClass {
+  class WithCallbackMethod_ListDatabaseOperations : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListDatabaseOperations() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(15,
+    WithCallbackMethod_ListDatabaseOperations() {
+      ::grpc::Service::MarkMethodCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response) { return this->ListDatabaseOperations(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response) { return this->ListDatabaseOperations(context, request, response); }));}
     void SetMessageAllocatorFor_ListDatabaseOperations(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(15);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListDatabaseOperations() override {
+    ~WithCallbackMethod_ListDatabaseOperations() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2030,46 +1575,26 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListDatabaseOperations(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListDatabaseOperations(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListBackupOperations : public BaseClass {
+  class WithCallbackMethod_ListBackupOperations : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListBackupOperations() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(16,
+    WithCallbackMethod_ListBackupOperations() {
+      ::grpc::Service::MarkMethodCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListBackupOperationsRequest, ::google::spanner::admin::database::v1::ListBackupOperationsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response) { return this->ListBackupOperations(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response) { return this->ListBackupOperations(context, request, response); }));}
     void SetMessageAllocatorFor_ListBackupOperations(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::admin::database::v1::ListBackupOperationsRequest, ::google::spanner::admin::database::v1::ListBackupOperationsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::ListBackupOperationsRequest, ::google::spanner::admin::database::v1::ListBackupOperationsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(16);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListBackupOperationsRequest, ::google::spanner::admin::database::v1::ListBackupOperationsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListBackupOperations() override {
+    ~WithCallbackMethod_ListBackupOperations() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2077,20 +1602,11 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListBackupOperations(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* /*request*/, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListBackupOperations(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* /*request*/, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* /*request*/, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListDatabases<ExperimentalWithCallbackMethod_CreateDatabase<ExperimentalWithCallbackMethod_GetDatabase<ExperimentalWithCallbackMethod_UpdateDatabaseDdl<ExperimentalWithCallbackMethod_DropDatabase<ExperimentalWithCallbackMethod_GetDatabaseDdl<ExperimentalWithCallbackMethod_SetIamPolicy<ExperimentalWithCallbackMethod_GetIamPolicy<ExperimentalWithCallbackMethod_TestIamPermissions<ExperimentalWithCallbackMethod_CreateBackup<ExperimentalWithCallbackMethod_GetBackup<ExperimentalWithCallbackMethod_UpdateBackup<ExperimentalWithCallbackMethod_DeleteBackup<ExperimentalWithCallbackMethod_ListBackups<ExperimentalWithCallbackMethod_RestoreDatabase<ExperimentalWithCallbackMethod_ListDatabaseOperations<ExperimentalWithCallbackMethod_ListBackupOperations<Service > > > > > > > > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListDatabases<ExperimentalWithCallbackMethod_CreateDatabase<ExperimentalWithCallbackMethod_GetDatabase<ExperimentalWithCallbackMethod_UpdateDatabaseDdl<ExperimentalWithCallbackMethod_DropDatabase<ExperimentalWithCallbackMethod_GetDatabaseDdl<ExperimentalWithCallbackMethod_SetIamPolicy<ExperimentalWithCallbackMethod_GetIamPolicy<ExperimentalWithCallbackMethod_TestIamPermissions<ExperimentalWithCallbackMethod_CreateBackup<ExperimentalWithCallbackMethod_GetBackup<ExperimentalWithCallbackMethod_UpdateBackup<ExperimentalWithCallbackMethod_DeleteBackup<ExperimentalWithCallbackMethod_ListBackups<ExperimentalWithCallbackMethod_RestoreDatabase<ExperimentalWithCallbackMethod_ListDatabaseOperations<ExperimentalWithCallbackMethod_ListBackupOperations<Service > > > > > > > > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListDatabases<WithCallbackMethod_CreateDatabase<WithCallbackMethod_GetDatabase<WithCallbackMethod_UpdateDatabaseDdl<WithCallbackMethod_DropDatabase<WithCallbackMethod_GetDatabaseDdl<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_CreateBackup<WithCallbackMethod_GetBackup<WithCallbackMethod_UpdateBackup<WithCallbackMethod_DeleteBackup<WithCallbackMethod_ListBackups<WithCallbackMethod_RestoreDatabase<WithCallbackMethod_ListDatabaseOperations<WithCallbackMethod_ListBackupOperations<Service > > > > > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListDatabases : public BaseClass {
    private:
@@ -2721,27 +2237,17 @@ class DatabaseAdmin final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListDatabases : public BaseClass {
+  class WithRawCallbackMethod_ListDatabases : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListDatabases() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListDatabases() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDatabases(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDatabases(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListDatabases() override {
+    ~WithRawCallbackMethod_ListDatabases() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2749,37 +2255,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListDatabases(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListDatabases(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateDatabase : public BaseClass {
+  class WithRawCallbackMethod_CreateDatabase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateDatabase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_CreateDatabase() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateDatabase(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateDatabase(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateDatabase() override {
+    ~WithRawCallbackMethod_CreateDatabase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2787,37 +2277,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateDatabase(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateDatabase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetDatabase : public BaseClass {
+  class WithRawCallbackMethod_GetDatabase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetDatabase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_GetDatabase() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDatabase(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDatabase(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetDatabase() override {
+    ~WithRawCallbackMethod_GetDatabase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2825,37 +2299,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetDatabase(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetDatabase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateDatabaseDdl : public BaseClass {
+  class WithRawCallbackMethod_UpdateDatabaseDdl : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateDatabaseDdl() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateDatabaseDdl() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateDatabaseDdl(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateDatabaseDdl(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateDatabaseDdl() override {
+    ~WithRawCallbackMethod_UpdateDatabaseDdl() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2863,37 +2321,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateDatabaseDdl(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateDatabaseDdl(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DropDatabase : public BaseClass {
+  class WithRawCallbackMethod_DropDatabase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DropDatabase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DropDatabase() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DropDatabase(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DropDatabase(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DropDatabase() override {
+    ~WithRawCallbackMethod_DropDatabase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2901,37 +2343,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DropDatabase(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DropDatabase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetDatabaseDdl : public BaseClass {
+  class WithRawCallbackMethod_GetDatabaseDdl : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetDatabaseDdl() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_GetDatabaseDdl() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDatabaseDdl(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDatabaseDdl(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetDatabaseDdl() override {
+    ~WithRawCallbackMethod_GetDatabaseDdl() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2939,37 +2365,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetDatabaseDdl(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetDatabaseDdl(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SetIamPolicy : public BaseClass {
+  class WithRawCallbackMethod_SetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SetIamPolicy() override {
+    ~WithRawCallbackMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2977,37 +2387,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetIamPolicy : public BaseClass {
+  class WithRawCallbackMethod_GetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetIamPolicy() override {
+    ~WithRawCallbackMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3015,37 +2409,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_TestIamPermissions : public BaseClass {
+  class WithRawCallbackMethod_TestIamPermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_TestIamPermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_TestIamPermissions() override {
+    ~WithRawCallbackMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3053,37 +2431,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateBackup : public BaseClass {
+  class WithRawCallbackMethod_CreateBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_CreateBackup() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateBackup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateBackup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateBackup() override {
+    ~WithRawCallbackMethod_CreateBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3091,37 +2453,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetBackup : public BaseClass {
+  class WithRawCallbackMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(10,
+    WithRawCallbackMethod_GetBackup() {
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBackup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBackup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetBackup() override {
+    ~WithRawCallbackMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3129,37 +2475,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateBackup : public BaseClass {
+  class WithRawCallbackMethod_UpdateBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(11,
+    WithRawCallbackMethod_UpdateBackup() {
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateBackup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateBackup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateBackup() override {
+    ~WithRawCallbackMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3167,37 +2497,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteBackup : public BaseClass {
+  class WithRawCallbackMethod_DeleteBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteBackup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(12,
+    WithRawCallbackMethod_DeleteBackup() {
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteBackup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteBackup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteBackup() override {
+    ~WithRawCallbackMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3205,37 +2519,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteBackup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteBackup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListBackups : public BaseClass {
+  class WithRawCallbackMethod_ListBackups : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListBackups() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(13,
+    WithRawCallbackMethod_ListBackups() {
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBackups(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBackups(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListBackups() override {
+    ~WithRawCallbackMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3243,37 +2541,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListBackups(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListBackups(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_RestoreDatabase : public BaseClass {
+  class WithRawCallbackMethod_RestoreDatabase : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_RestoreDatabase() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(14,
+    WithRawCallbackMethod_RestoreDatabase() {
+      ::grpc::Service::MarkMethodRawCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RestoreDatabase(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RestoreDatabase(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_RestoreDatabase() override {
+    ~WithRawCallbackMethod_RestoreDatabase() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3281,37 +2563,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* RestoreDatabase(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* RestoreDatabase(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListDatabaseOperations : public BaseClass {
+  class WithRawCallbackMethod_ListDatabaseOperations : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListDatabaseOperations() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(15,
+    WithRawCallbackMethod_ListDatabaseOperations() {
+      ::grpc::Service::MarkMethodRawCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDatabaseOperations(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDatabaseOperations(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListDatabaseOperations() override {
+    ~WithRawCallbackMethod_ListDatabaseOperations() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3319,37 +2585,21 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListDatabaseOperations(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListDatabaseOperations(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListBackupOperations : public BaseClass {
+  class WithRawCallbackMethod_ListBackupOperations : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListBackupOperations() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(16,
+    WithRawCallbackMethod_ListBackupOperations() {
+      ::grpc::Service::MarkMethodRawCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBackupOperations(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBackupOperations(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListBackupOperations() override {
+    ~WithRawCallbackMethod_ListBackupOperations() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3357,14 +2607,8 @@ class DatabaseAdmin final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListBackupOperations(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListBackupOperations(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListDatabases : public BaseClass {

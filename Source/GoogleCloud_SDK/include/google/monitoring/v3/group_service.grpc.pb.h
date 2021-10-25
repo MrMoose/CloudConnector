@@ -22,7 +22,6 @@
 #include "google/monitoring/v3/group_service.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -114,60 +113,32 @@ class GroupService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListGroupMembersResponse>> PrepareAsyncListGroupMembers(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupMembersRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListGroupMembersResponse>>(PrepareAsyncListGroupMembersRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Lists the existing groups.
       virtual void ListGroups(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest* request, ::google::monitoring::v3::ListGroupsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListGroups(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest* request, ::google::monitoring::v3::ListGroupsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListGroups(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest* request, ::google::monitoring::v3::ListGroupsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a single group.
       virtual void GetGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::GetGroupRequest* request, ::google::monitoring::v3::Group* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::GetGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::GetGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new group.
       virtual void CreateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateGroupRequest* request, ::google::monitoring::v3::Group* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates an existing group.
       // You can change any group attributes except `name`.
       virtual void UpdateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateGroupRequest* request, ::google::monitoring::v3::Group* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes an existing group.
       virtual void DeleteGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteGroupRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteGroupRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteGroupRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists the monitored resources that are members of a group.
       virtual void ListGroupMembers(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupMembersRequest* request, ::google::monitoring::v3::ListGroupMembersResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListGroupMembers(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupMembersRequest* request, ::google::monitoring::v3::ListGroupMembersResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListGroupMembers(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupMembersRequest* request, ::google::monitoring::v3::ListGroupMembersResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListGroupsResponse>* AsyncListGroupsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListGroupsResponse>* PrepareAsyncListGroupsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -227,56 +198,32 @@ class GroupService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListGroupMembersResponse>> PrepareAsyncListGroupMembers(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupMembersRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListGroupMembersResponse>>(PrepareAsyncListGroupMembersRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListGroups(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest* request, ::google::monitoring::v3::ListGroupsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListGroups(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest* request, ::google::monitoring::v3::ListGroupsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListGroups(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest* request, ::google::monitoring::v3::ListGroupsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::GetGroupRequest* request, ::google::monitoring::v3::Group* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::GetGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::GetGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateGroupRequest* request, ::google::monitoring::v3::Group* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateGroupRequest* request, ::google::monitoring::v3::Group* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateGroupRequest* request, ::google::monitoring::v3::Group* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteGroupRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteGroupRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteGroup(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteGroupRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListGroupMembers(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupMembersRequest* request, ::google::monitoring::v3::ListGroupMembersResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListGroupMembers(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupMembersRequest* request, ::google::monitoring::v3::ListGroupMembersResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListGroupMembers(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupMembersRequest* request, ::google::monitoring::v3::ListGroupMembersResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListGroupsResponse>* AsyncListGroupsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListGroupsResponse>* PrepareAsyncListGroupsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::Group>* AsyncGetGroupRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::GetGroupRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -438,36 +385,22 @@ class GroupService final {
   };
   typedef WithAsyncMethod_ListGroups<WithAsyncMethod_GetGroup<WithAsyncMethod_CreateGroup<WithAsyncMethod_UpdateGroup<WithAsyncMethod_DeleteGroup<WithAsyncMethod_ListGroupMembers<Service > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListGroups : public BaseClass {
+  class WithCallbackMethod_ListGroups : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListGroups() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListGroups() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListGroupsRequest, ::google::monitoring::v3::ListGroupsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListGroupsRequest* request, ::google::monitoring::v3::ListGroupsResponse* response) { return this->ListGroups(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListGroupsRequest* request, ::google::monitoring::v3::ListGroupsResponse* response) { return this->ListGroups(context, request, response); }));}
     void SetMessageAllocatorFor_ListGroups(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListGroupsRequest, ::google::monitoring::v3::ListGroupsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListGroupsRequest, ::google::monitoring::v3::ListGroupsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListGroupsRequest, ::google::monitoring::v3::ListGroupsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListGroups() override {
+    ~WithCallbackMethod_ListGroups() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -475,46 +408,26 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListGroups(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListGroupsRequest* /*request*/, ::google::monitoring::v3::ListGroupsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListGroups(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListGroupsRequest* /*request*/, ::google::monitoring::v3::ListGroupsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListGroupsRequest* /*request*/, ::google::monitoring::v3::ListGroupsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetGroup : public BaseClass {
+  class WithCallbackMethod_GetGroup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetGroup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetGroup() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetGroupRequest, ::google::monitoring::v3::Group>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetGroupRequest* request, ::google::monitoring::v3::Group* response) { return this->GetGroup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetGroupRequest* request, ::google::monitoring::v3::Group* response) { return this->GetGroup(context, request, response); }));}
     void SetMessageAllocatorFor_GetGroup(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetGroupRequest, ::google::monitoring::v3::Group>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetGroupRequest, ::google::monitoring::v3::Group>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetGroupRequest, ::google::monitoring::v3::Group>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetGroup() override {
+    ~WithCallbackMethod_GetGroup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -522,46 +435,26 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetGroup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetGroupRequest* /*request*/, ::google::monitoring::v3::Group* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetGroup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetGroupRequest* /*request*/, ::google::monitoring::v3::Group* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetGroupRequest* /*request*/, ::google::monitoring::v3::Group* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateGroup : public BaseClass {
+  class WithCallbackMethod_CreateGroup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateGroup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateGroup() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateGroupRequest, ::google::monitoring::v3::Group>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::CreateGroupRequest* request, ::google::monitoring::v3::Group* response) { return this->CreateGroup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::CreateGroupRequest* request, ::google::monitoring::v3::Group* response) { return this->CreateGroup(context, request, response); }));}
     void SetMessageAllocatorFor_CreateGroup(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::CreateGroupRequest, ::google::monitoring::v3::Group>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::CreateGroupRequest, ::google::monitoring::v3::Group>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateGroupRequest, ::google::monitoring::v3::Group>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateGroup() override {
+    ~WithCallbackMethod_CreateGroup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -569,46 +462,26 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateGroup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateGroupRequest* /*request*/, ::google::monitoring::v3::Group* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateGroup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateGroupRequest* /*request*/, ::google::monitoring::v3::Group* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateGroupRequest* /*request*/, ::google::monitoring::v3::Group* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateGroup : public BaseClass {
+  class WithCallbackMethod_UpdateGroup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateGroup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateGroup() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateGroupRequest, ::google::monitoring::v3::Group>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::UpdateGroupRequest* request, ::google::monitoring::v3::Group* response) { return this->UpdateGroup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::UpdateGroupRequest* request, ::google::monitoring::v3::Group* response) { return this->UpdateGroup(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateGroup(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::UpdateGroupRequest, ::google::monitoring::v3::Group>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::UpdateGroupRequest, ::google::monitoring::v3::Group>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateGroupRequest, ::google::monitoring::v3::Group>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateGroup() override {
+    ~WithCallbackMethod_UpdateGroup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -616,46 +489,26 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateGroup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateGroupRequest* /*request*/, ::google::monitoring::v3::Group* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateGroup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateGroupRequest* /*request*/, ::google::monitoring::v3::Group* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateGroupRequest* /*request*/, ::google::monitoring::v3::Group* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteGroup : public BaseClass {
+  class WithCallbackMethod_DeleteGroup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteGroup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteGroup() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteGroupRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::DeleteGroupRequest* request, ::google::protobuf::Empty* response) { return this->DeleteGroup(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::DeleteGroupRequest* request, ::google::protobuf::Empty* response) { return this->DeleteGroup(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteGroup(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::DeleteGroupRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::DeleteGroupRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteGroupRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteGroup() override {
+    ~WithCallbackMethod_DeleteGroup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -663,46 +516,26 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteGroup(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteGroupRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteGroup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteGroupRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteGroupRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListGroupMembers : public BaseClass {
+  class WithCallbackMethod_ListGroupMembers : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListGroupMembers() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_ListGroupMembers() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListGroupMembersRequest, ::google::monitoring::v3::ListGroupMembersResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListGroupMembersRequest* request, ::google::monitoring::v3::ListGroupMembersResponse* response) { return this->ListGroupMembers(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListGroupMembersRequest* request, ::google::monitoring::v3::ListGroupMembersResponse* response) { return this->ListGroupMembers(context, request, response); }));}
     void SetMessageAllocatorFor_ListGroupMembers(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListGroupMembersRequest, ::google::monitoring::v3::ListGroupMembersResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListGroupMembersRequest, ::google::monitoring::v3::ListGroupMembersResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListGroupMembersRequest, ::google::monitoring::v3::ListGroupMembersResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListGroupMembers() override {
+    ~WithCallbackMethod_ListGroupMembers() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -710,20 +543,11 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListGroupMembers(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListGroupMembersRequest* /*request*/, ::google::monitoring::v3::ListGroupMembersResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListGroupMembers(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListGroupMembersRequest* /*request*/, ::google::monitoring::v3::ListGroupMembersResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListGroupMembersRequest* /*request*/, ::google::monitoring::v3::ListGroupMembersResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListGroups<ExperimentalWithCallbackMethod_GetGroup<ExperimentalWithCallbackMethod_CreateGroup<ExperimentalWithCallbackMethod_UpdateGroup<ExperimentalWithCallbackMethod_DeleteGroup<ExperimentalWithCallbackMethod_ListGroupMembers<Service > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListGroups<ExperimentalWithCallbackMethod_GetGroup<ExperimentalWithCallbackMethod_CreateGroup<ExperimentalWithCallbackMethod_UpdateGroup<ExperimentalWithCallbackMethod_DeleteGroup<ExperimentalWithCallbackMethod_ListGroupMembers<Service > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListGroups<WithCallbackMethod_GetGroup<WithCallbackMethod_CreateGroup<WithCallbackMethod_UpdateGroup<WithCallbackMethod_DeleteGroup<WithCallbackMethod_ListGroupMembers<Service > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListGroups : public BaseClass {
    private:
@@ -947,27 +771,17 @@ class GroupService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListGroups : public BaseClass {
+  class WithRawCallbackMethod_ListGroups : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListGroups() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListGroups() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListGroups(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListGroups(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListGroups() override {
+    ~WithRawCallbackMethod_ListGroups() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -975,37 +789,21 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListGroups(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListGroups(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetGroup : public BaseClass {
+  class WithRawCallbackMethod_GetGroup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetGroup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetGroup() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetGroup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetGroup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetGroup() override {
+    ~WithRawCallbackMethod_GetGroup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1013,37 +811,21 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetGroup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetGroup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateGroup : public BaseClass {
+  class WithRawCallbackMethod_CreateGroup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateGroup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateGroup() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateGroup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateGroup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateGroup() override {
+    ~WithRawCallbackMethod_CreateGroup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1051,37 +833,21 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateGroup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateGroup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateGroup : public BaseClass {
+  class WithRawCallbackMethod_UpdateGroup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateGroup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateGroup() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateGroup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateGroup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateGroup() override {
+    ~WithRawCallbackMethod_UpdateGroup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1089,37 +855,21 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateGroup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateGroup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteGroup : public BaseClass {
+  class WithRawCallbackMethod_DeleteGroup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteGroup() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteGroup() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteGroup(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteGroup(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteGroup() override {
+    ~WithRawCallbackMethod_DeleteGroup() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1127,37 +877,21 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteGroup(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteGroup(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListGroupMembers : public BaseClass {
+  class WithRawCallbackMethod_ListGroupMembers : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListGroupMembers() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_ListGroupMembers() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListGroupMembers(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListGroupMembers(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListGroupMembers() override {
+    ~WithRawCallbackMethod_ListGroupMembers() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1165,14 +899,8 @@ class GroupService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListGroupMembers(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListGroupMembers(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListGroups : public BaseClass {

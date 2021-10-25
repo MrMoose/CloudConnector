@@ -22,7 +22,6 @@
 #include "google/monitoring/v3/notification_service.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -166,74 +165,42 @@ class NotificationChannelService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::NotificationChannel>> PrepareAsyncVerifyNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::VerifyNotificationChannelRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::NotificationChannel>>(PrepareAsyncVerifyNotificationChannelRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Lists the descriptors for supported channel types. The use of descriptors
       // makes it possible for new channel types to be dynamically added.
       virtual void ListNotificationChannelDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* request, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListNotificationChannelDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* request, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListNotificationChannelDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* request, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a single channel descriptor. The descriptor indicates which fields
       // are expected / permitted for a notification channel of the given type.
       virtual void GetNotificationChannelDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* request, ::google::monitoring::v3::NotificationChannelDescriptor* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetNotificationChannelDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* request, ::google::monitoring::v3::NotificationChannelDescriptor* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetNotificationChannelDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* request, ::google::monitoring::v3::NotificationChannelDescriptor* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists the notification channels that have been created for the project.
       virtual void ListNotificationChannels(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelsRequest* request, ::google::monitoring::v3::ListNotificationChannelsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListNotificationChannels(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelsRequest* request, ::google::monitoring::v3::ListNotificationChannelsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListNotificationChannels(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelsRequest* request, ::google::monitoring::v3::ListNotificationChannelsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a single notification channel. The channel includes the relevant
       // configuration details with which the channel was created. However, the
       // response may truncate or omit passwords, API keys, or other private key
       // matter and thus the response may not be 100% identical to the information
       // that was supplied in the call to the create method.
       virtual void GetNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new notification channel, representing a single notification
       // endpoint such as an email address, SMS number, or PagerDuty service.
       virtual void CreateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates a notification channel. Fields not specified in the field mask
       // remain unchanged.
       virtual void UpdateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes a notification channel.
       virtual void DeleteNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteNotificationChannelRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteNotificationChannelRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteNotificationChannelRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Causes a verification code to be delivered to the channel. The code
       // can then be supplied in `VerifyNotificationChannel` to verify the channel.
       virtual void SendNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SendNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SendNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Requests a verification code for an already verified channel that can then
       // be used in a call to VerifyNotificationChannel() on a different channel
       // with an equivalent identity in the same or in a different project. This
@@ -256,28 +223,16 @@ class NotificationChannelService final {
       // GetVerificationCode() will typically return a much longer, websafe base
       // 64 encoded string that has a longer expiration time.
       virtual void GetNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* request, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* request, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* request, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Verifies a `NotificationChannel` by proving receipt of the code
       // delivered to the channel as a result of calling
       // `SendNotificationChannelVerificationCode`.
       virtual void VerifyNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::VerifyNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void VerifyNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::VerifyNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void VerifyNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::VerifyNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>* AsyncListNotificationChannelDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>* PrepareAsyncListNotificationChannelDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -373,80 +328,40 @@ class NotificationChannelService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::NotificationChannel>> PrepareAsyncVerifyNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::VerifyNotificationChannelRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::NotificationChannel>>(PrepareAsyncVerifyNotificationChannelRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListNotificationChannelDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* request, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListNotificationChannelDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* request, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListNotificationChannelDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* request, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetNotificationChannelDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* request, ::google::monitoring::v3::NotificationChannelDescriptor* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetNotificationChannelDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* request, ::google::monitoring::v3::NotificationChannelDescriptor* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetNotificationChannelDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* request, ::google::monitoring::v3::NotificationChannelDescriptor* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListNotificationChannels(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelsRequest* request, ::google::monitoring::v3::ListNotificationChannelsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListNotificationChannels(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelsRequest* request, ::google::monitoring::v3::ListNotificationChannelsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListNotificationChannels(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelsRequest* request, ::google::monitoring::v3::ListNotificationChannelsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::UpdateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteNotificationChannelRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteNotificationChannelRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteNotificationChannelRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SendNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SendNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SendNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* request, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* request, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetNotificationChannelVerificationCode(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* request, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void VerifyNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::VerifyNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void VerifyNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::VerifyNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void VerifyNotificationChannel(::grpc::ClientContext* context, const ::google::monitoring::v3::VerifyNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>* AsyncListNotificationChannelDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>* PrepareAsyncListNotificationChannelDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::NotificationChannelDescriptor>* AsyncGetNotificationChannelDescriptorRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -738,36 +653,22 @@ class NotificationChannelService final {
   };
   typedef WithAsyncMethod_ListNotificationChannelDescriptors<WithAsyncMethod_GetNotificationChannelDescriptor<WithAsyncMethod_ListNotificationChannels<WithAsyncMethod_GetNotificationChannel<WithAsyncMethod_CreateNotificationChannel<WithAsyncMethod_UpdateNotificationChannel<WithAsyncMethod_DeleteNotificationChannel<WithAsyncMethod_SendNotificationChannelVerificationCode<WithAsyncMethod_GetNotificationChannelVerificationCode<WithAsyncMethod_VerifyNotificationChannel<Service > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListNotificationChannelDescriptors : public BaseClass {
+  class WithCallbackMethod_ListNotificationChannelDescriptors : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListNotificationChannelDescriptors() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListNotificationChannelDescriptors() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* request, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* response) { return this->ListNotificationChannelDescriptors(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* request, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* response) { return this->ListNotificationChannelDescriptors(context, request, response); }));}
     void SetMessageAllocatorFor_ListNotificationChannelDescriptors(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListNotificationChannelDescriptors() override {
+    ~WithCallbackMethod_ListNotificationChannelDescriptors() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -775,46 +676,26 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListNotificationChannelDescriptors(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* /*request*/, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListNotificationChannelDescriptors(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* /*request*/, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListNotificationChannelDescriptorsRequest* /*request*/, ::google::monitoring::v3::ListNotificationChannelDescriptorsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetNotificationChannelDescriptor : public BaseClass {
+  class WithCallbackMethod_GetNotificationChannelDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetNotificationChannelDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetNotificationChannelDescriptor() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetNotificationChannelDescriptorRequest, ::google::monitoring::v3::NotificationChannelDescriptor>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* request, ::google::monitoring::v3::NotificationChannelDescriptor* response) { return this->GetNotificationChannelDescriptor(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* request, ::google::monitoring::v3::NotificationChannelDescriptor* response) { return this->GetNotificationChannelDescriptor(context, request, response); }));}
     void SetMessageAllocatorFor_GetNotificationChannelDescriptor(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetNotificationChannelDescriptorRequest, ::google::monitoring::v3::NotificationChannelDescriptor>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetNotificationChannelDescriptorRequest, ::google::monitoring::v3::NotificationChannelDescriptor>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetNotificationChannelDescriptorRequest, ::google::monitoring::v3::NotificationChannelDescriptor>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetNotificationChannelDescriptor() override {
+    ~WithCallbackMethod_GetNotificationChannelDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -822,46 +703,26 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetNotificationChannelDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* /*request*/, ::google::monitoring::v3::NotificationChannelDescriptor* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetNotificationChannelDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* /*request*/, ::google::monitoring::v3::NotificationChannelDescriptor* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetNotificationChannelDescriptorRequest* /*request*/, ::google::monitoring::v3::NotificationChannelDescriptor* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListNotificationChannels : public BaseClass {
+  class WithCallbackMethod_ListNotificationChannels : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListNotificationChannels() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_ListNotificationChannels() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListNotificationChannelsRequest, ::google::monitoring::v3::ListNotificationChannelsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListNotificationChannelsRequest* request, ::google::monitoring::v3::ListNotificationChannelsResponse* response) { return this->ListNotificationChannels(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListNotificationChannelsRequest* request, ::google::monitoring::v3::ListNotificationChannelsResponse* response) { return this->ListNotificationChannels(context, request, response); }));}
     void SetMessageAllocatorFor_ListNotificationChannels(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListNotificationChannelsRequest, ::google::monitoring::v3::ListNotificationChannelsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListNotificationChannelsRequest, ::google::monitoring::v3::ListNotificationChannelsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListNotificationChannelsRequest, ::google::monitoring::v3::ListNotificationChannelsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListNotificationChannels() override {
+    ~WithCallbackMethod_ListNotificationChannels() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -869,46 +730,26 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListNotificationChannels(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListNotificationChannelsRequest* /*request*/, ::google::monitoring::v3::ListNotificationChannelsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListNotificationChannels(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListNotificationChannelsRequest* /*request*/, ::google::monitoring::v3::ListNotificationChannelsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListNotificationChannelsRequest* /*request*/, ::google::monitoring::v3::ListNotificationChannelsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetNotificationChannel : public BaseClass {
+  class WithCallbackMethod_GetNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_GetNotificationChannel() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response) { return this->GetNotificationChannel(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response) { return this->GetNotificationChannel(context, request, response); }));}
     void SetMessageAllocatorFor_GetNotificationChannel(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetNotificationChannel() override {
+    ~WithCallbackMethod_GetNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -916,46 +757,26 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateNotificationChannel : public BaseClass {
+  class WithCallbackMethod_CreateNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_CreateNotificationChannel() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::CreateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response) { return this->CreateNotificationChannel(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::CreateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response) { return this->CreateNotificationChannel(context, request, response); }));}
     void SetMessageAllocatorFor_CreateNotificationChannel(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::CreateNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::CreateNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateNotificationChannel() override {
+    ~WithCallbackMethod_CreateNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -963,46 +784,26 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateNotificationChannel : public BaseClass {
+  class WithCallbackMethod_UpdateNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_UpdateNotificationChannel() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::UpdateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response) { return this->UpdateNotificationChannel(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::UpdateNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response) { return this->UpdateNotificationChannel(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateNotificationChannel(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::UpdateNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::UpdateNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::UpdateNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateNotificationChannel() override {
+    ~WithCallbackMethod_UpdateNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1010,46 +811,26 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::UpdateNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteNotificationChannel : public BaseClass {
+  class WithCallbackMethod_DeleteNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_DeleteNotificationChannel() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteNotificationChannelRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::DeleteNotificationChannelRequest* request, ::google::protobuf::Empty* response) { return this->DeleteNotificationChannel(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::DeleteNotificationChannelRequest* request, ::google::protobuf::Empty* response) { return this->DeleteNotificationChannel(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteNotificationChannel(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::DeleteNotificationChannelRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::DeleteNotificationChannelRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteNotificationChannelRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteNotificationChannel() override {
+    ~WithCallbackMethod_DeleteNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1057,46 +838,26 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteNotificationChannelRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteNotificationChannelRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteNotificationChannelRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SendNotificationChannelVerificationCode : public BaseClass {
+  class WithCallbackMethod_SendNotificationChannelVerificationCode : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SendNotificationChannelVerificationCode() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_SendNotificationChannelVerificationCode() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* request, ::google::protobuf::Empty* response) { return this->SendNotificationChannelVerificationCode(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* request, ::google::protobuf::Empty* response) { return this->SendNotificationChannelVerificationCode(context, request, response); }));}
     void SetMessageAllocatorFor_SendNotificationChannelVerificationCode(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SendNotificationChannelVerificationCode() override {
+    ~WithCallbackMethod_SendNotificationChannelVerificationCode() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1104,46 +865,26 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SendNotificationChannelVerificationCode(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SendNotificationChannelVerificationCode(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::SendNotificationChannelVerificationCodeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetNotificationChannelVerificationCode : public BaseClass {
+  class WithCallbackMethod_GetNotificationChannelVerificationCode : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetNotificationChannelVerificationCode() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_GetNotificationChannelVerificationCode() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* request, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* response) { return this->GetNotificationChannelVerificationCode(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* request, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* response) { return this->GetNotificationChannelVerificationCode(context, request, response); }));}
     void SetMessageAllocatorFor_GetNotificationChannelVerificationCode(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetNotificationChannelVerificationCode() override {
+    ~WithCallbackMethod_GetNotificationChannelVerificationCode() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1151,46 +892,26 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetNotificationChannelVerificationCode(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* /*request*/, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetNotificationChannelVerificationCode(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* /*request*/, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetNotificationChannelVerificationCodeRequest* /*request*/, ::google::monitoring::v3::GetNotificationChannelVerificationCodeResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_VerifyNotificationChannel : public BaseClass {
+  class WithCallbackMethod_VerifyNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_VerifyNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_VerifyNotificationChannel() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::VerifyNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::VerifyNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response) { return this->VerifyNotificationChannel(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::VerifyNotificationChannelRequest* request, ::google::monitoring::v3::NotificationChannel* response) { return this->VerifyNotificationChannel(context, request, response); }));}
     void SetMessageAllocatorFor_VerifyNotificationChannel(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::VerifyNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::VerifyNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::VerifyNotificationChannelRequest, ::google::monitoring::v3::NotificationChannel>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_VerifyNotificationChannel() override {
+    ~WithCallbackMethod_VerifyNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1198,20 +919,11 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* VerifyNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::VerifyNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* VerifyNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::VerifyNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::VerifyNotificationChannelRequest* /*request*/, ::google::monitoring::v3::NotificationChannel* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListNotificationChannelDescriptors<ExperimentalWithCallbackMethod_GetNotificationChannelDescriptor<ExperimentalWithCallbackMethod_ListNotificationChannels<ExperimentalWithCallbackMethod_GetNotificationChannel<ExperimentalWithCallbackMethod_CreateNotificationChannel<ExperimentalWithCallbackMethod_UpdateNotificationChannel<ExperimentalWithCallbackMethod_DeleteNotificationChannel<ExperimentalWithCallbackMethod_SendNotificationChannelVerificationCode<ExperimentalWithCallbackMethod_GetNotificationChannelVerificationCode<ExperimentalWithCallbackMethod_VerifyNotificationChannel<Service > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListNotificationChannelDescriptors<ExperimentalWithCallbackMethod_GetNotificationChannelDescriptor<ExperimentalWithCallbackMethod_ListNotificationChannels<ExperimentalWithCallbackMethod_GetNotificationChannel<ExperimentalWithCallbackMethod_CreateNotificationChannel<ExperimentalWithCallbackMethod_UpdateNotificationChannel<ExperimentalWithCallbackMethod_DeleteNotificationChannel<ExperimentalWithCallbackMethod_SendNotificationChannelVerificationCode<ExperimentalWithCallbackMethod_GetNotificationChannelVerificationCode<ExperimentalWithCallbackMethod_VerifyNotificationChannel<Service > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListNotificationChannelDescriptors<WithCallbackMethod_GetNotificationChannelDescriptor<WithCallbackMethod_ListNotificationChannels<WithCallbackMethod_GetNotificationChannel<WithCallbackMethod_CreateNotificationChannel<WithCallbackMethod_UpdateNotificationChannel<WithCallbackMethod_DeleteNotificationChannel<WithCallbackMethod_SendNotificationChannelVerificationCode<WithCallbackMethod_GetNotificationChannelVerificationCode<WithCallbackMethod_VerifyNotificationChannel<Service > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListNotificationChannelDescriptors : public BaseClass {
    private:
@@ -1583,27 +1295,17 @@ class NotificationChannelService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListNotificationChannelDescriptors : public BaseClass {
+  class WithRawCallbackMethod_ListNotificationChannelDescriptors : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListNotificationChannelDescriptors() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListNotificationChannelDescriptors() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListNotificationChannelDescriptors(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListNotificationChannelDescriptors(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListNotificationChannelDescriptors() override {
+    ~WithRawCallbackMethod_ListNotificationChannelDescriptors() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1611,37 +1313,21 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListNotificationChannelDescriptors(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListNotificationChannelDescriptors(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetNotificationChannelDescriptor : public BaseClass {
+  class WithRawCallbackMethod_GetNotificationChannelDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetNotificationChannelDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetNotificationChannelDescriptor() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetNotificationChannelDescriptor(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetNotificationChannelDescriptor(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetNotificationChannelDescriptor() override {
+    ~WithRawCallbackMethod_GetNotificationChannelDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1649,37 +1335,21 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetNotificationChannelDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetNotificationChannelDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListNotificationChannels : public BaseClass {
+  class WithRawCallbackMethod_ListNotificationChannels : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListNotificationChannels() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_ListNotificationChannels() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListNotificationChannels(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListNotificationChannels(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListNotificationChannels() override {
+    ~WithRawCallbackMethod_ListNotificationChannels() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1687,37 +1357,21 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListNotificationChannels(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListNotificationChannels(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetNotificationChannel : public BaseClass {
+  class WithRawCallbackMethod_GetNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_GetNotificationChannel() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetNotificationChannel(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetNotificationChannel(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetNotificationChannel() override {
+    ~WithRawCallbackMethod_GetNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1725,37 +1379,21 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateNotificationChannel : public BaseClass {
+  class WithRawCallbackMethod_CreateNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_CreateNotificationChannel() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateNotificationChannel(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateNotificationChannel(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateNotificationChannel() override {
+    ~WithRawCallbackMethod_CreateNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1763,37 +1401,21 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateNotificationChannel : public BaseClass {
+  class WithRawCallbackMethod_UpdateNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_UpdateNotificationChannel() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateNotificationChannel(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateNotificationChannel(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateNotificationChannel() override {
+    ~WithRawCallbackMethod_UpdateNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1801,37 +1423,21 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteNotificationChannel : public BaseClass {
+  class WithRawCallbackMethod_DeleteNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_DeleteNotificationChannel() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteNotificationChannel(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteNotificationChannel(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteNotificationChannel() override {
+    ~WithRawCallbackMethod_DeleteNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1839,37 +1445,21 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SendNotificationChannelVerificationCode : public BaseClass {
+  class WithRawCallbackMethod_SendNotificationChannelVerificationCode : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SendNotificationChannelVerificationCode() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_SendNotificationChannelVerificationCode() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SendNotificationChannelVerificationCode(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SendNotificationChannelVerificationCode(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SendNotificationChannelVerificationCode() override {
+    ~WithRawCallbackMethod_SendNotificationChannelVerificationCode() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1877,37 +1467,21 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SendNotificationChannelVerificationCode(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SendNotificationChannelVerificationCode(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetNotificationChannelVerificationCode : public BaseClass {
+  class WithRawCallbackMethod_GetNotificationChannelVerificationCode : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetNotificationChannelVerificationCode() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_GetNotificationChannelVerificationCode() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetNotificationChannelVerificationCode(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetNotificationChannelVerificationCode(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetNotificationChannelVerificationCode() override {
+    ~WithRawCallbackMethod_GetNotificationChannelVerificationCode() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1915,37 +1489,21 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetNotificationChannelVerificationCode(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetNotificationChannelVerificationCode(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_VerifyNotificationChannel : public BaseClass {
+  class WithRawCallbackMethod_VerifyNotificationChannel : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_VerifyNotificationChannel() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_VerifyNotificationChannel() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->VerifyNotificationChannel(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->VerifyNotificationChannel(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_VerifyNotificationChannel() override {
+    ~WithRawCallbackMethod_VerifyNotificationChannel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1953,14 +1511,8 @@ class NotificationChannelService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* VerifyNotificationChannel(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* VerifyNotificationChannel(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListNotificationChannelDescriptors : public BaseClass {

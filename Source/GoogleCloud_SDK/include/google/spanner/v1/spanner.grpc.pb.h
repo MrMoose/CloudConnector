@@ -22,7 +22,6 @@
 #include "google/spanner/v1/spanner.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -291,9 +290,9 @@ class Spanner final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::v1::PartitionResponse>> PrepareAsyncPartitionRead(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionReadRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::v1::PartitionResponse>>(PrepareAsyncPartitionReadRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Creates a new session. A session can be used to perform
       // transactions that read and/or modify data in a Cloud Spanner database.
       // Sessions are meant to be reused for many consecutive
@@ -314,46 +313,26 @@ class Spanner final {
       // Idle sessions can be kept alive by sending a trivial SQL query
       // periodically, e.g., `"SELECT 1"`.
       virtual void CreateSession(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest* request, ::google::spanner::v1::Session* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateSession(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest* request, ::google::spanner::v1::Session* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateSession(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest* request, ::google::spanner::v1::Session* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates multiple new sessions.
       //
       // This API can be used to initialize a session cache on the clients.
       // See https://goo.gl/TgSFN2 for best practices on session cache management.
       virtual void BatchCreateSessions(::grpc::ClientContext* context, const ::google::spanner::v1::BatchCreateSessionsRequest* request, ::google::spanner::v1::BatchCreateSessionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchCreateSessions(::grpc::ClientContext* context, const ::google::spanner::v1::BatchCreateSessionsRequest* request, ::google::spanner::v1::BatchCreateSessionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void BatchCreateSessions(::grpc::ClientContext* context, const ::google::spanner::v1::BatchCreateSessionsRequest* request, ::google::spanner::v1::BatchCreateSessionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a session. Returns `NOT_FOUND` if the session does not exist.
       // This is mainly useful for determining whether a session is still
       // alive.
       virtual void GetSession(::grpc::ClientContext* context, const ::google::spanner::v1::GetSessionRequest* request, ::google::spanner::v1::Session* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetSession(::grpc::ClientContext* context, const ::google::spanner::v1::GetSessionRequest* request, ::google::spanner::v1::Session* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetSession(::grpc::ClientContext* context, const ::google::spanner::v1::GetSessionRequest* request, ::google::spanner::v1::Session* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists all sessions in a given database.
       virtual void ListSessions(::grpc::ClientContext* context, const ::google::spanner::v1::ListSessionsRequest* request, ::google::spanner::v1::ListSessionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListSessions(::grpc::ClientContext* context, const ::google::spanner::v1::ListSessionsRequest* request, ::google::spanner::v1::ListSessionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListSessions(::grpc::ClientContext* context, const ::google::spanner::v1::ListSessionsRequest* request, ::google::spanner::v1::ListSessionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Ends a session, releasing server resources associated with it. This will
       // asynchronously trigger cancellation of any operations that are running with
       // this session.
       virtual void DeleteSession(::grpc::ClientContext* context, const ::google::spanner::v1::DeleteSessionRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteSession(::grpc::ClientContext* context, const ::google::spanner::v1::DeleteSessionRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteSession(::grpc::ClientContext* context, const ::google::spanner::v1::DeleteSessionRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Executes an SQL statement, returning all results in a single reply. This
       // method cannot be used to return a result set larger than 10 MiB;
       // if the query yields more data than that, the query fails with
@@ -366,21 +345,13 @@ class Spanner final {
       // Larger result sets can be fetched in streaming fashion by calling
       // [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteStreamingSql] instead.
       virtual void ExecuteSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::google::spanner::v1::ResultSet* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ExecuteSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ExecuteSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Like [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql], except returns the result
       // set as a stream. Unlike [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql], there
       // is no limit on the size of the returned result set. However, no
       // individual row in the result set can exceed 100 MiB, and no
       // column value can exceed 10 MiB.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ExecuteStreamingSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
-      #else
-      virtual void ExecuteStreamingSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
-      #endif
       // Executes a batch of SQL DML statements. This method allows many statements
       // to be run with lower latency than submitting them sequentially with
       // [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql].
@@ -393,11 +364,7 @@ class Spanner final {
       // Execution stops after the first failed statement; the remaining statements
       // are not executed.
       virtual void ExecuteBatchDml(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteBatchDmlRequest* request, ::google::spanner::v1::ExecuteBatchDmlResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ExecuteBatchDml(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteBatchDmlRequest* request, ::google::spanner::v1::ExecuteBatchDmlResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ExecuteBatchDml(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteBatchDmlRequest* request, ::google::spanner::v1::ExecuteBatchDmlResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Reads rows from the database using key lookups and scans, as a
       // simple key/value style alternative to
       // [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql].  This method cannot be used to
@@ -412,31 +379,19 @@ class Spanner final {
       // Larger result sets can be yielded in streaming fashion by calling
       // [StreamingRead][google.spanner.v1.Spanner.StreamingRead] instead.
       virtual void Read(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::google::spanner::v1::ResultSet* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void Read(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void Read(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Like [Read][google.spanner.v1.Spanner.Read], except returns the result set as a
       // stream. Unlike [Read][google.spanner.v1.Spanner.Read], there is no limit on the
       // size of the returned result set. However, no individual row in
       // the result set can exceed 100 MiB, and no column value can exceed
       // 10 MiB.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void StreamingRead(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
-      #else
-      virtual void StreamingRead(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) = 0;
-      #endif
       // Begins a new transaction. This step can often be skipped:
       // [Read][google.spanner.v1.Spanner.Read], [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] and
       // [Commit][google.spanner.v1.Spanner.Commit] can begin a new transaction as a
       // side-effect.
       virtual void BeginTransaction(::grpc::ClientContext* context, const ::google::spanner::v1::BeginTransactionRequest* request, ::google::spanner::v1::Transaction* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BeginTransaction(::grpc::ClientContext* context, const ::google::spanner::v1::BeginTransactionRequest* request, ::google::spanner::v1::Transaction* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void BeginTransaction(::grpc::ClientContext* context, const ::google::spanner::v1::BeginTransactionRequest* request, ::google::spanner::v1::Transaction* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Commits a transaction. The request includes the mutations to be
       // applied to rows in the database.
       //
@@ -452,11 +407,7 @@ class Spanner final {
       // we recommend that you perform another read from the database to see the
       // state of things as they are now.
       virtual void Commit(::grpc::ClientContext* context, const ::google::spanner::v1::CommitRequest* request, ::google::spanner::v1::CommitResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void Commit(::grpc::ClientContext* context, const ::google::spanner::v1::CommitRequest* request, ::google::spanner::v1::CommitResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void Commit(::grpc::ClientContext* context, const ::google::spanner::v1::CommitRequest* request, ::google::spanner::v1::CommitResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Rolls back a transaction, releasing any locks it holds. It is a good
       // idea to call this for any transaction that includes one or more
       // [Read][google.spanner.v1.Spanner.Read] or [ExecuteSql][google.spanner.v1.Spanner.ExecuteSql] requests and
@@ -466,11 +417,7 @@ class Spanner final {
       // transaction was already aborted, or the transaction is not
       // found. `Rollback` never returns `ABORTED`.
       virtual void Rollback(::grpc::ClientContext* context, const ::google::spanner::v1::RollbackRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void Rollback(::grpc::ClientContext* context, const ::google::spanner::v1::RollbackRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void Rollback(::grpc::ClientContext* context, const ::google::spanner::v1::RollbackRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a set of partition tokens that can be used to execute a query
       // operation in parallel.  Each of the returned partition tokens can be used
       // by [ExecuteStreamingSql][google.spanner.v1.Spanner.ExecuteStreamingSql] to specify a subset
@@ -483,11 +430,7 @@ class Spanner final {
       // old.  When any of these happen, it is not possible to resume the query, and
       // the whole operation must be restarted from the beginning.
       virtual void PartitionQuery(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionQueryRequest* request, ::google::spanner::v1::PartitionResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void PartitionQuery(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionQueryRequest* request, ::google::spanner::v1::PartitionResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void PartitionQuery(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionQueryRequest* request, ::google::spanner::v1::PartitionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a set of partition tokens that can be used to execute a read
       // operation in parallel.  Each of the returned partition tokens can be used
       // by [StreamingRead][google.spanner.v1.Spanner.StreamingRead] to specify a subset of the read
@@ -502,19 +445,11 @@ class Spanner final {
       // old.  When any of these happen, it is not possible to resume the read, and
       // the whole operation must be restarted from the beginning.
       virtual void PartitionRead(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionReadRequest* request, ::google::spanner::v1::PartitionResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void PartitionRead(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionReadRequest* request, ::google::spanner::v1::PartitionResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void PartitionRead(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionReadRequest* request, ::google::spanner::v1::PartitionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::v1::Session>* AsyncCreateSessionRaw(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::v1::Session>* PrepareAsyncCreateSessionRaw(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -661,108 +596,48 @@ class Spanner final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::v1::PartitionResponse>> PrepareAsyncPartitionRead(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionReadRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::v1::PartitionResponse>>(PrepareAsyncPartitionReadRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CreateSession(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest* request, ::google::spanner::v1::Session* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateSession(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest* request, ::google::spanner::v1::Session* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateSession(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest* request, ::google::spanner::v1::Session* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void BatchCreateSessions(::grpc::ClientContext* context, const ::google::spanner::v1::BatchCreateSessionsRequest* request, ::google::spanner::v1::BatchCreateSessionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void BatchCreateSessions(::grpc::ClientContext* context, const ::google::spanner::v1::BatchCreateSessionsRequest* request, ::google::spanner::v1::BatchCreateSessionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void BatchCreateSessions(::grpc::ClientContext* context, const ::google::spanner::v1::BatchCreateSessionsRequest* request, ::google::spanner::v1::BatchCreateSessionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetSession(::grpc::ClientContext* context, const ::google::spanner::v1::GetSessionRequest* request, ::google::spanner::v1::Session* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetSession(::grpc::ClientContext* context, const ::google::spanner::v1::GetSessionRequest* request, ::google::spanner::v1::Session* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetSession(::grpc::ClientContext* context, const ::google::spanner::v1::GetSessionRequest* request, ::google::spanner::v1::Session* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListSessions(::grpc::ClientContext* context, const ::google::spanner::v1::ListSessionsRequest* request, ::google::spanner::v1::ListSessionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListSessions(::grpc::ClientContext* context, const ::google::spanner::v1::ListSessionsRequest* request, ::google::spanner::v1::ListSessionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListSessions(::grpc::ClientContext* context, const ::google::spanner::v1::ListSessionsRequest* request, ::google::spanner::v1::ListSessionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteSession(::grpc::ClientContext* context, const ::google::spanner::v1::DeleteSessionRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteSession(::grpc::ClientContext* context, const ::google::spanner::v1::DeleteSessionRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteSession(::grpc::ClientContext* context, const ::google::spanner::v1::DeleteSessionRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ExecuteSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::google::spanner::v1::ResultSet* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ExecuteSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ExecuteSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ExecuteStreamingSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
-      #else
-      void ExecuteStreamingSql(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
-      #endif
       void ExecuteBatchDml(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteBatchDmlRequest* request, ::google::spanner::v1::ExecuteBatchDmlResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ExecuteBatchDml(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteBatchDmlRequest* request, ::google::spanner::v1::ExecuteBatchDmlResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ExecuteBatchDml(::grpc::ClientContext* context, const ::google::spanner::v1::ExecuteBatchDmlRequest* request, ::google::spanner::v1::ExecuteBatchDmlResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void Read(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::google::spanner::v1::ResultSet* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void Read(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void Read(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::google::spanner::v1::ResultSet* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void StreamingRead(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::grpc::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
-      #else
-      void StreamingRead(::grpc::ClientContext* context, const ::google::spanner::v1::ReadRequest* request, ::grpc::experimental::ClientReadReactor< ::google::spanner::v1::PartialResultSet>* reactor) override;
-      #endif
       void BeginTransaction(::grpc::ClientContext* context, const ::google::spanner::v1::BeginTransactionRequest* request, ::google::spanner::v1::Transaction* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void BeginTransaction(::grpc::ClientContext* context, const ::google::spanner::v1::BeginTransactionRequest* request, ::google::spanner::v1::Transaction* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void BeginTransaction(::grpc::ClientContext* context, const ::google::spanner::v1::BeginTransactionRequest* request, ::google::spanner::v1::Transaction* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void Commit(::grpc::ClientContext* context, const ::google::spanner::v1::CommitRequest* request, ::google::spanner::v1::CommitResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void Commit(::grpc::ClientContext* context, const ::google::spanner::v1::CommitRequest* request, ::google::spanner::v1::CommitResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void Commit(::grpc::ClientContext* context, const ::google::spanner::v1::CommitRequest* request, ::google::spanner::v1::CommitResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void Rollback(::grpc::ClientContext* context, const ::google::spanner::v1::RollbackRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void Rollback(::grpc::ClientContext* context, const ::google::spanner::v1::RollbackRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void Rollback(::grpc::ClientContext* context, const ::google::spanner::v1::RollbackRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void PartitionQuery(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionQueryRequest* request, ::google::spanner::v1::PartitionResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void PartitionQuery(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionQueryRequest* request, ::google::spanner::v1::PartitionResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void PartitionQuery(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionQueryRequest* request, ::google::spanner::v1::PartitionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void PartitionRead(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionReadRequest* request, ::google::spanner::v1::PartitionResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void PartitionRead(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionReadRequest* request, ::google::spanner::v1::PartitionResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void PartitionRead(::grpc::ClientContext* context, const ::google::spanner::v1::PartitionReadRequest* request, ::google::spanner::v1::PartitionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::spanner::v1::Session>* AsyncCreateSessionRaw(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::v1::Session>* PrepareAsyncCreateSessionRaw(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::v1::BatchCreateSessionsResponse>* AsyncBatchCreateSessionsRaw(::grpc::ClientContext* context, const ::google::spanner::v1::BatchCreateSessionsRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -1260,36 +1135,22 @@ class Spanner final {
   };
   typedef WithAsyncMethod_CreateSession<WithAsyncMethod_BatchCreateSessions<WithAsyncMethod_GetSession<WithAsyncMethod_ListSessions<WithAsyncMethod_DeleteSession<WithAsyncMethod_ExecuteSql<WithAsyncMethod_ExecuteStreamingSql<WithAsyncMethod_ExecuteBatchDml<WithAsyncMethod_Read<WithAsyncMethod_StreamingRead<WithAsyncMethod_BeginTransaction<WithAsyncMethod_Commit<WithAsyncMethod_Rollback<WithAsyncMethod_PartitionQuery<WithAsyncMethod_PartitionRead<Service > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateSession : public BaseClass {
+  class WithCallbackMethod_CreateSession : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateSession() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_CreateSession() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::CreateSessionRequest, ::google::spanner::v1::Session>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::CreateSessionRequest* request, ::google::spanner::v1::Session* response) { return this->CreateSession(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::CreateSessionRequest* request, ::google::spanner::v1::Session* response) { return this->CreateSession(context, request, response); }));}
     void SetMessageAllocatorFor_CreateSession(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::CreateSessionRequest, ::google::spanner::v1::Session>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::CreateSessionRequest, ::google::spanner::v1::Session>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::CreateSessionRequest, ::google::spanner::v1::Session>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateSession() override {
+    ~WithCallbackMethod_CreateSession() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1297,46 +1158,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSession(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::CreateSessionRequest* /*request*/, ::google::spanner::v1::Session* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSession(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::CreateSessionRequest* /*request*/, ::google::spanner::v1::Session* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::CreateSessionRequest* /*request*/, ::google::spanner::v1::Session* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_BatchCreateSessions : public BaseClass {
+  class WithCallbackMethod_BatchCreateSessions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_BatchCreateSessions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_BatchCreateSessions() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::BatchCreateSessionsRequest, ::google::spanner::v1::BatchCreateSessionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::BatchCreateSessionsRequest* request, ::google::spanner::v1::BatchCreateSessionsResponse* response) { return this->BatchCreateSessions(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::BatchCreateSessionsRequest* request, ::google::spanner::v1::BatchCreateSessionsResponse* response) { return this->BatchCreateSessions(context, request, response); }));}
     void SetMessageAllocatorFor_BatchCreateSessions(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::BatchCreateSessionsRequest, ::google::spanner::v1::BatchCreateSessionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::BatchCreateSessionsRequest, ::google::spanner::v1::BatchCreateSessionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::BatchCreateSessionsRequest, ::google::spanner::v1::BatchCreateSessionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_BatchCreateSessions() override {
+    ~WithCallbackMethod_BatchCreateSessions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1344,46 +1185,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchCreateSessions(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::BatchCreateSessionsRequest* /*request*/, ::google::spanner::v1::BatchCreateSessionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchCreateSessions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::BatchCreateSessionsRequest* /*request*/, ::google::spanner::v1::BatchCreateSessionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::BatchCreateSessionsRequest* /*request*/, ::google::spanner::v1::BatchCreateSessionsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetSession : public BaseClass {
+  class WithCallbackMethod_GetSession : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetSession() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_GetSession() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::GetSessionRequest, ::google::spanner::v1::Session>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::GetSessionRequest* request, ::google::spanner::v1::Session* response) { return this->GetSession(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::GetSessionRequest* request, ::google::spanner::v1::Session* response) { return this->GetSession(context, request, response); }));}
     void SetMessageAllocatorFor_GetSession(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::GetSessionRequest, ::google::spanner::v1::Session>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::GetSessionRequest, ::google::spanner::v1::Session>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::GetSessionRequest, ::google::spanner::v1::Session>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetSession() override {
+    ~WithCallbackMethod_GetSession() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1391,46 +1212,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSession(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::GetSessionRequest* /*request*/, ::google::spanner::v1::Session* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSession(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::GetSessionRequest* /*request*/, ::google::spanner::v1::Session* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::GetSessionRequest* /*request*/, ::google::spanner::v1::Session* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListSessions : public BaseClass {
+  class WithCallbackMethod_ListSessions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListSessions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_ListSessions() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::ListSessionsRequest, ::google::spanner::v1::ListSessionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::ListSessionsRequest* request, ::google::spanner::v1::ListSessionsResponse* response) { return this->ListSessions(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::ListSessionsRequest* request, ::google::spanner::v1::ListSessionsResponse* response) { return this->ListSessions(context, request, response); }));}
     void SetMessageAllocatorFor_ListSessions(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::ListSessionsRequest, ::google::spanner::v1::ListSessionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::ListSessionsRequest, ::google::spanner::v1::ListSessionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::ListSessionsRequest, ::google::spanner::v1::ListSessionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListSessions() override {
+    ~WithCallbackMethod_ListSessions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1438,46 +1239,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSessions(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ListSessionsRequest* /*request*/, ::google::spanner::v1::ListSessionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSessions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::ListSessionsRequest* /*request*/, ::google::spanner::v1::ListSessionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ListSessionsRequest* /*request*/, ::google::spanner::v1::ListSessionsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteSession : public BaseClass {
+  class WithCallbackMethod_DeleteSession : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteSession() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteSession() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::DeleteSessionRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::DeleteSessionRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSession(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::DeleteSessionRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSession(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteSession(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::DeleteSessionRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::DeleteSessionRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::DeleteSessionRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteSession() override {
+    ~WithCallbackMethod_DeleteSession() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1485,46 +1266,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSession(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::DeleteSessionRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSession(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::DeleteSessionRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::DeleteSessionRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ExecuteSql : public BaseClass {
+  class WithCallbackMethod_ExecuteSql : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ExecuteSql() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_ExecuteSql() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::ExecuteSqlRequest, ::google::spanner::v1::ResultSet>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::google::spanner::v1::ResultSet* response) { return this->ExecuteSql(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request, ::google::spanner::v1::ResultSet* response) { return this->ExecuteSql(context, request, response); }));}
     void SetMessageAllocatorFor_ExecuteSql(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::ExecuteSqlRequest, ::google::spanner::v1::ResultSet>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::ExecuteSqlRequest, ::google::spanner::v1::ResultSet>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::ExecuteSqlRequest, ::google::spanner::v1::ResultSet>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ExecuteSql() override {
+    ~WithCallbackMethod_ExecuteSql() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1532,37 +1293,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ExecuteSql(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ExecuteSqlRequest* /*request*/, ::google::spanner::v1::ResultSet* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ExecuteSql(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::ExecuteSqlRequest* /*request*/, ::google::spanner::v1::ResultSet* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ExecuteSqlRequest* /*request*/, ::google::spanner::v1::ResultSet* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ExecuteStreamingSql : public BaseClass {
+  class WithCallbackMethod_ExecuteStreamingSql : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ExecuteStreamingSql() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_ExecuteStreamingSql() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackServerStreamingHandler< ::google::spanner::v1::ExecuteSqlRequest, ::google::spanner::v1::PartialResultSet>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::ExecuteSqlRequest* request) { return this->ExecuteStreamingSql(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::ExecuteSqlRequest* request) { return this->ExecuteStreamingSql(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_ExecuteStreamingSql() override {
+    ~WithCallbackMethod_ExecuteStreamingSql() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1570,46 +1315,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::google::spanner::v1::PartialResultSet>* ExecuteStreamingSql(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ExecuteSqlRequest* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::google::spanner::v1::PartialResultSet>* ExecuteStreamingSql(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::ExecuteSqlRequest* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ExecuteSqlRequest* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ExecuteBatchDml : public BaseClass {
+  class WithCallbackMethod_ExecuteBatchDml : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ExecuteBatchDml() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_ExecuteBatchDml() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::ExecuteBatchDmlRequest, ::google::spanner::v1::ExecuteBatchDmlResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::ExecuteBatchDmlRequest* request, ::google::spanner::v1::ExecuteBatchDmlResponse* response) { return this->ExecuteBatchDml(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::ExecuteBatchDmlRequest* request, ::google::spanner::v1::ExecuteBatchDmlResponse* response) { return this->ExecuteBatchDml(context, request, response); }));}
     void SetMessageAllocatorFor_ExecuteBatchDml(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::ExecuteBatchDmlRequest, ::google::spanner::v1::ExecuteBatchDmlResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::ExecuteBatchDmlRequest, ::google::spanner::v1::ExecuteBatchDmlResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::ExecuteBatchDmlRequest, ::google::spanner::v1::ExecuteBatchDmlResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ExecuteBatchDml() override {
+    ~WithCallbackMethod_ExecuteBatchDml() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1617,46 +1342,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ExecuteBatchDml(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ExecuteBatchDmlRequest* /*request*/, ::google::spanner::v1::ExecuteBatchDmlResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ExecuteBatchDml(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::ExecuteBatchDmlRequest* /*request*/, ::google::spanner::v1::ExecuteBatchDmlResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ExecuteBatchDmlRequest* /*request*/, ::google::spanner::v1::ExecuteBatchDmlResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Read : public BaseClass {
+  class WithCallbackMethod_Read : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Read() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_Read() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::ReadRequest, ::google::spanner::v1::ResultSet>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::ReadRequest* request, ::google::spanner::v1::ResultSet* response) { return this->Read(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::ReadRequest* request, ::google::spanner::v1::ResultSet* response) { return this->Read(context, request, response); }));}
     void SetMessageAllocatorFor_Read(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::ReadRequest, ::google::spanner::v1::ResultSet>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::ReadRequest, ::google::spanner::v1::ResultSet>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::ReadRequest, ::google::spanner::v1::ResultSet>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Read() override {
+    ~WithCallbackMethod_Read() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1664,37 +1369,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Read(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ReadRequest* /*request*/, ::google::spanner::v1::ResultSet* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Read(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::ReadRequest* /*request*/, ::google::spanner::v1::ResultSet* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ReadRequest* /*request*/, ::google::spanner::v1::ResultSet* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_StreamingRead : public BaseClass {
+  class WithCallbackMethod_StreamingRead : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_StreamingRead() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_StreamingRead() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackServerStreamingHandler< ::google::spanner::v1::ReadRequest, ::google::spanner::v1::PartialResultSet>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::ReadRequest* request) { return this->StreamingRead(context, request); }));
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::ReadRequest* request) { return this->StreamingRead(context, request); }));
     }
-    ~ExperimentalWithCallbackMethod_StreamingRead() override {
+    ~WithCallbackMethod_StreamingRead() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1702,46 +1391,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::google::spanner::v1::PartialResultSet>* StreamingRead(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ReadRequest* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::google::spanner::v1::PartialResultSet>* StreamingRead(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::ReadRequest* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::ReadRequest* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_BeginTransaction : public BaseClass {
+  class WithCallbackMethod_BeginTransaction : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_BeginTransaction() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(10,
+    WithCallbackMethod_BeginTransaction() {
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::BeginTransactionRequest, ::google::spanner::v1::Transaction>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::BeginTransactionRequest* request, ::google::spanner::v1::Transaction* response) { return this->BeginTransaction(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::BeginTransactionRequest* request, ::google::spanner::v1::Transaction* response) { return this->BeginTransaction(context, request, response); }));}
     void SetMessageAllocatorFor_BeginTransaction(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::BeginTransactionRequest, ::google::spanner::v1::Transaction>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::BeginTransactionRequest, ::google::spanner::v1::Transaction>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(10);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::BeginTransactionRequest, ::google::spanner::v1::Transaction>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_BeginTransaction() override {
+    ~WithCallbackMethod_BeginTransaction() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1749,46 +1418,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BeginTransaction(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::BeginTransactionRequest* /*request*/, ::google::spanner::v1::Transaction* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BeginTransaction(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::BeginTransactionRequest* /*request*/, ::google::spanner::v1::Transaction* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::BeginTransactionRequest* /*request*/, ::google::spanner::v1::Transaction* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Commit : public BaseClass {
+  class WithCallbackMethod_Commit : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Commit() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(11,
+    WithCallbackMethod_Commit() {
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::CommitRequest, ::google::spanner::v1::CommitResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::CommitRequest* request, ::google::spanner::v1::CommitResponse* response) { return this->Commit(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::CommitRequest* request, ::google::spanner::v1::CommitResponse* response) { return this->Commit(context, request, response); }));}
     void SetMessageAllocatorFor_Commit(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::CommitRequest, ::google::spanner::v1::CommitResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::CommitRequest, ::google::spanner::v1::CommitResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(11);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::CommitRequest, ::google::spanner::v1::CommitResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Commit() override {
+    ~WithCallbackMethod_Commit() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1796,46 +1445,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Commit(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::CommitRequest* /*request*/, ::google::spanner::v1::CommitResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Commit(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::CommitRequest* /*request*/, ::google::spanner::v1::CommitResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::CommitRequest* /*request*/, ::google::spanner::v1::CommitResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Rollback : public BaseClass {
+  class WithCallbackMethod_Rollback : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Rollback() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(12,
+    WithCallbackMethod_Rollback() {
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::RollbackRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::RollbackRequest* request, ::google::protobuf::Empty* response) { return this->Rollback(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::RollbackRequest* request, ::google::protobuf::Empty* response) { return this->Rollback(context, request, response); }));}
     void SetMessageAllocatorFor_Rollback(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::RollbackRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::RollbackRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(12);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::RollbackRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Rollback() override {
+    ~WithCallbackMethod_Rollback() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1843,46 +1472,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Rollback(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::RollbackRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Rollback(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::RollbackRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::RollbackRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_PartitionQuery : public BaseClass {
+  class WithCallbackMethod_PartitionQuery : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_PartitionQuery() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(13,
+    WithCallbackMethod_PartitionQuery() {
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::PartitionQueryRequest, ::google::spanner::v1::PartitionResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::PartitionQueryRequest* request, ::google::spanner::v1::PartitionResponse* response) { return this->PartitionQuery(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::PartitionQueryRequest* request, ::google::spanner::v1::PartitionResponse* response) { return this->PartitionQuery(context, request, response); }));}
     void SetMessageAllocatorFor_PartitionQuery(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::PartitionQueryRequest, ::google::spanner::v1::PartitionResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::PartitionQueryRequest, ::google::spanner::v1::PartitionResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(13);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::PartitionQueryRequest, ::google::spanner::v1::PartitionResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_PartitionQuery() override {
+    ~WithCallbackMethod_PartitionQuery() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1890,46 +1499,26 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PartitionQuery(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::PartitionQueryRequest* /*request*/, ::google::spanner::v1::PartitionResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PartitionQuery(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::PartitionQueryRequest* /*request*/, ::google::spanner::v1::PartitionResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::PartitionQueryRequest* /*request*/, ::google::spanner::v1::PartitionResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_PartitionRead : public BaseClass {
+  class WithCallbackMethod_PartitionRead : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_PartitionRead() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(14,
+    WithCallbackMethod_PartitionRead() {
+      ::grpc::Service::MarkMethodCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::PartitionReadRequest, ::google::spanner::v1::PartitionResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::spanner::v1::PartitionReadRequest* request, ::google::spanner::v1::PartitionResponse* response) { return this->PartitionRead(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::v1::PartitionReadRequest* request, ::google::spanner::v1::PartitionResponse* response) { return this->PartitionRead(context, request, response); }));}
     void SetMessageAllocatorFor_PartitionRead(
-        ::grpc::experimental::MessageAllocator< ::google::spanner::v1::PartitionReadRequest, ::google::spanner::v1::PartitionResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::spanner::v1::PartitionReadRequest, ::google::spanner::v1::PartitionResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(14);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::v1::PartitionReadRequest, ::google::spanner::v1::PartitionResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_PartitionRead() override {
+    ~WithCallbackMethod_PartitionRead() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1937,20 +1526,11 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PartitionRead(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::PartitionReadRequest* /*request*/, ::google::spanner::v1::PartitionResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PartitionRead(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::spanner::v1::PartitionReadRequest* /*request*/, ::google::spanner::v1::PartitionResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::v1::PartitionReadRequest* /*request*/, ::google::spanner::v1::PartitionResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_CreateSession<ExperimentalWithCallbackMethod_BatchCreateSessions<ExperimentalWithCallbackMethod_GetSession<ExperimentalWithCallbackMethod_ListSessions<ExperimentalWithCallbackMethod_DeleteSession<ExperimentalWithCallbackMethod_ExecuteSql<ExperimentalWithCallbackMethod_ExecuteStreamingSql<ExperimentalWithCallbackMethod_ExecuteBatchDml<ExperimentalWithCallbackMethod_Read<ExperimentalWithCallbackMethod_StreamingRead<ExperimentalWithCallbackMethod_BeginTransaction<ExperimentalWithCallbackMethod_Commit<ExperimentalWithCallbackMethod_Rollback<ExperimentalWithCallbackMethod_PartitionQuery<ExperimentalWithCallbackMethod_PartitionRead<Service > > > > > > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_CreateSession<ExperimentalWithCallbackMethod_BatchCreateSessions<ExperimentalWithCallbackMethod_GetSession<ExperimentalWithCallbackMethod_ListSessions<ExperimentalWithCallbackMethod_DeleteSession<ExperimentalWithCallbackMethod_ExecuteSql<ExperimentalWithCallbackMethod_ExecuteStreamingSql<ExperimentalWithCallbackMethod_ExecuteBatchDml<ExperimentalWithCallbackMethod_Read<ExperimentalWithCallbackMethod_StreamingRead<ExperimentalWithCallbackMethod_BeginTransaction<ExperimentalWithCallbackMethod_Commit<ExperimentalWithCallbackMethod_Rollback<ExperimentalWithCallbackMethod_PartitionQuery<ExperimentalWithCallbackMethod_PartitionRead<Service > > > > > > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_CreateSession<WithCallbackMethod_BatchCreateSessions<WithCallbackMethod_GetSession<WithCallbackMethod_ListSessions<WithCallbackMethod_DeleteSession<WithCallbackMethod_ExecuteSql<WithCallbackMethod_ExecuteStreamingSql<WithCallbackMethod_ExecuteBatchDml<WithCallbackMethod_Read<WithCallbackMethod_StreamingRead<WithCallbackMethod_BeginTransaction<WithCallbackMethod_Commit<WithCallbackMethod_Rollback<WithCallbackMethod_PartitionQuery<WithCallbackMethod_PartitionRead<Service > > > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateSession : public BaseClass {
    private:
@@ -2507,27 +2087,17 @@ class Spanner final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateSession : public BaseClass {
+  class WithRawCallbackMethod_CreateSession : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateSession() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_CreateSession() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSession(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSession(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateSession() override {
+    ~WithRawCallbackMethod_CreateSession() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2535,37 +2105,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSession(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSession(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_BatchCreateSessions : public BaseClass {
+  class WithRawCallbackMethod_BatchCreateSessions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_BatchCreateSessions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_BatchCreateSessions() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchCreateSessions(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchCreateSessions(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_BatchCreateSessions() override {
+    ~WithRawCallbackMethod_BatchCreateSessions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2573,37 +2127,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchCreateSessions(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchCreateSessions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetSession : public BaseClass {
+  class WithRawCallbackMethod_GetSession : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetSession() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_GetSession() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSession(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSession(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetSession() override {
+    ~WithRawCallbackMethod_GetSession() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2611,37 +2149,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSession(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSession(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListSessions : public BaseClass {
+  class WithRawCallbackMethod_ListSessions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListSessions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_ListSessions() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSessions(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSessions(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListSessions() override {
+    ~WithRawCallbackMethod_ListSessions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2649,37 +2171,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSessions(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSessions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteSession : public BaseClass {
+  class WithRawCallbackMethod_DeleteSession : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteSession() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteSession() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSession(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSession(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteSession() override {
+    ~WithRawCallbackMethod_DeleteSession() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2687,37 +2193,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSession(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSession(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ExecuteSql : public BaseClass {
+  class WithRawCallbackMethod_ExecuteSql : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ExecuteSql() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_ExecuteSql() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ExecuteSql(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ExecuteSql(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ExecuteSql() override {
+    ~WithRawCallbackMethod_ExecuteSql() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2725,37 +2215,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ExecuteSql(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ExecuteSql(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ExecuteStreamingSql : public BaseClass {
+  class WithRawCallbackMethod_ExecuteStreamingSql : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ExecuteStreamingSql() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_ExecuteStreamingSql() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->ExecuteStreamingSql(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->ExecuteStreamingSql(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ExecuteStreamingSql() override {
+    ~WithRawCallbackMethod_ExecuteStreamingSql() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2763,37 +2237,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* ExecuteStreamingSql(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* ExecuteStreamingSql(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ExecuteBatchDml : public BaseClass {
+  class WithRawCallbackMethod_ExecuteBatchDml : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ExecuteBatchDml() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_ExecuteBatchDml() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ExecuteBatchDml(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ExecuteBatchDml(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ExecuteBatchDml() override {
+    ~WithRawCallbackMethod_ExecuteBatchDml() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2801,37 +2259,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ExecuteBatchDml(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ExecuteBatchDml(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_Read : public BaseClass {
+  class WithRawCallbackMethod_Read : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_Read() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_Read() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Read(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Read(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_Read() override {
+    ~WithRawCallbackMethod_Read() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2839,37 +2281,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Read(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Read(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_StreamingRead : public BaseClass {
+  class WithRawCallbackMethod_StreamingRead : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_StreamingRead() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_StreamingRead() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const::grpc::ByteBuffer* request) { return this->StreamingRead(context, request); }));
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->StreamingRead(context, request); }));
     }
-    ~ExperimentalWithRawCallbackMethod_StreamingRead() override {
+    ~WithRawCallbackMethod_StreamingRead() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2877,37 +2303,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* StreamingRead(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #else
-    virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer>* StreamingRead(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_BeginTransaction : public BaseClass {
+  class WithRawCallbackMethod_BeginTransaction : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_BeginTransaction() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(10,
+    WithRawCallbackMethod_BeginTransaction() {
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BeginTransaction(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BeginTransaction(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_BeginTransaction() override {
+    ~WithRawCallbackMethod_BeginTransaction() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2915,37 +2325,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BeginTransaction(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BeginTransaction(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_Commit : public BaseClass {
+  class WithRawCallbackMethod_Commit : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_Commit() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(11,
+    WithRawCallbackMethod_Commit() {
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Commit(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Commit(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_Commit() override {
+    ~WithRawCallbackMethod_Commit() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2953,37 +2347,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Commit(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Commit(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_Rollback : public BaseClass {
+  class WithRawCallbackMethod_Rollback : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_Rollback() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(12,
+    WithRawCallbackMethod_Rollback() {
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Rollback(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Rollback(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_Rollback() override {
+    ~WithRawCallbackMethod_Rollback() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2991,37 +2369,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Rollback(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Rollback(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_PartitionQuery : public BaseClass {
+  class WithRawCallbackMethod_PartitionQuery : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_PartitionQuery() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(13,
+    WithRawCallbackMethod_PartitionQuery() {
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PartitionQuery(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PartitionQuery(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_PartitionQuery() override {
+    ~WithRawCallbackMethod_PartitionQuery() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3029,37 +2391,21 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PartitionQuery(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PartitionQuery(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_PartitionRead : public BaseClass {
+  class WithRawCallbackMethod_PartitionRead : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_PartitionRead() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(14,
+    WithRawCallbackMethod_PartitionRead() {
+      ::grpc::Service::MarkMethodRawCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PartitionRead(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PartitionRead(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_PartitionRead() override {
+    ~WithRawCallbackMethod_PartitionRead() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3067,14 +2413,8 @@ class Spanner final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PartitionRead(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PartitionRead(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CreateSession : public BaseClass {

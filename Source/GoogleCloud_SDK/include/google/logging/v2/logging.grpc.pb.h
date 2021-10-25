@@ -22,7 +22,6 @@
 #include "google/logging/v2/logging.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -118,19 +117,15 @@ class LoggingServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::logging::v2::TailLogEntriesRequest, ::google::logging::v2::TailLogEntriesResponse>> PrepareAsyncTailLogEntries(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::logging::v2::TailLogEntriesRequest, ::google::logging::v2::TailLogEntriesResponse>>(PrepareAsyncTailLogEntriesRaw(context, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Deletes all the log entries in a log. The log reappears if it receives new
       // entries. Log entries written shortly before the delete operation might not
       // be deleted. Entries received after the delete operation with a timestamp
       // before the operation will be deleted.
       virtual void DeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Writes log entries to Logging. This API method is the
       // only way to send log entries to Logging. This method
       // is used, directly or indirectly, by the Logging agent
@@ -139,51 +134,27 @@ class LoggingServiceV2 final {
       // different resources (projects, organizations, billing accounts or
       // folders)
       virtual void WriteLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::WriteLogEntriesRequest* request, ::google::logging::v2::WriteLogEntriesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void WriteLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::WriteLogEntriesRequest* request, ::google::logging::v2::WriteLogEntriesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void WriteLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::WriteLogEntriesRequest* request, ::google::logging::v2::WriteLogEntriesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists log entries.  Use this method to retrieve log entries that originated
       // from a project/folder/organization/billing account.  For ways to export log
       // entries, see [Exporting
       // Logs](https://cloud.google.com/logging/docs/export).
       virtual void ListLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::ListLogEntriesRequest* request, ::google::logging::v2::ListLogEntriesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::ListLogEntriesRequest* request, ::google::logging::v2::ListLogEntriesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::ListLogEntriesRequest* request, ::google::logging::v2::ListLogEntriesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists the descriptors for monitored resource types used by Logging.
       virtual void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* request, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* request, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* request, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists the logs in projects, organizations, folders, or billing accounts.
       // Only logs that have entries are listed.
       virtual void ListLogs(::grpc::ClientContext* context, const ::google::logging::v2::ListLogsRequest* request, ::google::logging::v2::ListLogsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListLogs(::grpc::ClientContext* context, const ::google::logging::v2::ListLogsRequest* request, ::google::logging::v2::ListLogsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListLogs(::grpc::ClientContext* context, const ::google::logging::v2::ListLogsRequest* request, ::google::logging::v2::ListLogsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Streaming read of log entries as they are ingested. Until the stream is
       // terminated, it will continue reading logs.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void TailLogEntries(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::logging::v2::TailLogEntriesRequest,::google::logging::v2::TailLogEntriesResponse>* reactor) = 0;
-      #else
-      virtual void TailLogEntries(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::google::logging::v2::TailLogEntriesRequest,::google::logging::v2::TailLogEntriesResponse>* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteLogRaw(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteLogRaw(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -246,55 +217,31 @@ class LoggingServiceV2 final {
     std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::google::logging::v2::TailLogEntriesRequest, ::google::logging::v2::TailLogEntriesResponse>> PrepareAsyncTailLogEntries(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::google::logging::v2::TailLogEntriesRequest, ::google::logging::v2::TailLogEntriesResponse>>(PrepareAsyncTailLogEntriesRaw(context, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void DeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void WriteLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::WriteLogEntriesRequest* request, ::google::logging::v2::WriteLogEntriesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void WriteLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::WriteLogEntriesRequest* request, ::google::logging::v2::WriteLogEntriesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void WriteLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::WriteLogEntriesRequest* request, ::google::logging::v2::WriteLogEntriesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::ListLogEntriesRequest* request, ::google::logging::v2::ListLogEntriesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::ListLogEntriesRequest* request, ::google::logging::v2::ListLogEntriesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::ListLogEntriesRequest* request, ::google::logging::v2::ListLogEntriesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* request, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* request, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* request, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListLogs(::grpc::ClientContext* context, const ::google::logging::v2::ListLogsRequest* request, ::google::logging::v2::ListLogsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListLogs(::grpc::ClientContext* context, const ::google::logging::v2::ListLogsRequest* request, ::google::logging::v2::ListLogsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListLogs(::grpc::ClientContext* context, const ::google::logging::v2::ListLogsRequest* request, ::google::logging::v2::ListLogsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void TailLogEntries(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::logging::v2::TailLogEntriesRequest,::google::logging::v2::TailLogEntriesResponse>* reactor) override;
-      #else
-      void TailLogEntries(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::google::logging::v2::TailLogEntriesRequest,::google::logging::v2::TailLogEntriesResponse>* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteLogRaw(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteLogRaw(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::logging::v2::WriteLogEntriesResponse>* AsyncWriteLogEntriesRaw(::grpc::ClientContext* context, const ::google::logging::v2::WriteLogEntriesRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -470,36 +417,22 @@ class LoggingServiceV2 final {
   };
   typedef WithAsyncMethod_DeleteLog<WithAsyncMethod_WriteLogEntries<WithAsyncMethod_ListLogEntries<WithAsyncMethod_ListMonitoredResourceDescriptors<WithAsyncMethod_ListLogs<WithAsyncMethod_TailLogEntries<Service > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteLog : public BaseClass {
+  class WithCallbackMethod_DeleteLog : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteLog() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_DeleteLog() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::DeleteLogRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response) { return this->DeleteLog(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response) { return this->DeleteLog(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteLog(
-        ::grpc::experimental::MessageAllocator< ::google::logging::v2::DeleteLogRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::logging::v2::DeleteLogRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::DeleteLogRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteLog() override {
+    ~WithCallbackMethod_DeleteLog() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -507,46 +440,26 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteLog(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::DeleteLogRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteLog(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::logging::v2::DeleteLogRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::DeleteLogRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_WriteLogEntries : public BaseClass {
+  class WithCallbackMethod_WriteLogEntries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_WriteLogEntries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_WriteLogEntries() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::WriteLogEntriesRequest, ::google::logging::v2::WriteLogEntriesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::logging::v2::WriteLogEntriesRequest* request, ::google::logging::v2::WriteLogEntriesResponse* response) { return this->WriteLogEntries(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::logging::v2::WriteLogEntriesRequest* request, ::google::logging::v2::WriteLogEntriesResponse* response) { return this->WriteLogEntries(context, request, response); }));}
     void SetMessageAllocatorFor_WriteLogEntries(
-        ::grpc::experimental::MessageAllocator< ::google::logging::v2::WriteLogEntriesRequest, ::google::logging::v2::WriteLogEntriesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::logging::v2::WriteLogEntriesRequest, ::google::logging::v2::WriteLogEntriesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::WriteLogEntriesRequest, ::google::logging::v2::WriteLogEntriesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_WriteLogEntries() override {
+    ~WithCallbackMethod_WriteLogEntries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -554,46 +467,26 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* WriteLogEntries(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::WriteLogEntriesRequest* /*request*/, ::google::logging::v2::WriteLogEntriesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* WriteLogEntries(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::logging::v2::WriteLogEntriesRequest* /*request*/, ::google::logging::v2::WriteLogEntriesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::WriteLogEntriesRequest* /*request*/, ::google::logging::v2::WriteLogEntriesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListLogEntries : public BaseClass {
+  class WithCallbackMethod_ListLogEntries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListLogEntries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_ListLogEntries() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::ListLogEntriesRequest, ::google::logging::v2::ListLogEntriesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::logging::v2::ListLogEntriesRequest* request, ::google::logging::v2::ListLogEntriesResponse* response) { return this->ListLogEntries(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::logging::v2::ListLogEntriesRequest* request, ::google::logging::v2::ListLogEntriesResponse* response) { return this->ListLogEntries(context, request, response); }));}
     void SetMessageAllocatorFor_ListLogEntries(
-        ::grpc::experimental::MessageAllocator< ::google::logging::v2::ListLogEntriesRequest, ::google::logging::v2::ListLogEntriesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::logging::v2::ListLogEntriesRequest, ::google::logging::v2::ListLogEntriesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::ListLogEntriesRequest, ::google::logging::v2::ListLogEntriesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListLogEntries() override {
+    ~WithCallbackMethod_ListLogEntries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -601,46 +494,26 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListLogEntries(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::ListLogEntriesRequest* /*request*/, ::google::logging::v2::ListLogEntriesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListLogEntries(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::logging::v2::ListLogEntriesRequest* /*request*/, ::google::logging::v2::ListLogEntriesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::ListLogEntriesRequest* /*request*/, ::google::logging::v2::ListLogEntriesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors : public BaseClass {
+  class WithCallbackMethod_ListMonitoredResourceDescriptors : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_ListMonitoredResourceDescriptors() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::ListMonitoredResourceDescriptorsRequest, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* request, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* response) { return this->ListMonitoredResourceDescriptors(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* request, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* response) { return this->ListMonitoredResourceDescriptors(context, request, response); }));}
     void SetMessageAllocatorFor_ListMonitoredResourceDescriptors(
-        ::grpc::experimental::MessageAllocator< ::google::logging::v2::ListMonitoredResourceDescriptorsRequest, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::logging::v2::ListMonitoredResourceDescriptorsRequest, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::ListMonitoredResourceDescriptorsRequest, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors() override {
+    ~WithCallbackMethod_ListMonitoredResourceDescriptors() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -648,46 +521,26 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListMonitoredResourceDescriptors(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* /*request*/, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListMonitoredResourceDescriptors(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* /*request*/, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::ListMonitoredResourceDescriptorsRequest* /*request*/, ::google::logging::v2::ListMonitoredResourceDescriptorsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListLogs : public BaseClass {
+  class WithCallbackMethod_ListLogs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListLogs() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_ListLogs() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::ListLogsRequest, ::google::logging::v2::ListLogsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::logging::v2::ListLogsRequest* request, ::google::logging::v2::ListLogsResponse* response) { return this->ListLogs(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::logging::v2::ListLogsRequest* request, ::google::logging::v2::ListLogsResponse* response) { return this->ListLogs(context, request, response); }));}
     void SetMessageAllocatorFor_ListLogs(
-        ::grpc::experimental::MessageAllocator< ::google::logging::v2::ListLogsRequest, ::google::logging::v2::ListLogsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::logging::v2::ListLogsRequest, ::google::logging::v2::ListLogsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::ListLogsRequest, ::google::logging::v2::ListLogsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListLogs() override {
+    ~WithCallbackMethod_ListLogs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -695,37 +548,21 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListLogs(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::ListLogsRequest* /*request*/, ::google::logging::v2::ListLogsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListLogs(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::logging::v2::ListLogsRequest* /*request*/, ::google::logging::v2::ListLogsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::ListLogsRequest* /*request*/, ::google::logging::v2::ListLogsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_TailLogEntries : public BaseClass {
+  class WithCallbackMethod_TailLogEntries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_TailLogEntries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_TailLogEntries() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackBidiHandler< ::google::logging::v2::TailLogEntriesRequest, ::google::logging::v2::TailLogEntriesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->TailLogEntries(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->TailLogEntries(context); }));
     }
-    ~ExperimentalWithCallbackMethod_TailLogEntries() override {
+    ~WithCallbackMethod_TailLogEntries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -733,20 +570,12 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::google::logging::v2::TailLogEntriesRequest, ::google::logging::v2::TailLogEntriesResponse>* TailLogEntries(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::google::logging::v2::TailLogEntriesRequest, ::google::logging::v2::TailLogEntriesResponse>* TailLogEntries(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_DeleteLog<ExperimentalWithCallbackMethod_WriteLogEntries<ExperimentalWithCallbackMethod_ListLogEntries<ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors<ExperimentalWithCallbackMethod_ListLogs<ExperimentalWithCallbackMethod_TailLogEntries<Service > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_DeleteLog<ExperimentalWithCallbackMethod_WriteLogEntries<ExperimentalWithCallbackMethod_ListLogEntries<ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors<ExperimentalWithCallbackMethod_ListLogs<ExperimentalWithCallbackMethod_TailLogEntries<Service > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_DeleteLog<WithCallbackMethod_WriteLogEntries<WithCallbackMethod_ListLogEntries<WithCallbackMethod_ListMonitoredResourceDescriptors<WithCallbackMethod_ListLogs<WithCallbackMethod_TailLogEntries<Service > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_DeleteLog : public BaseClass {
    private:
@@ -970,27 +799,17 @@ class LoggingServiceV2 final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteLog : public BaseClass {
+  class WithRawCallbackMethod_DeleteLog : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteLog() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_DeleteLog() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteLog(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteLog(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteLog() override {
+    ~WithRawCallbackMethod_DeleteLog() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -998,37 +817,21 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteLog(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteLog(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_WriteLogEntries : public BaseClass {
+  class WithRawCallbackMethod_WriteLogEntries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_WriteLogEntries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_WriteLogEntries() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->WriteLogEntries(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->WriteLogEntries(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_WriteLogEntries() override {
+    ~WithRawCallbackMethod_WriteLogEntries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1036,37 +839,21 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* WriteLogEntries(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* WriteLogEntries(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListLogEntries : public BaseClass {
+  class WithRawCallbackMethod_ListLogEntries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListLogEntries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_ListLogEntries() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListLogEntries(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListLogEntries(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListLogEntries() override {
+    ~WithRawCallbackMethod_ListLogEntries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1074,37 +861,21 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListLogEntries(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListLogEntries(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListMonitoredResourceDescriptors : public BaseClass {
+  class WithRawCallbackMethod_ListMonitoredResourceDescriptors : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListMonitoredResourceDescriptors() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_ListMonitoredResourceDescriptors() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListMonitoredResourceDescriptors(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListMonitoredResourceDescriptors(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListMonitoredResourceDescriptors() override {
+    ~WithRawCallbackMethod_ListMonitoredResourceDescriptors() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1112,37 +883,21 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListMonitoredResourceDescriptors(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListMonitoredResourceDescriptors(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListLogs : public BaseClass {
+  class WithRawCallbackMethod_ListLogs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListLogs() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_ListLogs() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListLogs(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListLogs(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListLogs() override {
+    ~WithRawCallbackMethod_ListLogs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1150,37 +905,21 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListLogs(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListLogs(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_TailLogEntries : public BaseClass {
+  class WithRawCallbackMethod_TailLogEntries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_TailLogEntries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_TailLogEntries() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->TailLogEntries(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->TailLogEntries(context); }));
     }
-    ~ExperimentalWithRawCallbackMethod_TailLogEntries() override {
+    ~WithRawCallbackMethod_TailLogEntries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1188,13 +927,8 @@ class LoggingServiceV2 final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* TailLogEntries(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* TailLogEntries(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
   template <class BaseClass>

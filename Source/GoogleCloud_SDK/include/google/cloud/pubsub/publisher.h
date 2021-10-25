@@ -65,10 +65,10 @@ inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
  * this class is not guaranteed to work.
  *
  * @par Background Threads
- * This class uses the background threads configured via `ConnectionOptions`.
- * Applications can create their own pool of background threads by (a) creating
- * their own #google::cloud::v1::CompletionQueue, (b) setting this completion
- * queue in `pubsub::ConnectionOptions::DisableBackgroundThreads()`, and (c)
+ * This class uses the background threads configured via the `Options` from
+ * `GrpcOptionList`. Applications can create their own pool of background
+ * threads by (a) creating their own #google::cloud::v1::CompletionQueue, (b)
+ * passing this completion queue as a `GrpcCompletionQueueOption`, and (c)
  * attaching any number of threads to the completion queue.
  *
  * @par Example: using a custom thread pool
@@ -98,13 +98,13 @@ inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
 class Publisher {
  public:
   explicit Publisher(std::shared_ptr<PublisherConnection> connection,
-                     PublisherOptions options = {});
+                     PublisherOptions const& options = {});
 
   //@{
   Publisher(Publisher const&) = default;
   Publisher& operator=(Publisher const&) = default;
-  Publisher(Publisher&&) noexcept = default;
-  Publisher& operator=(Publisher&&) noexcept = default;
+  Publisher(Publisher&&) = default;
+  Publisher& operator=(Publisher&&) = default;
   //@}
 
   //@{
@@ -121,7 +121,7 @@ class Publisher {
    *
    * Note that the message may be batched, depending on the Publisher's
    * configuration. It could be delayed until the batch has enough messages,
-   * or enough data, or enough time has elapsed. See the `PublisherOptions`
+   * or enough data, or enough time has elapsed. See the `PublisherOptionList`
    * documentation for more details.
    *
    * @par Idempotency
@@ -170,9 +170,8 @@ class Publisher {
    * Resumes publishing after an error.
    *
    * If the publisher options have message ordering enabled (see
-   * `PublisherOptions::message_ordering()`) all messages for a key that
-   * experience failure will be rejected until the application calls this
-   * function.
+   * `MessageOrderingOption`) all messages for a key that experience failure
+   * will be rejected until the application calls this function.
    *
    * @par Idempotency
    * This function never initiates a remote RPC, so there are no considerations

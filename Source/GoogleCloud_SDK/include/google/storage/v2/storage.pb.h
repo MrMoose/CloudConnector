@@ -43,6 +43,7 @@
 #include <google/protobuf/empty.pb.h>
 #include <google/protobuf/field_mask.pb.h>
 #include <google/protobuf/timestamp.pb.h>
+#include "google/type/date.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_google_2fstorage_2fv2_2fstorage_2eproto
@@ -2356,8 +2357,8 @@ class CommonObjectRequestParams PROTOBUF_FINAL :
 
   enum : int {
     kEncryptionAlgorithmFieldNumber = 1,
-    kEncryptionKeyFieldNumber = 2,
-    kEncryptionKeySha256FieldNumber = 3,
+    kEncryptionKeyBytesFieldNumber = 4,
+    kEncryptionKeySha256BytesFieldNumber = 5,
   };
   // string encryption_algorithm = 1;
   void clear_encryption_algorithm();
@@ -2375,36 +2376,36 @@ class CommonObjectRequestParams PROTOBUF_FINAL :
   std::string* _internal_mutable_encryption_algorithm();
   public:
 
-  // string encryption_key = 2;
-  void clear_encryption_key();
-  const std::string& encryption_key() const;
-  void set_encryption_key(const std::string& value);
-  void set_encryption_key(std::string&& value);
-  void set_encryption_key(const char* value);
-  void set_encryption_key(const char* value, size_t size);
-  std::string* mutable_encryption_key();
-  std::string* release_encryption_key();
-  void set_allocated_encryption_key(std::string* encryption_key);
+  // bytes encryption_key_bytes = 4;
+  void clear_encryption_key_bytes();
+  const std::string& encryption_key_bytes() const;
+  void set_encryption_key_bytes(const std::string& value);
+  void set_encryption_key_bytes(std::string&& value);
+  void set_encryption_key_bytes(const char* value);
+  void set_encryption_key_bytes(const void* value, size_t size);
+  std::string* mutable_encryption_key_bytes();
+  std::string* release_encryption_key_bytes();
+  void set_allocated_encryption_key_bytes(std::string* encryption_key_bytes);
   private:
-  const std::string& _internal_encryption_key() const;
-  void _internal_set_encryption_key(const std::string& value);
-  std::string* _internal_mutable_encryption_key();
+  const std::string& _internal_encryption_key_bytes() const;
+  void _internal_set_encryption_key_bytes(const std::string& value);
+  std::string* _internal_mutable_encryption_key_bytes();
   public:
 
-  // string encryption_key_sha256 = 3;
-  void clear_encryption_key_sha256();
-  const std::string& encryption_key_sha256() const;
-  void set_encryption_key_sha256(const std::string& value);
-  void set_encryption_key_sha256(std::string&& value);
-  void set_encryption_key_sha256(const char* value);
-  void set_encryption_key_sha256(const char* value, size_t size);
-  std::string* mutable_encryption_key_sha256();
-  std::string* release_encryption_key_sha256();
-  void set_allocated_encryption_key_sha256(std::string* encryption_key_sha256);
+  // bytes encryption_key_sha256_bytes = 5;
+  void clear_encryption_key_sha256_bytes();
+  const std::string& encryption_key_sha256_bytes() const;
+  void set_encryption_key_sha256_bytes(const std::string& value);
+  void set_encryption_key_sha256_bytes(std::string&& value);
+  void set_encryption_key_sha256_bytes(const char* value);
+  void set_encryption_key_sha256_bytes(const void* value, size_t size);
+  std::string* mutable_encryption_key_sha256_bytes();
+  std::string* release_encryption_key_sha256_bytes();
+  void set_allocated_encryption_key_sha256_bytes(std::string* encryption_key_sha256_bytes);
   private:
-  const std::string& _internal_encryption_key_sha256() const;
-  void _internal_set_encryption_key_sha256(const std::string& value);
-  std::string* _internal_mutable_encryption_key_sha256();
+  const std::string& _internal_encryption_key_sha256_bytes() const;
+  void _internal_set_encryption_key_sha256_bytes(const std::string& value);
+  std::string* _internal_mutable_encryption_key_sha256_bytes();
   public:
 
   // @@protoc_insertion_point(class_scope:google.storage.v2.CommonObjectRequestParams)
@@ -2415,8 +2416,8 @@ class CommonObjectRequestParams PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encryption_algorithm_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encryption_key_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encryption_key_sha256_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encryption_key_bytes_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encryption_key_sha256_bytes_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
 };
@@ -3870,10 +3871,9 @@ class Bucket_Lifecycle_Rule_Condition PROTOBUF_FINAL :
 
   enum : int {
     kMatchesStorageClassFieldNumber = 5,
-    kMatchesPatternFieldNumber = 6,
-    kCreatedBeforeTimeFieldNumber = 2,
-    kCustomTimeBeforeTimeFieldNumber = 8,
-    kNoncurrentTimeBeforeTimeFieldNumber = 10,
+    kCreatedBeforeFieldNumber = 2,
+    kCustomTimeBeforeFieldNumber = 8,
+    kNoncurrentTimeBeforeFieldNumber = 10,
     kAgeDaysFieldNumber = 1,
     kIsLiveFieldNumber = 3,
     kNumNewerVersionsFieldNumber = 4,
@@ -3904,77 +3904,65 @@ class Bucket_Lifecycle_Rule_Condition PROTOBUF_FINAL :
   std::string* _internal_add_matches_storage_class();
   public:
 
-  // string matches_pattern = 6;
-  void clear_matches_pattern();
-  const std::string& matches_pattern() const;
-  void set_matches_pattern(const std::string& value);
-  void set_matches_pattern(std::string&& value);
-  void set_matches_pattern(const char* value);
-  void set_matches_pattern(const char* value, size_t size);
-  std::string* mutable_matches_pattern();
-  std::string* release_matches_pattern();
-  void set_allocated_matches_pattern(std::string* matches_pattern);
+  // .google.type.Date created_before = 2;
+  bool has_created_before() const;
   private:
-  const std::string& _internal_matches_pattern() const;
-  void _internal_set_matches_pattern(const std::string& value);
-  std::string* _internal_mutable_matches_pattern();
+  bool _internal_has_created_before() const;
   public:
+  void clear_created_before();
+  const ::google::type::Date& created_before() const;
+  ::google::type::Date* release_created_before();
+  ::google::type::Date* mutable_created_before();
+  void set_allocated_created_before(::google::type::Date* created_before);
+  private:
+  const ::google::type::Date& _internal_created_before() const;
+  ::google::type::Date* _internal_mutable_created_before();
+  public:
+  void unsafe_arena_set_allocated_created_before(
+      ::google::type::Date* created_before);
+  ::google::type::Date* unsafe_arena_release_created_before();
 
-  // .google.protobuf.Timestamp created_before_time = 2;
-  bool has_created_before_time() const;
+  // .google.type.Date custom_time_before = 8;
+  bool has_custom_time_before() const;
   private:
-  bool _internal_has_created_before_time() const;
+  bool _internal_has_custom_time_before() const;
   public:
-  void clear_created_before_time();
-  const PROTOBUF_NAMESPACE_ID::Timestamp& created_before_time() const;
-  PROTOBUF_NAMESPACE_ID::Timestamp* release_created_before_time();
-  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_created_before_time();
-  void set_allocated_created_before_time(PROTOBUF_NAMESPACE_ID::Timestamp* created_before_time);
+  void clear_custom_time_before();
+  const ::google::type::Date& custom_time_before() const;
+  ::google::type::Date* release_custom_time_before();
+  ::google::type::Date* mutable_custom_time_before();
+  void set_allocated_custom_time_before(::google::type::Date* custom_time_before);
   private:
-  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_created_before_time() const;
-  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_created_before_time();
+  const ::google::type::Date& _internal_custom_time_before() const;
+  ::google::type::Date* _internal_mutable_custom_time_before();
   public:
-  void unsafe_arena_set_allocated_created_before_time(
-      PROTOBUF_NAMESPACE_ID::Timestamp* created_before_time);
-  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_created_before_time();
+  void unsafe_arena_set_allocated_custom_time_before(
+      ::google::type::Date* custom_time_before);
+  ::google::type::Date* unsafe_arena_release_custom_time_before();
 
-  // .google.protobuf.Timestamp custom_time_before_time = 8;
-  bool has_custom_time_before_time() const;
+  // .google.type.Date noncurrent_time_before = 10;
+  bool has_noncurrent_time_before() const;
   private:
-  bool _internal_has_custom_time_before_time() const;
+  bool _internal_has_noncurrent_time_before() const;
   public:
-  void clear_custom_time_before_time();
-  const PROTOBUF_NAMESPACE_ID::Timestamp& custom_time_before_time() const;
-  PROTOBUF_NAMESPACE_ID::Timestamp* release_custom_time_before_time();
-  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_custom_time_before_time();
-  void set_allocated_custom_time_before_time(PROTOBUF_NAMESPACE_ID::Timestamp* custom_time_before_time);
+  void clear_noncurrent_time_before();
+  const ::google::type::Date& noncurrent_time_before() const;
+  ::google::type::Date* release_noncurrent_time_before();
+  ::google::type::Date* mutable_noncurrent_time_before();
+  void set_allocated_noncurrent_time_before(::google::type::Date* noncurrent_time_before);
   private:
-  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_custom_time_before_time() const;
-  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_custom_time_before_time();
+  const ::google::type::Date& _internal_noncurrent_time_before() const;
+  ::google::type::Date* _internal_mutable_noncurrent_time_before();
   public:
-  void unsafe_arena_set_allocated_custom_time_before_time(
-      PROTOBUF_NAMESPACE_ID::Timestamp* custom_time_before_time);
-  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_custom_time_before_time();
-
-  // .google.protobuf.Timestamp noncurrent_time_before_time = 10;
-  bool has_noncurrent_time_before_time() const;
-  private:
-  bool _internal_has_noncurrent_time_before_time() const;
-  public:
-  void clear_noncurrent_time_before_time();
-  const PROTOBUF_NAMESPACE_ID::Timestamp& noncurrent_time_before_time() const;
-  PROTOBUF_NAMESPACE_ID::Timestamp* release_noncurrent_time_before_time();
-  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_noncurrent_time_before_time();
-  void set_allocated_noncurrent_time_before_time(PROTOBUF_NAMESPACE_ID::Timestamp* noncurrent_time_before_time);
-  private:
-  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_noncurrent_time_before_time() const;
-  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_noncurrent_time_before_time();
-  public:
-  void unsafe_arena_set_allocated_noncurrent_time_before_time(
-      PROTOBUF_NAMESPACE_ID::Timestamp* noncurrent_time_before_time);
-  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_noncurrent_time_before_time();
+  void unsafe_arena_set_allocated_noncurrent_time_before(
+      ::google::type::Date* noncurrent_time_before);
+  ::google::type::Date* unsafe_arena_release_noncurrent_time_before();
 
   // int32 age_days = 1;
+  bool has_age_days() const;
+  private:
+  bool _internal_has_age_days() const;
+  public:
   void clear_age_days();
   ::PROTOBUF_NAMESPACE_ID::int32 age_days() const;
   void set_age_days(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -3997,6 +3985,10 @@ class Bucket_Lifecycle_Rule_Condition PROTOBUF_FINAL :
   public:
 
   // int32 num_newer_versions = 4;
+  bool has_num_newer_versions() const;
+  private:
+  bool _internal_has_num_newer_versions() const;
+  public:
   void clear_num_newer_versions();
   ::PROTOBUF_NAMESPACE_ID::int32 num_newer_versions() const;
   void set_num_newer_versions(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -4006,6 +3998,10 @@ class Bucket_Lifecycle_Rule_Condition PROTOBUF_FINAL :
   public:
 
   // int32 days_since_custom_time = 7;
+  bool has_days_since_custom_time() const;
+  private:
+  bool _internal_has_days_since_custom_time() const;
+  public:
   void clear_days_since_custom_time();
   ::PROTOBUF_NAMESPACE_ID::int32 days_since_custom_time() const;
   void set_days_since_custom_time(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -4015,6 +4011,10 @@ class Bucket_Lifecycle_Rule_Condition PROTOBUF_FINAL :
   public:
 
   // int32 days_since_noncurrent_time = 9;
+  bool has_days_since_noncurrent_time() const;
+  private:
+  bool _internal_has_days_since_noncurrent_time() const;
+  public:
   void clear_days_since_noncurrent_time();
   ::PROTOBUF_NAMESPACE_ID::int32 days_since_noncurrent_time() const;
   void set_days_since_noncurrent_time(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -4033,10 +4033,9 @@ class Bucket_Lifecycle_Rule_Condition PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> matches_storage_class_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr matches_pattern_;
-  PROTOBUF_NAMESPACE_ID::Timestamp* created_before_time_;
-  PROTOBUF_NAMESPACE_ID::Timestamp* custom_time_before_time_;
-  PROTOBUF_NAMESPACE_ID::Timestamp* noncurrent_time_before_time_;
+  ::google::type::Date* created_before_;
+  ::google::type::Date* custom_time_before_;
+  ::google::type::Date* noncurrent_time_before_;
   ::PROTOBUF_NAMESPACE_ID::int32 age_days_;
   bool is_live_;
   ::PROTOBUF_NAMESPACE_ID::int32 num_newer_versions_;
@@ -10255,126 +10254,126 @@ inline void CommonObjectRequestParams::set_allocated_encryption_algorithm(std::s
   // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CommonObjectRequestParams.encryption_algorithm)
 }
 
-// string encryption_key = 2;
-inline void CommonObjectRequestParams::clear_encryption_key() {
-  encryption_key_.ClearToEmpty();
+// bytes encryption_key_bytes = 4;
+inline void CommonObjectRequestParams::clear_encryption_key_bytes() {
+  encryption_key_bytes_.ClearToEmpty();
 }
-inline const std::string& CommonObjectRequestParams::encryption_key() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.CommonObjectRequestParams.encryption_key)
-  return _internal_encryption_key();
+inline const std::string& CommonObjectRequestParams::encryption_key_bytes() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CommonObjectRequestParams.encryption_key_bytes)
+  return _internal_encryption_key_bytes();
 }
-inline void CommonObjectRequestParams::set_encryption_key(const std::string& value) {
-  _internal_set_encryption_key(value);
-  // @@protoc_insertion_point(field_set:google.storage.v2.CommonObjectRequestParams.encryption_key)
+inline void CommonObjectRequestParams::set_encryption_key_bytes(const std::string& value) {
+  _internal_set_encryption_key_bytes(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CommonObjectRequestParams.encryption_key_bytes)
 }
-inline std::string* CommonObjectRequestParams::mutable_encryption_key() {
-  // @@protoc_insertion_point(field_mutable:google.storage.v2.CommonObjectRequestParams.encryption_key)
-  return _internal_mutable_encryption_key();
+inline std::string* CommonObjectRequestParams::mutable_encryption_key_bytes() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CommonObjectRequestParams.encryption_key_bytes)
+  return _internal_mutable_encryption_key_bytes();
 }
-inline const std::string& CommonObjectRequestParams::_internal_encryption_key() const {
-  return encryption_key_.Get();
+inline const std::string& CommonObjectRequestParams::_internal_encryption_key_bytes() const {
+  return encryption_key_bytes_.Get();
 }
-inline void CommonObjectRequestParams::_internal_set_encryption_key(const std::string& value) {
+inline void CommonObjectRequestParams::_internal_set_encryption_key_bytes(const std::string& value) {
   
-  encryption_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  encryption_key_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void CommonObjectRequestParams::set_encryption_key(std::string&& value) {
+inline void CommonObjectRequestParams::set_encryption_key_bytes(std::string&& value) {
   
-  encryption_key_.Set(
+  encryption_key_bytes_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CommonObjectRequestParams.encryption_key)
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CommonObjectRequestParams.encryption_key_bytes)
 }
-inline void CommonObjectRequestParams::set_encryption_key(const char* value) {
+inline void CommonObjectRequestParams::set_encryption_key_bytes(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  encryption_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:google.storage.v2.CommonObjectRequestParams.encryption_key)
+  encryption_key_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CommonObjectRequestParams.encryption_key_bytes)
 }
-inline void CommonObjectRequestParams::set_encryption_key(const char* value,
+inline void CommonObjectRequestParams::set_encryption_key_bytes(const void* value,
     size_t size) {
   
-  encryption_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  encryption_key_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CommonObjectRequestParams.encryption_key)
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CommonObjectRequestParams.encryption_key_bytes)
 }
-inline std::string* CommonObjectRequestParams::_internal_mutable_encryption_key() {
+inline std::string* CommonObjectRequestParams::_internal_mutable_encryption_key_bytes() {
   
-  return encryption_key_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return encryption_key_bytes_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* CommonObjectRequestParams::release_encryption_key() {
-  // @@protoc_insertion_point(field_release:google.storage.v2.CommonObjectRequestParams.encryption_key)
-  return encryption_key_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* CommonObjectRequestParams::release_encryption_key_bytes() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CommonObjectRequestParams.encryption_key_bytes)
+  return encryption_key_bytes_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void CommonObjectRequestParams::set_allocated_encryption_key(std::string* encryption_key) {
-  if (encryption_key != nullptr) {
+inline void CommonObjectRequestParams::set_allocated_encryption_key_bytes(std::string* encryption_key_bytes) {
+  if (encryption_key_bytes != nullptr) {
     
   } else {
     
   }
-  encryption_key_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), encryption_key,
+  encryption_key_bytes_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), encryption_key_bytes,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CommonObjectRequestParams.encryption_key)
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CommonObjectRequestParams.encryption_key_bytes)
 }
 
-// string encryption_key_sha256 = 3;
-inline void CommonObjectRequestParams::clear_encryption_key_sha256() {
-  encryption_key_sha256_.ClearToEmpty();
+// bytes encryption_key_sha256_bytes = 5;
+inline void CommonObjectRequestParams::clear_encryption_key_sha256_bytes() {
+  encryption_key_sha256_bytes_.ClearToEmpty();
 }
-inline const std::string& CommonObjectRequestParams::encryption_key_sha256() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256)
-  return _internal_encryption_key_sha256();
+inline const std::string& CommonObjectRequestParams::encryption_key_sha256_bytes() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256_bytes)
+  return _internal_encryption_key_sha256_bytes();
 }
-inline void CommonObjectRequestParams::set_encryption_key_sha256(const std::string& value) {
-  _internal_set_encryption_key_sha256(value);
-  // @@protoc_insertion_point(field_set:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256)
+inline void CommonObjectRequestParams::set_encryption_key_sha256_bytes(const std::string& value) {
+  _internal_set_encryption_key_sha256_bytes(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256_bytes)
 }
-inline std::string* CommonObjectRequestParams::mutable_encryption_key_sha256() {
-  // @@protoc_insertion_point(field_mutable:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256)
-  return _internal_mutable_encryption_key_sha256();
+inline std::string* CommonObjectRequestParams::mutable_encryption_key_sha256_bytes() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256_bytes)
+  return _internal_mutable_encryption_key_sha256_bytes();
 }
-inline const std::string& CommonObjectRequestParams::_internal_encryption_key_sha256() const {
-  return encryption_key_sha256_.Get();
+inline const std::string& CommonObjectRequestParams::_internal_encryption_key_sha256_bytes() const {
+  return encryption_key_sha256_bytes_.Get();
 }
-inline void CommonObjectRequestParams::_internal_set_encryption_key_sha256(const std::string& value) {
+inline void CommonObjectRequestParams::_internal_set_encryption_key_sha256_bytes(const std::string& value) {
   
-  encryption_key_sha256_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  encryption_key_sha256_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void CommonObjectRequestParams::set_encryption_key_sha256(std::string&& value) {
+inline void CommonObjectRequestParams::set_encryption_key_sha256_bytes(std::string&& value) {
   
-  encryption_key_sha256_.Set(
+  encryption_key_sha256_bytes_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256)
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256_bytes)
 }
-inline void CommonObjectRequestParams::set_encryption_key_sha256(const char* value) {
+inline void CommonObjectRequestParams::set_encryption_key_sha256_bytes(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  encryption_key_sha256_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256)
+  encryption_key_sha256_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256_bytes)
 }
-inline void CommonObjectRequestParams::set_encryption_key_sha256(const char* value,
+inline void CommonObjectRequestParams::set_encryption_key_sha256_bytes(const void* value,
     size_t size) {
   
-  encryption_key_sha256_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  encryption_key_sha256_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256)
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256_bytes)
 }
-inline std::string* CommonObjectRequestParams::_internal_mutable_encryption_key_sha256() {
+inline std::string* CommonObjectRequestParams::_internal_mutable_encryption_key_sha256_bytes() {
   
-  return encryption_key_sha256_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return encryption_key_sha256_bytes_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* CommonObjectRequestParams::release_encryption_key_sha256() {
-  // @@protoc_insertion_point(field_release:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256)
-  return encryption_key_sha256_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* CommonObjectRequestParams::release_encryption_key_sha256_bytes() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256_bytes)
+  return encryption_key_sha256_bytes_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void CommonObjectRequestParams::set_allocated_encryption_key_sha256(std::string* encryption_key_sha256) {
-  if (encryption_key_sha256 != nullptr) {
+inline void CommonObjectRequestParams::set_allocated_encryption_key_sha256_bytes(std::string* encryption_key_sha256_bytes) {
+  if (encryption_key_sha256_bytes != nullptr) {
     
   } else {
     
   }
-  encryption_key_sha256_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), encryption_key_sha256,
+  encryption_key_sha256_bytes_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), encryption_key_sha256_bytes,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256)
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CommonObjectRequestParams.encryption_key_sha256_bytes)
 }
 
 // -------------------------------------------------------------------
@@ -11120,8 +11119,16 @@ inline void Bucket_Lifecycle_Rule_Action::set_allocated_storage_class(std::strin
 // Bucket_Lifecycle_Rule_Condition
 
 // int32 age_days = 1;
+inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_age_days() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Bucket_Lifecycle_Rule_Condition::has_age_days() const {
+  return _internal_has_age_days();
+}
 inline void Bucket_Lifecycle_Rule_Condition::clear_age_days() {
   age_days_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 Bucket_Lifecycle_Rule_Condition::_internal_age_days() const {
   return age_days_;
@@ -11131,7 +11138,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 Bucket_Lifecycle_Rule_Condition::age_days(
   return _internal_age_days();
 }
 inline void Bucket_Lifecycle_Rule_Condition::_internal_set_age_days(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+  _has_bits_[0] |= 0x00000001u;
   age_days_ = value;
 }
 inline void Bucket_Lifecycle_Rule_Condition::set_age_days(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -11139,86 +11146,86 @@ inline void Bucket_Lifecycle_Rule_Condition::set_age_days(::PROTOBUF_NAMESPACE_I
   // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.Lifecycle.Rule.Condition.age_days)
 }
 
-// .google.protobuf.Timestamp created_before_time = 2;
-inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_created_before_time() const {
-  return this != internal_default_instance() && created_before_time_ != nullptr;
+// .google.type.Date created_before = 2;
+inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_created_before() const {
+  return this != internal_default_instance() && created_before_ != nullptr;
 }
-inline bool Bucket_Lifecycle_Rule_Condition::has_created_before_time() const {
-  return _internal_has_created_before_time();
+inline bool Bucket_Lifecycle_Rule_Condition::has_created_before() const {
+  return _internal_has_created_before();
 }
-inline const PROTOBUF_NAMESPACE_ID::Timestamp& Bucket_Lifecycle_Rule_Condition::_internal_created_before_time() const {
-  const PROTOBUF_NAMESPACE_ID::Timestamp* p = created_before_time_;
-  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
-      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+inline const ::google::type::Date& Bucket_Lifecycle_Rule_Condition::_internal_created_before() const {
+  const ::google::type::Date* p = created_before_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::type::Date&>(
+      ::google::type::_Date_default_instance_);
 }
-inline const PROTOBUF_NAMESPACE_ID::Timestamp& Bucket_Lifecycle_Rule_Condition::created_before_time() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before_time)
-  return _internal_created_before_time();
+inline const ::google::type::Date& Bucket_Lifecycle_Rule_Condition::created_before() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before)
+  return _internal_created_before();
 }
-inline void Bucket_Lifecycle_Rule_Condition::unsafe_arena_set_allocated_created_before_time(
-    PROTOBUF_NAMESPACE_ID::Timestamp* created_before_time) {
+inline void Bucket_Lifecycle_Rule_Condition::unsafe_arena_set_allocated_created_before(
+    ::google::type::Date* created_before) {
   if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(created_before_time_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(created_before_);
   }
-  created_before_time_ = created_before_time;
-  if (created_before_time) {
+  created_before_ = created_before;
+  if (created_before) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before_time)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before)
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::release_created_before_time() {
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::release_created_before() {
   
-  PROTOBUF_NAMESPACE_ID::Timestamp* temp = created_before_time_;
-  created_before_time_ = nullptr;
+  ::google::type::Date* temp = created_before_;
+  created_before_ = nullptr;
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::unsafe_arena_release_created_before_time() {
-  // @@protoc_insertion_point(field_release:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before_time)
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::unsafe_arena_release_created_before() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before)
   
-  PROTOBUF_NAMESPACE_ID::Timestamp* temp = created_before_time_;
-  created_before_time_ = nullptr;
+  ::google::type::Date* temp = created_before_;
+  created_before_ = nullptr;
   return temp;
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::_internal_mutable_created_before_time() {
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::_internal_mutable_created_before() {
   
-  if (created_before_time_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
-    created_before_time_ = p;
+  if (created_before_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::type::Date>(GetArena());
+    created_before_ = p;
   }
-  return created_before_time_;
+  return created_before_;
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::mutable_created_before_time() {
-  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before_time)
-  return _internal_mutable_created_before_time();
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::mutable_created_before() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before)
+  return _internal_mutable_created_before();
 }
-inline void Bucket_Lifecycle_Rule_Condition::set_allocated_created_before_time(PROTOBUF_NAMESPACE_ID::Timestamp* created_before_time) {
+inline void Bucket_Lifecycle_Rule_Condition::set_allocated_created_before(::google::type::Date* created_before) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(created_before_time_);
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(created_before_);
   }
-  if (created_before_time) {
+  if (created_before) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(created_before_time)->GetArena();
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(created_before)->GetArena();
     if (message_arena != submessage_arena) {
-      created_before_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, created_before_time, submessage_arena);
+      created_before = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, created_before, submessage_arena);
     }
     
   } else {
     
   }
-  created_before_time_ = created_before_time;
-  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before_time)
+  created_before_ = created_before;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.created_before)
 }
 
 // bool is_live = 3;
 inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_is_live() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool Bucket_Lifecycle_Rule_Condition::has_is_live() const {
@@ -11226,7 +11233,7 @@ inline bool Bucket_Lifecycle_Rule_Condition::has_is_live() const {
 }
 inline void Bucket_Lifecycle_Rule_Condition::clear_is_live() {
   is_live_ = false;
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline bool Bucket_Lifecycle_Rule_Condition::_internal_is_live() const {
   return is_live_;
@@ -11236,7 +11243,7 @@ inline bool Bucket_Lifecycle_Rule_Condition::is_live() const {
   return _internal_is_live();
 }
 inline void Bucket_Lifecycle_Rule_Condition::_internal_set_is_live(bool value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   is_live_ = value;
 }
 inline void Bucket_Lifecycle_Rule_Condition::set_is_live(bool value) {
@@ -11245,8 +11252,16 @@ inline void Bucket_Lifecycle_Rule_Condition::set_is_live(bool value) {
 }
 
 // int32 num_newer_versions = 4;
+inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_num_newer_versions() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool Bucket_Lifecycle_Rule_Condition::has_num_newer_versions() const {
+  return _internal_has_num_newer_versions();
+}
 inline void Bucket_Lifecycle_Rule_Condition::clear_num_newer_versions() {
   num_newer_versions_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 Bucket_Lifecycle_Rule_Condition::_internal_num_newer_versions() const {
   return num_newer_versions_;
@@ -11256,7 +11271,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 Bucket_Lifecycle_Rule_Condition::num_newer
   return _internal_num_newer_versions();
 }
 inline void Bucket_Lifecycle_Rule_Condition::_internal_set_num_newer_versions(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+  _has_bits_[0] |= 0x00000004u;
   num_newer_versions_ = value;
 }
 inline void Bucket_Lifecycle_Rule_Condition::set_num_newer_versions(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -11338,70 +11353,17 @@ Bucket_Lifecycle_Rule_Condition::mutable_matches_storage_class() {
   return &matches_storage_class_;
 }
 
-// string matches_pattern = 6;
-inline void Bucket_Lifecycle_Rule_Condition::clear_matches_pattern() {
-  matches_pattern_.ClearToEmpty();
-}
-inline const std::string& Bucket_Lifecycle_Rule_Condition::matches_pattern() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.Lifecycle.Rule.Condition.matches_pattern)
-  return _internal_matches_pattern();
-}
-inline void Bucket_Lifecycle_Rule_Condition::set_matches_pattern(const std::string& value) {
-  _internal_set_matches_pattern(value);
-  // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.Lifecycle.Rule.Condition.matches_pattern)
-}
-inline std::string* Bucket_Lifecycle_Rule_Condition::mutable_matches_pattern() {
-  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.Lifecycle.Rule.Condition.matches_pattern)
-  return _internal_mutable_matches_pattern();
-}
-inline const std::string& Bucket_Lifecycle_Rule_Condition::_internal_matches_pattern() const {
-  return matches_pattern_.Get();
-}
-inline void Bucket_Lifecycle_Rule_Condition::_internal_set_matches_pattern(const std::string& value) {
-  
-  matches_pattern_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
-}
-inline void Bucket_Lifecycle_Rule_Condition::set_matches_pattern(std::string&& value) {
-  
-  matches_pattern_.Set(
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.Bucket.Lifecycle.Rule.Condition.matches_pattern)
-}
-inline void Bucket_Lifecycle_Rule_Condition::set_matches_pattern(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  matches_pattern_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:google.storage.v2.Bucket.Lifecycle.Rule.Condition.matches_pattern)
-}
-inline void Bucket_Lifecycle_Rule_Condition::set_matches_pattern(const char* value,
-    size_t size) {
-  
-  matches_pattern_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Bucket.Lifecycle.Rule.Condition.matches_pattern)
-}
-inline std::string* Bucket_Lifecycle_Rule_Condition::_internal_mutable_matches_pattern() {
-  
-  return matches_pattern_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
-}
-inline std::string* Bucket_Lifecycle_Rule_Condition::release_matches_pattern() {
-  // @@protoc_insertion_point(field_release:google.storage.v2.Bucket.Lifecycle.Rule.Condition.matches_pattern)
-  return matches_pattern_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void Bucket_Lifecycle_Rule_Condition::set_allocated_matches_pattern(std::string* matches_pattern) {
-  if (matches_pattern != nullptr) {
-    
-  } else {
-    
-  }
-  matches_pattern_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), matches_pattern,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.matches_pattern)
-}
-
 // int32 days_since_custom_time = 7;
+inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_days_since_custom_time() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool Bucket_Lifecycle_Rule_Condition::has_days_since_custom_time() const {
+  return _internal_has_days_since_custom_time();
+}
 inline void Bucket_Lifecycle_Rule_Condition::clear_days_since_custom_time() {
   days_since_custom_time_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 Bucket_Lifecycle_Rule_Condition::_internal_days_since_custom_time() const {
   return days_since_custom_time_;
@@ -11411,7 +11373,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 Bucket_Lifecycle_Rule_Condition::days_sinc
   return _internal_days_since_custom_time();
 }
 inline void Bucket_Lifecycle_Rule_Condition::_internal_set_days_since_custom_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+  _has_bits_[0] |= 0x00000008u;
   days_since_custom_time_ = value;
 }
 inline void Bucket_Lifecycle_Rule_Condition::set_days_since_custom_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -11419,86 +11381,94 @@ inline void Bucket_Lifecycle_Rule_Condition::set_days_since_custom_time(::PROTOB
   // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.Lifecycle.Rule.Condition.days_since_custom_time)
 }
 
-// .google.protobuf.Timestamp custom_time_before_time = 8;
-inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_custom_time_before_time() const {
-  return this != internal_default_instance() && custom_time_before_time_ != nullptr;
+// .google.type.Date custom_time_before = 8;
+inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_custom_time_before() const {
+  return this != internal_default_instance() && custom_time_before_ != nullptr;
 }
-inline bool Bucket_Lifecycle_Rule_Condition::has_custom_time_before_time() const {
-  return _internal_has_custom_time_before_time();
+inline bool Bucket_Lifecycle_Rule_Condition::has_custom_time_before() const {
+  return _internal_has_custom_time_before();
 }
-inline const PROTOBUF_NAMESPACE_ID::Timestamp& Bucket_Lifecycle_Rule_Condition::_internal_custom_time_before_time() const {
-  const PROTOBUF_NAMESPACE_ID::Timestamp* p = custom_time_before_time_;
-  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
-      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+inline const ::google::type::Date& Bucket_Lifecycle_Rule_Condition::_internal_custom_time_before() const {
+  const ::google::type::Date* p = custom_time_before_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::type::Date&>(
+      ::google::type::_Date_default_instance_);
 }
-inline const PROTOBUF_NAMESPACE_ID::Timestamp& Bucket_Lifecycle_Rule_Condition::custom_time_before_time() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before_time)
-  return _internal_custom_time_before_time();
+inline const ::google::type::Date& Bucket_Lifecycle_Rule_Condition::custom_time_before() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before)
+  return _internal_custom_time_before();
 }
-inline void Bucket_Lifecycle_Rule_Condition::unsafe_arena_set_allocated_custom_time_before_time(
-    PROTOBUF_NAMESPACE_ID::Timestamp* custom_time_before_time) {
+inline void Bucket_Lifecycle_Rule_Condition::unsafe_arena_set_allocated_custom_time_before(
+    ::google::type::Date* custom_time_before) {
   if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_time_before_time_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_time_before_);
   }
-  custom_time_before_time_ = custom_time_before_time;
-  if (custom_time_before_time) {
+  custom_time_before_ = custom_time_before;
+  if (custom_time_before) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before_time)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before)
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::release_custom_time_before_time() {
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::release_custom_time_before() {
   
-  PROTOBUF_NAMESPACE_ID::Timestamp* temp = custom_time_before_time_;
-  custom_time_before_time_ = nullptr;
+  ::google::type::Date* temp = custom_time_before_;
+  custom_time_before_ = nullptr;
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::unsafe_arena_release_custom_time_before_time() {
-  // @@protoc_insertion_point(field_release:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before_time)
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::unsafe_arena_release_custom_time_before() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before)
   
-  PROTOBUF_NAMESPACE_ID::Timestamp* temp = custom_time_before_time_;
-  custom_time_before_time_ = nullptr;
+  ::google::type::Date* temp = custom_time_before_;
+  custom_time_before_ = nullptr;
   return temp;
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::_internal_mutable_custom_time_before_time() {
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::_internal_mutable_custom_time_before() {
   
-  if (custom_time_before_time_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
-    custom_time_before_time_ = p;
+  if (custom_time_before_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::type::Date>(GetArena());
+    custom_time_before_ = p;
   }
-  return custom_time_before_time_;
+  return custom_time_before_;
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::mutable_custom_time_before_time() {
-  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before_time)
-  return _internal_mutable_custom_time_before_time();
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::mutable_custom_time_before() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before)
+  return _internal_mutable_custom_time_before();
 }
-inline void Bucket_Lifecycle_Rule_Condition::set_allocated_custom_time_before_time(PROTOBUF_NAMESPACE_ID::Timestamp* custom_time_before_time) {
+inline void Bucket_Lifecycle_Rule_Condition::set_allocated_custom_time_before(::google::type::Date* custom_time_before) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_time_before_time_);
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_time_before_);
   }
-  if (custom_time_before_time) {
+  if (custom_time_before) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_time_before_time)->GetArena();
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_time_before)->GetArena();
     if (message_arena != submessage_arena) {
-      custom_time_before_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, custom_time_before_time, submessage_arena);
+      custom_time_before = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, custom_time_before, submessage_arena);
     }
     
   } else {
     
   }
-  custom_time_before_time_ = custom_time_before_time;
-  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before_time)
+  custom_time_before_ = custom_time_before;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.custom_time_before)
 }
 
 // int32 days_since_noncurrent_time = 9;
+inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_days_since_noncurrent_time() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool Bucket_Lifecycle_Rule_Condition::has_days_since_noncurrent_time() const {
+  return _internal_has_days_since_noncurrent_time();
+}
 inline void Bucket_Lifecycle_Rule_Condition::clear_days_since_noncurrent_time() {
   days_since_noncurrent_time_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 Bucket_Lifecycle_Rule_Condition::_internal_days_since_noncurrent_time() const {
   return days_since_noncurrent_time_;
@@ -11508,7 +11478,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 Bucket_Lifecycle_Rule_Condition::days_sinc
   return _internal_days_since_noncurrent_time();
 }
 inline void Bucket_Lifecycle_Rule_Condition::_internal_set_days_since_noncurrent_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
+  _has_bits_[0] |= 0x00000010u;
   days_since_noncurrent_time_ = value;
 }
 inline void Bucket_Lifecycle_Rule_Condition::set_days_since_noncurrent_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -11516,81 +11486,81 @@ inline void Bucket_Lifecycle_Rule_Condition::set_days_since_noncurrent_time(::PR
   // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.Lifecycle.Rule.Condition.days_since_noncurrent_time)
 }
 
-// .google.protobuf.Timestamp noncurrent_time_before_time = 10;
-inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_noncurrent_time_before_time() const {
-  return this != internal_default_instance() && noncurrent_time_before_time_ != nullptr;
+// .google.type.Date noncurrent_time_before = 10;
+inline bool Bucket_Lifecycle_Rule_Condition::_internal_has_noncurrent_time_before() const {
+  return this != internal_default_instance() && noncurrent_time_before_ != nullptr;
 }
-inline bool Bucket_Lifecycle_Rule_Condition::has_noncurrent_time_before_time() const {
-  return _internal_has_noncurrent_time_before_time();
+inline bool Bucket_Lifecycle_Rule_Condition::has_noncurrent_time_before() const {
+  return _internal_has_noncurrent_time_before();
 }
-inline const PROTOBUF_NAMESPACE_ID::Timestamp& Bucket_Lifecycle_Rule_Condition::_internal_noncurrent_time_before_time() const {
-  const PROTOBUF_NAMESPACE_ID::Timestamp* p = noncurrent_time_before_time_;
-  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
-      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+inline const ::google::type::Date& Bucket_Lifecycle_Rule_Condition::_internal_noncurrent_time_before() const {
+  const ::google::type::Date* p = noncurrent_time_before_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::type::Date&>(
+      ::google::type::_Date_default_instance_);
 }
-inline const PROTOBUF_NAMESPACE_ID::Timestamp& Bucket_Lifecycle_Rule_Condition::noncurrent_time_before_time() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before_time)
-  return _internal_noncurrent_time_before_time();
+inline const ::google::type::Date& Bucket_Lifecycle_Rule_Condition::noncurrent_time_before() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before)
+  return _internal_noncurrent_time_before();
 }
-inline void Bucket_Lifecycle_Rule_Condition::unsafe_arena_set_allocated_noncurrent_time_before_time(
-    PROTOBUF_NAMESPACE_ID::Timestamp* noncurrent_time_before_time) {
+inline void Bucket_Lifecycle_Rule_Condition::unsafe_arena_set_allocated_noncurrent_time_before(
+    ::google::type::Date* noncurrent_time_before) {
   if (GetArena() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(noncurrent_time_before_time_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(noncurrent_time_before_);
   }
-  noncurrent_time_before_time_ = noncurrent_time_before_time;
-  if (noncurrent_time_before_time) {
+  noncurrent_time_before_ = noncurrent_time_before;
+  if (noncurrent_time_before) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before_time)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before)
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::release_noncurrent_time_before_time() {
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::release_noncurrent_time_before() {
   
-  PROTOBUF_NAMESPACE_ID::Timestamp* temp = noncurrent_time_before_time_;
-  noncurrent_time_before_time_ = nullptr;
+  ::google::type::Date* temp = noncurrent_time_before_;
+  noncurrent_time_before_ = nullptr;
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::unsafe_arena_release_noncurrent_time_before_time() {
-  // @@protoc_insertion_point(field_release:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before_time)
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::unsafe_arena_release_noncurrent_time_before() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before)
   
-  PROTOBUF_NAMESPACE_ID::Timestamp* temp = noncurrent_time_before_time_;
-  noncurrent_time_before_time_ = nullptr;
+  ::google::type::Date* temp = noncurrent_time_before_;
+  noncurrent_time_before_ = nullptr;
   return temp;
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::_internal_mutable_noncurrent_time_before_time() {
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::_internal_mutable_noncurrent_time_before() {
   
-  if (noncurrent_time_before_time_ == nullptr) {
-    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
-    noncurrent_time_before_time_ = p;
+  if (noncurrent_time_before_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::type::Date>(GetArena());
+    noncurrent_time_before_ = p;
   }
-  return noncurrent_time_before_time_;
+  return noncurrent_time_before_;
 }
-inline PROTOBUF_NAMESPACE_ID::Timestamp* Bucket_Lifecycle_Rule_Condition::mutable_noncurrent_time_before_time() {
-  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before_time)
-  return _internal_mutable_noncurrent_time_before_time();
+inline ::google::type::Date* Bucket_Lifecycle_Rule_Condition::mutable_noncurrent_time_before() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before)
+  return _internal_mutable_noncurrent_time_before();
 }
-inline void Bucket_Lifecycle_Rule_Condition::set_allocated_noncurrent_time_before_time(PROTOBUF_NAMESPACE_ID::Timestamp* noncurrent_time_before_time) {
+inline void Bucket_Lifecycle_Rule_Condition::set_allocated_noncurrent_time_before(::google::type::Date* noncurrent_time_before) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(noncurrent_time_before_time_);
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(noncurrent_time_before_);
   }
-  if (noncurrent_time_before_time) {
+  if (noncurrent_time_before) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(noncurrent_time_before_time)->GetArena();
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(noncurrent_time_before)->GetArena();
     if (message_arena != submessage_arena) {
-      noncurrent_time_before_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, noncurrent_time_before_time, submessage_arena);
+      noncurrent_time_before = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, noncurrent_time_before, submessage_arena);
     }
     
   } else {
     
   }
-  noncurrent_time_before_time_ = noncurrent_time_before_time;
-  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before_time)
+  noncurrent_time_before_ = noncurrent_time_before;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.Lifecycle.Rule.Condition.noncurrent_time_before)
 }
 
 // -------------------------------------------------------------------

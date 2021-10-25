@@ -45,7 +45,7 @@ class CurlRequestBuilder {
    * This function invalidates the builder. The application should not use this
    * builder once this function is called.
    */
-  CurlRequest BuildRequest();
+  CurlRequest BuildRequest() &&;
 
   /**
    * Creates a non-blocking http request.
@@ -195,7 +195,7 @@ class CurlRequestBuilder {
   std::string user_agent_prefix_;
   bool logging_enabled_;
   CurlHandle::SocketOptions socket_options_;
-  std::chrono::seconds download_stall_timeout_;
+  std::chrono::seconds transfer_stall_timeout_;
   std::string http_version_;
 };
 

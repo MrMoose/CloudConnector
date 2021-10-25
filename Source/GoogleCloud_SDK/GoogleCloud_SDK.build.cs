@@ -12,6 +12,8 @@ public class GoogleCloud_SDK : ModuleRules {
 
 		Type = ModuleType.External;
 
+		CppStandard = CppStandardVersion.Cpp17;
+
 		// add any macros that need to be set. This is just an example define.
 		PublicDefinitions.Add("WITH_GOOGLECLOUD_SDK=1");
 

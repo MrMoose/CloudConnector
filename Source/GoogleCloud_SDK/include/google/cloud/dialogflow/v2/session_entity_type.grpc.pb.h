@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2/session_entity_type.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -118,31 +117,23 @@ class SessionEntityTypes final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteSessionEntityTypeRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Returns the list of all session entity types in the specified session.
       //
       // This method doesn't work with Google Assistant integration.
       // Contact Dialogflow support if you need to use session entities
       // with Google Assistant integration.
       virtual void ListSessionEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListSessionEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListSessionEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Retrieves the specified session entity type.
       //
       // This method doesn't work with Google Assistant integration.
       // Contact Dialogflow support if you need to use session entities
       // with Google Assistant integration.
       virtual void GetSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a session entity type.
       //
       // If the specified session entity type already exists, overrides the session
@@ -152,41 +143,25 @@ class SessionEntityTypes final {
       // Contact Dialogflow support if you need to use session entities
       // with Google Assistant integration.
       virtual void CreateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the specified session entity type.
       //
       // This method doesn't work with Google Assistant integration.
       // Contact Dialogflow support if you need to use session entities
       // with Google Assistant integration.
       virtual void UpdateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the specified session entity type.
       //
       // This method doesn't work with Google Assistant integration.
       // Contact Dialogflow support if you need to use session entities
       // with Google Assistant integration.
       virtual void DeleteSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>* AsyncListSessionEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>* PrepareAsyncListSessionEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -237,50 +212,30 @@ class SessionEntityTypes final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteSessionEntityTypeRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListSessionEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListSessionEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListSessionEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteSessionEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>* AsyncListSessionEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>* PrepareAsyncListSessionEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SessionEntityType>* AsyncGetSessionEntityTypeRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -439,36 +394,22 @@ class SessionEntityTypes final {
   };
   typedef WithAsyncMethod_ListSessionEntityTypes<WithAsyncMethod_GetSessionEntityType<WithAsyncMethod_CreateSessionEntityType<WithAsyncMethod_UpdateSessionEntityType<WithAsyncMethod_DeleteSessionEntityType<Service > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListSessionEntityTypes : public BaseClass {
+  class WithCallbackMethod_ListSessionEntityTypes : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListSessionEntityTypes() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListSessionEntityTypes() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* response) { return this->ListSessionEntityTypes(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* response) { return this->ListSessionEntityTypes(context, request, response); }));}
     void SetMessageAllocatorFor_ListSessionEntityTypes(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListSessionEntityTypes() override {
+    ~WithCallbackMethod_ListSessionEntityTypes() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -476,46 +417,26 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSessionEntityTypes(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* /*request*/, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSessionEntityTypes(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* /*request*/, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest* /*request*/, ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetSessionEntityType : public BaseClass {
+  class WithCallbackMethod_GetSessionEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetSessionEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetSessionEntityType() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response) { return this->GetSessionEntityType(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response) { return this->GetSessionEntityType(context, request, response); }));}
     void SetMessageAllocatorFor_GetSessionEntityType(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetSessionEntityType() override {
+    ~WithCallbackMethod_GetSessionEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -523,46 +444,26 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSessionEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::SessionEntityType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSessionEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::SessionEntityType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::SessionEntityType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateSessionEntityType : public BaseClass {
+  class WithCallbackMethod_CreateSessionEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateSessionEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateSessionEntityType() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response) { return this->CreateSessionEntityType(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response) { return this->CreateSessionEntityType(context, request, response); }));}
     void SetMessageAllocatorFor_CreateSessionEntityType(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateSessionEntityType() override {
+    ~WithCallbackMethod_CreateSessionEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -570,46 +471,26 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSessionEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::SessionEntityType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSessionEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::SessionEntityType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::CreateSessionEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::SessionEntityType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateSessionEntityType : public BaseClass {
+  class WithCallbackMethod_UpdateSessionEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateSessionEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateSessionEntityType() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response) { return this->UpdateSessionEntityType(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* request, ::google::cloud::dialogflow::v2::SessionEntityType* response) { return this->UpdateSessionEntityType(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateSessionEntityType(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest, ::google::cloud::dialogflow::v2::SessionEntityType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateSessionEntityType() override {
+    ~WithCallbackMethod_UpdateSessionEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -617,46 +498,26 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateSessionEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::SessionEntityType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateSessionEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::SessionEntityType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::UpdateSessionEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::SessionEntityType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteSessionEntityType : public BaseClass {
+  class WithCallbackMethod_DeleteSessionEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteSessionEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteSessionEntityType() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSessionEntityType(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSessionEntityType(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteSessionEntityType(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteSessionEntityType() override {
+    ~WithCallbackMethod_DeleteSessionEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -664,20 +525,11 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSessionEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSessionEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteSessionEntityTypeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListSessionEntityTypes<ExperimentalWithCallbackMethod_GetSessionEntityType<ExperimentalWithCallbackMethod_CreateSessionEntityType<ExperimentalWithCallbackMethod_UpdateSessionEntityType<ExperimentalWithCallbackMethod_DeleteSessionEntityType<Service > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListSessionEntityTypes<ExperimentalWithCallbackMethod_GetSessionEntityType<ExperimentalWithCallbackMethod_CreateSessionEntityType<ExperimentalWithCallbackMethod_UpdateSessionEntityType<ExperimentalWithCallbackMethod_DeleteSessionEntityType<Service > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListSessionEntityTypes<WithCallbackMethod_GetSessionEntityType<WithCallbackMethod_CreateSessionEntityType<WithCallbackMethod_UpdateSessionEntityType<WithCallbackMethod_DeleteSessionEntityType<Service > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListSessionEntityTypes : public BaseClass {
    private:
@@ -864,27 +716,17 @@ class SessionEntityTypes final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListSessionEntityTypes : public BaseClass {
+  class WithRawCallbackMethod_ListSessionEntityTypes : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListSessionEntityTypes() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListSessionEntityTypes() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSessionEntityTypes(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSessionEntityTypes(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListSessionEntityTypes() override {
+    ~WithRawCallbackMethod_ListSessionEntityTypes() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -892,37 +734,21 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSessionEntityTypes(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSessionEntityTypes(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetSessionEntityType : public BaseClass {
+  class WithRawCallbackMethod_GetSessionEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetSessionEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetSessionEntityType() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSessionEntityType(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSessionEntityType(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetSessionEntityType() override {
+    ~WithRawCallbackMethod_GetSessionEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -930,37 +756,21 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSessionEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSessionEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateSessionEntityType : public BaseClass {
+  class WithRawCallbackMethod_CreateSessionEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateSessionEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateSessionEntityType() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSessionEntityType(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSessionEntityType(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateSessionEntityType() override {
+    ~WithRawCallbackMethod_CreateSessionEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -968,37 +778,21 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSessionEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSessionEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateSessionEntityType : public BaseClass {
+  class WithRawCallbackMethod_UpdateSessionEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateSessionEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateSessionEntityType() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateSessionEntityType(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateSessionEntityType(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateSessionEntityType() override {
+    ~WithRawCallbackMethod_UpdateSessionEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1006,37 +800,21 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateSessionEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateSessionEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteSessionEntityType : public BaseClass {
+  class WithRawCallbackMethod_DeleteSessionEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteSessionEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteSessionEntityType() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSessionEntityType(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSessionEntityType(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteSessionEntityType() override {
+    ~WithRawCallbackMethod_DeleteSessionEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1044,14 +822,8 @@ class SessionEntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSessionEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSessionEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListSessionEntityTypes : public BaseClass {

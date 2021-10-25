@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2beta1/context.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -105,61 +104,33 @@ class Contexts final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteAllContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteAllContextsRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Returns the list of all contexts in the specified session.
       virtual void ListContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* request, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* request, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* request, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Retrieves the specified context.
       virtual void GetContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a context.
       //
       // If the specified context already exists, overrides the context.
       virtual void CreateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the specified context.
       virtual void UpdateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the specified context.
       virtual void DeleteContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes all active contexts in the specified session.
       virtual void DeleteAllContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteAllContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteAllContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::ListContextsResponse>* AsyncListContextsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::ListContextsResponse>* PrepareAsyncListContextsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -219,56 +190,32 @@ class Contexts final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteAllContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteAllContextsRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* request, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* request, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* request, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteContext(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteAllContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteAllContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteAllContexts(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListContextsResponse>* AsyncListContextsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListContextsResponse>* PrepareAsyncListContextsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Context>* AsyncGetContextRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetContextRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -431,36 +378,22 @@ class Contexts final {
   };
   typedef WithAsyncMethod_ListContexts<WithAsyncMethod_GetContext<WithAsyncMethod_CreateContext<WithAsyncMethod_UpdateContext<WithAsyncMethod_DeleteContext<WithAsyncMethod_DeleteAllContexts<Service > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListContexts : public BaseClass {
+  class WithCallbackMethod_ListContexts : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListContexts() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListContexts() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ListContextsRequest, ::google::cloud::dialogflow::v2beta1::ListContextsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* request, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* response) { return this->ListContexts(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* request, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* response) { return this->ListContexts(context, request, response); }));}
     void SetMessageAllocatorFor_ListContexts(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ListContextsRequest, ::google::cloud::dialogflow::v2beta1::ListContextsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ListContextsRequest, ::google::cloud::dialogflow::v2beta1::ListContextsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ListContextsRequest, ::google::cloud::dialogflow::v2beta1::ListContextsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListContexts() override {
+    ~WithCallbackMethod_ListContexts() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -468,46 +401,26 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListContexts(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListContexts(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListContextsRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListContextsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetContext : public BaseClass {
+  class WithCallbackMethod_GetContext : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetContext() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetContext() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetContextRequest, ::google::cloud::dialogflow::v2beta1::Context>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response) { return this->GetContext(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response) { return this->GetContext(context, request, response); }));}
     void SetMessageAllocatorFor_GetContext(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetContextRequest, ::google::cloud::dialogflow::v2beta1::Context>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetContextRequest, ::google::cloud::dialogflow::v2beta1::Context>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetContextRequest, ::google::cloud::dialogflow::v2beta1::Context>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetContext() override {
+    ~WithCallbackMethod_GetContext() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -515,46 +428,26 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetContext(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Context* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetContext(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Context* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetContextRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Context* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateContext : public BaseClass {
+  class WithCallbackMethod_CreateContext : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateContext() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateContext() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::CreateContextRequest, ::google::cloud::dialogflow::v2beta1::Context>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response) { return this->CreateContext(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response) { return this->CreateContext(context, request, response); }));}
     void SetMessageAllocatorFor_CreateContext(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::CreateContextRequest, ::google::cloud::dialogflow::v2beta1::Context>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::CreateContextRequest, ::google::cloud::dialogflow::v2beta1::Context>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::CreateContextRequest, ::google::cloud::dialogflow::v2beta1::Context>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateContext() override {
+    ~WithCallbackMethod_CreateContext() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -562,46 +455,26 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateContext(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Context* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateContext(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Context* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateContextRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Context* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateContext : public BaseClass {
+  class WithCallbackMethod_UpdateContext : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateContext() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateContext() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateContextRequest, ::google::cloud::dialogflow::v2beta1::Context>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response) { return this->UpdateContext(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* request, ::google::cloud::dialogflow::v2beta1::Context* response) { return this->UpdateContext(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateContext(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateContextRequest, ::google::cloud::dialogflow::v2beta1::Context>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateContextRequest, ::google::cloud::dialogflow::v2beta1::Context>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateContextRequest, ::google::cloud::dialogflow::v2beta1::Context>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateContext() override {
+    ~WithCallbackMethod_UpdateContext() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -609,46 +482,26 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateContext(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Context* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateContext(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Context* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateContextRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Context* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteContext : public BaseClass {
+  class WithCallbackMethod_DeleteContext : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteContext() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteContext() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteContextRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* request, ::google::protobuf::Empty* response) { return this->DeleteContext(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* request, ::google::protobuf::Empty* response) { return this->DeleteContext(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteContext(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteContextRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteContextRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteContextRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteContext() override {
+    ~WithCallbackMethod_DeleteContext() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -656,46 +509,26 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteContext(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteContext(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteContextRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteAllContexts : public BaseClass {
+  class WithCallbackMethod_DeleteAllContexts : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteAllContexts() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_DeleteAllContexts() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* request, ::google::protobuf::Empty* response) { return this->DeleteAllContexts(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* request, ::google::protobuf::Empty* response) { return this->DeleteAllContexts(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteAllContexts(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteAllContexts() override {
+    ~WithCallbackMethod_DeleteAllContexts() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -703,20 +536,11 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteAllContexts(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteAllContexts(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteAllContextsRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListContexts<ExperimentalWithCallbackMethod_GetContext<ExperimentalWithCallbackMethod_CreateContext<ExperimentalWithCallbackMethod_UpdateContext<ExperimentalWithCallbackMethod_DeleteContext<ExperimentalWithCallbackMethod_DeleteAllContexts<Service > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListContexts<ExperimentalWithCallbackMethod_GetContext<ExperimentalWithCallbackMethod_CreateContext<ExperimentalWithCallbackMethod_UpdateContext<ExperimentalWithCallbackMethod_DeleteContext<ExperimentalWithCallbackMethod_DeleteAllContexts<Service > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListContexts<WithCallbackMethod_GetContext<WithCallbackMethod_CreateContext<WithCallbackMethod_UpdateContext<WithCallbackMethod_DeleteContext<WithCallbackMethod_DeleteAllContexts<Service > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListContexts : public BaseClass {
    private:
@@ -940,27 +764,17 @@ class Contexts final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListContexts : public BaseClass {
+  class WithRawCallbackMethod_ListContexts : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListContexts() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListContexts() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListContexts(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListContexts(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListContexts() override {
+    ~WithRawCallbackMethod_ListContexts() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -968,37 +782,21 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListContexts(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListContexts(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetContext : public BaseClass {
+  class WithRawCallbackMethod_GetContext : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetContext() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetContext() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetContext(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetContext(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetContext() override {
+    ~WithRawCallbackMethod_GetContext() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1006,37 +804,21 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetContext(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetContext(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateContext : public BaseClass {
+  class WithRawCallbackMethod_CreateContext : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateContext() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateContext() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateContext(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateContext(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateContext() override {
+    ~WithRawCallbackMethod_CreateContext() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1044,37 +826,21 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateContext(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateContext(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateContext : public BaseClass {
+  class WithRawCallbackMethod_UpdateContext : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateContext() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateContext() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateContext(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateContext(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateContext() override {
+    ~WithRawCallbackMethod_UpdateContext() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1082,37 +848,21 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateContext(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateContext(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteContext : public BaseClass {
+  class WithRawCallbackMethod_DeleteContext : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteContext() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteContext() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteContext(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteContext(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteContext() override {
+    ~WithRawCallbackMethod_DeleteContext() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1120,37 +870,21 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteContext(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteContext(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteAllContexts : public BaseClass {
+  class WithRawCallbackMethod_DeleteAllContexts : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteAllContexts() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_DeleteAllContexts() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteAllContexts(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteAllContexts(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteAllContexts() override {
+    ~WithRawCallbackMethod_DeleteAllContexts() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1158,14 +892,8 @@ class Contexts final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteAllContexts(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteAllContexts(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListContexts : public BaseClass {

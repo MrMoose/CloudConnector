@@ -41,7 +41,7 @@ inline namespace SPANNER_CLIENT_NS {
  *
  * [cppref-input-range]: https://en.cppreference.com/w/cpp/ranges/input_range
  */
-using ListInstancesRange = google::cloud::internal::PaginationRange<
+using ListInstancesRange = ::google::cloud::internal::PaginationRange<
     google::spanner::admin::instance::v1::Instance>;
 
 /**
@@ -53,7 +53,7 @@ using ListInstancesRange = google::cloud::internal::PaginationRange<
  *
  * [cppref-input-range]: https://en.cppreference.com/w/cpp/ranges/input_range
  */
-using ListInstanceConfigsRange = google::cloud::internal::PaginationRange<
+using ListInstanceConfigsRange = ::google::cloud::internal::PaginationRange<
     google::spanner::admin::instance::v1::InstanceConfig>;
 
 /**
@@ -67,7 +67,8 @@ using ListInstanceConfigsRange = google::cloud::internal::PaginationRange<
  * To create a concrete instance that connects you to a real Cloud Spanner
  * instance administration service, see `MakeInstanceAdminConnection()`.
  */
-class InstanceAdminConnection {
+class GOOGLE_CLOUD_CPP_SPANNER_ADMIN_API_DEPRECATED("InstanceAdminConnection")
+    InstanceAdminConnection {
  public:
   virtual ~InstanceAdminConnection() = 0;
 
@@ -219,6 +220,7 @@ class InstanceAdminConnection {
  * @param opts (optional) configure the `InstanceAdminConnection` created by
  *     this function.
  */
+GOOGLE_CLOUD_CPP_SPANNER_ADMIN_API_DEPRECATED("MakeInstanceAdminConnection()")
 std::shared_ptr<spanner::InstanceAdminConnection> MakeInstanceAdminConnection(
     Options opts = {});
 
@@ -237,6 +239,7 @@ std::shared_ptr<spanner::InstanceAdminConnection> MakeInstanceAdminConnection(
  * @param options configure the `InstanceAdminConnection` created by this
  *     function.
  */
+GOOGLE_CLOUD_CPP_SPANNER_ADMIN_API_DEPRECATED("MakeInstanceAdminConnection()")
 std::shared_ptr<InstanceAdminConnection> MakeInstanceAdminConnection(
     ConnectionOptions const& options);
 
@@ -262,6 +265,7 @@ std::shared_ptr<InstanceAdminConnection> MakeInstanceAdminConnection(
  * @par Example
  * @snippet samples.cc custom-instance-admin-policies
  */
+GOOGLE_CLOUD_CPP_SPANNER_ADMIN_API_DEPRECATED("MakeInstanceAdminConnection()")
 std::shared_ptr<InstanceAdminConnection> MakeInstanceAdminConnection(
     ConnectionOptions const& options, std::unique_ptr<RetryPolicy> retry_policy,
     std::unique_ptr<BackoffPolicy> backoff_policy,

@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2beta1/fulfillment.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -71,31 +70,19 @@ class Fulfillments final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::Fulfillment>> PrepareAsyncUpdateFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::Fulfillment>>(PrepareAsyncUpdateFulfillmentRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Retrieves the fulfillment.
       virtual void GetFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the fulfillment.
       virtual void UpdateFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::Fulfillment>* AsyncGetFulfillmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::Fulfillment>* PrepareAsyncGetFulfillmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -119,32 +106,24 @@ class Fulfillments final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Fulfillment>> PrepareAsyncUpdateFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Fulfillment>>(PrepareAsyncUpdateFulfillmentRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void GetFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateFulfillment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Fulfillment>* AsyncGetFulfillmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Fulfillment>* PrepareAsyncGetFulfillmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Fulfillment>* AsyncUpdateFulfillmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -205,36 +184,22 @@ class Fulfillments final {
   };
   typedef WithAsyncMethod_GetFulfillment<WithAsyncMethod_UpdateFulfillment<Service > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetFulfillment : public BaseClass {
+  class WithCallbackMethod_GetFulfillment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetFulfillment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_GetFulfillment() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest, ::google::cloud::dialogflow::v2beta1::Fulfillment>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response) { return this->GetFulfillment(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response) { return this->GetFulfillment(context, request, response); }));}
     void SetMessageAllocatorFor_GetFulfillment(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest, ::google::cloud::dialogflow::v2beta1::Fulfillment>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest, ::google::cloud::dialogflow::v2beta1::Fulfillment>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest, ::google::cloud::dialogflow::v2beta1::Fulfillment>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetFulfillment() override {
+    ~WithCallbackMethod_GetFulfillment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -242,46 +207,26 @@ class Fulfillments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetFulfillment(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Fulfillment* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetFulfillment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Fulfillment* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetFulfillmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Fulfillment* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateFulfillment : public BaseClass {
+  class WithCallbackMethod_UpdateFulfillment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateFulfillment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_UpdateFulfillment() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest, ::google::cloud::dialogflow::v2beta1::Fulfillment>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response) { return this->UpdateFulfillment(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* request, ::google::cloud::dialogflow::v2beta1::Fulfillment* response) { return this->UpdateFulfillment(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateFulfillment(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest, ::google::cloud::dialogflow::v2beta1::Fulfillment>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest, ::google::cloud::dialogflow::v2beta1::Fulfillment>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest, ::google::cloud::dialogflow::v2beta1::Fulfillment>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateFulfillment() override {
+    ~WithCallbackMethod_UpdateFulfillment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -289,20 +234,11 @@ class Fulfillments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateFulfillment(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Fulfillment* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateFulfillment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Fulfillment* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateFulfillmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Fulfillment* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_GetFulfillment<ExperimentalWithCallbackMethod_UpdateFulfillment<Service > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_GetFulfillment<ExperimentalWithCallbackMethod_UpdateFulfillment<Service > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_GetFulfillment<WithCallbackMethod_UpdateFulfillment<Service > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetFulfillment : public BaseClass {
    private:
@@ -378,27 +314,17 @@ class Fulfillments final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetFulfillment : public BaseClass {
+  class WithRawCallbackMethod_GetFulfillment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetFulfillment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_GetFulfillment() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetFulfillment(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetFulfillment(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetFulfillment() override {
+    ~WithRawCallbackMethod_GetFulfillment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -406,37 +332,21 @@ class Fulfillments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetFulfillment(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetFulfillment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateFulfillment : public BaseClass {
+  class WithRawCallbackMethod_UpdateFulfillment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateFulfillment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_UpdateFulfillment() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateFulfillment(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateFulfillment(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateFulfillment() override {
+    ~WithRawCallbackMethod_UpdateFulfillment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -444,14 +354,8 @@ class Fulfillments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateFulfillment(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateFulfillment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetFulfillment : public BaseClass {

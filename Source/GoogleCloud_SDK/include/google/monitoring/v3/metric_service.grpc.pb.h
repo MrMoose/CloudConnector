@@ -22,7 +22,6 @@
 #include "google/monitoring/v3/metric_service.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -126,80 +125,44 @@ class MetricService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncCreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncCreateTimeSeriesRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Lists monitored resource descriptors that match a filter. This method does not require a Workspace.
       virtual void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* request, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* request, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* request, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a single monitored resource descriptor. This method does not require a Workspace.
       virtual void GetMonitoredResourceDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* request, ::google::api::MonitoredResourceDescriptor* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetMonitoredResourceDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* request, ::google::api::MonitoredResourceDescriptor* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetMonitoredResourceDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* request, ::google::api::MonitoredResourceDescriptor* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists metric descriptors that match a filter. This method does not require a Workspace.
       virtual void ListMetricDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMetricDescriptorsRequest* request, ::google::monitoring::v3::ListMetricDescriptorsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListMetricDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMetricDescriptorsRequest* request, ::google::monitoring::v3::ListMetricDescriptorsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListMetricDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMetricDescriptorsRequest* request, ::google::monitoring::v3::ListMetricDescriptorsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a single metric descriptor. This method does not require a Workspace.
       virtual void GetMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new metric descriptor.
       // User-created metric descriptors define
       // [custom metrics](https://cloud.google.com/monitoring/custom-metrics).
       virtual void CreateMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes a metric descriptor. Only user-created
       // [custom metrics](https://cloud.google.com/monitoring/custom-metrics) can be
       // deleted.
       virtual void DeleteMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists time series that match a filter. This method does not require a Workspace.
       virtual void ListTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest* request, ::google::monitoring::v3::ListTimeSeriesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest* request, ::google::monitoring::v3::ListTimeSeriesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest* request, ::google::monitoring::v3::ListTimeSeriesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates or adds data to one or more time series.
       // The response is empty if all time series in the request were written.
       // If any time series could not be written, a corresponding failure message is
       // included in the error response.
       virtual void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>* AsyncListMonitoredResourceDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>* PrepareAsyncListMonitoredResourceDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -277,68 +240,36 @@ class MetricService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncCreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncCreateTimeSeriesRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* request, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* request, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListMonitoredResourceDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* request, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetMonitoredResourceDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* request, ::google::api::MonitoredResourceDescriptor* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetMonitoredResourceDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* request, ::google::api::MonitoredResourceDescriptor* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetMonitoredResourceDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* request, ::google::api::MonitoredResourceDescriptor* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListMetricDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMetricDescriptorsRequest* request, ::google::monitoring::v3::ListMetricDescriptorsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListMetricDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMetricDescriptorsRequest* request, ::google::monitoring::v3::ListMetricDescriptorsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListMetricDescriptors(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMetricDescriptorsRequest* request, ::google::monitoring::v3::ListMetricDescriptorsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest* request, ::google::monitoring::v3::ListTimeSeriesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest* request, ::google::monitoring::v3::ListTimeSeriesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest* request, ::google::monitoring::v3::ListTimeSeriesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>* AsyncListMonitoredResourceDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>* PrepareAsyncListMonitoredResourceDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::api::MonitoredResourceDescriptor>* AsyncGetMonitoredResourceDescriptorRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -556,36 +487,22 @@ class MetricService final {
   };
   typedef WithAsyncMethod_ListMonitoredResourceDescriptors<WithAsyncMethod_GetMonitoredResourceDescriptor<WithAsyncMethod_ListMetricDescriptors<WithAsyncMethod_GetMetricDescriptor<WithAsyncMethod_CreateMetricDescriptor<WithAsyncMethod_DeleteMetricDescriptor<WithAsyncMethod_ListTimeSeries<WithAsyncMethod_CreateTimeSeries<Service > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors : public BaseClass {
+  class WithCallbackMethod_ListMonitoredResourceDescriptors : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListMonitoredResourceDescriptors() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* request, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* response) { return this->ListMonitoredResourceDescriptors(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* request, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* response) { return this->ListMonitoredResourceDescriptors(context, request, response); }));}
     void SetMessageAllocatorFor_ListMonitoredResourceDescriptors(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors() override {
+    ~WithCallbackMethod_ListMonitoredResourceDescriptors() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -593,46 +510,26 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListMonitoredResourceDescriptors(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* /*request*/, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListMonitoredResourceDescriptors(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* /*request*/, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest* /*request*/, ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetMonitoredResourceDescriptor : public BaseClass {
+  class WithCallbackMethod_GetMonitoredResourceDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetMonitoredResourceDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetMonitoredResourceDescriptor() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest, ::google::api::MonitoredResourceDescriptor>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* request, ::google::api::MonitoredResourceDescriptor* response) { return this->GetMonitoredResourceDescriptor(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* request, ::google::api::MonitoredResourceDescriptor* response) { return this->GetMonitoredResourceDescriptor(context, request, response); }));}
     void SetMessageAllocatorFor_GetMonitoredResourceDescriptor(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest, ::google::api::MonitoredResourceDescriptor>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest, ::google::api::MonitoredResourceDescriptor>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest, ::google::api::MonitoredResourceDescriptor>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetMonitoredResourceDescriptor() override {
+    ~WithCallbackMethod_GetMonitoredResourceDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -640,46 +537,26 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetMonitoredResourceDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* /*request*/, ::google::api::MonitoredResourceDescriptor* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetMonitoredResourceDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* /*request*/, ::google::api::MonitoredResourceDescriptor* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest* /*request*/, ::google::api::MonitoredResourceDescriptor* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListMetricDescriptors : public BaseClass {
+  class WithCallbackMethod_ListMetricDescriptors : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListMetricDescriptors() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_ListMetricDescriptors() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListMetricDescriptorsRequest, ::google::monitoring::v3::ListMetricDescriptorsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListMetricDescriptorsRequest* request, ::google::monitoring::v3::ListMetricDescriptorsResponse* response) { return this->ListMetricDescriptors(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListMetricDescriptorsRequest* request, ::google::monitoring::v3::ListMetricDescriptorsResponse* response) { return this->ListMetricDescriptors(context, request, response); }));}
     void SetMessageAllocatorFor_ListMetricDescriptors(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListMetricDescriptorsRequest, ::google::monitoring::v3::ListMetricDescriptorsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListMetricDescriptorsRequest, ::google::monitoring::v3::ListMetricDescriptorsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListMetricDescriptorsRequest, ::google::monitoring::v3::ListMetricDescriptorsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListMetricDescriptors() override {
+    ~WithCallbackMethod_ListMetricDescriptors() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -687,46 +564,26 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListMetricDescriptors(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListMetricDescriptorsRequest* /*request*/, ::google::monitoring::v3::ListMetricDescriptorsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListMetricDescriptors(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListMetricDescriptorsRequest* /*request*/, ::google::monitoring::v3::ListMetricDescriptorsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListMetricDescriptorsRequest* /*request*/, ::google::monitoring::v3::ListMetricDescriptorsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetMetricDescriptor : public BaseClass {
+  class WithCallbackMethod_GetMetricDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetMetricDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_GetMetricDescriptor() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetMetricDescriptorRequest, ::google::api::MetricDescriptor>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response) { return this->GetMetricDescriptor(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response) { return this->GetMetricDescriptor(context, request, response); }));}
     void SetMessageAllocatorFor_GetMetricDescriptor(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::GetMetricDescriptorRequest, ::google::api::MetricDescriptor>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::GetMetricDescriptorRequest, ::google::api::MetricDescriptor>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::GetMetricDescriptorRequest, ::google::api::MetricDescriptor>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetMetricDescriptor() override {
+    ~WithCallbackMethod_GetMetricDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -734,46 +591,26 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetMetricDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetMetricDescriptorRequest* /*request*/, ::google::api::MetricDescriptor* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetMetricDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetMetricDescriptorRequest* /*request*/, ::google::api::MetricDescriptor* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::GetMetricDescriptorRequest* /*request*/, ::google::api::MetricDescriptor* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateMetricDescriptor : public BaseClass {
+  class WithCallbackMethod_CreateMetricDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateMetricDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_CreateMetricDescriptor() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateMetricDescriptorRequest, ::google::api::MetricDescriptor>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response) { return this->CreateMetricDescriptor(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response) { return this->CreateMetricDescriptor(context, request, response); }));}
     void SetMessageAllocatorFor_CreateMetricDescriptor(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::CreateMetricDescriptorRequest, ::google::api::MetricDescriptor>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::CreateMetricDescriptorRequest, ::google::api::MetricDescriptor>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateMetricDescriptorRequest, ::google::api::MetricDescriptor>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateMetricDescriptor() override {
+    ~WithCallbackMethod_CreateMetricDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -781,46 +618,26 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateMetricDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateMetricDescriptorRequest* /*request*/, ::google::api::MetricDescriptor* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateMetricDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateMetricDescriptorRequest* /*request*/, ::google::api::MetricDescriptor* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateMetricDescriptorRequest* /*request*/, ::google::api::MetricDescriptor* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteMetricDescriptor : public BaseClass {
+  class WithCallbackMethod_DeleteMetricDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteMetricDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_DeleteMetricDescriptor() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteMetricDescriptorRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* request, ::google::protobuf::Empty* response) { return this->DeleteMetricDescriptor(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* request, ::google::protobuf::Empty* response) { return this->DeleteMetricDescriptor(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteMetricDescriptor(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::DeleteMetricDescriptorRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::DeleteMetricDescriptorRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::DeleteMetricDescriptorRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteMetricDescriptor() override {
+    ~WithCallbackMethod_DeleteMetricDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -828,46 +645,26 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteMetricDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteMetricDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::DeleteMetricDescriptorRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListTimeSeries : public BaseClass {
+  class WithCallbackMethod_ListTimeSeries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListTimeSeries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_ListTimeSeries() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListTimeSeriesRequest, ::google::monitoring::v3::ListTimeSeriesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::ListTimeSeriesRequest* request, ::google::monitoring::v3::ListTimeSeriesResponse* response) { return this->ListTimeSeries(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest* request, ::google::monitoring::v3::ListTimeSeriesResponse* response) { return this->ListTimeSeries(context, request, response); }));}
     void SetMessageAllocatorFor_ListTimeSeries(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::ListTimeSeriesRequest, ::google::monitoring::v3::ListTimeSeriesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::ListTimeSeriesRequest, ::google::monitoring::v3::ListTimeSeriesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::ListTimeSeriesRequest, ::google::monitoring::v3::ListTimeSeriesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListTimeSeries() override {
+    ~WithCallbackMethod_ListTimeSeries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -875,46 +672,26 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTimeSeries(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListTimeSeriesRequest* /*request*/, ::google::monitoring::v3::ListTimeSeriesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTimeSeries(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListTimeSeriesRequest* /*request*/, ::google::monitoring::v3::ListTimeSeriesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::ListTimeSeriesRequest* /*request*/, ::google::monitoring::v3::ListTimeSeriesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateTimeSeries : public BaseClass {
+  class WithCallbackMethod_CreateTimeSeries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateTimeSeries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_CreateTimeSeries() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateTimeSeriesRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response) { return this->CreateTimeSeries(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response) { return this->CreateTimeSeries(context, request, response); }));}
     void SetMessageAllocatorFor_CreateTimeSeries(
-        ::grpc::experimental::MessageAllocator< ::google::monitoring::v3::CreateTimeSeriesRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::monitoring::v3::CreateTimeSeriesRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateTimeSeriesRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateTimeSeries() override {
+    ~WithCallbackMethod_CreateTimeSeries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -922,20 +699,11 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTimeSeries(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTimeSeries(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors<ExperimentalWithCallbackMethod_GetMonitoredResourceDescriptor<ExperimentalWithCallbackMethod_ListMetricDescriptors<ExperimentalWithCallbackMethod_GetMetricDescriptor<ExperimentalWithCallbackMethod_CreateMetricDescriptor<ExperimentalWithCallbackMethod_DeleteMetricDescriptor<ExperimentalWithCallbackMethod_ListTimeSeries<ExperimentalWithCallbackMethod_CreateTimeSeries<Service > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListMonitoredResourceDescriptors<ExperimentalWithCallbackMethod_GetMonitoredResourceDescriptor<ExperimentalWithCallbackMethod_ListMetricDescriptors<ExperimentalWithCallbackMethod_GetMetricDescriptor<ExperimentalWithCallbackMethod_CreateMetricDescriptor<ExperimentalWithCallbackMethod_DeleteMetricDescriptor<ExperimentalWithCallbackMethod_ListTimeSeries<ExperimentalWithCallbackMethod_CreateTimeSeries<Service > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListMonitoredResourceDescriptors<WithCallbackMethod_GetMonitoredResourceDescriptor<WithCallbackMethod_ListMetricDescriptors<WithCallbackMethod_GetMetricDescriptor<WithCallbackMethod_CreateMetricDescriptor<WithCallbackMethod_DeleteMetricDescriptor<WithCallbackMethod_ListTimeSeries<WithCallbackMethod_CreateTimeSeries<Service > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListMonitoredResourceDescriptors : public BaseClass {
    private:
@@ -1233,27 +1001,17 @@ class MetricService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListMonitoredResourceDescriptors : public BaseClass {
+  class WithRawCallbackMethod_ListMonitoredResourceDescriptors : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListMonitoredResourceDescriptors() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListMonitoredResourceDescriptors() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListMonitoredResourceDescriptors(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListMonitoredResourceDescriptors(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListMonitoredResourceDescriptors() override {
+    ~WithRawCallbackMethod_ListMonitoredResourceDescriptors() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1261,37 +1019,21 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListMonitoredResourceDescriptors(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListMonitoredResourceDescriptors(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetMonitoredResourceDescriptor : public BaseClass {
+  class WithRawCallbackMethod_GetMonitoredResourceDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetMonitoredResourceDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetMonitoredResourceDescriptor() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetMonitoredResourceDescriptor(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetMonitoredResourceDescriptor(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetMonitoredResourceDescriptor() override {
+    ~WithRawCallbackMethod_GetMonitoredResourceDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1299,37 +1041,21 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetMonitoredResourceDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetMonitoredResourceDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListMetricDescriptors : public BaseClass {
+  class WithRawCallbackMethod_ListMetricDescriptors : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListMetricDescriptors() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_ListMetricDescriptors() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListMetricDescriptors(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListMetricDescriptors(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListMetricDescriptors() override {
+    ~WithRawCallbackMethod_ListMetricDescriptors() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1337,37 +1063,21 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListMetricDescriptors(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListMetricDescriptors(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetMetricDescriptor : public BaseClass {
+  class WithRawCallbackMethod_GetMetricDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetMetricDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_GetMetricDescriptor() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetMetricDescriptor(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetMetricDescriptor(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetMetricDescriptor() override {
+    ~WithRawCallbackMethod_GetMetricDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1375,37 +1085,21 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetMetricDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetMetricDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateMetricDescriptor : public BaseClass {
+  class WithRawCallbackMethod_CreateMetricDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateMetricDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_CreateMetricDescriptor() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateMetricDescriptor(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateMetricDescriptor(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateMetricDescriptor() override {
+    ~WithRawCallbackMethod_CreateMetricDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1413,37 +1107,21 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateMetricDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateMetricDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteMetricDescriptor : public BaseClass {
+  class WithRawCallbackMethod_DeleteMetricDescriptor : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteMetricDescriptor() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_DeleteMetricDescriptor() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteMetricDescriptor(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteMetricDescriptor(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteMetricDescriptor() override {
+    ~WithRawCallbackMethod_DeleteMetricDescriptor() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1451,37 +1129,21 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteMetricDescriptor(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteMetricDescriptor(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListTimeSeries : public BaseClass {
+  class WithRawCallbackMethod_ListTimeSeries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListTimeSeries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_ListTimeSeries() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTimeSeries(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTimeSeries(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListTimeSeries() override {
+    ~WithRawCallbackMethod_ListTimeSeries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1489,37 +1151,21 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTimeSeries(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTimeSeries(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateTimeSeries : public BaseClass {
+  class WithRawCallbackMethod_CreateTimeSeries : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateTimeSeries() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_CreateTimeSeries() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTimeSeries(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTimeSeries(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateTimeSeries() override {
+    ~WithRawCallbackMethod_CreateTimeSeries() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1527,14 +1173,8 @@ class MetricService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTimeSeries(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTimeSeries(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListMonitoredResourceDescriptors : public BaseClass {

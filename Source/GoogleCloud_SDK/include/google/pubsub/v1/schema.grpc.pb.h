@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/pubsub/v1/schema.proto
 // Original file comments:
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 #include "google/pubsub/v1/schema.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -102,59 +101,31 @@ class SchemaService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ValidateMessageResponse>> PrepareAsyncValidateMessage(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateMessageRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ValidateMessageResponse>>(PrepareAsyncValidateMessageRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Creates a schema.
       virtual void CreateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a schema.
       virtual void GetSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists schemas in a project.
       virtual void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes a schema.
       virtual void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Validates a schema.
       virtual void ValidateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ValidateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ValidateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Validates a message against a schema.
       virtual void ValidateMessage(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateMessageRequest* request, ::google::pubsub::v1::ValidateMessageResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ValidateMessage(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateMessageRequest* request, ::google::pubsub::v1::ValidateMessageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ValidateMessage(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateMessageRequest* request, ::google::pubsub::v1::ValidateMessageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* AsyncCreateSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* PrepareAsyncCreateSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -214,56 +185,32 @@ class SchemaService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ValidateMessageResponse>> PrepareAsyncValidateMessage(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateMessageRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ValidateMessageResponse>>(PrepareAsyncValidateMessageRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CreateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ValidateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ValidateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ValidateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ValidateMessage(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateMessageRequest* request, ::google::pubsub::v1::ValidateMessageResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ValidateMessage(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateMessageRequest* request, ::google::pubsub::v1::ValidateMessageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ValidateMessage(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateMessageRequest* request, ::google::pubsub::v1::ValidateMessageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* AsyncCreateSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* PrepareAsyncCreateSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* AsyncGetSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -424,36 +371,22 @@ class SchemaService final {
   };
   typedef WithAsyncMethod_CreateSchema<WithAsyncMethod_GetSchema<WithAsyncMethod_ListSchemas<WithAsyncMethod_DeleteSchema<WithAsyncMethod_ValidateSchema<WithAsyncMethod_ValidateMessage<Service > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateSchema : public BaseClass {
+  class WithCallbackMethod_CreateSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateSchema() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_CreateSchema() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::CreateSchemaRequest, ::google::pubsub::v1::Schema>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::CreateSchemaRequest* request, ::google::pubsub::v1::Schema* response) { return this->CreateSchema(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::CreateSchemaRequest* request, ::google::pubsub::v1::Schema* response) { return this->CreateSchema(context, request, response); }));}
     void SetMessageAllocatorFor_CreateSchema(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::CreateSchemaRequest, ::google::pubsub::v1::Schema>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::CreateSchemaRequest, ::google::pubsub::v1::Schema>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::CreateSchemaRequest, ::google::pubsub::v1::Schema>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateSchema() override {
+    ~WithCallbackMethod_CreateSchema() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -461,46 +394,26 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSchema(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::CreateSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSchema(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::CreateSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::CreateSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetSchema : public BaseClass {
+  class WithCallbackMethod_GetSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetSchema() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetSchema() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::GetSchemaRequest, ::google::pubsub::v1::Schema>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response) { return this->GetSchema(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response) { return this->GetSchema(context, request, response); }));}
     void SetMessageAllocatorFor_GetSchema(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::GetSchemaRequest, ::google::pubsub::v1::Schema>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::GetSchemaRequest, ::google::pubsub::v1::Schema>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::GetSchemaRequest, ::google::pubsub::v1::Schema>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetSchema() override {
+    ~WithCallbackMethod_GetSchema() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -508,46 +421,26 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSchema(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSchema(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListSchemas : public BaseClass {
+  class WithCallbackMethod_ListSchemas : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListSchemas() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_ListSchemas() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListSchemasRequest, ::google::pubsub::v1::ListSchemasResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response) { return this->ListSchemas(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response) { return this->ListSchemas(context, request, response); }));}
     void SetMessageAllocatorFor_ListSchemas(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ListSchemasRequest, ::google::pubsub::v1::ListSchemasResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ListSchemasRequest, ::google::pubsub::v1::ListSchemasResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListSchemasRequest, ::google::pubsub::v1::ListSchemasResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListSchemas() override {
+    ~WithCallbackMethod_ListSchemas() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -555,46 +448,26 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSchemas(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSchemasRequest* /*request*/, ::google::pubsub::v1::ListSchemasResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSchemas(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSchemasRequest* /*request*/, ::google::pubsub::v1::ListSchemasResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSchemasRequest* /*request*/, ::google::pubsub::v1::ListSchemasResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteSchema : public BaseClass {
+  class WithCallbackMethod_DeleteSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteSchema() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_DeleteSchema() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSchemaRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSchema(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSchema(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteSchema(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::DeleteSchemaRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::DeleteSchemaRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSchemaRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteSchema() override {
+    ~WithCallbackMethod_DeleteSchema() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -602,46 +475,26 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSchema(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSchema(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ValidateSchema : public BaseClass {
+  class WithCallbackMethod_ValidateSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ValidateSchema() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_ValidateSchema() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ValidateSchemaRequest, ::google::pubsub::v1::ValidateSchemaResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response) { return this->ValidateSchema(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response) { return this->ValidateSchema(context, request, response); }));}
     void SetMessageAllocatorFor_ValidateSchema(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ValidateSchemaRequest, ::google::pubsub::v1::ValidateSchemaResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ValidateSchemaRequest, ::google::pubsub::v1::ValidateSchemaResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ValidateSchemaRequest, ::google::pubsub::v1::ValidateSchemaResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ValidateSchema() override {
+    ~WithCallbackMethod_ValidateSchema() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -649,46 +502,26 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ValidateSchema(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ValidateSchemaRequest* /*request*/, ::google::pubsub::v1::ValidateSchemaResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ValidateSchema(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ValidateSchemaRequest* /*request*/, ::google::pubsub::v1::ValidateSchemaResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ValidateSchemaRequest* /*request*/, ::google::pubsub::v1::ValidateSchemaResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ValidateMessage : public BaseClass {
+  class WithCallbackMethod_ValidateMessage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ValidateMessage() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_ValidateMessage() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ValidateMessageRequest, ::google::pubsub::v1::ValidateMessageResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ValidateMessageRequest* request, ::google::pubsub::v1::ValidateMessageResponse* response) { return this->ValidateMessage(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ValidateMessageRequest* request, ::google::pubsub::v1::ValidateMessageResponse* response) { return this->ValidateMessage(context, request, response); }));}
     void SetMessageAllocatorFor_ValidateMessage(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ValidateMessageRequest, ::google::pubsub::v1::ValidateMessageResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ValidateMessageRequest, ::google::pubsub::v1::ValidateMessageResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ValidateMessageRequest, ::google::pubsub::v1::ValidateMessageResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ValidateMessage() override {
+    ~WithCallbackMethod_ValidateMessage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -696,20 +529,11 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ValidateMessage(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ValidateMessageRequest* /*request*/, ::google::pubsub::v1::ValidateMessageResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ValidateMessage(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ValidateMessageRequest* /*request*/, ::google::pubsub::v1::ValidateMessageResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ValidateMessageRequest* /*request*/, ::google::pubsub::v1::ValidateMessageResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_CreateSchema<ExperimentalWithCallbackMethod_GetSchema<ExperimentalWithCallbackMethod_ListSchemas<ExperimentalWithCallbackMethod_DeleteSchema<ExperimentalWithCallbackMethod_ValidateSchema<ExperimentalWithCallbackMethod_ValidateMessage<Service > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_CreateSchema<ExperimentalWithCallbackMethod_GetSchema<ExperimentalWithCallbackMethod_ListSchemas<ExperimentalWithCallbackMethod_DeleteSchema<ExperimentalWithCallbackMethod_ValidateSchema<ExperimentalWithCallbackMethod_ValidateMessage<Service > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_CreateSchema<WithCallbackMethod_GetSchema<WithCallbackMethod_ListSchemas<WithCallbackMethod_DeleteSchema<WithCallbackMethod_ValidateSchema<WithCallbackMethod_ValidateMessage<Service > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateSchema : public BaseClass {
    private:
@@ -933,27 +757,17 @@ class SchemaService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateSchema : public BaseClass {
+  class WithRawCallbackMethod_CreateSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateSchema() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_CreateSchema() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSchema(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSchema(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateSchema() override {
+    ~WithRawCallbackMethod_CreateSchema() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -961,37 +775,21 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSchema(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSchema(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetSchema : public BaseClass {
+  class WithRawCallbackMethod_GetSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetSchema() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetSchema() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSchema(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSchema(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetSchema() override {
+    ~WithRawCallbackMethod_GetSchema() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -999,37 +797,21 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSchema(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSchema(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListSchemas : public BaseClass {
+  class WithRawCallbackMethod_ListSchemas : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListSchemas() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_ListSchemas() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSchemas(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSchemas(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListSchemas() override {
+    ~WithRawCallbackMethod_ListSchemas() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1037,37 +819,21 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSchemas(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSchemas(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteSchema : public BaseClass {
+  class WithRawCallbackMethod_DeleteSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteSchema() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_DeleteSchema() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSchema(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSchema(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteSchema() override {
+    ~WithRawCallbackMethod_DeleteSchema() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1075,37 +841,21 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSchema(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSchema(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ValidateSchema : public BaseClass {
+  class WithRawCallbackMethod_ValidateSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ValidateSchema() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_ValidateSchema() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ValidateSchema(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ValidateSchema(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ValidateSchema() override {
+    ~WithRawCallbackMethod_ValidateSchema() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1113,37 +863,21 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ValidateSchema(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ValidateSchema(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ValidateMessage : public BaseClass {
+  class WithRawCallbackMethod_ValidateMessage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ValidateMessage() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_ValidateMessage() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ValidateMessage(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ValidateMessage(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ValidateMessage() override {
+    ~WithRawCallbackMethod_ValidateMessage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1151,14 +885,8 @@ class SchemaService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ValidateMessage(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ValidateMessage(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CreateSchema : public BaseClass {

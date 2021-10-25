@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2/entity_type.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -170,56 +169,36 @@ class EntityTypes final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncBatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncBatchDeleteEntitiesRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Returns the list of all entity types in the specified agent.
       virtual void ListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Retrieves the specified entity type.
       virtual void GetEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates an entity type in the specified agent.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the specified entity type.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the specified entity type.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates/Creates multiple entity types in the specified agent.
       //
       //
@@ -227,33 +206,21 @@ class EntityTypes final {
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes entity types in the specified agent.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates multiple new entities in the specified entity type.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void BatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates or creates multiple entities in the specified entity type. This
       // method does not affect entities in the entity type that aren't explicitly
       // specified in the request.
@@ -262,30 +229,18 @@ class EntityTypes final {
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes entities in the specified entity type.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void BatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void BatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListEntityTypesResponse>* AsyncListEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListEntityTypesResponse>* PrepareAsyncListEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -381,80 +336,40 @@ class EntityTypes final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncBatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncBatchDeleteEntitiesRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void BatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void BatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void BatchCreateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void BatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void BatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void BatchDeleteEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListEntityTypesResponse>* AsyncListEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListEntityTypesResponse>* PrepareAsyncListEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::EntityType>* AsyncGetEntityTypeRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -750,36 +665,22 @@ class EntityTypes final {
   };
   typedef WithAsyncMethod_ListEntityTypes<WithAsyncMethod_GetEntityType<WithAsyncMethod_CreateEntityType<WithAsyncMethod_UpdateEntityType<WithAsyncMethod_DeleteEntityType<WithAsyncMethod_BatchUpdateEntityTypes<WithAsyncMethod_BatchDeleteEntityTypes<WithAsyncMethod_BatchCreateEntities<WithAsyncMethod_BatchUpdateEntities<WithAsyncMethod_BatchDeleteEntities<Service > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListEntityTypes : public BaseClass {
+  class WithCallbackMethod_ListEntityTypes : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListEntityTypes() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListEntityTypes() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ListEntityTypesRequest, ::google::cloud::dialogflow::v2::ListEntityTypesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* response) { return this->ListEntityTypes(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* request, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* response) { return this->ListEntityTypes(context, request, response); }));}
     void SetMessageAllocatorFor_ListEntityTypes(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::ListEntityTypesRequest, ::google::cloud::dialogflow::v2::ListEntityTypesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::ListEntityTypesRequest, ::google::cloud::dialogflow::v2::ListEntityTypesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ListEntityTypesRequest, ::google::cloud::dialogflow::v2::ListEntityTypesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListEntityTypes() override {
+    ~WithCallbackMethod_ListEntityTypes() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -787,46 +688,26 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListEntityTypes(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* /*request*/, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListEntityTypes(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* /*request*/, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest* /*request*/, ::google::cloud::dialogflow::v2::ListEntityTypesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetEntityType : public BaseClass {
+  class WithCallbackMethod_GetEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetEntityType() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response) { return this->GetEntityType(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response) { return this->GetEntityType(context, request, response); }));}
     void SetMessageAllocatorFor_GetEntityType(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::GetEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::GetEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::GetEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetEntityType() override {
+    ~WithCallbackMethod_GetEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -834,46 +715,26 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::EntityType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::EntityType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::EntityType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateEntityType : public BaseClass {
+  class WithCallbackMethod_CreateEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateEntityType() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::CreateEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response) { return this->CreateEntityType(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response) { return this->CreateEntityType(context, request, response); }));}
     void SetMessageAllocatorFor_CreateEntityType(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::CreateEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::CreateEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::CreateEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateEntityType() override {
+    ~WithCallbackMethod_CreateEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -881,46 +742,26 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::EntityType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::EntityType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::CreateEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::EntityType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateEntityType : public BaseClass {
+  class WithCallbackMethod_UpdateEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateEntityType() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response) { return this->UpdateEntityType(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* request, ::google::cloud::dialogflow::v2::EntityType* response) { return this->UpdateEntityType(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateEntityType(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest, ::google::cloud::dialogflow::v2::EntityType>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateEntityType() override {
+    ~WithCallbackMethod_UpdateEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -928,46 +769,26 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::EntityType* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::EntityType* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::UpdateEntityTypeRequest* /*request*/, ::google::cloud::dialogflow::v2::EntityType* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteEntityType : public BaseClass {
+  class WithCallbackMethod_DeleteEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteEntityType() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response) { return this->DeleteEntityType(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response) { return this->DeleteEntityType(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteEntityType(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteEntityType() override {
+    ~WithCallbackMethod_DeleteEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -975,46 +796,26 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_BatchUpdateEntityTypes : public BaseClass {
+  class WithCallbackMethod_BatchUpdateEntityTypes : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_BatchUpdateEntityTypes() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_BatchUpdateEntityTypes() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response) { return this->BatchUpdateEntityTypes(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response) { return this->BatchUpdateEntityTypes(context, request, response); }));}
     void SetMessageAllocatorFor_BatchUpdateEntityTypes(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_BatchUpdateEntityTypes() override {
+    ~WithCallbackMethod_BatchUpdateEntityTypes() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1022,46 +823,26 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchUpdateEntityTypes(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchUpdateEntityTypes(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_BatchDeleteEntityTypes : public BaseClass {
+  class WithCallbackMethod_BatchDeleteEntityTypes : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_BatchDeleteEntityTypes() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_BatchDeleteEntityTypes() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response) { return this->BatchDeleteEntityTypes(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response) { return this->BatchDeleteEntityTypes(context, request, response); }));}
     void SetMessageAllocatorFor_BatchDeleteEntityTypes(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_BatchDeleteEntityTypes() override {
+    ~WithCallbackMethod_BatchDeleteEntityTypes() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1069,46 +850,26 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchDeleteEntityTypes(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchDeleteEntityTypes(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_BatchCreateEntities : public BaseClass {
+  class WithCallbackMethod_BatchCreateEntities : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_BatchCreateEntities() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_BatchCreateEntities() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response) { return this->BatchCreateEntities(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* request, ::google::longrunning::Operation* response) { return this->BatchCreateEntities(context, request, response); }));}
     void SetMessageAllocatorFor_BatchCreateEntities(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_BatchCreateEntities() override {
+    ~WithCallbackMethod_BatchCreateEntities() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1116,46 +877,26 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchCreateEntities(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchCreateEntities(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchCreateEntitiesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_BatchUpdateEntities : public BaseClass {
+  class WithCallbackMethod_BatchUpdateEntities : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_BatchUpdateEntities() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_BatchUpdateEntities() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response) { return this->BatchUpdateEntities(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response) { return this->BatchUpdateEntities(context, request, response); }));}
     void SetMessageAllocatorFor_BatchUpdateEntities(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_BatchUpdateEntities() override {
+    ~WithCallbackMethod_BatchUpdateEntities() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1163,46 +904,26 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchUpdateEntities(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchUpdateEntities(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_BatchDeleteEntities : public BaseClass {
+  class WithCallbackMethod_BatchDeleteEntities : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_BatchDeleteEntities() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_BatchDeleteEntities() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest, ::google::longrunning::Operation>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response) { return this->BatchDeleteEntities(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* request, ::google::longrunning::Operation* response) { return this->BatchDeleteEntities(context, request, response); }));}
     void SetMessageAllocatorFor_BatchDeleteEntities(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest, ::google::longrunning::Operation>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest, ::google::longrunning::Operation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_BatchDeleteEntities() override {
+    ~WithCallbackMethod_BatchDeleteEntities() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1210,20 +931,11 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchDeleteEntities(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchDeleteEntities(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::BatchDeleteEntitiesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListEntityTypes<ExperimentalWithCallbackMethod_GetEntityType<ExperimentalWithCallbackMethod_CreateEntityType<ExperimentalWithCallbackMethod_UpdateEntityType<ExperimentalWithCallbackMethod_DeleteEntityType<ExperimentalWithCallbackMethod_BatchUpdateEntityTypes<ExperimentalWithCallbackMethod_BatchDeleteEntityTypes<ExperimentalWithCallbackMethod_BatchCreateEntities<ExperimentalWithCallbackMethod_BatchUpdateEntities<ExperimentalWithCallbackMethod_BatchDeleteEntities<Service > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListEntityTypes<ExperimentalWithCallbackMethod_GetEntityType<ExperimentalWithCallbackMethod_CreateEntityType<ExperimentalWithCallbackMethod_UpdateEntityType<ExperimentalWithCallbackMethod_DeleteEntityType<ExperimentalWithCallbackMethod_BatchUpdateEntityTypes<ExperimentalWithCallbackMethod_BatchDeleteEntityTypes<ExperimentalWithCallbackMethod_BatchCreateEntities<ExperimentalWithCallbackMethod_BatchUpdateEntities<ExperimentalWithCallbackMethod_BatchDeleteEntities<Service > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListEntityTypes<WithCallbackMethod_GetEntityType<WithCallbackMethod_CreateEntityType<WithCallbackMethod_UpdateEntityType<WithCallbackMethod_DeleteEntityType<WithCallbackMethod_BatchUpdateEntityTypes<WithCallbackMethod_BatchDeleteEntityTypes<WithCallbackMethod_BatchCreateEntities<WithCallbackMethod_BatchUpdateEntities<WithCallbackMethod_BatchDeleteEntities<Service > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListEntityTypes : public BaseClass {
    private:
@@ -1595,27 +1307,17 @@ class EntityTypes final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListEntityTypes : public BaseClass {
+  class WithRawCallbackMethod_ListEntityTypes : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListEntityTypes() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListEntityTypes() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListEntityTypes(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListEntityTypes(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListEntityTypes() override {
+    ~WithRawCallbackMethod_ListEntityTypes() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1623,37 +1325,21 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListEntityTypes(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListEntityTypes(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetEntityType : public BaseClass {
+  class WithRawCallbackMethod_GetEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetEntityType() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetEntityType(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetEntityType(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetEntityType() override {
+    ~WithRawCallbackMethod_GetEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1661,37 +1347,21 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateEntityType : public BaseClass {
+  class WithRawCallbackMethod_CreateEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateEntityType() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateEntityType(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateEntityType(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateEntityType() override {
+    ~WithRawCallbackMethod_CreateEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1699,37 +1369,21 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateEntityType : public BaseClass {
+  class WithRawCallbackMethod_UpdateEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateEntityType() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateEntityType(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateEntityType(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateEntityType() override {
+    ~WithRawCallbackMethod_UpdateEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1737,37 +1391,21 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteEntityType : public BaseClass {
+  class WithRawCallbackMethod_DeleteEntityType : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteEntityType() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteEntityType() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteEntityType(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteEntityType(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteEntityType() override {
+    ~WithRawCallbackMethod_DeleteEntityType() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1775,37 +1413,21 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteEntityType(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteEntityType(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_BatchUpdateEntityTypes : public BaseClass {
+  class WithRawCallbackMethod_BatchUpdateEntityTypes : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_BatchUpdateEntityTypes() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_BatchUpdateEntityTypes() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchUpdateEntityTypes(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchUpdateEntityTypes(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_BatchUpdateEntityTypes() override {
+    ~WithRawCallbackMethod_BatchUpdateEntityTypes() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1813,37 +1435,21 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchUpdateEntityTypes(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchUpdateEntityTypes(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_BatchDeleteEntityTypes : public BaseClass {
+  class WithRawCallbackMethod_BatchDeleteEntityTypes : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_BatchDeleteEntityTypes() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_BatchDeleteEntityTypes() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchDeleteEntityTypes(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchDeleteEntityTypes(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_BatchDeleteEntityTypes() override {
+    ~WithRawCallbackMethod_BatchDeleteEntityTypes() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1851,37 +1457,21 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchDeleteEntityTypes(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchDeleteEntityTypes(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_BatchCreateEntities : public BaseClass {
+  class WithRawCallbackMethod_BatchCreateEntities : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_BatchCreateEntities() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_BatchCreateEntities() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchCreateEntities(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchCreateEntities(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_BatchCreateEntities() override {
+    ~WithRawCallbackMethod_BatchCreateEntities() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1889,37 +1479,21 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchCreateEntities(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchCreateEntities(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_BatchUpdateEntities : public BaseClass {
+  class WithRawCallbackMethod_BatchUpdateEntities : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_BatchUpdateEntities() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_BatchUpdateEntities() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchUpdateEntities(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchUpdateEntities(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_BatchUpdateEntities() override {
+    ~WithRawCallbackMethod_BatchUpdateEntities() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1927,37 +1501,21 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchUpdateEntities(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchUpdateEntities(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_BatchDeleteEntities : public BaseClass {
+  class WithRawCallbackMethod_BatchDeleteEntities : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_BatchDeleteEntities() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_BatchDeleteEntities() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchDeleteEntities(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchDeleteEntities(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_BatchDeleteEntities() override {
+    ~WithRawCallbackMethod_BatchDeleteEntities() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1965,14 +1523,8 @@ class EntityTypes final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* BatchDeleteEntities(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* BatchDeleteEntities(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListEntityTypes : public BaseClass {

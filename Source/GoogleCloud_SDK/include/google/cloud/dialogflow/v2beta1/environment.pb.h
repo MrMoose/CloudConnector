@@ -346,7 +346,7 @@ class Environment PROTOBUF_FINAL :
   std::string* _internal_mutable_description();
   public:
 
-  // string agent_version = 3 [(.google.api.field_behavior) = OPTIONAL];
+  // string agent_version = 3 [(.google.api.field_behavior) = OPTIONAL, (.google.api.resource_reference) = {
   void clear_agent_version();
   const std::string& agent_version() const;
   void set_agent_version(const std::string& value);
@@ -2313,7 +2313,7 @@ inline void Environment::set_allocated_description(std::string* description) {
   // @@protoc_insertion_point(field_set_allocated:google.cloud.dialogflow.v2beta1.Environment.description)
 }
 
-// string agent_version = 3 [(.google.api.field_behavior) = OPTIONAL];
+// string agent_version = 3 [(.google.api.field_behavior) = OPTIONAL, (.google.api.resource_reference) = {
 inline void Environment::clear_agent_version() {
   agent_version_.ClearToEmpty();
 }

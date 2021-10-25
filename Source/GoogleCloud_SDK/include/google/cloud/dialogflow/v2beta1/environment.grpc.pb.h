@@ -22,7 +22,6 @@
 #include "google/cloud/dialogflow/v2beta1/environment.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -114,30 +113,18 @@ class Environments final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::EnvironmentHistory>> PrepareAsyncGetEnvironmentHistory(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::EnvironmentHistory>>(PrepareAsyncGetEnvironmentHistoryRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Returns the list of all non-draft environments of the specified agent.
       virtual void ListEnvironments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListEnvironments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListEnvironments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Retrieves the specified agent environment.
       virtual void GetEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates an agent environment.
       virtual void CreateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the specified agent environment.
       //
       // This method allows you to deploy new agent versions into the environment.
@@ -151,33 +138,17 @@ class Environments final {
       // draft and can't be undone. You may want to save the draft to a version
       // before calling this function.
       virtual void UpdateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the specified agent environment.
       virtual void DeleteEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the history of the specified environment.
       virtual void GetEnvironmentHistory(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* request, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetEnvironmentHistory(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* request, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetEnvironmentHistory(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* request, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse>* AsyncListEnvironmentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse>* PrepareAsyncListEnvironmentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -237,56 +208,32 @@ class Environments final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::EnvironmentHistory>> PrepareAsyncGetEnvironmentHistory(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::EnvironmentHistory>>(PrepareAsyncGetEnvironmentHistoryRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListEnvironments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListEnvironments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListEnvironments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteEnvironment(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetEnvironmentHistory(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* request, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetEnvironmentHistory(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* request, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetEnvironmentHistory(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* request, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse>* AsyncListEnvironmentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse>* PrepareAsyncListEnvironmentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2beta1::Environment>* AsyncGetEnvironmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -458,36 +405,22 @@ class Environments final {
   };
   typedef WithAsyncMethod_ListEnvironments<WithAsyncMethod_GetEnvironment<WithAsyncMethod_CreateEnvironment<WithAsyncMethod_UpdateEnvironment<WithAsyncMethod_DeleteEnvironment<WithAsyncMethod_GetEnvironmentHistory<Service > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListEnvironments : public BaseClass {
+  class WithCallbackMethod_ListEnvironments : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListEnvironments() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListEnvironments() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* response) { return this->ListEnvironments(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* request, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* response) { return this->ListEnvironments(context, request, response); }));}
     void SetMessageAllocatorFor_ListEnvironments(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListEnvironments() override {
+    ~WithCallbackMethod_ListEnvironments() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -495,46 +428,26 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListEnvironments(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListEnvironments(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::ListEnvironmentsRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::ListEnvironmentsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetEnvironment : public BaseClass {
+  class WithCallbackMethod_GetEnvironment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetEnvironment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetEnvironment() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response) { return this->GetEnvironment(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response) { return this->GetEnvironment(context, request, response); }));}
     void SetMessageAllocatorFor_GetEnvironment(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetEnvironment() override {
+    ~WithCallbackMethod_GetEnvironment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -542,46 +455,26 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetEnvironment(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Environment* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetEnvironment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Environment* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Environment* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateEnvironment : public BaseClass {
+  class WithCallbackMethod_CreateEnvironment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateEnvironment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateEnvironment() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response) { return this->CreateEnvironment(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response) { return this->CreateEnvironment(context, request, response); }));}
     void SetMessageAllocatorFor_CreateEnvironment(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateEnvironment() override {
+    ~WithCallbackMethod_CreateEnvironment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -589,46 +482,26 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateEnvironment(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Environment* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateEnvironment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Environment* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::CreateEnvironmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Environment* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateEnvironment : public BaseClass {
+  class WithCallbackMethod_UpdateEnvironment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateEnvironment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateEnvironment() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response) { return this->UpdateEnvironment(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* request, ::google::cloud::dialogflow::v2beta1::Environment* response) { return this->UpdateEnvironment(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateEnvironment(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest, ::google::cloud::dialogflow::v2beta1::Environment>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateEnvironment() override {
+    ~WithCallbackMethod_UpdateEnvironment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -636,46 +509,26 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateEnvironment(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Environment* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateEnvironment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Environment* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::UpdateEnvironmentRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::Environment* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteEnvironment : public BaseClass {
+  class WithCallbackMethod_DeleteEnvironment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteEnvironment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteEnvironment() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* request, ::google::protobuf::Empty* response) { return this->DeleteEnvironment(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* request, ::google::protobuf::Empty* response) { return this->DeleteEnvironment(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteEnvironment(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteEnvironment() override {
+    ~WithCallbackMethod_DeleteEnvironment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -683,46 +536,26 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteEnvironment(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteEnvironment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::DeleteEnvironmentRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetEnvironmentHistory : public BaseClass {
+  class WithCallbackMethod_GetEnvironmentHistory : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetEnvironmentHistory() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_GetEnvironmentHistory() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* request, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* response) { return this->GetEnvironmentHistory(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* request, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* response) { return this->GetEnvironmentHistory(context, request, response); }));}
     void SetMessageAllocatorFor_GetEnvironmentHistory(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetEnvironmentHistory() override {
+    ~WithCallbackMethod_GetEnvironmentHistory() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -730,20 +563,11 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetEnvironmentHistory(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetEnvironmentHistory(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2beta1::GetEnvironmentHistoryRequest* /*request*/, ::google::cloud::dialogflow::v2beta1::EnvironmentHistory* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListEnvironments<ExperimentalWithCallbackMethod_GetEnvironment<ExperimentalWithCallbackMethod_CreateEnvironment<ExperimentalWithCallbackMethod_UpdateEnvironment<ExperimentalWithCallbackMethod_DeleteEnvironment<ExperimentalWithCallbackMethod_GetEnvironmentHistory<Service > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListEnvironments<ExperimentalWithCallbackMethod_GetEnvironment<ExperimentalWithCallbackMethod_CreateEnvironment<ExperimentalWithCallbackMethod_UpdateEnvironment<ExperimentalWithCallbackMethod_DeleteEnvironment<ExperimentalWithCallbackMethod_GetEnvironmentHistory<Service > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListEnvironments<WithCallbackMethod_GetEnvironment<WithCallbackMethod_CreateEnvironment<WithCallbackMethod_UpdateEnvironment<WithCallbackMethod_DeleteEnvironment<WithCallbackMethod_GetEnvironmentHistory<Service > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListEnvironments : public BaseClass {
    private:
@@ -967,27 +791,17 @@ class Environments final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListEnvironments : public BaseClass {
+  class WithRawCallbackMethod_ListEnvironments : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListEnvironments() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListEnvironments() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListEnvironments(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListEnvironments(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListEnvironments() override {
+    ~WithRawCallbackMethod_ListEnvironments() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -995,37 +809,21 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListEnvironments(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListEnvironments(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetEnvironment : public BaseClass {
+  class WithRawCallbackMethod_GetEnvironment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetEnvironment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetEnvironment() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetEnvironment(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetEnvironment(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetEnvironment() override {
+    ~WithRawCallbackMethod_GetEnvironment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1033,37 +831,21 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetEnvironment(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetEnvironment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateEnvironment : public BaseClass {
+  class WithRawCallbackMethod_CreateEnvironment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateEnvironment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateEnvironment() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateEnvironment(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateEnvironment(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateEnvironment() override {
+    ~WithRawCallbackMethod_CreateEnvironment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1071,37 +853,21 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateEnvironment(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateEnvironment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateEnvironment : public BaseClass {
+  class WithRawCallbackMethod_UpdateEnvironment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateEnvironment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateEnvironment() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateEnvironment(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateEnvironment(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateEnvironment() override {
+    ~WithRawCallbackMethod_UpdateEnvironment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1109,37 +875,21 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateEnvironment(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateEnvironment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteEnvironment : public BaseClass {
+  class WithRawCallbackMethod_DeleteEnvironment : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteEnvironment() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteEnvironment() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteEnvironment(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteEnvironment(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteEnvironment() override {
+    ~WithRawCallbackMethod_DeleteEnvironment() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1147,37 +897,21 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteEnvironment(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteEnvironment(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetEnvironmentHistory : public BaseClass {
+  class WithRawCallbackMethod_GetEnvironmentHistory : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetEnvironmentHistory() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_GetEnvironmentHistory() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetEnvironmentHistory(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetEnvironmentHistory(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetEnvironmentHistory() override {
+    ~WithRawCallbackMethod_GetEnvironmentHistory() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1185,14 +919,8 @@ class Environments final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetEnvironmentHistory(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetEnvironmentHistory(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListEnvironments : public BaseClass {

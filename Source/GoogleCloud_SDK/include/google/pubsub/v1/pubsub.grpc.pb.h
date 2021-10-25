@@ -22,7 +22,6 @@
 #include "google/pubsub/v1/pubsub.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -141,94 +140,54 @@ class Publisher final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::DetachSubscriptionResponse>> PrepareAsyncDetachSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DetachSubscriptionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::DetachSubscriptionResponse>>(PrepareAsyncDetachSubscriptionRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Creates the given topic with the given name. See the [resource name rules]
       // (https://cloud.google.com/pubsub/docs/admin#resource_names).
       virtual void CreateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic* request, ::google::pubsub::v1::Topic* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic* request, ::google::pubsub::v1::Topic* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic* request, ::google::pubsub::v1::Topic* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates an existing topic. Note that certain properties of a
       // topic are not modifiable.
       virtual void UpdateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateTopicRequest* request, ::google::pubsub::v1::Topic* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateTopicRequest* request, ::google::pubsub::v1::Topic* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateTopicRequest* request, ::google::pubsub::v1::Topic* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
       // does not exist.
       virtual void Publish(::grpc::ClientContext* context, const ::google::pubsub::v1::PublishRequest* request, ::google::pubsub::v1::PublishResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void Publish(::grpc::ClientContext* context, const ::google::pubsub::v1::PublishRequest* request, ::google::pubsub::v1::PublishResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void Publish(::grpc::ClientContext* context, const ::google::pubsub::v1::PublishRequest* request, ::google::pubsub::v1::PublishResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the configuration of a topic.
       virtual void GetTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::GetTopicRequest* request, ::google::pubsub::v1::Topic* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::GetTopicRequest* request, ::google::pubsub::v1::Topic* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::GetTopicRequest* request, ::google::pubsub::v1::Topic* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists matching topics.
       virtual void ListTopics(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicsRequest* request, ::google::pubsub::v1::ListTopicsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListTopics(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicsRequest* request, ::google::pubsub::v1::ListTopicsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListTopics(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicsRequest* request, ::google::pubsub::v1::ListTopicsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists the names of the attached subscriptions on this topic.
       virtual void ListTopicSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* request, ::google::pubsub::v1::ListTopicSubscriptionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListTopicSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* request, ::google::pubsub::v1::ListTopicSubscriptionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListTopicSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* request, ::google::pubsub::v1::ListTopicSubscriptionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists the names of the snapshots on this topic. Snapshots are used in
       // [Seek](https://cloud.google.com/pubsub/docs/replay-overview) operations,
       // which allow you to manage message acknowledgments in bulk. That is, you can
       // set the acknowledgment state of messages in an existing subscription to the
       // state captured by a snapshot.
       virtual void ListTopicSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSnapshotsRequest* request, ::google::pubsub::v1::ListTopicSnapshotsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListTopicSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSnapshotsRequest* request, ::google::pubsub::v1::ListTopicSnapshotsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListTopicSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSnapshotsRequest* request, ::google::pubsub::v1::ListTopicSnapshotsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes the topic with the given name. Returns `NOT_FOUND` if the topic
       // does not exist. After a topic is deleted, a new topic may be created with
       // the same name; this is an entirely new topic with none of the old
       // configuration or subscriptions. Existing subscriptions to this topic are
       // not deleted, but their `topic` field is set to `_deleted-topic_`.
       virtual void DeleteTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteTopicRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteTopicRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteTopicRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Detaches a subscription from this topic. All messages retained in the
       // subscription are dropped. Subsequent `Pull` and `StreamingPull` requests
       // will return FAILED_PRECONDITION. If the subscription is a push
       // subscription, pushes to the endpoint will stop.
       virtual void DetachSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DetachSubscriptionRequest* request, ::google::pubsub::v1::DetachSubscriptionResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DetachSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DetachSubscriptionRequest* request, ::google::pubsub::v1::DetachSubscriptionResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DetachSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DetachSubscriptionRequest* request, ::google::pubsub::v1::DetachSubscriptionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Topic>* AsyncCreateTopicRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Topic>* PrepareAsyncCreateTopicRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic& request, ::grpc::CompletionQueue* cq) = 0;
@@ -315,74 +274,38 @@ class Publisher final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::DetachSubscriptionResponse>> PrepareAsyncDetachSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DetachSubscriptionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::DetachSubscriptionResponse>>(PrepareAsyncDetachSubscriptionRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CreateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic* request, ::google::pubsub::v1::Topic* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic* request, ::google::pubsub::v1::Topic* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic* request, ::google::pubsub::v1::Topic* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateTopicRequest* request, ::google::pubsub::v1::Topic* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateTopicRequest* request, ::google::pubsub::v1::Topic* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateTopicRequest* request, ::google::pubsub::v1::Topic* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void Publish(::grpc::ClientContext* context, const ::google::pubsub::v1::PublishRequest* request, ::google::pubsub::v1::PublishResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void Publish(::grpc::ClientContext* context, const ::google::pubsub::v1::PublishRequest* request, ::google::pubsub::v1::PublishResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void Publish(::grpc::ClientContext* context, const ::google::pubsub::v1::PublishRequest* request, ::google::pubsub::v1::PublishResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::GetTopicRequest* request, ::google::pubsub::v1::Topic* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::GetTopicRequest* request, ::google::pubsub::v1::Topic* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::GetTopicRequest* request, ::google::pubsub::v1::Topic* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListTopics(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicsRequest* request, ::google::pubsub::v1::ListTopicsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListTopics(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicsRequest* request, ::google::pubsub::v1::ListTopicsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListTopics(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicsRequest* request, ::google::pubsub::v1::ListTopicsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListTopicSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* request, ::google::pubsub::v1::ListTopicSubscriptionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListTopicSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* request, ::google::pubsub::v1::ListTopicSubscriptionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListTopicSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* request, ::google::pubsub::v1::ListTopicSubscriptionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListTopicSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSnapshotsRequest* request, ::google::pubsub::v1::ListTopicSnapshotsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListTopicSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSnapshotsRequest* request, ::google::pubsub::v1::ListTopicSnapshotsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListTopicSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListTopicSnapshotsRequest* request, ::google::pubsub::v1::ListTopicSnapshotsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteTopicRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteTopicRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteTopic(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteTopicRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DetachSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DetachSubscriptionRequest* request, ::google::pubsub::v1::DetachSubscriptionResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DetachSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DetachSubscriptionRequest* request, ::google::pubsub::v1::DetachSubscriptionResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DetachSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DetachSubscriptionRequest* request, ::google::pubsub::v1::DetachSubscriptionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Topic>* AsyncCreateTopicRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Topic>* PrepareAsyncCreateTopicRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Topic>* AsyncUpdateTopicRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateTopicRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -632,36 +555,22 @@ class Publisher final {
   };
   typedef WithAsyncMethod_CreateTopic<WithAsyncMethod_UpdateTopic<WithAsyncMethod_Publish<WithAsyncMethod_GetTopic<WithAsyncMethod_ListTopics<WithAsyncMethod_ListTopicSubscriptions<WithAsyncMethod_ListTopicSnapshots<WithAsyncMethod_DeleteTopic<WithAsyncMethod_DetachSubscription<Service > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateTopic : public BaseClass {
+  class WithCallbackMethod_CreateTopic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateTopic() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_CreateTopic() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::Topic, ::google::pubsub::v1::Topic>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::Topic* request, ::google::pubsub::v1::Topic* response) { return this->CreateTopic(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::Topic* request, ::google::pubsub::v1::Topic* response) { return this->CreateTopic(context, request, response); }));}
     void SetMessageAllocatorFor_CreateTopic(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::Topic, ::google::pubsub::v1::Topic>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::Topic, ::google::pubsub::v1::Topic>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::Topic, ::google::pubsub::v1::Topic>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateTopic() override {
+    ~WithCallbackMethod_CreateTopic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -669,46 +578,26 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTopic(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::Topic* /*request*/, ::google::pubsub::v1::Topic* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTopic(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::Topic* /*request*/, ::google::pubsub::v1::Topic* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::Topic* /*request*/, ::google::pubsub::v1::Topic* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateTopic : public BaseClass {
+  class WithCallbackMethod_UpdateTopic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateTopic() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_UpdateTopic() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::UpdateTopicRequest, ::google::pubsub::v1::Topic>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::UpdateTopicRequest* request, ::google::pubsub::v1::Topic* response) { return this->UpdateTopic(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::UpdateTopicRequest* request, ::google::pubsub::v1::Topic* response) { return this->UpdateTopic(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateTopic(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::UpdateTopicRequest, ::google::pubsub::v1::Topic>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::UpdateTopicRequest, ::google::pubsub::v1::Topic>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::UpdateTopicRequest, ::google::pubsub::v1::Topic>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateTopic() override {
+    ~WithCallbackMethod_UpdateTopic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -716,46 +605,26 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateTopic(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::UpdateTopicRequest* /*request*/, ::google::pubsub::v1::Topic* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateTopic(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::UpdateTopicRequest* /*request*/, ::google::pubsub::v1::Topic* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::UpdateTopicRequest* /*request*/, ::google::pubsub::v1::Topic* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Publish : public BaseClass {
+  class WithCallbackMethod_Publish : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Publish() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_Publish() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::PublishRequest, ::google::pubsub::v1::PublishResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::PublishRequest* request, ::google::pubsub::v1::PublishResponse* response) { return this->Publish(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::PublishRequest* request, ::google::pubsub::v1::PublishResponse* response) { return this->Publish(context, request, response); }));}
     void SetMessageAllocatorFor_Publish(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::PublishRequest, ::google::pubsub::v1::PublishResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::PublishRequest, ::google::pubsub::v1::PublishResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::PublishRequest, ::google::pubsub::v1::PublishResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Publish() override {
+    ~WithCallbackMethod_Publish() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -763,46 +632,26 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Publish(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::PublishRequest* /*request*/, ::google::pubsub::v1::PublishResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Publish(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::PublishRequest* /*request*/, ::google::pubsub::v1::PublishResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::PublishRequest* /*request*/, ::google::pubsub::v1::PublishResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetTopic : public BaseClass {
+  class WithCallbackMethod_GetTopic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetTopic() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_GetTopic() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::GetTopicRequest, ::google::pubsub::v1::Topic>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::GetTopicRequest* request, ::google::pubsub::v1::Topic* response) { return this->GetTopic(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::GetTopicRequest* request, ::google::pubsub::v1::Topic* response) { return this->GetTopic(context, request, response); }));}
     void SetMessageAllocatorFor_GetTopic(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::GetTopicRequest, ::google::pubsub::v1::Topic>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::GetTopicRequest, ::google::pubsub::v1::Topic>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::GetTopicRequest, ::google::pubsub::v1::Topic>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetTopic() override {
+    ~WithCallbackMethod_GetTopic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -810,46 +659,26 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetTopic(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetTopicRequest* /*request*/, ::google::pubsub::v1::Topic* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetTopic(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetTopicRequest* /*request*/, ::google::pubsub::v1::Topic* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetTopicRequest* /*request*/, ::google::pubsub::v1::Topic* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListTopics : public BaseClass {
+  class WithCallbackMethod_ListTopics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListTopics() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_ListTopics() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListTopicsRequest, ::google::pubsub::v1::ListTopicsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ListTopicsRequest* request, ::google::pubsub::v1::ListTopicsResponse* response) { return this->ListTopics(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ListTopicsRequest* request, ::google::pubsub::v1::ListTopicsResponse* response) { return this->ListTopics(context, request, response); }));}
     void SetMessageAllocatorFor_ListTopics(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ListTopicsRequest, ::google::pubsub::v1::ListTopicsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ListTopicsRequest, ::google::pubsub::v1::ListTopicsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListTopicsRequest, ::google::pubsub::v1::ListTopicsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListTopics() override {
+    ~WithCallbackMethod_ListTopics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -857,46 +686,26 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTopics(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListTopicsRequest* /*request*/, ::google::pubsub::v1::ListTopicsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTopics(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListTopicsRequest* /*request*/, ::google::pubsub::v1::ListTopicsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListTopicsRequest* /*request*/, ::google::pubsub::v1::ListTopicsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListTopicSubscriptions : public BaseClass {
+  class WithCallbackMethod_ListTopicSubscriptions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListTopicSubscriptions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_ListTopicSubscriptions() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListTopicSubscriptionsRequest, ::google::pubsub::v1::ListTopicSubscriptionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* request, ::google::pubsub::v1::ListTopicSubscriptionsResponse* response) { return this->ListTopicSubscriptions(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* request, ::google::pubsub::v1::ListTopicSubscriptionsResponse* response) { return this->ListTopicSubscriptions(context, request, response); }));}
     void SetMessageAllocatorFor_ListTopicSubscriptions(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ListTopicSubscriptionsRequest, ::google::pubsub::v1::ListTopicSubscriptionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ListTopicSubscriptionsRequest, ::google::pubsub::v1::ListTopicSubscriptionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListTopicSubscriptionsRequest, ::google::pubsub::v1::ListTopicSubscriptionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListTopicSubscriptions() override {
+    ~WithCallbackMethod_ListTopicSubscriptions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -904,46 +713,26 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTopicSubscriptions(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* /*request*/, ::google::pubsub::v1::ListTopicSubscriptionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTopicSubscriptions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* /*request*/, ::google::pubsub::v1::ListTopicSubscriptionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListTopicSubscriptionsRequest* /*request*/, ::google::pubsub::v1::ListTopicSubscriptionsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListTopicSnapshots : public BaseClass {
+  class WithCallbackMethod_ListTopicSnapshots : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListTopicSnapshots() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_ListTopicSnapshots() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListTopicSnapshotsRequest, ::google::pubsub::v1::ListTopicSnapshotsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ListTopicSnapshotsRequest* request, ::google::pubsub::v1::ListTopicSnapshotsResponse* response) { return this->ListTopicSnapshots(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ListTopicSnapshotsRequest* request, ::google::pubsub::v1::ListTopicSnapshotsResponse* response) { return this->ListTopicSnapshots(context, request, response); }));}
     void SetMessageAllocatorFor_ListTopicSnapshots(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ListTopicSnapshotsRequest, ::google::pubsub::v1::ListTopicSnapshotsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ListTopicSnapshotsRequest, ::google::pubsub::v1::ListTopicSnapshotsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListTopicSnapshotsRequest, ::google::pubsub::v1::ListTopicSnapshotsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListTopicSnapshots() override {
+    ~WithCallbackMethod_ListTopicSnapshots() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -951,46 +740,26 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTopicSnapshots(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListTopicSnapshotsRequest* /*request*/, ::google::pubsub::v1::ListTopicSnapshotsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTopicSnapshots(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListTopicSnapshotsRequest* /*request*/, ::google::pubsub::v1::ListTopicSnapshotsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListTopicSnapshotsRequest* /*request*/, ::google::pubsub::v1::ListTopicSnapshotsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteTopic : public BaseClass {
+  class WithCallbackMethod_DeleteTopic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteTopic() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_DeleteTopic() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteTopicRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::DeleteTopicRequest* request, ::google::protobuf::Empty* response) { return this->DeleteTopic(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::DeleteTopicRequest* request, ::google::protobuf::Empty* response) { return this->DeleteTopic(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteTopic(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::DeleteTopicRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::DeleteTopicRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteTopicRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteTopic() override {
+    ~WithCallbackMethod_DeleteTopic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -998,46 +767,26 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteTopic(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteTopicRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteTopic(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteTopicRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteTopicRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DetachSubscription : public BaseClass {
+  class WithCallbackMethod_DetachSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DetachSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_DetachSubscription() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DetachSubscriptionRequest, ::google::pubsub::v1::DetachSubscriptionResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::DetachSubscriptionRequest* request, ::google::pubsub::v1::DetachSubscriptionResponse* response) { return this->DetachSubscription(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::DetachSubscriptionRequest* request, ::google::pubsub::v1::DetachSubscriptionResponse* response) { return this->DetachSubscription(context, request, response); }));}
     void SetMessageAllocatorFor_DetachSubscription(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::DetachSubscriptionRequest, ::google::pubsub::v1::DetachSubscriptionResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::DetachSubscriptionRequest, ::google::pubsub::v1::DetachSubscriptionResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DetachSubscriptionRequest, ::google::pubsub::v1::DetachSubscriptionResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DetachSubscription() override {
+    ~WithCallbackMethod_DetachSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1045,20 +794,11 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DetachSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DetachSubscriptionRequest* /*request*/, ::google::pubsub::v1::DetachSubscriptionResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DetachSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DetachSubscriptionRequest* /*request*/, ::google::pubsub::v1::DetachSubscriptionResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DetachSubscriptionRequest* /*request*/, ::google::pubsub::v1::DetachSubscriptionResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_CreateTopic<ExperimentalWithCallbackMethod_UpdateTopic<ExperimentalWithCallbackMethod_Publish<ExperimentalWithCallbackMethod_GetTopic<ExperimentalWithCallbackMethod_ListTopics<ExperimentalWithCallbackMethod_ListTopicSubscriptions<ExperimentalWithCallbackMethod_ListTopicSnapshots<ExperimentalWithCallbackMethod_DeleteTopic<ExperimentalWithCallbackMethod_DetachSubscription<Service > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_CreateTopic<ExperimentalWithCallbackMethod_UpdateTopic<ExperimentalWithCallbackMethod_Publish<ExperimentalWithCallbackMethod_GetTopic<ExperimentalWithCallbackMethod_ListTopics<ExperimentalWithCallbackMethod_ListTopicSubscriptions<ExperimentalWithCallbackMethod_ListTopicSnapshots<ExperimentalWithCallbackMethod_DeleteTopic<ExperimentalWithCallbackMethod_DetachSubscription<Service > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_CreateTopic<WithCallbackMethod_UpdateTopic<WithCallbackMethod_Publish<WithCallbackMethod_GetTopic<WithCallbackMethod_ListTopics<WithCallbackMethod_ListTopicSubscriptions<WithCallbackMethod_ListTopicSnapshots<WithCallbackMethod_DeleteTopic<WithCallbackMethod_DetachSubscription<Service > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateTopic : public BaseClass {
    private:
@@ -1393,27 +1133,17 @@ class Publisher final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateTopic : public BaseClass {
+  class WithRawCallbackMethod_CreateTopic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateTopic() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_CreateTopic() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTopic(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateTopic(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateTopic() override {
+    ~WithRawCallbackMethod_CreateTopic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1421,37 +1151,21 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateTopic(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateTopic(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateTopic : public BaseClass {
+  class WithRawCallbackMethod_UpdateTopic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateTopic() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_UpdateTopic() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateTopic(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateTopic(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateTopic() override {
+    ~WithRawCallbackMethod_UpdateTopic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1459,37 +1173,21 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateTopic(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateTopic(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_Publish : public BaseClass {
+  class WithRawCallbackMethod_Publish : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_Publish() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_Publish() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Publish(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Publish(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_Publish() override {
+    ~WithRawCallbackMethod_Publish() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1497,37 +1195,21 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Publish(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Publish(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetTopic : public BaseClass {
+  class WithRawCallbackMethod_GetTopic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetTopic() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_GetTopic() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetTopic(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetTopic(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetTopic() override {
+    ~WithRawCallbackMethod_GetTopic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1535,37 +1217,21 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetTopic(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetTopic(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListTopics : public BaseClass {
+  class WithRawCallbackMethod_ListTopics : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListTopics() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_ListTopics() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTopics(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTopics(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListTopics() override {
+    ~WithRawCallbackMethod_ListTopics() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1573,37 +1239,21 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTopics(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTopics(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListTopicSubscriptions : public BaseClass {
+  class WithRawCallbackMethod_ListTopicSubscriptions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListTopicSubscriptions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_ListTopicSubscriptions() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTopicSubscriptions(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTopicSubscriptions(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListTopicSubscriptions() override {
+    ~WithRawCallbackMethod_ListTopicSubscriptions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1611,37 +1261,21 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTopicSubscriptions(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTopicSubscriptions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListTopicSnapshots : public BaseClass {
+  class WithRawCallbackMethod_ListTopicSnapshots : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListTopicSnapshots() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_ListTopicSnapshots() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTopicSnapshots(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListTopicSnapshots(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListTopicSnapshots() override {
+    ~WithRawCallbackMethod_ListTopicSnapshots() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1649,37 +1283,21 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListTopicSnapshots(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListTopicSnapshots(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteTopic : public BaseClass {
+  class WithRawCallbackMethod_DeleteTopic : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteTopic() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_DeleteTopic() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteTopic(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteTopic(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteTopic() override {
+    ~WithRawCallbackMethod_DeleteTopic() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1687,37 +1305,21 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteTopic(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteTopic(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DetachSubscription : public BaseClass {
+  class WithRawCallbackMethod_DetachSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DetachSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_DetachSubscription() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DetachSubscription(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DetachSubscription(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DetachSubscription() override {
+    ~WithRawCallbackMethod_DetachSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1725,14 +1327,8 @@ class Publisher final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DetachSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DetachSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CreateTopic : public BaseClass {
@@ -2203,9 +1799,9 @@ class Subscriber final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::SeekResponse>> PrepareAsyncSeek(::grpc::ClientContext* context, const ::google::pubsub::v1::SeekRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::SeekResponse>>(PrepareAsyncSeekRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Creates a subscription to a given topic. See the [resource name rules]
       // (https://cloud.google.com/pubsub/docs/admin#resource_names).
       // If the subscription already exists, returns `ALREADY_EXISTS`.
@@ -2218,55 +1814,31 @@ class Subscriber final {
       // name is populated in the returned Subscription object. Note that for REST
       // API requests, you must specify a name in the request.
       virtual void CreateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription* request, ::google::pubsub::v1::Subscription* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription* request, ::google::pubsub::v1::Subscription* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription* request, ::google::pubsub::v1::Subscription* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the configuration details of a subscription.
       virtual void GetSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates an existing subscription. Note that certain properties of a
       // subscription, such as its topic, are not modifiable.
       virtual void UpdateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists matching subscriptions.
       virtual void ListSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSubscriptionsRequest* request, ::google::pubsub::v1::ListSubscriptionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSubscriptionsRequest* request, ::google::pubsub::v1::ListSubscriptionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSubscriptionsRequest* request, ::google::pubsub::v1::ListSubscriptionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes an existing subscription. All messages retained in the subscription
       // are immediately dropped. Calls to `Pull` after deletion will return
       // `NOT_FOUND`. After a subscription is deleted, a new one may be created with
       // the same name, but the new one has no association with the old
       // subscription or its topic unless the same topic is specified.
       virtual void DeleteSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSubscriptionRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSubscriptionRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSubscriptionRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Modifies the ack deadline for a specific message. This method is useful
       // to indicate that more time is needed to process a message by the
       // subscriber, or to make the message available for redelivery if the
       // processing was interrupted. Note that this does not modify the
       // subscription-level `ackDeadlineSeconds` used for subsequent messages.
       virtual void ModifyAckDeadline(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyAckDeadlineRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ModifyAckDeadline(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyAckDeadlineRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ModifyAckDeadline(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyAckDeadlineRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Acknowledges the messages associated with the `ack_ids` in the
       // `AcknowledgeRequest`. The Pub/Sub system can remove the relevant messages
       // from the subscription.
@@ -2275,20 +1847,12 @@ class Subscriber final {
       // but such a message may be redelivered later. Acknowledging a message more
       // than once will not result in an error.
       virtual void Acknowledge(::grpc::ClientContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void Acknowledge(::grpc::ClientContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void Acknowledge(::grpc::ClientContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Pulls messages from the server. The server may return `UNAVAILABLE` if
       // there are too many concurrent pull requests pending for the given
       // subscription.
       virtual void Pull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void Pull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void Pull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Establishes a stream with the server, which sends messages down to the
       // client. The client streams acknowledgements and ack deadline modifications
       // back to the server. The server will close the stream and return the status
@@ -2296,11 +1860,7 @@ class Subscriber final {
       // reassign server-side resources, in which case, the client should
       // re-establish the stream. Flow control can be achieved by configuring the
       // underlying RPC channel.
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void StreamingPull(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::pubsub::v1::StreamingPullRequest,::google::pubsub::v1::StreamingPullResponse>* reactor) = 0;
-      #else
-      virtual void StreamingPull(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::google::pubsub::v1::StreamingPullRequest,::google::pubsub::v1::StreamingPullResponse>* reactor) = 0;
-      #endif
       // Modifies the `PushConfig` for a specified subscription.
       //
       // This may be used to change a push subscription to a pull one (signified by
@@ -2308,33 +1868,21 @@ class Subscriber final {
       // attributes of a push subscription. Messages will accumulate for delivery
       // continuously through the call regardless of changes to the `PushConfig`.
       virtual void ModifyPushConfig(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ModifyPushConfig(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ModifyPushConfig(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the configuration details of a snapshot. Snapshots are used in
       // <a href="https://cloud.google.com/pubsub/docs/replay-overview">Seek</a>
       // operations, which allow you to manage message acknowledgments in bulk. That
       // is, you can set the acknowledgment state of messages in an existing
       // subscription to the state captured by a snapshot.
       virtual void GetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists the existing snapshots. Snapshots are used in [Seek](
       // https://cloud.google.com/pubsub/docs/replay-overview) operations, which
       // allow you to manage message acknowledgments in bulk. That is, you can set
       // the acknowledgment state of messages in an existing subscription to the
       // state captured by a snapshot.
       virtual void ListSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSnapshotsRequest* request, ::google::pubsub::v1::ListSnapshotsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSnapshotsRequest* request, ::google::pubsub::v1::ListSnapshotsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSnapshotsRequest* request, ::google::pubsub::v1::ListSnapshotsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a snapshot from the requested subscription. Snapshots are used in
       // [Seek](https://cloud.google.com/pubsub/docs/replay-overview) operations,
       // which allow you to manage message acknowledgments in bulk. That is, you can
@@ -2352,11 +1900,7 @@ class Subscriber final {
       // generated name is populated in the returned Snapshot object. Note that for
       // REST API requests, you must specify a name in the request.
       virtual void CreateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates an existing snapshot. Snapshots are used in
       // <a href="https://cloud.google.com/pubsub/docs/replay-overview">Seek</a>
       // operations, which allow
@@ -2364,11 +1908,7 @@ class Subscriber final {
       // acknowledgment state of messages in an existing subscription to the state
       // captured by a snapshot.
       virtual void UpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Removes an existing snapshot. Snapshots are used in [Seek]
       // (https://cloud.google.com/pubsub/docs/replay-overview) operations, which
       // allow you to manage message acknowledgments in bulk. That is, you can set
@@ -2379,11 +1919,7 @@ class Subscriber final {
       // created with the same name, but the new one has no association with the old
       // snapshot or its subscription, unless the same subscription is specified.
       virtual void DeleteSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Seeks an existing subscription to a point in time or to a given snapshot,
       // whichever is provided in the request. Snapshots are used in [Seek]
       // (https://cloud.google.com/pubsub/docs/replay-overview) operations, which
@@ -2392,19 +1928,11 @@ class Subscriber final {
       // state captured by a snapshot. Note that both the subscription and the
       // snapshot must be on the same topic.
       virtual void Seek(::grpc::ClientContext* context, const ::google::pubsub::v1::SeekRequest* request, ::google::pubsub::v1::SeekResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void Seek(::grpc::ClientContext* context, const ::google::pubsub::v1::SeekRequest* request, ::google::pubsub::v1::SeekResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void Seek(::grpc::ClientContext* context, const ::google::pubsub::v1::SeekRequest* request, ::google::pubsub::v1::SeekResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Subscription>* AsyncCreateSubscriptionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Subscription>* PrepareAsyncCreateSubscriptionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription& request, ::grpc::CompletionQueue* cq) = 0;
@@ -2557,115 +2085,51 @@ class Subscriber final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::SeekResponse>> PrepareAsyncSeek(::grpc::ClientContext* context, const ::google::pubsub::v1::SeekRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::SeekResponse>>(PrepareAsyncSeekRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CreateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription* request, ::google::pubsub::v1::Subscription* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription* request, ::google::pubsub::v1::Subscription* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription* request, ::google::pubsub::v1::Subscription* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSubscriptionsRequest* request, ::google::pubsub::v1::ListSubscriptionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSubscriptionsRequest* request, ::google::pubsub::v1::ListSubscriptionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListSubscriptions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSubscriptionsRequest* request, ::google::pubsub::v1::ListSubscriptionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSubscriptionRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSubscriptionRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteSubscription(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSubscriptionRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ModifyAckDeadline(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyAckDeadlineRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ModifyAckDeadline(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyAckDeadlineRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ModifyAckDeadline(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyAckDeadlineRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void Acknowledge(::grpc::ClientContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void Acknowledge(::grpc::ClientContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void Acknowledge(::grpc::ClientContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void Pull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void Pull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void Pull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void StreamingPull(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::pubsub::v1::StreamingPullRequest,::google::pubsub::v1::StreamingPullResponse>* reactor) override;
-      #else
-      void StreamingPull(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::google::pubsub::v1::StreamingPullRequest,::google::pubsub::v1::StreamingPullResponse>* reactor) override;
-      #endif
       void ModifyPushConfig(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ModifyPushConfig(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ModifyPushConfig(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSnapshotsRequest* request, ::google::pubsub::v1::ListSnapshotsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSnapshotsRequest* request, ::google::pubsub::v1::ListSnapshotsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListSnapshots(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSnapshotsRequest* request, ::google::pubsub::v1::ListSnapshotsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void Seek(::grpc::ClientContext* context, const ::google::pubsub::v1::SeekRequest* request, ::google::pubsub::v1::SeekResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void Seek(::grpc::ClientContext* context, const ::google::pubsub::v1::SeekRequest* request, ::google::pubsub::v1::SeekResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void Seek(::grpc::ClientContext* context, const ::google::pubsub::v1::SeekRequest* request, ::google::pubsub::v1::SeekResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Subscription>* AsyncCreateSubscriptionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Subscription>* PrepareAsyncCreateSubscriptionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Subscription>* AsyncGetSubscriptionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSubscriptionRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -3157,36 +2621,22 @@ class Subscriber final {
   };
   typedef WithAsyncMethod_CreateSubscription<WithAsyncMethod_GetSubscription<WithAsyncMethod_UpdateSubscription<WithAsyncMethod_ListSubscriptions<WithAsyncMethod_DeleteSubscription<WithAsyncMethod_ModifyAckDeadline<WithAsyncMethod_Acknowledge<WithAsyncMethod_Pull<WithAsyncMethod_StreamingPull<WithAsyncMethod_ModifyPushConfig<WithAsyncMethod_GetSnapshot<WithAsyncMethod_ListSnapshots<WithAsyncMethod_CreateSnapshot<WithAsyncMethod_UpdateSnapshot<WithAsyncMethod_DeleteSnapshot<WithAsyncMethod_Seek<Service > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateSubscription : public BaseClass {
+  class WithCallbackMethod_CreateSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_CreateSubscription() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::Subscription, ::google::pubsub::v1::Subscription>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::Subscription* request, ::google::pubsub::v1::Subscription* response) { return this->CreateSubscription(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::Subscription* request, ::google::pubsub::v1::Subscription* response) { return this->CreateSubscription(context, request, response); }));}
     void SetMessageAllocatorFor_CreateSubscription(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::Subscription, ::google::pubsub::v1::Subscription>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::Subscription, ::google::pubsub::v1::Subscription>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::Subscription, ::google::pubsub::v1::Subscription>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateSubscription() override {
+    ~WithCallbackMethod_CreateSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3194,46 +2644,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::Subscription* /*request*/, ::google::pubsub::v1::Subscription* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::Subscription* /*request*/, ::google::pubsub::v1::Subscription* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::Subscription* /*request*/, ::google::pubsub::v1::Subscription* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetSubscription : public BaseClass {
+  class WithCallbackMethod_GetSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetSubscription() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::GetSubscriptionRequest, ::google::pubsub::v1::Subscription>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::GetSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response) { return this->GetSubscription(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::GetSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response) { return this->GetSubscription(context, request, response); }));}
     void SetMessageAllocatorFor_GetSubscription(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::GetSubscriptionRequest, ::google::pubsub::v1::Subscription>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::GetSubscriptionRequest, ::google::pubsub::v1::Subscription>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::GetSubscriptionRequest, ::google::pubsub::v1::Subscription>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetSubscription() override {
+    ~WithCallbackMethod_GetSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3241,46 +2671,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetSubscriptionRequest* /*request*/, ::google::pubsub::v1::Subscription* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetSubscriptionRequest* /*request*/, ::google::pubsub::v1::Subscription* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetSubscriptionRequest* /*request*/, ::google::pubsub::v1::Subscription* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateSubscription : public BaseClass {
+  class WithCallbackMethod_UpdateSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_UpdateSubscription() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::UpdateSubscriptionRequest, ::google::pubsub::v1::Subscription>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::UpdateSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response) { return this->UpdateSubscription(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::UpdateSubscriptionRequest* request, ::google::pubsub::v1::Subscription* response) { return this->UpdateSubscription(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateSubscription(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::UpdateSubscriptionRequest, ::google::pubsub::v1::Subscription>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::UpdateSubscriptionRequest, ::google::pubsub::v1::Subscription>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::UpdateSubscriptionRequest, ::google::pubsub::v1::Subscription>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateSubscription() override {
+    ~WithCallbackMethod_UpdateSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3288,46 +2698,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::UpdateSubscriptionRequest* /*request*/, ::google::pubsub::v1::Subscription* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::UpdateSubscriptionRequest* /*request*/, ::google::pubsub::v1::Subscription* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::UpdateSubscriptionRequest* /*request*/, ::google::pubsub::v1::Subscription* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListSubscriptions : public BaseClass {
+  class WithCallbackMethod_ListSubscriptions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListSubscriptions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_ListSubscriptions() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListSubscriptionsRequest, ::google::pubsub::v1::ListSubscriptionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ListSubscriptionsRequest* request, ::google::pubsub::v1::ListSubscriptionsResponse* response) { return this->ListSubscriptions(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ListSubscriptionsRequest* request, ::google::pubsub::v1::ListSubscriptionsResponse* response) { return this->ListSubscriptions(context, request, response); }));}
     void SetMessageAllocatorFor_ListSubscriptions(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ListSubscriptionsRequest, ::google::pubsub::v1::ListSubscriptionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ListSubscriptionsRequest, ::google::pubsub::v1::ListSubscriptionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListSubscriptionsRequest, ::google::pubsub::v1::ListSubscriptionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListSubscriptions() override {
+    ~WithCallbackMethod_ListSubscriptions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3335,46 +2725,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSubscriptions(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSubscriptionsRequest* /*request*/, ::google::pubsub::v1::ListSubscriptionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSubscriptions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSubscriptionsRequest* /*request*/, ::google::pubsub::v1::ListSubscriptionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSubscriptionsRequest* /*request*/, ::google::pubsub::v1::ListSubscriptionsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteSubscription : public BaseClass {
+  class WithCallbackMethod_DeleteSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_DeleteSubscription() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSubscriptionRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::DeleteSubscriptionRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSubscription(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::DeleteSubscriptionRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSubscription(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteSubscription(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::DeleteSubscriptionRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::DeleteSubscriptionRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSubscriptionRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteSubscription() override {
+    ~WithCallbackMethod_DeleteSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3382,46 +2752,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSubscriptionRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSubscriptionRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSubscriptionRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ModifyAckDeadline : public BaseClass {
+  class WithCallbackMethod_ModifyAckDeadline : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ModifyAckDeadline() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_ModifyAckDeadline() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ModifyAckDeadlineRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ModifyAckDeadlineRequest* request, ::google::protobuf::Empty* response) { return this->ModifyAckDeadline(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ModifyAckDeadlineRequest* request, ::google::protobuf::Empty* response) { return this->ModifyAckDeadline(context, request, response); }));}
     void SetMessageAllocatorFor_ModifyAckDeadline(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ModifyAckDeadlineRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ModifyAckDeadlineRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ModifyAckDeadlineRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ModifyAckDeadline() override {
+    ~WithCallbackMethod_ModifyAckDeadline() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3429,46 +2779,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ModifyAckDeadline(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ModifyAckDeadlineRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ModifyAckDeadline(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ModifyAckDeadlineRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ModifyAckDeadlineRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Acknowledge : public BaseClass {
+  class WithCallbackMethod_Acknowledge : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Acknowledge() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_Acknowledge() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::AcknowledgeRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response) { return this->Acknowledge(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response) { return this->Acknowledge(context, request, response); }));}
     void SetMessageAllocatorFor_Acknowledge(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::AcknowledgeRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::AcknowledgeRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::AcknowledgeRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Acknowledge() override {
+    ~WithCallbackMethod_Acknowledge() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3476,46 +2806,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Acknowledge(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::AcknowledgeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Acknowledge(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::AcknowledgeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::AcknowledgeRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Pull : public BaseClass {
+  class WithCallbackMethod_Pull : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Pull() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_Pull() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::PullRequest, ::google::pubsub::v1::PullResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response) { return this->Pull(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response) { return this->Pull(context, request, response); }));}
     void SetMessageAllocatorFor_Pull(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::PullRequest, ::google::pubsub::v1::PullResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::PullRequest, ::google::pubsub::v1::PullResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::PullRequest, ::google::pubsub::v1::PullResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Pull() override {
+    ~WithCallbackMethod_Pull() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3523,37 +2833,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Pull(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::PullRequest* /*request*/, ::google::pubsub::v1::PullResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Pull(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::PullRequest* /*request*/, ::google::pubsub::v1::PullResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::PullRequest* /*request*/, ::google::pubsub::v1::PullResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_StreamingPull : public BaseClass {
+  class WithCallbackMethod_StreamingPull : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_StreamingPull() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_StreamingPull() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackBidiHandler< ::google::pubsub::v1::StreamingPullRequest, ::google::pubsub::v1::StreamingPullResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->StreamingPull(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->StreamingPull(context); }));
     }
-    ~ExperimentalWithCallbackMethod_StreamingPull() override {
+    ~WithCallbackMethod_StreamingPull() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3561,46 +2855,27 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::google::pubsub::v1::StreamingPullRequest, ::google::pubsub::v1::StreamingPullResponse>* StreamingPull(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::google::pubsub::v1::StreamingPullRequest, ::google::pubsub::v1::StreamingPullResponse>* StreamingPull(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ModifyPushConfig : public BaseClass {
+  class WithCallbackMethod_ModifyPushConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ModifyPushConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_ModifyPushConfig() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ModifyPushConfigRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response) { return this->ModifyPushConfig(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response) { return this->ModifyPushConfig(context, request, response); }));}
     void SetMessageAllocatorFor_ModifyPushConfig(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ModifyPushConfigRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ModifyPushConfigRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ModifyPushConfigRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ModifyPushConfig() override {
+    ~WithCallbackMethod_ModifyPushConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3608,46 +2883,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ModifyPushConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ModifyPushConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ModifyPushConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ModifyPushConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ModifyPushConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetSnapshot : public BaseClass {
+  class WithCallbackMethod_GetSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(10,
+    WithCallbackMethod_GetSnapshot() {
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::GetSnapshotRequest, ::google::pubsub::v1::Snapshot>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response) { return this->GetSnapshot(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response) { return this->GetSnapshot(context, request, response); }));}
     void SetMessageAllocatorFor_GetSnapshot(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::GetSnapshotRequest, ::google::pubsub::v1::Snapshot>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::GetSnapshotRequest, ::google::pubsub::v1::Snapshot>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(10);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::GetSnapshotRequest, ::google::pubsub::v1::Snapshot>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetSnapshot() override {
+    ~WithCallbackMethod_GetSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3655,46 +2910,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetSnapshotRequest* /*request*/, ::google::pubsub::v1::Snapshot* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetSnapshotRequest* /*request*/, ::google::pubsub::v1::Snapshot* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::GetSnapshotRequest* /*request*/, ::google::pubsub::v1::Snapshot* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListSnapshots : public BaseClass {
+  class WithCallbackMethod_ListSnapshots : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListSnapshots() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(11,
+    WithCallbackMethod_ListSnapshots() {
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListSnapshotsRequest, ::google::pubsub::v1::ListSnapshotsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::ListSnapshotsRequest* request, ::google::pubsub::v1::ListSnapshotsResponse* response) { return this->ListSnapshots(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ListSnapshotsRequest* request, ::google::pubsub::v1::ListSnapshotsResponse* response) { return this->ListSnapshots(context, request, response); }));}
     void SetMessageAllocatorFor_ListSnapshots(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::ListSnapshotsRequest, ::google::pubsub::v1::ListSnapshotsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ListSnapshotsRequest, ::google::pubsub::v1::ListSnapshotsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(11);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListSnapshotsRequest, ::google::pubsub::v1::ListSnapshotsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListSnapshots() override {
+    ~WithCallbackMethod_ListSnapshots() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3702,46 +2937,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSnapshots(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSnapshotsRequest* /*request*/, ::google::pubsub::v1::ListSnapshotsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSnapshots(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSnapshotsRequest* /*request*/, ::google::pubsub::v1::ListSnapshotsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSnapshotsRequest* /*request*/, ::google::pubsub::v1::ListSnapshotsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateSnapshot : public BaseClass {
+  class WithCallbackMethod_CreateSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(12,
+    WithCallbackMethod_CreateSnapshot() {
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::CreateSnapshotRequest, ::google::pubsub::v1::Snapshot>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response) { return this->CreateSnapshot(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response) { return this->CreateSnapshot(context, request, response); }));}
     void SetMessageAllocatorFor_CreateSnapshot(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::CreateSnapshotRequest, ::google::pubsub::v1::Snapshot>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::CreateSnapshotRequest, ::google::pubsub::v1::Snapshot>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(12);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::CreateSnapshotRequest, ::google::pubsub::v1::Snapshot>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateSnapshot() override {
+    ~WithCallbackMethod_CreateSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3749,46 +2964,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::CreateSnapshotRequest* /*request*/, ::google::pubsub::v1::Snapshot* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::CreateSnapshotRequest* /*request*/, ::google::pubsub::v1::Snapshot* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::CreateSnapshotRequest* /*request*/, ::google::pubsub::v1::Snapshot* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateSnapshot : public BaseClass {
+  class WithCallbackMethod_UpdateSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(13,
+    WithCallbackMethod_UpdateSnapshot() {
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::UpdateSnapshotRequest, ::google::pubsub::v1::Snapshot>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response) { return this->UpdateSnapshot(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response) { return this->UpdateSnapshot(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateSnapshot(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::UpdateSnapshotRequest, ::google::pubsub::v1::Snapshot>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::UpdateSnapshotRequest, ::google::pubsub::v1::Snapshot>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(13);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::UpdateSnapshotRequest, ::google::pubsub::v1::Snapshot>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateSnapshot() override {
+    ~WithCallbackMethod_UpdateSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3796,46 +2991,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::UpdateSnapshotRequest* /*request*/, ::google::pubsub::v1::Snapshot* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::UpdateSnapshotRequest* /*request*/, ::google::pubsub::v1::Snapshot* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::UpdateSnapshotRequest* /*request*/, ::google::pubsub::v1::Snapshot* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteSnapshot : public BaseClass {
+  class WithCallbackMethod_DeleteSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(14,
+    WithCallbackMethod_DeleteSnapshot() {
+      ::grpc::Service::MarkMethodCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSnapshotRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSnapshot(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSnapshot(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteSnapshot(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::DeleteSnapshotRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::DeleteSnapshotRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(14);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSnapshotRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteSnapshot() override {
+    ~WithCallbackMethod_DeleteSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3843,46 +3018,26 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSnapshotRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSnapshotRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSnapshotRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Seek : public BaseClass {
+  class WithCallbackMethod_Seek : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Seek() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(15,
+    WithCallbackMethod_Seek() {
+      ::grpc::Service::MarkMethodCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::SeekRequest, ::google::pubsub::v1::SeekResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::pubsub::v1::SeekRequest* request, ::google::pubsub::v1::SeekResponse* response) { return this->Seek(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::SeekRequest* request, ::google::pubsub::v1::SeekResponse* response) { return this->Seek(context, request, response); }));}
     void SetMessageAllocatorFor_Seek(
-        ::grpc::experimental::MessageAllocator< ::google::pubsub::v1::SeekRequest, ::google::pubsub::v1::SeekResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::pubsub::v1::SeekRequest, ::google::pubsub::v1::SeekResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(15);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::SeekRequest, ::google::pubsub::v1::SeekResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Seek() override {
+    ~WithCallbackMethod_Seek() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3890,20 +3045,11 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Seek(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::SeekRequest* /*request*/, ::google::pubsub::v1::SeekResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Seek(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::pubsub::v1::SeekRequest* /*request*/, ::google::pubsub::v1::SeekResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::SeekRequest* /*request*/, ::google::pubsub::v1::SeekResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_CreateSubscription<ExperimentalWithCallbackMethod_GetSubscription<ExperimentalWithCallbackMethod_UpdateSubscription<ExperimentalWithCallbackMethod_ListSubscriptions<ExperimentalWithCallbackMethod_DeleteSubscription<ExperimentalWithCallbackMethod_ModifyAckDeadline<ExperimentalWithCallbackMethod_Acknowledge<ExperimentalWithCallbackMethod_Pull<ExperimentalWithCallbackMethod_StreamingPull<ExperimentalWithCallbackMethod_ModifyPushConfig<ExperimentalWithCallbackMethod_GetSnapshot<ExperimentalWithCallbackMethod_ListSnapshots<ExperimentalWithCallbackMethod_CreateSnapshot<ExperimentalWithCallbackMethod_UpdateSnapshot<ExperimentalWithCallbackMethod_DeleteSnapshot<ExperimentalWithCallbackMethod_Seek<Service > > > > > > > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_CreateSubscription<ExperimentalWithCallbackMethod_GetSubscription<ExperimentalWithCallbackMethod_UpdateSubscription<ExperimentalWithCallbackMethod_ListSubscriptions<ExperimentalWithCallbackMethod_DeleteSubscription<ExperimentalWithCallbackMethod_ModifyAckDeadline<ExperimentalWithCallbackMethod_Acknowledge<ExperimentalWithCallbackMethod_Pull<ExperimentalWithCallbackMethod_StreamingPull<ExperimentalWithCallbackMethod_ModifyPushConfig<ExperimentalWithCallbackMethod_GetSnapshot<ExperimentalWithCallbackMethod_ListSnapshots<ExperimentalWithCallbackMethod_CreateSnapshot<ExperimentalWithCallbackMethod_UpdateSnapshot<ExperimentalWithCallbackMethod_DeleteSnapshot<ExperimentalWithCallbackMethod_Seek<Service > > > > > > > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_CreateSubscription<WithCallbackMethod_GetSubscription<WithCallbackMethod_UpdateSubscription<WithCallbackMethod_ListSubscriptions<WithCallbackMethod_DeleteSubscription<WithCallbackMethod_ModifyAckDeadline<WithCallbackMethod_Acknowledge<WithCallbackMethod_Pull<WithCallbackMethod_StreamingPull<WithCallbackMethod_ModifyPushConfig<WithCallbackMethod_GetSnapshot<WithCallbackMethod_ListSnapshots<WithCallbackMethod_CreateSnapshot<WithCallbackMethod_UpdateSnapshot<WithCallbackMethod_DeleteSnapshot<WithCallbackMethod_Seek<Service > > > > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateSubscription : public BaseClass {
    private:
@@ -4497,27 +3643,17 @@ class Subscriber final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateSubscription : public BaseClass {
+  class WithRawCallbackMethod_CreateSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_CreateSubscription() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSubscription(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSubscription(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateSubscription() override {
+    ~WithRawCallbackMethod_CreateSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4525,37 +3661,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetSubscription : public BaseClass {
+  class WithRawCallbackMethod_GetSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetSubscription() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSubscription(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSubscription(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetSubscription() override {
+    ~WithRawCallbackMethod_GetSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4563,37 +3683,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateSubscription : public BaseClass {
+  class WithRawCallbackMethod_UpdateSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_UpdateSubscription() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateSubscription(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateSubscription(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateSubscription() override {
+    ~WithRawCallbackMethod_UpdateSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4601,37 +3705,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListSubscriptions : public BaseClass {
+  class WithRawCallbackMethod_ListSubscriptions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListSubscriptions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_ListSubscriptions() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSubscriptions(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSubscriptions(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListSubscriptions() override {
+    ~WithRawCallbackMethod_ListSubscriptions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4639,37 +3727,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSubscriptions(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSubscriptions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteSubscription : public BaseClass {
+  class WithRawCallbackMethod_DeleteSubscription : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteSubscription() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_DeleteSubscription() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSubscription(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSubscription(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteSubscription() override {
+    ~WithRawCallbackMethod_DeleteSubscription() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4677,37 +3749,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSubscription(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSubscription(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ModifyAckDeadline : public BaseClass {
+  class WithRawCallbackMethod_ModifyAckDeadline : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ModifyAckDeadline() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_ModifyAckDeadline() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ModifyAckDeadline(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ModifyAckDeadline(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ModifyAckDeadline() override {
+    ~WithRawCallbackMethod_ModifyAckDeadline() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4715,37 +3771,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ModifyAckDeadline(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ModifyAckDeadline(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_Acknowledge : public BaseClass {
+  class WithRawCallbackMethod_Acknowledge : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_Acknowledge() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_Acknowledge() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Acknowledge(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Acknowledge(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_Acknowledge() override {
+    ~WithRawCallbackMethod_Acknowledge() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4753,37 +3793,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Acknowledge(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Acknowledge(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_Pull : public BaseClass {
+  class WithRawCallbackMethod_Pull : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_Pull() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_Pull() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Pull(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Pull(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_Pull() override {
+    ~WithRawCallbackMethod_Pull() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4791,37 +3815,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Pull(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Pull(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_StreamingPull : public BaseClass {
+  class WithRawCallbackMethod_StreamingPull : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_StreamingPull() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_StreamingPull() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context) { return this->StreamingPull(context); }));
+                   ::grpc::CallbackServerContext* context) { return this->StreamingPull(context); }));
     }
-    ~ExperimentalWithRawCallbackMethod_StreamingPull() override {
+    ~WithRawCallbackMethod_StreamingPull() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4829,37 +3837,22 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StreamingPull(
       ::grpc::CallbackServerContext* /*context*/)
-    #else
-    virtual ::grpc::experimental::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StreamingPull(
-      ::grpc::experimental::CallbackServerContext* /*context*/)
-    #endif
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ModifyPushConfig : public BaseClass {
+  class WithRawCallbackMethod_ModifyPushConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ModifyPushConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_ModifyPushConfig() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ModifyPushConfig(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ModifyPushConfig(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ModifyPushConfig() override {
+    ~WithRawCallbackMethod_ModifyPushConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4867,37 +3860,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ModifyPushConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ModifyPushConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetSnapshot : public BaseClass {
+  class WithRawCallbackMethod_GetSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(10,
+    WithRawCallbackMethod_GetSnapshot() {
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSnapshot(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSnapshot(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetSnapshot() override {
+    ~WithRawCallbackMethod_GetSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4905,37 +3882,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListSnapshots : public BaseClass {
+  class WithRawCallbackMethod_ListSnapshots : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListSnapshots() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(11,
+    WithRawCallbackMethod_ListSnapshots() {
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSnapshots(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSnapshots(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListSnapshots() override {
+    ~WithRawCallbackMethod_ListSnapshots() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4943,37 +3904,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListSnapshots(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListSnapshots(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateSnapshot : public BaseClass {
+  class WithRawCallbackMethod_CreateSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(12,
+    WithRawCallbackMethod_CreateSnapshot() {
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSnapshot(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateSnapshot(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateSnapshot() override {
+    ~WithRawCallbackMethod_CreateSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4981,37 +3926,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateSnapshot : public BaseClass {
+  class WithRawCallbackMethod_UpdateSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(13,
+    WithRawCallbackMethod_UpdateSnapshot() {
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateSnapshot(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateSnapshot(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateSnapshot() override {
+    ~WithRawCallbackMethod_UpdateSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5019,37 +3948,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteSnapshot : public BaseClass {
+  class WithRawCallbackMethod_DeleteSnapshot : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteSnapshot() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(14,
+    WithRawCallbackMethod_DeleteSnapshot() {
+      ::grpc::Service::MarkMethodRawCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSnapshot(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSnapshot(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteSnapshot() override {
+    ~WithRawCallbackMethod_DeleteSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5057,37 +3970,21 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteSnapshot(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteSnapshot(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_Seek : public BaseClass {
+  class WithRawCallbackMethod_Seek : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_Seek() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(15,
+    WithRawCallbackMethod_Seek() {
+      ::grpc::Service::MarkMethodRawCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Seek(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Seek(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_Seek() override {
+    ~WithRawCallbackMethod_Seek() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5095,14 +3992,8 @@ class Subscriber final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* Seek(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Seek(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CreateSubscription : public BaseClass {

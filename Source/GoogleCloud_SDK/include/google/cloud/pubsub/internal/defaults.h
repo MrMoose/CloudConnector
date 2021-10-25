@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,26 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_PUBSUB_INTERNAL_DEFAULT_RETRY_POLICIES_H
-#define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_PUBSUB_INTERNAL_DEFAULT_RETRY_POLICIES_H
+#ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_PUBSUB_INTERNAL_DEFAULTS_H
+#define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_PUBSUB_INTERNAL_DEFAULTS_H
 
-#include "google/cloud/pubsub/backoff_policy.h"
-#include "google/cloud/pubsub/retry_policy.h"
 #include "google/cloud/pubsub/version.h"
-#include <memory>
+#include "google/cloud/options.h"
 
 namespace google {
 namespace cloud {
 namespace pubsub_internal {
 inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
 
-std::unique_ptr<pubsub::RetryPolicy const> DefaultRetryPolicy();
+std::size_t DefaultThreadCount();
 
-std::unique_ptr<pubsub::BackoffPolicy const> DefaultBackoffPolicy();
+Options DefaultCommonOptions(Options opts);
+
+Options DefaultPublisherOptions(Options opts);
+
+Options DefaultPublisherOptionsOnly(Options opts);
+
+Options DefaultSubscriberOptions(Options opts);
+
+Options DefaultSubscriberOptionsOnly(Options opts);
 
 }  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
 }  // namespace pubsub_internal
 }  // namespace cloud
 }  // namespace google
 
-#endif  // GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_PUBSUB_INTERNAL_DEFAULT_RETRY_POLICIES_H
+#endif  // GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_PUBSUB_INTERNAL_DEFAULTS_H

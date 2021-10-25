@@ -79,13 +79,13 @@ class TraitBasedRetryPolicy : public RetryPolicy {
  public:
   ///@{
   /**
-   * @name type traits
+   * @name Type traits
    */
   /// The traits describing which errors are permanent failures
   using RetryableTraits = RetryableTraitsP;
 
   /// The status type used by the retry policy
-  using StatusType = google::cloud::Status;
+  using StatusType = ::google::cloud::Status;
   ///@}
 
   ~TraitBasedRetryPolicy() override = default;
@@ -136,6 +136,7 @@ class LimitedErrorCountRetryPolicy
   bool IsExhausted() const override {
     return failure_count_ > maximum_failures_;
   }
+  int maximum_failures() const { return maximum_failures_; }
 
  protected:
   void OnFailureImpl() override { ++failure_count_; }

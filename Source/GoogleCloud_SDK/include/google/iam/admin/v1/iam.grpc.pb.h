@@ -22,7 +22,6 @@
 #include "google/iam/admin/v1/iam.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -426,30 +425,18 @@ class IAM final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::admin::v1::LintPolicyResponse>> PrepareAsyncLintPolicy(::grpc::ClientContext* context, const ::google::iam::admin::v1::LintPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::admin::v1::LintPolicyResponse>>(PrepareAsyncLintPolicyRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Lists every [ServiceAccount][google.iam.admin.v1.ServiceAccount] that belongs to a specific project.
       virtual void ListServiceAccounts(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest* request, ::google::iam::admin::v1::ListServiceAccountsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListServiceAccounts(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest* request, ::google::iam::admin::v1::ListServiceAccountsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListServiceAccounts(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest* request, ::google::iam::admin::v1::ListServiceAccountsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
       virtual void GetServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
       virtual void CreateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // **Note:** We are in the process of deprecating this method. Use
       // [PatchServiceAccount][google.iam.admin.v1.IAM.PatchServiceAccount] instead.
       //
@@ -457,18 +444,10 @@ class IAM final {
       //
       // You can update only the `display_name` and `description` fields.
       virtual void UpdateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::ServiceAccount* request, ::google::iam::admin::v1::ServiceAccount* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::ServiceAccount* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::ServiceAccount* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Patches a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
       virtual void PatchServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::PatchServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void PatchServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::PatchServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void PatchServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::PatchServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
       //
       // **Warning:** After you delete a service account, you might not be able to
@@ -485,11 +464,7 @@ class IAM final {
       // consequences. If there are no unintended consequences, you can delete the
       // service account.
       virtual void DeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Restores a deleted [ServiceAccount][google.iam.admin.v1.ServiceAccount].
       //
       // **Important:** It is not always possible to restore a deleted service
@@ -499,11 +474,7 @@ class IAM final {
       // account 30 days later. There is no way to restore a deleted service account
       // that has been permanently removed.
       virtual void UndeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* request, ::google::iam::admin::v1::UndeleteServiceAccountResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UndeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* request, ::google::iam::admin::v1::UndeleteServiceAccountResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UndeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* request, ::google::iam::admin::v1::UndeleteServiceAccountResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Enables a [ServiceAccount][google.iam.admin.v1.ServiceAccount] that was disabled by
       // [DisableServiceAccount][google.iam.admin.v1.IAM.DisableServiceAccount].
       //
@@ -513,11 +484,7 @@ class IAM final {
       // disabled the service account because it was compromised—you cannot use this
       // method to enable the service account.
       virtual void EnableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::EnableServiceAccountRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void EnableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::EnableServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void EnableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::EnableServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Disables a [ServiceAccount][google.iam.admin.v1.ServiceAccount] immediately.
       //
       // If an application uses the service account to authenticate, that
@@ -535,48 +502,24 @@ class IAM final {
       // If there are no unintended consequences, you can delete the service account
       // with [DeleteServiceAccount][google.iam.admin.v1.IAM.DeleteServiceAccount].
       virtual void DisableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DisableServiceAccountRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DisableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DisableServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DisableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DisableServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists every [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey] for a service account.
       virtual void ListServiceAccountKeys(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* request, ::google::iam::admin::v1::ListServiceAccountKeysResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListServiceAccountKeys(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* request, ::google::iam::admin::v1::ListServiceAccountKeysResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListServiceAccountKeys(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* request, ::google::iam::admin::v1::ListServiceAccountKeysResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
       virtual void GetServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
       virtual void CreateServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey], using a public key that you provide.
       virtual void UploadServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UploadServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UploadServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey]. Deleting a service account key does not
       // revoke short-lived credentials that have been issued based on the service
       // account key.
       virtual void DeleteServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // **Note:** This method is deprecated. Use the
       // [`signBlob`](https://cloud.google.com/iam/help/rest-credentials/v1/projects.serviceAccounts/signBlob)
       // method in the IAM Service Account Credentials API instead. If you currently
@@ -586,11 +529,7 @@ class IAM final {
       //
       // Signs a blob using the system-managed private key for a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
       virtual void SignBlob(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignBlobRequest* request, ::google::iam::admin::v1::SignBlobResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SignBlob(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignBlobRequest* request, ::google::iam::admin::v1::SignBlobResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SignBlob(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignBlobRequest* request, ::google::iam::admin::v1::SignBlobResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // **Note:** This method is deprecated. Use the
       // [`signJwt`](https://cloud.google.com/iam/help/rest-credentials/v1/projects.serviceAccounts/signJwt)
       // method in the IAM Service Account Credentials API instead. If you currently
@@ -601,11 +540,7 @@ class IAM final {
       // Signs a JSON Web Token (JWT) using the system-managed private key for a
       // [ServiceAccount][google.iam.admin.v1.ServiceAccount].
       virtual void SignJwt(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignJwtRequest* request, ::google::iam::admin::v1::SignJwtResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SignJwt(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignJwtRequest* request, ::google::iam::admin::v1::SignJwtResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SignJwt(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignJwtRequest* request, ::google::iam::admin::v1::SignJwtResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the IAM policy that is attached to a [ServiceAccount][google.iam.admin.v1.ServiceAccount]. This IAM
       // policy specifies which members have access to the service account.
       //
@@ -617,11 +552,7 @@ class IAM final {
       // [`projects.getIamPolicy`](https://cloud.google.com/resource-manager/reference/rest/v1/projects/getIamPolicy)
       // method.
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Sets the IAM policy that is attached to a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
       //
       // Use this method to grant or revoke access to the service account. For
@@ -640,57 +571,29 @@ class IAM final {
       // [Granting roles to a service account for specific
       // resources](https://cloud.google.com/iam/help/service-accounts/granting-access-to-service-accounts).
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Tests whether the caller has the specified permissions on a
       // [ServiceAccount][google.iam.admin.v1.ServiceAccount].
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists roles that can be granted on a Google Cloud resource. A role is
       // grantable if the IAM policy for the resource can contain bindings to the
       // role.
       virtual void QueryGrantableRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryGrantableRolesRequest* request, ::google::iam::admin::v1::QueryGrantableRolesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void QueryGrantableRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryGrantableRolesRequest* request, ::google::iam::admin::v1::QueryGrantableRolesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void QueryGrantableRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryGrantableRolesRequest* request, ::google::iam::admin::v1::QueryGrantableRolesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists every predefined [Role][google.iam.admin.v1.Role] that IAM supports, or every custom role
       // that is defined for an organization or project.
       virtual void ListRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListRolesRequest* request, ::google::iam::admin::v1::ListRolesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListRolesRequest* request, ::google::iam::admin::v1::ListRolesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListRolesRequest* request, ::google::iam::admin::v1::ListRolesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the definition of a [Role][google.iam.admin.v1.Role].
       virtual void GetRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Creates a new custom [Role][google.iam.admin.v1.Role].
       virtual void CreateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the definition of a custom [Role][google.iam.admin.v1.Role].
       virtual void UpdateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UpdateRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UpdateRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UpdateRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes a custom [Role][google.iam.admin.v1.Role].
       //
       // When you delete a custom role, the following changes occur immediately:
@@ -709,38 +612,22 @@ class IAM final {
       // * If an IAM policy contains a binding to the custom role, the binding is
       // permanently removed.
       virtual void DeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Undeletes a custom [Role][google.iam.admin.v1.Role].
       virtual void UndeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UndeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UndeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lists every permission that you can test on a resource. A permission is
       // testable if you can check whether a member has that permission on the
       // resource.
       virtual void QueryTestablePermissions(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* request, ::google::iam::admin::v1::QueryTestablePermissionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void QueryTestablePermissions(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* request, ::google::iam::admin::v1::QueryTestablePermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void QueryTestablePermissions(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* request, ::google::iam::admin::v1::QueryTestablePermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns a list of services that allow you to opt into audit logs that are
       // not generated by default.
       //
       // To learn more about audit logs, see the [Logging
       // documentation](https://cloud.google.com/logging/docs/audit).
       virtual void QueryAuditableServices(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryAuditableServicesRequest* request, ::google::iam::admin::v1::QueryAuditableServicesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void QueryAuditableServices(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryAuditableServicesRequest* request, ::google::iam::admin::v1::QueryAuditableServicesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void QueryAuditableServices(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryAuditableServicesRequest* request, ::google::iam::admin::v1::QueryAuditableServicesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Lints, or validates, an IAM policy. Currently checks the
       // [google.iam.v1.Binding.condition][google.iam.v1.Binding.condition] field, which contains a condition
       // expression for a role binding.
@@ -748,19 +635,11 @@ class IAM final {
       // Successful calls to this method always return an HTTP `200 OK` status code,
       // even if the linter detects an issue in the IAM policy.
       virtual void LintPolicy(::grpc::ClientContext* context, const ::google::iam::admin::v1::LintPolicyRequest* request, ::google::iam::admin::v1::LintPolicyResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void LintPolicy(::grpc::ClientContext* context, const ::google::iam::admin::v1::LintPolicyRequest* request, ::google::iam::admin::v1::LintPolicyResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void LintPolicy(::grpc::ClientContext* context, const ::google::iam::admin::v1::LintPolicyRequest* request, ::google::iam::admin::v1::LintPolicyResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::admin::v1::ListServiceAccountsResponse>* AsyncListServiceAccountsRaw(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::admin::v1::ListServiceAccountsResponse>* PrepareAsyncListServiceAccountsRaw(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -1027,194 +906,78 @@ class IAM final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::admin::v1::LintPolicyResponse>> PrepareAsyncLintPolicy(::grpc::ClientContext* context, const ::google::iam::admin::v1::LintPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::admin::v1::LintPolicyResponse>>(PrepareAsyncLintPolicyRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ListServiceAccounts(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest* request, ::google::iam::admin::v1::ListServiceAccountsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListServiceAccounts(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest* request, ::google::iam::admin::v1::ListServiceAccountsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListServiceAccounts(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest* request, ::google::iam::admin::v1::ListServiceAccountsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::ServiceAccount* request, ::google::iam::admin::v1::ServiceAccount* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::ServiceAccount* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::ServiceAccount* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void PatchServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::PatchServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void PatchServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::PatchServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void PatchServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::PatchServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UndeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* request, ::google::iam::admin::v1::UndeleteServiceAccountResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UndeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* request, ::google::iam::admin::v1::UndeleteServiceAccountResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UndeleteServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* request, ::google::iam::admin::v1::UndeleteServiceAccountResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void EnableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::EnableServiceAccountRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void EnableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::EnableServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void EnableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::EnableServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DisableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DisableServiceAccountRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DisableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DisableServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DisableServiceAccount(::grpc::ClientContext* context, const ::google::iam::admin::v1::DisableServiceAccountRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListServiceAccountKeys(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* request, ::google::iam::admin::v1::ListServiceAccountKeysResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListServiceAccountKeys(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* request, ::google::iam::admin::v1::ListServiceAccountKeysResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListServiceAccountKeys(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* request, ::google::iam::admin::v1::ListServiceAccountKeysResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UploadServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UploadServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UploadServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteServiceAccountKey(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SignBlob(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignBlobRequest* request, ::google::iam::admin::v1::SignBlobResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SignBlob(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignBlobRequest* request, ::google::iam::admin::v1::SignBlobResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SignBlob(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignBlobRequest* request, ::google::iam::admin::v1::SignBlobResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SignJwt(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignJwtRequest* request, ::google::iam::admin::v1::SignJwtResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SignJwt(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignJwtRequest* request, ::google::iam::admin::v1::SignJwtResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SignJwt(::grpc::ClientContext* context, const ::google::iam::admin::v1::SignJwtRequest* request, ::google::iam::admin::v1::SignJwtResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void QueryGrantableRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryGrantableRolesRequest* request, ::google::iam::admin::v1::QueryGrantableRolesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void QueryGrantableRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryGrantableRolesRequest* request, ::google::iam::admin::v1::QueryGrantableRolesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void QueryGrantableRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryGrantableRolesRequest* request, ::google::iam::admin::v1::QueryGrantableRolesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListRolesRequest* request, ::google::iam::admin::v1::ListRolesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListRolesRequest* request, ::google::iam::admin::v1::ListRolesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListRoles(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListRolesRequest* request, ::google::iam::admin::v1::ListRolesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void CreateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::CreateRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UpdateRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UpdateRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UpdateRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::DeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UndeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UndeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UndeleteRole(::grpc::ClientContext* context, const ::google::iam::admin::v1::UndeleteRoleRequest* request, ::google::iam::admin::v1::Role* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void QueryTestablePermissions(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* request, ::google::iam::admin::v1::QueryTestablePermissionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void QueryTestablePermissions(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* request, ::google::iam::admin::v1::QueryTestablePermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void QueryTestablePermissions(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* request, ::google::iam::admin::v1::QueryTestablePermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void QueryAuditableServices(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryAuditableServicesRequest* request, ::google::iam::admin::v1::QueryAuditableServicesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void QueryAuditableServices(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryAuditableServicesRequest* request, ::google::iam::admin::v1::QueryAuditableServicesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void QueryAuditableServices(::grpc::ClientContext* context, const ::google::iam::admin::v1::QueryAuditableServicesRequest* request, ::google::iam::admin::v1::QueryAuditableServicesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void LintPolicy(::grpc::ClientContext* context, const ::google::iam::admin::v1::LintPolicyRequest* request, ::google::iam::admin::v1::LintPolicyResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void LintPolicy(::grpc::ClientContext* context, const ::google::iam::admin::v1::LintPolicyRequest* request, ::google::iam::admin::v1::LintPolicyResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void LintPolicy(::grpc::ClientContext* context, const ::google::iam::admin::v1::LintPolicyRequest* request, ::google::iam::admin::v1::LintPolicyResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::iam::admin::v1::ListServiceAccountsResponse>* AsyncListServiceAccountsRaw(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::iam::admin::v1::ListServiceAccountsResponse>* PrepareAsyncListServiceAccountsRaw(::grpc::ClientContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::iam::admin::v1::ServiceAccount>* AsyncGetServiceAccountRaw(::grpc::ClientContext* context, const ::google::iam::admin::v1::GetServiceAccountRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -2071,36 +1834,22 @@ class IAM final {
   };
   typedef WithAsyncMethod_ListServiceAccounts<WithAsyncMethod_GetServiceAccount<WithAsyncMethod_CreateServiceAccount<WithAsyncMethod_UpdateServiceAccount<WithAsyncMethod_PatchServiceAccount<WithAsyncMethod_DeleteServiceAccount<WithAsyncMethod_UndeleteServiceAccount<WithAsyncMethod_EnableServiceAccount<WithAsyncMethod_DisableServiceAccount<WithAsyncMethod_ListServiceAccountKeys<WithAsyncMethod_GetServiceAccountKey<WithAsyncMethod_CreateServiceAccountKey<WithAsyncMethod_UploadServiceAccountKey<WithAsyncMethod_DeleteServiceAccountKey<WithAsyncMethod_SignBlob<WithAsyncMethod_SignJwt<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_QueryGrantableRoles<WithAsyncMethod_ListRoles<WithAsyncMethod_GetRole<WithAsyncMethod_CreateRole<WithAsyncMethod_UpdateRole<WithAsyncMethod_DeleteRole<WithAsyncMethod_UndeleteRole<WithAsyncMethod_QueryTestablePermissions<WithAsyncMethod_QueryAuditableServices<WithAsyncMethod_LintPolicy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListServiceAccounts : public BaseClass {
+  class WithCallbackMethod_ListServiceAccounts : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListServiceAccounts() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_ListServiceAccounts() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::ListServiceAccountsRequest, ::google::iam::admin::v1::ListServiceAccountsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::ListServiceAccountsRequest* request, ::google::iam::admin::v1::ListServiceAccountsResponse* response) { return this->ListServiceAccounts(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::ListServiceAccountsRequest* request, ::google::iam::admin::v1::ListServiceAccountsResponse* response) { return this->ListServiceAccounts(context, request, response); }));}
     void SetMessageAllocatorFor_ListServiceAccounts(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::ListServiceAccountsRequest, ::google::iam::admin::v1::ListServiceAccountsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::ListServiceAccountsRequest, ::google::iam::admin::v1::ListServiceAccountsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::ListServiceAccountsRequest, ::google::iam::admin::v1::ListServiceAccountsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListServiceAccounts() override {
+    ~WithCallbackMethod_ListServiceAccounts() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2108,46 +1857,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListServiceAccounts(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ListServiceAccountsRequest* /*request*/, ::google::iam::admin::v1::ListServiceAccountsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListServiceAccounts(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ListServiceAccountsRequest* /*request*/, ::google::iam::admin::v1::ListServiceAccountsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ListServiceAccountsRequest* /*request*/, ::google::iam::admin::v1::ListServiceAccountsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetServiceAccount : public BaseClass {
+  class WithCallbackMethod_GetServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetServiceAccount() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::GetServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::GetServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response) { return this->GetServiceAccount(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::GetServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response) { return this->GetServiceAccount(context, request, response); }));}
     void SetMessageAllocatorFor_GetServiceAccount(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::GetServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::GetServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::GetServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetServiceAccount() override {
+    ~WithCallbackMethod_GetServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2155,46 +1884,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::GetServiceAccountRequest* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::GetServiceAccountRequest* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::GetServiceAccountRequest* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateServiceAccount : public BaseClass {
+  class WithCallbackMethod_CreateServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_CreateServiceAccount() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::CreateServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::CreateServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response) { return this->CreateServiceAccount(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::CreateServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response) { return this->CreateServiceAccount(context, request, response); }));}
     void SetMessageAllocatorFor_CreateServiceAccount(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::CreateServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::CreateServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::CreateServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateServiceAccount() override {
+    ~WithCallbackMethod_CreateServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2202,46 +1911,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::CreateServiceAccountRequest* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::CreateServiceAccountRequest* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::CreateServiceAccountRequest* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateServiceAccount : public BaseClass {
+  class WithCallbackMethod_UpdateServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateServiceAccount() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::ServiceAccount, ::google::iam::admin::v1::ServiceAccount>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::ServiceAccount* request, ::google::iam::admin::v1::ServiceAccount* response) { return this->UpdateServiceAccount(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::ServiceAccount* request, ::google::iam::admin::v1::ServiceAccount* response) { return this->UpdateServiceAccount(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateServiceAccount(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::ServiceAccount, ::google::iam::admin::v1::ServiceAccount>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::ServiceAccount, ::google::iam::admin::v1::ServiceAccount>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::ServiceAccount, ::google::iam::admin::v1::ServiceAccount>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateServiceAccount() override {
+    ~WithCallbackMethod_UpdateServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2249,46 +1938,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ServiceAccount* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ServiceAccount* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ServiceAccount* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_PatchServiceAccount : public BaseClass {
+  class WithCallbackMethod_PatchServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_PatchServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_PatchServiceAccount() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::PatchServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::PatchServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response) { return this->PatchServiceAccount(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::PatchServiceAccountRequest* request, ::google::iam::admin::v1::ServiceAccount* response) { return this->PatchServiceAccount(context, request, response); }));}
     void SetMessageAllocatorFor_PatchServiceAccount(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::PatchServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::PatchServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::PatchServiceAccountRequest, ::google::iam::admin::v1::ServiceAccount>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_PatchServiceAccount() override {
+    ~WithCallbackMethod_PatchServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2296,46 +1965,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PatchServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::PatchServiceAccountRequest* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PatchServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::PatchServiceAccountRequest* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::PatchServiceAccountRequest* /*request*/, ::google::iam::admin::v1::ServiceAccount* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteServiceAccount : public BaseClass {
+  class WithCallbackMethod_DeleteServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_DeleteServiceAccount() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::DeleteServiceAccountRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::DeleteServiceAccountRequest* request, ::google::protobuf::Empty* response) { return this->DeleteServiceAccount(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::DeleteServiceAccountRequest* request, ::google::protobuf::Empty* response) { return this->DeleteServiceAccount(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteServiceAccount(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::DeleteServiceAccountRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::DeleteServiceAccountRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::DeleteServiceAccountRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteServiceAccount() override {
+    ~WithCallbackMethod_DeleteServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2343,46 +1992,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DeleteServiceAccountRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DeleteServiceAccountRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DeleteServiceAccountRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UndeleteServiceAccount : public BaseClass {
+  class WithCallbackMethod_UndeleteServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UndeleteServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_UndeleteServiceAccount() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::UndeleteServiceAccountRequest, ::google::iam::admin::v1::UndeleteServiceAccountResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* request, ::google::iam::admin::v1::UndeleteServiceAccountResponse* response) { return this->UndeleteServiceAccount(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* request, ::google::iam::admin::v1::UndeleteServiceAccountResponse* response) { return this->UndeleteServiceAccount(context, request, response); }));}
     void SetMessageAllocatorFor_UndeleteServiceAccount(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::UndeleteServiceAccountRequest, ::google::iam::admin::v1::UndeleteServiceAccountResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::UndeleteServiceAccountRequest, ::google::iam::admin::v1::UndeleteServiceAccountResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::UndeleteServiceAccountRequest, ::google::iam::admin::v1::UndeleteServiceAccountResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UndeleteServiceAccount() override {
+    ~WithCallbackMethod_UndeleteServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2390,46 +2019,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UndeleteServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* /*request*/, ::google::iam::admin::v1::UndeleteServiceAccountResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UndeleteServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* /*request*/, ::google::iam::admin::v1::UndeleteServiceAccountResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UndeleteServiceAccountRequest* /*request*/, ::google::iam::admin::v1::UndeleteServiceAccountResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_EnableServiceAccount : public BaseClass {
+  class WithCallbackMethod_EnableServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_EnableServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_EnableServiceAccount() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::EnableServiceAccountRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::EnableServiceAccountRequest* request, ::google::protobuf::Empty* response) { return this->EnableServiceAccount(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::EnableServiceAccountRequest* request, ::google::protobuf::Empty* response) { return this->EnableServiceAccount(context, request, response); }));}
     void SetMessageAllocatorFor_EnableServiceAccount(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::EnableServiceAccountRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::EnableServiceAccountRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::EnableServiceAccountRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_EnableServiceAccount() override {
+    ~WithCallbackMethod_EnableServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2437,46 +2046,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* EnableServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::EnableServiceAccountRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* EnableServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::EnableServiceAccountRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::EnableServiceAccountRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DisableServiceAccount : public BaseClass {
+  class WithCallbackMethod_DisableServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DisableServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_DisableServiceAccount() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::DisableServiceAccountRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::DisableServiceAccountRequest* request, ::google::protobuf::Empty* response) { return this->DisableServiceAccount(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::DisableServiceAccountRequest* request, ::google::protobuf::Empty* response) { return this->DisableServiceAccount(context, request, response); }));}
     void SetMessageAllocatorFor_DisableServiceAccount(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::DisableServiceAccountRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::DisableServiceAccountRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::DisableServiceAccountRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DisableServiceAccount() override {
+    ~WithCallbackMethod_DisableServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2484,46 +2073,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DisableServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DisableServiceAccountRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DisableServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DisableServiceAccountRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DisableServiceAccountRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListServiceAccountKeys : public BaseClass {
+  class WithCallbackMethod_ListServiceAccountKeys : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListServiceAccountKeys() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(9,
+    WithCallbackMethod_ListServiceAccountKeys() {
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::ListServiceAccountKeysRequest, ::google::iam::admin::v1::ListServiceAccountKeysResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* request, ::google::iam::admin::v1::ListServiceAccountKeysResponse* response) { return this->ListServiceAccountKeys(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* request, ::google::iam::admin::v1::ListServiceAccountKeysResponse* response) { return this->ListServiceAccountKeys(context, request, response); }));}
     void SetMessageAllocatorFor_ListServiceAccountKeys(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::ListServiceAccountKeysRequest, ::google::iam::admin::v1::ListServiceAccountKeysResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::ListServiceAccountKeysRequest, ::google::iam::admin::v1::ListServiceAccountKeysResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(9);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::ListServiceAccountKeysRequest, ::google::iam::admin::v1::ListServiceAccountKeysResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListServiceAccountKeys() override {
+    ~WithCallbackMethod_ListServiceAccountKeys() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2531,46 +2100,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListServiceAccountKeys(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* /*request*/, ::google::iam::admin::v1::ListServiceAccountKeysResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListServiceAccountKeys(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* /*request*/, ::google::iam::admin::v1::ListServiceAccountKeysResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ListServiceAccountKeysRequest* /*request*/, ::google::iam::admin::v1::ListServiceAccountKeysResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetServiceAccountKey : public BaseClass {
+  class WithCallbackMethod_GetServiceAccountKey : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetServiceAccountKey() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(10,
+    WithCallbackMethod_GetServiceAccountKey() {
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::GetServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response) { return this->GetServiceAccountKey(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response) { return this->GetServiceAccountKey(context, request, response); }));}
     void SetMessageAllocatorFor_GetServiceAccountKey(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::GetServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::GetServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(10);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::GetServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetServiceAccountKey() override {
+    ~WithCallbackMethod_GetServiceAccountKey() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2578,46 +2127,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetServiceAccountKey(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* /*request*/, ::google::iam::admin::v1::ServiceAccountKey* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetServiceAccountKey(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* /*request*/, ::google::iam::admin::v1::ServiceAccountKey* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::GetServiceAccountKeyRequest* /*request*/, ::google::iam::admin::v1::ServiceAccountKey* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateServiceAccountKey : public BaseClass {
+  class WithCallbackMethod_CreateServiceAccountKey : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateServiceAccountKey() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(11,
+    WithCallbackMethod_CreateServiceAccountKey() {
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::CreateServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response) { return this->CreateServiceAccountKey(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response) { return this->CreateServiceAccountKey(context, request, response); }));}
     void SetMessageAllocatorFor_CreateServiceAccountKey(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::CreateServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::CreateServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(11);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::CreateServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateServiceAccountKey() override {
+    ~WithCallbackMethod_CreateServiceAccountKey() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2625,46 +2154,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateServiceAccountKey(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* /*request*/, ::google::iam::admin::v1::ServiceAccountKey* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateServiceAccountKey(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* /*request*/, ::google::iam::admin::v1::ServiceAccountKey* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::CreateServiceAccountKeyRequest* /*request*/, ::google::iam::admin::v1::ServiceAccountKey* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UploadServiceAccountKey : public BaseClass {
+  class WithCallbackMethod_UploadServiceAccountKey : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UploadServiceAccountKey() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(12,
+    WithCallbackMethod_UploadServiceAccountKey() {
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::UploadServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response) { return this->UploadServiceAccountKey(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* request, ::google::iam::admin::v1::ServiceAccountKey* response) { return this->UploadServiceAccountKey(context, request, response); }));}
     void SetMessageAllocatorFor_UploadServiceAccountKey(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::UploadServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::UploadServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(12);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::UploadServiceAccountKeyRequest, ::google::iam::admin::v1::ServiceAccountKey>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UploadServiceAccountKey() override {
+    ~WithCallbackMethod_UploadServiceAccountKey() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2672,46 +2181,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UploadServiceAccountKey(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* /*request*/, ::google::iam::admin::v1::ServiceAccountKey* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UploadServiceAccountKey(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* /*request*/, ::google::iam::admin::v1::ServiceAccountKey* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UploadServiceAccountKeyRequest* /*request*/, ::google::iam::admin::v1::ServiceAccountKey* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteServiceAccountKey : public BaseClass {
+  class WithCallbackMethod_DeleteServiceAccountKey : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteServiceAccountKey() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(13,
+    WithCallbackMethod_DeleteServiceAccountKey() {
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::DeleteServiceAccountKeyRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* request, ::google::protobuf::Empty* response) { return this->DeleteServiceAccountKey(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* request, ::google::protobuf::Empty* response) { return this->DeleteServiceAccountKey(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteServiceAccountKey(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::DeleteServiceAccountKeyRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::DeleteServiceAccountKeyRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(13);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::DeleteServiceAccountKeyRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteServiceAccountKey() override {
+    ~WithCallbackMethod_DeleteServiceAccountKey() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2719,46 +2208,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteServiceAccountKey(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteServiceAccountKey(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DeleteServiceAccountKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SignBlob : public BaseClass {
+  class WithCallbackMethod_SignBlob : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SignBlob() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(14,
+    WithCallbackMethod_SignBlob() {
+      ::grpc::Service::MarkMethodCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::SignBlobRequest, ::google::iam::admin::v1::SignBlobResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::SignBlobRequest* request, ::google::iam::admin::v1::SignBlobResponse* response) { return this->SignBlob(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::SignBlobRequest* request, ::google::iam::admin::v1::SignBlobResponse* response) { return this->SignBlob(context, request, response); }));}
     void SetMessageAllocatorFor_SignBlob(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::SignBlobRequest, ::google::iam::admin::v1::SignBlobResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::SignBlobRequest, ::google::iam::admin::v1::SignBlobResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(14);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::SignBlobRequest, ::google::iam::admin::v1::SignBlobResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SignBlob() override {
+    ~WithCallbackMethod_SignBlob() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2766,46 +2235,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SignBlob(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::SignBlobRequest* /*request*/, ::google::iam::admin::v1::SignBlobResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SignBlob(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::SignBlobRequest* /*request*/, ::google::iam::admin::v1::SignBlobResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::SignBlobRequest* /*request*/, ::google::iam::admin::v1::SignBlobResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SignJwt : public BaseClass {
+  class WithCallbackMethod_SignJwt : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SignJwt() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(15,
+    WithCallbackMethod_SignJwt() {
+      ::grpc::Service::MarkMethodCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::SignJwtRequest, ::google::iam::admin::v1::SignJwtResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::SignJwtRequest* request, ::google::iam::admin::v1::SignJwtResponse* response) { return this->SignJwt(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::SignJwtRequest* request, ::google::iam::admin::v1::SignJwtResponse* response) { return this->SignJwt(context, request, response); }));}
     void SetMessageAllocatorFor_SignJwt(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::SignJwtRequest, ::google::iam::admin::v1::SignJwtResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::SignJwtRequest, ::google::iam::admin::v1::SignJwtResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(15);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::SignJwtRequest, ::google::iam::admin::v1::SignJwtResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SignJwt() override {
+    ~WithCallbackMethod_SignJwt() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2813,46 +2262,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SignJwt(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::SignJwtRequest* /*request*/, ::google::iam::admin::v1::SignJwtResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SignJwt(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::SignJwtRequest* /*request*/, ::google::iam::admin::v1::SignJwtResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::SignJwtRequest* /*request*/, ::google::iam::admin::v1::SignJwtResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetIamPolicy : public BaseClass {
+  class WithCallbackMethod_GetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(16,
+    WithCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_GetIamPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(16);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetIamPolicy() override {
+    ~WithCallbackMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2860,46 +2289,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SetIamPolicy : public BaseClass {
+  class WithCallbackMethod_SetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(17,
+    WithCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_SetIamPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(17);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SetIamPolicy() override {
+    ~WithCallbackMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2907,46 +2316,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_TestIamPermissions : public BaseClass {
+  class WithCallbackMethod_TestIamPermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_TestIamPermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(18,
+    WithCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
     void SetMessageAllocatorFor_TestIamPermissions(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(18);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_TestIamPermissions() override {
+    ~WithCallbackMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -2954,46 +2343,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_QueryGrantableRoles : public BaseClass {
+  class WithCallbackMethod_QueryGrantableRoles : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_QueryGrantableRoles() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(19,
+    WithCallbackMethod_QueryGrantableRoles() {
+      ::grpc::Service::MarkMethodCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::QueryGrantableRolesRequest, ::google::iam::admin::v1::QueryGrantableRolesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::QueryGrantableRolesRequest* request, ::google::iam::admin::v1::QueryGrantableRolesResponse* response) { return this->QueryGrantableRoles(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::QueryGrantableRolesRequest* request, ::google::iam::admin::v1::QueryGrantableRolesResponse* response) { return this->QueryGrantableRoles(context, request, response); }));}
     void SetMessageAllocatorFor_QueryGrantableRoles(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::QueryGrantableRolesRequest, ::google::iam::admin::v1::QueryGrantableRolesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::QueryGrantableRolesRequest, ::google::iam::admin::v1::QueryGrantableRolesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(19);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::QueryGrantableRolesRequest, ::google::iam::admin::v1::QueryGrantableRolesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_QueryGrantableRoles() override {
+    ~WithCallbackMethod_QueryGrantableRoles() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3001,46 +2370,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* QueryGrantableRoles(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::QueryGrantableRolesRequest* /*request*/, ::google::iam::admin::v1::QueryGrantableRolesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* QueryGrantableRoles(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::QueryGrantableRolesRequest* /*request*/, ::google::iam::admin::v1::QueryGrantableRolesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::QueryGrantableRolesRequest* /*request*/, ::google::iam::admin::v1::QueryGrantableRolesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListRoles : public BaseClass {
+  class WithCallbackMethod_ListRoles : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListRoles() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(20,
+    WithCallbackMethod_ListRoles() {
+      ::grpc::Service::MarkMethodCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::ListRolesRequest, ::google::iam::admin::v1::ListRolesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::ListRolesRequest* request, ::google::iam::admin::v1::ListRolesResponse* response) { return this->ListRoles(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::ListRolesRequest* request, ::google::iam::admin::v1::ListRolesResponse* response) { return this->ListRoles(context, request, response); }));}
     void SetMessageAllocatorFor_ListRoles(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::ListRolesRequest, ::google::iam::admin::v1::ListRolesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::ListRolesRequest, ::google::iam::admin::v1::ListRolesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(20);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::ListRolesRequest, ::google::iam::admin::v1::ListRolesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListRoles() override {
+    ~WithCallbackMethod_ListRoles() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3048,46 +2397,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListRoles(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ListRolesRequest* /*request*/, ::google::iam::admin::v1::ListRolesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListRoles(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ListRolesRequest* /*request*/, ::google::iam::admin::v1::ListRolesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::ListRolesRequest* /*request*/, ::google::iam::admin::v1::ListRolesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetRole : public BaseClass {
+  class WithCallbackMethod_GetRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(21,
+    WithCallbackMethod_GetRole() {
+      ::grpc::Service::MarkMethodCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::GetRoleRequest, ::google::iam::admin::v1::Role>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::GetRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->GetRole(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::GetRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->GetRole(context, request, response); }));}
     void SetMessageAllocatorFor_GetRole(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::GetRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::GetRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(21);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::GetRoleRequest, ::google::iam::admin::v1::Role>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetRole() override {
+    ~WithCallbackMethod_GetRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3095,46 +2424,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::GetRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::GetRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::GetRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateRole : public BaseClass {
+  class WithCallbackMethod_CreateRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(22,
+    WithCallbackMethod_CreateRole() {
+      ::grpc::Service::MarkMethodCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::CreateRoleRequest, ::google::iam::admin::v1::Role>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::CreateRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->CreateRole(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::CreateRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->CreateRole(context, request, response); }));}
     void SetMessageAllocatorFor_CreateRole(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::CreateRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::CreateRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(22);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(22);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::CreateRoleRequest, ::google::iam::admin::v1::Role>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateRole() override {
+    ~WithCallbackMethod_CreateRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3142,46 +2451,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::CreateRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::CreateRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::CreateRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateRole : public BaseClass {
+  class WithCallbackMethod_UpdateRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(23,
+    WithCallbackMethod_UpdateRole() {
+      ::grpc::Service::MarkMethodCallback(23,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::UpdateRoleRequest, ::google::iam::admin::v1::Role>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::UpdateRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->UpdateRole(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::UpdateRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->UpdateRole(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateRole(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::UpdateRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::UpdateRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(23);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(23);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::UpdateRoleRequest, ::google::iam::admin::v1::Role>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateRole() override {
+    ~WithCallbackMethod_UpdateRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3189,46 +2478,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UpdateRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UpdateRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UpdateRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteRole : public BaseClass {
+  class WithCallbackMethod_DeleteRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(24,
+    WithCallbackMethod_DeleteRole() {
+      ::grpc::Service::MarkMethodCallback(24,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::DeleteRoleRequest, ::google::iam::admin::v1::Role>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::DeleteRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->DeleteRole(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::DeleteRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->DeleteRole(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteRole(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::DeleteRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::DeleteRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(24);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(24);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::DeleteRoleRequest, ::google::iam::admin::v1::Role>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteRole() override {
+    ~WithCallbackMethod_DeleteRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3236,46 +2505,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DeleteRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DeleteRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::DeleteRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UndeleteRole : public BaseClass {
+  class WithCallbackMethod_UndeleteRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UndeleteRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(25,
+    WithCallbackMethod_UndeleteRole() {
+      ::grpc::Service::MarkMethodCallback(25,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::UndeleteRoleRequest, ::google::iam::admin::v1::Role>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::UndeleteRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->UndeleteRole(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::UndeleteRoleRequest* request, ::google::iam::admin::v1::Role* response) { return this->UndeleteRole(context, request, response); }));}
     void SetMessageAllocatorFor_UndeleteRole(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::UndeleteRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::UndeleteRoleRequest, ::google::iam::admin::v1::Role>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(25);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(25);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::UndeleteRoleRequest, ::google::iam::admin::v1::Role>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UndeleteRole() override {
+    ~WithCallbackMethod_UndeleteRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3283,46 +2532,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UndeleteRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UndeleteRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UndeleteRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UndeleteRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::UndeleteRoleRequest* /*request*/, ::google::iam::admin::v1::Role* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_QueryTestablePermissions : public BaseClass {
+  class WithCallbackMethod_QueryTestablePermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_QueryTestablePermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(26,
+    WithCallbackMethod_QueryTestablePermissions() {
+      ::grpc::Service::MarkMethodCallback(26,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::QueryTestablePermissionsRequest, ::google::iam::admin::v1::QueryTestablePermissionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* request, ::google::iam::admin::v1::QueryTestablePermissionsResponse* response) { return this->QueryTestablePermissions(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* request, ::google::iam::admin::v1::QueryTestablePermissionsResponse* response) { return this->QueryTestablePermissions(context, request, response); }));}
     void SetMessageAllocatorFor_QueryTestablePermissions(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::QueryTestablePermissionsRequest, ::google::iam::admin::v1::QueryTestablePermissionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::QueryTestablePermissionsRequest, ::google::iam::admin::v1::QueryTestablePermissionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(26);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(26);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::QueryTestablePermissionsRequest, ::google::iam::admin::v1::QueryTestablePermissionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_QueryTestablePermissions() override {
+    ~WithCallbackMethod_QueryTestablePermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3330,46 +2559,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* QueryTestablePermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* /*request*/, ::google::iam::admin::v1::QueryTestablePermissionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* QueryTestablePermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* /*request*/, ::google::iam::admin::v1::QueryTestablePermissionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::QueryTestablePermissionsRequest* /*request*/, ::google::iam::admin::v1::QueryTestablePermissionsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_QueryAuditableServices : public BaseClass {
+  class WithCallbackMethod_QueryAuditableServices : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_QueryAuditableServices() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(27,
+    WithCallbackMethod_QueryAuditableServices() {
+      ::grpc::Service::MarkMethodCallback(27,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::QueryAuditableServicesRequest, ::google::iam::admin::v1::QueryAuditableServicesResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::QueryAuditableServicesRequest* request, ::google::iam::admin::v1::QueryAuditableServicesResponse* response) { return this->QueryAuditableServices(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::QueryAuditableServicesRequest* request, ::google::iam::admin::v1::QueryAuditableServicesResponse* response) { return this->QueryAuditableServices(context, request, response); }));}
     void SetMessageAllocatorFor_QueryAuditableServices(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::QueryAuditableServicesRequest, ::google::iam::admin::v1::QueryAuditableServicesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::QueryAuditableServicesRequest, ::google::iam::admin::v1::QueryAuditableServicesResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(27);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(27);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::QueryAuditableServicesRequest, ::google::iam::admin::v1::QueryAuditableServicesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_QueryAuditableServices() override {
+    ~WithCallbackMethod_QueryAuditableServices() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3377,46 +2586,26 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* QueryAuditableServices(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::QueryAuditableServicesRequest* /*request*/, ::google::iam::admin::v1::QueryAuditableServicesResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* QueryAuditableServices(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::QueryAuditableServicesRequest* /*request*/, ::google::iam::admin::v1::QueryAuditableServicesResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::QueryAuditableServicesRequest* /*request*/, ::google::iam::admin::v1::QueryAuditableServicesResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_LintPolicy : public BaseClass {
+  class WithCallbackMethod_LintPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_LintPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(28,
+    WithCallbackMethod_LintPolicy() {
+      ::grpc::Service::MarkMethodCallback(28,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::LintPolicyRequest, ::google::iam::admin::v1::LintPolicyResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::admin::v1::LintPolicyRequest* request, ::google::iam::admin::v1::LintPolicyResponse* response) { return this->LintPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::admin::v1::LintPolicyRequest* request, ::google::iam::admin::v1::LintPolicyResponse* response) { return this->LintPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_LintPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::iam::admin::v1::LintPolicyRequest, ::google::iam::admin::v1::LintPolicyResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::admin::v1::LintPolicyRequest, ::google::iam::admin::v1::LintPolicyResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(28);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(28);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::admin::v1::LintPolicyRequest, ::google::iam::admin::v1::LintPolicyResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_LintPolicy() override {
+    ~WithCallbackMethod_LintPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -3424,20 +2613,11 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* LintPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::LintPolicyRequest* /*request*/, ::google::iam::admin::v1::LintPolicyResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* LintPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::LintPolicyRequest* /*request*/, ::google::iam::admin::v1::LintPolicyResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::admin::v1::LintPolicyRequest* /*request*/, ::google::iam::admin::v1::LintPolicyResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ListServiceAccounts<ExperimentalWithCallbackMethod_GetServiceAccount<ExperimentalWithCallbackMethod_CreateServiceAccount<ExperimentalWithCallbackMethod_UpdateServiceAccount<ExperimentalWithCallbackMethod_PatchServiceAccount<ExperimentalWithCallbackMethod_DeleteServiceAccount<ExperimentalWithCallbackMethod_UndeleteServiceAccount<ExperimentalWithCallbackMethod_EnableServiceAccount<ExperimentalWithCallbackMethod_DisableServiceAccount<ExperimentalWithCallbackMethod_ListServiceAccountKeys<ExperimentalWithCallbackMethod_GetServiceAccountKey<ExperimentalWithCallbackMethod_CreateServiceAccountKey<ExperimentalWithCallbackMethod_UploadServiceAccountKey<ExperimentalWithCallbackMethod_DeleteServiceAccountKey<ExperimentalWithCallbackMethod_SignBlob<ExperimentalWithCallbackMethod_SignJwt<ExperimentalWithCallbackMethod_GetIamPolicy<ExperimentalWithCallbackMethod_SetIamPolicy<ExperimentalWithCallbackMethod_TestIamPermissions<ExperimentalWithCallbackMethod_QueryGrantableRoles<ExperimentalWithCallbackMethod_ListRoles<ExperimentalWithCallbackMethod_GetRole<ExperimentalWithCallbackMethod_CreateRole<ExperimentalWithCallbackMethod_UpdateRole<ExperimentalWithCallbackMethod_DeleteRole<ExperimentalWithCallbackMethod_UndeleteRole<ExperimentalWithCallbackMethod_QueryTestablePermissions<ExperimentalWithCallbackMethod_QueryAuditableServices<ExperimentalWithCallbackMethod_LintPolicy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ListServiceAccounts<ExperimentalWithCallbackMethod_GetServiceAccount<ExperimentalWithCallbackMethod_CreateServiceAccount<ExperimentalWithCallbackMethod_UpdateServiceAccount<ExperimentalWithCallbackMethod_PatchServiceAccount<ExperimentalWithCallbackMethod_DeleteServiceAccount<ExperimentalWithCallbackMethod_UndeleteServiceAccount<ExperimentalWithCallbackMethod_EnableServiceAccount<ExperimentalWithCallbackMethod_DisableServiceAccount<ExperimentalWithCallbackMethod_ListServiceAccountKeys<ExperimentalWithCallbackMethod_GetServiceAccountKey<ExperimentalWithCallbackMethod_CreateServiceAccountKey<ExperimentalWithCallbackMethod_UploadServiceAccountKey<ExperimentalWithCallbackMethod_DeleteServiceAccountKey<ExperimentalWithCallbackMethod_SignBlob<ExperimentalWithCallbackMethod_SignJwt<ExperimentalWithCallbackMethod_GetIamPolicy<ExperimentalWithCallbackMethod_SetIamPolicy<ExperimentalWithCallbackMethod_TestIamPermissions<ExperimentalWithCallbackMethod_QueryGrantableRoles<ExperimentalWithCallbackMethod_ListRoles<ExperimentalWithCallbackMethod_GetRole<ExperimentalWithCallbackMethod_CreateRole<ExperimentalWithCallbackMethod_UpdateRole<ExperimentalWithCallbackMethod_DeleteRole<ExperimentalWithCallbackMethod_UndeleteRole<ExperimentalWithCallbackMethod_QueryTestablePermissions<ExperimentalWithCallbackMethod_QueryAuditableServices<ExperimentalWithCallbackMethod_LintPolicy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_ListServiceAccounts<WithCallbackMethod_GetServiceAccount<WithCallbackMethod_CreateServiceAccount<WithCallbackMethod_UpdateServiceAccount<WithCallbackMethod_PatchServiceAccount<WithCallbackMethod_DeleteServiceAccount<WithCallbackMethod_UndeleteServiceAccount<WithCallbackMethod_EnableServiceAccount<WithCallbackMethod_DisableServiceAccount<WithCallbackMethod_ListServiceAccountKeys<WithCallbackMethod_GetServiceAccountKey<WithCallbackMethod_CreateServiceAccountKey<WithCallbackMethod_UploadServiceAccountKey<WithCallbackMethod_DeleteServiceAccountKey<WithCallbackMethod_SignBlob<WithCallbackMethod_SignJwt<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_QueryGrantableRoles<WithCallbackMethod_ListRoles<WithCallbackMethod_GetRole<WithCallbackMethod_CreateRole<WithCallbackMethod_UpdateRole<WithCallbackMethod_DeleteRole<WithCallbackMethod_UndeleteRole<WithCallbackMethod_QueryTestablePermissions<WithCallbackMethod_QueryAuditableServices<WithCallbackMethod_LintPolicy<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListServiceAccounts : public BaseClass {
    private:
@@ -4512,27 +3692,17 @@ class IAM final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListServiceAccounts : public BaseClass {
+  class WithRawCallbackMethod_ListServiceAccounts : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListServiceAccounts() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_ListServiceAccounts() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListServiceAccounts(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListServiceAccounts(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListServiceAccounts() override {
+    ~WithRawCallbackMethod_ListServiceAccounts() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4540,37 +3710,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListServiceAccounts(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListServiceAccounts(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetServiceAccount : public BaseClass {
+  class WithRawCallbackMethod_GetServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetServiceAccount() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServiceAccount(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServiceAccount(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetServiceAccount() override {
+    ~WithRawCallbackMethod_GetServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4578,37 +3732,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateServiceAccount : public BaseClass {
+  class WithRawCallbackMethod_CreateServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_CreateServiceAccount() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateServiceAccount(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateServiceAccount(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateServiceAccount() override {
+    ~WithRawCallbackMethod_CreateServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4616,37 +3754,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateServiceAccount : public BaseClass {
+  class WithRawCallbackMethod_UpdateServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateServiceAccount() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateServiceAccount(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateServiceAccount(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateServiceAccount() override {
+    ~WithRawCallbackMethod_UpdateServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4654,37 +3776,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_PatchServiceAccount : public BaseClass {
+  class WithRawCallbackMethod_PatchServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_PatchServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_PatchServiceAccount() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PatchServiceAccount(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PatchServiceAccount(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_PatchServiceAccount() override {
+    ~WithRawCallbackMethod_PatchServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4692,37 +3798,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* PatchServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* PatchServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteServiceAccount : public BaseClass {
+  class WithRawCallbackMethod_DeleteServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_DeleteServiceAccount() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteServiceAccount(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteServiceAccount(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteServiceAccount() override {
+    ~WithRawCallbackMethod_DeleteServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4730,37 +3820,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UndeleteServiceAccount : public BaseClass {
+  class WithRawCallbackMethod_UndeleteServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UndeleteServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_UndeleteServiceAccount() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UndeleteServiceAccount(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UndeleteServiceAccount(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UndeleteServiceAccount() override {
+    ~WithRawCallbackMethod_UndeleteServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4768,37 +3842,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UndeleteServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UndeleteServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_EnableServiceAccount : public BaseClass {
+  class WithRawCallbackMethod_EnableServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_EnableServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_EnableServiceAccount() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->EnableServiceAccount(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->EnableServiceAccount(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_EnableServiceAccount() override {
+    ~WithRawCallbackMethod_EnableServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4806,37 +3864,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* EnableServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* EnableServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DisableServiceAccount : public BaseClass {
+  class WithRawCallbackMethod_DisableServiceAccount : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DisableServiceAccount() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_DisableServiceAccount() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DisableServiceAccount(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DisableServiceAccount(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DisableServiceAccount() override {
+    ~WithRawCallbackMethod_DisableServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4844,37 +3886,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DisableServiceAccount(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DisableServiceAccount(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListServiceAccountKeys : public BaseClass {
+  class WithRawCallbackMethod_ListServiceAccountKeys : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListServiceAccountKeys() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(9,
+    WithRawCallbackMethod_ListServiceAccountKeys() {
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListServiceAccountKeys(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListServiceAccountKeys(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListServiceAccountKeys() override {
+    ~WithRawCallbackMethod_ListServiceAccountKeys() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4882,37 +3908,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListServiceAccountKeys(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListServiceAccountKeys(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetServiceAccountKey : public BaseClass {
+  class WithRawCallbackMethod_GetServiceAccountKey : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetServiceAccountKey() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(10,
+    WithRawCallbackMethod_GetServiceAccountKey() {
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServiceAccountKey(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServiceAccountKey(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetServiceAccountKey() override {
+    ~WithRawCallbackMethod_GetServiceAccountKey() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4920,37 +3930,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetServiceAccountKey(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetServiceAccountKey(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateServiceAccountKey : public BaseClass {
+  class WithRawCallbackMethod_CreateServiceAccountKey : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateServiceAccountKey() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(11,
+    WithRawCallbackMethod_CreateServiceAccountKey() {
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateServiceAccountKey(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateServiceAccountKey(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateServiceAccountKey() override {
+    ~WithRawCallbackMethod_CreateServiceAccountKey() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4958,37 +3952,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateServiceAccountKey(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateServiceAccountKey(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UploadServiceAccountKey : public BaseClass {
+  class WithRawCallbackMethod_UploadServiceAccountKey : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UploadServiceAccountKey() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(12,
+    WithRawCallbackMethod_UploadServiceAccountKey() {
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UploadServiceAccountKey(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UploadServiceAccountKey(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UploadServiceAccountKey() override {
+    ~WithRawCallbackMethod_UploadServiceAccountKey() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -4996,37 +3974,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UploadServiceAccountKey(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UploadServiceAccountKey(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteServiceAccountKey : public BaseClass {
+  class WithRawCallbackMethod_DeleteServiceAccountKey : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteServiceAccountKey() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(13,
+    WithRawCallbackMethod_DeleteServiceAccountKey() {
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteServiceAccountKey(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteServiceAccountKey(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteServiceAccountKey() override {
+    ~WithRawCallbackMethod_DeleteServiceAccountKey() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5034,37 +3996,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteServiceAccountKey(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteServiceAccountKey(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SignBlob : public BaseClass {
+  class WithRawCallbackMethod_SignBlob : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SignBlob() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(14,
+    WithRawCallbackMethod_SignBlob() {
+      ::grpc::Service::MarkMethodRawCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SignBlob(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SignBlob(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SignBlob() override {
+    ~WithRawCallbackMethod_SignBlob() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5072,37 +4018,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SignBlob(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SignBlob(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SignJwt : public BaseClass {
+  class WithRawCallbackMethod_SignJwt : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SignJwt() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(15,
+    WithRawCallbackMethod_SignJwt() {
+      ::grpc::Service::MarkMethodRawCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SignJwt(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SignJwt(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SignJwt() override {
+    ~WithRawCallbackMethod_SignJwt() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5110,37 +4040,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SignJwt(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SignJwt(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetIamPolicy : public BaseClass {
+  class WithRawCallbackMethod_GetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(16,
+    WithRawCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetIamPolicy() override {
+    ~WithRawCallbackMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5148,37 +4062,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SetIamPolicy : public BaseClass {
+  class WithRawCallbackMethod_SetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(17,
+    WithRawCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SetIamPolicy() override {
+    ~WithRawCallbackMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5186,37 +4084,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_TestIamPermissions : public BaseClass {
+  class WithRawCallbackMethod_TestIamPermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_TestIamPermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(18,
+    WithRawCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodRawCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_TestIamPermissions() override {
+    ~WithRawCallbackMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5224,37 +4106,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_QueryGrantableRoles : public BaseClass {
+  class WithRawCallbackMethod_QueryGrantableRoles : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_QueryGrantableRoles() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(19,
+    WithRawCallbackMethod_QueryGrantableRoles() {
+      ::grpc::Service::MarkMethodRawCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryGrantableRoles(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryGrantableRoles(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_QueryGrantableRoles() override {
+    ~WithRawCallbackMethod_QueryGrantableRoles() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5262,37 +4128,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* QueryGrantableRoles(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* QueryGrantableRoles(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListRoles : public BaseClass {
+  class WithRawCallbackMethod_ListRoles : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListRoles() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(20,
+    WithRawCallbackMethod_ListRoles() {
+      ::grpc::Service::MarkMethodRawCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListRoles(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListRoles(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListRoles() override {
+    ~WithRawCallbackMethod_ListRoles() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5300,37 +4150,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListRoles(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListRoles(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetRole : public BaseClass {
+  class WithRawCallbackMethod_GetRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(21,
+    WithRawCallbackMethod_GetRole() {
+      ::grpc::Service::MarkMethodRawCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetRole(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetRole(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetRole() override {
+    ~WithRawCallbackMethod_GetRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5338,37 +4172,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateRole : public BaseClass {
+  class WithRawCallbackMethod_CreateRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(22,
+    WithRawCallbackMethod_CreateRole() {
+      ::grpc::Service::MarkMethodRawCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateRole(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateRole(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateRole() override {
+    ~WithRawCallbackMethod_CreateRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5376,37 +4194,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateRole : public BaseClass {
+  class WithRawCallbackMethod_UpdateRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(23,
+    WithRawCallbackMethod_UpdateRole() {
+      ::grpc::Service::MarkMethodRawCallback(23,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateRole(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateRole(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateRole() override {
+    ~WithRawCallbackMethod_UpdateRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5414,37 +4216,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteRole : public BaseClass {
+  class WithRawCallbackMethod_DeleteRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(24,
+    WithRawCallbackMethod_DeleteRole() {
+      ::grpc::Service::MarkMethodRawCallback(24,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteRole(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteRole(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteRole() override {
+    ~WithRawCallbackMethod_DeleteRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5452,37 +4238,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UndeleteRole : public BaseClass {
+  class WithRawCallbackMethod_UndeleteRole : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UndeleteRole() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(25,
+    WithRawCallbackMethod_UndeleteRole() {
+      ::grpc::Service::MarkMethodRawCallback(25,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UndeleteRole(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UndeleteRole(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UndeleteRole() override {
+    ~WithRawCallbackMethod_UndeleteRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5490,37 +4260,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UndeleteRole(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UndeleteRole(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_QueryTestablePermissions : public BaseClass {
+  class WithRawCallbackMethod_QueryTestablePermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_QueryTestablePermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(26,
+    WithRawCallbackMethod_QueryTestablePermissions() {
+      ::grpc::Service::MarkMethodRawCallback(26,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryTestablePermissions(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryTestablePermissions(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_QueryTestablePermissions() override {
+    ~WithRawCallbackMethod_QueryTestablePermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5528,37 +4282,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* QueryTestablePermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* QueryTestablePermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_QueryAuditableServices : public BaseClass {
+  class WithRawCallbackMethod_QueryAuditableServices : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_QueryAuditableServices() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(27,
+    WithRawCallbackMethod_QueryAuditableServices() {
+      ::grpc::Service::MarkMethodRawCallback(27,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryAuditableServices(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryAuditableServices(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_QueryAuditableServices() override {
+    ~WithRawCallbackMethod_QueryAuditableServices() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5566,37 +4304,21 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* QueryAuditableServices(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* QueryAuditableServices(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_LintPolicy : public BaseClass {
+  class WithRawCallbackMethod_LintPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_LintPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(28,
+    WithRawCallbackMethod_LintPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(28,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LintPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LintPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_LintPolicy() override {
+    ~WithRawCallbackMethod_LintPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -5604,14 +4326,8 @@ class IAM final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* LintPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* LintPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ListServiceAccounts : public BaseClass {

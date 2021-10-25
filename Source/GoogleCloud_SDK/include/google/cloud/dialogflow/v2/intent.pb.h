@@ -6970,7 +6970,7 @@ class Intent PROTOBUF_FINAL :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& default_response_platforms() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_default_response_platforms();
 
-  // repeated .google.cloud.dialogflow.v2.Intent.FollowupIntentInfo followup_intent_info = 18;
+  // repeated .google.cloud.dialogflow.v2.Intent.FollowupIntentInfo followup_intent_info = 18 [(.google.api.field_behavior) = OUTPUT_ONLY];
   int followup_intent_info_size() const;
   private:
   int _internal_followup_intent_info_size() const;
@@ -7036,7 +7036,7 @@ class Intent PROTOBUF_FINAL :
   std::string* _internal_mutable_action();
   public:
 
-  // string root_followup_intent_name = 16;
+  // string root_followup_intent_name = 16 [(.google.api.field_behavior) = OUTPUT_ONLY];
   void clear_root_followup_intent_name();
   const std::string& root_followup_intent_name() const;
   void set_root_followup_intent_name(const std::string& value);
@@ -15625,7 +15625,7 @@ Intent::mutable_default_response_platforms() {
   return _internal_mutable_default_response_platforms();
 }
 
-// string root_followup_intent_name = 16;
+// string root_followup_intent_name = 16 [(.google.api.field_behavior) = OUTPUT_ONLY];
 inline void Intent::clear_root_followup_intent_name() {
   root_followup_intent_name_.ClearToEmpty();
 }
@@ -15747,7 +15747,7 @@ inline void Intent::set_allocated_parent_followup_intent_name(std::string* paren
   // @@protoc_insertion_point(field_set_allocated:google.cloud.dialogflow.v2.Intent.parent_followup_intent_name)
 }
 
-// repeated .google.cloud.dialogflow.v2.Intent.FollowupIntentInfo followup_intent_info = 18;
+// repeated .google.cloud.dialogflow.v2.Intent.FollowupIntentInfo followup_intent_info = 18 [(.google.api.field_behavior) = OUTPUT_ONLY];
 inline int Intent::_internal_followup_intent_info_size() const {
   return followup_intent_info_.size();
 }

@@ -44,9 +44,9 @@ inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
  * To minimize I/O overhead we batch the Ack/Nack responses from the application
  * into larger `Write()` requests. Some test set these numbers to different
  * values, and in the future we may expose them to the application via
- * `pubsub::SubscriberOptions`. For now they are only available in
- * `pubsub_internal` because it is always easy to add new APIs later vs.
- * removing these any APIs or accessors.
+ * `Options` from the `pubsub::SubscriberOptionList`. For now they are only
+ * available in `pubsub_internal` because it is always easy to add new APIs
+ * later vs. removing these any APIs or accessors.
  */
 struct AckBatchingConfig {
   AckBatchingConfig() = default;
@@ -65,23 +65,22 @@ class StreamingSubscriptionBatchSource
       public std::enable_shared_from_this<StreamingSubscriptionBatchSource> {
  public:
   explicit StreamingSubscriptionBatchSource(
-      google::cloud::CompletionQueue cq,
+      CompletionQueue cq,
       std::shared_ptr<SessionShutdownManager> shutdown_manager,
       std::shared_ptr<SubscriberStub> stub, std::string subscription_full_name,
-      std::string client_id, pubsub::SubscriberOptions const& options,
-      std::unique_ptr<pubsub::RetryPolicy const> retry_policy,
-      std::unique_ptr<pubsub::BackoffPolicy const> backoff_policy,
+      std::string client_id, Options const& opts,
       AckBatchingConfig ack_batching_config = {})
       : cq_(std::move(cq)),
         shutdown_manager_(std::move(shutdown_manager)),
         stub_(std::move(stub)),
         subscription_full_name_(std::move(subscription_full_name)),
         client_id_(std::move(client_id)),
-        max_outstanding_messages_(options.max_outstanding_messages()),
-        max_outstanding_bytes_(options.max_outstanding_bytes()),
-        max_deadline_time_(options.max_deadline_time()),
-        retry_policy_(std::move(retry_policy)),
-        backoff_policy_(std::move(backoff_policy)),
+        max_outstanding_messages_(
+            opts.get<pubsub::MaxOutstandingMessagesOption>()),
+        max_outstanding_bytes_(opts.get<pubsub::MaxOutstandingBytesOption>()),
+        max_deadline_time_(opts.get<pubsub::MaxDeadlineTimeOption>()),
+        retry_policy_(opts.get<pubsub::RetryPolicyOption>()->clone()),
+        backoff_policy_(opts.get<pubsub::BackoffPolicyOption>()->clone()),
         ack_batching_config_(std::move(ack_batching_config)) {}
 
   ~StreamingSubscriptionBatchSource() override = default;
@@ -149,7 +148,7 @@ class StreamingSubscriptionBatchSource
   void ChangeState(std::unique_lock<std::mutex> const& lk, StreamState s,
                    char const* where, char const* reason);
 
-  google::cloud::CompletionQueue cq_;
+  CompletionQueue cq_;
   std::shared_ptr<SessionShutdownManager> const shutdown_manager_;
   std::shared_ptr<SubscriberStub> const stub_;
   std::string const subscription_full_name_;

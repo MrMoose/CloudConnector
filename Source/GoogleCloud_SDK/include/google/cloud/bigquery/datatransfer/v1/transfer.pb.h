@@ -34,6 +34,7 @@
 #include <google/protobuf/unknown_field_set.h>
 #include "google/api/field_behavior.pb.h"
 #include "google/api/resource.pb.h"
+#include <google/protobuf/duration.pb.h>
 #include <google/protobuf/struct.pb.h>
 #include <google/protobuf/timestamp.pb.h>
 #include "google/rpc/status.pb.h"

@@ -61,7 +61,8 @@ StreamRange<T> MakeStreamRange(StreamReader<T>);
 }  // namespace internal
 
 /**
- * A `StreamRange<T>` puts a range-like interface on a stream of `T` objects.
+ * A `StreamRange<T>` is a range of `StatusOr<T>` where the end-of-stream is
+ * indicated by a non-OK `Status`.
  *
  * Callers can iterate the range using its `begin()` and `end()` members to
  * access iterators that will work with any normal C++ constructs and
@@ -77,8 +78,8 @@ StreamRange<T> MakeStreamRange(StreamReader<T>);
  * StreamRange<int> MakeRangeFromOneTo(int n);
  *
  * StreamRange<int> sr = MakeRangeFromOneTo(10);
- * for (int x : sr) {
- *   std::cout << x << "\n";
+ * for (StatusOr<int> const& x : sr) {
+ *   std::cout << *x << "\n";
  * }
  * @endcode
  *
@@ -86,14 +87,6 @@ StreamRange<T> MakeStreamRange(StreamReader<T>);
  */
 template <typename T>
 class StreamRange {
-  // Helper that returns true if StreamRange's move constructor and assignment
-  // operator should be declared noexcept.
-  template <typename U>
-  static constexpr bool IsMoveNoexcept() {
-    return noexcept(StatusOr<U>(std::declval<U>()))&& noexcept(
-        internal::StreamReader<U>(std::declval<internal::StreamReader<U>>()));
-  }
-
  public:
   /**
    * An input iterator for a `StreamRange<T>` -- DO NOT USE DIRECTLY.
@@ -165,9 +158,9 @@ class StreamRange {
   StreamRange(StreamRange const&) = delete;
   StreamRange& operator=(StreamRange const&) = delete;
   // NOLINTNEXTLINE(performance-noexcept-move-constructor)
-  StreamRange(StreamRange&&) noexcept(IsMoveNoexcept<T>()) = default;
+  StreamRange(StreamRange&&) = default;
   // NOLINTNEXTLINE(performance-noexcept-move-constructor)
-  StreamRange& operator=(StreamRange&&) noexcept(IsMoveNoexcept<T>()) = default;
+  StreamRange& operator=(StreamRange&&) = default;
   //@}
 
   iterator begin() { return iterator(this); }
@@ -217,8 +210,8 @@ class StreamRange {
    *   return Status{};
    * };
    * StreamRange<int> sr(std::move(reader));
-   * for (int x : sr) {
-   *   std::cout << x << "\n";
+   * for (StatusOr<int> const& x : sr) {
+   *   std::cout << *x << "\n";
    * }
    * @endcode
    *

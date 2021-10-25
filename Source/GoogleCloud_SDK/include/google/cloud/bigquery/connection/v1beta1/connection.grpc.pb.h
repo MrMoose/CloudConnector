@@ -22,7 +22,6 @@
 #include "google/cloud/bigquery/connection/v1beta1/connection.pb.h"
 
 #include <functional>
-#include <grpc/impl/codegen/port_platform.h>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
@@ -140,71 +139,39 @@ class ConnectionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>> PrepareAsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>>(PrepareAsyncTestIamPermissionsRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Creates a new connection.
       virtual void CreateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void CreateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void CreateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns specified connection.
       virtual void GetConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns a list of connections in the given project.
       virtual void ListConnections(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* request, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void ListConnections(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* request, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ListConnections(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* request, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Updates the specified connection. For security reasons, also resets
       // credential if connection properties are in the update field mask.
       virtual void UpdateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Sets the credential for the specified connection.
       virtual void UpdateConnectionCredential(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void UpdateConnectionCredential(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void UpdateConnectionCredential(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Deletes connection and associated credential.
       virtual void DeleteConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void DeleteConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void DeleteConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Gets the access control policy for a resource.
       // Returns an empty policy if the resource exists and does not have a policy
       // set.
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Sets the access control policy on the specified resource. Replaces any
       // existing policy.
       //
       // Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       // Returns permissions that a caller has on the specified resource.
       // If the resource does not exist, this will return an empty set of
       // permissions, not a NOT_FOUND error.
@@ -213,19 +180,11 @@ class ConnectionService final {
       // UIs and command-line tools, not for authorization checking. This operation
       // may "fail open" without warning.
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
     };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::connection::v1beta1::Connection>* AsyncCreateConnectionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::connection::v1beta1::Connection>* PrepareAsyncCreateConnectionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -312,74 +271,38 @@ class ConnectionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>> PrepareAsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>>(PrepareAsyncTestIamPermissionsRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CreateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void CreateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void CreateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void ListConnections(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* request, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void ListConnections(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* request, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ListConnections(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* request, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void UpdateConnectionCredential(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void UpdateConnectionCredential(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void UpdateConnectionCredential(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void DeleteConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void DeleteConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void DeleteConnection(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* request, ::google::protobuf::Empty* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::connection::v1beta1::Connection>* AsyncCreateConnectionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::connection::v1beta1::Connection>* PrepareAsyncCreateConnectionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::connection::v1beta1::Connection>* AsyncGetConnectionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -627,36 +550,22 @@ class ConnectionService final {
   };
   typedef WithAsyncMethod_CreateConnection<WithAsyncMethod_GetConnection<WithAsyncMethod_ListConnections<WithAsyncMethod_UpdateConnection<WithAsyncMethod_UpdateConnectionCredential<WithAsyncMethod_DeleteConnection<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<Service > > > > > > > > > AsyncService;
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_CreateConnection : public BaseClass {
+  class WithCallbackMethod_CreateConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_CreateConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(0,
+    WithCallbackMethod_CreateConnection() {
+      ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response) { return this->CreateConnection(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response) { return this->CreateConnection(context, request, response); }));}
     void SetMessageAllocatorFor_CreateConnection(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_CreateConnection() override {
+    ~WithCallbackMethod_CreateConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -664,46 +573,26 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::Connection* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::Connection* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::CreateConnectionRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::Connection* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetConnection : public BaseClass {
+  class WithCallbackMethod_GetConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
+    WithCallbackMethod_GetConnection() {
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response) { return this->GetConnection(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response) { return this->GetConnection(context, request, response); }));}
     void SetMessageAllocatorFor_GetConnection(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetConnection() override {
+    ~WithCallbackMethod_GetConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -711,46 +600,26 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::Connection* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::Connection* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::GetConnectionRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::Connection* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ListConnections : public BaseClass {
+  class WithCallbackMethod_ListConnections : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ListConnections() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(2,
+    WithCallbackMethod_ListConnections() {
+      ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* request, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* response) { return this->ListConnections(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* request, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* response) { return this->ListConnections(context, request, response); }));}
     void SetMessageAllocatorFor_ListConnections(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ListConnections() override {
+    ~WithCallbackMethod_ListConnections() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -758,46 +627,26 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListConnections(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListConnections(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::ListConnectionsRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::ListConnectionsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateConnection : public BaseClass {
+  class WithCallbackMethod_UpdateConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(3,
+    WithCallbackMethod_UpdateConnection() {
+      ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response) { return this->UpdateConnection(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* request, ::google::cloud::bigquery::connection::v1beta1::Connection* response) { return this->UpdateConnection(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateConnection(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest, ::google::cloud::bigquery::connection::v1beta1::Connection>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateConnection() override {
+    ~WithCallbackMethod_UpdateConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -805,46 +654,26 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::Connection* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::Connection* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionRequest* /*request*/, ::google::cloud::bigquery::connection::v1beta1::Connection* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UpdateConnectionCredential : public BaseClass {
+  class WithCallbackMethod_UpdateConnectionCredential : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UpdateConnectionCredential() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(4,
+    WithCallbackMethod_UpdateConnectionCredential() {
+      ::grpc::Service::MarkMethodCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* request, ::google::protobuf::Empty* response) { return this->UpdateConnectionCredential(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* request, ::google::protobuf::Empty* response) { return this->UpdateConnectionCredential(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateConnectionCredential(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_UpdateConnectionCredential() override {
+    ~WithCallbackMethod_UpdateConnectionCredential() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -852,46 +681,26 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateConnectionCredential(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateConnectionCredential(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::UpdateConnectionCredentialRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_DeleteConnection : public BaseClass {
+  class WithCallbackMethod_DeleteConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_DeleteConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(5,
+    WithCallbackMethod_DeleteConnection() {
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest, ::google::protobuf::Empty>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* request, ::google::protobuf::Empty* response) { return this->DeleteConnection(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* request, ::google::protobuf::Empty* response) { return this->DeleteConnection(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteConnection(
-        ::grpc::experimental::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest, ::google::protobuf::Empty>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_DeleteConnection() override {
+    ~WithCallbackMethod_DeleteConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -899,46 +708,26 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* /*request*/, ::google::protobuf::Empty* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::connection::v1beta1::DeleteConnectionRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_GetIamPolicy : public BaseClass {
+  class WithCallbackMethod_GetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_GetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(6,
+    WithCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_GetIamPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_GetIamPolicy() override {
+    ~WithCallbackMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -946,46 +735,26 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SetIamPolicy : public BaseClass {
+  class WithCallbackMethod_SetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(7,
+    WithCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_SetIamPolicy(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(7);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_SetIamPolicy() override {
+    ~WithCallbackMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -993,46 +762,26 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_TestIamPermissions : public BaseClass {
+  class WithCallbackMethod_TestIamPermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_TestIamPermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(8,
+    WithCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
     void SetMessageAllocatorFor_TestIamPermissions(
-        ::grpc::experimental::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+        ::grpc::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(8);
-    #endif
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_TestIamPermissions() override {
+    ~WithCallbackMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1040,20 +789,11 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)  { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_CreateConnection<ExperimentalWithCallbackMethod_GetConnection<ExperimentalWithCallbackMethod_ListConnections<ExperimentalWithCallbackMethod_UpdateConnection<ExperimentalWithCallbackMethod_UpdateConnectionCredential<ExperimentalWithCallbackMethod_DeleteConnection<ExperimentalWithCallbackMethod_GetIamPolicy<ExperimentalWithCallbackMethod_SetIamPolicy<ExperimentalWithCallbackMethod_TestIamPermissions<Service > > > > > > > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_CreateConnection<ExperimentalWithCallbackMethod_GetConnection<ExperimentalWithCallbackMethod_ListConnections<ExperimentalWithCallbackMethod_UpdateConnection<ExperimentalWithCallbackMethod_UpdateConnectionCredential<ExperimentalWithCallbackMethod_DeleteConnection<ExperimentalWithCallbackMethod_GetIamPolicy<ExperimentalWithCallbackMethod_SetIamPolicy<ExperimentalWithCallbackMethod_TestIamPermissions<Service > > > > > > > > > ExperimentalCallbackService;
+  typedef WithCallbackMethod_CreateConnection<WithCallbackMethod_GetConnection<WithCallbackMethod_ListConnections<WithCallbackMethod_UpdateConnection<WithCallbackMethod_UpdateConnectionCredential<WithCallbackMethod_DeleteConnection<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<Service > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateConnection : public BaseClass {
    private:
@@ -1388,27 +1128,17 @@ class ConnectionService final {
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_CreateConnection : public BaseClass {
+  class WithRawCallbackMethod_CreateConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_CreateConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
+    WithRawCallbackMethod_CreateConnection() {
+      ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateConnection(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateConnection(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_CreateConnection() override {
+    ~WithRawCallbackMethod_CreateConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1416,37 +1146,21 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* CreateConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* CreateConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetConnection : public BaseClass {
+  class WithRawCallbackMethod_GetConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
+    WithRawCallbackMethod_GetConnection() {
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetConnection(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetConnection(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetConnection() override {
+    ~WithRawCallbackMethod_GetConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1454,37 +1168,21 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ListConnections : public BaseClass {
+  class WithRawCallbackMethod_ListConnections : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ListConnections() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(2,
+    WithRawCallbackMethod_ListConnections() {
+      ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListConnections(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListConnections(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ListConnections() override {
+    ~WithRawCallbackMethod_ListConnections() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1492,37 +1190,21 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ListConnections(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ListConnections(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateConnection : public BaseClass {
+  class WithRawCallbackMethod_UpdateConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(3,
+    WithRawCallbackMethod_UpdateConnection() {
+      ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateConnection(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateConnection(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateConnection() override {
+    ~WithRawCallbackMethod_UpdateConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1530,37 +1212,21 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UpdateConnectionCredential : public BaseClass {
+  class WithRawCallbackMethod_UpdateConnectionCredential : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UpdateConnectionCredential() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(4,
+    WithRawCallbackMethod_UpdateConnectionCredential() {
+      ::grpc::Service::MarkMethodRawCallback(4,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateConnectionCredential(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateConnectionCredential(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UpdateConnectionCredential() override {
+    ~WithRawCallbackMethod_UpdateConnectionCredential() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1568,37 +1234,21 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* UpdateConnectionCredential(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* UpdateConnectionCredential(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_DeleteConnection : public BaseClass {
+  class WithRawCallbackMethod_DeleteConnection : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_DeleteConnection() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(5,
+    WithRawCallbackMethod_DeleteConnection() {
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteConnection(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteConnection(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_DeleteConnection() override {
+    ~WithRawCallbackMethod_DeleteConnection() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1606,37 +1256,21 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* DeleteConnection(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* DeleteConnection(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_GetIamPolicy : public BaseClass {
+  class WithRawCallbackMethod_GetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_GetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(6,
+    WithRawCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_GetIamPolicy() override {
+    ~WithRawCallbackMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1644,37 +1278,21 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* GetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SetIamPolicy : public BaseClass {
+  class WithRawCallbackMethod_SetIamPolicy : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SetIamPolicy() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(7,
+    WithRawCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SetIamPolicy() override {
+    ~WithRawCallbackMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1682,37 +1300,21 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetIamPolicy(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_TestIamPermissions : public BaseClass {
+  class WithRawCallbackMethod_TestIamPermissions : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_TestIamPermissions() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(8,
+    WithRawCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_TestIamPermissions() override {
+    ~WithRawCallbackMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -1720,14 +1322,8 @@ class ConnectionService final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* TestIamPermissions(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_CreateConnection : public BaseClass {

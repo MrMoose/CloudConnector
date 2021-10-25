@@ -29,6 +29,14 @@ namespace cloud {
 namespace storage {
 inline namespace STORAGE_CLIENT_NS {
 namespace internal {
+/// Parse the `x-goog-hash` header and get one of the hashes.
+std::string ExtractHashValue(std::string const& hash_header,
+                             std::string const& hash_key);
+
+/// Parse the headers in a response and decorate the ReadSourceResult.
+ReadSourceResult MakeReadResult(std::size_t bytes_received,
+                                HttpResponse response);
+
 extern "C" std::size_t CurlDownloadRequestWrite(char* ptr, size_t size,
                                                 size_t nmemb, void* userdata);
 extern "C" std::size_t CurlDownloadRequestHeader(char* contents,
@@ -125,7 +133,7 @@ class CurlDownloadRequest : public ObjectReadSource {
   std::int32_t http_code_ = 0;
   bool logging_enabled_ = false;
   CurlHandle::SocketOptions socket_options_;
-  std::chrono::seconds download_stall_timeout_;
+  std::chrono::seconds transfer_stall_timeout_;
   CurlHandle handle_;
   CurlMulti multi_;
   std::shared_ptr<CurlHandleFactory> factory_;

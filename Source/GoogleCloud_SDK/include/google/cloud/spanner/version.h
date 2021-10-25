@@ -16,12 +16,18 @@
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_SPANNER_VERSION_H
 
 #include "google/cloud/spanner/version_info.h"
+#include "google/cloud/internal/attributes.h"
 #include "google/cloud/version.h"
 #include <string>
 
-#define SPANNER_CLIENT_NS                              \
-  GOOGLE_CLOUD_CPP_VEVAL(SPANNER_CLIENT_VERSION_MAJOR, \
-                         SPANNER_CLIENT_VERSION_MINOR)
+#define GOOGLE_CLOUD_CPP_SPANNER_ADMIN_API_DEPRECATED(name)                 \
+  GOOGLE_CLOUD_CPP_DEPRECATED(                                              \
+      "google::cloud::spanner::" name                                       \
+      " is deprecated, and will be removed on or shortly after 2022-10-01." \
+      " Please use google::cloud::spanner_admin::" name                     \
+      " instead. See GitHub issue #7356 for more information.")
+
+#define SPANNER_CLIENT_NS GOOGLE_CLOUD_CPP_NS
 
 namespace google {
 /**
@@ -45,28 +51,20 @@ inline namespace SPANNER_CLIENT_NS {
 /**
  * The Cloud spanner C++ Client major version.
  */
-int constexpr VersionMajor() { return SPANNER_CLIENT_VERSION_MAJOR; }
+int constexpr VersionMajor() { return google::cloud::version_major(); }
 
 /**
  * The Cloud spanner C++ Client minor version.
  */
-int constexpr VersionMinor() { return SPANNER_CLIENT_VERSION_MINOR; }
+int constexpr VersionMinor() { return google::cloud::version_minor(); }
 
 /**
  * The Cloud spanner C++ Client patch version.
  */
-int constexpr VersionPatch() { return SPANNER_CLIENT_VERSION_PATCH; }
+int constexpr VersionPatch() { return google::cloud::version_patch(); }
 
 /// A single integer representing the Major/Minor/Patch version.
-int constexpr Version() {
-  static_assert(::google::cloud::version_major() == VersionMajor(),
-                "Mismatched major version");
-  static_assert(::google::cloud::version_minor() == VersionMinor(),
-                "Mismatched minor version");
-  static_assert(::google::cloud::version_patch() == VersionPatch(),
-                "Mismatched patch version");
-  return ::google::cloud::version();
-}
+int constexpr Version() { return google::cloud::version(); }
 
 /// The version as a string, in MAJOR.MINOR.PATCH+gitrev format.
 std::string VersionString();

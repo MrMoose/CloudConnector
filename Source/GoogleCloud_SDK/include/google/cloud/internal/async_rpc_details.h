@@ -108,8 +108,8 @@ using CheckUnaryRpcCallback =
  * data callback.
  */
 template <typename Functor, typename Response>
-using CheckUnaryStreamRpcDataCallback = google::cloud::internal::is_invocable<
-    Functor, CompletionQueue&, const grpc::ClientContext&, Response&>;
+using CheckUnaryStreamRpcDataCallback = ::google::cloud::internal::is_invocable<
+    Functor, CompletionQueue&, grpc::ClientContext const&, Response&>;
 
 /**
  * Verify that @p Functor meets the requirements for an AsyncUnaryStreamRpc
