@@ -107,6 +107,12 @@ using PubsubReturnPromisePtr = TSharedPtr<PubsubReturnPromise, ESPMode::ThreadSa
 /// Third is a trace object. May be null if the received message did not contain trace info
 DECLARE_DELEGATE_TwoParams(FPubsubMessageReceived, const FPubsubMessage, PubsubReturnPromisePtr);
 
+/// First parameter is OK (true) or Error (false)
+/// Second parameter is possible error message in case of false
+///     or whatever the impl gives us as a message ID in case of true
+DECLARE_DELEGATE_TwoParams(FPubsubMessagePublished, const bool, const FString);
+
+
 /** Provide Pubsub equivalent functionality for AWS and Google Cloud.
  *  I'm trying to consolidate the two behind a common interface.
  *  Let's see how I roll.
@@ -117,9 +123,22 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		/// This maps to visibility timeout on SQS and ACK deadline on Pubsub
 		enum { VisibilityTimeout = 30 };
 
+		/// Maps to a timeout in secs of how long we wait for the SDK to send 
+		/// a message before we call the handler with an error
+		enum { MessageSendTimeout = 30 };
+
 		virtual ~ICloudPubsub() noexcept = default;
 
-		virtual void shutdown() noexcept;
+		virtual void shutdown() noexcept = 0;
+
+		/** @brief Publish a message to a topic
+		 *  Message is sent converted to UTF8
+		 *  You may or may not provide a handler. If the function returns true the
+		 *  handler will always be called. If it returns false the handler will never be called.
+		 *  Performance-wise it's better to only supply a handler if you need to know when
+		 *  and if the message is guaranteed to be sent.
+		 */
+		virtual bool publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler = FPubsubMessagePublished{}) = 0;
 
 		/** @brief Subscribe to the default subscription as specified environment
 		 *  variable CLOUDCONNECTOR_DEFAULT_TOPIC

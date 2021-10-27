@@ -154,6 +154,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 					m_log_device.Reset();  // Calling d'tor and joining thread.
 				}
 
+				m_queue->shutdown();
 				m_pubsub->shutdown();
 
 				// I am not deleting this object as the engine should call TearDown()
@@ -176,6 +177,9 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 			case ECloudProvider::GOOGLE:
 				UE_LOG(LogCloudConnector, Display, TEXT("Stopping Google Cloud Connector"));
 				
+				m_queue->shutdown();
+				m_pubsub->shutdown();
+
 				if (m_log_device) {
 					GLog->RemoveOutputDevice(m_log_device.Get());
 					m_log_device.Reset();  // Calling d'tor and joining thread.

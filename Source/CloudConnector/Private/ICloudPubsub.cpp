@@ -17,7 +17,3 @@ bool ICloudPubsub::subscribe_default(FSubscription &n_subscription, const FPubsu
 
 	return subscribe(default_topic, n_subscription, n_handler);
 }
-
-void ICloudPubsub::shutdown() noexcept {
-
-};

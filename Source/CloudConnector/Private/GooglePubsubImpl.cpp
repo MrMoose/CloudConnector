@@ -22,6 +22,7 @@
  // Google Cloud SDK
 #include "Windows/PreWindowsApi.h"
 #include "google/cloud/pubsub/subscriber.h"
+#include "google/cloud/pubsub/publisher.h"
 #include "google/cloud/pubsub/subscription_admin_client.h"
 #include "Windows/PostWindowsApi.h"
 
@@ -71,6 +72,11 @@ GooglePubsubImpl::~GooglePubsubImpl() noexcept {
 	} catch (const std::exception &sex) {
 		UE_LOG(LogCloudConnector, Error, TEXT("Unexpected exception tearing down pubsub: %s"), UTF8_TO_TCHAR(sex.what()));
 	}
+}
+
+void GooglePubsubImpl::shutdown() noexcept {
+
+	UE_LOG(LogCloudConnector, Warning, TEXT("Google Pubsub shutdown not implemented yet"));
 }
 
 bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) {
@@ -251,5 +257,97 @@ bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 
 	return true;
 };
+
+bool GooglePubsubImpl::publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler) {
+
+	checkf(IsInGameThread(), TEXT("Please call GooglePubsubImpl::publish() in the game thread"));
+	if (n_topic.IsEmpty()) {
+		UE_LOG(LogCloudConnector, Warning, TEXT("Cannot publish to an empty topic"));
+		return false;
+	}
+	if (n_message.IsEmpty()) {
+		UE_LOG(LogCloudConnector, Warning, TEXT("Will not publish empty empty message to topic '%'"), *n_topic);
+		return false;
+	}
+
+	// sadly, GCP SDK seems to throw but doesn't exactly tell when and what. I have to use this
+	// blunt try-catch block to be at least safe against throwing out of here
+
+	try {
+		// We store publishers for each topic in a map and create a new one on demand
+		const PublisherPtr publisher = [this, &n_topic] {
+
+			if (PublisherPtr * const existing = m_publishers.Find(n_topic)) {
+				return *existing;
+			} else {
+				pubsub::PublisherOptions publisher_options;
+				// Look at these options! Do we want any of them?
+
+				// I am assuming this object can use the same completion Q as the subscribers
+				// Since it runs only one thread, this would give us the guarantee that
+				// publish and subscriber cannot overlap.
+				pubsub::ConnectionOptions connection_options;
+				connection_options.DisableBackgroundThreads(m_completion_q);
+
+				// Can this return null? Browsed the code a little and it looks like it's not supposed to.
+				return m_publishers.Emplace(n_topic, MakeShared<pubsub::Publisher, ESPMode::ThreadSafe>(
+						pubsub::MakePublisherConnection(
+							pubsub::Topic{ TCHAR_TO_UTF8(*m_project_id), TCHAR_TO_UTF8(*n_topic) },
+							publisher_options,
+							connection_options
+						)));
+			}
+		}();
+
+		
+		// It returns a future that will become true once the message has been sent
+		// I won't wait for this in here though but only in a thread and only if required.
+		// If the user didn't post a handler though, this means I have no idea if the message 
+		// will actually be posted
+		if (!n_handler.IsBound()) {
+			
+			publisher->Publish(pubsub::MessageBuilder{}.SetData(TCHAR_TO_UTF8(*n_message)).Build());
+
+			UE_LOG(LogCloudConnector, Display, TEXT("Started publish of message to topic '%s', no finish handler"), *n_topic);
+		} else {
+			Async(EAsyncExecution::ThreadPool, [publisher, n_message, n_handler, game_thread{ this->m_handle_in_game_thread }]{
+
+				// Now that we have a publisher (or went to catch), send our message
+				gc::future< gc::StatusOr<std::string> > future_id =
+						publisher->Publish(pubsub::MessageBuilder{}.SetData(TCHAR_TO_UTF8(*n_message)).Build());
+
+				// Wait for the message to be sent
+				future_id.wait_for(std::chrono::seconds(MessageSendTimeout));
+
+				const bool success = future_id.is_ready() && future_id.get().ok();
+				FString msg;
+				if (future_id.is_ready()) {
+					if (future_id.get().ok()) {
+						msg = UTF8_TO_TCHAR(future_id.get().value().c_str());
+					} else {
+						msg = UTF8_TO_TCHAR(future_id.get().status().message().c_str());
+					}
+				} else {
+					msg = TEXT("timeout sending message");
+				}
+
+				if (game_thread) {
+					// I really shouldn't be abandoning async tasks like that...
+					Async(EAsyncExecution::TaskGraphMainThread, [success, msg, n_handler] { n_handler.Execute(success, msg); });
+				} else {
+					n_handler.Execute(success, msg);
+				}
+			});
+		}
+
+		return true;
+
+	} catch (const std::exception &e) {
+		UE_LOG(LogCloudConnector, Warning, 
+				TEXT("Caught unknown exception trying to publish message to Google Pubsub: %"), UTF8_TO_TCHAR(e.what()));
+	}
+
+	return false;
+}
 
 #endif // WITH_GOOGLECLOUD_SDK

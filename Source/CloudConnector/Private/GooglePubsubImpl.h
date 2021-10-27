@@ -22,6 +22,7 @@
 #include "google/cloud/completion_queue.h"
 #include "google/cloud/pubsub/subscription.h"
 #include "google/cloud/pubsub/subscriber.h"
+#include "google/cloud/pubsub/publisher.h"
 #include "Windows/PostWindowsApi.h"
 
 #pragma warning(pop)
@@ -36,6 +37,8 @@ class GooglePubsubImpl : public ICloudPubsub {
 		virtual ~GooglePubsubImpl() noexcept;
 
 		// see ICloudPubsub docs for these
+		void shutdown() noexcept override;
+		bool publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler) override;
 		bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) override;
 		bool unsubscribe(FSubscription &&n_subscription) override;
 
@@ -55,10 +58,15 @@ class GooglePubsubImpl : public ICloudPubsub {
 		// A map to store them with my FSubscription info as key
 		using GoogleSubscriptionMap = TMap<FSubscription, GoogleSubscriptionTuple>;
 
+		// We store a publisher for each topic we ever talked to
+		using PublisherPtr = TSharedPtr<google::cloud::pubsub::Publisher, ESPMode::ThreadSafe>;
+		using GooglePublisherMap = TMap<FString, PublisherPtr>;
+
 		const FString                  m_project_id;
 		const bool                     m_handle_in_game_thread;
 		GoogleSubscriptionMap          m_subscriptions;
 		static FCriticalSection        s_subscriptions_mutex;
+		GooglePublisherMap             m_publishers;
 
 		/* The Pubsub SDK normally spawns and maintains its own background threads.
 		 * However, tests have shown that I cannot seem to interact with the engine

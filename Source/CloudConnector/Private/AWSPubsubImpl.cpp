@@ -522,3 +522,8 @@ bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 	UE_LOG(LogCloudConnector, Display, TEXT("Unsubscribed from '%s'"), *n_subscription.Id);
 	return true;
 }
+
+bool AWSPubsubImpl::publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler) {
+
+	return false;
+}
