@@ -8,6 +8,7 @@
 #include "CloudConnectorTypes.h"
 #include "ICloudTracing.h"
 #include "ICloudStorage.h"
+#include "ICloudQueue.h"
 #include "ICloudPubsub.h"
 
 #include "Modules/ModuleInterface.h"
@@ -33,6 +34,7 @@ class CLOUDCONNECTOR_API ICloudConnector : public IModuleInterface {
 		}
 
 		virtual ICloudStorage &storage() const = 0;
+		virtual ICloudQueue   &queue() const = 0;
 		virtual ICloudPubsub  &pubsub() const = 0;
 		virtual ICloudTracing &tracing() const = 0;
 

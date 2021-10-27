@@ -2,7 +2,7 @@
  * Licensed under the Apache License, Version 2.0.
  * See attached file LICENSE for full details
  */
-#include "AWSPubsubImpl.h"
+#include "AWSQueueImpl.h"
 #include "ICloudConnector.h"
 #include "Utilities.h"
 #include "ClientFactory.h"
@@ -25,68 +25,47 @@
 
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/SQSRequest.h>
-#include <aws/sqs/model/QueueAttributeName.h>
-#include <aws/sqs/model/CreateQueueRequest.h>
-#include <aws/sqs/model/CreateQueueResult.h>
-#include <aws/sqs/model/GetQueueAttributesRequest.h>
-#include <aws/sqs/model/GetQueueAttributesResult.h>
-#include <aws/sqs/model/DeleteQueueRequest.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/ReceiveMessageResult.h>
 #include <aws/sqs/model/DeleteMessageRequest.h>
 #include <aws/sqs/model/ChangeMessageVisibilityRequest.h>
-#include <aws/sns/SNSClient.h>
-#include <aws/sns/SNSRequest.h>
-#include <aws/sns/model/CreateTopicRequest.h>
-#include <aws/sns/model/CreateTopicResult.h>
-#include <aws/sns/model/SubscribeRequest.h>
-#include <aws/sns/model/SubscribeResult.h>
 #include "Windows/PostWindowsApi.h"
 
 #include <atomic>
 
-
-/* Those objects are supposedly threadsafe and tests have shown that they really appear to be so
- * it seems to be safe to concurrently access this from multiple threads at once
- */
-static Aws::UniquePtr<Aws::SNS::SNSClient> s_sns_client;
-static Aws::UniquePtr<Aws::SQS::SQSClient> s_sqs_client;
-
-
-using namespace Aws::SNS::Model;
 using namespace Aws::SQS::Model;
 
-AWSPubsubImpl::AWSPubsubImpl(const bool n_handle_in_game_thread)
+AWSQueueImpl::AWSQueueImpl(const bool n_handle_in_game_thread)
 		: m_handle_in_game_thread{ n_handle_in_game_thread } {
 
 }
 
-AWSPubsubImpl::~AWSPubsubImpl() noexcept {
+AWSQueueImpl::~AWSQueueImpl() noexcept {
 
 	shutdown();
 }
 
-void AWSPubsubImpl::shutdown() noexcept {
+void AWSQueueImpl::shutdown() noexcept {
 
 	m_shut_down.store(true);
 	shutdown_runners(nullptr);
 }
 
-void AWSPubsubImpl::shutdown_runners(FViewport *n_viewport) noexcept {
+void AWSQueueImpl::shutdown_runners(FViewport *n_viewport) noexcept {
 
 	try {
 		// user may have not unsubscribed
-		TArray<FSubscription> remaining_subs;
+		TArray<FQueueSubscription> remaining_subs;
 		remaining_subs.Reserve(m_subscriptions.Num());
 		{
 			FScopeLock slock(&m_subscriptions_mutex);
-			for (const TPair<FSubscription, TUniquePtr<SQSSubscription> > &i : m_subscriptions) {
+			for (const TPair<FQueueSubscription, TUniquePtr<SQSRunner> > &i : m_subscriptions) {
 				remaining_subs.Add(i.Key);
 			}
 		}
 
-		for (FSubscription &s : remaining_subs) {
-			unsubscribe(MoveTemp(s));
+		for (FQueueSubscription &s : remaining_subs) {
+			stop_listen(MoveTemp(s));
 		}
 
 		// de-register from the Alt+F4 delegate
@@ -100,11 +79,11 @@ void AWSPubsubImpl::shutdown_runners(FViewport *n_viewport) noexcept {
 	}
 };
 
-class SQSSubscription {
+class SQSRunner {
 
 	public:
-		SQSSubscription(const FSubscription &n_subscription, const bool n_handle_on_game_thread, const FPubsubMessageReceived n_handler)
-				: m_subscription{ n_subscription }
+		SQSRunner(const FString &n_queue_url, const bool n_handle_on_game_thread, const FQueueMessageReceived n_handler)
+				: m_queue_url{ TCHAR_TO_UTF8(*n_queue_url) }
 				, m_handle_on_game_thread{ n_handle_on_game_thread }
 				, m_handler{ n_handler } {
 
@@ -112,29 +91,12 @@ class SQSSubscription {
 			checkf(m_handler.IsBound(), TEXT("Handler for SQS must be bound"));
 
 			// And fire up a thread to run while we're gone
-			m_runner = MakeUnique<FThread>(TEXT("AWS SQS Subscription Runner"), [this] { this->run(); });
+			m_runner = MakeUnique<FThread>(TEXT("AWS SQS Runner"), [this] { this->run(); });
 		}
 
 		void run() noexcept {
 
-			// We have out own clients
 			m_sqs = aws_client_factory<Aws::SQS::SQSClient>::create();
-			m_sns = aws_client_factory<Aws::SNS::SNSClient>::create();
-
-			if (!create_queue()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner existing due to Q setup error"));
-				return;
-			}
-
-			if (!create_topic()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner existing due to setup error"));
-				return;
-			}
-
-			if (!subscribe_to_q()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner existing due to failure in subscription process"));
-				return;
-			}
 
 			// Loop and receive messages, re-use request object
 			// I've had horrendous problems tearing this thread down.
@@ -171,7 +133,6 @@ class SQSSubscription {
 			});
 
 			while (!m_interrupted.load()) 	{
-		
 				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(*rm_req);
 				if (!rm_out.IsSuccess()) {
 					UE_LOG(LogCloudConnector, Warning, TEXT("Failed to retrieve message from queue '%s': '%s'"),
@@ -262,16 +223,49 @@ class SQSSubscription {
 				received = std::atoi(i->second.c_str());
 			};
 
+			// Extract trace id
+			const FString trace_id = [&] {
+
+				FString ret;
+
+				// Get the AWS trace header for xray
+				i = attributes.find(MessageSystemAttributeName::AWSTraceHeader);
+				if (i != attributes.cend()) {
+					ret = UTF8_TO_TCHAR(i->second.c_str());
+				} else {
+					return ret;
+				};
+
+				// The trace header comes in the form of "Root=1-235345something"
+				// but all the examples I saw only use "1-235345something". With the Root=
+				// xray upload doesn't work so I remove this
+				ret = ret.Replace(TEXT("Root="), TEXT(""));
+
+				// I have also seen more stuff coming after the first ID, separated by ;
+				// Let's remove this as well. I wish that stuff was documented
+				int32 idx;
+				if (ret.FindChar(';', idx)) {
+					ret = ret.Left(idx);
+				}
+				
+				return ret;
+			} ();
+			
 			// Now construct a message which will be given into the handler
-			FPubsubMessage msg;
+			FQueueMessage msg;
 			msg.m_aws_sqs_message_id = UTF8_TO_TCHAR(n_message.GetMessageId().c_str());
 			msg.m_aws_sqs_receipt = UTF8_TO_TCHAR(n_message.GetReceiptHandle().c_str());
 			msg.m_message_age = current_epoch - sent_epoch;
 			msg.m_receive_count = received;
 			msg.m_body = UTF8_TO_TCHAR(n_message.GetBody().c_str());
 			
+			// If we have a trace id, we construct a fresh trace right away
+			if (!trace_id.IsEmpty()) {
+				msg.m_trace = ICloudConnector::Get().tracing().start_trace(trace_id);
+			}
+
 			// This promise will be fulfilled by the delegate implementation
-			const PubsubReturnPromisePtr rp = MakeShared<PubsubReturnPromise, ESPMode::ThreadSafe>();
+			const QueueReturnPromisePtr rp = MakeShared<QueueReturnPromise, ESPMode::ThreadSafe>();
 			TFuture<bool> return_future = rp->GetFuture();
 
 			// Call the delegate on the game thread
@@ -310,159 +304,28 @@ class SQSSubscription {
 			}
 		}
 
-		bool create_queue() {
-
-			CreateQueueRequest cqr;
-			cqr.SetQueueName(TCHAR_TO_UTF8(*m_subscription.Id));
-			cqr.SetTags({ { "created_by", "CloudConnector" } });
-			cqr.SetAttributes({
-				//{ QueueAttributeName::FifoQueue,                     "true" },
-				{ QueueAttributeName::DelaySeconds,                  "0" },
-				{ QueueAttributeName::VisibilityTimeout,             "60" },
-				{ QueueAttributeName::ReceiveMessageWaitTimeSeconds, "4" }
-				});
-
-			const CreateQueueOutcome cqoc = s_sqs_client->CreateQueue(cqr);
-
-			if (!cqoc.IsSuccess()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub failed to create SQS for SNS subscription: %s"),
-						UTF8_TO_TCHAR(cqoc.GetError().GetMessage().c_str()));
-				return false;
-			} else {
-				m_queue_url = cqoc.GetResult().GetQueueUrl();
-				UE_LOG(LogCloudConnector, Display, TEXT("Created temporary SQS for SNS subscription with url: %s"), UTF8_TO_TCHAR(m_queue_url.c_str()));
-			}
-
-			GetQueueAttributesRequest gqar;
-			gqar.SetQueueUrl(cqoc.GetResult().GetQueueUrl());
-			gqar.SetAttributeNames({ QueueAttributeName::QueueArn });
-
-			// Now that we have a Q, hook it up to that subscription
-			// In order to do that we need the arn of the Q we have just created which weirdly
-			// doesn't seem to be in the response. So we need to get it.
-			const GetQueueAttributesOutcome gqaoc = m_sqs->GetQueueAttributes(gqar);
-			if (!gqaoc.IsSuccess()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("AWS didn't get us Queue attributes: %s"),
-						UTF8_TO_TCHAR(gqaoc.GetError().GetMessage().c_str()));
-				delete_queue();
-				return false;
-			} else {
-				const auto i = gqaoc.GetResult().GetAttributes().find(QueueAttributeName::QueueArn);
-				if (i == gqaoc.GetResult().GetAttributes().end()) {
-					UE_LOG(LogCloudConnector, Warning, TEXT("AWS didn't give us Queue attributes: %s"),
-							UTF8_TO_TCHAR(gqaoc.GetError().GetMessage().c_str()));
-					delete_queue();
-					return false;
-				} else {
-					m_queue_arn = i->second;
-					UE_LOG(LogCloudConnector, Display, TEXT("Got ARN of temporary Q: %s"), UTF8_TO_TCHAR(m_queue_arn.c_str()));
-				}
-			}
-			return true;
-		}
-
-		bool create_topic() {
-
-			// Now... I am assuming the user created the topic already as part of IaC
-			// So I really only need the existing Topic's ARN. This doesn't seem to be 
-			// possible though.
-			// Those guys here: https://stackoverflow.com/questions/36721014/aws-sns-how-to-get-topic-arn-by-topic-name
-			// say it's better to CreateTopic which will not create it if it already 
-			// exists but return the ARN anyway
-
-			CreateTopicRequest ctar;
-			ctar.SetName(TCHAR_TO_UTF8(*m_subscription.Topic));
-			Aws::SNS::Model::Tag creation_tag;
-			creation_tag.SetKey("created_by");
-			creation_tag.SetValue("CloudConnector");
-			ctar.SetTags({ creation_tag });
-			// I roll with defaults here until I know which values make sense
-
-			const CreateTopicOutcome ctoc = m_sns->CreateTopic(ctar);
-			if (!ctoc.IsSuccess()) {
-
-				// #moep debug this error type and check how SNS reacts on already existing topic
-
-				UE_LOG(LogCloudConnector, Warning, TEXT("AWS refused to create topic: %s"),
-							UTF8_TO_TCHAR(ctoc.GetError().GetMessage().c_str()));
-
-				return false;
-			} else {
-				m_topic_arn = ctoc.GetResult().GetTopicArn();
-				UE_LOG(LogCloudConnector, Display, TEXT("Got Topic ARN: %s"), UTF8_TO_TCHAR(m_topic_arn.c_str()));
-			}
-			return true;
-		}
-
-		// Hook up our temporary Q twe created for us
-		bool subscribe_to_q() const {
-
-			SubscribeRequest s_req;
-			s_req.SetTopicArn(m_topic_arn);
-			s_req.SetProtocol("sqs");
-			s_req.SetEndpoint(m_queue_arn);
-
-			const SubscribeOutcome soc = m_sns->Subscribe(s_req);
-
-			if (!soc.IsSuccess()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub failed to subscribe temporary Q to topic '%s': %s"),
-						*m_subscription.Topic, UTF8_TO_TCHAR(soc.GetError().GetMessage().c_str()));
-				return false;
-			} else {
-				UE_LOG(LogCloudConnector, Display, TEXT("Subscribed temporary Q to topic '%s'"), *m_subscription.Topic);
-				return true;
-			}
-		}
-
-		void delete_queue() const {
-
-			DeleteQueueRequest dqr;
-			dqr.SetQueueUrl(m_queue_url);
-			const DeleteQueueOutcome dqoc = s_sqs_client->DeleteQueue(dqr);
-
-			if (!dqoc.IsSuccess()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub failed to delete temporary SQS Q '%s': %s"),
-						UTF8_TO_TCHAR(m_queue_url.c_str()), UTF8_TO_TCHAR(dqoc.GetError().GetMessage().c_str()));
-			} else {
-				UE_LOG(LogCloudConnector, Display, TEXT("Deleted temporary SQS Q '%s'"), UTF8_TO_TCHAR(m_queue_url.c_str()));
-			}
-		}
-
-		FSubscription                        m_subscription;
-		Aws::String                          m_topic_arn;
-		Aws::String                          m_queue_url;
-		Aws::String                          m_queue_arn;
-
+		const Aws::String                    m_queue_url;
 		const bool                           m_handle_on_game_thread;
-		const FPubsubMessageReceived         m_handler;
+		const FQueueMessageReceived          m_handler;
 		std::atomic<bool>                    m_interrupted = false;
 		ReceiveMessageOutcomeCallable        m_future_out;
 		Aws::UniquePtr<Aws::SQS::SQSClient>  m_sqs;
-		Aws::UniquePtr<Aws::SNS::SNSClient>  m_sns;
 		TUniquePtr<FThread>                  m_runner;
 };
 
 
-bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) {
-
-	using namespace Aws::SQS::Model::QueueAttributeNameMapper;
+bool AWSQueueImpl::listen(const FString &n_topic, FQueueSubscription &n_subscription, const FQueueMessageReceived n_handler) {
 
 	if (m_shut_down) {
-		UE_LOG(LogCloudConnector, Display, TEXT("AWS Pubsub Object is being shut down. Ignore subscribe cmd"));
+		UE_LOG(LogCloudConnector, Display, TEXT("AWS Queue Object is being shut down. Ignore subscribe cmd"));
 		return false;
 	}
 
-	// To subscribe to the topic we need to create an SQS queue to receive messages.
-	// This could be done by the user but in order to mimic the Google impl I do it on the fly
-	// and remove them afterwards. This might result in leftover Queues so, we may have to reconsider.
-
-	const FString instance_id = get_aws_instance_id();
-	n_subscription.Topic = n_topic;
-	n_subscription.Id = FString::Printf(TEXT("CCQ-%s-%s"), *instance_id, *n_subscription.Topic);
-
+	// Well, there is no subscription mechanism in SQS, so we just hook up to the Q
+	
 	// In here it is enough to remember the id aka Queue URL
 	n_subscription.Id = n_topic;
-	n_subscription.Topic = n_topic;
+	n_subscription.Queue = n_topic;
 
 	{
 		FScopeLock slock(&m_subscriptions_mutex);
@@ -472,12 +335,12 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 		}
 	}
 
-	TUniquePtr<SQSSubscription> runner = MakeUnique<SQSSubscription>(n_subscription, m_handle_in_game_thread, n_handler);
+	TUniquePtr<SQSRunner> runner = MakeUnique<SQSRunner>(n_topic, m_handle_in_game_thread, n_handler);
 
 	// hooko up to Unreal's Alt+F4 catch-all delegate to shut down SQS gracefully in this case
 	if (!m_emergency_shutdown_handle.IsValid() && GEngine && GEngine->GameViewport) {
 
-		m_emergency_shutdown_handle = GEngine->GameViewport->OnCloseRequested().AddRaw(this, &AWSPubsubImpl::shutdown_runners);
+		m_emergency_shutdown_handle = GEngine->GameViewport->OnCloseRequested().AddRaw(this, &AWSQueueImpl::shutdown_runners);
 	}
 
 	// Take ownership over both by inserting it into our subscription map
@@ -487,17 +350,17 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	return true;
 }
 
-bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
+bool AWSQueueImpl::stop_listen(FQueueSubscription &&n_subscription) {
 	
 	if (m_shut_down) {
-		UE_LOG(LogCloudConnector, Display, TEXT("AWS Pubsub Object is being shut down. Ignore unsubscribe cmd"));
+		UE_LOG(LogCloudConnector, Display, TEXT("AWS Queue Object is being shut down. Ignore unsubscribe cmd"));
 		return false;
 	}
 
 	// Unsubscribing here simply means to stop the pull
 	
 	// Locate the subscriber
-	TUniquePtr<SQSSubscription> *r = nullptr;
+	TUniquePtr<SQSRunner> *r = nullptr;
 	
 	{
 		FScopeLock slock(&m_subscriptions_mutex);
@@ -506,7 +369,6 @@ bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 			UE_LOG(LogCloudConnector, Error, TEXT("Cannot unsubscribe from '%s', internal data missing"), *n_subscription.Id);
 			return false;
 		}
-	
 	
 		// First stop the thread.
 		// Killing it this way waits for the thread to join.

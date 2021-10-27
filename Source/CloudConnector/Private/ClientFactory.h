@@ -19,6 +19,7 @@
 
 namespace Aws::CloudWatchLogs { class CloudWatchLogsClient; }
 namespace Aws::SQS { class SQSClient; }
+namespace Aws::SNS { class SNSClient; }
 namespace Aws::S3Crt { class S3CrtClient; }
 namespace Aws::XRay { class XRayClient; }
 
@@ -99,6 +100,9 @@ template<>
 const char *aws_client_factory<Aws::SQS::SQSClient>::s_memtag = "Sqs";
 
 template<>
+const char *aws_client_factory<Aws::SNS::SNSClient>::s_memtag = "Sns";
+
+template<>
 const char *aws_client_factory<Aws::S3Crt::S3CrtClient>::s_memtag = "S3";
 
 template<>
@@ -111,6 +115,10 @@ s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_CLOUDWATCH_ENDPOINT"
 template<>
 const FString aws_client_factory<Aws::SQS::SQSClient>::
 s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_SQS_ENDPOINT") };
+
+template<>
+const FString aws_client_factory<Aws::SNS::SNSClient>::
+s_endpoint_override_env = FString{ TEXT("CLOUDCONNECTOR_AWS_SNS_ENDPOINT") };
 
 template<>
 const FString aws_client_factory<Aws::S3Crt::S3CrtClient>::

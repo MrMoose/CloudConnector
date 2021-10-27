@@ -5,7 +5,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ICloudPubsub.h"
+#include "ICloudQueue.h"
 
 #include "Templates/UniquePtr.h"
 
@@ -16,17 +16,17 @@ namespace Aws::SQS {
 }
 
 
-/** IPubsub implementation using AWS SQS
+/** ICloudQueue implementation using AWS SQS
  */
-class AWSPubsubImpl : public ICloudPubsub {
+class AWSQueueImpl : public ICloudQueue {
 
 	public:
-		AWSPubsubImpl(const bool n_handle_in_game_thread);
-		virtual ~AWSPubsubImpl() noexcept;
+		AWSQueueImpl(const bool n_handle_in_game_thread);
+		virtual ~AWSQueueImpl() noexcept;
 
-		bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) override;
+		bool listen(const FString &n_queue, FQueueSubscription &n_subscription, const FQueueMessageReceived n_handler) override;
 
-		bool unsubscribe(FSubscription &&n_subscription) override;
+		bool stop_listen(FQueueSubscription &&n_subscription) override;
 
 		void shutdown() noexcept override;
 
@@ -35,16 +35,14 @@ class AWSPubsubImpl : public ICloudPubsub {
 
 	private:
 		
-
 		// internal information to maintain a subscription
-		// A map to store them with my FSubscription info as key
-		using SQSSubscriptionMap = TMap<FSubscription, TUniquePtr<class SQSSubscription> >;
+		// A map to store them with my FQueueSubscription info as key
+		using SQSSubscriptionMap = TMap<FQueueSubscription, TUniquePtr<class SQSRunner> >;
 
 		const bool              m_handle_in_game_thread;
 		SQSSubscriptionMap      m_subscriptions;
 		FCriticalSection        m_subscriptions_mutex;
 		std::atomic<bool>       m_shut_down = false;         // Will be set true once we are shut down and don't accept any calls
-
 
 		FDelegateHandle         m_emergency_shutdown_handle;
 };

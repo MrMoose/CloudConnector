@@ -5,18 +5,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ICloudTracing.h"
 
 #include "Templates/UniquePtr.h"
 #include "Templates/SharedPointer.h"
 #include "Async/Future.h"
 
-#include "ICloudPubsub.generated.h"
+#include "ICloudQueue.generated.h"
 
 /** Subscription info.
  *  This is a handle to an existing subscription as handed out by ICloudPubsub::subscribe()
  */  
 USTRUCT(Category = "CloudConnector")
-struct CLOUDCONNECTOR_API FSubscription {
+struct CLOUDCONNECTOR_API FQueueSubscription {
 
 	GENERATED_BODY();
 
@@ -24,34 +25,49 @@ struct CLOUDCONNECTOR_API FSubscription {
 	UPROPERTY()
 	FString Id;
 
-	/// This is the topic name for Google Pubsub
-	/// and the SNS Topic for AWS
+	/// This is the topic name for Google Tasks Queue name
+	/// and the Q URL for AWS SQS
 	UPROPERTY()
-	FString Topic;
+	FString Queue;
+
+	/// If this is true, each message, when coming in, will result in an implicit 
+	/// call to ICloudTracing::start_trace() and a new trace will be created if the received
+	/// message contains implementation specific information to do so.
+	/// This trace object can then be used to collect profiling information.
+	/// As all tracing code is required to deal with a no-trace-situation, it doesn't 
+	/// hurt much to put this to true unless you rarely or never want traces.
+	UPROPERTY()
+	bool ImplicitTrace = false;
 
 	/// These are needed to be able to use FSubscription as key to a TMap
-	bool operator==(const FSubscription &n_other) const {
+	bool operator==(const FQueueSubscription &n_other) const {
 
 		return Equals(n_other);
 	}
 
-	bool Equals(const FSubscription &n_other) const {
+	bool Equals(const FQueueSubscription &n_other) const {
 
-		return Id.Equals(n_other.Id) || Topic.Equals(n_other.Topic);
+		return Id.Equals(n_other.Id) || Queue.Equals(n_other.Queue);
 	}
 };
 
-FORCEINLINE uint32 GetTypeHash(const FSubscription &n_sub) {
+FORCEINLINE uint32 GetTypeHash(const FQueueSubscription &n_sub) {
 
-	return FCrc::MemCrc32(&n_sub, sizeof(FSubscription));
+	return FCrc::MemCrc32(&n_sub, sizeof(FQueueSubscription));
 }
 
 USTRUCT(Category = "CloudConnector")
-struct CLOUDCONNECTOR_API FPubsubMessage {
+struct CLOUDCONNECTOR_API FQueueMessage {
 
 	GENERATED_BODY();
 
 	public:
+
+		/** A trace object which (if present) allows for
+		 *  performance tracing using ICloudTracing
+		 */
+		CloudTracePtr m_trace = nullptr;
+
 		/**
 		 * age is in milliseconds
 		 */
@@ -70,11 +86,10 @@ struct CLOUDCONNECTOR_API FPubsubMessage {
 
 	private:
 #ifdef WITH_GOOGLECLOUD_SDK
-		friend class GooglePubsubImpl;
+		friend class GoogleQueueImpl;
 #endif
-		friend class AWSPubsubImpl;
+		friend class AWSQueueImpl;
 		friend class SQSRunner;
-		friend class SQSSubscription;
 
 		/// Pubsub providers have to store implementation specific
 		/// details such as message IDs and stuff along with the message.
@@ -99,55 +114,44 @@ struct CLOUDCONNECTOR_API FPubsubMessage {
 DECLARE_DELEGATE_TwoParams(FCloudStorageWriteFinishedDelegate, const bool, const FString);
 
 /// a promise created for each message which must be fulfilled by receivers
-using PubsubReturnPromise = TPromise<bool>;
-using PubsubReturnPromisePtr = TSharedPtr<PubsubReturnPromise, ESPMode::ThreadSafe>;
+using QueueReturnPromise = TPromise<bool>;
+using QueueReturnPromisePtr = TSharedPtr<QueueReturnPromise, ESPMode::ThreadSafe>;
 
 /// First parameter is message body
 /// Second parameter is a promise the delegate must fulfill. If it's set to true, the message will be deleted
 /// Third is a trace object. May be null if the received message did not contain trace info
-DECLARE_DELEGATE_TwoParams(FPubsubMessageReceived, const FPubsubMessage, PubsubReturnPromisePtr);
+DECLARE_DELEGATE_TwoParams(FQueueMessageReceived, const FQueueMessage, QueueReturnPromisePtr);
 
-/** Provide Pubsub equivalent functionality for AWS and Google Cloud.
+/** Provide a simple queue functionality for AWS SQS and Google Cloud Tasks.
  *  I'm trying to consolidate the two behind a common interface.
- *  Let's see how I roll.
+ *  Please note that due to lack of Tasks support by the Google Cloud SDK 
+ *  this is only implemented for AWS
  */
-class CLOUDCONNECTOR_API ICloudPubsub {
+class CLOUDCONNECTOR_API ICloudQueue {
 
 	public:
-		/// This maps to visibility timeout on SQS and ACK deadline on Pubsub
+		/// This maps to visibility timeout on SQS and ACK deadline on Queue
 		enum { VisibilityTimeout = 30 };
 
-		virtual ~ICloudPubsub() noexcept = default;
+		virtual ~ICloudQueue() noexcept = default;
 
-		virtual void shutdown() noexcept;
+		virtual void shutdown() noexcept = 0;
 
-		/** @brief Subscribe to the default subscription as specified environment
-		 *  variable CLOUDCONNECTOR_DEFAULT_TOPIC
-		 *  Users are strongly encouraged to unsubscribe_default().
-		 *  This is safe to be called from any thread.
-		 *
-		 *  @param n_subscription will hold the subscription handle (to unsubscribe)
-		 *			if return is false, contents are undefined
-		 *  @param n_completion will fire on the game thread (or in its own, depending on config) when the operation is complete
-		 *  @return true when the operation was successfully started
-		 */
-		virtual bool subscribe_default(FSubscription &n_subscription, const FPubsubMessageReceived n_handler);
-
-		/** @brief Subscribe to a "topic" which maps to a SQS Queue URL or a Pubsub topic
+		/** @brief Start listen to a "queue" which maps to a SQS Queue URL or a Tasks queue
 		 *  You can subscribe to multiple topics but only once to each. Meaning
 		 *  Subscribing twice to the same topic results in undefined behavior.
 		 *  Users are strongly encouraged to unsubscribe() from each topic.
 		 *  This is safe to be called from any thread.
 		 * 
-		 *  @param n_topic the Queue URL (SQS) or Topic (Pubsub) you want to subscribe to
-		 *  @param n_subscription will hold the subscription handle (to unsubscribe)
+		 *  @param n_topic the Queue URL (SQS) or Queue (Tasks) you want to subscribe to
+		 *  @param n_subscription will hold the subscription handle (to stop listen)
 		 *			if return is false, contents are undefined
 		 *  @param n_completion will fire on the game thread (or in its own, depending on config) when the operation is complete
 		 *  @return true when the operation was successfully started
 		 */
-		virtual bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) = 0;
+		virtual bool listen(const FString &n_queue, FQueueSubscription &n_subscription, const FQueueMessageReceived n_handler) = 0;
 	
-		/** @brief Unsubscribe from a subscription
+		/** @brief Stop listening
 		 *  Remaining messages may be in flight. This blocks until all remaining handlers
 		 *  have been called.
 		 *  This is safe to be called from any thread.
@@ -156,5 +160,5 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		 *  
 		 *  @return true when the operation was successful
 		 */
-		virtual bool unsubscribe(FSubscription &&n_subscription) = 0;
+		virtual bool stop_listen(FQueueSubscription &&n_subscription) = 0;
 };

@@ -5,12 +5,15 @@
 #include "CloudConnectorModule.h"
 #include "CloudConnector.h"
 #include "BlindStorageImpl.h"
+#include "BlindQueueImpl.h"
 #include "BlindPubsubImpl.h"
 #include "BlindTracingImpl.h"
 #include "AWSStorageImpl.h"
+#include "AWSQueueImpl.h"
 #include "AWSPubsubImpl.h"
 #include "AWSTracingImpl.h"
 #include "GoogleCloudStorageImpl.h"
+#include "GoogleQueueImpl.h"
 #include "GooglePubsubImpl.h"
 #include "GoogleTracingImpl.h"
 #include "Utilities.h"
@@ -61,6 +64,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 			case ECloudProvider::BLIND:
 				UE_LOG(LogCloudConnector, Display, TEXT("Starting Cloud Connector in Blind mode"));
 				m_storage = MakeUnique<BlindStorageImpl>();
+				m_queue = MakeUnique<BlindQueueImpl>();
 				m_pubsub = MakeUnique<BlindPubsubImpl>();
 				m_tracing = MakeUnique<BlindTracingImpl>();
 				break;
@@ -107,6 +111,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				}
 
 				m_storage = MakeUnique<AWSStorageImpl>();
+				m_queue = MakeUnique<AWSQueueImpl>(n_config->HandleOnGameThread);
 				m_pubsub  = MakeUnique<AWSPubsubImpl>(n_config->HandleOnGameThread);
 				
 				break;
@@ -115,6 +120,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				UE_LOG(LogCloudConnector, Display, TEXT("Starting Cloud Connector in Google mode"));
 				m_storage = MakeUnique<GoogleCloudStorageImpl>();
 #ifdef WITH_GOOGLECLOUD_SDK
+				m_queue = MakeUnique<GoogleQueueImpl>(n_config->GoogleProjectId, n_config->HandleOnGameThread);
 				m_pubsub  = MakeUnique<GooglePubsubImpl>(n_config->GoogleProjectId, n_config->HandleOnGameThread);
 
 				if (logs_enabled(n_config->CloudLogs)) {
@@ -122,6 +128,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 					GLog->AddOutputDevice(m_log_device.Get());
 				}
 #else
+				m_pubsub = MakeUnique<BlindQueueImpl>();
 				m_pubsub = MakeUnique<BlindPubsubImpl>();
 #endif
 
@@ -188,6 +195,12 @@ ICloudStorage &FCloudConnectorModule::storage() const {
 
 	checkf(m_storage, TEXT("You are calling this too early, please wait for the game to start"))
 	return *m_storage;
+}
+
+ICloudQueue &FCloudConnectorModule::queue() const {
+
+	checkf(m_queue, TEXT("You are calling this too early or too late, please wait for the game to start"))
+	return *m_queue;
 }
 
 ICloudPubsub &FCloudConnectorModule::pubsub() const {
