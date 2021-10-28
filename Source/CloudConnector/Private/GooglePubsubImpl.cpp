@@ -312,30 +312,35 @@ bool GooglePubsubImpl::publish(const FString &n_topic, const FString &n_message,
 		} else {
 			Async(EAsyncExecution::ThreadPool, [publisher, n_message, n_handler, game_thread{ this->m_handle_in_game_thread }]{
 
-				// Now that we have a publisher (or went to catch), send our message
-				gc::future< gc::StatusOr<std::string> > future_id =
-						publisher->Publish(pubsub::MessageBuilder{}.SetData(TCHAR_TO_UTF8(*n_message)).Build());
+				try {
+					// Now that we have a publisher (or went to catch), send our message
+					gc::future< gc::StatusOr<std::string> > future_id =
+							publisher->Publish(pubsub::MessageBuilder{}.SetData(TCHAR_TO_UTF8(*n_message)).Build());
 
-				// Wait for the message to be sent
-				future_id.wait_for(std::chrono::seconds(MessageSendTimeout));
+					// Wait for the message to be sent
+					future_id.wait_for(std::chrono::seconds(MessageSendTimeout));
 
-				const bool success = future_id.is_ready() && future_id.get().ok();
-				FString msg;
-				if (future_id.is_ready()) {
-					if (future_id.get().ok()) {
-						msg = UTF8_TO_TCHAR(future_id.get().value().c_str());
+					const bool success = future_id.is_ready() && future_id.get().ok();
+					FString msg;
+					if (future_id.is_ready()) {
+						if (future_id.get().ok()) {
+							msg = UTF8_TO_TCHAR(future_id.get().value().c_str());
+						} else {
+							msg = UTF8_TO_TCHAR(future_id.get().status().message().c_str());
+						}
 					} else {
-						msg = UTF8_TO_TCHAR(future_id.get().status().message().c_str());
+						msg = TEXT("timeout sending message");
 					}
-				} else {
-					msg = TEXT("timeout sending message");
-				}
 
-				if (game_thread) {
-					// I really shouldn't be abandoning async tasks like that...
-					Async(EAsyncExecution::TaskGraphMainThread, [success, msg, n_handler] { n_handler.Execute(success, msg); });
-				} else {
-					n_handler.Execute(success, msg);
+					if (game_thread) {
+						// I really shouldn't be abandoning async tasks like that...
+						Async(EAsyncExecution::TaskGraphMainThread, [success, msg, n_handler] { n_handler.Execute(success, msg); });
+					} else {
+						n_handler.Execute(success, msg);
+					}
+				} catch (const std::exception &e) {
+					UE_LOG(LogCloudConnector, Warning,
+					TEXT("Caught unknown exception in worker trying to publish message to Google Pubsub: %"), UTF8_TO_TCHAR(e.what()));
 				}
 			});
 		}

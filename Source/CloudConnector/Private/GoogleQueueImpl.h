@@ -50,5 +50,5 @@ class GoogleQueueImpl : public ICloudQueue {
 #else // WITH_GOOGLECLOUD_SDK
 #include "CoreMinimal.h"
 #include "BlindQueueImpl.h"
-using GooglePubsubImpl = BlindPubsubImpl;
+using GoogleQueueImpl = BlindQueueImpl;
 #endif // WITH_GOOGLECLOUD_SDK
