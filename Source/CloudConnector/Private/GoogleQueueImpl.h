@@ -27,9 +27,10 @@
 #pragma warning(pop)
 
 
-/** ICloudQueue implementation using Google Cloud Tasks to implement
-	queuing. Due to lack of SDK support this is now a blind impl.
-	Do not use it
+/** ICloudQueue implementation intended to use using Google Cloud Tasks 
+	to implement queuing. Due to lack of SDK support this is now using Pubsub instead,
+	treating a Pubsub Topic as a Q. Which means unlike the AWS impl it does not have a
+	receive-exactly-once guarantee.
  */
 class GoogleQueueImpl : public ICloudQueue {
 
@@ -42,7 +43,38 @@ class GoogleQueueImpl : public ICloudQueue {
 		// see ICloudQueue docs for these
 		bool listen(const FString &n_queue, FQueueSubscription &n_subscription, const FQueueMessageReceived n_handler) override;
 		bool stop_listen(FQueueSubscription &&n_subscription) override;
-		
+	
+	private:
+
+		void receive_message(google::cloud::pubsub::Message const &n_message,
+				const FQueueMessageReceived &n_handler, google::cloud::pubsub::AckHandler &&n_ack_handler);
+
+		// internal information to maintain a subscription
+		// including a future to shut it down.
+		using GoogleSubscriptionTuple = TTuple<
+			google::cloud::pubsub::Subscription,
+			TUniquePtr<google::cloud::pubsub::Subscriber>,
+			google::cloud::future<google::cloud::Status>
+		>;
+
+		// A map to store them with my FSubscription info as key
+		using GoogleSubscriptionMap = TMap<FQueueSubscription, GoogleSubscriptionTuple>;
+
+		const FString                  m_project_id;
+		const bool                     m_handle_in_game_thread;
+		GoogleSubscriptionMap          m_subscriptions;
+		static FCriticalSection        s_subscriptions_mutex;
+
+		/* The Pubsub SDK normally spawns and maintains its own background threads.
+		 * However, tests have shown that I cannot seem to interact with the engine
+		 * from within them. Not even things like logging. I am assuming that only
+		 * "engine" threads can do this, even though I have evidence to the contrary.
+		 * Something just seems different about those threads. In any case, maintaining
+		 * my own completion Q and runner solved the issue.
+		 */
+		google::cloud::CompletionQueue m_completion_q;
+		TUniquePtr<FThread>            m_runner;   //!< background thread for the SDK
+
 };
 
 // I have not found a way to exclude those files from the build if Google Cloud is 
