@@ -262,7 +262,6 @@ bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 
 bool GooglePubsubImpl::publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler) {
 
-	checkf(IsInGameThread(), TEXT("Please call GooglePubsubImpl::publish() in the game thread"));
 	if (n_topic.IsEmpty()) {
 		UE_LOG(LogCloudConnector, Warning, TEXT("Cannot publish to an empty topic"));
 		return false;
@@ -279,6 +278,7 @@ bool GooglePubsubImpl::publish(const FString &n_topic, const FString &n_message,
 		// We store publishers for each topic in a map and create a new one on demand
 		const PublisherPtr publisher = [this, &n_topic] {
 
+			FScopeLock slock(&m_publishers_mutex);
 			if (PublisherPtr * const existing = m_publishers.Find(n_topic)) {
 				return *existing;
 			} else {

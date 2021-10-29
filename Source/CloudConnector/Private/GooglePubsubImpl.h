@@ -68,6 +68,7 @@ class GooglePubsubImpl : public ICloudPubsub {
 		GoogleSubscriptionMap          m_subscriptions;
 		static FCriticalSection        s_subscriptions_mutex;
 		GooglePublisherMap             m_publishers;
+		FCriticalSection               m_publishers_mutex;
 
 		/* The Pubsub SDK normally spawns and maintains its own background threads.
 		 * However, tests have shown that I cannot seem to interact with the engine

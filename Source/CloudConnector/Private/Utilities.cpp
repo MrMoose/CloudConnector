@@ -3,11 +3,13 @@
  * See attached file LICENSE for full details
  */
 #include "Utilities.h"
+#include "ICloudConnector.h"
 
 #include "HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Misc/DefaultValueHelper.h"
+#include "Internationalization/Regex.h"
 
 #include <cstdlib>
 #include <random>
@@ -232,3 +234,39 @@ FString random_aws_trace_id() {
 	std::uniform_real_distribution<double> dist(0, std::numeric_limits<uint64>::max());
 	return FString::Printf(TEXT("%016x"), dist(mt));
 }
+
+FString parse_arn_account_id(const FString &n_arn) {
+
+	// Seems like I need to parse the account ID out the q arn
+	FRegexPattern arn_regex(TEXT("^arn:([^:\\n]*):([^:\\n]*):([^:\\n]*):([^:\\n]*):(?:([^:\\/\\n]*)[:\\/])?(.*)$"));
+
+	FRegexMatcher matcher(arn_regex, n_arn);
+
+	if (!matcher.FindNext()) {
+		UE_LOG(LogCloudConnector, Warning, TEXT("Cannot parse arn: %s"), *n_arn);
+		return {};
+	} else {
+		return matcher.GetCaptureGroup(4);
+	}
+}
+
+FString hacky_arn_prefix(const FString &n_topic_arn, const FString &n_queue_name) {
+
+	// Seems like I need to parse the account ID out the q arn
+	FRegexPattern arn_regex(TEXT("^arn:([^:\\n]*):([^:\\n]*):([^:\\n]*):([^:\\n]*):(?:([^:\\/\\n]*)[:\\/])?(.*)$"));
+
+	FRegexMatcher matcher(arn_regex, n_topic_arn);
+
+	if (!matcher.FindNext()) {
+		UE_LOG(LogCloudConnector, Warning, TEXT("Cannot parse arn: %s"), *n_topic_arn);
+		return {};
+	} else {
+		// surely I belong dead for this
+		return FString::Printf(TEXT("arn:%s:sqs:%s:%s:%s"),
+			*matcher.GetCaptureGroup(1),
+			*matcher.GetCaptureGroup(3),
+			*matcher.GetCaptureGroup(4),
+			*n_queue_name);
+	}
+}
+

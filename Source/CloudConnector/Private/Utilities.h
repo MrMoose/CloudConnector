@@ -92,3 +92,9 @@ std::string get_google_cloud_instance_id();
 
 /// generate what I think is a random trace ID for use in XRay
 FString random_aws_trace_id();
+
+FString parse_arn_account_id(const FString &n_arn);
+
+
+FString hacky_arn_prefix(const FString &n_topic_arn, const FString &n_queue_name);
+

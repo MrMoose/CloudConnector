@@ -115,22 +115,17 @@ class SQSRunner {
 			//
 			rm_req->SetWaitTimeSeconds(4);
 
-			// Request some additional info with each message
-			rm_req->SetAttributeNames({
-
-				// For X-Ray tracing, I need an AWSTraceHeader, which in the C++ SDK 
-				// seems to be not in the enum like the others. To have it included in the response,
-				// only All will do the trick.
-				QueueAttributeName::All,
-
-				QueueAttributeName::SentTimestamp,             // to calculate age
-				QueueAttributeName::ApproximateReceiveCount    // to see how often that message has been received (approximation)
-			});
+			// For X-Ray tracing, I need an AWSTraceHeader, which in the C++ SDK 
+			// seems to be not in the enum like the others. To have it included in the response,
+			// only All will do the trick.
+			rm_req->AddAttributeNames(QueueAttributeName::All);
+			rm_req->AddAttributeNames(QueueAttributeName::SentTimestamp);
+			rm_req->AddAttributeNames(QueueAttributeName::ApproximateReceiveCount);
 
 			// This is how it's supposed to work but it doesn't. Hence the 'All' above
-			rm_req->SetMessageAttributeNames({
-				MessageSystemAttributeNameMapper::GetNameForMessageSystemAttributeName(MessageSystemAttributeName::AWSTraceHeader)
-			});
+			rm_req->AddMessageAttributeNames(
+					MessageSystemAttributeNameMapper::GetNameForMessageSystemAttributeName(
+							MessageSystemAttributeName::AWSTraceHeader));
 
 			while (!m_interrupted.load()) 	{
 				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(*rm_req);
@@ -155,7 +150,7 @@ class SQSRunner {
 				// Rinse, repeat until interrupted
 			}
 
-			rm_req.release(); // yes, sad.
+			//rm_req.release(); // yes, sad.
 							  // Leaking this object is the only way I found around
 							  // https://github.com/MrMoose/CloudConnector/issues/3
 		}

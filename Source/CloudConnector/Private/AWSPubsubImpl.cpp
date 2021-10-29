@@ -29,6 +29,8 @@
 #include <aws/sqs/model/QueueAttributeName.h>
 #include <aws/sqs/model/CreateQueueRequest.h>
 #include <aws/sqs/model/CreateQueueResult.h>
+#include <aws/sqs/model/AddPermissionRequest.h>
+//#include <aws/sqs/model/AddPermissionResult.h>
 #include <aws/sqs/model/GetQueueAttributesRequest.h>
 #include <aws/sqs/model/GetQueueAttributesResult.h>
 #include <aws/sqs/model/DeleteQueueRequest.h>
@@ -42,6 +44,8 @@
 #include <aws/sns/model/CreateTopicResult.h>
 #include <aws/sns/model/SubscribeRequest.h>
 #include <aws/sns/model/SubscribeResult.h>
+#include <aws/sns/model/PublishRequest.h>
+#include <aws/sns/model/PublishResult.h>
 #include "Windows/PostWindowsApi.h"
 
 #include <atomic>
@@ -53,6 +57,9 @@
 static Aws::UniquePtr<Aws::SNS::SNSClient> s_sns_client;
 static Aws::UniquePtr<Aws::SQS::SQSClient> s_sqs_client;
 
+using SNSTopicARNMap = TMap<FString, Aws::String>;
+static SNSTopicARNMap                      s_known_topics;
+static FCriticalSection                    s_known_topics_mutex;
 
 using namespace Aws::SNS::Model;
 using namespace Aws::SQS::Model;
@@ -125,18 +132,23 @@ class SQSSubscription {
 			m_sqs = aws_client_factory<Aws::SQS::SQSClient>::create();
 			m_sns = aws_client_factory<Aws::SNS::SNSClient>::create();
 
-			if (!create_queue()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner existing due to Q setup error"));
+			if (!create_topic()) {
+				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner exiting due to setup error"));
 				return;
 			}
 
-			if (!create_topic()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner existing due to setup error"));
+			if (!create_queue()) {
+				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner exiting due to Q setup error"));
 				return;
 			}
 
 			if (!subscribe_to_q()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner existing due to failure in subscription process"));
+				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner exiting due to failure in subscription process"));
+				return;
+			}
+
+			if (!allow_posting()) {
+				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner exiting due to failure permissions"));
 				return;
 			}
 
@@ -158,24 +170,10 @@ class SQSSubscription {
 			rm_req->SetWaitTimeSeconds(4);
 
 			// Request some additional info with each message
-			rm_req->SetAttributeNames({
-
-				// For X-Ray tracing, I need an AWSTraceHeader, which in the C++ SDK 
-				// seems to be not in the enum like the others. To have it included in the response,
-				// only All will do the trick.
-				QueueAttributeName::All,
-
-				QueueAttributeName::SentTimestamp,             // to calculate age
-				QueueAttributeName::ApproximateReceiveCount    // to see how often that message has been received (approximation)
-			});
-
-			// This is how it's supposed to work but it doesn't. Hence the 'All' above
-			rm_req->SetMessageAttributeNames({
-				MessageSystemAttributeNameMapper::GetNameForMessageSystemAttributeName(MessageSystemAttributeName::AWSTraceHeader)
-			});
+			rm_req->AddAttributeNames(QueueAttributeName::SentTimestamp);
+			rm_req->AddAttributeNames(QueueAttributeName::ApproximateReceiveCount);
 
 			while (!m_interrupted.load()) 	{
-		
 				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(*rm_req);
 				if (!rm_out.IsSuccess()) {
 					UE_LOG(LogCloudConnector, Warning, TEXT("Failed to retrieve message from queue '%s': '%s'"),
@@ -198,7 +196,10 @@ class SQSSubscription {
 				// Rinse, repeat until interrupted
 			}
 
-			rm_req.release(); // yes, sad.
+			// Delete the temporary q we created for us
+			delete_queue();
+
+			//rm_req.release(); // yes, sad.
 							  // Leaking this object is the only way I found around
 							  // https://github.com/MrMoose/CloudConnector/issues/3
 		}
@@ -240,7 +241,6 @@ class SQSSubscription {
 			// Process the message and call handler
 			process_message(n_outcome.GetResult().GetMessages()[0]);
 		}
-
 
 		void process_message(const Message &n_message) const noexcept {
 
@@ -314,19 +314,71 @@ class SQSSubscription {
 			}
 		}
 
+		bool create_topic() {
+
+			// Now... I am assuming the user created the topic already as part of IaC
+			// So I really only need the existing Topic's ARN. This doesn't seem to be 
+			// possible though.
+			// Those guys here: https://stackoverflow.com/questions/36721014/aws-sns-how-to-get-topic-arn-by-topic-name
+			// say it's better to CreateTopic which will not create it if it already 
+			// exists but return the ARN anyway
+
+			CreateTopicRequest ctar;
+			ctar.SetName(TCHAR_TO_UTF8(*m_subscription.Topic));
+			// I roll with defaults here until I know which values make sense
+			// If I do add parameters (such as tags) and the topic already exists 
+			// with different ones I get an error and no ARN. This might be a problem
+
+			const CreateTopicOutcome ctoc = m_sns->CreateTopic(ctar);
+			if (!ctoc.IsSuccess()) {
+				// If the topic already exists we get success return value
+				UE_LOG(LogCloudConnector, Warning, TEXT("AWS refused to create topic: %s"),
+					UTF8_TO_TCHAR(ctoc.GetError().GetMessage().c_str()));
+				return false;
+			} else {
+				m_topic_arn = ctoc.GetResult().GetTopicArn();
+				UE_LOG(LogCloudConnector, Display, TEXT("Got Topic ARN: %s"), UTF8_TO_TCHAR(m_topic_arn.c_str()));
+			}
+			return true;
+		}
+
 		bool create_queue() {
 
 			CreateQueueRequest cqr;
 			cqr.SetQueueName(TCHAR_TO_UTF8(*m_subscription.Id));
-			cqr.SetTags({ { "created_by", "CloudConnector" } });
-			cqr.SetAttributes({
-				//{ QueueAttributeName::FifoQueue, "true" },  // #moep figure out what to use here
-				{ QueueAttributeName::DelaySeconds, "0" },
-				{ QueueAttributeName::VisibilityTimeout, std::to_string(m_visibility_timeout) },
-				{ QueueAttributeName::ReceiveMessageWaitTimeSeconds, "4" }
-				});
+			cqr.AddTags("created_by", "CloudConnector");
+			//cqr.AddAttributes(QueueAttributeName::FifoQueue, "true");
+			cqr.AddAttributes(QueueAttributeName::DelaySeconds, "0");
+			cqr.AddAttributes(QueueAttributeName::VisibilityTimeout, std::to_string(m_visibility_timeout));
+			cqr.AddAttributes(QueueAttributeName::ReceiveMessageWaitTimeSeconds, "4");
 
-			const CreateQueueOutcome cqoc = s_sqs_client->CreateQueue(cqr);
+			// We need to set a policy document in order to allow SNS to post into our Q.
+			// This document sadly appears to have to contain the ARN of the Q we have not yet created as Resource field.
+			// So I have to predict the ARN it's gonna get. Very bad all this but I see no other way
+			const FString hacky_predicted_queue_arn = hacky_arn_prefix(UTF8_TO_TCHAR(m_topic_arn.c_str()), m_subscription.Id);
+
+			const FString policy = FString::Printf(TEXT(
+				"{\
+				    \"Version\": \"2008-10-17\",\
+					\"Statement\" : [\
+					{\
+						\"Effect\": \"Allow\",\
+						\"Principal\" : {\
+							\"Service\": \"sns.amazonaws.com\"\
+						},\
+						\"Action\" : \"sqs:SendMessage\",\
+						\"Resource\": \"%s\",\
+						\"Condition\" : {\
+							\"ArnEquals\": {\
+								\"aws:SourceArn\": \"%s\"\
+							}\
+						}\
+					}]\
+				}"), *hacky_predicted_queue_arn, UTF8_TO_TCHAR(m_topic_arn.c_str()));
+
+			cqr.AddAttributes(QueueAttributeName::Policy, TCHAR_TO_UTF8(*policy));
+
+			const CreateQueueOutcome cqoc = m_sqs->CreateQueue(cqr);
 
 			if (!cqoc.IsSuccess()) {
 				UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub failed to create SQS for SNS subscription: %s"),
@@ -339,7 +391,7 @@ class SQSSubscription {
 
 			GetQueueAttributesRequest gqar;
 			gqar.SetQueueUrl(cqoc.GetResult().GetQueueUrl());
-			gqar.SetAttributeNames({ QueueAttributeName::QueueArn });
+			gqar.AddAttributeNames(QueueAttributeName::QueueArn);
 
 			// Now that we have a Q, hook it up to that subscription
 			// In order to do that we need the arn of the Q we have just created which weirdly
@@ -359,41 +411,17 @@ class SQSSubscription {
 					return false;
 				} else {
 					m_queue_arn = i->second;
-					UE_LOG(LogCloudConnector, Display, TEXT("Got ARN of temporary Q: %s"), UTF8_TO_TCHAR(m_queue_arn.c_str()));
+
+					// At the very least I can verify that the actual ARN we got matches the one 
+					// we predicted in our hack earlier
+					if (!hacky_predicted_queue_arn.Equals(UTF8_TO_TCHAR(m_queue_arn.c_str()))) {
+						UE_LOG(LogCloudConnector, Warning, 
+							TEXT("Got different Q arn than predicted: %s. The Q will probably not get messages from SNS."),
+							UTF8_TO_TCHAR(m_queue_arn.c_str()));
+					} else {
+						UE_LOG(LogCloudConnector, Display, TEXT("Got ARN of temporary Q: %s"), UTF8_TO_TCHAR(m_queue_arn.c_str()));
+					}
 				}
-			}
-			return true;
-		}
-
-		bool create_topic() {
-
-			// Now... I am assuming the user created the topic already as part of IaC
-			// So I really only need the existing Topic's ARN. This doesn't seem to be 
-			// possible though.
-			// Those guys here: https://stackoverflow.com/questions/36721014/aws-sns-how-to-get-topic-arn-by-topic-name
-			// say it's better to CreateTopic which will not create it if it already 
-			// exists but return the ARN anyway
-
-			CreateTopicRequest ctar;
-			ctar.SetName(TCHAR_TO_UTF8(*m_subscription.Topic));
-			Aws::SNS::Model::Tag creation_tag;
-			creation_tag.SetKey("created_by");
-			creation_tag.SetValue("CloudConnector");
-			ctar.SetTags({ creation_tag });
-			// I roll with defaults here until I know which values make sense
-
-			const CreateTopicOutcome ctoc = m_sns->CreateTopic(ctar);
-			if (!ctoc.IsSuccess()) {
-
-				// #moep debug this error type and check how SNS reacts on already existing topic
-
-				UE_LOG(LogCloudConnector, Warning, TEXT("AWS refused to create topic: %s"),
-							UTF8_TO_TCHAR(ctoc.GetError().GetMessage().c_str()));
-
-				return false;
-			} else {
-				m_topic_arn = ctoc.GetResult().GetTopicArn();
-				UE_LOG(LogCloudConnector, Display, TEXT("Got Topic ARN: %s"), UTF8_TO_TCHAR(m_topic_arn.c_str()));
 			}
 			return true;
 		}
@@ -418,11 +446,39 @@ class SQSSubscription {
 			}
 		}
 
+		// Add permission for the SNS topic to post to the Q we have created
+		// This does not work possibly due to an SDK bug: https://github.com/aws/aws-sdk-cpp/issues/377
+		// 
+		// So I set the policy document during creation of the Q instead.
+		// If you figure out why this is broken, try to remove the policy document there
+		//
+		bool allow_posting() const {
+
+			Aws::SQS::Model::AddPermissionRequest apr;
+			apr.SetQueueUrl(m_queue_url);
+			apr.SetLabel("AllowSNSToPostInUs");
+			apr.AddActions("SendMessage");
+			
+			const FString account_id_str = parse_arn_account_id(UTF8_TO_TCHAR(m_topic_arn.c_str()));
+			apr.AddAWSAccountIds(TCHAR_TO_UTF8(*account_id_str));
+
+			Aws::SQS::Model::AddPermissionOutcome oc = m_sqs->AddPermission(apr);
+
+			if (!oc.IsSuccess()) {
+				UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub failed to add permissions for SNS to post to temporary Q '%s': %s"),
+						*m_subscription.Topic, UTF8_TO_TCHAR(oc.GetError().GetMessage().c_str()));
+				return false;
+			} else {
+				UE_LOG(LogCloudConnector, Display, TEXT("Added permission for SNS to post to temporary Q"));
+				return true;
+			}
+		}
+
 		void delete_queue() const {
 
 			DeleteQueueRequest dqr;
 			dqr.SetQueueUrl(m_queue_url);
-			const DeleteQueueOutcome dqoc = s_sqs_client->DeleteQueue(dqr);
+			const DeleteQueueOutcome dqoc = m_sqs->DeleteQueue(dqr);
 
 			if (!dqoc.IsSuccess()) {
 				UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub failed to delete temporary SQS Q '%s': %s"),
@@ -466,8 +522,8 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	n_subscription.Id = FString::Printf(TEXT("CCQ-%s-%s"), *instance_id, *n_subscription.Topic);
 
 	// In here it is enough to remember the id aka Queue URL
-	n_subscription.Id = n_topic;
-	n_subscription.Topic = n_topic;
+	//n_subscription.Id = n_topic;
+	//n_subscription.Topic = n_topic;
 
 	{
 		FScopeLock slock(&m_subscriptions_mutex);
@@ -531,5 +587,97 @@ bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 
 bool AWSPubsubImpl::publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler) {
 
-	return false;
+	if (m_shut_down) {
+		UE_LOG(LogCloudConnector, Display, TEXT("AWS Pubsub Object is being shut down. Ignore publish cmd"));
+		return false;
+	}
+
+	if (n_topic.IsEmpty()) {
+		UE_LOG(LogCloudConnector, Warning, TEXT("Cannot publish to an empty topic"));
+		return false;
+	}
+	if (n_message.IsEmpty()) {
+		UE_LOG(LogCloudConnector, Warning, TEXT("Will not publish empty empty message to topic '%'"), *n_topic);
+		return false;
+	}
+
+	if (!s_sns_client) {
+		s_sns_client = aws_client_factory<Aws::SNS::SNSClient>::create();
+	}
+
+	// #moep todo: seriously, you shouldn't abandon such tasks. track them!
+	Async(EAsyncExecution::ThreadPool, [n_topic, n_message, n_handler, game_thread{ this->m_handle_in_game_thread }]{
+
+		// The publish requests takes the topic arn, which we may or may not know at this point.
+		// I use the same mechanism as in the runner. Create the topic if we don't know the arn.
+		// Once we do know it, remember it. This means that publishing the first message to a topic
+		// always takes longer.
+		Aws::String topic_arn;
+		{
+			FScopeLock slock(&s_known_topics_mutex);
+
+			const Aws::String *arn = s_known_topics.Find(n_topic);
+			if (arn) {
+				topic_arn = *arn;
+			} else {
+				// We can block this thread for a while when the topic gets created.
+				// Other threads have no business doing this at the same time.
+				CreateTopicRequest ctar;
+				ctar.SetName(TCHAR_TO_UTF8(*n_topic));
+				// Cannot add parameters which might differ from already existing topic
+				// I roll with defaults here until I know which values make sense
+
+				const CreateTopicOutcome ctoc = s_sns_client->CreateTopic(ctar);
+				if (!ctoc.IsSuccess()) {
+
+					// #moep debug this error type and check how SNS reacts on already existing topic
+
+					UE_LOG(LogCloudConnector, Warning, TEXT("AWS refused to create topic: %s"),
+						UTF8_TO_TCHAR(ctoc.GetError().GetMessage().c_str()));
+
+					if (game_thread && !IsInGameThread()) {
+						// I really shouldn't be abandoning async tasks like that...
+						Async(EAsyncExecution::TaskGraphMainThread, [n_handler] { n_handler.Execute(false, TEXT("Failed to create topic")); });
+					} else {
+						n_handler.Execute(false, TEXT("Failed to create topic"));
+					}
+				} else {
+					topic_arn = ctoc.GetResult().GetTopicArn();
+					s_known_topics.Emplace(n_topic, topic_arn);
+					UE_LOG(LogCloudConnector, Display, TEXT("Created new topic with ARN: %s"), UTF8_TO_TCHAR(topic_arn.c_str()));
+				}
+			}
+		}
+
+		PublishRequest preq;
+		preq.SetMessage(TCHAR_TO_UTF8(*n_message));
+		preq.SetTopicArn(topic_arn);
+
+		const PublishOutcome poc = s_sns_client->Publish(preq);
+		if (poc.IsSuccess()) {
+			UE_LOG(LogCloudConnector, Display, TEXT("Successfully published pubsub message to '%s'"), *n_topic);
+
+			if (!n_handler.IsBound()) { return; }
+
+			if (game_thread && !IsInGameThread()) {
+				Async(EAsyncExecution::TaskGraphMainThread, [n_handler] { n_handler.Execute(true, TEXT("Published Message")); });
+			} else {
+				n_handler.Execute(true, TEXT("Published Pubsub Message"));
+			}
+		} else {
+			const FString errmsg = FString::Printf(TEXT("Failed to publish message: %s"), UTF8_TO_TCHAR(poc.GetError().GetMessage().c_str()));
+			UE_LOG(LogCloudConnector, Warning, TEXT("%s"), *errmsg);
+
+			if (!n_handler.IsBound()) { return; }
+
+			if (game_thread && !IsInGameThread()) {
+				Async(EAsyncExecution::TaskGraphMainThread, [n_handler] { n_handler.Execute(false, TEXT("Published Message")); });
+			} else {
+				n_handler.Execute(false, TEXT("Published Message"));
+			}
+
+		}
+	});
+
+	return true;
 }

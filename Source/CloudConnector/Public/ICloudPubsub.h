@@ -133,7 +133,8 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		 *  You may or may not provide a handler. If the function returns true the
 		 *  handler will always be called. If it returns false the handler will never be called.
 		 *  Performance-wise it's better to only supply a handler if you need to know when
-		 *  and if the message is guaranteed to be sent.
+		 *  and if the message is guaranteed to be sent. Otherwise leave it empty.
+		 *  This is required to be safe to call from any thread.
 		 */
 		virtual bool publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler = FPubsubMessagePublished{}) = 0;
 
