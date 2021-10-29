@@ -147,10 +147,11 @@ class SQSSubscription {
 				return;
 			}
 
-			if (!allow_posting()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner exiting due to failure permissions"));
-				return;
-			}
+			// disabled as it doesn't work. See comment in impl
+			// if (!allow_posting()) {
+			//	UE_LOG(LogCloudConnector, Warning, TEXT("Subscription runner exiting due to failure permissions"));
+			//	return;
+			// }
 
 			// Loop and receive messages, re-use request object
 			// I've had horrendous problems tearing this thread down.
@@ -198,10 +199,6 @@ class SQSSubscription {
 
 			// Delete the temporary q we created for us
 			delete_queue();
-
-			//rm_req.release(); // yes, sad.
-							  // Leaking this object is the only way I found around
-							  // https://github.com/MrMoose/CloudConnector/issues/3
 		}
 
 		/// Stops the runnable object from foreign thread
