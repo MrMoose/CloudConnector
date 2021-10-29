@@ -4,6 +4,7 @@
  */
 #include "AWSPubsubImpl.h"
 #include "ICloudConnector.h"
+#include "CloudConnector.h"
 #include "Utilities.h"
 #include "ClientFactory.h"
 
@@ -56,8 +57,9 @@ static Aws::UniquePtr<Aws::SQS::SQSClient> s_sqs_client;
 using namespace Aws::SNS::Model;
 using namespace Aws::SQS::Model;
 
-AWSPubsubImpl::AWSPubsubImpl(const bool n_handle_in_game_thread)
-		: m_handle_in_game_thread{ n_handle_in_game_thread } {
+AWSPubsubImpl::AWSPubsubImpl(const ACloudConnector *n_config)
+		: m_visibility_timeout{ visibility_timeout(n_config->VisibilityTimeout) }
+		, m_handle_in_game_thread{ n_config->HandleOnGameThread } {
 
 }
 
@@ -103,8 +105,10 @@ void AWSPubsubImpl::shutdown_runners(FViewport *n_viewport) noexcept {
 class SQSSubscription {
 
 	public:
-		SQSSubscription(const FSubscription &n_subscription, const bool n_handle_on_game_thread, const FPubsubMessageReceived n_handler)
+		SQSSubscription(const FSubscription &n_subscription, const uint32 n_visibility_timeout, 
+						const bool n_handle_on_game_thread, const FPubsubMessageReceived n_handler)
 				: m_subscription{ n_subscription }
+				, m_visibility_timeout{ n_visibility_timeout }
 				, m_handle_on_game_thread{ n_handle_on_game_thread }
 				, m_handler{ n_handler } {
 
@@ -316,9 +320,9 @@ class SQSSubscription {
 			cqr.SetQueueName(TCHAR_TO_UTF8(*m_subscription.Id));
 			cqr.SetTags({ { "created_by", "CloudConnector" } });
 			cqr.SetAttributes({
-				//{ QueueAttributeName::FifoQueue,                     "true" },
-				{ QueueAttributeName::DelaySeconds,                  "0" },
-				{ QueueAttributeName::VisibilityTimeout,             "60" },
+				//{ QueueAttributeName::FifoQueue, "true" },  // #moep figure out what to use here
+				{ QueueAttributeName::DelaySeconds, "0" },
+				{ QueueAttributeName::VisibilityTimeout, std::to_string(m_visibility_timeout) },
 				{ QueueAttributeName::ReceiveMessageWaitTimeSeconds, "4" }
 				});
 
@@ -433,6 +437,7 @@ class SQSSubscription {
 		Aws::String                          m_queue_url;
 		Aws::String                          m_queue_arn;
 
+		const uint32                         m_visibility_timeout;
 		const bool                           m_handle_on_game_thread;
 		const FPubsubMessageReceived         m_handler;
 		std::atomic<bool>                    m_interrupted = false;
@@ -472,7 +477,8 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 		}
 	}
 
-	TUniquePtr<SQSSubscription> runner = MakeUnique<SQSSubscription>(n_subscription, m_handle_in_game_thread, n_handler);
+	TUniquePtr<SQSSubscription> runner = MakeUnique<SQSSubscription>(n_subscription, 
+											m_visibility_timeout, m_handle_in_game_thread, n_handler);
 
 	// hooko up to Unreal's Alt+F4 catch-all delegate to shut down SQS gracefully in this case
 	if (!m_emergency_shutdown_handle.IsValid() && GEngine && GEngine->GameViewport) {

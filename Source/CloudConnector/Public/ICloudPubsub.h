@@ -120,9 +120,6 @@ DECLARE_DELEGATE_TwoParams(FPubsubMessagePublished, const bool, const FString);
 class CLOUDCONNECTOR_API ICloudPubsub {
 
 	public:
-		/// This maps to visibility timeout on SQS and ACK deadline on Pubsub
-		enum { VisibilityTimeout = 30 };
-
 		/// Maps to a timeout in secs of how long we wait for the SDK to send 
 		/// a message before we call the handler with an error
 		enum { MessageSendTimeout = 30 };

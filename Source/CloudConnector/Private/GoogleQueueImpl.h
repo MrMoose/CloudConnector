@@ -35,7 +35,7 @@
 class GoogleQueueImpl : public ICloudQueue {
 
 	public:
-		GoogleQueueImpl(const FString &n_project_id, const bool n_handle_in_game_thread);
+		GoogleQueueImpl(const class ACloudConnector *n_config);
 		virtual ~GoogleQueueImpl() noexcept;
 
 		void shutdown() noexcept override;
@@ -61,6 +61,7 @@ class GoogleQueueImpl : public ICloudQueue {
 		using GoogleSubscriptionMap = TMap<FQueueSubscription, GoogleSubscriptionTuple>;
 
 		const FString                  m_project_id;
+		const uint32                   m_visibility_timeout;
 		const bool                     m_handle_in_game_thread;
 		GoogleSubscriptionMap          m_subscriptions;
 		static FCriticalSection        s_subscriptions_mutex;

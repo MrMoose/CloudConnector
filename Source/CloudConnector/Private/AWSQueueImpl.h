@@ -21,7 +21,7 @@ namespace Aws::SQS {
 class AWSQueueImpl : public ICloudQueue {
 
 	public:
-		AWSQueueImpl(const bool n_handle_in_game_thread);
+		AWSQueueImpl(const class ACloudConnector *n_config);
 		virtual ~AWSQueueImpl() noexcept;
 
 		bool listen(const FString &n_queue, FQueueSubscription &n_subscription, const FQueueMessageReceived n_handler) override;
@@ -38,7 +38,7 @@ class AWSQueueImpl : public ICloudQueue {
 		// internal information to maintain a subscription
 		// A map to store them with my FQueueSubscription info as key
 		using SQSSubscriptionMap = TMap<FQueueSubscription, TUniquePtr<class SQSRunner> >;
-
+		
 		const bool              m_handle_in_game_thread;
 		SQSSubscriptionMap      m_subscriptions;
 		FCriticalSection        m_subscriptions_mutex;

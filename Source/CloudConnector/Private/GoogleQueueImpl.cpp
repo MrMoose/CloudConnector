@@ -7,6 +7,7 @@
 
 #include "GoogleQueueImpl.h"
 #include "ICloudConnector.h"
+#include "CloudConnector.h"
 #include "Utilities.h"
 
 #include "Async/Async.h"
@@ -34,9 +35,10 @@ namespace pubsub = google::cloud::pubsub;
 
 FCriticalSection GoogleQueueImpl::s_subscriptions_mutex;
 
-GoogleQueueImpl::GoogleQueueImpl(const FString &n_project_id, const bool n_handle_in_game_thread)
-	: m_project_id{ n_project_id }
-	, m_handle_in_game_thread{ n_handle_in_game_thread } {
+GoogleQueueImpl::GoogleQueueImpl(const ACloudConnector *n_config)
+		: m_project_id{ google_project_id(n_config->GoogleProjectId) }
+		, m_visibility_timeout{ visibility_timeout(n_config->VisibilityTimeout) }
+		, m_handle_in_game_thread{ n_config->HandleOnGameThread } {
 
 	m_runner.Reset(new FThread(TEXT("Google Pubsub Runner"),
 		[this] {
@@ -68,10 +70,12 @@ void GoogleQueueImpl::shutdown() noexcept {
 			stop_listen(MoveTemp(s));
 		}
 
-		m_completion_q.Shutdown();
+		if (m_runner.IsValid()) {
+			m_completion_q.Shutdown();
 
-		m_runner->Join();
-		m_runner.Reset();
+			m_runner->Join();
+			m_runner.Reset();
+		}
 
 	} catch (const std::exception &sex) {
 		UE_LOG(LogCloudConnector, Error, TEXT("Unexpected exception tearing down pubsub: %s"), UTF8_TO_TCHAR(sex.what()));
@@ -108,7 +112,7 @@ bool GoogleQueueImpl::listen(const FString &n_queue, FQueueSubscription &n_subsc
 
 	// Subscription parameters
 	pubsub::SubscriptionBuilder options;
-	options.set_ack_deadline(std::chrono::seconds(ICloudPubsub::VisibilityTimeout));
+	options.set_ack_deadline(std::chrono::seconds(m_visibility_timeout));
 	options.set_retain_acked_messages(false);
 
 	// Create it. This can take a while.

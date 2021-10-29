@@ -21,7 +21,8 @@ namespace Aws::SQS {
 class AWSPubsubImpl : public ICloudPubsub {
 
 	public:
-		AWSPubsubImpl(const bool n_handle_in_game_thread);
+		// Does not refer to the parent obj, just read some defaults
+		AWSPubsubImpl(const class ACloudConnector *n_config);
 		virtual ~AWSPubsubImpl() noexcept;
 
 		bool publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler) override;
@@ -35,11 +36,11 @@ class AWSPubsubImpl : public ICloudPubsub {
 
 	private:
 		
-
 		// internal information to maintain a subscription
 		// A map to store them with my FSubscription info as key
 		using SQSSubscriptionMap = TMap<FSubscription, TUniquePtr<class SQSSubscription> >;
 
+		const uint32            m_visibility_timeout;
 		const bool              m_handle_in_game_thread;
 		SQSSubscriptionMap      m_subscriptions;
 		FCriticalSection        m_subscriptions_mutex;

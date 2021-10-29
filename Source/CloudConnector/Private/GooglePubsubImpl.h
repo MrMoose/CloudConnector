@@ -33,7 +33,7 @@
 class GooglePubsubImpl : public ICloudPubsub {
 
 	public:
-		GooglePubsubImpl(const FString &n_project_id, const bool n_handle_in_game_thread);
+		GooglePubsubImpl(const class ACloudConnector *n_config);
 		virtual ~GooglePubsubImpl() noexcept;
 
 		// see ICloudPubsub docs for these
@@ -63,6 +63,7 @@ class GooglePubsubImpl : public ICloudPubsub {
 		using GooglePublisherMap = TMap<FString, PublisherPtr>;
 
 		const FString                  m_project_id;
+		const uint32                   m_visibility_timeout;
 		const bool                     m_handle_in_game_thread;
 		GoogleSubscriptionMap          m_subscriptions;
 		static FCriticalSection        s_subscriptions_mutex;

@@ -111,8 +111,8 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				}
 
 				m_storage = MakeUnique<AWSStorageImpl>();
-				m_queue = MakeUnique<AWSQueueImpl>(n_config->HandleOnGameThread);
-				m_pubsub  = MakeUnique<AWSPubsubImpl>(n_config->HandleOnGameThread);
+				m_queue = MakeUnique<AWSQueueImpl>(n_config);
+				m_pubsub  = MakeUnique<AWSPubsubImpl>(n_config);
 				
 				break;
 
@@ -120,8 +120,8 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				UE_LOG(LogCloudConnector, Display, TEXT("Starting Cloud Connector in Google mode"));
 				m_storage = MakeUnique<GoogleCloudStorageImpl>();
 #ifdef WITH_GOOGLECLOUD_SDK
-				m_queue = MakeUnique<GoogleQueueImpl>(n_config->GoogleProjectId, n_config->HandleOnGameThread);
-				m_pubsub  = MakeUnique<GooglePubsubImpl>(n_config->GoogleProjectId, n_config->HandleOnGameThread);
+				m_queue = MakeUnique<GoogleQueueImpl>(n_config);
+				m_pubsub  = MakeUnique<GooglePubsubImpl>(n_config);
 
 				if (logs_enabled(n_config->CloudLogs)) {
 					m_log_device = MakeUnique<FGoogleLoggingOutputDevice>(n_config->GoogleProjectId);

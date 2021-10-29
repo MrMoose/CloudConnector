@@ -7,6 +7,7 @@
 
 #include "GooglePubsubImpl.h"
 #include "ICloudConnector.h"
+#include "CloudConnector.h"
 #include "Utilities.h"
 
 #include "Async/Async.h"
@@ -35,9 +36,10 @@ namespace pubsub = google::cloud::pubsub;
 
 FCriticalSection GooglePubsubImpl::s_subscriptions_mutex;
 
-GooglePubsubImpl::GooglePubsubImpl(const FString &n_project_id, const bool n_handle_in_game_thread)
-		: m_project_id{ n_project_id }
-		, m_handle_in_game_thread{ n_handle_in_game_thread } {
+GooglePubsubImpl::GooglePubsubImpl(const ACloudConnector *n_config)
+		: m_project_id{ google_project_id(n_config->GoogleProjectId) }
+		, m_visibility_timeout{ visibility_timeout(n_config->VisibilityTimeout) }
+		, m_handle_in_game_thread{ n_config->HandleOnGameThread } {
 
 	m_runner.Reset(new FThread(TEXT("Google Pubsub Runner"),
 		[this] {
@@ -109,7 +111,7 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 
 	// Subscription parameters
 	pubsub::SubscriptionBuilder options;
-	options.set_ack_deadline(std::chrono::seconds(ICloudPubsub::VisibilityTimeout));
+	options.set_ack_deadline(std::chrono::seconds(m_visibility_timeout));
 	options.set_retain_acked_messages(false);
 
 	// Create it. This can take a while.
@@ -320,13 +322,14 @@ bool GooglePubsubImpl::publish(const FString &n_topic, const FString &n_message,
 					// Wait for the message to be sent
 					future_id.wait_for(std::chrono::seconds(MessageSendTimeout));
 
-					const bool success = future_id.is_ready() && future_id.get().ok();
+					const bool success = future_id.is_ready();
 					FString msg;
 					if (future_id.is_ready()) {
-						if (future_id.get().ok()) {
-							msg = UTF8_TO_TCHAR(future_id.get().value().c_str());
+						const gc::StatusOr<std::string> res = future_id.get();
+						if (res.ok()) {
+							msg = UTF8_TO_TCHAR(res.value().c_str());
 						} else {
-							msg = UTF8_TO_TCHAR(future_id.get().status().message().c_str());
+							msg = UTF8_TO_TCHAR(res.status().message().c_str());
 						}
 					} else {
 						msg = TEXT("timeout sending message");

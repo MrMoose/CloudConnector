@@ -4,6 +4,7 @@
  */
 #include "AWSQueueImpl.h"
 #include "ICloudConnector.h"
+#include "CloudConnector.h"
 #include "Utilities.h"
 #include "ClientFactory.h"
 
@@ -35,9 +36,8 @@
 
 using namespace Aws::SQS::Model;
 
-AWSQueueImpl::AWSQueueImpl(const bool n_handle_in_game_thread)
-		: m_handle_in_game_thread{ n_handle_in_game_thread } {
-
+AWSQueueImpl::AWSQueueImpl(const ACloudConnector *n_config)
+		: m_handle_in_game_thread{ n_config->HandleOnGameThread } {
 }
 
 AWSQueueImpl::~AWSQueueImpl() noexcept {

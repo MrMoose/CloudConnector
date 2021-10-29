@@ -138,6 +138,15 @@ class CLOUDCONNECTOR_API ACloudConnector : public AActor {
 		UPROPERTY(EditAnywhere, Category = "CloudConnector|Pubsub")
 		bool HandleOnGameThread = true;
 
+		/** The number of seconds we allow for each message to remain un-acked before it is 
+		 *  sent or received again. Specifics depend heavily on the impl. On Google Subscriptions
+		 *  this maps to ack deadline.
+		 *  The default of 60 means that each receiver has 60 seconds to ack the message 
+		 *  before it will be received by others.
+		 */
+		UPROPERTY(EditAnywhere, Category = "CloudConnector|Pubsub")
+		uint32 VisibilityTimeout = 60;
+
 	private:
 #if WITH_EDITORONLY_DATA
 		/// AWS icon sprite

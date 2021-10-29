@@ -57,6 +57,21 @@ bool logs_enabled(const bool n_default);
  */
 bool tracing_enabled(const bool n_default);
 
+/**
+ * @brief Read env variable CLOUDCONNECTOR_VISIBILITY_TIMEOUT an try to interpret value
+ * as a number of seconds we set the visibility timeout or ack deadline when we create
+ * or listen to Pubsub topics or Queues. Behavior depends on implementation back-end
+ * @return defaults to n_default
+ */
+uint32 visibility_timeout(const uint32 n_default);
+
+/**
+ * @brief Read env variable CLOUDCONNECTOR_GOOGLE_PROJECT_ID to see if we have 
+ * a google project configured from the outside. Should default to config in actor
+ * @return defaults to n_default
+ */
+FString google_project_id(const FString n_default);
+
 /** @brief Query the AWS metadata server for the EC2 Instance ID.
  * Blocking for 3 seconds at worst case
  * If not on EC, will return "LocalInstance" after timeout

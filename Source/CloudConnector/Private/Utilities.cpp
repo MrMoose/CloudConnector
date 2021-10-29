@@ -7,6 +7,7 @@
 #include "HttpModule.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
+#include "Misc/DefaultValueHelper.h"
 
 #include <cstdlib>
 #include <random>
@@ -97,6 +98,33 @@ bool logs_enabled(const bool n_default) {
 bool tracing_enabled(const bool n_default) {
 
 	return true_or_false_env(TEXT("CLOUDCONNECTOR_TRACING_ENABLED"), n_default);
+}
+
+uint32 visibility_timeout(const uint32 n_default) {
+
+	const FString env{ readenv(TEXT("CLOUDCONNECTOR_VISIBILITY_TIMEOUT")) };
+	if (env.IsEmpty()) {
+		return n_default;
+	}
+
+	int32 parsed = 0;
+	const bool result = FDefaultValueHelper::ParseInt(env, parsed);
+
+	if (!result) {
+		return n_default;
+	} else {
+		return static_cast<uint32>(parsed);
+	}
+}
+
+FString google_project_id(const FString n_default) {
+
+	const FString env{ readenv(TEXT("CLOUDCONNECTOR_GOOGLE_PROJECT_ID")) };
+	if (env.IsEmpty()) {
+		return n_default;
+	} else {
+		return n_default;
+	}
 }
 
 FString get_aws_instance_id() {
