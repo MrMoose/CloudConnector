@@ -8,15 +8,17 @@ CloudConnector is a plugin for the
 [Unreal Engine](https://www.unrealengine.com/) which 
 implements elementary cloud native connectivity functions
 for use within C++ Unreal Engine 4 projects.
-Primary use case are remote rendering cases in industry contexts.
-It focuses on logging, tracing and monitoring
-as well as storage access capabilities and message retrieval.
+Primary use case are cloud based remote rendering 
+applications in industry contexts.
+It focuses on queue message handling logging, tracing and monitoring
+as well as storage access capabilities.
 CloudConnector hides the actual cloud implementation behind
 an abstracted common interface and aims for easy deployment
 on AWS or Google Cloud with little or no code changes.
 
 Using it you can:
-* Receive messages from SQS or Google Pubsub
+* Receive queue from SQS or Google Pubsub
+* Send and receive messages from SNS/SQS or Google Pubsub
 * Upload data into buckets on S3 or Google Storage
 * Log to CloudWatch or Google Logging
 * Write performance traces to XRay
@@ -25,8 +27,9 @@ It only supports Win64 as of now. Other platforms are not planned.
 If you are interested in any other, 
 contact [MrMoose](https://github.com/MrMoose).
 
-Supported Engine version:
+Supported Engine versions:
 * 4.26
+* 4.27
 
 ## Quickstart
 
@@ -42,13 +45,13 @@ You should already have logging if you activate it in the actor's properties.<br
 To receive messages from SQS, implement a function like this
 
 ```C++
-void receive_message(const FPubsubMessage n_message, PubsubReturnPromisePtr n_promise);
+void receive_message(const FQueueMessage n_message, QueueReturnPromisePtr n_promise);
 ```
 
 ... then start the listening process by:
 
 ```C++
-ICloudConnector::Get().pubsub().subscribe(topic, m_subscription, delegate_bound_to_your_handler);
+ICloudConnector::Get().queue().subscribe(queue_url_, m_subscription, delegate_bound_to_your_handler);
 ```
 
 Upload files to S3 or Storage by:
@@ -254,11 +257,113 @@ buffer in that time. It must be kept alive until the delegate fires.
 The delegate will only fire when `write()` returns `true`. 
 If such is the case, it will always fire.
 
+## Queue
+
+There are two message related interfaces. The first is `ICloudQueue` which is 
+aimed at simple job retrieval via queues. It maps to SQS on AWS and Google Tasks 
+at Google, although due to lackof support for Tasks in Google's SDK it currently 
+implements this using Pubsub.
+
+To use it, you can implement a handler that is being called when a Q message 
+comes in like this:
+
+```C++
+#include "CoreMinimal.h"
+#include "Components/ActorComponent.h"
+
+#include "ICloudConnector.h"
+
+#include "QueueListener.generated.h"
+
+UCLASS()
+class UQueueListener : public UActorComponent {
+
+	GENERATED_BODY()
+	
+	public:
+		void BeginPlay() override;
+		void EndPlay(const EEndPlayReason::Type n_reason) override;
+
+	private:
+		// we want this to be called for every incoming message
+		void receive_message(const FQueueMessage n_message, QueueReturnPromisePtr n_promise);
+
+		FQueueSubscription m_subscription; // store this to unsubscribe
+};
+```
+
+We can then subscribe to a topic when the component begins play.
+In this case an AWS SQS Url:
+
+```C++
+void UQueueListener::BeginPlay() {
+
+	Super::BeginPlay();
+
+	// Insert your Queue URL
+	const FString topic = TEXT("https://sqs.eu-central-1.amazonaws.com/your-account/your-queue");
+
+	ICloudQueue &queue = ICloudConnector::Get().queue();
+	queue.listen(topic, m_subscription,
+		FQueueMessageReceived::CreateUObject(this, &UQueueListener::receive_message));
+}
+```
+
+You can stop listening on the Q using `stop_listen()` or `shutdown()`.
+
+If result is `true` the connection was established and our method will be called when
+messages are received. Here's a null implementation:
+
+```C++
+void UQueueListener::receive_message(const FQueueMessage n_message, QueueReturnPromisePtr n_retval) {
+
+	UE_LOG(MyLog, Display, TEXT("Received message from q: '%s'"), *n_message.m_body);
+	n_promise->SetValue(false);
+}
+```
+
+It is crucial that every call to this handler will at some point acknowledge 
+the message by calling `SetValue()` on the return promise.
+
+If this is set to true, the implementation will acknowledge (or delete) the message
+so other listeners will not receive it anymore. If you set it to false, it will 
+not be acknowledged and may be received again. In SQS case that is after the 
+visibiliy timeout expires. In Pubsub it may mean right away.
+
+Before the return promise is called, no other handlers are invoked and 
+message retrieval pauses. You may leave the scope of your message handler
+and go async at will, as long as you maintain ownership over the return promise.
+`SetValue()` may be called from any thread.
+
+By using the configuration actor's property `HandleOnGameThread` it is possible 
+to control if your handler is called on the game thread or on the receiving 
+component's own threads (which are all engine threads). By setting the property 
+to false, the handler is called immediately when a message is received but you may
+not be able to call into most engine functionality. Use with care.
+When your application is done receiving messages, you must unsubscribe:
+
+### Queue Permissions
+
+In order to use this service, your cloud role needs provider specific permissions.
+Depending on AWS or Google they look different but generally involve permission 
+to Receive Messages from a Queue, Delete them and Send ACK/NACK if appropriate. 
+For Google (Pubsub) you must also supply permissions to create a Subscription as 
+each instance will create and delete a subscription for itself.
+
+### AWS SQS Setting
+
+When using AWS with CloudConnector your Queue needs to be configured for 
+Long Polling with "Receive message wait time" of 4 seconds. CloudConnector
+expects this setting to be the case. Short polling is not supported and 
+longer wait times are not recommended.
+
 ## Pubsub
 
-This interface aims at mimicking a generic message retrieval system, 
-making lots of concessions on the way. In any case, this is how you can use 
-it.
+### Subscribe to a topic and handle messages
+
+This interface aims at mimicking a generic message exchange system. It is a little more
+complex than `ICloudQueue` but follows a very similar pattern. On AWS this is implemented 
+using a SNS / SQS combo. On Google it is Pubsub.
 
 First you need a function that will be called when a message comes in.
 This can be any regular or member function, or a Lambda if you chose.
@@ -307,35 +412,8 @@ void UQueueListener::BeginPlay() {
 }
 ```
 
-If result is `true` the connection was established and our method will be called when
-messages are received. Here's a null implementation:
+See the description of "Queue" above on how to treat the supplied Return future.
 
-```C++
-void UQueueListener::receive_message(const FPubsubMessage n_message, PubsubReturnPromisePtr n_retval) {
-
-	UE_LOG(MyLog, Display, TEXT("Received message '%s'"), *n_message.m_body);
-	n_promise->SetValue(false);
-}
-```
-
-It is crucial that every call to this handler will at some point acknowledge 
-the message by calling `SetValue()` on the return promise.
-
-If this is set to true, the implementation will acknowledge (or delete) the message
-so other listeners will not receive it anymore. If you set it to false, it will 
-not be acknowledged and may be received again. In SQS case that is after the 
-visibiliy timeout expires. In Pubsub it may mean right away.
-
-Before the return promise is called, no other handlers are invoked and 
-message retrieval pauses. You may freely leave the scope of your message handler
-and go async at will, as long as you maintain ownership over the return promise.
-`SetValue()` may be called from any thread.
-
-By using the configuration actor's property `HandleOnGameThread` it is possible 
-to control if your handler is called on the game thread or on the receiving 
-component's own threads (which are all engine threads). By setting the property 
-to false, the handler is called immediately when a message is received but you may
-not be able to call into most engine functionality. Use with care.
 When your application is done receiving messages, you must unsubscribe:
 
 ```C++
@@ -351,12 +429,57 @@ void UQueueListener::EndPlay(const EEndPlayReason::Type n_reason) {
 After this, no further handlers will be called. Those still in flight 
 will be handled.
 
-### AWS SQS Setting
+### Publish a message to a topic
 
-When using AWS with CloudConnector your Queue needs to be configured for 
-Long Polling with "Receive message wait time" of 4 seconds. CloudConnector
-expects this setting to be the case. Short polling is not supported and 
-longer wait times are not recommended.
+Note that sending a message to a topic is a purely asynchronous process which 
+aims at returning immediately in order to not block the game thread.
+You do not have to be subscribed to a topic you send a message to.
+If the topic does not exist, implementations will try to create it with default values.
+To send a message to a topic, you may do this:
+
+```C++
+ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
+
+if (!pubsub.publish(TEXT("MyTopic"), TEXT("Hello World"),
+		FPubsubMessagePublished::CreateLambda([](const bool n_success, const FString n_message) {
+			
+	if (n_success) {
+		UE_LOG(LogAMP, Display, TEXT("Published message: '%s'"), *n_message);
+	} else {
+		UE_LOG(LogAMP, Warning, TEXT("Failed to publish message: '%s'"), *n_message);
+	}
+}))) {	
+	UE_LOG(LogAMP, Warning, TEXT("Publish command was not accepted"));
+}
+```
+
+Note that when sending messages, you do not have to supply a return handler. 
+Only do so when you need confirmation that the message has been sent. Otherwise
+leave it empty. Like this:
+
+```C++
+ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
+
+if (!pubsub.publish(TEXT("MyTopic"), TEXT("Hello World"))) {
+	UE_LOG(LogAMP, Warning, TEXT("Publish command was not accepted"));
+}
+```
+
+### Pubsub Permissions
+
+Depending on AWS or Google you need the following permissions on your role:
+
+* Create SNS or Pubsub Topics
+* Create SQS Queues or Pubsub subscriptions
+* Send and receive messages
+* Delete and ACK messages
+* Delete Subscriptions or Queues
+
+CloudConnector will create a SQS queue to subscribe to an SNS topic on AWS 
+and a subscription on Google. Should your application crash or lose its 
+connection this subscription (or the Q) may not be removed and be left over. 
+Users are advised to keep an eye on unused Queues and delete them manually if 
+appropriate.
 
 ## Tracing
 
