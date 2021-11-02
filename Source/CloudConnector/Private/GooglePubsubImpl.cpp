@@ -110,12 +110,12 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	pubsub::Subscription sub(TCHAR_TO_UTF8(*m_project_id), TCHAR_TO_UTF8(*n_subscription.Id));
 
 	// Subscription parameters
-	pubsub::SubscriptionBuilder options;
-	options.set_ack_deadline(std::chrono::seconds(m_visibility_timeout));
-	options.set_retain_acked_messages(false);
+	pubsub::SubscriptionBuilder sboptions;
+	sboptions.set_ack_deadline(std::chrono::seconds(m_visibility_timeout));
+	sboptions.set_retain_acked_messages(false);
 
 	// Create it. This can take a while.
-	gc::StatusOr<google::pubsub::v1::Subscription> subscription = subscription_admin_client.CreateSubscription(topic, sub, options);
+	gc::StatusOr<google::pubsub::v1::Subscription> subscription = subscription_admin_client.CreateSubscription(topic, sub, sboptions);
 	
 	if (subscription.status().code() == google::cloud::StatusCode::kAlreadyExists) {
 		UE_LOG(LogCloudConnector, Warning, TEXT("Subscription '%s' already exists"), *n_subscription.Id);
@@ -131,12 +131,11 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 
 	// Now we should have a subscription for us. Next step is to hook up to it.
 	pubsub::SubscriberOptions subscriber_options;
-	subscriber_options.set_max_concurrency(2);
+	subscriber_options.set_max_concurrency(1);
 
 	pubsub::ConnectionOptions connection_options;
 	connection_options.DisableBackgroundThreads(m_completion_q);
-	//connection_options.set_background_thread_pool_size(1);  // This is when using the internal thread pool, not ours.
-
+	
 	// create a "Subscriber", which is basically a runner for one subscription 
 	// with no thread pool as we run the thread ourselves. I don't know yet if it is
 	// a problem to potentially have multiple subscribers working on this one completion Q
@@ -192,7 +191,7 @@ void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const F
 
 	// Now I create the return Promise. It will be fulfilled by the delegate implementation
 	const PubsubReturnPromisePtr rp = MakeShared<PubsubReturnPromise, ESPMode::ThreadSafe>();
-	TFuture<bool> return_future = rp->GetFuture();
+	PubsubReturnFuture return_future = rp->GetFuture();
 
 	// Call the delegate on the game thread or right here, depending on what the user desires
 	if (m_handle_in_game_thread) {
@@ -207,7 +206,7 @@ void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const F
 	// This might take forever if the implementation is not careful.
 	// Maybe agree on a timeout?
 	return_future.Wait();
-	if (return_future.Get()) {
+	if (return_future.Get().Get<0>()) {
 		// Test have shown that acknowledging is message has similar semantics as
 		// deleting one in SQS. I couldn't find any means to delete a message otherwise
 		// so that seems to be all I can do for now.

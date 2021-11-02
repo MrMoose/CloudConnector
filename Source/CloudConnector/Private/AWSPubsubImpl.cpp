@@ -30,7 +30,6 @@
 #include <aws/sqs/model/CreateQueueRequest.h>
 #include <aws/sqs/model/CreateQueueResult.h>
 #include <aws/sqs/model/AddPermissionRequest.h>
-//#include <aws/sqs/model/AddPermissionResult.h>
 #include <aws/sqs/model/GetQueueAttributesRequest.h>
 #include <aws/sqs/model/GetQueueAttributesResult.h>
 #include <aws/sqs/model/DeleteQueueRequest.h>
