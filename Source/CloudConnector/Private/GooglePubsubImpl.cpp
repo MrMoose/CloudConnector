@@ -206,7 +206,7 @@ void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const F
 	// This might take forever if the implementation is not careful.
 	// Maybe agree on a timeout?
 	return_future.Wait();
-	if (return_future.Get().Get<0>()) {
+	if (return_future.Get()) {
 		// Test have shown that acknowledging is message has similar semantics as
 		// deleting one in SQS. I couldn't find any means to delete a message otherwise
 		// so that seems to be all I can do for now.

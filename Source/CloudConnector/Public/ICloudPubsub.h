@@ -100,6 +100,7 @@ DECLARE_DELEGATE_TwoParams(FCloudStorageWriteFinishedDelegate, const bool, const
 
 /// a promise created for each message which must be fulfilled by receivers
 using PubsubReturnPromise = TPromise<bool>;
+using PubsubReturnFuture = TFuture<bool>;
 using PubsubReturnPromisePtr = TSharedPtr<PubsubReturnPromise, ESPMode::ThreadSafe>;
 
 /// First parameter is message body
