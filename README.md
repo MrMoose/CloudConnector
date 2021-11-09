@@ -104,7 +104,14 @@ Then start the editor.
 
 Some environment variables influence CloudConnector's behavior 
 for ease of use on cloud instances. Some are cloud specific. See section 
-"Environment Variables" below for full details. 
+"Environment Variables" below for full details.
+
+*__Attention:__*
+For usage of the plugin on Google Cloud it is essential to download and 
+set Google gRPC Root Certificates
+[as described here in section "Windows".](https://github.com/googleapis/google-cloud-cpp/blob/main/google/cloud/bigtable/quickstart/README.md)
+Basically, make sure to download https://pki.google.com/roots.pem and set
+environment variable GRPC_DEFAULT_SSL_ROOTS_FILE_PATH to the resulting file.
 
 ### Activation
 
@@ -116,7 +123,7 @@ the actor icon into your scene. Clicking on it allows for configuring
 properties in its "Details" window.
 
 _Cloud Provider_:<br>
-* Blind - Inactive dormant implementation. Will be for testing purposes
+* Blind - Inactive dormant implementation. For testing purposes. Does nothing.
 * AWS - Select this to use AWS
 * Google Cloud - Select this to use Google Cloud
 
@@ -130,7 +137,7 @@ _GoogleCloud_:<br>
 Google cloud specific options that may or may not influence behavior in that impl.
 
 Note that the presence of the actor is affecting functionality
-during game runtime. It does not do anything during editor time.
+during game runtime. It does not do anything during editor time. It does work PIE though.
 
 ### Development
 
@@ -651,7 +658,13 @@ It is not recommended to use this option.
 
 ## Troubleshooting
 
-#### I have configured logging but see no logs in the CloudWatch console
+#### On Google Cloud I get timeouts talking to any service
+
+Make sure your have downloaded https://pki.google.com/roots.pem and set
+environment variable GRPC_DEFAULT_SSL_ROOTS_FILE_PATH to the resulting file.
+Failute to do so results in "Retry Limit Exceeded" timeouts.
+
+#### On AWS I have configured logging but see no logs in the CloudWatch console
 
 You may have been missing a `config` file in `~/.aws/`. Try this:
 ```
@@ -665,12 +678,13 @@ note that logging is unavailable in shipping build configuration.
 
 #### I have configured logging but see no logs in my provider's Logging console
 
-Logging is unavailable in shipping build configuration. Perhaps you are using Shipping?
+Logging is unavailable in shipping build configuration.
+Perhaps you are using Shipping Configuration? If so, note that logging is not supported.
 
 #### When trying to build a package, I get weird protobuf related linker errors
 
 Check if you use the PixelStreaming plugin. It can not coexist with CloudConnector.
-At least it can't in 4.26. See here:
+At least it can't in 4.27. See here:
 See here: https://github.com/MrMoose/CloudConnector/issues/2.
 This is a problem that occurrs when linking both together. If you need PixelStreaming,
 you can avoid the problem by setting `SupportGoogleCloud` to `false` in
