@@ -51,7 +51,7 @@ void receive_message(const FQueueMessage n_message, QueueReturnPromisePtr n_prom
 ... then start the listening process by:
 
 ```C++
-ICloudConnector::Get().queue().subscribe(queue_url_, m_subscription, delegate_bound_to_your_handler);
+ICloudConnector::Get().queue().listen(queue_url_, m_subscription, delegate_bound_to_your_handler);
 ```
 
 Upload files to S3 or Storage by:
@@ -383,10 +383,10 @@ Like this:
 
 #include "ICloudConnector.h"
 
-#include "QueueListener.generated.h"
+#include "PubsubListener.generated.h"
 
 UCLASS()
-class UQueueListener : public UActorComponent {
+class UPubsubListener : public UActorComponent {
 
 	GENERATED_BODY()
 	
@@ -403,7 +403,7 @@ class UQueueListener : public UActorComponent {
 ```
 
 In our code, we can subscribe to a topic when the component begins play.
-In this case an AWS SQS Url:
+In this case an AWS SNS Topic:
 
 ```C++
 void UQueueListener::BeginPlay() {
@@ -451,12 +451,12 @@ if (!pubsub.publish(TEXT("MyTopic"), TEXT("Hello World"),
 		FPubsubMessagePublished::CreateLambda([](const bool n_success, const FString n_message) {
 			
 	if (n_success) {
-		UE_LOG(LogAMP, Display, TEXT("Published message: '%s'"), *n_message);
+		UE_LOG(MyLog, Display, TEXT("Published message: '%s'"), *n_message);
 	} else {
-		UE_LOG(LogAMP, Warning, TEXT("Failed to publish message: '%s'"), *n_message);
+		UE_LOG(MyLog, Warning, TEXT("Failed to publish message: '%s'"), *n_message);
 	}
 }))) {	
-	UE_LOG(LogAMP, Warning, TEXT("Publish command was not accepted"));
+	UE_LOG(MyLog, Warning, TEXT("Publish command was not accepted"));
 }
 ```
 
@@ -468,7 +468,7 @@ leave it empty. Like this:
 ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
 
 if (!pubsub.publish(TEXT("MyTopic"), TEXT("Hello World"))) {
-	UE_LOG(LogAMP, Warning, TEXT("Publish command was not accepted"));
+	UE_LOG(MyLog, Warning, TEXT("Publish command was not accepted"));
 }
 ```
 
@@ -504,8 +504,8 @@ Central core is an object of the class `CloudTrace`. It is threadsafe and you ke
 it around until you are done tracing. For the actual information you open 
 segments upon it and close them when you are done. Times are tracked.
 
-If you are using `IPubsub` to retrieve messages, and your message already contains
-such a trace information, the `FPubsubMessage` object will already contain 
+If you are using `IQueue` to retrieve messages, and your message already contains
+such a trace information, the `FQueueMessage` object will already contain 
 a `CloudTrace` ready. If not, you can create one using `ICloudTracing::start_trace()`._
 Let's go back to our previous Q retrieve example.
 
@@ -513,7 +513,7 @@ Let's go back to our previous Q retrieve example.
 
 #include "ICloudConnector.h"
 
-void UQueueListener::receive_message(const FPubsubMessage n_message, PubsubReturnPromisePtr n_retval) {
+void UQueueListener::receive_message(const FQueueMessage n_message, QueueReturnPromisePtr n_retval) {
 
 	UE_LOG(MyLog, Display, TEXT("Received message '%s'"), *n_message.m_body);
 
@@ -545,7 +545,7 @@ for the tedious `if` statements.
 #include "ICloudConnector.h"
 #include "TraceMacros.h"
 
-void UQueueListener::receive_message(const FPubsubMessage n_message, PubsubReturnPromisePtr n_retval) {
+void UQueueListener::receive_message(const FQueueMessage n_message, QueueReturnPromisePtr n_retval) {
 
 	UE_LOG(MyLog, Display, TEXT("Received message '%s'"), *n_message.m_body);
 
@@ -622,7 +622,7 @@ When not set, it defaults to `UnknownStack`.
 
 _CLOUDCONNECTOR_INSTANCE_ID_:<br>
 CloudConnector will query the cloud provider's metadata server for the local
-instance ID. For example, when creating log streams. This behavior can 
+instance ID. For example, when creating log streams or subscriptions. This behavior can 
 be overridden by setting this environment variable to a custom instance id.
 Please note that this may lead to unsatisfactory results when using characters
 that are not allowed in either log stream names or in pubsub subscriptions.
