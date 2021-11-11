@@ -94,7 +94,7 @@ bool GoogleQueueImpl::listen(const FString &n_queue, FQueueSubscription &n_subsc
 	// First we need a name for our subscription. Let's try this...
 	const std::string instance_id = get_google_cloud_instance_id();
 	n_subscription.Queue = n_queue;
-	n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), UTF8_TO_TCHAR(instance_id.c_str()), *n_subscription.Queue);
+	n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), UTF8_TO_TCHAR(instance_id.c_str()), *n_subscription.Queue);
 
 	{
 		FScopeLock slock(&s_subscriptions_mutex);

@@ -406,7 +406,7 @@ In our code, we can subscribe to a topic when the component begins play.
 In this case an AWS SNS Topic:
 
 ```C++
-void UQueueListener::BeginPlay() {
+void UPubsubListener::BeginPlay() {
 
 	Super::BeginPlay();
 
@@ -424,7 +424,7 @@ See the description of "Queue" above on how to treat the supplied Return future.
 When your application is done receiving messages, you must unsubscribe:
 
 ```C++
-void UQueueListener::EndPlay(const EEndPlayReason::Type n_reason) {
+void UPubsubListener::EndPlay(const EEndPlayReason::Type n_reason) {
 
 	ICloudPubsub &pubsub = ICloudConnector::Get().pubsub();
 	pubsub.unsubscribe(MoveTemp(m_subscription));
@@ -631,25 +631,6 @@ Use something simple that only contains "0-9a-zA-Z-".
 If this is not set and a query to the metadata server is unsuccessful
 (for example because you're not running in the cloud), it will
 default to `LocalInstance`.
-
-_CLOUDCONNECTOR_SUBSCRIPTION_ID_:<br>
-For each Pubsub/SNS topic to listen on you need a subscription or an SQS Q 
-respectively. It is generally favored to have them create by your IaC and each Unreal
-instance shares the same subscription in order to achieve message retention and 
-distribution.
-If you intend to create the subscription or Q as part of your IaC you must set an 
-environment variable `CLOUDCONNECTOR_SUBSCRIPTION_ID` to specialize the name.
-It will then assume the name to be:
-
-CloudConnector-$CLOUDCONNECTOR_SUBSCRIPTION_ID-$TOPIC
-
-So, for example, if you are on Google and you have a render job topic 
-named `MyRenderJobTopic`, create a subscription for it and name 
-it `CloudConnector-RenderInstance-MyRenderJobTopic`.
-Then set the environment variable `CLOUDCONNECTOR_SUBSCRIPTION_ID`
-to "RenderInstance". Otherwise a subscription will be created using your 
-instance id.
-
 
 ### AWS specific 
 

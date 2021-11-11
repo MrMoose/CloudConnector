@@ -512,18 +512,18 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	}
 
 	// To subscribe to the topic we need to create an SQS queue to receive messages.
-	// I'm assuming the user may have done so already and named it CloudConnector-$CLOUDCONNECTOR_SUBSCRIPTION_ID-$TOPIC
+	// I'm assuming the user may have done so already and named it $CLOUDCONNECTOR_STACK_NAME-$TOPIC-subscription
 	// This could be done by the user but in order to mimic the Google impl I do it on the fly
 	// and remove them afterwards. This might result in leftover Queues so, we may have to reconsider.
 
-	const FString subscription_id_env = readenv(TEXT("CLOUDCONNECTOR_SUBSCRIPTION_ID"));
-	if (!subscription_id_env.IsEmpty()) {
-		n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), *subscription_id_env, *n_subscription.Topic);
+	const FString stack_name_env = readenv(TEXT("CLOUDCONNECTOR_STACK_NAME"));
+	if (!stack_name_env.IsEmpty()) {
+		n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), *stack_name_env, *n_subscription.Topic);
 		n_subscription.Reused = true;
 	} else {
 		// Otherwise I use the instance ID
 		const FString instance_id = get_aws_instance_id();
-		n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), *instance_id, *n_subscription.Topic);
+		n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), *instance_id, *n_subscription.Topic);
 		n_subscription.Reused = false;
 	}
 
