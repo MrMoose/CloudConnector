@@ -85,15 +85,22 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 
 	// First we need to create a subscription for ourselves. 
 	// This will enable us to receive messages.
-	// I just make this up as I go along trying to understand pubsub 
-	// and how it could best match to SQS behavior.
+	
+	UE_LOG(LogCloudConnector, Display, TEXT("Subscribing to '%s'..."), *n_topic);
 
-	// So instead of relying on the user to create a subscription for us, I do it
-
-	// First we need a name for our subscription. Let's try this...
-	const std::string instance_id = get_google_cloud_instance_id();
 	n_subscription.Topic = n_topic;
-	n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), UTF8_TO_TCHAR(instance_id.c_str()), *n_subscription.Topic);
+
+	// Our client may want us to use an already existent subscription.
+	// They will tell this by supplying a name in an env
+
+	const FString subscription_id_env = readenv(TEXT("CLOUDCONNECTOR_SUBSCRIPTION_ID"));
+	if (!subscription_id_env.IsEmpty()) {
+		n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), *subscription_id_env, *n_subscription.Topic);
+	} else {
+		// Otherwise I use the instance ID
+		const std::string instance_id = get_google_cloud_instance_id();
+		n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), UTF8_TO_TCHAR(instance_id.c_str()), *n_subscription.Topic);
+	}
 
 	{
 		FScopeLock slock(&s_subscriptions_mutex);
@@ -118,16 +125,18 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	gc::StatusOr<google::pubsub::v1::Subscription> subscription = subscription_admin_client.CreateSubscription(topic, sub, sboptions);
 	
 	if (subscription.status().code() == google::cloud::StatusCode::kAlreadyExists) {
-		UE_LOG(LogCloudConnector, Warning, TEXT("Subscription '%s' already exists"), *n_subscription.Id);
+		UE_LOG(LogCloudConnector, Display, TEXT("Subscription '%s' already exists. Using it."), *n_subscription.Id);
+		n_subscription.Reused = true;
 	} else {
-		if (!subscription) {
-			UE_LOG(LogCloudConnector, Error, TEXT("Could not create Subscription '%s' to topic '%s': %s"),
-				*n_subscription.Id, *n_subscription.Topic, UTF8_TO_TCHAR(subscription.status().message().c_str()));
+		if (!subscription.ok()) {
+			UE_LOG(LogCloudConnector, Error, TEXT("Could not create Subscription '%s' to topic '%s': [%s] %s"),
+				*n_subscription.Id, *n_subscription.Topic, UTF8_TO_TCHAR(StatusCodeToString(subscription.status().code()).c_str()),
+				UTF8_TO_TCHAR(subscription.status().message().c_str()));
 			return false;
 		}
+		n_subscription.Reused = false;
+		UE_LOG(LogCloudConnector, Display, TEXT("Successfully created subscription '%s'"), *n_subscription.Id);
 	}
-
-	UE_LOG(LogCloudConnector, Display, TEXT("Successfully created subscription '%s'"), *n_subscription.Id);
 
 	// Now we should have a subscription for us. Next step is to hook up to it.
 	pubsub::SubscriberOptions subscriber_options;
@@ -135,7 +144,7 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 
 	pubsub::ConnectionOptions connection_options;
 	connection_options.DisableBackgroundThreads(m_completion_q);
-	
+
 	// create a "Subscriber", which is basically a runner for one subscription 
 	// with no thread pool as we run the thread ourselves. I don't know yet if it is
 	// a problem to potentially have multiple subscribers working on this one completion Q
@@ -243,17 +252,19 @@ bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 		m_subscriptions.Remove(n_subscription);
 	}
 
-	// Now delete the subscription we created for us
-	pubsub::SubscriptionAdminClient subscription_admin_client(pubsub::MakeSubscriptionAdminConnection());
+	// Now delete the subscription we created for us but only if we didn't re-use an existing one
+	if (!n_subscription.Reused) {
+		pubsub::SubscriptionAdminClient subscription_admin_client(pubsub::MakeSubscriptionAdminConnection());
 
-	const pubsub::Subscription sub(TCHAR_TO_UTF8(*m_project_id), TCHAR_TO_UTF8(*n_subscription.Id));
-	const gc::Status stat = subscription_admin_client.DeleteSubscription(sub);
+		const pubsub::Subscription sub(TCHAR_TO_UTF8(*m_project_id), TCHAR_TO_UTF8(*n_subscription.Id));
+		const gc::Status stat = subscription_admin_client.DeleteSubscription(sub);
 
-	if (!stat.ok()) {
-		UE_LOG(LogCloudConnector, Warning, TEXT("Failed to delete subscription '%s': %s"), 
+		if (!stat.ok()) {
+			UE_LOG(LogCloudConnector, Warning, TEXT("Failed to delete subscription '%s': %s"),
 				*n_subscription.Id, UTF8_TO_TCHAR(stat.message().c_str()));
-	} else {
-		UE_LOG(LogCloudConnector, Display, TEXT("Deleted subscription '%s'"), *n_subscription.Id);
+		} else {
+			UE_LOG(LogCloudConnector, Display, TEXT("Deleted subscription '%s'"), *n_subscription.Id);
+		}
 	}
 
 	return true;
