@@ -29,6 +29,10 @@ struct CLOUDCONNECTOR_API FSubscription {
 	UPROPERTY()
 	FString Topic;
 
+	/// True if we used an existing subscription
+	UPROPERTY()
+	bool Reused = false;
+
 	/// These are needed to be able to use FSubscription as key to a TMap
 	bool operator==(const FSubscription &n_other) const {
 
@@ -92,12 +96,6 @@ struct CLOUDCONNECTOR_API FPubsubMessage {
 		FString m_google_pubsub_message_id;
 };
 
-/** conveys results of a write() operation
- *  first bool is "was the operation successful"?
- *  FString may contain an error message
- */
-DECLARE_DELEGATE_TwoParams(FCloudStorageWriteFinishedDelegate, const bool, const FString);
-
 /// a promise created for each message which must be fulfilled by receivers
 using PubsubReturnPromise = TPromise<bool>;
 using PubsubReturnFuture = TFuture<bool>;
@@ -149,7 +147,7 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		 *  @param n_completion will fire on the game thread (or in its own, depending on config) when the operation is complete
 		 *  @return true when the operation was successfully started
 		 */
-		virtual bool subscribe_default(FSubscription &n_subscription, const FPubsubMessageReceived n_handler);
+		virtual bool subscribe_default(FSubscription &n_subscription, FPubsubMessageReceived &&n_handler);
 
 		/** @brief Subscribe to a "topic" which maps to a SQS Queue URL or a Pubsub topic
 		 *  You can subscribe to multiple topics but only once to each. Meaning
@@ -163,7 +161,7 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		 *  @param n_completion will fire on the game thread (or in its own, depending on config) when the operation is complete
 		 *  @return true when the operation was successfully started
 		 */
-		virtual bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) = 0;
+		virtual bool subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) = 0;
 	
 		/** @brief Unsubscribe from a subscription
 		 *  Remaining messages may be in flight. This blocks until all remaining handlers

@@ -17,7 +17,7 @@ bool BlindPubsubImpl::publish(const FString &n_topic, const FString &n_message, 
 	return false;
 }
 
-bool BlindPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) {
+bool BlindPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) {
 
 	UE_LOG(LogCloudConnector, Display, TEXT("Blind pubsub impl ignoring '%s'"), *n_subscription.Id);
 	return true;

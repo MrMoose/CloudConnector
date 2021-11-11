@@ -15,6 +15,6 @@ class BlindPubsubImpl : public ICloudPubsub {
 
 		void shutdown() noexcept;
 		bool publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler);
-		bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) override;
+		bool subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) override;
 		bool unsubscribe(FSubscription &&n_subscription) override;
 };

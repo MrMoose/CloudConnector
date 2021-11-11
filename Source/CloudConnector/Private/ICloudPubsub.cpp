@@ -8,12 +8,12 @@
 #include "Async/Async.h"
 #include "Internationalization/Regex.h"
 
-bool ICloudPubsub::subscribe_default(FSubscription &n_subscription, const FPubsubMessageReceived n_handler) {
+bool ICloudPubsub::subscribe_default(FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) {
 
 	const FString default_topic = readenv("CLOUDCONNECTOR_DEFAULT_TOPIC");
 	if (default_topic.IsEmpty()) {
 		return false;
 	}
 
-	return subscribe(default_topic, n_subscription, n_handler);
+	return subscribe(default_topic, n_subscription, MoveTemp(n_handler));
 }

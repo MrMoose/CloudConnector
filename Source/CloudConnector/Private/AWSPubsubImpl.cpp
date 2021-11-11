@@ -500,7 +500,7 @@ class SQSSubscription {
 };
 
 
-bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) {
+bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) {
 
 	using namespace Aws::SQS::Model::QueueAttributeNameMapper;
 

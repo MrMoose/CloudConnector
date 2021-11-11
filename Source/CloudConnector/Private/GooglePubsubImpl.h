@@ -39,7 +39,7 @@ class GooglePubsubImpl : public ICloudPubsub {
 		// see ICloudPubsub docs for these
 		void shutdown() noexcept override;
 		bool publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler) override;
-		bool subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) override;
+		bool subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) override;
 		bool unsubscribe(FSubscription &&n_subscription) override;
 
 	private:

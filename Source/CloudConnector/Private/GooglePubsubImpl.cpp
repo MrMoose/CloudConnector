@@ -81,7 +81,7 @@ void GooglePubsubImpl::shutdown() noexcept {
 	UE_LOG(LogCloudConnector, Warning, TEXT("Google Pubsub shutdown not implemented yet"));
 }
 
-bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, const FPubsubMessageReceived n_handler) {
+bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) {
 
 	// First we need to create a subscription for ourselves. 
 	// This will enable us to receive messages.
