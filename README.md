@@ -483,7 +483,8 @@ Depending on AWS or Google you need the following permissions on your role:
 * Delete Subscriptions or Queues
 
 CloudConnector will create a SQS queue to subscribe to an SNS topic on AWS 
-and a subscription on Google. Should your application crash or lose its 
+and a subscription on Google if those do not exist already.
+Should your application crash or lose its 
 connection this subscription (or the Q) may not be removed and be left over. 
 Users are advised to keep an eye on unused Queues and delete them manually if 
 appropriate.
@@ -630,6 +631,25 @@ Use something simple that only contains "0-9a-zA-Z-".
 If this is not set and a query to the metadata server is unsuccessful
 (for example because you're not running in the cloud), it will
 default to `LocalInstance`.
+
+CLOUDCONNECTOR_SUBSCRIPTION_ID:<br>
+For each Pubsub/SNS topic to listen on you need a subscription or an SQS Q 
+respectively. It is generally favored to have them create by your IaC and each Unreal
+instance shares the same subscription in order to achieve message retention and 
+distribution.
+If you intend to create the subscription or Q as part of your IaC you must set an 
+environment variable `CLOUDCONNECTOR_SUBSCRIPTION_ID` to specialize the name.
+It will then assume the name to be:
+
+CloudConnector-$CLOUDCONNECTOR_SUBSCRIPTION_ID-$TOPIC
+
+So, for example, if you are on Google and you have a render job topic 
+named `MyRenderJobTopic`, create a subscription for it and name 
+it `CloudConnector-RenderInstance-MyRenderJobTopic`.
+Then set the environment variable `CLOUDCONNECTOR_SUBSCRIPTION_ID`
+to "RenderInstance". Otherwise a subscription will be created using your 
+instance id.
+
 
 ### AWS specific 
 

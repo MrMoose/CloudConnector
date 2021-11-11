@@ -196,8 +196,10 @@ class SQSSubscription {
 				// Rinse, repeat until interrupted
 			}
 
-			// Delete the temporary q we created for us
-			delete_queue();
+			// Delete a temporary q we may have created for us
+			if (!m_subscription.Reused) {
+				delete_queue();
+			}
 		}
 
 		/// Stops the runnable object from foreign thread
@@ -382,7 +384,7 @@ class SQSSubscription {
 				return false;
 			} else {
 				m_queue_url = cqoc.GetResult().GetQueueUrl();
-				UE_LOG(LogCloudConnector, Display, TEXT("Created temporary SQS for SNS subscription with url: %s"), UTF8_TO_TCHAR(m_queue_url.c_str()));
+				UE_LOG(LogCloudConnector, Display, TEXT("Created SQS for SNS subscription with url: %s"), UTF8_TO_TCHAR(m_queue_url.c_str()));
 			}
 
 			GetQueueAttributesRequest gqar;
@@ -510,16 +512,20 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	}
 
 	// To subscribe to the topic we need to create an SQS queue to receive messages.
+	// I'm assuming the user may have done so already and named it CloudConnector-$CLOUDCONNECTOR_SUBSCRIPTION_ID-$TOPIC
 	// This could be done by the user but in order to mimic the Google impl I do it on the fly
 	// and remove them afterwards. This might result in leftover Queues so, we may have to reconsider.
 
-	const FString instance_id = get_aws_instance_id();
-	n_subscription.Topic = n_topic;
-	n_subscription.Id = FString::Printf(TEXT("CCQ-%s-%s"), *instance_id, *n_subscription.Topic);
-
-	// In here it is enough to remember the id aka Queue URL
-	//n_subscription.Id = n_topic;
-	//n_subscription.Topic = n_topic;
+	const FString subscription_id_env = readenv(TEXT("CLOUDCONNECTOR_SUBSCRIPTION_ID"));
+	if (!subscription_id_env.IsEmpty()) {
+		n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), *subscription_id_env, *n_subscription.Topic);
+		n_subscription.Reused = true;
+	} else {
+		// Otherwise I use the instance ID
+		const FString instance_id = get_aws_instance_id();
+		n_subscription.Id = FString::Printf(TEXT("CloudConnector-%s-%s"), *instance_id, *n_subscription.Topic);
+		n_subscription.Reused = false;
+	}
 
 	{
 		FScopeLock slock(&m_subscriptions_mutex);
