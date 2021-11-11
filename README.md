@@ -632,7 +632,7 @@ If this is not set and a query to the metadata server is unsuccessful
 (for example because you're not running in the cloud), it will
 default to `LocalInstance`.
 
-CLOUDCONNECTOR_SUBSCRIPTION_ID:<br>
+_CLOUDCONNECTOR_SUBSCRIPTION_ID_:<br>
 For each Pubsub/SNS topic to listen on you need a subscription or an SQS Q 
 respectively. It is generally favored to have them create by your IaC and each Unreal
 instance shares the same subscription in order to achieve message retention and 
