@@ -379,12 +379,12 @@ class SQSSubscription {
 			const CreateQueueOutcome cqoc = m_sqs->CreateQueue(cqr);
 
 			if (!cqoc.IsSuccess()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub failed to create SQS for SNS subscription: %s"),
+				UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub impl failed to create SQS for SNS subscription: %s"),
 						UTF8_TO_TCHAR(cqoc.GetError().GetMessage().c_str()));
 				return false;
 			} else {
 				m_queue_url = cqoc.GetResult().GetQueueUrl();
-				UE_LOG(LogCloudConnector, Display, TEXT("Created SQS for SNS subscription with url: %s"), UTF8_TO_TCHAR(m_queue_url.c_str()));
+				UE_LOG(LogCloudConnector, Display, TEXT("Using SQS for SNS subscription with url: %s"), UTF8_TO_TCHAR(m_queue_url.c_str()));
 			}
 
 			GetQueueAttributesRequest gqar;
@@ -515,16 +515,20 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	// I'm assuming the user may have done so already and named it $CLOUDCONNECTOR_STACK_NAME-$TOPIC-subscription
 	// This could be done by the user but in order to mimic the Google impl I do it on the fly
 	// and remove them afterwards. This might result in leftover Queues so, we may have to reconsider.
-
-	const FString stack_name_env = readenv(TEXT("CLOUDCONNECTOR_STACK_NAME"));
-	if (!stack_name_env.IsEmpty()) {
-		n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), *stack_name_env, *n_subscription.Topic);
-		n_subscription.Reused = true;
+	if (n_subscription.Id.IsEmpty()) {
+		const FString stack_name_env = readenv(TEXT("CLOUDCONNECTOR_STACK_NAME"));
+		if (!stack_name_env.IsEmpty()) {
+			n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), *stack_name_env, *n_subscription.Topic);
+			n_subscription.Reused = true;
+		} else {
+			// Otherwise I use the instance ID
+			const FString instance_id = get_aws_instance_id();
+			n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), *instance_id, *n_subscription.Topic);
+			n_subscription.Reused = false;
+		}
 	} else {
-		// Otherwise I use the instance ID
-		const FString instance_id = get_aws_instance_id();
-		n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), *instance_id, *n_subscription.Topic);
-		n_subscription.Reused = false;
+		UE_LOG(LogCloudConnector, Display, TEXT("Subscription id preset by user to '%s'"), *n_subscription.Id);
+		n_subscription.Reused = true;
 	}
 
 	{

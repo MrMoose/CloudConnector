@@ -13,14 +13,19 @@
 #include "ICloudPubsub.generated.h"
 
 /** Subscription info.
- *  This is a handle to an existing subscription as handed out by ICloudPubsub::subscribe()
+ *  This is a handle to an subscription as handed out by ICloudPubsub::subscribe()
  */  
 USTRUCT(Category = "CloudConnector")
 struct CLOUDCONNECTOR_API FSubscription {
 
 	GENERATED_BODY();
 
-	/// Primary identifier, you may not need to use this explicitly
+	/// Primary identifier for the subscription.
+	/// It will be auto generated if empty.
+	/// If you choose to set it, CloudConnector will assume this is 
+	/// an existing subscription and use it.
+	/// In case of AWS this maps to the name of a queue url to create or use.
+	/// On Google Pubsub it maps to the subscription name.
 	UPROPERTY()
 	FString Id;
 
@@ -157,6 +162,7 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		 * 
 		 *  @param n_topic the Queue URL (SQS) or Topic (Pubsub) you want to subscribe to
 		 *  @param n_subscription will hold the subscription handle (to unsubscribe)
+		 *			you may preset the value of Id to force a subscription name
 		 *			if return is false, contents are undefined
 		 *  @param n_completion will fire on the game thread (or in its own, depending on config) when the operation is complete
 		 *  @return true when the operation was successfully started

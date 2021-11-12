@@ -91,13 +91,17 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	n_subscription.Topic = n_topic;
 
 	// Our client may want us to use an already existent subscription by providing one in the stack
-	const FString stack_name_env = readenv(TEXT("CLOUDCONNECTOR_STACK_NAME"));
-	if (!stack_name_env.IsEmpty()) {
-		n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), *stack_name_env, *n_subscription.Topic);
+	if (n_subscription.Id.IsEmpty()) {
+		const FString stack_name_env = readenv(TEXT("CLOUDCONNECTOR_STACK_NAME"));
+		if (!stack_name_env.IsEmpty()) {
+			n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), *stack_name_env, *n_subscription.Topic);
+		} else {
+			// Otherwise I use the instance ID
+			const std::string instance_id = get_google_cloud_instance_id();
+			n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), UTF8_TO_TCHAR(instance_id.c_str()), *n_subscription.Topic);
+		}
 	} else {
-		// Otherwise I use the instance ID
-		const std::string instance_id = get_google_cloud_instance_id();
-		n_subscription.Id = FString::Printf(TEXT("%s-%s-subscription"), UTF8_TO_TCHAR(instance_id.c_str()), *n_subscription.Topic);
+		UE_LOG(LogCloudConnector, Display, TEXT("Subscription id preset by user to '%s'"), *n_subscription.Id);
 	}
 
 	{
