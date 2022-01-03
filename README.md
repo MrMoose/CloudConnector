@@ -489,6 +489,13 @@ connection this subscription (or the Q) may not be removed and be left over.
 Users are advised to keep an eye on unused Queues and delete them manually if 
 appropriate.
 
+### AWS SNS
+
+When using AWS SNS make sure your subscription has the
+[raw message delivery flag](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html)
+set. CloudConnector assumes this to be the case. Otherwise your received body will
+be wrapped into SNS metadata.
+
 ## Tracing
 
 Performance tracing is an essential aspect of CloudConnector. It aims at making

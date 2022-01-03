@@ -173,6 +173,10 @@ class SQSSubscription {
 			rm_req->AddAttributeNames(QueueAttributeName::SentTimestamp);
 			rm_req->AddAttributeNames(QueueAttributeName::ApproximateReceiveCount);
 
+			// AWS Trace headers cannot propagate through SNS, therefore I won't 
+			// even try to receive them here. A long standing issue. See here:
+			// https://github.com/aws/aws-xray-sdk-node/issues/208
+
 			while (!m_interrupted.load()) 	{
 				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(*rm_req);
 				if (!rm_out.IsSuccess()) {
@@ -321,20 +325,20 @@ class SQSSubscription {
 			// say it's better to CreateTopic which will not create it if it already 
 			// exists but return the ARN anyway
 
-			CreateTopicRequest ctar;
-			ctar.SetName(TCHAR_TO_UTF8(*m_subscription.Topic));
+			CreateTopicRequest request;
+			request.SetName(TCHAR_TO_UTF8(*m_subscription.Topic));
 			// I roll with defaults here until I know which values make sense
 			// If I do add parameters (such as tags) and the topic already exists 
 			// with different ones I get an error and no ARN. This might be a problem
 
-			const CreateTopicOutcome ctoc = m_sns->CreateTopic(ctar);
-			if (!ctoc.IsSuccess()) {
+			const CreateTopicOutcome outcome = m_sns->CreateTopic(request);
+			if (!outcome.IsSuccess()) {
 				// If the topic already exists we get success return value
 				UE_LOG(LogCloudConnector, Warning, TEXT("AWS refused to create topic: %s"),
-					UTF8_TO_TCHAR(ctoc.GetError().GetMessage().c_str()));
+						UTF8_TO_TCHAR(outcome.GetError().GetMessage().c_str()));
 				return false;
 			} else {
-				m_topic_arn = ctoc.GetResult().GetTopicArn();
+				m_topic_arn = outcome.GetResult().GetTopicArn();
 				UE_LOG(LogCloudConnector, Display, TEXT("Got Topic ARN: %s"), UTF8_TO_TCHAR(m_topic_arn.c_str()));
 			}
 			return true;
@@ -342,53 +346,61 @@ class SQSSubscription {
 
 		bool create_queue() {
 
-			CreateQueueRequest cqr;
-			cqr.SetQueueName(TCHAR_TO_UTF8(*m_subscription.Id));
-			cqr.AddTags("created_by", "CloudConnector");
-			//cqr.AddAttributes(QueueAttributeName::FifoQueue, "true");
-			cqr.AddAttributes(QueueAttributeName::DelaySeconds, "0");
-			cqr.AddAttributes(QueueAttributeName::VisibilityTimeout, std::to_string(m_visibility_timeout));
-			cqr.AddAttributes(QueueAttributeName::ReceiveMessageWaitTimeSeconds, "4");
+			FString hacky_predicted_queue_arn;
 
-			// We need to set a policy document in order to allow SNS to post into our Q.
-			// This document sadly appears to have to contain the ARN of the Q we have not yet created as Resource field.
-			// So I have to predict the ARN it's gonna get. Very bad all this but I see no other way
-			const FString hacky_predicted_queue_arn = hacky_arn_prefix(UTF8_TO_TCHAR(m_topic_arn.c_str()), m_subscription.Id);
+			if (!m_subscription.Reused) {
+				CreateQueueRequest request;
+				request.SetQueueName(TCHAR_TO_UTF8(*m_subscription.Id));
+				request.AddTags("created_by", "CloudConnector");
+				//cqr.AddAttributes(QueueAttributeName::FifoQueue, "true");
+				request.AddAttributes(QueueAttributeName::DelaySeconds, "0");
+				request.AddAttributes(QueueAttributeName::VisibilityTimeout, std::to_string(m_visibility_timeout));
+				request.AddAttributes(QueueAttributeName::ReceiveMessageWaitTimeSeconds, "4");
 
-			const FString policy = FString::Printf(TEXT(
-				"{\
-				    \"Version\": \"2008-10-17\",\
-					\"Statement\" : [\
-					{\
-						\"Effect\": \"Allow\",\
-						\"Principal\" : {\
-							\"Service\": \"sns.amazonaws.com\"\
-						},\
-						\"Action\" : \"sqs:SendMessage\",\
-						\"Resource\": \"%s\",\
-						\"Condition\" : {\
-							\"ArnEquals\": {\
-								\"aws:SourceArn\": \"%s\"\
+				// We need to set a policy document in order to allow SNS to post into our Q.
+				// This document sadly appears to have to contain the ARN of the Q we have not yet created as Resource field.
+				// So I have to predict the ARN it's gonna get. Very bad all this but I see no other way
+				hacky_predicted_queue_arn = hacky_arn_prefix(UTF8_TO_TCHAR(m_topic_arn.c_str()), m_subscription.Id);
+
+				const FString policy = FString::Printf(TEXT(
+					"{\
+					    \"Version\": \"2008-10-17\",\
+						\"Statement\" : [\
+						{\
+							\"Effect\": \"Allow\",\
+							\"Principal\" : {\
+								\"Service\": \"sns.amazonaws.com\"\
+							},\
+							\"Action\" : \"sqs:SendMessage\",\
+							\"Resource\": \"%s\",\
+							\"Condition\" : {\
+								\"ArnEquals\": {\
+									\"aws:SourceArn\": \"%s\"\
+								}\
 							}\
-						}\
-					}]\
-				}"), *hacky_predicted_queue_arn, UTF8_TO_TCHAR(m_topic_arn.c_str()));
+						}]\
+					}"), *hacky_predicted_queue_arn, UTF8_TO_TCHAR(m_topic_arn.c_str()));
 
-			cqr.AddAttributes(QueueAttributeName::Policy, TCHAR_TO_UTF8(*policy));
+				request.AddAttributes(QueueAttributeName::Policy, TCHAR_TO_UTF8(*policy));
 
-			const CreateQueueOutcome cqoc = m_sqs->CreateQueue(cqr);
+				const CreateQueueOutcome outcome = m_sqs->CreateQueue(request);
 
-			if (!cqoc.IsSuccess()) {
-				UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub impl failed to create SQS for SNS subscription: %s"),
-						UTF8_TO_TCHAR(cqoc.GetError().GetMessage().c_str()));
-				return false;
+				if (!outcome.IsSuccess()) {
+					UE_LOG(LogCloudConnector, Warning, TEXT("AWS Pubsub impl failed to create SQS for SNS subscription: %s"),
+							UTF8_TO_TCHAR(outcome.GetError().GetMessage().c_str()));
+					return false;
+				} else {
+					m_queue_url = outcome.GetResult().GetQueueUrl();
+					UE_LOG(LogCloudConnector, Display, TEXT("Using SQS for SNS subscription with url: %s"), UTF8_TO_TCHAR(m_queue_url.c_str()));
+				}
 			} else {
-				m_queue_url = cqoc.GetResult().GetQueueUrl();
-				UE_LOG(LogCloudConnector, Display, TEXT("Using SQS for SNS subscription with url: %s"), UTF8_TO_TCHAR(m_queue_url.c_str()));
+				// I am assuming that, if the user wants me to re-use an existing subscription, #
+				// the ID is given in with the subscription object
+				m_queue_url = TCHAR_TO_ANSI(*m_subscription.Id);
 			}
 
 			GetQueueAttributesRequest gqar;
-			gqar.SetQueueUrl(cqoc.GetResult().GetQueueUrl());
+			gqar.SetQueueUrl(m_queue_url);
 			gqar.AddAttributeNames(QueueAttributeName::QueueArn);
 
 			// Now that we have a Q, hook it up to that subscription
@@ -412,7 +424,7 @@ class SQSSubscription {
 
 					// At the very least I can verify that the actual ARN we got matches the one 
 					// we predicted in our hack earlier
-					if (!hacky_predicted_queue_arn.Equals(UTF8_TO_TCHAR(m_queue_arn.c_str()))) {
+					if (!hacky_predicted_queue_arn.IsEmpty() && !hacky_predicted_queue_arn.Equals(UTF8_TO_TCHAR(m_queue_arn.c_str()))) {
 						UE_LOG(LogCloudConnector, Warning, 
 							TEXT("Got different Q arn than predicted: %s. The Q will probably not get messages from SNS."),
 							UTF8_TO_TCHAR(m_queue_arn.c_str()));
@@ -528,6 +540,7 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 		}
 	} else {
 		UE_LOG(LogCloudConnector, Display, TEXT("Subscription id preset by user to '%s'"), *n_subscription.Id);
+		n_subscription.Topic = n_topic;
 		n_subscription.Reused = true;
 	}
 
