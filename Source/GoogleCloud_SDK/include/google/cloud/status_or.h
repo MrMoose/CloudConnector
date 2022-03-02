@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,7 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * Holds a value or a `Status` indicating why there is no value.
@@ -98,14 +98,22 @@ class StatusOr final {
   /**
    * Initializes with an error status (UNKNOWN).
    */
-  StatusOr() : StatusOr(Status(StatusCode::kUnknown, "default")) {}
+  StatusOr() : StatusOr(MakeDefaultStatus()) {}
 
   StatusOr(StatusOr const&) = default;
   StatusOr& operator=(StatusOr const&) = default;
   // NOLINTNEXTLINE(performance-noexcept-move-constructor)
-  StatusOr(StatusOr&&) = default;
+  StatusOr(StatusOr&& other)
+      : status_(std::move(other.status_)), value_(std::move(other.value_)) {
+    other.status_ = MakeDefaultStatus();
+  }
   // NOLINTNEXTLINE(performance-noexcept-move-constructor)
-  StatusOr& operator=(StatusOr&&) = default;
+  StatusOr& operator=(StatusOr&& other) {
+    status_ = std::move(other.status_);
+    value_ = std::move(other.value_);
+    other.status_ = MakeDefaultStatus();
+    return *this;
+  }
 
   /**
    * Creates a new `StatusOr<T>` holding the error condition @p rhs.
@@ -246,6 +254,10 @@ class StatusOr final {
   //@}
 
  private:
+  static Status MakeDefaultStatus() {
+    return Status{StatusCode::kUnknown, "default"};
+  }
+
   void CheckHasValue() const& {
     if (!ok()) {
       internal::ThrowStatus(status_);
@@ -283,7 +295,7 @@ StatusOr<T> make_status_or(T rhs) {
   return StatusOr<T>(std::move(rhs));
 }
 
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

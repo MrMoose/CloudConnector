@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,7 +29,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 /**
  * Requests the list of buckets for a project.
@@ -174,14 +174,15 @@ class PatchBucketRequest
                               BucketMetadata const& original,
                               BucketMetadata const& updated);
   explicit PatchBucketRequest(std::string bucket,
-                              BucketMetadataPatchBuilder const& patch);
+                              BucketMetadataPatchBuilder patch);
 
+  BucketMetadataPatchBuilder const& patch() const { return patch_; }
   std::string const& bucket() const { return bucket_; }
-  std::string const& payload() const { return payload_; }
+  std::string payload() const { return patch_.BuildPatch(); }
 
  private:
+  BucketMetadataPatchBuilder patch_;
   std::string bucket_;
-  std::string payload_;
 };
 
 std::ostream& operator<<(std::ostream& os, PatchBucketRequest const& r);
@@ -305,7 +306,7 @@ std::ostream& operator<<(std::ostream& os,
                          LockBucketRetentionPolicyRequest const& r);
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

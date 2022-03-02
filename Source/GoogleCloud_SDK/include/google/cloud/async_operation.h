@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +21,8 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
+
 /**
  * The result of an async timer operation.
  *
@@ -59,6 +60,10 @@ namespace internal {
  * hides it in a class derived from `AsyncOperation`. A shared pointer to the
  * `AsyncOperation` is returned by the completion queue so library developers
  * can cancel the operation if needed.
+ *
+ * @note Sub-classes of `AsyncGrpcOperation` should snapshot the prevailing
+ *     `Options` during construction, and restore them using an `OptionsSpan`
+ *     during `Notify()` and `Cancel()` callbacks.
  */
 class AsyncGrpcOperation : public AsyncOperation {
  public:
@@ -78,7 +83,7 @@ class AsyncGrpcOperation : public AsyncOperation {
 };
 
 }  // namespace internal
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

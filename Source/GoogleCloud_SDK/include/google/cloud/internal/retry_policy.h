@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,6 +15,7 @@
 #ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_INTERNAL_RETRY_POLICY_H
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_INTERNAL_RETRY_POLICY_H
 
+#include "google/cloud/idempotency.h"
 #include "google/cloud/status.h"
 #include "google/cloud/version.h"
 #include <chrono>
@@ -22,10 +23,8 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
-
-enum class Idempotency { kIdempotent, kNonIdempotent };
 
 /**
  * Define the interface for retry policies.
@@ -205,8 +204,14 @@ class LimitedTimeRetryPolicy : public TraitBasedRetryPolicy<RetryablePolicy> {
   std::chrono::system_clock::time_point deadline_;
 };
 
+/**
+ * Returns `true` for gRPC error messages, with status code: `kInternal`, that
+ * are known to be retryable across all services.
+ */
+bool IsTransientInternalError(Status const& status);
+
 }  // namespace internal
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +17,6 @@
 
 #include "google/cloud/pubsub/backoff_policy.h"
 #include "google/cloud/pubsub/connection_options.h"
-#include "google/cloud/pubsub/internal/non_constructible.h"
 #include "google/cloud/pubsub/internal/publisher_stub.h"
 #include "google/cloud/pubsub/message.h"
 #include "google/cloud/pubsub/publisher_options.h"
@@ -25,6 +24,7 @@
 #include "google/cloud/pubsub/topic.h"
 #include "google/cloud/pubsub/version.h"
 #include "google/cloud/future.h"
+#include "google/cloud/internal/non_constructible.h"
 #include "google/cloud/status_or.h"
 #include <initializer_list>
 #include <string>
@@ -33,7 +33,7 @@
 namespace google {
 namespace cloud {
 namespace pubsub {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * A connection to the Cloud Pub/Sub service to publish events.
@@ -90,7 +90,7 @@ class PublisherConnection {
  * @deprecated Please use `MakePublisherConnection(topic)` instead.
  */
 std::shared_ptr<PublisherConnection> MakePublisherConnection(
-    Topic topic, std::initializer_list<pubsub_internal::NonConstructible>);
+    Topic topic, std::initializer_list<internal::NonConstructible>);
 
 /**
  * Creates a new `PublisherConnection` object to work with `Publisher`.
@@ -158,17 +158,17 @@ std::shared_ptr<PublisherConnection> MakePublisherConnection(
     std::unique_ptr<RetryPolicy const> retry_policy = {},
     std::unique_ptr<BackoffPolicy const> backoff_policy = {});
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub
 
 namespace pubsub_internal {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
-std::shared_ptr<pubsub::PublisherConnection> MakePublisherConnection(
+std::shared_ptr<pubsub::PublisherConnection> MakeTestPublisherConnection(
     pubsub::Topic topic, Options opts,
     std::vector<std::shared_ptr<PublisherStub>> stubs);
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub_internal
 }  // namespace cloud
 }  // namespace google

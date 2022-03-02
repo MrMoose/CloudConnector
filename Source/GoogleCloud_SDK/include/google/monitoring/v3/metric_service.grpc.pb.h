@@ -87,6 +87,8 @@ class MetricService final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::api::MetricDescriptor>>(PrepareAsyncGetMetricDescriptorRaw(context, request, cq));
     }
     // Creates a new metric descriptor.
+    // The creation is executed asynchronously and callers may check the returned
+    // operation to track its progress.
     // User-created metric descriptors define
     // [custom metrics](https://cloud.google.com/monitoring/custom-metrics).
     virtual ::grpc::Status CreateMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest& request, ::google::api::MetricDescriptor* response) = 0;
@@ -125,6 +127,22 @@ class MetricService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncCreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncCreateTimeSeriesRaw(context, request, cq));
     }
+    // Creates or adds data to one or more service time series. A service time
+    // series is a time series for a metric from a Google Cloud service. The
+    // response is empty if all time series in the request were written. If any
+    // time series could not be written, a corresponding failure message is
+    // included in the error response. This endpoint rejects writes to
+    // user-defined metrics.
+    // This method is only for use by Google Cloud services. Use
+    // [projects.timeSeries.create][google.monitoring.v3.MetricService.CreateTimeSeries]
+    // instead.
+    virtual ::grpc::Status CreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::google::protobuf::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncCreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncCreateServiceTimeSeriesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncCreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncCreateServiceTimeSeriesRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -141,6 +159,8 @@ class MetricService final {
       virtual void GetMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Creates a new metric descriptor.
+      // The creation is executed asynchronously and callers may check the returned
+      // operation to track its progress.
       // User-created metric descriptors define
       // [custom metrics](https://cloud.google.com/monitoring/custom-metrics).
       virtual void CreateMetricDescriptor(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response, std::function<void(::grpc::Status)>) = 0;
@@ -159,6 +179,17 @@ class MetricService final {
       // included in the error response.
       virtual void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Creates or adds data to one or more service time series. A service time
+      // series is a time series for a metric from a Google Cloud service. The
+      // response is empty if all time series in the request were written. If any
+      // time series could not be written, a corresponding failure message is
+      // included in the error response. This endpoint rejects writes to
+      // user-defined metrics.
+      // This method is only for use by Google Cloud services. Use
+      // [projects.timeSeries.create][google.monitoring.v3.MetricService.CreateTimeSeries]
+      // instead.
+      virtual void CreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -180,6 +211,8 @@ class MetricService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListTimeSeriesResponse>* PrepareAsyncListTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncCreateTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncCreateTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncCreateServiceTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncCreateServiceTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -240,6 +273,13 @@ class MetricService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncCreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncCreateTimeSeriesRaw(context, request, cq));
     }
+    ::grpc::Status CreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::google::protobuf::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncCreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncCreateServiceTimeSeriesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncCreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncCreateServiceTimeSeriesRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -259,6 +299,8 @@ class MetricService final {
       void ListTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest* request, ::google::monitoring::v3::ListTimeSeriesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
       void CreateTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
+      void CreateServiceTimeSeries(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -286,6 +328,8 @@ class MetricService final {
     ::grpc::ClientAsyncResponseReader< ::google::monitoring::v3::ListTimeSeriesResponse>* PrepareAsyncListTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncCreateTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncCreateTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncCreateServiceTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncCreateServiceTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_ListMonitoredResourceDescriptors_;
     const ::grpc::internal::RpcMethod rpcmethod_GetMonitoredResourceDescriptor_;
     const ::grpc::internal::RpcMethod rpcmethod_ListMetricDescriptors_;
@@ -294,6 +338,7 @@ class MetricService final {
     const ::grpc::internal::RpcMethod rpcmethod_DeleteMetricDescriptor_;
     const ::grpc::internal::RpcMethod rpcmethod_ListTimeSeries_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateTimeSeries_;
+    const ::grpc::internal::RpcMethod rpcmethod_CreateServiceTimeSeries_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -310,6 +355,8 @@ class MetricService final {
     // Gets a single metric descriptor. This method does not require a Workspace.
     virtual ::grpc::Status GetMetricDescriptor(::grpc::ServerContext* context, const ::google::monitoring::v3::GetMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response);
     // Creates a new metric descriptor.
+    // The creation is executed asynchronously and callers may check the returned
+    // operation to track its progress.
     // User-created metric descriptors define
     // [custom metrics](https://cloud.google.com/monitoring/custom-metrics).
     virtual ::grpc::Status CreateMetricDescriptor(::grpc::ServerContext* context, const ::google::monitoring::v3::CreateMetricDescriptorRequest* request, ::google::api::MetricDescriptor* response);
@@ -324,6 +371,16 @@ class MetricService final {
     // If any time series could not be written, a corresponding failure message is
     // included in the error response.
     virtual ::grpc::Status CreateTimeSeries(::grpc::ServerContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response);
+    // Creates or adds data to one or more service time series. A service time
+    // series is a time series for a metric from a Google Cloud service. The
+    // response is empty if all time series in the request were written. If any
+    // time series could not be written, a corresponding failure message is
+    // included in the error response. This endpoint rejects writes to
+    // user-defined metrics.
+    // This method is only for use by Google Cloud services. Use
+    // [projects.timeSeries.create][google.monitoring.v3.MetricService.CreateTimeSeries]
+    // instead.
+    virtual ::grpc::Status CreateServiceTimeSeries(::grpc::ServerContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_ListMonitoredResourceDescriptors : public BaseClass {
@@ -485,7 +542,27 @@ class MetricService final {
       ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ListMonitoredResourceDescriptors<WithAsyncMethod_GetMonitoredResourceDescriptor<WithAsyncMethod_ListMetricDescriptors<WithAsyncMethod_GetMetricDescriptor<WithAsyncMethod_CreateMetricDescriptor<WithAsyncMethod_DeleteMetricDescriptor<WithAsyncMethod_ListTimeSeries<WithAsyncMethod_CreateTimeSeries<Service > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_CreateServiceTimeSeries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CreateServiceTimeSeries() {
+      ::grpc::Service::MarkMethodAsync(8);
+    }
+    ~WithAsyncMethod_CreateServiceTimeSeries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateServiceTimeSeries(::grpc::ServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateServiceTimeSeries(::grpc::ServerContext* context, ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_ListMonitoredResourceDescriptors<WithAsyncMethod_GetMonitoredResourceDescriptor<WithAsyncMethod_ListMetricDescriptors<WithAsyncMethod_GetMetricDescriptor<WithAsyncMethod_CreateMetricDescriptor<WithAsyncMethod_DeleteMetricDescriptor<WithAsyncMethod_ListTimeSeries<WithAsyncMethod_CreateTimeSeries<WithAsyncMethod_CreateServiceTimeSeries<Service > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ListMonitoredResourceDescriptors : public BaseClass {
    private:
@@ -702,7 +779,34 @@ class MetricService final {
     virtual ::grpc::ServerUnaryReactor* CreateTimeSeries(
       ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ListMonitoredResourceDescriptors<WithCallbackMethod_GetMonitoredResourceDescriptor<WithCallbackMethod_ListMetricDescriptors<WithCallbackMethod_GetMetricDescriptor<WithCallbackMethod_CreateMetricDescriptor<WithCallbackMethod_DeleteMetricDescriptor<WithCallbackMethod_ListTimeSeries<WithCallbackMethod_CreateTimeSeries<Service > > > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_CreateServiceTimeSeries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CreateServiceTimeSeries() {
+      ::grpc::Service::MarkMethodCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateTimeSeriesRequest, ::google::protobuf::Empty>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::monitoring::v3::CreateTimeSeriesRequest* request, ::google::protobuf::Empty* response) { return this->CreateServiceTimeSeries(context, request, response); }));}
+    void SetMessageAllocatorFor_CreateServiceTimeSeries(
+        ::grpc::MessageAllocator< ::google::monitoring::v3::CreateTimeSeriesRequest, ::google::protobuf::Empty>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::monitoring::v3::CreateTimeSeriesRequest, ::google::protobuf::Empty>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CreateServiceTimeSeries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateServiceTimeSeries(::grpc::ServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateServiceTimeSeries(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_ListMonitoredResourceDescriptors<WithCallbackMethod_GetMonitoredResourceDescriptor<WithCallbackMethod_ListMetricDescriptors<WithCallbackMethod_GetMetricDescriptor<WithCallbackMethod_CreateMetricDescriptor<WithCallbackMethod_DeleteMetricDescriptor<WithCallbackMethod_ListTimeSeries<WithCallbackMethod_CreateTimeSeries<WithCallbackMethod_CreateServiceTimeSeries<Service > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListMonitoredResourceDescriptors : public BaseClass {
@@ -836,6 +940,23 @@ class MetricService final {
     }
     // disable synchronous version of this method
     ::grpc::Status CreateTimeSeries(::grpc::ServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_CreateServiceTimeSeries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CreateServiceTimeSeries() {
+      ::grpc::Service::MarkMethodGeneric(8);
+    }
+    ~WithGenericMethod_CreateServiceTimeSeries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateServiceTimeSeries(::grpc::ServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -998,6 +1119,26 @@ class MetricService final {
     }
     void RequestCreateTimeSeries(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_CreateServiceTimeSeries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CreateServiceTimeSeries() {
+      ::grpc::Service::MarkMethodRaw(8);
+    }
+    ~WithRawMethod_CreateServiceTimeSeries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateServiceTimeSeries(::grpc::ServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateServiceTimeSeries(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1174,6 +1315,28 @@ class MetricService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* CreateTimeSeries(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CreateServiceTimeSeries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CreateServiceTimeSeries() {
+      ::grpc::Service::MarkMethodRawCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateServiceTimeSeries(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CreateServiceTimeSeries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateServiceTimeSeries(::grpc::ServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateServiceTimeSeries(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -1392,9 +1555,36 @@ class MetricService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedCreateTimeSeries(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::monitoring::v3::CreateTimeSeriesRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ListMonitoredResourceDescriptors<WithStreamedUnaryMethod_GetMonitoredResourceDescriptor<WithStreamedUnaryMethod_ListMetricDescriptors<WithStreamedUnaryMethod_GetMetricDescriptor<WithStreamedUnaryMethod_CreateMetricDescriptor<WithStreamedUnaryMethod_DeleteMetricDescriptor<WithStreamedUnaryMethod_ListTimeSeries<WithStreamedUnaryMethod_CreateTimeSeries<Service > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_CreateServiceTimeSeries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CreateServiceTimeSeries() {
+      ::grpc::Service::MarkMethodStreamed(8,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::monitoring::v3::CreateTimeSeriesRequest, ::google::protobuf::Empty>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::monitoring::v3::CreateTimeSeriesRequest, ::google::protobuf::Empty>* streamer) {
+                       return this->StreamedCreateServiceTimeSeries(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CreateServiceTimeSeries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CreateServiceTimeSeries(::grpc::ServerContext* /*context*/, const ::google::monitoring::v3::CreateTimeSeriesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCreateServiceTimeSeries(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::monitoring::v3::CreateTimeSeriesRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_ListMonitoredResourceDescriptors<WithStreamedUnaryMethod_GetMonitoredResourceDescriptor<WithStreamedUnaryMethod_ListMetricDescriptors<WithStreamedUnaryMethod_GetMetricDescriptor<WithStreamedUnaryMethod_CreateMetricDescriptor<WithStreamedUnaryMethod_DeleteMetricDescriptor<WithStreamedUnaryMethod_ListTimeSeries<WithStreamedUnaryMethod_CreateTimeSeries<WithStreamedUnaryMethod_CreateServiceTimeSeries<Service > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ListMonitoredResourceDescriptors<WithStreamedUnaryMethod_GetMonitoredResourceDescriptor<WithStreamedUnaryMethod_ListMetricDescriptors<WithStreamedUnaryMethod_GetMetricDescriptor<WithStreamedUnaryMethod_CreateMetricDescriptor<WithStreamedUnaryMethod_DeleteMetricDescriptor<WithStreamedUnaryMethod_ListTimeSeries<WithStreamedUnaryMethod_CreateTimeSeries<Service > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_ListMonitoredResourceDescriptors<WithStreamedUnaryMethod_GetMonitoredResourceDescriptor<WithStreamedUnaryMethod_ListMetricDescriptors<WithStreamedUnaryMethod_GetMetricDescriptor<WithStreamedUnaryMethod_CreateMetricDescriptor<WithStreamedUnaryMethod_DeleteMetricDescriptor<WithStreamedUnaryMethod_ListTimeSeries<WithStreamedUnaryMethod_CreateTimeSeries<WithStreamedUnaryMethod_CreateServiceTimeSeries<Service > > > > > > > > > StreamedService;
 };
 
 }  // namespace v3

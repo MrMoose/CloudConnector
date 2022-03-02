@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -99,7 +99,7 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 /// Concatenate two pre-processor tokens.
 #define GOOGLE_CLOUD_CPP_PP_CONCAT(a, b) a##b
 
@@ -436,7 +436,7 @@ class Logger {
 template <>
 class Logger<false> {
  public:
-  Logger<false>(Severity severity, char const*, char const*, int, LogSink&)
+  Logger(Severity severity, char const*, char const*, int, LogSink&)
       : severity_(severity) {}
 
   ~Logger() {
@@ -462,7 +462,7 @@ class Logger<false> {
 namespace internal {
 std::shared_ptr<LogBackend> DefaultLogBackend();
 }  // namespace internal
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

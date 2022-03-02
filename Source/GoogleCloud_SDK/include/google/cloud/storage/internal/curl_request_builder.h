@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,7 +27,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 /**
  * Implements the Builder pattern for CurlRequest, and CurlUploadRequest.
@@ -196,11 +196,12 @@ class CurlRequestBuilder {
   bool logging_enabled_;
   CurlHandle::SocketOptions socket_options_;
   std::chrono::seconds transfer_stall_timeout_;
+  std::chrono::seconds download_stall_timeout_;
   std::string http_version_;
 };
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

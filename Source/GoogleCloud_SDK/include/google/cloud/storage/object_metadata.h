@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,10 +30,11 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 struct ObjectMetadataParser;
-class GrpcClient;
+struct GrpcObjectMetadataParser;
+struct GrpcObjectRequestParser;
 }  // namespace internal
 
 /// A simple representation for the customerEncryption field.
@@ -253,7 +254,7 @@ class ObjectMetadata : private internal::CommonMetadata<ObjectMetadata> {
 
  private:
   friend struct internal::ObjectMetadataParser;
-  friend class internal::GrpcClient;
+  friend struct internal::GrpcObjectMetadataParser;
 
   friend std::ostream& operator<<(std::ostream& os, ObjectMetadata const& rhs);
   // Keep the fields in alphabetical order.
@@ -342,6 +343,8 @@ class ObjectMetadataPatchBuilder {
   ObjectMetadataPatchBuilder& ResetCustomTime();
 
  private:
+  friend struct internal::GrpcObjectRequestParser;
+
   internal::PatchBuilder impl_;
   bool metadata_subpatch_dirty_{false};
   internal::PatchBuilder metadata_subpatch_;
@@ -359,7 +362,7 @@ struct WithObjectMetadata
   static char const* name() { return "object-metadata"; }
 };
 
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

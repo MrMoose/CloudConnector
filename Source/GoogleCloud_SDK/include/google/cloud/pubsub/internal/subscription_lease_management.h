@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,16 +19,16 @@
 #include "google/cloud/pubsub/internal/subscriber_stub.h"
 #include "google/cloud/pubsub/internal/subscription_batch_source.h"
 #include "google/cloud/pubsub/version.h"
-#include "google/cloud/internal/absl_flat_hash_map_quiet.h"
 #include <chrono>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace google {
 namespace cloud {
 namespace pubsub_internal {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 class SubscriptionLeaseManagement
     : public SubscriptionBatchSource,
@@ -99,13 +99,13 @@ class SubscriptionLeaseManagement
     std::chrono::system_clock::time_point estimated_server_deadline;
     std::chrono::system_clock::time_point handling_deadline;
   };
-  absl::flat_hash_map<std::string, LeaseStatus> leases_;
+  std::unordered_map<std::string, LeaseStatus> leases_;
 
   bool refreshing_leases_ = false;
   future<void> refresh_timer_;
 };
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub_internal
 }  // namespace cloud
 }  // namespace google

@@ -36,6 +36,7 @@
 #include "google/api/resource.pb.h"
 #include "google/cloud/bigquery/storage/v1/arrow.pb.h"
 #include "google/cloud/bigquery/storage/v1/avro.pb.h"
+#include "google/cloud/bigquery/storage/v1/table.pb.h"
 #include <google/protobuf/timestamp.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -52,7 +53,7 @@ struct TableStruct_google_2fcloud_2fbigquery_2fstorage_2fv1_2fstream_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -77,6 +78,9 @@ extern ReadSession_TableReadOptionsDefaultTypeInternal _ReadSession_TableReadOpt
 class ReadStream;
 struct ReadStreamDefaultTypeInternal;
 extern ReadStreamDefaultTypeInternal _ReadStream_default_instance_;
+class WriteStream;
+struct WriteStreamDefaultTypeInternal;
+extern WriteStreamDefaultTypeInternal _WriteStream_default_instance_;
 }  // namespace v1
 }  // namespace storage
 }  // namespace bigquery
@@ -87,6 +91,7 @@ template<> ::google::cloud::bigquery::storage::v1::ReadSession* Arena::CreateMay
 template<> ::google::cloud::bigquery::storage::v1::ReadSession_TableModifiers* Arena::CreateMaybeMessage<::google::cloud::bigquery::storage::v1::ReadSession_TableModifiers>(Arena*);
 template<> ::google::cloud::bigquery::storage::v1::ReadSession_TableReadOptions* Arena::CreateMaybeMessage<::google::cloud::bigquery::storage::v1::ReadSession_TableReadOptions>(Arena*);
 template<> ::google::cloud::bigquery::storage::v1::ReadStream* Arena::CreateMaybeMessage<::google::cloud::bigquery::storage::v1::ReadStream>(Arena*);
+template<> ::google::cloud::bigquery::storage::v1::WriteStream* Arena::CreateMaybeMessage<::google::cloud::bigquery::storage::v1::WriteStream>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace google {
 namespace cloud {
@@ -94,6 +99,58 @@ namespace bigquery {
 namespace storage {
 namespace v1 {
 
+enum WriteStream_Type : int {
+  WriteStream_Type_TYPE_UNSPECIFIED = 0,
+  WriteStream_Type_COMMITTED = 1,
+  WriteStream_Type_PENDING = 2,
+  WriteStream_Type_BUFFERED = 3,
+  WriteStream_Type_WriteStream_Type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  WriteStream_Type_WriteStream_Type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool WriteStream_Type_IsValid(int value);
+constexpr WriteStream_Type WriteStream_Type_Type_MIN = WriteStream_Type_TYPE_UNSPECIFIED;
+constexpr WriteStream_Type WriteStream_Type_Type_MAX = WriteStream_Type_BUFFERED;
+constexpr int WriteStream_Type_Type_ARRAYSIZE = WriteStream_Type_Type_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* WriteStream_Type_descriptor();
+template<typename T>
+inline const std::string& WriteStream_Type_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, WriteStream_Type>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function WriteStream_Type_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    WriteStream_Type_descriptor(), enum_t_value);
+}
+inline bool WriteStream_Type_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, WriteStream_Type* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<WriteStream_Type>(
+    WriteStream_Type_descriptor(), name, value);
+}
+enum WriteStream_WriteMode : int {
+  WriteStream_WriteMode_WRITE_MODE_UNSPECIFIED = 0,
+  WriteStream_WriteMode_INSERT = 1,
+  WriteStream_WriteMode_WriteStream_WriteMode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  WriteStream_WriteMode_WriteStream_WriteMode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool WriteStream_WriteMode_IsValid(int value);
+constexpr WriteStream_WriteMode WriteStream_WriteMode_WriteMode_MIN = WriteStream_WriteMode_WRITE_MODE_UNSPECIFIED;
+constexpr WriteStream_WriteMode WriteStream_WriteMode_WriteMode_MAX = WriteStream_WriteMode_INSERT;
+constexpr int WriteStream_WriteMode_WriteMode_ARRAYSIZE = WriteStream_WriteMode_WriteMode_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* WriteStream_WriteMode_descriptor();
+template<typename T>
+inline const std::string& WriteStream_WriteMode_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, WriteStream_WriteMode>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function WriteStream_WriteMode_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    WriteStream_WriteMode_descriptor(), enum_t_value);
+}
+inline bool WriteStream_WriteMode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, WriteStream_WriteMode* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<WriteStream_WriteMode>(
+    WriteStream_WriteMode_descriptor(), name, value);
+}
 enum DataFormat : int {
   DATA_FORMAT_UNSPECIFIED = 0,
   AVRO = 1,
@@ -604,6 +661,7 @@ class ReadSession PROTOBUF_FINAL :
     kTableModifiersFieldNumber = 7,
     kReadOptionsFieldNumber = 8,
     kDataFormatFieldNumber = 3,
+    kEstimatedTotalBytesScannedFieldNumber = 12,
     kAvroSchemaFieldNumber = 4,
     kArrowSchemaFieldNumber = 5,
   };
@@ -720,6 +778,15 @@ class ReadSession PROTOBUF_FINAL :
   void _internal_set_data_format(::google::cloud::bigquery::storage::v1::DataFormat value);
   public:
 
+  // int64 estimated_total_bytes_scanned = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  void clear_estimated_total_bytes_scanned();
+  ::PROTOBUF_NAMESPACE_ID::int64 estimated_total_bytes_scanned() const;
+  void set_estimated_total_bytes_scanned(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_estimated_total_bytes_scanned() const;
+  void _internal_set_estimated_total_bytes_scanned(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
   // .google.cloud.bigquery.storage.v1.AvroSchema avro_schema = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];
   bool has_avro_schema() const;
   private:
@@ -777,6 +844,7 @@ class ReadSession PROTOBUF_FINAL :
   ::google::cloud::bigquery::storage::v1::ReadSession_TableModifiers* table_modifiers_;
   ::google::cloud::bigquery::storage::v1::ReadSession_TableReadOptions* read_options_;
   int data_format_;
+  ::PROTOBUF_NAMESPACE_ID::int64 estimated_total_bytes_scanned_;
   union SchemaUnion {
     constexpr SchemaUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -929,6 +997,296 @@ class ReadStream PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fcloud_2fbigquery_2fstorage_2fv1_2fstream_2eproto;
+};
+// -------------------------------------------------------------------
+
+class WriteStream PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.cloud.bigquery.storage.v1.WriteStream) */ {
+ public:
+  inline WriteStream() : WriteStream(nullptr) {}
+  virtual ~WriteStream();
+  explicit constexpr WriteStream(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  WriteStream(const WriteStream& from);
+  WriteStream(WriteStream&& from) noexcept
+    : WriteStream() {
+    *this = ::std::move(from);
+  }
+
+  inline WriteStream& operator=(const WriteStream& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline WriteStream& operator=(WriteStream&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const WriteStream& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const WriteStream* internal_default_instance() {
+    return reinterpret_cast<const WriteStream*>(
+               &_WriteStream_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(WriteStream& a, WriteStream& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(WriteStream* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(WriteStream* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline WriteStream* New() const final {
+    return CreateMaybeMessage<WriteStream>(nullptr);
+  }
+
+  WriteStream* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<WriteStream>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const WriteStream& from);
+  void MergeFrom(const WriteStream& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(WriteStream* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.cloud.bigquery.storage.v1.WriteStream";
+  }
+  protected:
+  explicit WriteStream(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fcloud_2fbigquery_2fstorage_2fv1_2fstream_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  typedef WriteStream_Type Type;
+  static constexpr Type TYPE_UNSPECIFIED =
+    WriteStream_Type_TYPE_UNSPECIFIED;
+  static constexpr Type COMMITTED =
+    WriteStream_Type_COMMITTED;
+  static constexpr Type PENDING =
+    WriteStream_Type_PENDING;
+  static constexpr Type BUFFERED =
+    WriteStream_Type_BUFFERED;
+  static inline bool Type_IsValid(int value) {
+    return WriteStream_Type_IsValid(value);
+  }
+  static constexpr Type Type_MIN =
+    WriteStream_Type_Type_MIN;
+  static constexpr Type Type_MAX =
+    WriteStream_Type_Type_MAX;
+  static constexpr int Type_ARRAYSIZE =
+    WriteStream_Type_Type_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  Type_descriptor() {
+    return WriteStream_Type_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& Type_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Type>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Type_Name.");
+    return WriteStream_Type_Name(enum_t_value);
+  }
+  static inline bool Type_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      Type* value) {
+    return WriteStream_Type_Parse(name, value);
+  }
+
+  typedef WriteStream_WriteMode WriteMode;
+  static constexpr WriteMode WRITE_MODE_UNSPECIFIED =
+    WriteStream_WriteMode_WRITE_MODE_UNSPECIFIED;
+  static constexpr WriteMode INSERT =
+    WriteStream_WriteMode_INSERT;
+  static inline bool WriteMode_IsValid(int value) {
+    return WriteStream_WriteMode_IsValid(value);
+  }
+  static constexpr WriteMode WriteMode_MIN =
+    WriteStream_WriteMode_WriteMode_MIN;
+  static constexpr WriteMode WriteMode_MAX =
+    WriteStream_WriteMode_WriteMode_MAX;
+  static constexpr int WriteMode_ARRAYSIZE =
+    WriteStream_WriteMode_WriteMode_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  WriteMode_descriptor() {
+    return WriteStream_WriteMode_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& WriteMode_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, WriteMode>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function WriteMode_Name.");
+    return WriteStream_WriteMode_Name(enum_t_value);
+  }
+  static inline bool WriteMode_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      WriteMode* value) {
+    return WriteStream_WriteMode_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kCreateTimeFieldNumber = 3,
+    kCommitTimeFieldNumber = 4,
+    kTableSchemaFieldNumber = 5,
+    kTypeFieldNumber = 2,
+    kWriteModeFieldNumber = 7,
+  };
+  // string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // .google.protobuf.Timestamp create_time = 3 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  bool has_create_time() const;
+  private:
+  bool _internal_has_create_time() const;
+  public:
+  void clear_create_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& create_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_create_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_create_time();
+  void set_allocated_create_time(PROTOBUF_NAMESPACE_ID::Timestamp* create_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_create_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_create_time();
+  public:
+  void unsafe_arena_set_allocated_create_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* create_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_create_time();
+
+  // .google.protobuf.Timestamp commit_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  bool has_commit_time() const;
+  private:
+  bool _internal_has_commit_time() const;
+  public:
+  void clear_commit_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& commit_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_commit_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_commit_time();
+  void set_allocated_commit_time(PROTOBUF_NAMESPACE_ID::Timestamp* commit_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_commit_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_commit_time();
+  public:
+  void unsafe_arena_set_allocated_commit_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* commit_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_commit_time();
+
+  // .google.cloud.bigquery.storage.v1.TableSchema table_schema = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  bool has_table_schema() const;
+  private:
+  bool _internal_has_table_schema() const;
+  public:
+  void clear_table_schema();
+  const ::google::cloud::bigquery::storage::v1::TableSchema& table_schema() const;
+  ::google::cloud::bigquery::storage::v1::TableSchema* release_table_schema();
+  ::google::cloud::bigquery::storage::v1::TableSchema* mutable_table_schema();
+  void set_allocated_table_schema(::google::cloud::bigquery::storage::v1::TableSchema* table_schema);
+  private:
+  const ::google::cloud::bigquery::storage::v1::TableSchema& _internal_table_schema() const;
+  ::google::cloud::bigquery::storage::v1::TableSchema* _internal_mutable_table_schema();
+  public:
+  void unsafe_arena_set_allocated_table_schema(
+      ::google::cloud::bigquery::storage::v1::TableSchema* table_schema);
+  ::google::cloud::bigquery::storage::v1::TableSchema* unsafe_arena_release_table_schema();
+
+  // .google.cloud.bigquery.storage.v1.WriteStream.Type type = 2 [(.google.api.field_behavior) = IMMUTABLE];
+  void clear_type();
+  ::google::cloud::bigquery::storage::v1::WriteStream_Type type() const;
+  void set_type(::google::cloud::bigquery::storage::v1::WriteStream_Type value);
+  private:
+  ::google::cloud::bigquery::storage::v1::WriteStream_Type _internal_type() const;
+  void _internal_set_type(::google::cloud::bigquery::storage::v1::WriteStream_Type value);
+  public:
+
+  // .google.cloud.bigquery.storage.v1.WriteStream.WriteMode write_mode = 7 [(.google.api.field_behavior) = IMMUTABLE];
+  void clear_write_mode();
+  ::google::cloud::bigquery::storage::v1::WriteStream_WriteMode write_mode() const;
+  void set_write_mode(::google::cloud::bigquery::storage::v1::WriteStream_WriteMode value);
+  private:
+  ::google::cloud::bigquery::storage::v1::WriteStream_WriteMode _internal_write_mode() const;
+  void _internal_set_write_mode(::google::cloud::bigquery::storage::v1::WriteStream_WriteMode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.cloud.bigquery.storage.v1.WriteStream)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* create_time_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* commit_time_;
+  ::google::cloud::bigquery::storage::v1::TableSchema* table_schema_;
+  int type_;
+  int write_mode_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fcloud_2fbigquery_2fstorage_2fv1_2fstream_2eproto;
 };
@@ -1791,6 +2149,26 @@ ReadSession::streams() const {
   return streams_;
 }
 
+// int64 estimated_total_bytes_scanned = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline void ReadSession::clear_estimated_total_bytes_scanned() {
+  estimated_total_bytes_scanned_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ReadSession::_internal_estimated_total_bytes_scanned() const {
+  return estimated_total_bytes_scanned_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ReadSession::estimated_total_bytes_scanned() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.storage.v1.ReadSession.estimated_total_bytes_scanned)
+  return _internal_estimated_total_bytes_scanned();
+}
+inline void ReadSession::_internal_set_estimated_total_bytes_scanned(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  estimated_total_bytes_scanned_ = value;
+}
+inline void ReadSession::set_estimated_total_bytes_scanned(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_estimated_total_bytes_scanned(value);
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.storage.v1.ReadSession.estimated_total_bytes_scanned)
+}
+
 inline bool ReadSession::has_schema() const {
   return schema_case() != SCHEMA_NOT_SET;
 }
@@ -1865,9 +2243,347 @@ inline void ReadStream::set_allocated_name(std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.storage.v1.ReadStream.name)
 }
 
+// -------------------------------------------------------------------
+
+// WriteStream
+
+// string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline void WriteStream::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& WriteStream::name() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.storage.v1.WriteStream.name)
+  return _internal_name();
+}
+inline void WriteStream::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.storage.v1.WriteStream.name)
+}
+inline std::string* WriteStream::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.storage.v1.WriteStream.name)
+  return _internal_mutable_name();
+}
+inline const std::string& WriteStream::_internal_name() const {
+  return name_.Get();
+}
+inline void WriteStream::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void WriteStream::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.cloud.bigquery.storage.v1.WriteStream.name)
+}
+inline void WriteStream::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.storage.v1.WriteStream.name)
+}
+inline void WriteStream::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.storage.v1.WriteStream.name)
+}
+inline std::string* WriteStream::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* WriteStream::release_name() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.storage.v1.WriteStream.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void WriteStream::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.storage.v1.WriteStream.name)
+}
+
+// .google.cloud.bigquery.storage.v1.WriteStream.Type type = 2 [(.google.api.field_behavior) = IMMUTABLE];
+inline void WriteStream::clear_type() {
+  type_ = 0;
+}
+inline ::google::cloud::bigquery::storage::v1::WriteStream_Type WriteStream::_internal_type() const {
+  return static_cast< ::google::cloud::bigquery::storage::v1::WriteStream_Type >(type_);
+}
+inline ::google::cloud::bigquery::storage::v1::WriteStream_Type WriteStream::type() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.storage.v1.WriteStream.type)
+  return _internal_type();
+}
+inline void WriteStream::_internal_set_type(::google::cloud::bigquery::storage::v1::WriteStream_Type value) {
+  
+  type_ = value;
+}
+inline void WriteStream::set_type(::google::cloud::bigquery::storage::v1::WriteStream_Type value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.storage.v1.WriteStream.type)
+}
+
+// .google.protobuf.Timestamp create_time = 3 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline bool WriteStream::_internal_has_create_time() const {
+  return this != internal_default_instance() && create_time_ != nullptr;
+}
+inline bool WriteStream::has_create_time() const {
+  return _internal_has_create_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& WriteStream::_internal_create_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = create_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& WriteStream::create_time() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.storage.v1.WriteStream.create_time)
+  return _internal_create_time();
+}
+inline void WriteStream::unsafe_arena_set_allocated_create_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* create_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time_);
+  }
+  create_time_ = create_time;
+  if (create_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.storage.v1.WriteStream.create_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* WriteStream::release_create_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = create_time_;
+  create_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* WriteStream::unsafe_arena_release_create_time() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.storage.v1.WriteStream.create_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = create_time_;
+  create_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* WriteStream::_internal_mutable_create_time() {
+  
+  if (create_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    create_time_ = p;
+  }
+  return create_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* WriteStream::mutable_create_time() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.storage.v1.WriteStream.create_time)
+  return _internal_mutable_create_time();
+}
+inline void WriteStream::set_allocated_create_time(PROTOBUF_NAMESPACE_ID::Timestamp* create_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time_);
+  }
+  if (create_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      create_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, create_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  create_time_ = create_time;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.storage.v1.WriteStream.create_time)
+}
+
+// .google.protobuf.Timestamp commit_time = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline bool WriteStream::_internal_has_commit_time() const {
+  return this != internal_default_instance() && commit_time_ != nullptr;
+}
+inline bool WriteStream::has_commit_time() const {
+  return _internal_has_commit_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& WriteStream::_internal_commit_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = commit_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& WriteStream::commit_time() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.storage.v1.WriteStream.commit_time)
+  return _internal_commit_time();
+}
+inline void WriteStream::unsafe_arena_set_allocated_commit_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* commit_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(commit_time_);
+  }
+  commit_time_ = commit_time;
+  if (commit_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.storage.v1.WriteStream.commit_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* WriteStream::release_commit_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = commit_time_;
+  commit_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* WriteStream::unsafe_arena_release_commit_time() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.storage.v1.WriteStream.commit_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = commit_time_;
+  commit_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* WriteStream::_internal_mutable_commit_time() {
+  
+  if (commit_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    commit_time_ = p;
+  }
+  return commit_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* WriteStream::mutable_commit_time() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.storage.v1.WriteStream.commit_time)
+  return _internal_mutable_commit_time();
+}
+inline void WriteStream::set_allocated_commit_time(PROTOBUF_NAMESPACE_ID::Timestamp* commit_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(commit_time_);
+  }
+  if (commit_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(commit_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      commit_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, commit_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  commit_time_ = commit_time;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.storage.v1.WriteStream.commit_time)
+}
+
+// .google.cloud.bigquery.storage.v1.TableSchema table_schema = 5 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline bool WriteStream::_internal_has_table_schema() const {
+  return this != internal_default_instance() && table_schema_ != nullptr;
+}
+inline bool WriteStream::has_table_schema() const {
+  return _internal_has_table_schema();
+}
+inline const ::google::cloud::bigquery::storage::v1::TableSchema& WriteStream::_internal_table_schema() const {
+  const ::google::cloud::bigquery::storage::v1::TableSchema* p = table_schema_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::cloud::bigquery::storage::v1::TableSchema&>(
+      ::google::cloud::bigquery::storage::v1::_TableSchema_default_instance_);
+}
+inline const ::google::cloud::bigquery::storage::v1::TableSchema& WriteStream::table_schema() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.storage.v1.WriteStream.table_schema)
+  return _internal_table_schema();
+}
+inline void WriteStream::unsafe_arena_set_allocated_table_schema(
+    ::google::cloud::bigquery::storage::v1::TableSchema* table_schema) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(table_schema_);
+  }
+  table_schema_ = table_schema;
+  if (table_schema) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.storage.v1.WriteStream.table_schema)
+}
+inline ::google::cloud::bigquery::storage::v1::TableSchema* WriteStream::release_table_schema() {
+  
+  ::google::cloud::bigquery::storage::v1::TableSchema* temp = table_schema_;
+  table_schema_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::cloud::bigquery::storage::v1::TableSchema* WriteStream::unsafe_arena_release_table_schema() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.storage.v1.WriteStream.table_schema)
+  
+  ::google::cloud::bigquery::storage::v1::TableSchema* temp = table_schema_;
+  table_schema_ = nullptr;
+  return temp;
+}
+inline ::google::cloud::bigquery::storage::v1::TableSchema* WriteStream::_internal_mutable_table_schema() {
+  
+  if (table_schema_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::cloud::bigquery::storage::v1::TableSchema>(GetArena());
+    table_schema_ = p;
+  }
+  return table_schema_;
+}
+inline ::google::cloud::bigquery::storage::v1::TableSchema* WriteStream::mutable_table_schema() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.storage.v1.WriteStream.table_schema)
+  return _internal_mutable_table_schema();
+}
+inline void WriteStream::set_allocated_table_schema(::google::cloud::bigquery::storage::v1::TableSchema* table_schema) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(table_schema_);
+  }
+  if (table_schema) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(table_schema)->GetArena();
+    if (message_arena != submessage_arena) {
+      table_schema = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, table_schema, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  table_schema_ = table_schema;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.storage.v1.WriteStream.table_schema)
+}
+
+// .google.cloud.bigquery.storage.v1.WriteStream.WriteMode write_mode = 7 [(.google.api.field_behavior) = IMMUTABLE];
+inline void WriteStream::clear_write_mode() {
+  write_mode_ = 0;
+}
+inline ::google::cloud::bigquery::storage::v1::WriteStream_WriteMode WriteStream::_internal_write_mode() const {
+  return static_cast< ::google::cloud::bigquery::storage::v1::WriteStream_WriteMode >(write_mode_);
+}
+inline ::google::cloud::bigquery::storage::v1::WriteStream_WriteMode WriteStream::write_mode() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.storage.v1.WriteStream.write_mode)
+  return _internal_write_mode();
+}
+inline void WriteStream::_internal_set_write_mode(::google::cloud::bigquery::storage::v1::WriteStream_WriteMode value) {
+  
+  write_mode_ = value;
+}
+inline void WriteStream::set_write_mode(::google::cloud::bigquery::storage::v1::WriteStream_WriteMode value) {
+  _internal_set_write_mode(value);
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.storage.v1.WriteStream.write_mode)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -1885,6 +2601,16 @@ inline void ReadStream::set_allocated_name(std::string* name) {
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::google::cloud::bigquery::storage::v1::WriteStream_Type> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::google::cloud::bigquery::storage::v1::WriteStream_Type>() {
+  return ::google::cloud::bigquery::storage::v1::WriteStream_Type_descriptor();
+}
+template <> struct is_proto_enum< ::google::cloud::bigquery::storage::v1::WriteStream_WriteMode> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::google::cloud::bigquery::storage::v1::WriteStream_WriteMode>() {
+  return ::google::cloud::bigquery::storage::v1::WriteStream_WriteMode_descriptor();
+}
 template <> struct is_proto_enum< ::google::cloud::bigquery::storage::v1::DataFormat> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::google::cloud::bigquery::storage::v1::DataFormat>() {

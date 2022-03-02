@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,14 +17,14 @@
 
 #include "google/cloud/pubsub/connection_options.h"
 #include "google/cloud/pubsub/version.h"
-#include "google/cloud/internal/async_read_write_stream_impl.h"
+#include "google/cloud/async_streaming_read_write_rpc.h"
 #include "google/cloud/status_or.h"
 #include <google/pubsub/v1/pubsub.pb.h>
 
 namespace google {
 namespace cloud {
 namespace pubsub_internal {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * Define the interface for the gRPC wrapper.
@@ -71,7 +71,7 @@ class SubscriberStub {
       grpc::ClientContext& client_context,
       google::pubsub::v1::ModifyPushConfigRequest const& request) = 0;
 
-  using AsyncPullStream = ::google::cloud::internal::AsyncStreamingReadWriteRpc<
+  using AsyncPullStream = ::google::cloud::AsyncStreamingReadWriteRpc<
       google::pubsub::v1::StreamingPullRequest,
       google::pubsub::v1::StreamingPullResponse>;
 
@@ -123,6 +123,10 @@ class SubscriberStub {
       google::pubsub::v1::SeekRequest const& request) = 0;
 };
 
+/// Create a SubscriberStub using a pre-configured channel.
+std::shared_ptr<SubscriberStub> CreateDefaultSubscriberStub(
+    std::shared_ptr<grpc::Channel> channel);
+
 /**
  * Creates a SubscriberStub configured with @p opts and @p channel_id.
  *
@@ -132,7 +136,7 @@ class SubscriberStub {
 std::shared_ptr<SubscriberStub> CreateDefaultSubscriberStub(Options const& opts,
                                                             int channel_id);
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub_internal
 }  // namespace cloud
 }  // namespace google

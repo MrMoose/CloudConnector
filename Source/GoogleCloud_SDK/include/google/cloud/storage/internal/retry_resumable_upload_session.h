@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,13 +20,16 @@
 #include "google/cloud/storage/version.h"
 #include "absl/functional/function_ref.h"
 #include "absl/types/optional.h"
+#include <deque>
 #include <memory>
+#include <mutex>
 #include <string>
+#include <thread>
 
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 /**
  * Decorates a `ResumableUploadSession` to retry operations that fail.
@@ -65,18 +68,28 @@ class RetryResumableUploadSession : public ResumableUploadSession {
       char const* caller, ConstBufferSequence buffers,
       UploadChunkFunction upload);
 
-  // Reset the current session using previously cloned policies.
-  StatusOr<ResumableUploadResponse> ResetSession(RetryPolicy& retry_policy,
-                                                 BackoffPolicy& backoff_policy,
-                                                 Status last_status);
+  // Handle a response that uncommits some bytes
+  Status HandleUncommitError(char const* caller,
+                             ResumableUploadResponse const&);
+
+  void AppendDebug(char const* action, std::uint64_t value);
+
+  struct DebugEntry {
+    std::string action;
+    std::uint64_t value;
+    std::thread::id tid_;
+  };
 
   std::unique_ptr<ResumableUploadSession> session_;
+  std::uint64_t committed_size_ = 0;
   std::unique_ptr<RetryPolicy const> retry_policy_prototype_;
   std::unique_ptr<BackoffPolicy const> backoff_policy_prototype_;
+  std::mutex mu_;
+  std::deque<DebugEntry> debug_;
 };
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,7 +27,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 /// Parse the `x-goog-hash` header and get one of the hashes.
 std::string ExtractHashValue(std::string const& hash_header,
@@ -133,7 +133,7 @@ class CurlDownloadRequest : public ObjectReadSource {
   std::int32_t http_code_ = 0;
   bool logging_enabled_ = false;
   CurlHandle::SocketOptions socket_options_;
-  std::chrono::seconds transfer_stall_timeout_;
+  std::chrono::seconds download_stall_timeout_;
   CurlHandle handle_;
   CurlMulti multi_;
   std::shared_ptr<CurlHandleFactory> factory_;
@@ -176,7 +176,7 @@ class CurlDownloadRequest : public ObjectReadSource {
 };
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

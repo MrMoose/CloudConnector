@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,6 +16,7 @@
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_INTERNAL_RETRY_LOOP_H
 
 #include "google/cloud/backoff_policy.h"
+#include "google/cloud/grpc_options.h"
 #include "google/cloud/internal/invoke_result.h"
 #include "google/cloud/internal/retry_loop_helpers.h"
 #include "google/cloud/internal/retry_policy.h"
@@ -27,7 +28,7 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 
 /**
@@ -69,6 +70,7 @@ auto RetryLoopImpl(std::unique_ptr<RetryPolicy> retry_policy,
   while (!retry_policy->IsExhausted()) {
     // Need to create a new context for each retry.
     grpc::ClientContext context;
+    ConfigureContext(context, CurrentOptions());
     auto result = functor(context, request);
     if (result.ok()) {
       return result;
@@ -113,7 +115,7 @@ auto RetryLoop(std::unique_ptr<RetryPolicy> retry_policy,
 }
 
 }  // namespace internal
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

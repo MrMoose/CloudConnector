@@ -19,6 +19,8 @@
 #ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_LOGGING_INTERNAL_LOGGING_SERVICE_V2_STUB_H
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_LOGGING_INTERNAL_LOGGING_SERVICE_V2_STUB_H
 
+#include "google/cloud/async_streaming_read_write_rpc.h"
+#include "google/cloud/completion_queue.h"
 #include "google/cloud/status_or.h"
 #include "google/cloud/version.h"
 #include <google/logging/v2/logging.grpc.pb.h>
@@ -27,7 +29,7 @@
 namespace google {
 namespace cloud {
 namespace logging_internal {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 class LoggingServiceV2Stub {
  public:
@@ -56,6 +58,12 @@ class LoggingServiceV2Stub {
   virtual StatusOr<google::logging::v2::ListLogsResponse> ListLogs(
       grpc::ClientContext& context,
       google::logging::v2::ListLogsRequest const& request) = 0;
+
+  virtual std::unique_ptr<::google::cloud::AsyncStreamingReadWriteRpc<
+      google::logging::v2::TailLogEntriesRequest,
+      google::logging::v2::TailLogEntriesResponse>>
+  AsyncTailLogEntries(google::cloud::CompletionQueue const& cq,
+                      std::unique_ptr<grpc::ClientContext> context) = 0;
 };
 
 class DefaultLoggingServiceV2Stub : public LoggingServiceV2Stub {
@@ -87,12 +95,18 @@ class DefaultLoggingServiceV2Stub : public LoggingServiceV2Stub {
       grpc::ClientContext& client_context,
       google::logging::v2::ListLogsRequest const& request) override;
 
+  std::unique_ptr<::google::cloud::AsyncStreamingReadWriteRpc<
+      google::logging::v2::TailLogEntriesRequest,
+      google::logging::v2::TailLogEntriesResponse>>
+  AsyncTailLogEntries(google::cloud::CompletionQueue const& cq,
+                      std::unique_ptr<grpc::ClientContext> context) override;
+
  private:
   std::unique_ptr<google::logging::v2::LoggingServiceV2::StubInterface>
       grpc_stub_;
 };
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace logging_internal
 }  // namespace cloud
 }  // namespace google

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 /**
  * Request a resumable upload, restoring a previous session if necessary.
  *
@@ -93,7 +93,23 @@ struct UploadLimit
   static char const* name() { return "upload-limit"; }
 };
 
-}  // namespace STORAGE_CLIENT_NS
+/**
+ * Set the buffer size for a stream created in `Client::WriteObject()`.
+ *
+ * Some applications may need to tune the upload buffer for some specific
+ * uploads. This option can be passed to `Client::WriteObject()` to override the
+ * default setting in the `storage::Client`.
+ */
+struct UploadBufferSize
+    : public internal::ComplexOption<UploadBufferSize, std::size_t> {
+  using ComplexOption<UploadBufferSize, std::size_t>::ComplexOption;
+  // GCC <= 7.0 does not use the inherited default constructor, redeclare it
+  // explicitly
+  UploadBufferSize() = default;
+  static char const* name() { return "upload-buffer-size"; }
+};
+
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

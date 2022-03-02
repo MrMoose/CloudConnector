@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,7 +37,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 /**
  * A parameter type indicating the maximum number of streams to
  * `ParallelUploadFile`.
@@ -471,7 +471,7 @@ class NonResumableParallelUploadState {
  * destructor, but if they fail, they fail silently. In order to proactively
  * cleanup these files, one can call `EagerCleanup()`.
  *
- * In oder to resume an interrupted upload, provide `UseResumableUploadSession`
+ * In order to resume an interrupted upload, provide `UseResumableUploadSession`
  * to `PrepareParallelUpload` with value set to what `resumable_session_id()`
  * returns.
  */
@@ -1188,7 +1188,7 @@ StatusOr<ObjectMetadata> ParallelUploadFile(
   return res;
 }
 
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

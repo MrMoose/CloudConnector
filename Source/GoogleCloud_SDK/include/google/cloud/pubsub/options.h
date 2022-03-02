@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -47,7 +47,7 @@
 namespace google {
 namespace cloud {
 namespace pubsub {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /// The retry policy
 struct RetryPolicyOption {
@@ -284,7 +284,7 @@ using SubscriberOptionList =
                MaxOutstandingMessagesOption, MaxOutstandingBytesOption,
                MaxConcurrencyOption, ShutdownPollingPeriodOption>;
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub
 }  // namespace cloud
 }  // namespace google

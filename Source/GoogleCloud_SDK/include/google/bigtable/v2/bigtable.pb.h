@@ -35,6 +35,7 @@
 #include "google/api/client.pb.h"
 #include "google/api/field_behavior.pb.h"
 #include "google/api/resource.pb.h"
+#include "google/api/routing.pb.h"
 #include "google/bigtable/v2/data.pb.h"
 #include <google/protobuf/wrappers.pb.h>
 #include "google/rpc/status.pb.h"

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,7 @@
 namespace google {
 namespace cloud {
 namespace pubsub_internal {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * Define the interface for the gRPC wrapper.
@@ -99,7 +99,13 @@ class PublisherStub {
 std::shared_ptr<PublisherStub> CreateDefaultPublisherStub(Options const& opts,
                                                           int channel_id);
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+/**
+ * Create a PublisherStub using a pre-configured channel.
+ */
+std::shared_ptr<PublisherStub> CreateDefaultPublisherStub(
+    std::shared_ptr<grpc::Channel> channel);
+
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub_internal
 }  // namespace cloud
 }  // namespace google

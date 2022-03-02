@@ -57,7 +57,7 @@ struct TableStruct_google_2fmonitoring_2fv3_2falert_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -71,9 +71,21 @@ namespace v3 {
 class AlertPolicy;
 struct AlertPolicyDefaultTypeInternal;
 extern AlertPolicyDefaultTypeInternal _AlertPolicy_default_instance_;
+class AlertPolicy_AlertStrategy;
+struct AlertPolicy_AlertStrategyDefaultTypeInternal;
+extern AlertPolicy_AlertStrategyDefaultTypeInternal _AlertPolicy_AlertStrategy_default_instance_;
+class AlertPolicy_AlertStrategy_NotificationRateLimit;
+struct AlertPolicy_AlertStrategy_NotificationRateLimitDefaultTypeInternal;
+extern AlertPolicy_AlertStrategy_NotificationRateLimitDefaultTypeInternal _AlertPolicy_AlertStrategy_NotificationRateLimit_default_instance_;
 class AlertPolicy_Condition;
 struct AlertPolicy_ConditionDefaultTypeInternal;
 extern AlertPolicy_ConditionDefaultTypeInternal _AlertPolicy_Condition_default_instance_;
+class AlertPolicy_Condition_LogMatch;
+struct AlertPolicy_Condition_LogMatchDefaultTypeInternal;
+extern AlertPolicy_Condition_LogMatchDefaultTypeInternal _AlertPolicy_Condition_LogMatch_default_instance_;
+class AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse;
+struct AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUseDefaultTypeInternal;
+extern AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUseDefaultTypeInternal _AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse_default_instance_;
 class AlertPolicy_Condition_MetricAbsence;
 struct AlertPolicy_Condition_MetricAbsenceDefaultTypeInternal;
 extern AlertPolicy_Condition_MetricAbsenceDefaultTypeInternal _AlertPolicy_Condition_MetricAbsence_default_instance_;
@@ -97,7 +109,11 @@ extern AlertPolicy_UserLabelsEntry_DoNotUseDefaultTypeInternal _AlertPolicy_User
 }  // namespace google
 PROTOBUF_NAMESPACE_OPEN
 template<> ::google::monitoring::v3::AlertPolicy* Arena::CreateMaybeMessage<::google::monitoring::v3::AlertPolicy>(Arena*);
+template<> ::google::monitoring::v3::AlertPolicy_AlertStrategy* Arena::CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_AlertStrategy>(Arena*);
+template<> ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* Arena::CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit>(Arena*);
 template<> ::google::monitoring::v3::AlertPolicy_Condition* Arena::CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_Condition>(Arena*);
+template<> ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* Arena::CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_Condition_LogMatch>(Arena*);
+template<> ::google::monitoring::v3::AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse* Arena::CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse>(Arena*);
 template<> ::google::monitoring::v3::AlertPolicy_Condition_MetricAbsence* Arena::CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_Condition_MetricAbsence>(Arena*);
 template<> ::google::monitoring::v3::AlertPolicy_Condition_MetricThreshold* Arena::CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_Condition_MetricThreshold>(Arena*);
 template<> ::google::monitoring::v3::AlertPolicy_Condition_MonitoringQueryLanguageCondition* Arena::CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_Condition_MonitoringQueryLanguageCondition>(Arena*);
@@ -943,6 +959,208 @@ class AlertPolicy_Condition_MetricAbsence PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> SuperType;
+  AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse();
+  explicit constexpr AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse& other);
+  static const AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse*>(&_AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "google.monitoring.v3.AlertPolicy.Condition.LogMatch.LabelExtractorsEntry.key");
+ }
+  static bool ValidateValue(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "google.monitoring.v3.AlertPolicy.Condition.LogMatch.LabelExtractorsEntry.value");
+ }
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& other) final;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_google_2fmonitoring_2fv3_2falert_2eproto);
+    return ::descriptor_table_google_2fmonitoring_2fv3_2falert_2eproto.file_level_metadata[4];
+  }
+
+  public:
+};
+
+// -------------------------------------------------------------------
+
+class AlertPolicy_Condition_LogMatch PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.monitoring.v3.AlertPolicy.Condition.LogMatch) */ {
+ public:
+  inline AlertPolicy_Condition_LogMatch() : AlertPolicy_Condition_LogMatch(nullptr) {}
+  virtual ~AlertPolicy_Condition_LogMatch();
+  explicit constexpr AlertPolicy_Condition_LogMatch(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AlertPolicy_Condition_LogMatch(const AlertPolicy_Condition_LogMatch& from);
+  AlertPolicy_Condition_LogMatch(AlertPolicy_Condition_LogMatch&& from) noexcept
+    : AlertPolicy_Condition_LogMatch() {
+    *this = ::std::move(from);
+  }
+
+  inline AlertPolicy_Condition_LogMatch& operator=(const AlertPolicy_Condition_LogMatch& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AlertPolicy_Condition_LogMatch& operator=(AlertPolicy_Condition_LogMatch&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const AlertPolicy_Condition_LogMatch& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AlertPolicy_Condition_LogMatch* internal_default_instance() {
+    return reinterpret_cast<const AlertPolicy_Condition_LogMatch*>(
+               &_AlertPolicy_Condition_LogMatch_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(AlertPolicy_Condition_LogMatch& a, AlertPolicy_Condition_LogMatch& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AlertPolicy_Condition_LogMatch* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AlertPolicy_Condition_LogMatch* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AlertPolicy_Condition_LogMatch* New() const final {
+    return CreateMaybeMessage<AlertPolicy_Condition_LogMatch>(nullptr);
+  }
+
+  AlertPolicy_Condition_LogMatch* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AlertPolicy_Condition_LogMatch>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const AlertPolicy_Condition_LogMatch& from);
+  void MergeFrom(const AlertPolicy_Condition_LogMatch& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(AlertPolicy_Condition_LogMatch* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.monitoring.v3.AlertPolicy.Condition.LogMatch";
+  }
+  protected:
+  explicit AlertPolicy_Condition_LogMatch(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fmonitoring_2fv3_2falert_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLabelExtractorsFieldNumber = 2,
+    kFilterFieldNumber = 1,
+  };
+  // map<string, string> label_extractors = 2;
+  int label_extractors_size() const;
+  private:
+  int _internal_label_extractors_size() const;
+  public:
+  void clear_label_extractors();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      _internal_label_extractors() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      _internal_mutable_label_extractors();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      label_extractors() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      mutable_label_extractors();
+
+  // string filter = 1 [(.google.api.field_behavior) = REQUIRED];
+  void clear_filter();
+  const std::string& filter() const;
+  void set_filter(const std::string& value);
+  void set_filter(std::string&& value);
+  void set_filter(const char* value);
+  void set_filter(const char* value, size_t size);
+  std::string* mutable_filter();
+  std::string* release_filter();
+  void set_allocated_filter(std::string* filter);
+  private:
+  const std::string& _internal_filter() const;
+  void _internal_set_filter(const std::string& value);
+  std::string* _internal_mutable_filter();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.monitoring.v3.AlertPolicy.Condition.LogMatch)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      AlertPolicy_Condition_LogMatch_LabelExtractorsEntry_DoNotUse,
+      std::string, std::string,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> label_extractors_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr filter_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fmonitoring_2fv3_2falert_2eproto;
+};
+// -------------------------------------------------------------------
+
 class AlertPolicy_Condition_MonitoringQueryLanguageCondition PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.monitoring.v3.AlertPolicy.Condition.MonitoringQueryLanguageCondition) */ {
  public:
@@ -986,7 +1204,7 @@ class AlertPolicy_Condition_MonitoringQueryLanguageCondition PROTOBUF_FINAL :
                &_AlertPolicy_Condition_MonitoringQueryLanguageCondition_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(AlertPolicy_Condition_MonitoringQueryLanguageCondition& a, AlertPolicy_Condition_MonitoringQueryLanguageCondition& b) {
     a.Swap(&b);
@@ -1168,6 +1386,7 @@ class AlertPolicy_Condition PROTOBUF_FINAL :
   enum ConditionCase {
     kConditionThreshold = 1,
     kConditionAbsent = 2,
+    kConditionMatchedLog = 20,
     kConditionMonitoringQueryLanguage = 19,
     CONDITION_NOT_SET = 0,
   };
@@ -1177,7 +1396,7 @@ class AlertPolicy_Condition PROTOBUF_FINAL :
                &_AlertPolicy_Condition_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(AlertPolicy_Condition& a, AlertPolicy_Condition& b) {
     a.Swap(&b);
@@ -1247,6 +1466,7 @@ class AlertPolicy_Condition PROTOBUF_FINAL :
   typedef AlertPolicy_Condition_Trigger Trigger;
   typedef AlertPolicy_Condition_MetricThreshold MetricThreshold;
   typedef AlertPolicy_Condition_MetricAbsence MetricAbsence;
+  typedef AlertPolicy_Condition_LogMatch LogMatch;
   typedef AlertPolicy_Condition_MonitoringQueryLanguageCondition MonitoringQueryLanguageCondition;
 
   // accessors -------------------------------------------------------
@@ -1256,6 +1476,7 @@ class AlertPolicy_Condition PROTOBUF_FINAL :
     kNameFieldNumber = 12,
     kConditionThresholdFieldNumber = 1,
     kConditionAbsentFieldNumber = 2,
+    kConditionMatchedLogFieldNumber = 20,
     kConditionMonitoringQueryLanguageFieldNumber = 19,
   };
   // string display_name = 6;
@@ -1326,6 +1547,24 @@ class AlertPolicy_Condition PROTOBUF_FINAL :
       ::google::monitoring::v3::AlertPolicy_Condition_MetricAbsence* condition_absent);
   ::google::monitoring::v3::AlertPolicy_Condition_MetricAbsence* unsafe_arena_release_condition_absent();
 
+  // .google.monitoring.v3.AlertPolicy.Condition.LogMatch condition_matched_log = 20;
+  bool has_condition_matched_log() const;
+  private:
+  bool _internal_has_condition_matched_log() const;
+  public:
+  void clear_condition_matched_log();
+  const ::google::monitoring::v3::AlertPolicy_Condition_LogMatch& condition_matched_log() const;
+  ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* release_condition_matched_log();
+  ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* mutable_condition_matched_log();
+  void set_allocated_condition_matched_log(::google::monitoring::v3::AlertPolicy_Condition_LogMatch* condition_matched_log);
+  private:
+  const ::google::monitoring::v3::AlertPolicy_Condition_LogMatch& _internal_condition_matched_log() const;
+  ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* _internal_mutable_condition_matched_log();
+  public:
+  void unsafe_arena_set_allocated_condition_matched_log(
+      ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* condition_matched_log);
+  ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* unsafe_arena_release_condition_matched_log();
+
   // .google.monitoring.v3.AlertPolicy.Condition.MonitoringQueryLanguageCondition condition_monitoring_query_language = 19;
   bool has_condition_monitoring_query_language() const;
   private:
@@ -1351,6 +1590,7 @@ class AlertPolicy_Condition PROTOBUF_FINAL :
   class _Internal;
   void set_has_condition_threshold();
   void set_has_condition_absent();
+  void set_has_condition_matched_log();
   void set_has_condition_monitoring_query_language();
 
   inline bool has_condition() const;
@@ -1366,11 +1606,326 @@ class AlertPolicy_Condition PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     ::google::monitoring::v3::AlertPolicy_Condition_MetricThreshold* condition_threshold_;
     ::google::monitoring::v3::AlertPolicy_Condition_MetricAbsence* condition_absent_;
+    ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* condition_matched_log_;
     ::google::monitoring::v3::AlertPolicy_Condition_MonitoringQueryLanguageCondition* condition_monitoring_query_language_;
   } condition_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::uint32 _oneof_case_[1];
 
+  friend struct ::TableStruct_google_2fmonitoring_2fv3_2falert_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AlertPolicy_AlertStrategy_NotificationRateLimit PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit) */ {
+ public:
+  inline AlertPolicy_AlertStrategy_NotificationRateLimit() : AlertPolicy_AlertStrategy_NotificationRateLimit(nullptr) {}
+  virtual ~AlertPolicy_AlertStrategy_NotificationRateLimit();
+  explicit constexpr AlertPolicy_AlertStrategy_NotificationRateLimit(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AlertPolicy_AlertStrategy_NotificationRateLimit(const AlertPolicy_AlertStrategy_NotificationRateLimit& from);
+  AlertPolicy_AlertStrategy_NotificationRateLimit(AlertPolicy_AlertStrategy_NotificationRateLimit&& from) noexcept
+    : AlertPolicy_AlertStrategy_NotificationRateLimit() {
+    *this = ::std::move(from);
+  }
+
+  inline AlertPolicy_AlertStrategy_NotificationRateLimit& operator=(const AlertPolicy_AlertStrategy_NotificationRateLimit& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AlertPolicy_AlertStrategy_NotificationRateLimit& operator=(AlertPolicy_AlertStrategy_NotificationRateLimit&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const AlertPolicy_AlertStrategy_NotificationRateLimit& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AlertPolicy_AlertStrategy_NotificationRateLimit* internal_default_instance() {
+    return reinterpret_cast<const AlertPolicy_AlertStrategy_NotificationRateLimit*>(
+               &_AlertPolicy_AlertStrategy_NotificationRateLimit_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(AlertPolicy_AlertStrategy_NotificationRateLimit& a, AlertPolicy_AlertStrategy_NotificationRateLimit& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AlertPolicy_AlertStrategy_NotificationRateLimit* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AlertPolicy_AlertStrategy_NotificationRateLimit* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AlertPolicy_AlertStrategy_NotificationRateLimit* New() const final {
+    return CreateMaybeMessage<AlertPolicy_AlertStrategy_NotificationRateLimit>(nullptr);
+  }
+
+  AlertPolicy_AlertStrategy_NotificationRateLimit* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AlertPolicy_AlertStrategy_NotificationRateLimit>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const AlertPolicy_AlertStrategy_NotificationRateLimit& from);
+  void MergeFrom(const AlertPolicy_AlertStrategy_NotificationRateLimit& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(AlertPolicy_AlertStrategy_NotificationRateLimit* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit";
+  }
+  protected:
+  explicit AlertPolicy_AlertStrategy_NotificationRateLimit(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fmonitoring_2fv3_2falert_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPeriodFieldNumber = 1,
+  };
+  // .google.protobuf.Duration period = 1;
+  bool has_period() const;
+  private:
+  bool _internal_has_period() const;
+  public:
+  void clear_period();
+  const PROTOBUF_NAMESPACE_ID::Duration& period() const;
+  PROTOBUF_NAMESPACE_ID::Duration* release_period();
+  PROTOBUF_NAMESPACE_ID::Duration* mutable_period();
+  void set_allocated_period(PROTOBUF_NAMESPACE_ID::Duration* period);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Duration& _internal_period() const;
+  PROTOBUF_NAMESPACE_ID::Duration* _internal_mutable_period();
+  public:
+  void unsafe_arena_set_allocated_period(
+      PROTOBUF_NAMESPACE_ID::Duration* period);
+  PROTOBUF_NAMESPACE_ID::Duration* unsafe_arena_release_period();
+
+  // @@protoc_insertion_point(class_scope:google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  PROTOBUF_NAMESPACE_ID::Duration* period_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fmonitoring_2fv3_2falert_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AlertPolicy_AlertStrategy PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.monitoring.v3.AlertPolicy.AlertStrategy) */ {
+ public:
+  inline AlertPolicy_AlertStrategy() : AlertPolicy_AlertStrategy(nullptr) {}
+  virtual ~AlertPolicy_AlertStrategy();
+  explicit constexpr AlertPolicy_AlertStrategy(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AlertPolicy_AlertStrategy(const AlertPolicy_AlertStrategy& from);
+  AlertPolicy_AlertStrategy(AlertPolicy_AlertStrategy&& from) noexcept
+    : AlertPolicy_AlertStrategy() {
+    *this = ::std::move(from);
+  }
+
+  inline AlertPolicy_AlertStrategy& operator=(const AlertPolicy_AlertStrategy& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AlertPolicy_AlertStrategy& operator=(AlertPolicy_AlertStrategy&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const AlertPolicy_AlertStrategy& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AlertPolicy_AlertStrategy* internal_default_instance() {
+    return reinterpret_cast<const AlertPolicy_AlertStrategy*>(
+               &_AlertPolicy_AlertStrategy_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(AlertPolicy_AlertStrategy& a, AlertPolicy_AlertStrategy& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AlertPolicy_AlertStrategy* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AlertPolicy_AlertStrategy* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AlertPolicy_AlertStrategy* New() const final {
+    return CreateMaybeMessage<AlertPolicy_AlertStrategy>(nullptr);
+  }
+
+  AlertPolicy_AlertStrategy* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AlertPolicy_AlertStrategy>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const AlertPolicy_AlertStrategy& from);
+  void MergeFrom(const AlertPolicy_AlertStrategy& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(AlertPolicy_AlertStrategy* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.monitoring.v3.AlertPolicy.AlertStrategy";
+  }
+  protected:
+  explicit AlertPolicy_AlertStrategy(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fmonitoring_2fv3_2falert_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  typedef AlertPolicy_AlertStrategy_NotificationRateLimit NotificationRateLimit;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNotificationRateLimitFieldNumber = 1,
+    kAutoCloseFieldNumber = 3,
+  };
+  // .google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit notification_rate_limit = 1;
+  bool has_notification_rate_limit() const;
+  private:
+  bool _internal_has_notification_rate_limit() const;
+  public:
+  void clear_notification_rate_limit();
+  const ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit& notification_rate_limit() const;
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* release_notification_rate_limit();
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* mutable_notification_rate_limit();
+  void set_allocated_notification_rate_limit(::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* notification_rate_limit);
+  private:
+  const ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit& _internal_notification_rate_limit() const;
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* _internal_mutable_notification_rate_limit();
+  public:
+  void unsafe_arena_set_allocated_notification_rate_limit(
+      ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* notification_rate_limit);
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* unsafe_arena_release_notification_rate_limit();
+
+  // .google.protobuf.Duration auto_close = 3;
+  bool has_auto_close() const;
+  private:
+  bool _internal_has_auto_close() const;
+  public:
+  void clear_auto_close();
+  const PROTOBUF_NAMESPACE_ID::Duration& auto_close() const;
+  PROTOBUF_NAMESPACE_ID::Duration* release_auto_close();
+  PROTOBUF_NAMESPACE_ID::Duration* mutable_auto_close();
+  void set_allocated_auto_close(PROTOBUF_NAMESPACE_ID::Duration* auto_close);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Duration& _internal_auto_close() const;
+  PROTOBUF_NAMESPACE_ID::Duration* _internal_mutable_auto_close();
+  public:
+  void unsafe_arena_set_allocated_auto_close(
+      PROTOBUF_NAMESPACE_ID::Duration* auto_close);
+  PROTOBUF_NAMESPACE_ID::Duration* unsafe_arena_release_auto_close();
+
+  // @@protoc_insertion_point(class_scope:google.monitoring.v3.AlertPolicy.AlertStrategy)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* notification_rate_limit_;
+  PROTOBUF_NAMESPACE_ID::Duration* auto_close_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fmonitoring_2fv3_2falert_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1401,7 +1956,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_google_2fmonitoring_2fv3_2falert_2eproto);
-    return ::descriptor_table_google_2fmonitoring_2fv3_2falert_2eproto.file_level_metadata[6];
+    return ::descriptor_table_google_2fmonitoring_2fv3_2falert_2eproto.file_level_metadata[10];
   }
 
   public:
@@ -1452,7 +2007,7 @@ class AlertPolicy PROTOBUF_FINAL :
                &_AlertPolicy_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    11;
 
   friend void swap(AlertPolicy& a, AlertPolicy& b) {
     a.Swap(&b);
@@ -1521,6 +2076,7 @@ class AlertPolicy PROTOBUF_FINAL :
 
   typedef AlertPolicy_Documentation Documentation;
   typedef AlertPolicy_Condition Condition;
+  typedef AlertPolicy_AlertStrategy AlertStrategy;
 
   typedef AlertPolicy_ConditionCombinerType ConditionCombinerType;
   static constexpr ConditionCombinerType COMBINE_UNSPECIFIED =
@@ -1569,6 +2125,7 @@ class AlertPolicy PROTOBUF_FINAL :
     kDocumentationFieldNumber = 13,
     kEnabledFieldNumber = 17,
     kValidityFieldNumber = 18,
+    kAlertStrategyFieldNumber = 21,
     kCombinerFieldNumber = 6,
   };
   // repeated .google.monitoring.v3.AlertPolicy.Condition conditions = 12;
@@ -1752,6 +2309,24 @@ class AlertPolicy PROTOBUF_FINAL :
       ::google::rpc::Status* validity);
   ::google::rpc::Status* unsafe_arena_release_validity();
 
+  // .google.monitoring.v3.AlertPolicy.AlertStrategy alert_strategy = 21;
+  bool has_alert_strategy() const;
+  private:
+  bool _internal_has_alert_strategy() const;
+  public:
+  void clear_alert_strategy();
+  const ::google::monitoring::v3::AlertPolicy_AlertStrategy& alert_strategy() const;
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy* release_alert_strategy();
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy* mutable_alert_strategy();
+  void set_allocated_alert_strategy(::google::monitoring::v3::AlertPolicy_AlertStrategy* alert_strategy);
+  private:
+  const ::google::monitoring::v3::AlertPolicy_AlertStrategy& _internal_alert_strategy() const;
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy* _internal_mutable_alert_strategy();
+  public:
+  void unsafe_arena_set_allocated_alert_strategy(
+      ::google::monitoring::v3::AlertPolicy_AlertStrategy* alert_strategy);
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy* unsafe_arena_release_alert_strategy();
+
   // .google.monitoring.v3.AlertPolicy.ConditionCombinerType combiner = 6;
   void clear_combiner();
   ::google::monitoring::v3::AlertPolicy_ConditionCombinerType combiner() const;
@@ -1782,6 +2357,7 @@ class AlertPolicy PROTOBUF_FINAL :
   ::google::monitoring::v3::AlertPolicy_Documentation* documentation_;
   PROTOBUF_NAMESPACE_ID::BoolValue* enabled_;
   ::google::rpc::Status* validity_;
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy* alert_strategy_;
   int combiner_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fmonitoring_2fv3_2falert_2eproto;
@@ -2669,6 +3245,102 @@ inline void AlertPolicy_Condition_MetricAbsence::set_allocated_trigger(::google:
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// AlertPolicy_Condition_LogMatch
+
+// string filter = 1 [(.google.api.field_behavior) = REQUIRED];
+inline void AlertPolicy_Condition_LogMatch::clear_filter() {
+  filter_.ClearToEmpty();
+}
+inline const std::string& AlertPolicy_Condition_LogMatch::filter() const {
+  // @@protoc_insertion_point(field_get:google.monitoring.v3.AlertPolicy.Condition.LogMatch.filter)
+  return _internal_filter();
+}
+inline void AlertPolicy_Condition_LogMatch::set_filter(const std::string& value) {
+  _internal_set_filter(value);
+  // @@protoc_insertion_point(field_set:google.monitoring.v3.AlertPolicy.Condition.LogMatch.filter)
+}
+inline std::string* AlertPolicy_Condition_LogMatch::mutable_filter() {
+  // @@protoc_insertion_point(field_mutable:google.monitoring.v3.AlertPolicy.Condition.LogMatch.filter)
+  return _internal_mutable_filter();
+}
+inline const std::string& AlertPolicy_Condition_LogMatch::_internal_filter() const {
+  return filter_.Get();
+}
+inline void AlertPolicy_Condition_LogMatch::_internal_set_filter(const std::string& value) {
+  
+  filter_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void AlertPolicy_Condition_LogMatch::set_filter(std::string&& value) {
+  
+  filter_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.monitoring.v3.AlertPolicy.Condition.LogMatch.filter)
+}
+inline void AlertPolicy_Condition_LogMatch::set_filter(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  filter_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.monitoring.v3.AlertPolicy.Condition.LogMatch.filter)
+}
+inline void AlertPolicy_Condition_LogMatch::set_filter(const char* value,
+    size_t size) {
+  
+  filter_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.monitoring.v3.AlertPolicy.Condition.LogMatch.filter)
+}
+inline std::string* AlertPolicy_Condition_LogMatch::_internal_mutable_filter() {
+  
+  return filter_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* AlertPolicy_Condition_LogMatch::release_filter() {
+  // @@protoc_insertion_point(field_release:google.monitoring.v3.AlertPolicy.Condition.LogMatch.filter)
+  return filter_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void AlertPolicy_Condition_LogMatch::set_allocated_filter(std::string* filter) {
+  if (filter != nullptr) {
+    
+  } else {
+    
+  }
+  filter_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), filter,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.monitoring.v3.AlertPolicy.Condition.LogMatch.filter)
+}
+
+// map<string, string> label_extractors = 2;
+inline int AlertPolicy_Condition_LogMatch::_internal_label_extractors_size() const {
+  return label_extractors_.size();
+}
+inline int AlertPolicy_Condition_LogMatch::label_extractors_size() const {
+  return _internal_label_extractors_size();
+}
+inline void AlertPolicy_Condition_LogMatch::clear_label_extractors() {
+  label_extractors_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+AlertPolicy_Condition_LogMatch::_internal_label_extractors() const {
+  return label_extractors_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+AlertPolicy_Condition_LogMatch::label_extractors() const {
+  // @@protoc_insertion_point(field_map:google.monitoring.v3.AlertPolicy.Condition.LogMatch.label_extractors)
+  return _internal_label_extractors();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+AlertPolicy_Condition_LogMatch::_internal_mutable_label_extractors() {
+  return label_extractors_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+AlertPolicy_Condition_LogMatch::mutable_label_extractors() {
+  // @@protoc_insertion_point(field_mutable_map:google.monitoring.v3.AlertPolicy.Condition.LogMatch.label_extractors)
+  return _internal_mutable_label_extractors();
+}
+
+// -------------------------------------------------------------------
+
 // AlertPolicy_Condition_MonitoringQueryLanguageCondition
 
 // string query = 1;
@@ -3164,6 +3836,79 @@ inline ::google::monitoring::v3::AlertPolicy_Condition_MetricAbsence* AlertPolic
   return _internal_mutable_condition_absent();
 }
 
+// .google.monitoring.v3.AlertPolicy.Condition.LogMatch condition_matched_log = 20;
+inline bool AlertPolicy_Condition::_internal_has_condition_matched_log() const {
+  return condition_case() == kConditionMatchedLog;
+}
+inline bool AlertPolicy_Condition::has_condition_matched_log() const {
+  return _internal_has_condition_matched_log();
+}
+inline void AlertPolicy_Condition::set_has_condition_matched_log() {
+  _oneof_case_[0] = kConditionMatchedLog;
+}
+inline void AlertPolicy_Condition::clear_condition_matched_log() {
+  if (_internal_has_condition_matched_log()) {
+    if (GetArena() == nullptr) {
+      delete condition_.condition_matched_log_;
+    }
+    clear_has_condition();
+  }
+}
+inline ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* AlertPolicy_Condition::release_condition_matched_log() {
+  // @@protoc_insertion_point(field_release:google.monitoring.v3.AlertPolicy.Condition.condition_matched_log)
+  if (_internal_has_condition_matched_log()) {
+    clear_has_condition();
+      ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* temp = condition_.condition_matched_log_;
+    if (GetArena() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    condition_.condition_matched_log_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::google::monitoring::v3::AlertPolicy_Condition_LogMatch& AlertPolicy_Condition::_internal_condition_matched_log() const {
+  return _internal_has_condition_matched_log()
+      ? *condition_.condition_matched_log_
+      : reinterpret_cast< ::google::monitoring::v3::AlertPolicy_Condition_LogMatch&>(::google::monitoring::v3::_AlertPolicy_Condition_LogMatch_default_instance_);
+}
+inline const ::google::monitoring::v3::AlertPolicy_Condition_LogMatch& AlertPolicy_Condition::condition_matched_log() const {
+  // @@protoc_insertion_point(field_get:google.monitoring.v3.AlertPolicy.Condition.condition_matched_log)
+  return _internal_condition_matched_log();
+}
+inline ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* AlertPolicy_Condition::unsafe_arena_release_condition_matched_log() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:google.monitoring.v3.AlertPolicy.Condition.condition_matched_log)
+  if (_internal_has_condition_matched_log()) {
+    clear_has_condition();
+    ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* temp = condition_.condition_matched_log_;
+    condition_.condition_matched_log_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void AlertPolicy_Condition::unsafe_arena_set_allocated_condition_matched_log(::google::monitoring::v3::AlertPolicy_Condition_LogMatch* condition_matched_log) {
+  clear_condition();
+  if (condition_matched_log) {
+    set_has_condition_matched_log();
+    condition_.condition_matched_log_ = condition_matched_log;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.monitoring.v3.AlertPolicy.Condition.condition_matched_log)
+}
+inline ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* AlertPolicy_Condition::_internal_mutable_condition_matched_log() {
+  if (!_internal_has_condition_matched_log()) {
+    clear_condition();
+    set_has_condition_matched_log();
+    condition_.condition_matched_log_ = CreateMaybeMessage< ::google::monitoring::v3::AlertPolicy_Condition_LogMatch >(GetArena());
+  }
+  return condition_.condition_matched_log_;
+}
+inline ::google::monitoring::v3::AlertPolicy_Condition_LogMatch* AlertPolicy_Condition::mutable_condition_matched_log() {
+  // @@protoc_insertion_point(field_mutable:google.monitoring.v3.AlertPolicy.Condition.condition_matched_log)
+  return _internal_mutable_condition_matched_log();
+}
+
 // .google.monitoring.v3.AlertPolicy.Condition.MonitoringQueryLanguageCondition condition_monitoring_query_language = 19;
 inline bool AlertPolicy_Condition::_internal_has_condition_monitoring_query_language() const {
   return condition_case() == kConditionMonitoringQueryLanguage;
@@ -3246,6 +3991,251 @@ inline void AlertPolicy_Condition::clear_has_condition() {
 inline AlertPolicy_Condition::ConditionCase AlertPolicy_Condition::condition_case() const {
   return AlertPolicy_Condition::ConditionCase(_oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// AlertPolicy_AlertStrategy_NotificationRateLimit
+
+// .google.protobuf.Duration period = 1;
+inline bool AlertPolicy_AlertStrategy_NotificationRateLimit::_internal_has_period() const {
+  return this != internal_default_instance() && period_ != nullptr;
+}
+inline bool AlertPolicy_AlertStrategy_NotificationRateLimit::has_period() const {
+  return _internal_has_period();
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& AlertPolicy_AlertStrategy_NotificationRateLimit::_internal_period() const {
+  const PROTOBUF_NAMESPACE_ID::Duration* p = period_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Duration&>(
+      PROTOBUF_NAMESPACE_ID::_Duration_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& AlertPolicy_AlertStrategy_NotificationRateLimit::period() const {
+  // @@protoc_insertion_point(field_get:google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit.period)
+  return _internal_period();
+}
+inline void AlertPolicy_AlertStrategy_NotificationRateLimit::unsafe_arena_set_allocated_period(
+    PROTOBUF_NAMESPACE_ID::Duration* period) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(period_);
+  }
+  period_ = period;
+  if (period) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit.period)
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* AlertPolicy_AlertStrategy_NotificationRateLimit::release_period() {
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = period_;
+  period_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* AlertPolicy_AlertStrategy_NotificationRateLimit::unsafe_arena_release_period() {
+  // @@protoc_insertion_point(field_release:google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit.period)
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = period_;
+  period_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* AlertPolicy_AlertStrategy_NotificationRateLimit::_internal_mutable_period() {
+  
+  if (period_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Duration>(GetArena());
+    period_ = p;
+  }
+  return period_;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* AlertPolicy_AlertStrategy_NotificationRateLimit::mutable_period() {
+  // @@protoc_insertion_point(field_mutable:google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit.period)
+  return _internal_mutable_period();
+}
+inline void AlertPolicy_AlertStrategy_NotificationRateLimit::set_allocated_period(PROTOBUF_NAMESPACE_ID::Duration* period) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(period_);
+  }
+  if (period) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(period)->GetArena();
+    if (message_arena != submessage_arena) {
+      period = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, period, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  period_ = period;
+  // @@protoc_insertion_point(field_set_allocated:google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit.period)
+}
+
+// -------------------------------------------------------------------
+
+// AlertPolicy_AlertStrategy
+
+// .google.monitoring.v3.AlertPolicy.AlertStrategy.NotificationRateLimit notification_rate_limit = 1;
+inline bool AlertPolicy_AlertStrategy::_internal_has_notification_rate_limit() const {
+  return this != internal_default_instance() && notification_rate_limit_ != nullptr;
+}
+inline bool AlertPolicy_AlertStrategy::has_notification_rate_limit() const {
+  return _internal_has_notification_rate_limit();
+}
+inline void AlertPolicy_AlertStrategy::clear_notification_rate_limit() {
+  if (GetArena() == nullptr && notification_rate_limit_ != nullptr) {
+    delete notification_rate_limit_;
+  }
+  notification_rate_limit_ = nullptr;
+}
+inline const ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit& AlertPolicy_AlertStrategy::_internal_notification_rate_limit() const {
+  const ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* p = notification_rate_limit_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit&>(
+      ::google::monitoring::v3::_AlertPolicy_AlertStrategy_NotificationRateLimit_default_instance_);
+}
+inline const ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit& AlertPolicy_AlertStrategy::notification_rate_limit() const {
+  // @@protoc_insertion_point(field_get:google.monitoring.v3.AlertPolicy.AlertStrategy.notification_rate_limit)
+  return _internal_notification_rate_limit();
+}
+inline void AlertPolicy_AlertStrategy::unsafe_arena_set_allocated_notification_rate_limit(
+    ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* notification_rate_limit) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(notification_rate_limit_);
+  }
+  notification_rate_limit_ = notification_rate_limit;
+  if (notification_rate_limit) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.monitoring.v3.AlertPolicy.AlertStrategy.notification_rate_limit)
+}
+inline ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* AlertPolicy_AlertStrategy::release_notification_rate_limit() {
+  
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* temp = notification_rate_limit_;
+  notification_rate_limit_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* AlertPolicy_AlertStrategy::unsafe_arena_release_notification_rate_limit() {
+  // @@protoc_insertion_point(field_release:google.monitoring.v3.AlertPolicy.AlertStrategy.notification_rate_limit)
+  
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* temp = notification_rate_limit_;
+  notification_rate_limit_ = nullptr;
+  return temp;
+}
+inline ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* AlertPolicy_AlertStrategy::_internal_mutable_notification_rate_limit() {
+  
+  if (notification_rate_limit_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit>(GetArena());
+    notification_rate_limit_ = p;
+  }
+  return notification_rate_limit_;
+}
+inline ::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* AlertPolicy_AlertStrategy::mutable_notification_rate_limit() {
+  // @@protoc_insertion_point(field_mutable:google.monitoring.v3.AlertPolicy.AlertStrategy.notification_rate_limit)
+  return _internal_mutable_notification_rate_limit();
+}
+inline void AlertPolicy_AlertStrategy::set_allocated_notification_rate_limit(::google::monitoring::v3::AlertPolicy_AlertStrategy_NotificationRateLimit* notification_rate_limit) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete notification_rate_limit_;
+  }
+  if (notification_rate_limit) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(notification_rate_limit);
+    if (message_arena != submessage_arena) {
+      notification_rate_limit = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, notification_rate_limit, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  notification_rate_limit_ = notification_rate_limit;
+  // @@protoc_insertion_point(field_set_allocated:google.monitoring.v3.AlertPolicy.AlertStrategy.notification_rate_limit)
+}
+
+// .google.protobuf.Duration auto_close = 3;
+inline bool AlertPolicy_AlertStrategy::_internal_has_auto_close() const {
+  return this != internal_default_instance() && auto_close_ != nullptr;
+}
+inline bool AlertPolicy_AlertStrategy::has_auto_close() const {
+  return _internal_has_auto_close();
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& AlertPolicy_AlertStrategy::_internal_auto_close() const {
+  const PROTOBUF_NAMESPACE_ID::Duration* p = auto_close_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Duration&>(
+      PROTOBUF_NAMESPACE_ID::_Duration_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Duration& AlertPolicy_AlertStrategy::auto_close() const {
+  // @@protoc_insertion_point(field_get:google.monitoring.v3.AlertPolicy.AlertStrategy.auto_close)
+  return _internal_auto_close();
+}
+inline void AlertPolicy_AlertStrategy::unsafe_arena_set_allocated_auto_close(
+    PROTOBUF_NAMESPACE_ID::Duration* auto_close) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(auto_close_);
+  }
+  auto_close_ = auto_close;
+  if (auto_close) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.monitoring.v3.AlertPolicy.AlertStrategy.auto_close)
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* AlertPolicy_AlertStrategy::release_auto_close() {
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = auto_close_;
+  auto_close_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* AlertPolicy_AlertStrategy::unsafe_arena_release_auto_close() {
+  // @@protoc_insertion_point(field_release:google.monitoring.v3.AlertPolicy.AlertStrategy.auto_close)
+  
+  PROTOBUF_NAMESPACE_ID::Duration* temp = auto_close_;
+  auto_close_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* AlertPolicy_AlertStrategy::_internal_mutable_auto_close() {
+  
+  if (auto_close_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Duration>(GetArena());
+    auto_close_ = p;
+  }
+  return auto_close_;
+}
+inline PROTOBUF_NAMESPACE_ID::Duration* AlertPolicy_AlertStrategy::mutable_auto_close() {
+  // @@protoc_insertion_point(field_mutable:google.monitoring.v3.AlertPolicy.AlertStrategy.auto_close)
+  return _internal_mutable_auto_close();
+}
+inline void AlertPolicy_AlertStrategy::set_allocated_auto_close(PROTOBUF_NAMESPACE_ID::Duration* auto_close) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(auto_close_);
+  }
+  if (auto_close) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(auto_close)->GetArena();
+    if (message_arena != submessage_arena) {
+      auto_close = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, auto_close, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  auto_close_ = auto_close;
+  // @@protoc_insertion_point(field_set_allocated:google.monitoring.v3.AlertPolicy.AlertStrategy.auto_close)
+}
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -3927,9 +4917,100 @@ inline void AlertPolicy::set_allocated_mutation_record(::google::monitoring::v3:
   // @@protoc_insertion_point(field_set_allocated:google.monitoring.v3.AlertPolicy.mutation_record)
 }
 
+// .google.monitoring.v3.AlertPolicy.AlertStrategy alert_strategy = 21;
+inline bool AlertPolicy::_internal_has_alert_strategy() const {
+  return this != internal_default_instance() && alert_strategy_ != nullptr;
+}
+inline bool AlertPolicy::has_alert_strategy() const {
+  return _internal_has_alert_strategy();
+}
+inline void AlertPolicy::clear_alert_strategy() {
+  if (GetArena() == nullptr && alert_strategy_ != nullptr) {
+    delete alert_strategy_;
+  }
+  alert_strategy_ = nullptr;
+}
+inline const ::google::monitoring::v3::AlertPolicy_AlertStrategy& AlertPolicy::_internal_alert_strategy() const {
+  const ::google::monitoring::v3::AlertPolicy_AlertStrategy* p = alert_strategy_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::monitoring::v3::AlertPolicy_AlertStrategy&>(
+      ::google::monitoring::v3::_AlertPolicy_AlertStrategy_default_instance_);
+}
+inline const ::google::monitoring::v3::AlertPolicy_AlertStrategy& AlertPolicy::alert_strategy() const {
+  // @@protoc_insertion_point(field_get:google.monitoring.v3.AlertPolicy.alert_strategy)
+  return _internal_alert_strategy();
+}
+inline void AlertPolicy::unsafe_arena_set_allocated_alert_strategy(
+    ::google::monitoring::v3::AlertPolicy_AlertStrategy* alert_strategy) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(alert_strategy_);
+  }
+  alert_strategy_ = alert_strategy;
+  if (alert_strategy) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.monitoring.v3.AlertPolicy.alert_strategy)
+}
+inline ::google::monitoring::v3::AlertPolicy_AlertStrategy* AlertPolicy::release_alert_strategy() {
+  
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy* temp = alert_strategy_;
+  alert_strategy_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::monitoring::v3::AlertPolicy_AlertStrategy* AlertPolicy::unsafe_arena_release_alert_strategy() {
+  // @@protoc_insertion_point(field_release:google.monitoring.v3.AlertPolicy.alert_strategy)
+  
+  ::google::monitoring::v3::AlertPolicy_AlertStrategy* temp = alert_strategy_;
+  alert_strategy_ = nullptr;
+  return temp;
+}
+inline ::google::monitoring::v3::AlertPolicy_AlertStrategy* AlertPolicy::_internal_mutable_alert_strategy() {
+  
+  if (alert_strategy_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::monitoring::v3::AlertPolicy_AlertStrategy>(GetArena());
+    alert_strategy_ = p;
+  }
+  return alert_strategy_;
+}
+inline ::google::monitoring::v3::AlertPolicy_AlertStrategy* AlertPolicy::mutable_alert_strategy() {
+  // @@protoc_insertion_point(field_mutable:google.monitoring.v3.AlertPolicy.alert_strategy)
+  return _internal_mutable_alert_strategy();
+}
+inline void AlertPolicy::set_allocated_alert_strategy(::google::monitoring::v3::AlertPolicy_AlertStrategy* alert_strategy) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete alert_strategy_;
+  }
+  if (alert_strategy) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(alert_strategy);
+    if (message_arena != submessage_arena) {
+      alert_strategy = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, alert_strategy, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  alert_strategy_ = alert_strategy;
+  // @@protoc_insertion_point(field_set_allocated:google.monitoring.v3.AlertPolicy.alert_strategy)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,9 +15,11 @@
 #ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_INTERNAL_ASYNC_READ_WRITE_STREAM_IMPL_H
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_INTERNAL_ASYNC_READ_WRITE_STREAM_IMPL_H
 
+#include "google/cloud/async_streaming_read_write_rpc.h"
 #include "google/cloud/completion_queue.h"
 #include "google/cloud/grpc_error_delegate.h"
 #include "google/cloud/internal/completion_queue_impl.h"
+#include "google/cloud/options.h"
 #include "google/cloud/version.h"
 #include "absl/functional/function_ref.h"
 #include "absl/types/optional.h"
@@ -26,21 +28,8 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
-
-template <typename Request, typename Response>
-class AsyncStreamingReadWriteRpc {
- public:
-  virtual ~AsyncStreamingReadWriteRpc() = default;
-
-  virtual void Cancel() = 0;
-  virtual future<bool> Start() = 0;
-  virtual future<absl::optional<Response>> Read() = 0;
-  virtual future<bool> Write(Request const&, grpc::WriteOptions) = 0;
-  virtual future<bool> WritesDone() = 0;
-  virtual future<Status> Finish() = 0;
-};
 
 /**
  * Wrapper for Asynchronous Streaming Read/Write RPCs.
@@ -67,7 +56,9 @@ class AsyncStreamingReadWriteRpcImpl
   future<bool> Start() override {
     struct OnStart : public AsyncGrpcOperation {
       promise<bool> p;
+      Options options_ = CurrentOptions();
       bool Notify(bool ok) override {
+        OptionsSpan span(options_);
         p.set_value(ok);
         return true;
       }
@@ -82,7 +73,9 @@ class AsyncStreamingReadWriteRpcImpl
     struct OnRead : public AsyncGrpcOperation {
       promise<absl::optional<Response>> p;
       Response response;
+      Options options_ = CurrentOptions();
       bool Notify(bool ok) override {
+        OptionsSpan span(options_);
         if (!ok) {
           p.set_value({});
           return true;
@@ -102,7 +95,9 @@ class AsyncStreamingReadWriteRpcImpl
                      grpc::WriteOptions options) override {
     struct OnWrite : public AsyncGrpcOperation {
       promise<bool> p;
+      Options options_ = CurrentOptions();
       bool Notify(bool ok) override {
+        OptionsSpan span(options_);
         p.set_value(ok);
         return true;
       }
@@ -118,7 +113,9 @@ class AsyncStreamingReadWriteRpcImpl
   future<bool> WritesDone() override {
     struct OnWritesDone : public AsyncGrpcOperation {
       promise<bool> p;
+      Options options_ = CurrentOptions();
       bool Notify(bool ok) override {
+        OptionsSpan span(options_);
         p.set_value(ok);
         return true;
       }
@@ -132,8 +129,10 @@ class AsyncStreamingReadWriteRpcImpl
   future<Status> Finish() override {
     struct OnFinish : public AsyncGrpcOperation {
       promise<Status> p;
+      Options options_ = CurrentOptions();
       grpc::Status status;
       bool Notify(bool /*ok*/) override {
+        OptionsSpan span(options_);
         p.set_value(MakeStatusFromRpcError(std::move(status)));
         return true;
       }
@@ -170,7 +169,7 @@ using PrepareAsyncReadWriteRpc = absl::FunctionRef<
 template <typename Request, typename Response>
 std::unique_ptr<AsyncStreamingReadWriteRpc<Request, Response>>
 MakeStreamingReadWriteRpc(
-    CompletionQueue& cq, std::unique_ptr<grpc::ClientContext> context,
+    CompletionQueue const& cq, std::unique_ptr<grpc::ClientContext> context,
     PrepareAsyncReadWriteRpc<Request, Response> async_call) {
   auto cq_impl = GetCompletionQueueImpl(cq);
   auto stream = async_call(context.get(), &cq_impl->cq());
@@ -178,8 +177,40 @@ MakeStreamingReadWriteRpc(
       std::move(cq_impl), std::move(context), std::move(stream));
 }
 
+/**
+ * A streaming read-write RPC returning a fixed error.
+ *
+ * This is used when the library cannot even start the streaming RPC, for
+ * example, because setting up the credentials for the call failed.  One could
+ * return `StatusOr<std::unique_ptr<StreamingWriteRpc<A, B>>` in such cases, but
+ * the receiving code must deal with streams that fail anyway. It seems more
+ * elegant to represent the error as part of the stream.
+ */
+template <typename Request, typename Response>
+class AsyncStreamingReadWriteRpcError
+    : public AsyncStreamingReadWriteRpc<Request, Response> {
+ public:
+  explicit AsyncStreamingReadWriteRpcError(Status status)
+      : status_(std::move(status)) {}
+  ~AsyncStreamingReadWriteRpcError() override = default;
+
+  void Cancel() override {}
+  future<bool> Start() override { return make_ready_future(false); }
+  future<absl::optional<Response>> Read() override {
+    return make_ready_future<absl::optional<Response>>(absl::nullopt);
+  }
+  future<bool> Write(Request const&, grpc::WriteOptions) override {
+    return make_ready_future(false);
+  }
+  future<bool> WritesDone() override { return make_ready_future(false); }
+  future<Status> Finish() override { return make_ready_future(status_); }
+
+ private:
+  Status status_;
+};
+
 }  // namespace internal
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

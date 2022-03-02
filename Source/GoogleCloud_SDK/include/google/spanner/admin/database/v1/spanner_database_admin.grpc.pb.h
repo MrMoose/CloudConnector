@@ -48,10 +48,11 @@ namespace v1 {
 
 // Cloud Spanner Database Admin API
 //
-// The Cloud Spanner Database Admin API can be used to create, drop, and
-// list databases. It also enables updating the schema of pre-existing
-// databases. It can be also used to create, delete and list backups for a
-// database and to restore from an existing backup.
+// The Cloud Spanner Database Admin API can be used to:
+//   * create, drop, and list databases
+//   * update the schema of pre-existing databases
+//   * create, delete and list backups for a database
+//   * restore a database from an existing backup
 class DatabaseAdmin final {
  public:
   static constexpr char const* service_full_name() {
@@ -108,6 +109,8 @@ class DatabaseAdmin final {
     // Drops (aka deletes) a Cloud Spanner database.
     // Completed backups for the database will be retained according to their
     // `expire_time`.
+    // Note: Cloud Spanner might continue to accept requests for a few seconds
+    // after the database has been deleted.
     virtual ::grpc::Status DropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDropDatabaseRaw(context, request, cq));
@@ -311,6 +314,8 @@ class DatabaseAdmin final {
       // Drops (aka deletes) a Cloud Spanner database.
       // Completed backups for the database will be retained according to their
       // `expire_time`.
+      // Note: Cloud Spanner might continue to accept requests for a few seconds
+      // after the database has been deleted.
       virtual void DropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DropDatabase(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Returns the schema of a Cloud Spanner database as a list of formatted
@@ -710,6 +715,8 @@ class DatabaseAdmin final {
     // Drops (aka deletes) a Cloud Spanner database.
     // Completed backups for the database will be retained according to their
     // `expire_time`.
+    // Note: Cloud Spanner might continue to accept requests for a few seconds
+    // after the database has been deleted.
     virtual ::grpc::Status DropDatabase(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::DropDatabaseRequest* request, ::google::protobuf::Empty* response);
     // Returns the schema of a Cloud Spanner database as a list of formatted
     // DDL statements. This method does not show pending schema updates, those may

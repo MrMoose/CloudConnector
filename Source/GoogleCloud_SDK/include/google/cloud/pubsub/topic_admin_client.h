@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@
 namespace google {
 namespace cloud {
 namespace pubsub {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * Performs topic admin operations in Cloud Pub/Sub.
@@ -51,8 +51,8 @@ inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
  * This class uses `StatusOr<T>` to report errors. When an operation fails to
  * perform its work the returned `StatusOr<T>` contains the error details. If
  * the `ok()` member function in the `StatusOr<T>` returns `true` then it
- * contains the expected result. Please consult the
- * [`StatusOr<T>` documentation](#google::cloud::v1::StatusOr) for more details.
+ * contains the expected result. Please consult the [`StatusOr<T>`
+ * documentation](#google::cloud::StatusOr) for more details.
  *
  * [pubsub-doc-link]: https://cloud.google.com/pubsub/docs
  */
@@ -215,7 +215,7 @@ class TopicAdminClient {
   std::shared_ptr<TopicAdminConnection> connection_;
 };
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub
 }  // namespace cloud
 }  // namespace google

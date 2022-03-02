@@ -57,7 +57,7 @@ struct TableStruct_google_2fcloud_2fbigquery_2fdatatransfer_2fv1_2fdatatransfer_
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[24]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[25]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -91,6 +91,9 @@ extern DeleteTransferConfigRequestDefaultTypeInternal _DeleteTransferConfigReque
 class DeleteTransferRunRequest;
 struct DeleteTransferRunRequestDefaultTypeInternal;
 extern DeleteTransferRunRequestDefaultTypeInternal _DeleteTransferRunRequest_default_instance_;
+class EnrollDataSourcesRequest;
+struct EnrollDataSourcesRequestDefaultTypeInternal;
+extern EnrollDataSourcesRequestDefaultTypeInternal _EnrollDataSourcesRequest_default_instance_;
 class GetDataSourceRequest;
 struct GetDataSourceRequestDefaultTypeInternal;
 extern GetDataSourceRequestDefaultTypeInternal _GetDataSourceRequest_default_instance_;
@@ -155,6 +158,7 @@ template<> ::google::cloud::bigquery::datatransfer::v1::DataSource* Arena::Creat
 template<> ::google::cloud::bigquery::datatransfer::v1::DataSourceParameter* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::DataSourceParameter>(Arena*);
 template<> ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest>(Arena*);
 template<> ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest>(Arena*);
+template<> ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest>(Arena*);
 template<> ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest>(Arena*);
 template<> ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest>(Arena*);
 template<> ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest>(Arena*);
@@ -4926,6 +4930,176 @@ class StartManualTransferRunsResponse PROTOBUF_FINAL :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fcloud_2fbigquery_2fdatatransfer_2fv1_2fdatatransfer_2eproto;
 };
+// -------------------------------------------------------------------
+
+class EnrollDataSourcesRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest) */ {
+ public:
+  inline EnrollDataSourcesRequest() : EnrollDataSourcesRequest(nullptr) {}
+  virtual ~EnrollDataSourcesRequest();
+  explicit constexpr EnrollDataSourcesRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  EnrollDataSourcesRequest(const EnrollDataSourcesRequest& from);
+  EnrollDataSourcesRequest(EnrollDataSourcesRequest&& from) noexcept
+    : EnrollDataSourcesRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline EnrollDataSourcesRequest& operator=(const EnrollDataSourcesRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EnrollDataSourcesRequest& operator=(EnrollDataSourcesRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const EnrollDataSourcesRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EnrollDataSourcesRequest* internal_default_instance() {
+    return reinterpret_cast<const EnrollDataSourcesRequest*>(
+               &_EnrollDataSourcesRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    24;
+
+  friend void swap(EnrollDataSourcesRequest& a, EnrollDataSourcesRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EnrollDataSourcesRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EnrollDataSourcesRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline EnrollDataSourcesRequest* New() const final {
+    return CreateMaybeMessage<EnrollDataSourcesRequest>(nullptr);
+  }
+
+  EnrollDataSourcesRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<EnrollDataSourcesRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const EnrollDataSourcesRequest& from);
+  void MergeFrom(const EnrollDataSourcesRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(EnrollDataSourcesRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest";
+  }
+  protected:
+  explicit EnrollDataSourcesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fcloud_2fbigquery_2fdatatransfer_2fv1_2fdatatransfer_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDataSourceIdsFieldNumber = 2,
+    kNameFieldNumber = 1,
+  };
+  // repeated string data_source_ids = 2;
+  int data_source_ids_size() const;
+  private:
+  int _internal_data_source_ids_size() const;
+  public:
+  void clear_data_source_ids();
+  const std::string& data_source_ids(int index) const;
+  std::string* mutable_data_source_ids(int index);
+  void set_data_source_ids(int index, const std::string& value);
+  void set_data_source_ids(int index, std::string&& value);
+  void set_data_source_ids(int index, const char* value);
+  void set_data_source_ids(int index, const char* value, size_t size);
+  std::string* add_data_source_ids();
+  void add_data_source_ids(const std::string& value);
+  void add_data_source_ids(std::string&& value);
+  void add_data_source_ids(const char* value);
+  void add_data_source_ids(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& data_source_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_data_source_ids();
+  private:
+  const std::string& _internal_data_source_ids(int index) const;
+  std::string* _internal_add_data_source_ids();
+  public:
+
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> data_source_ids_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fcloud_2fbigquery_2fdatatransfer_2fv1_2fdatatransfer_2eproto;
+};
 // ===================================================================
 
 
@@ -9391,9 +9565,150 @@ StartManualTransferRunsResponse::runs() const {
   return runs_;
 }
 
+// -------------------------------------------------------------------
+
+// EnrollDataSourcesRequest
+
+// string name = 1;
+inline void EnrollDataSourcesRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& EnrollDataSourcesRequest::name() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.name)
+  return _internal_name();
+}
+inline void EnrollDataSourcesRequest::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.name)
+}
+inline std::string* EnrollDataSourcesRequest::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.name)
+  return _internal_mutable_name();
+}
+inline const std::string& EnrollDataSourcesRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void EnrollDataSourcesRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void EnrollDataSourcesRequest::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.name)
+}
+inline void EnrollDataSourcesRequest::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.name)
+}
+inline void EnrollDataSourcesRequest::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.name)
+}
+inline std::string* EnrollDataSourcesRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* EnrollDataSourcesRequest::release_name() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void EnrollDataSourcesRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.name)
+}
+
+// repeated string data_source_ids = 2;
+inline int EnrollDataSourcesRequest::_internal_data_source_ids_size() const {
+  return data_source_ids_.size();
+}
+inline int EnrollDataSourcesRequest::data_source_ids_size() const {
+  return _internal_data_source_ids_size();
+}
+inline void EnrollDataSourcesRequest::clear_data_source_ids() {
+  data_source_ids_.Clear();
+}
+inline std::string* EnrollDataSourcesRequest::add_data_source_ids() {
+  // @@protoc_insertion_point(field_add_mutable:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+  return _internal_add_data_source_ids();
+}
+inline const std::string& EnrollDataSourcesRequest::_internal_data_source_ids(int index) const {
+  return data_source_ids_.Get(index);
+}
+inline const std::string& EnrollDataSourcesRequest::data_source_ids(int index) const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+  return _internal_data_source_ids(index);
+}
+inline std::string* EnrollDataSourcesRequest::mutable_data_source_ids(int index) {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+  return data_source_ids_.Mutable(index);
+}
+inline void EnrollDataSourcesRequest::set_data_source_ids(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+  data_source_ids_.Mutable(index)->assign(value);
+}
+inline void EnrollDataSourcesRequest::set_data_source_ids(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+  data_source_ids_.Mutable(index)->assign(std::move(value));
+}
+inline void EnrollDataSourcesRequest::set_data_source_ids(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  data_source_ids_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+}
+inline void EnrollDataSourcesRequest::set_data_source_ids(int index, const char* value, size_t size) {
+  data_source_ids_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+}
+inline std::string* EnrollDataSourcesRequest::_internal_add_data_source_ids() {
+  return data_source_ids_.Add();
+}
+inline void EnrollDataSourcesRequest::add_data_source_ids(const std::string& value) {
+  data_source_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+}
+inline void EnrollDataSourcesRequest::add_data_source_ids(std::string&& value) {
+  data_source_ids_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+}
+inline void EnrollDataSourcesRequest::add_data_source_ids(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  data_source_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+}
+inline void EnrollDataSourcesRequest::add_data_source_ids(const char* value, size_t size) {
+  data_source_ids_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+EnrollDataSourcesRequest::data_source_ids() const {
+  // @@protoc_insertion_point(field_list:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+  return data_source_ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+EnrollDataSourcesRequest::mutable_data_source_ids() {
+  // @@protoc_insertion_point(field_mutable_list:google.cloud.bigquery.datatransfer.v1.EnrollDataSourcesRequest.data_source_ids)
+  return &data_source_ids_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

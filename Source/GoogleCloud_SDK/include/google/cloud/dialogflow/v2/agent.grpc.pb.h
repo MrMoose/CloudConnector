@@ -98,6 +98,14 @@ class Agents final {
     }
     // Trains the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -110,6 +118,14 @@ class Agents final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncTrainAgentRaw(context, request, cq));
     }
     // Exports the specified agent to a ZIP file.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]
     virtual ::grpc::Status ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncExportAgentRaw(context, request, cq));
@@ -127,8 +143,17 @@ class Agents final {
     // call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it returns in order to train
     // explicitly.
     //
-    // An operation which tracks when importing is complete. It only tracks
-    // when the draft agent is updated not when it is done training.
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+    //
+    // The operation only tracks when importing is complete, not when it is done
+    // training.
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -149,8 +174,17 @@ class Agents final {
     // completed yet. Please call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it
     // returns in order to train explicitly.
     //
-    // An operation which tracks when restoring is complete. It only tracks
-    // when the draft agent is updated not when it is done training.
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+    //
+    // The operation only tracks when restoring is complete, not when it is done
+    // training.
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -198,6 +232,14 @@ class Agents final {
       virtual void SearchAgents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Trains the specified agent.
       //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: An [Empty
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
@@ -205,6 +247,14 @@ class Agents final {
       virtual void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void TrainAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Exports the specified agent to a ZIP file.
+      //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]
       virtual void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Imports the specified agent from a ZIP file.
@@ -217,8 +267,17 @@ class Agents final {
       // call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it returns in order to train
       // explicitly.
       //
-      // An operation which tracks when importing is complete. It only tracks
-      // when the draft agent is updated not when it is done training.
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: An [Empty
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+      //
+      // The operation only tracks when importing is complete, not when it is done
+      // training.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
@@ -234,8 +293,17 @@ class Agents final {
       // completed yet. Please call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it
       // returns in order to train explicitly.
       //
-      // An operation which tracks when restoring is complete. It only tracks
-      // when the draft agent is updated not when it is done training.
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: An [Empty
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+      //
+      // The operation only tracks when restoring is complete, not when it is done
+      // training.
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
@@ -422,12 +490,28 @@ class Agents final {
     virtual ::grpc::Status SearchAgents(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::SearchAgentsRequest* request, ::google::cloud::dialogflow::v2::SearchAgentsResponse* response);
     // Trains the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
     // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status TrainAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::TrainAgentRequest* request, ::google::longrunning::Operation* response);
     // Exports the specified agent to a ZIP file.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]
     virtual ::grpc::Status ExportAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response);
     // Imports the specified agent from a ZIP file.
     //
@@ -439,8 +523,17 @@ class Agents final {
     // call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it returns in order to train
     // explicitly.
     //
-    // An operation which tracks when importing is complete. It only tracks
-    // when the draft agent is updated not when it is done training.
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+    //
+    // The operation only tracks when importing is complete, not when it is done
+    // training.
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -455,8 +548,17 @@ class Agents final {
     // completed yet. Please call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it
     // returns in order to train explicitly.
     //
-    // An operation which tracks when restoring is complete. It only tracks
-    // when the draft agent is updated not when it is done training.
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+    //
+    // The operation only tracks when restoring is complete, not when it is done
+    // training.
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training

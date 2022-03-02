@@ -35,7 +35,6 @@
 #include <google/protobuf/map_field_inl.h>
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
-#include "google/spanner/v1/commit_response.pb.h"
 #include "google/api/annotations.pb.h"
 #include "google/api/client.pb.h"
 #include "google/api/field_behavior.pb.h"
@@ -44,6 +43,7 @@
 #include <google/protobuf/struct.pb.h>
 #include <google/protobuf/timestamp.pb.h>
 #include "google/rpc/status.pb.h"
+#include "google/spanner/v1/commit_response.pb.h"
 #include "google/spanner/v1/keys.pb.h"
 #include "google/spanner/v1/mutation.pb.h"
 #include "google/spanner/v1/result_set.pb.h"

@@ -53,7 +53,7 @@ struct TableStruct_google_2fcloud_2fbigquery_2fdatatransfer_2fv1_2ftransfer_2epr
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -81,6 +81,9 @@ extern TransferMessageDefaultTypeInternal _TransferMessage_default_instance_;
 class TransferRun;
 struct TransferRunDefaultTypeInternal;
 extern TransferRunDefaultTypeInternal _TransferRun_default_instance_;
+class UserInfo;
+struct UserInfoDefaultTypeInternal;
+extern UserInfoDefaultTypeInternal _UserInfo_default_instance_;
 }  // namespace v1
 }  // namespace datatransfer
 }  // namespace bigquery
@@ -92,6 +95,7 @@ template<> ::google::cloud::bigquery::datatransfer::v1::ScheduleOptions* Arena::
 template<> ::google::cloud::bigquery::datatransfer::v1::TransferConfig* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::TransferConfig>(Arena*);
 template<> ::google::cloud::bigquery::datatransfer::v1::TransferMessage* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::TransferMessage>(Arena*);
 template<> ::google::cloud::bigquery::datatransfer::v1::TransferRun* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::TransferRun>(Arena*);
+template<> ::google::cloud::bigquery::datatransfer::v1::UserInfo* Arena::CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::UserInfo>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace google {
 namespace cloud {
@@ -497,6 +501,155 @@ class ScheduleOptions PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class UserInfo PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.cloud.bigquery.datatransfer.v1.UserInfo) */ {
+ public:
+  inline UserInfo() : UserInfo(nullptr) {}
+  virtual ~UserInfo();
+  explicit constexpr UserInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UserInfo(const UserInfo& from);
+  UserInfo(UserInfo&& from) noexcept
+    : UserInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline UserInfo& operator=(const UserInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UserInfo& operator=(UserInfo&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UserInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UserInfo* internal_default_instance() {
+    return reinterpret_cast<const UserInfo*>(
+               &_UserInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(UserInfo& a, UserInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UserInfo* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UserInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UserInfo* New() const final {
+    return CreateMaybeMessage<UserInfo>(nullptr);
+  }
+
+  UserInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UserInfo>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UserInfo& from);
+  void MergeFrom(const UserInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UserInfo* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.cloud.bigquery.datatransfer.v1.UserInfo";
+  }
+  protected:
+  explicit UserInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fcloud_2fbigquery_2fdatatransfer_2fv1_2ftransfer_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEmailFieldNumber = 1,
+  };
+  // string email = 1;
+  bool has_email() const;
+  private:
+  bool _internal_has_email() const;
+  public:
+  void clear_email();
+  const std::string& email() const;
+  void set_email(const std::string& value);
+  void set_email(std::string&& value);
+  void set_email(const char* value);
+  void set_email(const char* value, size_t size);
+  std::string* mutable_email();
+  std::string* release_email();
+  void set_allocated_email(std::string* email);
+  private:
+  const std::string& _internal_email() const;
+  void _internal_set_email(const std::string& value);
+  std::string* _internal_mutable_email();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.cloud.bigquery.datatransfer.v1.UserInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
+  friend struct ::TableStruct_google_2fcloud_2fbigquery_2fdatatransfer_2fv1_2ftransfer_2eproto;
+};
+// -------------------------------------------------------------------
+
 class TransferConfig PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.cloud.bigquery.datatransfer.v1.TransferConfig) */ {
  public:
@@ -545,7 +698,7 @@ class TransferConfig PROTOBUF_FINAL :
                &_TransferConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(TransferConfig& a, TransferConfig& b) {
     a.Swap(&b);
@@ -626,6 +779,7 @@ class TransferConfig PROTOBUF_FINAL :
     kParamsFieldNumber = 9,
     kEmailPreferencesFieldNumber = 18,
     kScheduleOptionsFieldNumber = 24,
+    kOwnerInfoFieldNumber = 27,
     kUserIdFieldNumber = 11,
     kStateFieldNumber = 10,
     kDataRefreshWindowDaysFieldNumber = 12,
@@ -818,6 +972,24 @@ class TransferConfig PROTOBUF_FINAL :
       ::google::cloud::bigquery::datatransfer::v1::ScheduleOptions* schedule_options);
   ::google::cloud::bigquery::datatransfer::v1::ScheduleOptions* unsafe_arena_release_schedule_options();
 
+  // .google.cloud.bigquery.datatransfer.v1.UserInfo owner_info = 27 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  bool has_owner_info() const;
+  private:
+  bool _internal_has_owner_info() const;
+  public:
+  void clear_owner_info();
+  const ::google::cloud::bigquery::datatransfer::v1::UserInfo& owner_info() const;
+  ::google::cloud::bigquery::datatransfer::v1::UserInfo* release_owner_info();
+  ::google::cloud::bigquery::datatransfer::v1::UserInfo* mutable_owner_info();
+  void set_allocated_owner_info(::google::cloud::bigquery::datatransfer::v1::UserInfo* owner_info);
+  private:
+  const ::google::cloud::bigquery::datatransfer::v1::UserInfo& _internal_owner_info() const;
+  ::google::cloud::bigquery::datatransfer::v1::UserInfo* _internal_mutable_owner_info();
+  public:
+  void unsafe_arena_set_allocated_owner_info(
+      ::google::cloud::bigquery::datatransfer::v1::UserInfo* owner_info);
+  ::google::cloud::bigquery::datatransfer::v1::UserInfo* unsafe_arena_release_owner_info();
+
   // int64 user_id = 11;
   void clear_user_id();
   ::PROTOBUF_NAMESPACE_ID::int64 user_id() const;
@@ -887,6 +1059,8 @@ class TransferConfig PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr display_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_source_id_;
@@ -898,6 +1072,7 @@ class TransferConfig PROTOBUF_FINAL :
   PROTOBUF_NAMESPACE_ID::Struct* params_;
   ::google::cloud::bigquery::datatransfer::v1::EmailPreferences* email_preferences_;
   ::google::cloud::bigquery::datatransfer::v1::ScheduleOptions* schedule_options_;
+  ::google::cloud::bigquery::datatransfer::v1::UserInfo* owner_info_;
   ::PROTOBUF_NAMESPACE_ID::int64 user_id_;
   int state_;
   ::PROTOBUF_NAMESPACE_ID::int32 data_refresh_window_days_;
@@ -907,7 +1082,6 @@ class TransferConfig PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr destination_dataset_id_;
   } destination_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::uint32 _oneof_case_[1];
 
   friend struct ::TableStruct_google_2fcloud_2fbigquery_2fdatatransfer_2fv1_2ftransfer_2eproto;
@@ -962,7 +1136,7 @@ class TransferRun PROTOBUF_FINAL :
                &_TransferRun_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(TransferRun& a, TransferRun& b) {
     a.Swap(&b);
@@ -1376,7 +1550,7 @@ class TransferMessage PROTOBUF_FINAL :
                &_TransferMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(TransferMessage& a, TransferMessage& b) {
     a.Swap(&b);
@@ -1747,6 +1921,83 @@ inline void ScheduleOptions::set_allocated_end_time(PROTOBUF_NAMESPACE_ID::Times
   }
   end_time_ = end_time;
   // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.datatransfer.v1.ScheduleOptions.end_time)
+}
+
+// -------------------------------------------------------------------
+
+// UserInfo
+
+// string email = 1;
+inline bool UserInfo::_internal_has_email() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool UserInfo::has_email() const {
+  return _internal_has_email();
+}
+inline void UserInfo::clear_email() {
+  email_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& UserInfo::email() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.datatransfer.v1.UserInfo.email)
+  return _internal_email();
+}
+inline void UserInfo::set_email(const std::string& value) {
+  _internal_set_email(value);
+  // @@protoc_insertion_point(field_set:google.cloud.bigquery.datatransfer.v1.UserInfo.email)
+}
+inline std::string* UserInfo::mutable_email() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.datatransfer.v1.UserInfo.email)
+  return _internal_mutable_email();
+}
+inline const std::string& UserInfo::_internal_email() const {
+  return email_.Get();
+}
+inline void UserInfo::_internal_set_email(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void UserInfo::set_email(std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  email_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.cloud.bigquery.datatransfer.v1.UserInfo.email)
+}
+inline void UserInfo::set_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.cloud.bigquery.datatransfer.v1.UserInfo.email)
+}
+inline void UserInfo::set_email(const char* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.cloud.bigquery.datatransfer.v1.UserInfo.email)
+}
+inline std::string* UserInfo::_internal_mutable_email() {
+  _has_bits_[0] |= 0x00000001u;
+  return email_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* UserInfo::release_email() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.datatransfer.v1.UserInfo.email)
+  if (!_internal_has_email()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return email_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void UserInfo::set_allocated_email(std::string* email) {
+  if (email != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  email_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), email,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.datatransfer.v1.UserInfo.email)
 }
 
 // -------------------------------------------------------------------
@@ -2704,6 +2955,92 @@ inline void TransferConfig::set_allocated_email_preferences(::google::cloud::big
   }
   email_preferences_ = email_preferences;
   // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.datatransfer.v1.TransferConfig.email_preferences)
+}
+
+// .google.cloud.bigquery.datatransfer.v1.UserInfo owner_info = 27 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline bool TransferConfig::_internal_has_owner_info() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || owner_info_ != nullptr);
+  return value;
+}
+inline bool TransferConfig::has_owner_info() const {
+  return _internal_has_owner_info();
+}
+inline void TransferConfig::clear_owner_info() {
+  if (GetArena() == nullptr && owner_info_ != nullptr) {
+    delete owner_info_;
+  }
+  owner_info_ = nullptr;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::google::cloud::bigquery::datatransfer::v1::UserInfo& TransferConfig::_internal_owner_info() const {
+  const ::google::cloud::bigquery::datatransfer::v1::UserInfo* p = owner_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::cloud::bigquery::datatransfer::v1::UserInfo&>(
+      ::google::cloud::bigquery::datatransfer::v1::_UserInfo_default_instance_);
+}
+inline const ::google::cloud::bigquery::datatransfer::v1::UserInfo& TransferConfig::owner_info() const {
+  // @@protoc_insertion_point(field_get:google.cloud.bigquery.datatransfer.v1.TransferConfig.owner_info)
+  return _internal_owner_info();
+}
+inline void TransferConfig::unsafe_arena_set_allocated_owner_info(
+    ::google::cloud::bigquery::datatransfer::v1::UserInfo* owner_info) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(owner_info_);
+  }
+  owner_info_ = owner_info;
+  if (owner_info) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.cloud.bigquery.datatransfer.v1.TransferConfig.owner_info)
+}
+inline ::google::cloud::bigquery::datatransfer::v1::UserInfo* TransferConfig::release_owner_info() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::google::cloud::bigquery::datatransfer::v1::UserInfo* temp = owner_info_;
+  owner_info_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::cloud::bigquery::datatransfer::v1::UserInfo* TransferConfig::unsafe_arena_release_owner_info() {
+  // @@protoc_insertion_point(field_release:google.cloud.bigquery.datatransfer.v1.TransferConfig.owner_info)
+  _has_bits_[0] &= ~0x00000001u;
+  ::google::cloud::bigquery::datatransfer::v1::UserInfo* temp = owner_info_;
+  owner_info_ = nullptr;
+  return temp;
+}
+inline ::google::cloud::bigquery::datatransfer::v1::UserInfo* TransferConfig::_internal_mutable_owner_info() {
+  _has_bits_[0] |= 0x00000001u;
+  if (owner_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::cloud::bigquery::datatransfer::v1::UserInfo>(GetArena());
+    owner_info_ = p;
+  }
+  return owner_info_;
+}
+inline ::google::cloud::bigquery::datatransfer::v1::UserInfo* TransferConfig::mutable_owner_info() {
+  // @@protoc_insertion_point(field_mutable:google.cloud.bigquery.datatransfer.v1.TransferConfig.owner_info)
+  return _internal_mutable_owner_info();
+}
+inline void TransferConfig::set_allocated_owner_info(::google::cloud::bigquery::datatransfer::v1::UserInfo* owner_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete owner_info_;
+  }
+  if (owner_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(owner_info);
+    if (message_arena != submessage_arena) {
+      owner_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, owner_info, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  owner_info_ = owner_info;
+  // @@protoc_insertion_point(field_set_allocated:google.cloud.bigquery.datatransfer.v1.TransferConfig.owner_info)
 }
 
 inline bool TransferConfig::has_destination() const {
@@ -3909,6 +4246,8 @@ inline void TransferMessage::set_allocated_message_text(std::string* message_tex
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 /**
  * Represents a request to the `Objects: list` API.
@@ -128,12 +128,13 @@ std::ostream& operator<<(std::ostream& os, InsertObjectMediaRequest const& r);
  */
 class CopyObjectRequest
     : public GenericRequest<
-          CopyObjectRequest, DestinationPredefinedAcl, EncryptionKey,
-          IfGenerationMatch, IfGenerationNotMatch, IfMetagenerationMatch,
-          IfMetagenerationNotMatch, IfSourceGenerationMatch,
-          IfSourceGenerationNotMatch, IfSourceMetagenerationMatch,
-          IfSourceMetagenerationNotMatch, Projection, SourceGeneration,
-          UserProject, WithObjectMetadata> {
+          CopyObjectRequest, DestinationKmsKeyName, DestinationPredefinedAcl,
+          EncryptionKey, IfGenerationMatch, IfGenerationNotMatch,
+          IfMetagenerationMatch, IfMetagenerationNotMatch,
+          IfSourceGenerationMatch, IfSourceGenerationNotMatch,
+          IfSourceMetagenerationMatch, IfSourceMetagenerationNotMatch,
+          Projection, SourceGeneration, SourceEncryptionKey, UserProject,
+          WithObjectMetadata> {
  public:
   CopyObjectRequest() = default;
   CopyObjectRequest(std::string source_bucket, std::string source_object,
@@ -197,7 +198,7 @@ std::ostream& operator<<(std::ostream& os, DeleteObjectRequest const& r);
  */
 class UpdateObjectRequest
     : public GenericObjectRequest<
-          UpdateObjectRequest, Generation, IfGenerationMatch,
+          UpdateObjectRequest, Generation, EncryptionKey, IfGenerationMatch,
           IfGenerationNotMatch, IfMetagenerationMatch, IfMetagenerationNotMatch,
           PredefinedAcl, Projection, UserProject> {
  public:
@@ -242,24 +243,32 @@ class ComposeObjectRequest
 std::ostream& operator<<(std::ostream& os, ComposeObjectRequest const& r);
 
 /**
- * Represents a request to the `Buckets: patch` API.
+ * Represents a request to the `Objects: patch` API.
  */
 class PatchObjectRequest
     : public GenericObjectRequest<
-          PatchObjectRequest, IfMetagenerationMatch, IfMetagenerationNotMatch,
-          PredefinedAcl, PredefinedDefaultObjectAcl, Projection, UserProject> {
+          PatchObjectRequest, Generation, IfGenerationMatch,
+          IfGenerationNotMatch, IfMetagenerationMatch, IfMetagenerationNotMatch,
+          PredefinedAcl, EncryptionKey, Projection, UserProject,
+          // PredefinedDefaultObjectAcl has no effect in an `Objects: patch`
+          // request.  We are keeping it here for backwards compatibility. It
+          // was introduced in error (should have been PredefinedAcl), and it
+          // was never documented. The cost of keeping it is small, and there
+          // is very little motivation to remove it.
+          PredefinedDefaultObjectAcl> {
  public:
   PatchObjectRequest() = default;
   explicit PatchObjectRequest(std::string bucket_name, std::string object_name,
                               ObjectMetadata const& original,
                               ObjectMetadata const& updated);
   explicit PatchObjectRequest(std::string bucket_name, std::string object_name,
-                              ObjectMetadataPatchBuilder const& patch);
+                              ObjectMetadataPatchBuilder patch);
 
-  std::string const& payload() const { return payload_; }
+  ObjectMetadataPatchBuilder const& patch() const { return patch_; }
+  std::string payload() const { return patch_.BuildPatch(); }
 
  private:
-  std::string payload_;
+  ObjectMetadataPatchBuilder patch_;
 };
 
 std::ostream& operator<<(std::ostream& os, PatchObjectRequest const& r);
@@ -336,7 +345,7 @@ class ResumableUploadRequest
           IfMetagenerationMatch, IfMetagenerationNotMatch, KmsKeyName,
           MD5HashValue, PredefinedAcl, Projection, UseResumableUploadSession,
           UserProject, UploadFromOffset, UploadLimit, WithObjectMetadata,
-          UploadContentLength, AutoFinalize> {
+          UploadContentLength, AutoFinalize, UploadBufferSize> {
  public:
   ResumableUploadRequest() = default;
 
@@ -437,7 +446,7 @@ std::ostream& operator<<(std::ostream& os,
                          QueryResumableUploadRequest const& r);
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

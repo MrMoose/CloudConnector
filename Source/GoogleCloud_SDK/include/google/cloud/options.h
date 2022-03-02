@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,7 +17,8 @@
 
 #include "google/cloud/internal/type_list.h"
 #include "google/cloud/version.h"
-#include "absl/types/any.h"
+#include "absl/base/attributes.h"
+#include "absl/memory/memory.h"
 #include <set>
 #include <typeindex>
 #include <typeinfo>
@@ -25,7 +26,7 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 class Options;
 namespace internal {
@@ -87,8 +88,14 @@ class Options {
   /// Constructs an empty instance.
   Options() = default;
 
-  Options(Options const&) = default;
-  Options& operator=(Options const&) = default;
+  Options(Options const& rhs) {
+    for (auto const& kv : rhs.m_) m_.emplace(kv.first, kv.second->clone());
+  }
+  Options& operator=(Options const& rhs) {
+    Options tmp(rhs);
+    std::swap(m_, tmp.m_);
+    return *this;
+  }
   Options(Options&&) = default;
   Options& operator=(Options&&) = default;
 
@@ -107,7 +114,7 @@ class Options {
    */
   template <typename T>
   Options& set(ValueTypeT<T> v) {
-    m_[typeid(T)] = Data<T>{std::move(v)};
+    m_[typeid(T)] = absl::make_unique<Data<T>>(std::move(v));
     return *this;
   }
 
@@ -158,8 +165,9 @@ class Options {
   ValueTypeT<T> const& get() const {
     static auto const* const kDefaultValue = new ValueTypeT<T>{};
     auto const it = m_.find(typeid(T));
-    if (it != m_.end()) return absl::any_cast<Data<T>>(&it->second)->value;
-    return *kDefaultValue;
+    if (it == m_.end()) return *kDefaultValue;
+    auto const* value = it->second->data_address();
+    return *reinterpret_cast<ValueTypeT<T> const*>(value);
   }
 
   /**
@@ -180,12 +188,17 @@ class Options {
    * @endcode
    *
    * @tparam T the option type
-   * @param init_value the initial value to use if `T` is not set (optional)
+   * @param value the initial value to use if `T` is not set (optional)
    */
   template <typename T>
-  ValueTypeT<T>& lookup(ValueTypeT<T> init_value = {}) {
-    auto const p = m_.emplace(typeid(T), Data<T>{std::move(init_value)});
-    return absl::any_cast<Data<T>>(&p.first->second)->value;
+  ValueTypeT<T>& lookup(ValueTypeT<T> value = {}) {
+    auto p = m_.find(typeid(T));
+    if (p == m_.end()) {
+      p = m_.emplace(typeid(T), absl::make_unique<Data<T>>(std::move(value)))
+              .first;
+    }
+    auto* v = p->second->data_address();
+    return *reinterpret_cast<ValueTypeT<T>*>(v);
   }
 
  private:
@@ -193,14 +206,33 @@ class Options {
   friend void internal::CheckExpectedOptionsImpl(
       std::set<std::type_index> const&, Options const&, char const*);
 
-  // The data holder for all the option values.
-  template <typename T>
-  struct Data {
-    ValueTypeT<T> value;
+  // The type-erased data holder of all the option values.
+  class DataHolder {
+   public:
+    virtual ~DataHolder() = default;
+    virtual void const* data_address() const = 0;
+    virtual void* data_address() = 0;
+    virtual std::unique_ptr<DataHolder> clone() const = 0;
   };
 
-  // The `absl::any` objects all hold a `Data<T>`
-  std::unordered_map<std::type_index, absl::any> m_;
+  // The data holder for all the option values.
+  template <typename T>
+  class Data : public DataHolder {
+   public:
+    explicit Data(ValueTypeT<T> v) : value_(std::move(v)) {}
+    ~Data() override = default;
+
+    void const* data_address() const override { return &value_; }
+    void* data_address() override { return &value_; }
+    std::unique_ptr<DataHolder> clone() const override {
+      return absl::make_unique<Data<T>>(*this);
+    }
+
+   private:
+    ValueTypeT<T> value_;
+  };
+
+  std::unordered_map<std::type_index, std::unique_ptr<DataHolder>> m_;
 };
 
 /**
@@ -246,11 +278,11 @@ void CheckExpectedOptionsImpl(OptionList<T...> const&, Options const& opts,
  * For example,
  *
  * @code
- * struct FooOption { int value; };
- * struct BarOption { int value; };
+ * struct FooOption { using Type = int; };
+ * struct BarOption { using Type = int; };
  * using MyOptions = OptionList<FooOption, BarOption>;
  *
- * struct BazOption { int value; };
+ * struct BazOption { using Type = int; };
  *
  * // All valid ways to call this with varying expectations.
  * CheckExpectedOptions<FooOption>(opts, "test caller");
@@ -275,9 +307,43 @@ void CheckExpectedOptions(Options const& opts, char const* caller) {
  */
 Options MergeOptions(Options a, Options b);
 
+/**
+ * The prevailing options for the current operation.
+ */
+Options const& CurrentOptions();
+
+/**
+ * RAII object to set/restore the prevailing options for the enclosing scope.
+ *
+ * @code
+ * struct IntOption { using Type = int; };
+ * assert(!internal::CurrentOptions().has<IntOption>());
+ * {
+ *   internal::OptionsSpan span(Options{}.set<IntOption>(1));
+ *   assert(internal::CurrentOptions().get<IntOption>() == 1);
+ *   {
+ *     internal::OptionsSpan span(Options{}.set<IntOption>(2));
+ *     assert(internal::CurrentOptions().get<IntOption>() == 2);
+ *   }
+ *   assert(internal::CurrentOptions().get<IntOption>() == 1);
+ * }
+ * assert(!internal::CurrentOptions().has<IntOption>());
+ * @endcode
+ *
+ * @param opts the `Options` to install.
+ */
+class ABSL_MUST_USE_RESULT OptionsSpan {
+ public:
+  explicit OptionsSpan(Options opts);
+  ~OptionsSpan();
+
+ private:
+  Options opts_;
+};
+
 }  // namespace internal
 
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

@@ -25,10 +25,12 @@
 namespace google {
 namespace cloud {
 namespace iam_mocks {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 class MockIAMConnection : public iam::IAMConnection {
  public:
+  MOCK_METHOD(Options, options, (), (override));
+
   MOCK_METHOD(StreamRange<google::iam::admin::v1::ServiceAccount>,
               ListServiceAccounts,
               (google::iam::admin::v1::ListServiceAccountsRequest request),
@@ -154,7 +156,7 @@ class MockIAMConnection : public iam::IAMConnection {
               (override));
 };
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace iam_mocks
 }  // namespace cloud
 }  // namespace google

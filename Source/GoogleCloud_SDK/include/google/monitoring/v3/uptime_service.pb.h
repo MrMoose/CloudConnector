@@ -35,6 +35,7 @@
 #include "google/api/client.pb.h"
 #include "google/api/field_behavior.pb.h"
 #include "google/api/resource.pb.h"
+#include "google/longrunning/operations.pb.h"
 #include "google/monitoring/v3/uptime.pb.h"
 #include <google/protobuf/duration.pb.h>
 #include <google/protobuf/empty.pb.h>

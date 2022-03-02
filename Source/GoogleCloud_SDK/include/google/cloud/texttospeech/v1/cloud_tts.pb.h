@@ -35,6 +35,7 @@
 #include "google/api/annotations.pb.h"
 #include "google/api/client.pb.h"
 #include "google/api/field_behavior.pb.h"
+#include "google/api/resource.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_google_2fcloud_2ftexttospeech_2fv1_2fcloud_5ftts_2eproto
@@ -137,12 +138,14 @@ enum AudioEncoding : int {
   LINEAR16 = 1,
   MP3 = 2,
   OGG_OPUS = 3,
+  MULAW = 5,
+  ALAW = 6,
   AudioEncoding_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   AudioEncoding_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool AudioEncoding_IsValid(int value);
 constexpr AudioEncoding AudioEncoding_MIN = AUDIO_ENCODING_UNSPECIFIED;
-constexpr AudioEncoding AudioEncoding_MAX = OGG_OPUS;
+constexpr AudioEncoding AudioEncoding_MAX = ALAW;
 constexpr int AudioEncoding_ARRAYSIZE = AudioEncoding_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AudioEncoding_descriptor();

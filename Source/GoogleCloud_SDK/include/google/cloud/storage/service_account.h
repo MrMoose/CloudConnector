@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,9 +22,10 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 struct ServiceAccountParser;
+struct GrpcServiceAccountParser;
 }  // namespace internal
 
 /**
@@ -39,6 +40,7 @@ class ServiceAccount {
 
  private:
   friend struct internal::ServiceAccountParser;
+  friend struct internal::GrpcServiceAccountParser;
 
   std::string email_address_;
   std::string kind_;
@@ -72,7 +74,7 @@ inline bool operator>=(ServiceAccount const& lhs, ServiceAccount const& rhs) {
 
 std::ostream& operator<<(std::ostream& os, ServiceAccount const& rhs);
 
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

@@ -2767,7 +2767,7 @@ class QueryTimeSeriesRequest PROTOBUF_FINAL :
     kPageTokenFieldNumber = 10,
     kPageSizeFieldNumber = 9,
   };
-  // string name = 1;
+  // string name = 1 [(.google.api.field_behavior) = REQUIRED];
   void clear_name();
   const std::string& name() const;
   void set_name(const std::string& value);
@@ -2783,7 +2783,7 @@ class QueryTimeSeriesRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_name();
   public:
 
-  // string query = 7;
+  // string query = 7 [(.google.api.field_behavior) = REQUIRED];
   void clear_query();
   const std::string& query() const;
   void set_query(const std::string& value);
@@ -5330,7 +5330,7 @@ CreateTimeSeriesSummary::errors() const {
 
 // QueryTimeSeriesRequest
 
-// string name = 1;
+// string name = 1 [(.google.api.field_behavior) = REQUIRED];
 inline void QueryTimeSeriesRequest::clear_name() {
   name_.ClearToEmpty();
 }
@@ -5391,7 +5391,7 @@ inline void QueryTimeSeriesRequest::set_allocated_name(std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:google.monitoring.v3.QueryTimeSeriesRequest.name)
 }
 
-// string query = 7;
+// string query = 7 [(.google.api.field_behavior) = REQUIRED];
 inline void QueryTimeSeriesRequest::clear_query() {
   query_.ClearToEmpty();
 }

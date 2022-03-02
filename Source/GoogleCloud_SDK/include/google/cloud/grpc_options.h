@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * The gRPC credentials used by clients configured with this object.
@@ -157,6 +157,42 @@ using GrpcOptionList =
 
 namespace internal {
 
+/**
+ * A generic function to directly configure a gRPC context.
+ *
+ * This function takes effect before the context is used to make any requests.
+ *
+ * @warning It is NOT recommended to call `set_auth_context()` or
+ *     `set_credentials()` directly on the context. Instead, use the Google
+ *     Unified Auth Credentials library, via
+ *     #google::cloud::UnifiedCredentialsOption.
+ */
+struct GrpcSetupOption {
+  using Type = std::function<void(grpc::ClientContext&)>;
+};
+
+/**
+ * A generic function to directly configure a gRPC context for polling
+ * long-running operations.
+ *
+ * This function takes effect before the context is used to make any poll or
+ * cancel requests for long-running operations.
+ *
+ * @warning It is NOT recommended to call `set_auth_context()` or
+ *     `set_credentials()` directly on the context. Instead, use the Google
+ *     Unified Auth Credentials library, via
+ *     #google::cloud::UnifiedCredentialsOption.
+ */
+struct GrpcSetupPollOption {
+  using Type = std::function<void(grpc::ClientContext&)>;
+};
+
+/// Configure the ClientContext using options.
+void ConfigureContext(grpc::ClientContext& context, Options const& opts);
+
+/// Configure the ClientContext for polling operations using options.
+void ConfigurePollContext(grpc::ClientContext& context, Options const& opts);
+
 /// Creates a new `grpc::ChannelArguments` configured with @p opts.
 grpc::ChannelArguments MakeChannelArguments(Options const& opts);
 
@@ -177,7 +213,7 @@ absl::optional<std::string> GetStringChannelArgument(
 BackgroundThreadsFactory MakeBackgroundThreadsFactory(Options const& opts = {});
 
 }  // namespace internal
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

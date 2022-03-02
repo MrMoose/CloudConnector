@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@
 namespace google {
 namespace cloud {
 namespace pubsub {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 /**
  * Receive messages from the Cloud Pub/Sub service.
  *
@@ -58,7 +58,7 @@ inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
  * @par Background Threads
  * This class uses the background threads configured via the `Options` from
  * `GrpcOptionList`. Applications can create their own pool of background
- * threads by (a) creating their own #google::cloud::v1::CompletionQueue, (b)
+ * threads by (a) creating their own #google::cloud::CompletionQueue, (b)
  * passing this completion queue as a `GrpcCompletionQueueOption`, and (c)
  * attaching any number of threads to the completion queue.
  *
@@ -71,14 +71,14 @@ inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
  * [`std::future<T>`][std-future-link]. Our version adds a `.then()` function to
  * attach a callback to the future, which is invoked when the future is
  * satisfied. This function returns a `future<U>` where `U` is the return value
- * of the attached function. More details in the #google::cloud::v1::future
+ * of the attached function. More details in the #google::cloud::future
  * documentation.
  *
  * @par Error Handling
  * This class uses `StatusOr<T>` to report errors. When an operation fails to
  * perform its work the returned `StatusOr<T>` contains the error details. If
  * the `ok()` member function in the `StatusOr<T>` returns `true` then it
- * contains the expected result. Please consult the #google::cloud::v1::StatusOr
+ * contains the expected result. Please consult the #google::cloud::StatusOr
  * documentation for more details.
  *
  * @par Changing Retry Parameters Example
@@ -135,7 +135,7 @@ class Subscriber {
   std::shared_ptr<SubscriberConnection> connection_;
 };
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub
 }  // namespace cloud
 }  // namespace google

@@ -46,10 +46,7 @@ namespace bigquery {
 namespace datatransfer {
 namespace v1 {
 
-// The Google BigQuery Data Transfer Service API enables BigQuery users to
-// configure the transfer of their data from other Google Products into
-// BigQuery. This service contains methods that are end user exposed. It backs
-// up the frontend.
+// This API allows users to manage their data transfers into BigQuery.
 class DataTransferService final {
  public:
   static constexpr char const* service_full_name() {
@@ -58,8 +55,7 @@ class DataTransferService final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    // Retrieves a supported data source and returns its settings,
-    // which can be used for UI rendering.
+    // Retrieves a supported data source and returns its settings.
     virtual ::grpc::Status GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::DataSource>> AsyncGetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::DataSource>>(AsyncGetDataSourceRaw(context, request, cq));
@@ -67,8 +63,7 @@ class DataTransferService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::DataSource>> PrepareAsyncGetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::DataSource>>(PrepareAsyncGetDataSourceRaw(context, request, cq));
     }
-    // Lists supported data sources and returns their settings,
-    // which can be used for UI rendering.
+    // Lists supported data sources and returns their settings.
     virtual ::grpc::Status ListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest& request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse>> AsyncListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse>>(AsyncListDataSourcesRaw(context, request, cq));
@@ -93,8 +88,8 @@ class DataTransferService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::TransferConfig>> PrepareAsyncUpdateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::TransferConfig>>(PrepareAsyncUpdateTransferConfigRaw(context, request, cq));
     }
-    // Deletes a data transfer configuration,
-    // including any associated transfer runs and logs.
+    // Deletes a data transfer configuration, including any associated transfer
+    // runs and logs.
     virtual ::grpc::Status DeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteTransferConfigRaw(context, request, cq));
@@ -158,7 +153,7 @@ class DataTransferService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteTransferRunRaw(context, request, cq));
     }
-    // Returns information about running and completed jobs.
+    // Returns information about running and completed transfer runs.
     virtual ::grpc::Status ListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest& request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse>> AsyncListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse>>(AsyncListTransferRunsRaw(context, request, cq));
@@ -166,7 +161,7 @@ class DataTransferService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse>> PrepareAsyncListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse>>(PrepareAsyncListTransferRunsRaw(context, request, cq));
     }
-    // Returns user facing log messages for the data transfer run.
+    // Returns log messages for the transfer run.
     virtual ::grpc::Status ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest& request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse>> AsyncListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse>>(AsyncListTransferLogsRaw(context, request, cq));
@@ -176,10 +171,6 @@ class DataTransferService final {
     }
     // Returns true if valid credentials exist for the given data source and
     // requesting user.
-    // Some data sources doesn't support service account, so we need to talk to
-    // them on behalf of the end user. This API just checks whether we have OAuth
-    // token for the particular user, which is a pre-requisite before user can
-    // create a transfer config.
     virtual ::grpc::Status CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>> AsyncCheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>>(AsyncCheckValidCredsRaw(context, request, cq));
@@ -187,15 +178,26 @@ class DataTransferService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>> PrepareAsyncCheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>>(PrepareAsyncCheckValidCredsRaw(context, request, cq));
     }
+    // Enroll data sources in a user project. This allows users to create transfer
+    // configurations for these data sources. They will also appear in the
+    // ListDataSources RPC and as such, will appear in the BigQuery UI
+    // 'https://bigquery.cloud.google.com' (and the documents can be found at
+    // https://cloud.google.com/bigquery/bigquery-web-ui and
+    // https://cloud.google.com/bigquery/docs/working-with-transfers).
+    virtual ::grpc::Status EnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::google::protobuf::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncEnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncEnrollDataSourcesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncEnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncEnrollDataSourcesRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
-      // Retrieves a supported data source and returns its settings,
-      // which can be used for UI rendering.
+      // Retrieves a supported data source and returns its settings.
       virtual void GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetDataSource(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Lists supported data sources and returns their settings,
-      // which can be used for UI rendering.
+      // Lists supported data sources and returns their settings.
       virtual void ListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Creates a new data transfer configuration.
@@ -205,8 +207,8 @@ class DataTransferService final {
       // All fields must be set, even if they are not updated.
       virtual void UpdateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Deletes a data transfer configuration,
-      // including any associated transfer runs and logs.
+      // Deletes a data transfer configuration, including any associated transfer
+      // runs and logs.
       virtual void DeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteTransferConfig(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Returns information about a data transfer config.
@@ -235,20 +237,24 @@ class DataTransferService final {
       // Deletes the specified transfer run.
       virtual void DeleteTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteTransferRun(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Returns information about running and completed jobs.
+      // Returns information about running and completed transfer runs.
       virtual void ListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListTransferRuns(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Returns user facing log messages for the data transfer run.
+      // Returns log messages for the transfer run.
       virtual void ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Returns true if valid credentials exist for the given data source and
       // requesting user.
-      // Some data sources doesn't support service account, so we need to talk to
-      // them on behalf of the end user. This API just checks whether we have OAuth
-      // token for the particular user, which is a pre-requisite before user can
-      // create a transfer config.
       virtual void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Enroll data sources in a user project. This allows users to create transfer
+      // configurations for these data sources. They will also appear in the
+      // ListDataSources RPC and as such, will appear in the BigQuery UI
+      // 'https://bigquery.cloud.google.com' (and the documents can be found at
+      // https://cloud.google.com/bigquery/bigquery-web-ui and
+      // https://cloud.google.com/bigquery/docs/working-with-transfers).
+      virtual void EnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void EnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -282,6 +288,8 @@ class DataTransferService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse>* PrepareAsyncListTransferLogsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>* AsyncCheckValidCredsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>* PrepareAsyncCheckValidCredsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncEnrollDataSourcesRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncEnrollDataSourcesRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -384,6 +392,13 @@ class DataTransferService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>> PrepareAsyncCheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>>(PrepareAsyncCheckValidCredsRaw(context, request, cq));
     }
+    ::grpc::Status EnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::google::protobuf::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncEnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncEnrollDataSourcesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncEnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncEnrollDataSourcesRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -415,6 +430,8 @@ class DataTransferService final {
       void ListTransferLogs(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, std::function<void(::grpc::Status)>) override;
       void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void EnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
+      void EnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -454,6 +471,8 @@ class DataTransferService final {
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse>* PrepareAsyncListTransferLogsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>* AsyncCheckValidCredsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>* PrepareAsyncCheckValidCredsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncEnrollDataSourcesRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncEnrollDataSourcesRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_GetDataSource_;
     const ::grpc::internal::RpcMethod rpcmethod_ListDataSources_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateTransferConfig_;
@@ -468,6 +487,7 @@ class DataTransferService final {
     const ::grpc::internal::RpcMethod rpcmethod_ListTransferRuns_;
     const ::grpc::internal::RpcMethod rpcmethod_ListTransferLogs_;
     const ::grpc::internal::RpcMethod rpcmethod_CheckValidCreds_;
+    const ::grpc::internal::RpcMethod rpcmethod_EnrollDataSources_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -475,19 +495,17 @@ class DataTransferService final {
    public:
     Service();
     virtual ~Service();
-    // Retrieves a supported data source and returns its settings,
-    // which can be used for UI rendering.
+    // Retrieves a supported data source and returns its settings.
     virtual ::grpc::Status GetDataSource(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest* request, ::google::cloud::bigquery::datatransfer::v1::DataSource* response);
-    // Lists supported data sources and returns their settings,
-    // which can be used for UI rendering.
+    // Lists supported data sources and returns their settings.
     virtual ::grpc::Status ListDataSources(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse* response);
     // Creates a new data transfer configuration.
     virtual ::grpc::Status CreateTransferConfig(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::CreateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response);
     // Updates a data transfer configuration.
     // All fields must be set, even if they are not updated.
     virtual ::grpc::Status UpdateTransferConfig(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::UpdateTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response);
-    // Deletes a data transfer configuration,
-    // including any associated transfer runs and logs.
+    // Deletes a data transfer configuration, including any associated transfer
+    // runs and logs.
     virtual ::grpc::Status DeleteTransferConfig(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferConfigRequest* request, ::google::protobuf::Empty* response);
     // Returns information about a data transfer config.
     virtual ::grpc::Status GetTransferConfig(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferConfigRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferConfig* response);
@@ -509,17 +527,20 @@ class DataTransferService final {
     virtual ::grpc::Status GetTransferRun(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetTransferRunRequest* request, ::google::cloud::bigquery::datatransfer::v1::TransferRun* response);
     // Deletes the specified transfer run.
     virtual ::grpc::Status DeleteTransferRun(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::DeleteTransferRunRequest* request, ::google::protobuf::Empty* response);
-    // Returns information about running and completed jobs.
+    // Returns information about running and completed transfer runs.
     virtual ::grpc::Status ListTransferRuns(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferRunsResponse* response);
-    // Returns user facing log messages for the data transfer run.
+    // Returns log messages for the transfer run.
     virtual ::grpc::Status ListTransferLogs(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsRequest* request, ::google::cloud::bigquery::datatransfer::v1::ListTransferLogsResponse* response);
     // Returns true if valid credentials exist for the given data source and
     // requesting user.
-    // Some data sources doesn't support service account, so we need to talk to
-    // them on behalf of the end user. This API just checks whether we have OAuth
-    // token for the particular user, which is a pre-requisite before user can
-    // create a transfer config.
     virtual ::grpc::Status CheckValidCreds(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response);
+    // Enroll data sources in a user project. This allows users to create transfer
+    // configurations for these data sources. They will also appear in the
+    // ListDataSources RPC and as such, will appear in the BigQuery UI
+    // 'https://bigquery.cloud.google.com' (and the documents can be found at
+    // https://cloud.google.com/bigquery/bigquery-web-ui and
+    // https://cloud.google.com/bigquery/docs/working-with-transfers).
+    virtual ::grpc::Status EnrollDataSources(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::google::protobuf::Empty* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_GetDataSource : public BaseClass {
@@ -801,7 +822,27 @@ class DataTransferService final {
       ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_GetDataSource<WithAsyncMethod_ListDataSources<WithAsyncMethod_CreateTransferConfig<WithAsyncMethod_UpdateTransferConfig<WithAsyncMethod_DeleteTransferConfig<WithAsyncMethod_GetTransferConfig<WithAsyncMethod_ListTransferConfigs<WithAsyncMethod_ScheduleTransferRuns<WithAsyncMethod_StartManualTransferRuns<WithAsyncMethod_GetTransferRun<WithAsyncMethod_DeleteTransferRun<WithAsyncMethod_ListTransferRuns<WithAsyncMethod_ListTransferLogs<WithAsyncMethod_CheckValidCreds<Service > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_EnrollDataSources : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_EnrollDataSources() {
+      ::grpc::Service::MarkMethodAsync(14);
+    }
+    ~WithAsyncMethod_EnrollDataSources() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status EnrollDataSources(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestEnrollDataSources(::grpc::ServerContext* context, ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_GetDataSource<WithAsyncMethod_ListDataSources<WithAsyncMethod_CreateTransferConfig<WithAsyncMethod_UpdateTransferConfig<WithAsyncMethod_DeleteTransferConfig<WithAsyncMethod_GetTransferConfig<WithAsyncMethod_ListTransferConfigs<WithAsyncMethod_ScheduleTransferRuns<WithAsyncMethod_StartManualTransferRuns<WithAsyncMethod_GetTransferRun<WithAsyncMethod_DeleteTransferRun<WithAsyncMethod_ListTransferRuns<WithAsyncMethod_ListTransferLogs<WithAsyncMethod_CheckValidCreds<WithAsyncMethod_EnrollDataSources<Service > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_GetDataSource : public BaseClass {
    private:
@@ -1180,7 +1221,34 @@ class DataTransferService final {
     virtual ::grpc::ServerUnaryReactor* CheckValidCreds(
       ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_GetDataSource<WithCallbackMethod_ListDataSources<WithCallbackMethod_CreateTransferConfig<WithCallbackMethod_UpdateTransferConfig<WithCallbackMethod_DeleteTransferConfig<WithCallbackMethod_GetTransferConfig<WithCallbackMethod_ListTransferConfigs<WithCallbackMethod_ScheduleTransferRuns<WithCallbackMethod_StartManualTransferRuns<WithCallbackMethod_GetTransferRun<WithCallbackMethod_DeleteTransferRun<WithCallbackMethod_ListTransferRuns<WithCallbackMethod_ListTransferLogs<WithCallbackMethod_CheckValidCreds<Service > > > > > > > > > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_EnrollDataSources : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_EnrollDataSources() {
+      ::grpc::Service::MarkMethodCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest, ::google::protobuf::Empty>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::google::protobuf::Empty* response) { return this->EnrollDataSources(context, request, response); }));}
+    void SetMessageAllocatorFor_EnrollDataSources(
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest, ::google::protobuf::Empty>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest, ::google::protobuf::Empty>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_EnrollDataSources() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status EnrollDataSources(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* EnrollDataSources(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_GetDataSource<WithCallbackMethod_ListDataSources<WithCallbackMethod_CreateTransferConfig<WithCallbackMethod_UpdateTransferConfig<WithCallbackMethod_DeleteTransferConfig<WithCallbackMethod_GetTransferConfig<WithCallbackMethod_ListTransferConfigs<WithCallbackMethod_ScheduleTransferRuns<WithCallbackMethod_StartManualTransferRuns<WithCallbackMethod_GetTransferRun<WithCallbackMethod_DeleteTransferRun<WithCallbackMethod_ListTransferRuns<WithCallbackMethod_ListTransferLogs<WithCallbackMethod_CheckValidCreds<WithCallbackMethod_EnrollDataSources<Service > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_GetDataSource : public BaseClass {
@@ -1416,6 +1484,23 @@ class DataTransferService final {
     }
     // disable synchronous version of this method
     ::grpc::Status CheckValidCreds(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* /*request*/, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_EnrollDataSources : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_EnrollDataSources() {
+      ::grpc::Service::MarkMethodGeneric(14);
+    }
+    ~WithGenericMethod_EnrollDataSources() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status EnrollDataSources(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1698,6 +1783,26 @@ class DataTransferService final {
     }
     void RequestCheckValidCreds(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_EnrollDataSources : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_EnrollDataSources() {
+      ::grpc::Service::MarkMethodRaw(14);
+    }
+    ~WithRawMethod_EnrollDataSources() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status EnrollDataSources(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestEnrollDataSources(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2006,6 +2111,28 @@ class DataTransferService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* CheckValidCreds(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_EnrollDataSources : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_EnrollDataSources() {
+      ::grpc::Service::MarkMethodRawCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->EnrollDataSources(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_EnrollDataSources() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status EnrollDataSources(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* EnrollDataSources(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -2386,9 +2513,36 @@ class DataTransferService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedCheckValidCreds(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest,::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_GetDataSource<WithStreamedUnaryMethod_ListDataSources<WithStreamedUnaryMethod_CreateTransferConfig<WithStreamedUnaryMethod_UpdateTransferConfig<WithStreamedUnaryMethod_DeleteTransferConfig<WithStreamedUnaryMethod_GetTransferConfig<WithStreamedUnaryMethod_ListTransferConfigs<WithStreamedUnaryMethod_ScheduleTransferRuns<WithStreamedUnaryMethod_StartManualTransferRuns<WithStreamedUnaryMethod_GetTransferRun<WithStreamedUnaryMethod_DeleteTransferRun<WithStreamedUnaryMethod_ListTransferRuns<WithStreamedUnaryMethod_ListTransferLogs<WithStreamedUnaryMethod_CheckValidCreds<Service > > > > > > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_EnrollDataSources : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_EnrollDataSources() {
+      ::grpc::Service::MarkMethodStreamed(14,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest, ::google::protobuf::Empty>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest, ::google::protobuf::Empty>* streamer) {
+                       return this->StreamedEnrollDataSources(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_EnrollDataSources() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status EnrollDataSources(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedEnrollDataSources(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_GetDataSource<WithStreamedUnaryMethod_ListDataSources<WithStreamedUnaryMethod_CreateTransferConfig<WithStreamedUnaryMethod_UpdateTransferConfig<WithStreamedUnaryMethod_DeleteTransferConfig<WithStreamedUnaryMethod_GetTransferConfig<WithStreamedUnaryMethod_ListTransferConfigs<WithStreamedUnaryMethod_ScheduleTransferRuns<WithStreamedUnaryMethod_StartManualTransferRuns<WithStreamedUnaryMethod_GetTransferRun<WithStreamedUnaryMethod_DeleteTransferRun<WithStreamedUnaryMethod_ListTransferRuns<WithStreamedUnaryMethod_ListTransferLogs<WithStreamedUnaryMethod_CheckValidCreds<WithStreamedUnaryMethod_EnrollDataSources<Service > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_GetDataSource<WithStreamedUnaryMethod_ListDataSources<WithStreamedUnaryMethod_CreateTransferConfig<WithStreamedUnaryMethod_UpdateTransferConfig<WithStreamedUnaryMethod_DeleteTransferConfig<WithStreamedUnaryMethod_GetTransferConfig<WithStreamedUnaryMethod_ListTransferConfigs<WithStreamedUnaryMethod_ScheduleTransferRuns<WithStreamedUnaryMethod_StartManualTransferRuns<WithStreamedUnaryMethod_GetTransferRun<WithStreamedUnaryMethod_DeleteTransferRun<WithStreamedUnaryMethod_ListTransferRuns<WithStreamedUnaryMethod_ListTransferLogs<WithStreamedUnaryMethod_CheckValidCreds<Service > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_GetDataSource<WithStreamedUnaryMethod_ListDataSources<WithStreamedUnaryMethod_CreateTransferConfig<WithStreamedUnaryMethod_UpdateTransferConfig<WithStreamedUnaryMethod_DeleteTransferConfig<WithStreamedUnaryMethod_GetTransferConfig<WithStreamedUnaryMethod_ListTransferConfigs<WithStreamedUnaryMethod_ScheduleTransferRuns<WithStreamedUnaryMethod_StartManualTransferRuns<WithStreamedUnaryMethod_GetTransferRun<WithStreamedUnaryMethod_DeleteTransferRun<WithStreamedUnaryMethod_ListTransferRuns<WithStreamedUnaryMethod_ListTransferLogs<WithStreamedUnaryMethod_CheckValidCreds<WithStreamedUnaryMethod_EnrollDataSources<Service > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v1

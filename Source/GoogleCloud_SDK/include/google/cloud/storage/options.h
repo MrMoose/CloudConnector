@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,7 +29,7 @@
 namespace google {
 namespace cloud {
 namespace storage_experimental {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 /**
  * Set the HTTP version used by the client.
  *
@@ -47,11 +47,11 @@ inline namespace STORAGE_CLIENT_NS {
 struct HttpVersionOption {
   using Type = std::string;
 };
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage_experimental
 
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 /// This is only intended for testing against staging or development versions
 /// of the service. It is not for public use.
@@ -206,7 +206,8 @@ struct MaximumCurlSocketSendSizeOption {
  *
  * If a transfer (upload, download, or request) *stalls*, i.e., no bytes are
  * sent or received for a significant period, it may be better to restart the
- * transfer as this may indicate a network glitch.
+ * transfer as this may indicate a network glitch.  For downloads the
+ * google::cloud::storage::DownloadStallTimeoutOption takes precedence.
  *
  * For large requests (e.g. downloads in the GiB to TiB range) this is a better
  * configuration parameter than a simple timeout, as the transfers will take
@@ -220,9 +221,22 @@ struct TransferStallTimeoutOption {
 };
 
 /**
- * @deprecated Please use TransferStallTimeoutOption instead
+ * Sets the download stall timeout.
+ *
+ * If a download *stalls*, i.e., no bytes are received for a significant period,
+ * it may be better to restart the download as this may indicate a network
+ * glitch.
+ *
+ * For large requests (e.g. downloads in the GiB to TiB range) this is a better
+ * configuration parameter than a simple timeout, as the transfers will take
+ * minutes or hours to complete. Relying on a timeout value for them would not
+ * work, as the timeout would be too large to be useful. For small requests,
+ * this is as effective as a timeout parameter, but maybe unfamiliar and thus
+ * harder to reason about.
  */
-using DownloadStallTimeoutOption = TransferStallTimeoutOption;
+struct DownloadStallTimeoutOption {
+  using Type = std::chrono::seconds;
+};
 
 /// Set the retry policy for a GCS client.
 struct RetryPolicyOption {
@@ -250,7 +264,7 @@ using ClientOptionList = ::google::cloud::OptionList<
     IdempotencyPolicyOption, CARootsFilePathOption,
     storage_experimental::HttpVersionOption>;
 
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

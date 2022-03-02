@@ -59,7 +59,7 @@ struct TableStruct_google_2fstorage_2fv2_2fstorage_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[37]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[72]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -82,6 +82,9 @@ extern Bucket_BillingDefaultTypeInternal _Bucket_Billing_default_instance_;
 class Bucket_Cors;
 struct Bucket_CorsDefaultTypeInternal;
 extern Bucket_CorsDefaultTypeInternal _Bucket_Cors_default_instance_;
+class Bucket_CustomPlacementConfig;
+struct Bucket_CustomPlacementConfigDefaultTypeInternal;
+extern Bucket_CustomPlacementConfigDefaultTypeInternal _Bucket_CustomPlacementConfig_default_instance_;
 class Bucket_Encryption;
 struct Bucket_EncryptionDefaultTypeInternal;
 extern Bucket_EncryptionDefaultTypeInternal _Bucket_Encryption_default_instance_;
@@ -127,9 +130,96 @@ extern CommonObjectRequestParamsDefaultTypeInternal _CommonObjectRequestParams_d
 class CommonRequestParams;
 struct CommonRequestParamsDefaultTypeInternal;
 extern CommonRequestParamsDefaultTypeInternal _CommonRequestParams_default_instance_;
+class ComposeObjectRequest;
+struct ComposeObjectRequestDefaultTypeInternal;
+extern ComposeObjectRequestDefaultTypeInternal _ComposeObjectRequest_default_instance_;
+class ComposeObjectRequest_SourceObject;
+struct ComposeObjectRequest_SourceObjectDefaultTypeInternal;
+extern ComposeObjectRequest_SourceObjectDefaultTypeInternal _ComposeObjectRequest_SourceObject_default_instance_;
+class ComposeObjectRequest_SourceObject_ObjectPreconditions;
+struct ComposeObjectRequest_SourceObject_ObjectPreconditionsDefaultTypeInternal;
+extern ComposeObjectRequest_SourceObject_ObjectPreconditionsDefaultTypeInternal _ComposeObjectRequest_SourceObject_ObjectPreconditions_default_instance_;
 class ContentRange;
 struct ContentRangeDefaultTypeInternal;
 extern ContentRangeDefaultTypeInternal _ContentRange_default_instance_;
+class CreateBucketRequest;
+struct CreateBucketRequestDefaultTypeInternal;
+extern CreateBucketRequestDefaultTypeInternal _CreateBucketRequest_default_instance_;
+class CreateHmacKeyRequest;
+struct CreateHmacKeyRequestDefaultTypeInternal;
+extern CreateHmacKeyRequestDefaultTypeInternal _CreateHmacKeyRequest_default_instance_;
+class CreateHmacKeyResponse;
+struct CreateHmacKeyResponseDefaultTypeInternal;
+extern CreateHmacKeyResponseDefaultTypeInternal _CreateHmacKeyResponse_default_instance_;
+class CreateNotificationRequest;
+struct CreateNotificationRequestDefaultTypeInternal;
+extern CreateNotificationRequestDefaultTypeInternal _CreateNotificationRequest_default_instance_;
+class CustomerEncryption;
+struct CustomerEncryptionDefaultTypeInternal;
+extern CustomerEncryptionDefaultTypeInternal _CustomerEncryption_default_instance_;
+class DeleteBucketRequest;
+struct DeleteBucketRequestDefaultTypeInternal;
+extern DeleteBucketRequestDefaultTypeInternal _DeleteBucketRequest_default_instance_;
+class DeleteHmacKeyRequest;
+struct DeleteHmacKeyRequestDefaultTypeInternal;
+extern DeleteHmacKeyRequestDefaultTypeInternal _DeleteHmacKeyRequest_default_instance_;
+class DeleteNotificationRequest;
+struct DeleteNotificationRequestDefaultTypeInternal;
+extern DeleteNotificationRequestDefaultTypeInternal _DeleteNotificationRequest_default_instance_;
+class DeleteObjectRequest;
+struct DeleteObjectRequestDefaultTypeInternal;
+extern DeleteObjectRequestDefaultTypeInternal _DeleteObjectRequest_default_instance_;
+class GetBucketRequest;
+struct GetBucketRequestDefaultTypeInternal;
+extern GetBucketRequestDefaultTypeInternal _GetBucketRequest_default_instance_;
+class GetHmacKeyRequest;
+struct GetHmacKeyRequestDefaultTypeInternal;
+extern GetHmacKeyRequestDefaultTypeInternal _GetHmacKeyRequest_default_instance_;
+class GetNotificationRequest;
+struct GetNotificationRequestDefaultTypeInternal;
+extern GetNotificationRequestDefaultTypeInternal _GetNotificationRequest_default_instance_;
+class GetObjectRequest;
+struct GetObjectRequestDefaultTypeInternal;
+extern GetObjectRequestDefaultTypeInternal _GetObjectRequest_default_instance_;
+class GetServiceAccountRequest;
+struct GetServiceAccountRequestDefaultTypeInternal;
+extern GetServiceAccountRequestDefaultTypeInternal _GetServiceAccountRequest_default_instance_;
+class HmacKeyMetadata;
+struct HmacKeyMetadataDefaultTypeInternal;
+extern HmacKeyMetadataDefaultTypeInternal _HmacKeyMetadata_default_instance_;
+class ListBucketsRequest;
+struct ListBucketsRequestDefaultTypeInternal;
+extern ListBucketsRequestDefaultTypeInternal _ListBucketsRequest_default_instance_;
+class ListBucketsResponse;
+struct ListBucketsResponseDefaultTypeInternal;
+extern ListBucketsResponseDefaultTypeInternal _ListBucketsResponse_default_instance_;
+class ListHmacKeysRequest;
+struct ListHmacKeysRequestDefaultTypeInternal;
+extern ListHmacKeysRequestDefaultTypeInternal _ListHmacKeysRequest_default_instance_;
+class ListHmacKeysResponse;
+struct ListHmacKeysResponseDefaultTypeInternal;
+extern ListHmacKeysResponseDefaultTypeInternal _ListHmacKeysResponse_default_instance_;
+class ListNotificationsRequest;
+struct ListNotificationsRequestDefaultTypeInternal;
+extern ListNotificationsRequestDefaultTypeInternal _ListNotificationsRequest_default_instance_;
+class ListNotificationsResponse;
+struct ListNotificationsResponseDefaultTypeInternal;
+extern ListNotificationsResponseDefaultTypeInternal _ListNotificationsResponse_default_instance_;
+class ListObjectsRequest;
+struct ListObjectsRequestDefaultTypeInternal;
+extern ListObjectsRequestDefaultTypeInternal _ListObjectsRequest_default_instance_;
+class ListObjectsResponse;
+struct ListObjectsResponseDefaultTypeInternal;
+extern ListObjectsResponseDefaultTypeInternal _ListObjectsResponse_default_instance_;
+class LockBucketRetentionPolicyRequest;
+struct LockBucketRetentionPolicyRequestDefaultTypeInternal;
+extern LockBucketRetentionPolicyRequestDefaultTypeInternal _LockBucketRetentionPolicyRequest_default_instance_;
+class Notification;
+struct NotificationDefaultTypeInternal;
+extern NotificationDefaultTypeInternal _Notification_default_instance_;
+class Notification_CustomAttributesEntry_DoNotUse;
+struct Notification_CustomAttributesEntry_DoNotUseDefaultTypeInternal;
+extern Notification_CustomAttributesEntry_DoNotUseDefaultTypeInternal _Notification_CustomAttributesEntry_DoNotUse_default_instance_;
 class Object;
 struct ObjectDefaultTypeInternal;
 extern ObjectDefaultTypeInternal _Object_default_instance_;
@@ -139,9 +229,6 @@ extern ObjectAccessControlDefaultTypeInternal _ObjectAccessControl_default_insta
 class ObjectChecksums;
 struct ObjectChecksumsDefaultTypeInternal;
 extern ObjectChecksumsDefaultTypeInternal _ObjectChecksums_default_instance_;
-class Object_CustomerEncryption;
-struct Object_CustomerEncryptionDefaultTypeInternal;
-extern Object_CustomerEncryptionDefaultTypeInternal _Object_CustomerEncryption_default_instance_;
 class Object_MetadataEntry_DoNotUse;
 struct Object_MetadataEntry_DoNotUseDefaultTypeInternal;
 extern Object_MetadataEntry_DoNotUseDefaultTypeInternal _Object_MetadataEntry_DoNotUse_default_instance_;
@@ -163,6 +250,15 @@ extern ReadObjectRequestDefaultTypeInternal _ReadObjectRequest_default_instance_
 class ReadObjectResponse;
 struct ReadObjectResponseDefaultTypeInternal;
 extern ReadObjectResponseDefaultTypeInternal _ReadObjectResponse_default_instance_;
+class RewriteObjectRequest;
+struct RewriteObjectRequestDefaultTypeInternal;
+extern RewriteObjectRequestDefaultTypeInternal _RewriteObjectRequest_default_instance_;
+class RewriteResponse;
+struct RewriteResponseDefaultTypeInternal;
+extern RewriteResponseDefaultTypeInternal _RewriteResponse_default_instance_;
+class ServiceAccount;
+struct ServiceAccountDefaultTypeInternal;
+extern ServiceAccountDefaultTypeInternal _ServiceAccount_default_instance_;
 class ServiceConstants;
 struct ServiceConstantsDefaultTypeInternal;
 extern ServiceConstantsDefaultTypeInternal _ServiceConstants_default_instance_;
@@ -172,6 +268,15 @@ extern StartResumableWriteRequestDefaultTypeInternal _StartResumableWriteRequest
 class StartResumableWriteResponse;
 struct StartResumableWriteResponseDefaultTypeInternal;
 extern StartResumableWriteResponseDefaultTypeInternal _StartResumableWriteResponse_default_instance_;
+class UpdateBucketRequest;
+struct UpdateBucketRequestDefaultTypeInternal;
+extern UpdateBucketRequestDefaultTypeInternal _UpdateBucketRequest_default_instance_;
+class UpdateHmacKeyRequest;
+struct UpdateHmacKeyRequestDefaultTypeInternal;
+extern UpdateHmacKeyRequestDefaultTypeInternal _UpdateHmacKeyRequest_default_instance_;
+class UpdateObjectRequest;
+struct UpdateObjectRequestDefaultTypeInternal;
+extern UpdateObjectRequestDefaultTypeInternal _UpdateObjectRequest_default_instance_;
 class WriteObjectRequest;
 struct WriteObjectRequestDefaultTypeInternal;
 extern WriteObjectRequestDefaultTypeInternal _WriteObjectRequest_default_instance_;
@@ -189,6 +294,7 @@ template<> ::google::storage::v2::Bucket* Arena::CreateMaybeMessage<::google::st
 template<> ::google::storage::v2::BucketAccessControl* Arena::CreateMaybeMessage<::google::storage::v2::BucketAccessControl>(Arena*);
 template<> ::google::storage::v2::Bucket_Billing* Arena::CreateMaybeMessage<::google::storage::v2::Bucket_Billing>(Arena*);
 template<> ::google::storage::v2::Bucket_Cors* Arena::CreateMaybeMessage<::google::storage::v2::Bucket_Cors>(Arena*);
+template<> ::google::storage::v2::Bucket_CustomPlacementConfig* Arena::CreateMaybeMessage<::google::storage::v2::Bucket_CustomPlacementConfig>(Arena*);
 template<> ::google::storage::v2::Bucket_Encryption* Arena::CreateMaybeMessage<::google::storage::v2::Bucket_Encryption>(Arena*);
 template<> ::google::storage::v2::Bucket_IamConfig* Arena::CreateMaybeMessage<::google::storage::v2::Bucket_IamConfig>(Arena*);
 template<> ::google::storage::v2::Bucket_IamConfig_UniformBucketLevelAccess* Arena::CreateMaybeMessage<::google::storage::v2::Bucket_IamConfig_UniformBucketLevelAccess>(Arena*);
@@ -204,11 +310,39 @@ template<> ::google::storage::v2::Bucket_Website* Arena::CreateMaybeMessage<::go
 template<> ::google::storage::v2::ChecksummedData* Arena::CreateMaybeMessage<::google::storage::v2::ChecksummedData>(Arena*);
 template<> ::google::storage::v2::CommonObjectRequestParams* Arena::CreateMaybeMessage<::google::storage::v2::CommonObjectRequestParams>(Arena*);
 template<> ::google::storage::v2::CommonRequestParams* Arena::CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(Arena*);
+template<> ::google::storage::v2::ComposeObjectRequest* Arena::CreateMaybeMessage<::google::storage::v2::ComposeObjectRequest>(Arena*);
+template<> ::google::storage::v2::ComposeObjectRequest_SourceObject* Arena::CreateMaybeMessage<::google::storage::v2::ComposeObjectRequest_SourceObject>(Arena*);
+template<> ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* Arena::CreateMaybeMessage<::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions>(Arena*);
 template<> ::google::storage::v2::ContentRange* Arena::CreateMaybeMessage<::google::storage::v2::ContentRange>(Arena*);
+template<> ::google::storage::v2::CreateBucketRequest* Arena::CreateMaybeMessage<::google::storage::v2::CreateBucketRequest>(Arena*);
+template<> ::google::storage::v2::CreateHmacKeyRequest* Arena::CreateMaybeMessage<::google::storage::v2::CreateHmacKeyRequest>(Arena*);
+template<> ::google::storage::v2::CreateHmacKeyResponse* Arena::CreateMaybeMessage<::google::storage::v2::CreateHmacKeyResponse>(Arena*);
+template<> ::google::storage::v2::CreateNotificationRequest* Arena::CreateMaybeMessage<::google::storage::v2::CreateNotificationRequest>(Arena*);
+template<> ::google::storage::v2::CustomerEncryption* Arena::CreateMaybeMessage<::google::storage::v2::CustomerEncryption>(Arena*);
+template<> ::google::storage::v2::DeleteBucketRequest* Arena::CreateMaybeMessage<::google::storage::v2::DeleteBucketRequest>(Arena*);
+template<> ::google::storage::v2::DeleteHmacKeyRequest* Arena::CreateMaybeMessage<::google::storage::v2::DeleteHmacKeyRequest>(Arena*);
+template<> ::google::storage::v2::DeleteNotificationRequest* Arena::CreateMaybeMessage<::google::storage::v2::DeleteNotificationRequest>(Arena*);
+template<> ::google::storage::v2::DeleteObjectRequest* Arena::CreateMaybeMessage<::google::storage::v2::DeleteObjectRequest>(Arena*);
+template<> ::google::storage::v2::GetBucketRequest* Arena::CreateMaybeMessage<::google::storage::v2::GetBucketRequest>(Arena*);
+template<> ::google::storage::v2::GetHmacKeyRequest* Arena::CreateMaybeMessage<::google::storage::v2::GetHmacKeyRequest>(Arena*);
+template<> ::google::storage::v2::GetNotificationRequest* Arena::CreateMaybeMessage<::google::storage::v2::GetNotificationRequest>(Arena*);
+template<> ::google::storage::v2::GetObjectRequest* Arena::CreateMaybeMessage<::google::storage::v2::GetObjectRequest>(Arena*);
+template<> ::google::storage::v2::GetServiceAccountRequest* Arena::CreateMaybeMessage<::google::storage::v2::GetServiceAccountRequest>(Arena*);
+template<> ::google::storage::v2::HmacKeyMetadata* Arena::CreateMaybeMessage<::google::storage::v2::HmacKeyMetadata>(Arena*);
+template<> ::google::storage::v2::ListBucketsRequest* Arena::CreateMaybeMessage<::google::storage::v2::ListBucketsRequest>(Arena*);
+template<> ::google::storage::v2::ListBucketsResponse* Arena::CreateMaybeMessage<::google::storage::v2::ListBucketsResponse>(Arena*);
+template<> ::google::storage::v2::ListHmacKeysRequest* Arena::CreateMaybeMessage<::google::storage::v2::ListHmacKeysRequest>(Arena*);
+template<> ::google::storage::v2::ListHmacKeysResponse* Arena::CreateMaybeMessage<::google::storage::v2::ListHmacKeysResponse>(Arena*);
+template<> ::google::storage::v2::ListNotificationsRequest* Arena::CreateMaybeMessage<::google::storage::v2::ListNotificationsRequest>(Arena*);
+template<> ::google::storage::v2::ListNotificationsResponse* Arena::CreateMaybeMessage<::google::storage::v2::ListNotificationsResponse>(Arena*);
+template<> ::google::storage::v2::ListObjectsRequest* Arena::CreateMaybeMessage<::google::storage::v2::ListObjectsRequest>(Arena*);
+template<> ::google::storage::v2::ListObjectsResponse* Arena::CreateMaybeMessage<::google::storage::v2::ListObjectsResponse>(Arena*);
+template<> ::google::storage::v2::LockBucketRetentionPolicyRequest* Arena::CreateMaybeMessage<::google::storage::v2::LockBucketRetentionPolicyRequest>(Arena*);
+template<> ::google::storage::v2::Notification* Arena::CreateMaybeMessage<::google::storage::v2::Notification>(Arena*);
+template<> ::google::storage::v2::Notification_CustomAttributesEntry_DoNotUse* Arena::CreateMaybeMessage<::google::storage::v2::Notification_CustomAttributesEntry_DoNotUse>(Arena*);
 template<> ::google::storage::v2::Object* Arena::CreateMaybeMessage<::google::storage::v2::Object>(Arena*);
 template<> ::google::storage::v2::ObjectAccessControl* Arena::CreateMaybeMessage<::google::storage::v2::ObjectAccessControl>(Arena*);
 template<> ::google::storage::v2::ObjectChecksums* Arena::CreateMaybeMessage<::google::storage::v2::ObjectChecksums>(Arena*);
-template<> ::google::storage::v2::Object_CustomerEncryption* Arena::CreateMaybeMessage<::google::storage::v2::Object_CustomerEncryption>(Arena*);
 template<> ::google::storage::v2::Object_MetadataEntry_DoNotUse* Arena::CreateMaybeMessage<::google::storage::v2::Object_MetadataEntry_DoNotUse>(Arena*);
 template<> ::google::storage::v2::Owner* Arena::CreateMaybeMessage<::google::storage::v2::Owner>(Arena*);
 template<> ::google::storage::v2::ProjectTeam* Arena::CreateMaybeMessage<::google::storage::v2::ProjectTeam>(Arena*);
@@ -216,9 +350,15 @@ template<> ::google::storage::v2::QueryWriteStatusRequest* Arena::CreateMaybeMes
 template<> ::google::storage::v2::QueryWriteStatusResponse* Arena::CreateMaybeMessage<::google::storage::v2::QueryWriteStatusResponse>(Arena*);
 template<> ::google::storage::v2::ReadObjectRequest* Arena::CreateMaybeMessage<::google::storage::v2::ReadObjectRequest>(Arena*);
 template<> ::google::storage::v2::ReadObjectResponse* Arena::CreateMaybeMessage<::google::storage::v2::ReadObjectResponse>(Arena*);
+template<> ::google::storage::v2::RewriteObjectRequest* Arena::CreateMaybeMessage<::google::storage::v2::RewriteObjectRequest>(Arena*);
+template<> ::google::storage::v2::RewriteResponse* Arena::CreateMaybeMessage<::google::storage::v2::RewriteResponse>(Arena*);
+template<> ::google::storage::v2::ServiceAccount* Arena::CreateMaybeMessage<::google::storage::v2::ServiceAccount>(Arena*);
 template<> ::google::storage::v2::ServiceConstants* Arena::CreateMaybeMessage<::google::storage::v2::ServiceConstants>(Arena*);
 template<> ::google::storage::v2::StartResumableWriteRequest* Arena::CreateMaybeMessage<::google::storage::v2::StartResumableWriteRequest>(Arena*);
 template<> ::google::storage::v2::StartResumableWriteResponse* Arena::CreateMaybeMessage<::google::storage::v2::StartResumableWriteResponse>(Arena*);
+template<> ::google::storage::v2::UpdateBucketRequest* Arena::CreateMaybeMessage<::google::storage::v2::UpdateBucketRequest>(Arena*);
+template<> ::google::storage::v2::UpdateHmacKeyRequest* Arena::CreateMaybeMessage<::google::storage::v2::UpdateHmacKeyRequest>(Arena*);
+template<> ::google::storage::v2::UpdateObjectRequest* Arena::CreateMaybeMessage<::google::storage::v2::UpdateObjectRequest>(Arena*);
 template<> ::google::storage::v2::WriteObjectRequest* Arena::CreateMaybeMessage<::google::storage::v2::WriteObjectRequest>(Arena*);
 template<> ::google::storage::v2::WriteObjectResponse* Arena::CreateMaybeMessage<::google::storage::v2::WriteObjectResponse>(Arena*);
 template<> ::google::storage::v2::WriteObjectSpec* Arena::CreateMaybeMessage<::google::storage::v2::WriteObjectSpec>(Arena*);
@@ -271,12 +411,13 @@ inline bool ServiceConstants_Values_Parse(
 enum Bucket_IamConfig_PublicAccessPrevention : int {
   Bucket_IamConfig_PublicAccessPrevention_PUBLIC_ACCESS_PREVENTION_UNSPECIFIED = 0,
   Bucket_IamConfig_PublicAccessPrevention_ENFORCED = 1,
+  Bucket_IamConfig_PublicAccessPrevention_INHERITED = 2,
   Bucket_IamConfig_PublicAccessPrevention_Bucket_IamConfig_PublicAccessPrevention_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   Bucket_IamConfig_PublicAccessPrevention_Bucket_IamConfig_PublicAccessPrevention_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool Bucket_IamConfig_PublicAccessPrevention_IsValid(int value);
 constexpr Bucket_IamConfig_PublicAccessPrevention Bucket_IamConfig_PublicAccessPrevention_PublicAccessPrevention_MIN = Bucket_IamConfig_PublicAccessPrevention_PUBLIC_ACCESS_PREVENTION_UNSPECIFIED;
-constexpr Bucket_IamConfig_PublicAccessPrevention Bucket_IamConfig_PublicAccessPrevention_PublicAccessPrevention_MAX = Bucket_IamConfig_PublicAccessPrevention_ENFORCED;
+constexpr Bucket_IamConfig_PublicAccessPrevention Bucket_IamConfig_PublicAccessPrevention_PublicAccessPrevention_MAX = Bucket_IamConfig_PublicAccessPrevention_INHERITED;
 constexpr int Bucket_IamConfig_PublicAccessPrevention_PublicAccessPrevention_ARRAYSIZE = Bucket_IamConfig_PublicAccessPrevention_PublicAccessPrevention_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Bucket_IamConfig_PublicAccessPrevention_descriptor();
@@ -323,7 +464,3128 @@ inline bool PredefinedObjectAcl_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<PredefinedObjectAcl>(
     PredefinedObjectAcl_descriptor(), name, value);
 }
+enum PredefinedBucketAcl : int {
+  PREDEFINED_BUCKET_ACL_UNSPECIFIED = 0,
+  BUCKET_ACL_AUTHENTICATED_READ = 1,
+  BUCKET_ACL_PRIVATE = 2,
+  BUCKET_ACL_PROJECT_PRIVATE = 3,
+  BUCKET_ACL_PUBLIC_READ = 4,
+  BUCKET_ACL_PUBLIC_READ_WRITE = 5,
+  PredefinedBucketAcl_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  PredefinedBucketAcl_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool PredefinedBucketAcl_IsValid(int value);
+constexpr PredefinedBucketAcl PredefinedBucketAcl_MIN = PREDEFINED_BUCKET_ACL_UNSPECIFIED;
+constexpr PredefinedBucketAcl PredefinedBucketAcl_MAX = BUCKET_ACL_PUBLIC_READ_WRITE;
+constexpr int PredefinedBucketAcl_ARRAYSIZE = PredefinedBucketAcl_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PredefinedBucketAcl_descriptor();
+template<typename T>
+inline const std::string& PredefinedBucketAcl_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, PredefinedBucketAcl>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function PredefinedBucketAcl_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    PredefinedBucketAcl_descriptor(), enum_t_value);
+}
+inline bool PredefinedBucketAcl_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PredefinedBucketAcl* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<PredefinedBucketAcl>(
+    PredefinedBucketAcl_descriptor(), name, value);
+}
 // ===================================================================
+
+class DeleteBucketRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.DeleteBucketRequest) */ {
+ public:
+  inline DeleteBucketRequest() : DeleteBucketRequest(nullptr) {}
+  virtual ~DeleteBucketRequest();
+  explicit constexpr DeleteBucketRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteBucketRequest(const DeleteBucketRequest& from);
+  DeleteBucketRequest(DeleteBucketRequest&& from) noexcept
+    : DeleteBucketRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteBucketRequest& operator=(const DeleteBucketRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteBucketRequest& operator=(DeleteBucketRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const DeleteBucketRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteBucketRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteBucketRequest*>(
+               &_DeleteBucketRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(DeleteBucketRequest& a, DeleteBucketRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteBucketRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteBucketRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DeleteBucketRequest* New() const final {
+    return CreateMaybeMessage<DeleteBucketRequest>(nullptr);
+  }
+
+  DeleteBucketRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DeleteBucketRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const DeleteBucketRequest& from);
+  void MergeFrom(const DeleteBucketRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteBucketRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.DeleteBucketRequest";
+  }
+  protected:
+  explicit DeleteBucketRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kCommonRequestParamsFieldNumber = 5,
+    kIfMetagenerationMatchFieldNumber = 2,
+    kIfMetagenerationNotMatchFieldNumber = 3,
+  };
+  // string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 5;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // int64 if_metageneration_match = 2;
+  bool has_if_metageneration_match() const;
+  private:
+  bool _internal_has_if_metageneration_match() const;
+  public:
+  void clear_if_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match() const;
+  void set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_match() const;
+  void _internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_not_match = 3;
+  bool has_if_metageneration_not_match() const;
+  private:
+  bool _internal_has_if_metageneration_not_match() const;
+  public:
+  void clear_if_metageneration_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match() const;
+  void set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_not_match() const;
+  void _internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.DeleteBucketRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetBucketRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.GetBucketRequest) */ {
+ public:
+  inline GetBucketRequest() : GetBucketRequest(nullptr) {}
+  virtual ~GetBucketRequest();
+  explicit constexpr GetBucketRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetBucketRequest(const GetBucketRequest& from);
+  GetBucketRequest(GetBucketRequest&& from) noexcept
+    : GetBucketRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetBucketRequest& operator=(const GetBucketRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetBucketRequest& operator=(GetBucketRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetBucketRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetBucketRequest* internal_default_instance() {
+    return reinterpret_cast<const GetBucketRequest*>(
+               &_GetBucketRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(GetBucketRequest& a, GetBucketRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetBucketRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetBucketRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetBucketRequest* New() const final {
+    return CreateMaybeMessage<GetBucketRequest>(nullptr);
+  }
+
+  GetBucketRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetBucketRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetBucketRequest& from);
+  void MergeFrom(const GetBucketRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetBucketRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.GetBucketRequest";
+  }
+  protected:
+  explicit GetBucketRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kCommonRequestParamsFieldNumber = 4,
+    kReadMaskFieldNumber = 5,
+    kIfMetagenerationMatchFieldNumber = 2,
+    kIfMetagenerationNotMatchFieldNumber = 3,
+  };
+  // string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 4;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // .google.protobuf.FieldMask read_mask = 5;
+  bool has_read_mask() const;
+  private:
+  bool _internal_has_read_mask() const;
+  public:
+  void clear_read_mask();
+  const PROTOBUF_NAMESPACE_ID::FieldMask& read_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* release_read_mask();
+  PROTOBUF_NAMESPACE_ID::FieldMask* mutable_read_mask();
+  void set_allocated_read_mask(PROTOBUF_NAMESPACE_ID::FieldMask* read_mask);
+  private:
+  const PROTOBUF_NAMESPACE_ID::FieldMask& _internal_read_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* _internal_mutable_read_mask();
+  public:
+  void unsafe_arena_set_allocated_read_mask(
+      PROTOBUF_NAMESPACE_ID::FieldMask* read_mask);
+  PROTOBUF_NAMESPACE_ID::FieldMask* unsafe_arena_release_read_mask();
+
+  // int64 if_metageneration_match = 2;
+  bool has_if_metageneration_match() const;
+  private:
+  bool _internal_has_if_metageneration_match() const;
+  public:
+  void clear_if_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match() const;
+  void set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_match() const;
+  void _internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_not_match = 3;
+  bool has_if_metageneration_not_match() const;
+  private:
+  bool _internal_has_if_metageneration_not_match() const;
+  public:
+  void clear_if_metageneration_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match() const;
+  void set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_not_match() const;
+  void _internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.GetBucketRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  PROTOBUF_NAMESPACE_ID::FieldMask* read_mask_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CreateBucketRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.CreateBucketRequest) */ {
+ public:
+  inline CreateBucketRequest() : CreateBucketRequest(nullptr) {}
+  virtual ~CreateBucketRequest();
+  explicit constexpr CreateBucketRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CreateBucketRequest(const CreateBucketRequest& from);
+  CreateBucketRequest(CreateBucketRequest&& from) noexcept
+    : CreateBucketRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CreateBucketRequest& operator=(const CreateBucketRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreateBucketRequest& operator=(CreateBucketRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CreateBucketRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CreateBucketRequest* internal_default_instance() {
+    return reinterpret_cast<const CreateBucketRequest*>(
+               &_CreateBucketRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(CreateBucketRequest& a, CreateBucketRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CreateBucketRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CreateBucketRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CreateBucketRequest* New() const final {
+    return CreateMaybeMessage<CreateBucketRequest>(nullptr);
+  }
+
+  CreateBucketRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CreateBucketRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CreateBucketRequest& from);
+  void MergeFrom(const CreateBucketRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CreateBucketRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.CreateBucketRequest";
+  }
+  protected:
+  explicit CreateBucketRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kParentFieldNumber = 1,
+    kBucketIdFieldNumber = 3,
+    kBucketFieldNumber = 2,
+    kPredefinedAclFieldNumber = 4,
+    kPredefinedDefaultObjectAclFieldNumber = 5,
+  };
+  // string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_parent();
+  const std::string& parent() const;
+  void set_parent(const std::string& value);
+  void set_parent(std::string&& value);
+  void set_parent(const char* value);
+  void set_parent(const char* value, size_t size);
+  std::string* mutable_parent();
+  std::string* release_parent();
+  void set_allocated_parent(std::string* parent);
+  private:
+  const std::string& _internal_parent() const;
+  void _internal_set_parent(const std::string& value);
+  std::string* _internal_mutable_parent();
+  public:
+
+  // string bucket_id = 3 [(.google.api.field_behavior) = REQUIRED];
+  void clear_bucket_id();
+  const std::string& bucket_id() const;
+  void set_bucket_id(const std::string& value);
+  void set_bucket_id(std::string&& value);
+  void set_bucket_id(const char* value);
+  void set_bucket_id(const char* value, size_t size);
+  std::string* mutable_bucket_id();
+  std::string* release_bucket_id();
+  void set_allocated_bucket_id(std::string* bucket_id);
+  private:
+  const std::string& _internal_bucket_id() const;
+  void _internal_set_bucket_id(const std::string& value);
+  std::string* _internal_mutable_bucket_id();
+  public:
+
+  // .google.storage.v2.Bucket bucket = 2 [(.google.api.field_behavior) = REQUIRED];
+  bool has_bucket() const;
+  private:
+  bool _internal_has_bucket() const;
+  public:
+  void clear_bucket();
+  const ::google::storage::v2::Bucket& bucket() const;
+  ::google::storage::v2::Bucket* release_bucket();
+  ::google::storage::v2::Bucket* mutable_bucket();
+  void set_allocated_bucket(::google::storage::v2::Bucket* bucket);
+  private:
+  const ::google::storage::v2::Bucket& _internal_bucket() const;
+  ::google::storage::v2::Bucket* _internal_mutable_bucket();
+  public:
+  void unsafe_arena_set_allocated_bucket(
+      ::google::storage::v2::Bucket* bucket);
+  ::google::storage::v2::Bucket* unsafe_arena_release_bucket();
+
+  // .google.storage.v2.PredefinedBucketAcl predefined_acl = 4;
+  void clear_predefined_acl();
+  ::google::storage::v2::PredefinedBucketAcl predefined_acl() const;
+  void set_predefined_acl(::google::storage::v2::PredefinedBucketAcl value);
+  private:
+  ::google::storage::v2::PredefinedBucketAcl _internal_predefined_acl() const;
+  void _internal_set_predefined_acl(::google::storage::v2::PredefinedBucketAcl value);
+  public:
+
+  // .google.storage.v2.PredefinedObjectAcl predefined_default_object_acl = 5;
+  void clear_predefined_default_object_acl();
+  ::google::storage::v2::PredefinedObjectAcl predefined_default_object_acl() const;
+  void set_predefined_default_object_acl(::google::storage::v2::PredefinedObjectAcl value);
+  private:
+  ::google::storage::v2::PredefinedObjectAcl _internal_predefined_default_object_acl() const;
+  void _internal_set_predefined_default_object_acl(::google::storage::v2::PredefinedObjectAcl value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.CreateBucketRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr parent_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bucket_id_;
+  ::google::storage::v2::Bucket* bucket_;
+  int predefined_acl_;
+  int predefined_default_object_acl_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ListBucketsRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ListBucketsRequest) */ {
+ public:
+  inline ListBucketsRequest() : ListBucketsRequest(nullptr) {}
+  virtual ~ListBucketsRequest();
+  explicit constexpr ListBucketsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListBucketsRequest(const ListBucketsRequest& from);
+  ListBucketsRequest(ListBucketsRequest&& from) noexcept
+    : ListBucketsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ListBucketsRequest& operator=(const ListBucketsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListBucketsRequest& operator=(ListBucketsRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ListBucketsRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListBucketsRequest* internal_default_instance() {
+    return reinterpret_cast<const ListBucketsRequest*>(
+               &_ListBucketsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(ListBucketsRequest& a, ListBucketsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListBucketsRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListBucketsRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ListBucketsRequest* New() const final {
+    return CreateMaybeMessage<ListBucketsRequest>(nullptr);
+  }
+
+  ListBucketsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ListBucketsRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ListBucketsRequest& from);
+  void MergeFrom(const ListBucketsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ListBucketsRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ListBucketsRequest";
+  }
+  protected:
+  explicit ListBucketsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kParentFieldNumber = 1,
+    kPageTokenFieldNumber = 3,
+    kPrefixFieldNumber = 4,
+    kReadMaskFieldNumber = 5,
+    kCommonRequestParamsFieldNumber = 6,
+    kPageSizeFieldNumber = 2,
+  };
+  // string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_parent();
+  const std::string& parent() const;
+  void set_parent(const std::string& value);
+  void set_parent(std::string&& value);
+  void set_parent(const char* value);
+  void set_parent(const char* value, size_t size);
+  std::string* mutable_parent();
+  std::string* release_parent();
+  void set_allocated_parent(std::string* parent);
+  private:
+  const std::string& _internal_parent() const;
+  void _internal_set_parent(const std::string& value);
+  std::string* _internal_mutable_parent();
+  public:
+
+  // string page_token = 3;
+  void clear_page_token();
+  const std::string& page_token() const;
+  void set_page_token(const std::string& value);
+  void set_page_token(std::string&& value);
+  void set_page_token(const char* value);
+  void set_page_token(const char* value, size_t size);
+  std::string* mutable_page_token();
+  std::string* release_page_token();
+  void set_allocated_page_token(std::string* page_token);
+  private:
+  const std::string& _internal_page_token() const;
+  void _internal_set_page_token(const std::string& value);
+  std::string* _internal_mutable_page_token();
+  public:
+
+  // string prefix = 4;
+  void clear_prefix();
+  const std::string& prefix() const;
+  void set_prefix(const std::string& value);
+  void set_prefix(std::string&& value);
+  void set_prefix(const char* value);
+  void set_prefix(const char* value, size_t size);
+  std::string* mutable_prefix();
+  std::string* release_prefix();
+  void set_allocated_prefix(std::string* prefix);
+  private:
+  const std::string& _internal_prefix() const;
+  void _internal_set_prefix(const std::string& value);
+  std::string* _internal_mutable_prefix();
+  public:
+
+  // .google.protobuf.FieldMask read_mask = 5;
+  bool has_read_mask() const;
+  private:
+  bool _internal_has_read_mask() const;
+  public:
+  void clear_read_mask();
+  const PROTOBUF_NAMESPACE_ID::FieldMask& read_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* release_read_mask();
+  PROTOBUF_NAMESPACE_ID::FieldMask* mutable_read_mask();
+  void set_allocated_read_mask(PROTOBUF_NAMESPACE_ID::FieldMask* read_mask);
+  private:
+  const PROTOBUF_NAMESPACE_ID::FieldMask& _internal_read_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* _internal_mutable_read_mask();
+  public:
+  void unsafe_arena_set_allocated_read_mask(
+      PROTOBUF_NAMESPACE_ID::FieldMask* read_mask);
+  PROTOBUF_NAMESPACE_ID::FieldMask* unsafe_arena_release_read_mask();
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 6;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // int32 page_size = 2;
+  void clear_page_size();
+  ::PROTOBUF_NAMESPACE_ID::int32 page_size() const;
+  void set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_page_size() const;
+  void _internal_set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ListBucketsRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr parent_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr page_token_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr prefix_;
+  PROTOBUF_NAMESPACE_ID::FieldMask* read_mask_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::PROTOBUF_NAMESPACE_ID::int32 page_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ListBucketsResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ListBucketsResponse) */ {
+ public:
+  inline ListBucketsResponse() : ListBucketsResponse(nullptr) {}
+  virtual ~ListBucketsResponse();
+  explicit constexpr ListBucketsResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListBucketsResponse(const ListBucketsResponse& from);
+  ListBucketsResponse(ListBucketsResponse&& from) noexcept
+    : ListBucketsResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline ListBucketsResponse& operator=(const ListBucketsResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListBucketsResponse& operator=(ListBucketsResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ListBucketsResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListBucketsResponse* internal_default_instance() {
+    return reinterpret_cast<const ListBucketsResponse*>(
+               &_ListBucketsResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(ListBucketsResponse& a, ListBucketsResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListBucketsResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListBucketsResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ListBucketsResponse* New() const final {
+    return CreateMaybeMessage<ListBucketsResponse>(nullptr);
+  }
+
+  ListBucketsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ListBucketsResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ListBucketsResponse& from);
+  void MergeFrom(const ListBucketsResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ListBucketsResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ListBucketsResponse";
+  }
+  protected:
+  explicit ListBucketsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBucketsFieldNumber = 1,
+    kNextPageTokenFieldNumber = 2,
+  };
+  // repeated .google.storage.v2.Bucket buckets = 1;
+  int buckets_size() const;
+  private:
+  int _internal_buckets_size() const;
+  public:
+  void clear_buckets();
+  ::google::storage::v2::Bucket* mutable_buckets(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Bucket >*
+      mutable_buckets();
+  private:
+  const ::google::storage::v2::Bucket& _internal_buckets(int index) const;
+  ::google::storage::v2::Bucket* _internal_add_buckets();
+  public:
+  const ::google::storage::v2::Bucket& buckets(int index) const;
+  ::google::storage::v2::Bucket* add_buckets();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Bucket >&
+      buckets() const;
+
+  // string next_page_token = 2;
+  void clear_next_page_token();
+  const std::string& next_page_token() const;
+  void set_next_page_token(const std::string& value);
+  void set_next_page_token(std::string&& value);
+  void set_next_page_token(const char* value);
+  void set_next_page_token(const char* value, size_t size);
+  std::string* mutable_next_page_token();
+  std::string* release_next_page_token();
+  void set_allocated_next_page_token(std::string* next_page_token);
+  private:
+  const std::string& _internal_next_page_token() const;
+  void _internal_set_next_page_token(const std::string& value);
+  std::string* _internal_mutable_next_page_token();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ListBucketsResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Bucket > buckets_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr next_page_token_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LockBucketRetentionPolicyRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.LockBucketRetentionPolicyRequest) */ {
+ public:
+  inline LockBucketRetentionPolicyRequest() : LockBucketRetentionPolicyRequest(nullptr) {}
+  virtual ~LockBucketRetentionPolicyRequest();
+  explicit constexpr LockBucketRetentionPolicyRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  LockBucketRetentionPolicyRequest(const LockBucketRetentionPolicyRequest& from);
+  LockBucketRetentionPolicyRequest(LockBucketRetentionPolicyRequest&& from) noexcept
+    : LockBucketRetentionPolicyRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline LockBucketRetentionPolicyRequest& operator=(const LockBucketRetentionPolicyRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LockBucketRetentionPolicyRequest& operator=(LockBucketRetentionPolicyRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const LockBucketRetentionPolicyRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LockBucketRetentionPolicyRequest* internal_default_instance() {
+    return reinterpret_cast<const LockBucketRetentionPolicyRequest*>(
+               &_LockBucketRetentionPolicyRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(LockBucketRetentionPolicyRequest& a, LockBucketRetentionPolicyRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(LockBucketRetentionPolicyRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LockBucketRetentionPolicyRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LockBucketRetentionPolicyRequest* New() const final {
+    return CreateMaybeMessage<LockBucketRetentionPolicyRequest>(nullptr);
+  }
+
+  LockBucketRetentionPolicyRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<LockBucketRetentionPolicyRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const LockBucketRetentionPolicyRequest& from);
+  void MergeFrom(const LockBucketRetentionPolicyRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LockBucketRetentionPolicyRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.LockBucketRetentionPolicyRequest";
+  }
+  protected:
+  explicit LockBucketRetentionPolicyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBucketFieldNumber = 1,
+    kCommonRequestParamsFieldNumber = 3,
+    kIfMetagenerationMatchFieldNumber = 2,
+  };
+  // string bucket = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_bucket();
+  const std::string& bucket() const;
+  void set_bucket(const std::string& value);
+  void set_bucket(std::string&& value);
+  void set_bucket(const char* value);
+  void set_bucket(const char* value, size_t size);
+  std::string* mutable_bucket();
+  std::string* release_bucket();
+  void set_allocated_bucket(std::string* bucket);
+  private:
+  const std::string& _internal_bucket() const;
+  void _internal_set_bucket(const std::string& value);
+  std::string* _internal_mutable_bucket();
+  public:
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 3;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // int64 if_metageneration_match = 2;
+  void clear_if_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match() const;
+  void set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_match() const;
+  void _internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.LockBucketRetentionPolicyRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bucket_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UpdateBucketRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.UpdateBucketRequest) */ {
+ public:
+  inline UpdateBucketRequest() : UpdateBucketRequest(nullptr) {}
+  virtual ~UpdateBucketRequest();
+  explicit constexpr UpdateBucketRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateBucketRequest(const UpdateBucketRequest& from);
+  UpdateBucketRequest(UpdateBucketRequest&& from) noexcept
+    : UpdateBucketRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateBucketRequest& operator=(const UpdateBucketRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateBucketRequest& operator=(UpdateBucketRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UpdateBucketRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateBucketRequest* internal_default_instance() {
+    return reinterpret_cast<const UpdateBucketRequest*>(
+               &_UpdateBucketRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(UpdateBucketRequest& a, UpdateBucketRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateBucketRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateBucketRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UpdateBucketRequest* New() const final {
+    return CreateMaybeMessage<UpdateBucketRequest>(nullptr);
+  }
+
+  UpdateBucketRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UpdateBucketRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UpdateBucketRequest& from);
+  void MergeFrom(const UpdateBucketRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateBucketRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.UpdateBucketRequest";
+  }
+  protected:
+  explicit UpdateBucketRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBucketFieldNumber = 1,
+    kUpdateMaskFieldNumber = 6,
+    kCommonRequestParamsFieldNumber = 7,
+    kIfMetagenerationMatchFieldNumber = 2,
+    kIfMetagenerationNotMatchFieldNumber = 3,
+    kPredefinedAclFieldNumber = 4,
+    kPredefinedDefaultObjectAclFieldNumber = 5,
+  };
+  // .google.storage.v2.Bucket bucket = 1;
+  bool has_bucket() const;
+  private:
+  bool _internal_has_bucket() const;
+  public:
+  void clear_bucket();
+  const ::google::storage::v2::Bucket& bucket() const;
+  ::google::storage::v2::Bucket* release_bucket();
+  ::google::storage::v2::Bucket* mutable_bucket();
+  void set_allocated_bucket(::google::storage::v2::Bucket* bucket);
+  private:
+  const ::google::storage::v2::Bucket& _internal_bucket() const;
+  ::google::storage::v2::Bucket* _internal_mutable_bucket();
+  public:
+  void unsafe_arena_set_allocated_bucket(
+      ::google::storage::v2::Bucket* bucket);
+  ::google::storage::v2::Bucket* unsafe_arena_release_bucket();
+
+  // .google.protobuf.FieldMask update_mask = 6;
+  bool has_update_mask() const;
+  private:
+  bool _internal_has_update_mask() const;
+  public:
+  void clear_update_mask();
+  const PROTOBUF_NAMESPACE_ID::FieldMask& update_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* release_update_mask();
+  PROTOBUF_NAMESPACE_ID::FieldMask* mutable_update_mask();
+  void set_allocated_update_mask(PROTOBUF_NAMESPACE_ID::FieldMask* update_mask);
+  private:
+  const PROTOBUF_NAMESPACE_ID::FieldMask& _internal_update_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* _internal_mutable_update_mask();
+  public:
+  void unsafe_arena_set_allocated_update_mask(
+      PROTOBUF_NAMESPACE_ID::FieldMask* update_mask);
+  PROTOBUF_NAMESPACE_ID::FieldMask* unsafe_arena_release_update_mask();
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 7;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // int64 if_metageneration_match = 2;
+  bool has_if_metageneration_match() const;
+  private:
+  bool _internal_has_if_metageneration_match() const;
+  public:
+  void clear_if_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match() const;
+  void set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_match() const;
+  void _internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_not_match = 3;
+  bool has_if_metageneration_not_match() const;
+  private:
+  bool _internal_has_if_metageneration_not_match() const;
+  public:
+  void clear_if_metageneration_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match() const;
+  void set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_not_match() const;
+  void _internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // .google.storage.v2.PredefinedBucketAcl predefined_acl = 4;
+  void clear_predefined_acl();
+  ::google::storage::v2::PredefinedBucketAcl predefined_acl() const;
+  void set_predefined_acl(::google::storage::v2::PredefinedBucketAcl value);
+  private:
+  ::google::storage::v2::PredefinedBucketAcl _internal_predefined_acl() const;
+  void _internal_set_predefined_acl(::google::storage::v2::PredefinedBucketAcl value);
+  public:
+
+  // .google.storage.v2.PredefinedObjectAcl predefined_default_object_acl = 5;
+  void clear_predefined_default_object_acl();
+  ::google::storage::v2::PredefinedObjectAcl predefined_default_object_acl() const;
+  void set_predefined_default_object_acl(::google::storage::v2::PredefinedObjectAcl value);
+  private:
+  ::google::storage::v2::PredefinedObjectAcl _internal_predefined_default_object_acl() const;
+  void _internal_set_predefined_default_object_acl(::google::storage::v2::PredefinedObjectAcl value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.UpdateBucketRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::google::storage::v2::Bucket* bucket_;
+  PROTOBUF_NAMESPACE_ID::FieldMask* update_mask_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match_;
+  int predefined_acl_;
+  int predefined_default_object_acl_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteNotificationRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.DeleteNotificationRequest) */ {
+ public:
+  inline DeleteNotificationRequest() : DeleteNotificationRequest(nullptr) {}
+  virtual ~DeleteNotificationRequest();
+  explicit constexpr DeleteNotificationRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteNotificationRequest(const DeleteNotificationRequest& from);
+  DeleteNotificationRequest(DeleteNotificationRequest&& from) noexcept
+    : DeleteNotificationRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteNotificationRequest& operator=(const DeleteNotificationRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteNotificationRequest& operator=(DeleteNotificationRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const DeleteNotificationRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteNotificationRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteNotificationRequest*>(
+               &_DeleteNotificationRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(DeleteNotificationRequest& a, DeleteNotificationRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteNotificationRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteNotificationRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DeleteNotificationRequest* New() const final {
+    return CreateMaybeMessage<DeleteNotificationRequest>(nullptr);
+  }
+
+  DeleteNotificationRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DeleteNotificationRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const DeleteNotificationRequest& from);
+  void MergeFrom(const DeleteNotificationRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteNotificationRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.DeleteNotificationRequest";
+  }
+  protected:
+  explicit DeleteNotificationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+  };
+  // string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.DeleteNotificationRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetNotificationRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.GetNotificationRequest) */ {
+ public:
+  inline GetNotificationRequest() : GetNotificationRequest(nullptr) {}
+  virtual ~GetNotificationRequest();
+  explicit constexpr GetNotificationRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetNotificationRequest(const GetNotificationRequest& from);
+  GetNotificationRequest(GetNotificationRequest&& from) noexcept
+    : GetNotificationRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetNotificationRequest& operator=(const GetNotificationRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetNotificationRequest& operator=(GetNotificationRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetNotificationRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetNotificationRequest* internal_default_instance() {
+    return reinterpret_cast<const GetNotificationRequest*>(
+               &_GetNotificationRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(GetNotificationRequest& a, GetNotificationRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetNotificationRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetNotificationRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetNotificationRequest* New() const final {
+    return CreateMaybeMessage<GetNotificationRequest>(nullptr);
+  }
+
+  GetNotificationRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetNotificationRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetNotificationRequest& from);
+  void MergeFrom(const GetNotificationRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetNotificationRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.GetNotificationRequest";
+  }
+  protected:
+  explicit GetNotificationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+  };
+  // string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.GetNotificationRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CreateNotificationRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.CreateNotificationRequest) */ {
+ public:
+  inline CreateNotificationRequest() : CreateNotificationRequest(nullptr) {}
+  virtual ~CreateNotificationRequest();
+  explicit constexpr CreateNotificationRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CreateNotificationRequest(const CreateNotificationRequest& from);
+  CreateNotificationRequest(CreateNotificationRequest&& from) noexcept
+    : CreateNotificationRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CreateNotificationRequest& operator=(const CreateNotificationRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreateNotificationRequest& operator=(CreateNotificationRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CreateNotificationRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CreateNotificationRequest* internal_default_instance() {
+    return reinterpret_cast<const CreateNotificationRequest*>(
+               &_CreateNotificationRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(CreateNotificationRequest& a, CreateNotificationRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CreateNotificationRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CreateNotificationRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CreateNotificationRequest* New() const final {
+    return CreateMaybeMessage<CreateNotificationRequest>(nullptr);
+  }
+
+  CreateNotificationRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CreateNotificationRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CreateNotificationRequest& from);
+  void MergeFrom(const CreateNotificationRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CreateNotificationRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.CreateNotificationRequest";
+  }
+  protected:
+  explicit CreateNotificationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kParentFieldNumber = 1,
+    kNotificationFieldNumber = 2,
+  };
+  // string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_parent();
+  const std::string& parent() const;
+  void set_parent(const std::string& value);
+  void set_parent(std::string&& value);
+  void set_parent(const char* value);
+  void set_parent(const char* value, size_t size);
+  std::string* mutable_parent();
+  std::string* release_parent();
+  void set_allocated_parent(std::string* parent);
+  private:
+  const std::string& _internal_parent() const;
+  void _internal_set_parent(const std::string& value);
+  std::string* _internal_mutable_parent();
+  public:
+
+  // .google.storage.v2.Notification notification = 2 [(.google.api.field_behavior) = REQUIRED];
+  bool has_notification() const;
+  private:
+  bool _internal_has_notification() const;
+  public:
+  void clear_notification();
+  const ::google::storage::v2::Notification& notification() const;
+  ::google::storage::v2::Notification* release_notification();
+  ::google::storage::v2::Notification* mutable_notification();
+  void set_allocated_notification(::google::storage::v2::Notification* notification);
+  private:
+  const ::google::storage::v2::Notification& _internal_notification() const;
+  ::google::storage::v2::Notification* _internal_mutable_notification();
+  public:
+  void unsafe_arena_set_allocated_notification(
+      ::google::storage::v2::Notification* notification);
+  ::google::storage::v2::Notification* unsafe_arena_release_notification();
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.CreateNotificationRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr parent_;
+  ::google::storage::v2::Notification* notification_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ListNotificationsRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ListNotificationsRequest) */ {
+ public:
+  inline ListNotificationsRequest() : ListNotificationsRequest(nullptr) {}
+  virtual ~ListNotificationsRequest();
+  explicit constexpr ListNotificationsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListNotificationsRequest(const ListNotificationsRequest& from);
+  ListNotificationsRequest(ListNotificationsRequest&& from) noexcept
+    : ListNotificationsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ListNotificationsRequest& operator=(const ListNotificationsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListNotificationsRequest& operator=(ListNotificationsRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ListNotificationsRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListNotificationsRequest* internal_default_instance() {
+    return reinterpret_cast<const ListNotificationsRequest*>(
+               &_ListNotificationsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(ListNotificationsRequest& a, ListNotificationsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListNotificationsRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListNotificationsRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ListNotificationsRequest* New() const final {
+    return CreateMaybeMessage<ListNotificationsRequest>(nullptr);
+  }
+
+  ListNotificationsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ListNotificationsRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ListNotificationsRequest& from);
+  void MergeFrom(const ListNotificationsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ListNotificationsRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ListNotificationsRequest";
+  }
+  protected:
+  explicit ListNotificationsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kParentFieldNumber = 1,
+    kPageTokenFieldNumber = 3,
+    kPageSizeFieldNumber = 2,
+  };
+  // string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_parent();
+  const std::string& parent() const;
+  void set_parent(const std::string& value);
+  void set_parent(std::string&& value);
+  void set_parent(const char* value);
+  void set_parent(const char* value, size_t size);
+  std::string* mutable_parent();
+  std::string* release_parent();
+  void set_allocated_parent(std::string* parent);
+  private:
+  const std::string& _internal_parent() const;
+  void _internal_set_parent(const std::string& value);
+  std::string* _internal_mutable_parent();
+  public:
+
+  // string page_token = 3;
+  void clear_page_token();
+  const std::string& page_token() const;
+  void set_page_token(const std::string& value);
+  void set_page_token(std::string&& value);
+  void set_page_token(const char* value);
+  void set_page_token(const char* value, size_t size);
+  std::string* mutable_page_token();
+  std::string* release_page_token();
+  void set_allocated_page_token(std::string* page_token);
+  private:
+  const std::string& _internal_page_token() const;
+  void _internal_set_page_token(const std::string& value);
+  std::string* _internal_mutable_page_token();
+  public:
+
+  // int32 page_size = 2;
+  void clear_page_size();
+  ::PROTOBUF_NAMESPACE_ID::int32 page_size() const;
+  void set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_page_size() const;
+  void _internal_set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ListNotificationsRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr parent_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr page_token_;
+  ::PROTOBUF_NAMESPACE_ID::int32 page_size_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ListNotificationsResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ListNotificationsResponse) */ {
+ public:
+  inline ListNotificationsResponse() : ListNotificationsResponse(nullptr) {}
+  virtual ~ListNotificationsResponse();
+  explicit constexpr ListNotificationsResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListNotificationsResponse(const ListNotificationsResponse& from);
+  ListNotificationsResponse(ListNotificationsResponse&& from) noexcept
+    : ListNotificationsResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline ListNotificationsResponse& operator=(const ListNotificationsResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListNotificationsResponse& operator=(ListNotificationsResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ListNotificationsResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListNotificationsResponse* internal_default_instance() {
+    return reinterpret_cast<const ListNotificationsResponse*>(
+               &_ListNotificationsResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(ListNotificationsResponse& a, ListNotificationsResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListNotificationsResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListNotificationsResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ListNotificationsResponse* New() const final {
+    return CreateMaybeMessage<ListNotificationsResponse>(nullptr);
+  }
+
+  ListNotificationsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ListNotificationsResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ListNotificationsResponse& from);
+  void MergeFrom(const ListNotificationsResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ListNotificationsResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ListNotificationsResponse";
+  }
+  protected:
+  explicit ListNotificationsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNotificationsFieldNumber = 1,
+    kNextPageTokenFieldNumber = 2,
+  };
+  // repeated .google.storage.v2.Notification notifications = 1;
+  int notifications_size() const;
+  private:
+  int _internal_notifications_size() const;
+  public:
+  void clear_notifications();
+  ::google::storage::v2::Notification* mutable_notifications(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Notification >*
+      mutable_notifications();
+  private:
+  const ::google::storage::v2::Notification& _internal_notifications(int index) const;
+  ::google::storage::v2::Notification* _internal_add_notifications();
+  public:
+  const ::google::storage::v2::Notification& notifications(int index) const;
+  ::google::storage::v2::Notification* add_notifications();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Notification >&
+      notifications() const;
+
+  // string next_page_token = 2;
+  void clear_next_page_token();
+  const std::string& next_page_token() const;
+  void set_next_page_token(const std::string& value);
+  void set_next_page_token(std::string&& value);
+  void set_next_page_token(const char* value);
+  void set_next_page_token(const char* value, size_t size);
+  std::string* mutable_next_page_token();
+  std::string* release_next_page_token();
+  void set_allocated_next_page_token(std::string* next_page_token);
+  private:
+  const std::string& _internal_next_page_token() const;
+  void _internal_set_next_page_token(const std::string& value);
+  std::string* _internal_mutable_next_page_token();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ListNotificationsResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Notification > notifications_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr next_page_token_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ComposeObjectRequest_SourceObject_ObjectPreconditions PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ComposeObjectRequest.SourceObject.ObjectPreconditions) */ {
+ public:
+  inline ComposeObjectRequest_SourceObject_ObjectPreconditions() : ComposeObjectRequest_SourceObject_ObjectPreconditions(nullptr) {}
+  virtual ~ComposeObjectRequest_SourceObject_ObjectPreconditions();
+  explicit constexpr ComposeObjectRequest_SourceObject_ObjectPreconditions(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ComposeObjectRequest_SourceObject_ObjectPreconditions(const ComposeObjectRequest_SourceObject_ObjectPreconditions& from);
+  ComposeObjectRequest_SourceObject_ObjectPreconditions(ComposeObjectRequest_SourceObject_ObjectPreconditions&& from) noexcept
+    : ComposeObjectRequest_SourceObject_ObjectPreconditions() {
+    *this = ::std::move(from);
+  }
+
+  inline ComposeObjectRequest_SourceObject_ObjectPreconditions& operator=(const ComposeObjectRequest_SourceObject_ObjectPreconditions& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ComposeObjectRequest_SourceObject_ObjectPreconditions& operator=(ComposeObjectRequest_SourceObject_ObjectPreconditions&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ComposeObjectRequest_SourceObject_ObjectPreconditions& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ComposeObjectRequest_SourceObject_ObjectPreconditions* internal_default_instance() {
+    return reinterpret_cast<const ComposeObjectRequest_SourceObject_ObjectPreconditions*>(
+               &_ComposeObjectRequest_SourceObject_ObjectPreconditions_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(ComposeObjectRequest_SourceObject_ObjectPreconditions& a, ComposeObjectRequest_SourceObject_ObjectPreconditions& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ComposeObjectRequest_SourceObject_ObjectPreconditions* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ComposeObjectRequest_SourceObject_ObjectPreconditions* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ComposeObjectRequest_SourceObject_ObjectPreconditions* New() const final {
+    return CreateMaybeMessage<ComposeObjectRequest_SourceObject_ObjectPreconditions>(nullptr);
+  }
+
+  ComposeObjectRequest_SourceObject_ObjectPreconditions* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ComposeObjectRequest_SourceObject_ObjectPreconditions>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ComposeObjectRequest_SourceObject_ObjectPreconditions& from);
+  void MergeFrom(const ComposeObjectRequest_SourceObject_ObjectPreconditions& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ComposeObjectRequest_SourceObject_ObjectPreconditions* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ComposeObjectRequest.SourceObject.ObjectPreconditions";
+  }
+  protected:
+  explicit ComposeObjectRequest_SourceObject_ObjectPreconditions(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIfGenerationMatchFieldNumber = 1,
+  };
+  // int64 if_generation_match = 1;
+  bool has_if_generation_match() const;
+  private:
+  bool _internal_has_if_generation_match() const;
+  public:
+  void clear_if_generation_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match() const;
+  void set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_match() const;
+  void _internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ComposeObjectRequest.SourceObject.ObjectPreconditions)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ComposeObjectRequest_SourceObject PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ComposeObjectRequest.SourceObject) */ {
+ public:
+  inline ComposeObjectRequest_SourceObject() : ComposeObjectRequest_SourceObject(nullptr) {}
+  virtual ~ComposeObjectRequest_SourceObject();
+  explicit constexpr ComposeObjectRequest_SourceObject(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ComposeObjectRequest_SourceObject(const ComposeObjectRequest_SourceObject& from);
+  ComposeObjectRequest_SourceObject(ComposeObjectRequest_SourceObject&& from) noexcept
+    : ComposeObjectRequest_SourceObject() {
+    *this = ::std::move(from);
+  }
+
+  inline ComposeObjectRequest_SourceObject& operator=(const ComposeObjectRequest_SourceObject& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ComposeObjectRequest_SourceObject& operator=(ComposeObjectRequest_SourceObject&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ComposeObjectRequest_SourceObject& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ComposeObjectRequest_SourceObject* internal_default_instance() {
+    return reinterpret_cast<const ComposeObjectRequest_SourceObject*>(
+               &_ComposeObjectRequest_SourceObject_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(ComposeObjectRequest_SourceObject& a, ComposeObjectRequest_SourceObject& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ComposeObjectRequest_SourceObject* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ComposeObjectRequest_SourceObject* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ComposeObjectRequest_SourceObject* New() const final {
+    return CreateMaybeMessage<ComposeObjectRequest_SourceObject>(nullptr);
+  }
+
+  ComposeObjectRequest_SourceObject* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ComposeObjectRequest_SourceObject>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ComposeObjectRequest_SourceObject& from);
+  void MergeFrom(const ComposeObjectRequest_SourceObject& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ComposeObjectRequest_SourceObject* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ComposeObjectRequest.SourceObject";
+  }
+  protected:
+  explicit ComposeObjectRequest_SourceObject(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  typedef ComposeObjectRequest_SourceObject_ObjectPreconditions ObjectPreconditions;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kObjectPreconditionsFieldNumber = 3,
+    kGenerationFieldNumber = 2,
+  };
+  // string name = 1 [(.google.api.field_behavior) = REQUIRED];
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // .google.storage.v2.ComposeObjectRequest.SourceObject.ObjectPreconditions object_preconditions = 3;
+  bool has_object_preconditions() const;
+  private:
+  bool _internal_has_object_preconditions() const;
+  public:
+  void clear_object_preconditions();
+  const ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions& object_preconditions() const;
+  ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* release_object_preconditions();
+  ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* mutable_object_preconditions();
+  void set_allocated_object_preconditions(::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* object_preconditions);
+  private:
+  const ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions& _internal_object_preconditions() const;
+  ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* _internal_mutable_object_preconditions();
+  public:
+  void unsafe_arena_set_allocated_object_preconditions(
+      ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* object_preconditions);
+  ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* unsafe_arena_release_object_preconditions();
+
+  // int64 generation = 2;
+  void clear_generation();
+  ::PROTOBUF_NAMESPACE_ID::int64 generation() const;
+  void set_generation(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_generation() const;
+  void _internal_set_generation(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ComposeObjectRequest.SourceObject)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* object_preconditions_;
+  ::PROTOBUF_NAMESPACE_ID::int64 generation_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ComposeObjectRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ComposeObjectRequest) */ {
+ public:
+  inline ComposeObjectRequest() : ComposeObjectRequest(nullptr) {}
+  virtual ~ComposeObjectRequest();
+  explicit constexpr ComposeObjectRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ComposeObjectRequest(const ComposeObjectRequest& from);
+  ComposeObjectRequest(ComposeObjectRequest&& from) noexcept
+    : ComposeObjectRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ComposeObjectRequest& operator=(const ComposeObjectRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ComposeObjectRequest& operator=(ComposeObjectRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ComposeObjectRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ComposeObjectRequest* internal_default_instance() {
+    return reinterpret_cast<const ComposeObjectRequest*>(
+               &_ComposeObjectRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(ComposeObjectRequest& a, ComposeObjectRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ComposeObjectRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ComposeObjectRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ComposeObjectRequest* New() const final {
+    return CreateMaybeMessage<ComposeObjectRequest>(nullptr);
+  }
+
+  ComposeObjectRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ComposeObjectRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ComposeObjectRequest& from);
+  void MergeFrom(const ComposeObjectRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ComposeObjectRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ComposeObjectRequest";
+  }
+  protected:
+  explicit ComposeObjectRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  typedef ComposeObjectRequest_SourceObject SourceObject;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSourceObjectsFieldNumber = 2,
+    kKmsKeyFieldNumber = 6,
+    kDestinationFieldNumber = 1,
+    kCommonObjectRequestParamsFieldNumber = 7,
+    kCommonRequestParamsFieldNumber = 8,
+    kIfGenerationMatchFieldNumber = 4,
+    kIfMetagenerationMatchFieldNumber = 5,
+    kDestinationPredefinedAclFieldNumber = 3,
+  };
+  // repeated .google.storage.v2.ComposeObjectRequest.SourceObject source_objects = 2;
+  int source_objects_size() const;
+  private:
+  int _internal_source_objects_size() const;
+  public:
+  void clear_source_objects();
+  ::google::storage::v2::ComposeObjectRequest_SourceObject* mutable_source_objects(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::ComposeObjectRequest_SourceObject >*
+      mutable_source_objects();
+  private:
+  const ::google::storage::v2::ComposeObjectRequest_SourceObject& _internal_source_objects(int index) const;
+  ::google::storage::v2::ComposeObjectRequest_SourceObject* _internal_add_source_objects();
+  public:
+  const ::google::storage::v2::ComposeObjectRequest_SourceObject& source_objects(int index) const;
+  ::google::storage::v2::ComposeObjectRequest_SourceObject* add_source_objects();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::ComposeObjectRequest_SourceObject >&
+      source_objects() const;
+
+  // string kms_key = 6 [(.google.api.resource_reference) = {
+  void clear_kms_key();
+  const std::string& kms_key() const;
+  void set_kms_key(const std::string& value);
+  void set_kms_key(std::string&& value);
+  void set_kms_key(const char* value);
+  void set_kms_key(const char* value, size_t size);
+  std::string* mutable_kms_key();
+  std::string* release_kms_key();
+  void set_allocated_kms_key(std::string* kms_key);
+  private:
+  const std::string& _internal_kms_key() const;
+  void _internal_set_kms_key(const std::string& value);
+  std::string* _internal_mutable_kms_key();
+  public:
+
+  // .google.storage.v2.Object destination = 1 [(.google.api.field_behavior) = REQUIRED];
+  bool has_destination() const;
+  private:
+  bool _internal_has_destination() const;
+  public:
+  void clear_destination();
+  const ::google::storage::v2::Object& destination() const;
+  ::google::storage::v2::Object* release_destination();
+  ::google::storage::v2::Object* mutable_destination();
+  void set_allocated_destination(::google::storage::v2::Object* destination);
+  private:
+  const ::google::storage::v2::Object& _internal_destination() const;
+  ::google::storage::v2::Object* _internal_mutable_destination();
+  public:
+  void unsafe_arena_set_allocated_destination(
+      ::google::storage::v2::Object* destination);
+  ::google::storage::v2::Object* unsafe_arena_release_destination();
+
+  // .google.storage.v2.CommonObjectRequestParams common_object_request_params = 7;
+  bool has_common_object_request_params() const;
+  private:
+  bool _internal_has_common_object_request_params() const;
+  public:
+  void clear_common_object_request_params();
+  const ::google::storage::v2::CommonObjectRequestParams& common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* release_common_object_request_params();
+  ::google::storage::v2::CommonObjectRequestParams* mutable_common_object_request_params();
+  void set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  private:
+  const ::google::storage::v2::CommonObjectRequestParams& _internal_common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* _internal_mutable_common_object_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_object_request_params(
+      ::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  ::google::storage::v2::CommonObjectRequestParams* unsafe_arena_release_common_object_request_params();
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 8;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // int64 if_generation_match = 4;
+  bool has_if_generation_match() const;
+  private:
+  bool _internal_has_if_generation_match() const;
+  public:
+  void clear_if_generation_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match() const;
+  void set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_match() const;
+  void _internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_match = 5;
+  bool has_if_metageneration_match() const;
+  private:
+  bool _internal_has_if_metageneration_match() const;
+  public:
+  void clear_if_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match() const;
+  void set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_match() const;
+  void _internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // .google.storage.v2.PredefinedObjectAcl destination_predefined_acl = 3;
+  void clear_destination_predefined_acl();
+  ::google::storage::v2::PredefinedObjectAcl destination_predefined_acl() const;
+  void set_destination_predefined_acl(::google::storage::v2::PredefinedObjectAcl value);
+  private:
+  ::google::storage::v2::PredefinedObjectAcl _internal_destination_predefined_acl() const;
+  void _internal_set_destination_predefined_acl(::google::storage::v2::PredefinedObjectAcl value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ComposeObjectRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::ComposeObjectRequest_SourceObject > source_objects_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr kms_key_;
+  ::google::storage::v2::Object* destination_;
+  ::google::storage::v2::CommonObjectRequestParams* common_object_request_params_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match_;
+  int destination_predefined_acl_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteObjectRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.DeleteObjectRequest) */ {
+ public:
+  inline DeleteObjectRequest() : DeleteObjectRequest(nullptr) {}
+  virtual ~DeleteObjectRequest();
+  explicit constexpr DeleteObjectRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteObjectRequest(const DeleteObjectRequest& from);
+  DeleteObjectRequest(DeleteObjectRequest&& from) noexcept
+    : DeleteObjectRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteObjectRequest& operator=(const DeleteObjectRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteObjectRequest& operator=(DeleteObjectRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const DeleteObjectRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteObjectRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteObjectRequest*>(
+               &_DeleteObjectRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(DeleteObjectRequest& a, DeleteObjectRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteObjectRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteObjectRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DeleteObjectRequest* New() const final {
+    return CreateMaybeMessage<DeleteObjectRequest>(nullptr);
+  }
+
+  DeleteObjectRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DeleteObjectRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const DeleteObjectRequest& from);
+  void MergeFrom(const DeleteObjectRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteObjectRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.DeleteObjectRequest";
+  }
+  protected:
+  explicit DeleteObjectRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBucketFieldNumber = 1,
+    kObjectFieldNumber = 2,
+    kUploadIdFieldNumber = 3,
+    kCommonObjectRequestParamsFieldNumber = 10,
+    kCommonRequestParamsFieldNumber = 11,
+    kGenerationFieldNumber = 4,
+    kIfGenerationMatchFieldNumber = 5,
+    kIfGenerationNotMatchFieldNumber = 6,
+    kIfMetagenerationMatchFieldNumber = 7,
+    kIfMetagenerationNotMatchFieldNumber = 8,
+  };
+  // string bucket = 1 [(.google.api.field_behavior) = REQUIRED];
+  void clear_bucket();
+  const std::string& bucket() const;
+  void set_bucket(const std::string& value);
+  void set_bucket(std::string&& value);
+  void set_bucket(const char* value);
+  void set_bucket(const char* value, size_t size);
+  std::string* mutable_bucket();
+  std::string* release_bucket();
+  void set_allocated_bucket(std::string* bucket);
+  private:
+  const std::string& _internal_bucket() const;
+  void _internal_set_bucket(const std::string& value);
+  std::string* _internal_mutable_bucket();
+  public:
+
+  // string object = 2 [(.google.api.field_behavior) = REQUIRED];
+  void clear_object();
+  const std::string& object() const;
+  void set_object(const std::string& value);
+  void set_object(std::string&& value);
+  void set_object(const char* value);
+  void set_object(const char* value, size_t size);
+  std::string* mutable_object();
+  std::string* release_object();
+  void set_allocated_object(std::string* object);
+  private:
+  const std::string& _internal_object() const;
+  void _internal_set_object(const std::string& value);
+  std::string* _internal_mutable_object();
+  public:
+
+  // string upload_id = 3;
+  void clear_upload_id();
+  const std::string& upload_id() const;
+  void set_upload_id(const std::string& value);
+  void set_upload_id(std::string&& value);
+  void set_upload_id(const char* value);
+  void set_upload_id(const char* value, size_t size);
+  std::string* mutable_upload_id();
+  std::string* release_upload_id();
+  void set_allocated_upload_id(std::string* upload_id);
+  private:
+  const std::string& _internal_upload_id() const;
+  void _internal_set_upload_id(const std::string& value);
+  std::string* _internal_mutable_upload_id();
+  public:
+
+  // .google.storage.v2.CommonObjectRequestParams common_object_request_params = 10;
+  bool has_common_object_request_params() const;
+  private:
+  bool _internal_has_common_object_request_params() const;
+  public:
+  void clear_common_object_request_params();
+  const ::google::storage::v2::CommonObjectRequestParams& common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* release_common_object_request_params();
+  ::google::storage::v2::CommonObjectRequestParams* mutable_common_object_request_params();
+  void set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  private:
+  const ::google::storage::v2::CommonObjectRequestParams& _internal_common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* _internal_mutable_common_object_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_object_request_params(
+      ::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  ::google::storage::v2::CommonObjectRequestParams* unsafe_arena_release_common_object_request_params();
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 11;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // int64 generation = 4;
+  void clear_generation();
+  ::PROTOBUF_NAMESPACE_ID::int64 generation() const;
+  void set_generation(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_generation() const;
+  void _internal_set_generation(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_generation_match = 5;
+  bool has_if_generation_match() const;
+  private:
+  bool _internal_has_if_generation_match() const;
+  public:
+  void clear_if_generation_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match() const;
+  void set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_match() const;
+  void _internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_generation_not_match = 6;
+  bool has_if_generation_not_match() const;
+  private:
+  bool _internal_has_if_generation_not_match() const;
+  public:
+  void clear_if_generation_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_not_match() const;
+  void set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_not_match() const;
+  void _internal_set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_match = 7;
+  bool has_if_metageneration_match() const;
+  private:
+  bool _internal_has_if_metageneration_match() const;
+  public:
+  void clear_if_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match() const;
+  void set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_match() const;
+  void _internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_not_match = 8;
+  bool has_if_metageneration_not_match() const;
+  private:
+  bool _internal_has_if_metageneration_not_match() const;
+  public:
+  void clear_if_metageneration_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match() const;
+  void set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_not_match() const;
+  void _internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.DeleteObjectRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bucket_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr object_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr upload_id_;
+  ::google::storage::v2::CommonObjectRequestParams* common_object_request_params_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::PROTOBUF_NAMESPACE_ID::int64 generation_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_not_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
 
 class ReadObjectRequest PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ReadObjectRequest) */ {
@@ -368,7 +3630,7 @@ class ReadObjectRequest PROTOBUF_FINAL :
                &_ReadObjectRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    16;
 
   friend void swap(ReadObjectRequest& a, ReadObjectRequest& b) {
     a.Swap(&b);
@@ -641,6 +3903,300 @@ class ReadObjectRequest PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class GetObjectRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.GetObjectRequest) */ {
+ public:
+  inline GetObjectRequest() : GetObjectRequest(nullptr) {}
+  virtual ~GetObjectRequest();
+  explicit constexpr GetObjectRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetObjectRequest(const GetObjectRequest& from);
+  GetObjectRequest(GetObjectRequest&& from) noexcept
+    : GetObjectRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetObjectRequest& operator=(const GetObjectRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetObjectRequest& operator=(GetObjectRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetObjectRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetObjectRequest* internal_default_instance() {
+    return reinterpret_cast<const GetObjectRequest*>(
+               &_GetObjectRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(GetObjectRequest& a, GetObjectRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetObjectRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetObjectRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetObjectRequest* New() const final {
+    return CreateMaybeMessage<GetObjectRequest>(nullptr);
+  }
+
+  GetObjectRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetObjectRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetObjectRequest& from);
+  void MergeFrom(const GetObjectRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetObjectRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.GetObjectRequest";
+  }
+  protected:
+  explicit GetObjectRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBucketFieldNumber = 1,
+    kObjectFieldNumber = 2,
+    kCommonObjectRequestParamsFieldNumber = 8,
+    kCommonRequestParamsFieldNumber = 9,
+    kReadMaskFieldNumber = 10,
+    kGenerationFieldNumber = 3,
+    kIfGenerationMatchFieldNumber = 4,
+    kIfGenerationNotMatchFieldNumber = 5,
+    kIfMetagenerationMatchFieldNumber = 6,
+    kIfMetagenerationNotMatchFieldNumber = 7,
+  };
+  // string bucket = 1 [(.google.api.field_behavior) = REQUIRED];
+  void clear_bucket();
+  const std::string& bucket() const;
+  void set_bucket(const std::string& value);
+  void set_bucket(std::string&& value);
+  void set_bucket(const char* value);
+  void set_bucket(const char* value, size_t size);
+  std::string* mutable_bucket();
+  std::string* release_bucket();
+  void set_allocated_bucket(std::string* bucket);
+  private:
+  const std::string& _internal_bucket() const;
+  void _internal_set_bucket(const std::string& value);
+  std::string* _internal_mutable_bucket();
+  public:
+
+  // string object = 2 [(.google.api.field_behavior) = REQUIRED];
+  void clear_object();
+  const std::string& object() const;
+  void set_object(const std::string& value);
+  void set_object(std::string&& value);
+  void set_object(const char* value);
+  void set_object(const char* value, size_t size);
+  std::string* mutable_object();
+  std::string* release_object();
+  void set_allocated_object(std::string* object);
+  private:
+  const std::string& _internal_object() const;
+  void _internal_set_object(const std::string& value);
+  std::string* _internal_mutable_object();
+  public:
+
+  // .google.storage.v2.CommonObjectRequestParams common_object_request_params = 8;
+  bool has_common_object_request_params() const;
+  private:
+  bool _internal_has_common_object_request_params() const;
+  public:
+  void clear_common_object_request_params();
+  const ::google::storage::v2::CommonObjectRequestParams& common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* release_common_object_request_params();
+  ::google::storage::v2::CommonObjectRequestParams* mutable_common_object_request_params();
+  void set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  private:
+  const ::google::storage::v2::CommonObjectRequestParams& _internal_common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* _internal_mutable_common_object_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_object_request_params(
+      ::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  ::google::storage::v2::CommonObjectRequestParams* unsafe_arena_release_common_object_request_params();
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 9;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // .google.protobuf.FieldMask read_mask = 10;
+  bool has_read_mask() const;
+  private:
+  bool _internal_has_read_mask() const;
+  public:
+  void clear_read_mask();
+  const PROTOBUF_NAMESPACE_ID::FieldMask& read_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* release_read_mask();
+  PROTOBUF_NAMESPACE_ID::FieldMask* mutable_read_mask();
+  void set_allocated_read_mask(PROTOBUF_NAMESPACE_ID::FieldMask* read_mask);
+  private:
+  const PROTOBUF_NAMESPACE_ID::FieldMask& _internal_read_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* _internal_mutable_read_mask();
+  public:
+  void unsafe_arena_set_allocated_read_mask(
+      PROTOBUF_NAMESPACE_ID::FieldMask* read_mask);
+  PROTOBUF_NAMESPACE_ID::FieldMask* unsafe_arena_release_read_mask();
+
+  // int64 generation = 3;
+  void clear_generation();
+  ::PROTOBUF_NAMESPACE_ID::int64 generation() const;
+  void set_generation(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_generation() const;
+  void _internal_set_generation(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_generation_match = 4;
+  bool has_if_generation_match() const;
+  private:
+  bool _internal_has_if_generation_match() const;
+  public:
+  void clear_if_generation_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match() const;
+  void set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_match() const;
+  void _internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_generation_not_match = 5;
+  bool has_if_generation_not_match() const;
+  private:
+  bool _internal_has_if_generation_not_match() const;
+  public:
+  void clear_if_generation_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_not_match() const;
+  void set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_not_match() const;
+  void _internal_set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_match = 6;
+  bool has_if_metageneration_match() const;
+  private:
+  bool _internal_has_if_metageneration_match() const;
+  public:
+  void clear_if_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match() const;
+  void set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_match() const;
+  void _internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_not_match = 7;
+  bool has_if_metageneration_not_match() const;
+  private:
+  bool _internal_has_if_metageneration_not_match() const;
+  public:
+  void clear_if_metageneration_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match() const;
+  void set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_not_match() const;
+  void _internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.GetObjectRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bucket_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr object_;
+  ::google::storage::v2::CommonObjectRequestParams* common_object_request_params_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  PROTOBUF_NAMESPACE_ID::FieldMask* read_mask_;
+  ::PROTOBUF_NAMESPACE_ID::int64 generation_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_not_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ReadObjectResponse PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ReadObjectResponse) */ {
  public:
@@ -684,7 +4240,7 @@ class ReadObjectResponse PROTOBUF_FINAL :
                &_ReadObjectResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    18;
 
   friend void swap(ReadObjectResponse& a, ReadObjectResponse& b) {
     a.Swap(&b);
@@ -890,7 +4446,7 @@ class WriteObjectSpec PROTOBUF_FINAL :
                &_WriteObjectSpec_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    19;
 
   friend void swap(WriteObjectSpec& a, WriteObjectSpec& b) {
     a.Swap(&b);
@@ -1119,7 +4675,7 @@ class WriteObjectRequest PROTOBUF_FINAL :
                &_WriteObjectRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    20;
 
   friend void swap(WriteObjectRequest& a, WriteObjectRequest& b) {
     a.Swap(&b);
@@ -1408,7 +4964,7 @@ class WriteObjectResponse PROTOBUF_FINAL :
     return *internal_default_instance();
   }
   enum WriteStatusCase {
-    kCommittedSize = 1,
+    kPersistedSize = 1,
     kResource = 2,
     WRITE_STATUS_NOT_SET = 0,
   };
@@ -1418,7 +4974,7 @@ class WriteObjectResponse PROTOBUF_FINAL :
                &_WriteObjectResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    21;
 
   friend void swap(WriteObjectResponse& a, WriteObjectResponse& b) {
     a.Swap(&b);
@@ -1488,20 +5044,20 @@ class WriteObjectResponse PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCommittedSizeFieldNumber = 1,
+    kPersistedSizeFieldNumber = 1,
     kResourceFieldNumber = 2,
   };
-  // int64 committed_size = 1;
-  bool has_committed_size() const;
+  // int64 persisted_size = 1;
+  bool has_persisted_size() const;
   private:
-  bool _internal_has_committed_size() const;
+  bool _internal_has_persisted_size() const;
   public:
-  void clear_committed_size();
-  ::PROTOBUF_NAMESPACE_ID::int64 committed_size() const;
-  void set_committed_size(::PROTOBUF_NAMESPACE_ID::int64 value);
+  void clear_persisted_size();
+  ::PROTOBUF_NAMESPACE_ID::int64 persisted_size() const;
+  void set_persisted_size(::PROTOBUF_NAMESPACE_ID::int64 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_committed_size() const;
-  void _internal_set_committed_size(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_persisted_size() const;
+  void _internal_set_persisted_size(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
   // .google.storage.v2.Object resource = 2;
@@ -1527,7 +5083,7 @@ class WriteObjectResponse PROTOBUF_FINAL :
   // @@protoc_insertion_point(class_scope:google.storage.v2.WriteObjectResponse)
  private:
   class _Internal;
-  void set_has_committed_size();
+  void set_has_persisted_size();
   void set_has_resource();
 
   inline bool has_write_status() const;
@@ -1539,12 +5095,320 @@ class WriteObjectResponse PROTOBUF_FINAL :
   union WriteStatusUnion {
     constexpr WriteStatusUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    ::PROTOBUF_NAMESPACE_ID::int64 committed_size_;
+    ::PROTOBUF_NAMESPACE_ID::int64 persisted_size_;
     ::google::storage::v2::Object* resource_;
   } write_status_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::uint32 _oneof_case_[1];
 
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ListObjectsRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ListObjectsRequest) */ {
+ public:
+  inline ListObjectsRequest() : ListObjectsRequest(nullptr) {}
+  virtual ~ListObjectsRequest();
+  explicit constexpr ListObjectsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListObjectsRequest(const ListObjectsRequest& from);
+  ListObjectsRequest(ListObjectsRequest&& from) noexcept
+    : ListObjectsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ListObjectsRequest& operator=(const ListObjectsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListObjectsRequest& operator=(ListObjectsRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ListObjectsRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListObjectsRequest* internal_default_instance() {
+    return reinterpret_cast<const ListObjectsRequest*>(
+               &_ListObjectsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    22;
+
+  friend void swap(ListObjectsRequest& a, ListObjectsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListObjectsRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListObjectsRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ListObjectsRequest* New() const final {
+    return CreateMaybeMessage<ListObjectsRequest>(nullptr);
+  }
+
+  ListObjectsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ListObjectsRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ListObjectsRequest& from);
+  void MergeFrom(const ListObjectsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ListObjectsRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ListObjectsRequest";
+  }
+  protected:
+  explicit ListObjectsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kParentFieldNumber = 1,
+    kPageTokenFieldNumber = 3,
+    kDelimiterFieldNumber = 4,
+    kPrefixFieldNumber = 6,
+    kLexicographicStartFieldNumber = 10,
+    kLexicographicEndFieldNumber = 11,
+    kReadMaskFieldNumber = 8,
+    kCommonRequestParamsFieldNumber = 9,
+    kPageSizeFieldNumber = 2,
+    kIncludeTrailingDelimiterFieldNumber = 5,
+    kVersionsFieldNumber = 7,
+  };
+  // string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_parent();
+  const std::string& parent() const;
+  void set_parent(const std::string& value);
+  void set_parent(std::string&& value);
+  void set_parent(const char* value);
+  void set_parent(const char* value, size_t size);
+  std::string* mutable_parent();
+  std::string* release_parent();
+  void set_allocated_parent(std::string* parent);
+  private:
+  const std::string& _internal_parent() const;
+  void _internal_set_parent(const std::string& value);
+  std::string* _internal_mutable_parent();
+  public:
+
+  // string page_token = 3;
+  void clear_page_token();
+  const std::string& page_token() const;
+  void set_page_token(const std::string& value);
+  void set_page_token(std::string&& value);
+  void set_page_token(const char* value);
+  void set_page_token(const char* value, size_t size);
+  std::string* mutable_page_token();
+  std::string* release_page_token();
+  void set_allocated_page_token(std::string* page_token);
+  private:
+  const std::string& _internal_page_token() const;
+  void _internal_set_page_token(const std::string& value);
+  std::string* _internal_mutable_page_token();
+  public:
+
+  // string delimiter = 4;
+  void clear_delimiter();
+  const std::string& delimiter() const;
+  void set_delimiter(const std::string& value);
+  void set_delimiter(std::string&& value);
+  void set_delimiter(const char* value);
+  void set_delimiter(const char* value, size_t size);
+  std::string* mutable_delimiter();
+  std::string* release_delimiter();
+  void set_allocated_delimiter(std::string* delimiter);
+  private:
+  const std::string& _internal_delimiter() const;
+  void _internal_set_delimiter(const std::string& value);
+  std::string* _internal_mutable_delimiter();
+  public:
+
+  // string prefix = 6;
+  void clear_prefix();
+  const std::string& prefix() const;
+  void set_prefix(const std::string& value);
+  void set_prefix(std::string&& value);
+  void set_prefix(const char* value);
+  void set_prefix(const char* value, size_t size);
+  std::string* mutable_prefix();
+  std::string* release_prefix();
+  void set_allocated_prefix(std::string* prefix);
+  private:
+  const std::string& _internal_prefix() const;
+  void _internal_set_prefix(const std::string& value);
+  std::string* _internal_mutable_prefix();
+  public:
+
+  // string lexicographic_start = 10;
+  void clear_lexicographic_start();
+  const std::string& lexicographic_start() const;
+  void set_lexicographic_start(const std::string& value);
+  void set_lexicographic_start(std::string&& value);
+  void set_lexicographic_start(const char* value);
+  void set_lexicographic_start(const char* value, size_t size);
+  std::string* mutable_lexicographic_start();
+  std::string* release_lexicographic_start();
+  void set_allocated_lexicographic_start(std::string* lexicographic_start);
+  private:
+  const std::string& _internal_lexicographic_start() const;
+  void _internal_set_lexicographic_start(const std::string& value);
+  std::string* _internal_mutable_lexicographic_start();
+  public:
+
+  // string lexicographic_end = 11;
+  void clear_lexicographic_end();
+  const std::string& lexicographic_end() const;
+  void set_lexicographic_end(const std::string& value);
+  void set_lexicographic_end(std::string&& value);
+  void set_lexicographic_end(const char* value);
+  void set_lexicographic_end(const char* value, size_t size);
+  std::string* mutable_lexicographic_end();
+  std::string* release_lexicographic_end();
+  void set_allocated_lexicographic_end(std::string* lexicographic_end);
+  private:
+  const std::string& _internal_lexicographic_end() const;
+  void _internal_set_lexicographic_end(const std::string& value);
+  std::string* _internal_mutable_lexicographic_end();
+  public:
+
+  // .google.protobuf.FieldMask read_mask = 8;
+  bool has_read_mask() const;
+  private:
+  bool _internal_has_read_mask() const;
+  public:
+  void clear_read_mask();
+  const PROTOBUF_NAMESPACE_ID::FieldMask& read_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* release_read_mask();
+  PROTOBUF_NAMESPACE_ID::FieldMask* mutable_read_mask();
+  void set_allocated_read_mask(PROTOBUF_NAMESPACE_ID::FieldMask* read_mask);
+  private:
+  const PROTOBUF_NAMESPACE_ID::FieldMask& _internal_read_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* _internal_mutable_read_mask();
+  public:
+  void unsafe_arena_set_allocated_read_mask(
+      PROTOBUF_NAMESPACE_ID::FieldMask* read_mask);
+  PROTOBUF_NAMESPACE_ID::FieldMask* unsafe_arena_release_read_mask();
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 9;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // int32 page_size = 2;
+  void clear_page_size();
+  ::PROTOBUF_NAMESPACE_ID::int32 page_size() const;
+  void set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_page_size() const;
+  void _internal_set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // bool include_trailing_delimiter = 5;
+  void clear_include_trailing_delimiter();
+  bool include_trailing_delimiter() const;
+  void set_include_trailing_delimiter(bool value);
+  private:
+  bool _internal_include_trailing_delimiter() const;
+  void _internal_set_include_trailing_delimiter(bool value);
+  public:
+
+  // bool versions = 7;
+  void clear_versions();
+  bool versions() const;
+  void set_versions(bool value);
+  private:
+  bool _internal_versions() const;
+  void _internal_set_versions(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ListObjectsRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr parent_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr page_token_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr delimiter_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr prefix_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr lexicographic_start_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr lexicographic_end_;
+  PROTOBUF_NAMESPACE_ID::FieldMask* read_mask_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::PROTOBUF_NAMESPACE_ID::int32 page_size_;
+  bool include_trailing_delimiter_;
+  bool versions_;
   friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1592,7 +5456,7 @@ class QueryWriteStatusRequest PROTOBUF_FINAL :
                &_QueryWriteStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    23;
 
   friend void swap(QueryWriteStatusRequest& a, QueryWriteStatusRequest& b) {
     a.Swap(&b);
@@ -1772,7 +5636,7 @@ class QueryWriteStatusResponse PROTOBUF_FINAL :
     return *internal_default_instance();
   }
   enum WriteStatusCase {
-    kCommittedSize = 1,
+    kPersistedSize = 1,
     kResource = 2,
     WRITE_STATUS_NOT_SET = 0,
   };
@@ -1782,7 +5646,7 @@ class QueryWriteStatusResponse PROTOBUF_FINAL :
                &_QueryWriteStatusResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    24;
 
   friend void swap(QueryWriteStatusResponse& a, QueryWriteStatusResponse& b) {
     a.Swap(&b);
@@ -1852,20 +5716,20 @@ class QueryWriteStatusResponse PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCommittedSizeFieldNumber = 1,
+    kPersistedSizeFieldNumber = 1,
     kResourceFieldNumber = 2,
   };
-  // int64 committed_size = 1;
-  bool has_committed_size() const;
+  // int64 persisted_size = 1;
+  bool has_persisted_size() const;
   private:
-  bool _internal_has_committed_size() const;
+  bool _internal_has_persisted_size() const;
   public:
-  void clear_committed_size();
-  ::PROTOBUF_NAMESPACE_ID::int64 committed_size() const;
-  void set_committed_size(::PROTOBUF_NAMESPACE_ID::int64 value);
+  void clear_persisted_size();
+  ::PROTOBUF_NAMESPACE_ID::int64 persisted_size() const;
+  void set_persisted_size(::PROTOBUF_NAMESPACE_ID::int64 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::int64 _internal_committed_size() const;
-  void _internal_set_committed_size(::PROTOBUF_NAMESPACE_ID::int64 value);
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_persisted_size() const;
+  void _internal_set_persisted_size(::PROTOBUF_NAMESPACE_ID::int64 value);
   public:
 
   // .google.storage.v2.Object resource = 2;
@@ -1891,7 +5755,7 @@ class QueryWriteStatusResponse PROTOBUF_FINAL :
   // @@protoc_insertion_point(class_scope:google.storage.v2.QueryWriteStatusResponse)
  private:
   class _Internal;
-  void set_has_committed_size();
+  void set_has_persisted_size();
   void set_has_resource();
 
   inline bool has_write_status() const;
@@ -1903,12 +5767,713 @@ class QueryWriteStatusResponse PROTOBUF_FINAL :
   union WriteStatusUnion {
     constexpr WriteStatusUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
-    ::PROTOBUF_NAMESPACE_ID::int64 committed_size_;
+    ::PROTOBUF_NAMESPACE_ID::int64 persisted_size_;
     ::google::storage::v2::Object* resource_;
   } write_status_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::uint32 _oneof_case_[1];
 
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RewriteObjectRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.RewriteObjectRequest) */ {
+ public:
+  inline RewriteObjectRequest() : RewriteObjectRequest(nullptr) {}
+  virtual ~RewriteObjectRequest();
+  explicit constexpr RewriteObjectRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RewriteObjectRequest(const RewriteObjectRequest& from);
+  RewriteObjectRequest(RewriteObjectRequest&& from) noexcept
+    : RewriteObjectRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline RewriteObjectRequest& operator=(const RewriteObjectRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RewriteObjectRequest& operator=(RewriteObjectRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RewriteObjectRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RewriteObjectRequest* internal_default_instance() {
+    return reinterpret_cast<const RewriteObjectRequest*>(
+               &_RewriteObjectRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    25;
+
+  friend void swap(RewriteObjectRequest& a, RewriteObjectRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RewriteObjectRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RewriteObjectRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RewriteObjectRequest* New() const final {
+    return CreateMaybeMessage<RewriteObjectRequest>(nullptr);
+  }
+
+  RewriteObjectRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RewriteObjectRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RewriteObjectRequest& from);
+  void MergeFrom(const RewriteObjectRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RewriteObjectRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.RewriteObjectRequest";
+  }
+  protected:
+  explicit RewriteObjectRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSourceBucketFieldNumber = 2,
+    kSourceObjectFieldNumber = 3,
+    kRewriteTokenFieldNumber = 5,
+    kCopySourceEncryptionAlgorithmFieldNumber = 16,
+    kCopySourceEncryptionKeyBytesFieldNumber = 21,
+    kCopySourceEncryptionKeySha256BytesFieldNumber = 22,
+    kDestinationNameFieldNumber = 24,
+    kDestinationBucketFieldNumber = 25,
+    kDestinationFieldNumber = 1,
+    kCommonObjectRequestParamsFieldNumber = 19,
+    kCommonRequestParamsFieldNumber = 20,
+    kDestinationCustomerEncryptionFieldNumber = 26,
+    kSourceGenerationFieldNumber = 4,
+    kIfGenerationMatchFieldNumber = 7,
+    kIfGenerationNotMatchFieldNumber = 8,
+    kIfMetagenerationMatchFieldNumber = 9,
+    kIfMetagenerationNotMatchFieldNumber = 10,
+    kIfSourceGenerationMatchFieldNumber = 11,
+    kIfSourceGenerationNotMatchFieldNumber = 12,
+    kIfSourceMetagenerationMatchFieldNumber = 13,
+    kIfSourceMetagenerationNotMatchFieldNumber = 14,
+    kMaxBytesRewrittenPerCallFieldNumber = 15,
+    kDestinationPredefinedAclFieldNumber = 6,
+  };
+  // string source_bucket = 2 [(.google.api.field_behavior) = REQUIRED];
+  void clear_source_bucket();
+  const std::string& source_bucket() const;
+  void set_source_bucket(const std::string& value);
+  void set_source_bucket(std::string&& value);
+  void set_source_bucket(const char* value);
+  void set_source_bucket(const char* value, size_t size);
+  std::string* mutable_source_bucket();
+  std::string* release_source_bucket();
+  void set_allocated_source_bucket(std::string* source_bucket);
+  private:
+  const std::string& _internal_source_bucket() const;
+  void _internal_set_source_bucket(const std::string& value);
+  std::string* _internal_mutable_source_bucket();
+  public:
+
+  // string source_object = 3 [(.google.api.field_behavior) = REQUIRED];
+  void clear_source_object();
+  const std::string& source_object() const;
+  void set_source_object(const std::string& value);
+  void set_source_object(std::string&& value);
+  void set_source_object(const char* value);
+  void set_source_object(const char* value, size_t size);
+  std::string* mutable_source_object();
+  std::string* release_source_object();
+  void set_allocated_source_object(std::string* source_object);
+  private:
+  const std::string& _internal_source_object() const;
+  void _internal_set_source_object(const std::string& value);
+  std::string* _internal_mutable_source_object();
+  public:
+
+  // string rewrite_token = 5;
+  void clear_rewrite_token();
+  const std::string& rewrite_token() const;
+  void set_rewrite_token(const std::string& value);
+  void set_rewrite_token(std::string&& value);
+  void set_rewrite_token(const char* value);
+  void set_rewrite_token(const char* value, size_t size);
+  std::string* mutable_rewrite_token();
+  std::string* release_rewrite_token();
+  void set_allocated_rewrite_token(std::string* rewrite_token);
+  private:
+  const std::string& _internal_rewrite_token() const;
+  void _internal_set_rewrite_token(const std::string& value);
+  std::string* _internal_mutable_rewrite_token();
+  public:
+
+  // string copy_source_encryption_algorithm = 16;
+  void clear_copy_source_encryption_algorithm();
+  const std::string& copy_source_encryption_algorithm() const;
+  void set_copy_source_encryption_algorithm(const std::string& value);
+  void set_copy_source_encryption_algorithm(std::string&& value);
+  void set_copy_source_encryption_algorithm(const char* value);
+  void set_copy_source_encryption_algorithm(const char* value, size_t size);
+  std::string* mutable_copy_source_encryption_algorithm();
+  std::string* release_copy_source_encryption_algorithm();
+  void set_allocated_copy_source_encryption_algorithm(std::string* copy_source_encryption_algorithm);
+  private:
+  const std::string& _internal_copy_source_encryption_algorithm() const;
+  void _internal_set_copy_source_encryption_algorithm(const std::string& value);
+  std::string* _internal_mutable_copy_source_encryption_algorithm();
+  public:
+
+  // bytes copy_source_encryption_key_bytes = 21;
+  void clear_copy_source_encryption_key_bytes();
+  const std::string& copy_source_encryption_key_bytes() const;
+  void set_copy_source_encryption_key_bytes(const std::string& value);
+  void set_copy_source_encryption_key_bytes(std::string&& value);
+  void set_copy_source_encryption_key_bytes(const char* value);
+  void set_copy_source_encryption_key_bytes(const void* value, size_t size);
+  std::string* mutable_copy_source_encryption_key_bytes();
+  std::string* release_copy_source_encryption_key_bytes();
+  void set_allocated_copy_source_encryption_key_bytes(std::string* copy_source_encryption_key_bytes);
+  private:
+  const std::string& _internal_copy_source_encryption_key_bytes() const;
+  void _internal_set_copy_source_encryption_key_bytes(const std::string& value);
+  std::string* _internal_mutable_copy_source_encryption_key_bytes();
+  public:
+
+  // bytes copy_source_encryption_key_sha256_bytes = 22;
+  void clear_copy_source_encryption_key_sha256_bytes();
+  const std::string& copy_source_encryption_key_sha256_bytes() const;
+  void set_copy_source_encryption_key_sha256_bytes(const std::string& value);
+  void set_copy_source_encryption_key_sha256_bytes(std::string&& value);
+  void set_copy_source_encryption_key_sha256_bytes(const char* value);
+  void set_copy_source_encryption_key_sha256_bytes(const void* value, size_t size);
+  std::string* mutable_copy_source_encryption_key_sha256_bytes();
+  std::string* release_copy_source_encryption_key_sha256_bytes();
+  void set_allocated_copy_source_encryption_key_sha256_bytes(std::string* copy_source_encryption_key_sha256_bytes);
+  private:
+  const std::string& _internal_copy_source_encryption_key_sha256_bytes() const;
+  void _internal_set_copy_source_encryption_key_sha256_bytes(const std::string& value);
+  std::string* _internal_mutable_copy_source_encryption_key_sha256_bytes();
+  public:
+
+  // string destination_name = 24 [(.google.api.field_behavior) = IMMUTABLE];
+  void clear_destination_name();
+  const std::string& destination_name() const;
+  void set_destination_name(const std::string& value);
+  void set_destination_name(std::string&& value);
+  void set_destination_name(const char* value);
+  void set_destination_name(const char* value, size_t size);
+  std::string* mutable_destination_name();
+  std::string* release_destination_name();
+  void set_allocated_destination_name(std::string* destination_name);
+  private:
+  const std::string& _internal_destination_name() const;
+  void _internal_set_destination_name(const std::string& value);
+  std::string* _internal_mutable_destination_name();
+  public:
+
+  // string destination_bucket = 25 [(.google.api.field_behavior) = IMMUTABLE, (.google.api.resource_reference) = {
+  void clear_destination_bucket();
+  const std::string& destination_bucket() const;
+  void set_destination_bucket(const std::string& value);
+  void set_destination_bucket(std::string&& value);
+  void set_destination_bucket(const char* value);
+  void set_destination_bucket(const char* value, size_t size);
+  std::string* mutable_destination_bucket();
+  std::string* release_destination_bucket();
+  void set_allocated_destination_bucket(std::string* destination_bucket);
+  private:
+  const std::string& _internal_destination_bucket() const;
+  void _internal_set_destination_bucket(const std::string& value);
+  std::string* _internal_mutable_destination_bucket();
+  public:
+
+  // .google.storage.v2.Object destination = 1;
+  bool has_destination() const;
+  private:
+  bool _internal_has_destination() const;
+  public:
+  void clear_destination();
+  const ::google::storage::v2::Object& destination() const;
+  ::google::storage::v2::Object* release_destination();
+  ::google::storage::v2::Object* mutable_destination();
+  void set_allocated_destination(::google::storage::v2::Object* destination);
+  private:
+  const ::google::storage::v2::Object& _internal_destination() const;
+  ::google::storage::v2::Object* _internal_mutable_destination();
+  public:
+  void unsafe_arena_set_allocated_destination(
+      ::google::storage::v2::Object* destination);
+  ::google::storage::v2::Object* unsafe_arena_release_destination();
+
+  // .google.storage.v2.CommonObjectRequestParams common_object_request_params = 19;
+  bool has_common_object_request_params() const;
+  private:
+  bool _internal_has_common_object_request_params() const;
+  public:
+  void clear_common_object_request_params();
+  const ::google::storage::v2::CommonObjectRequestParams& common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* release_common_object_request_params();
+  ::google::storage::v2::CommonObjectRequestParams* mutable_common_object_request_params();
+  void set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  private:
+  const ::google::storage::v2::CommonObjectRequestParams& _internal_common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* _internal_mutable_common_object_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_object_request_params(
+      ::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  ::google::storage::v2::CommonObjectRequestParams* unsafe_arena_release_common_object_request_params();
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 20;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // .google.storage.v2.CustomerEncryption destination_customer_encryption = 26;
+  bool has_destination_customer_encryption() const;
+  private:
+  bool _internal_has_destination_customer_encryption() const;
+  public:
+  void clear_destination_customer_encryption();
+  const ::google::storage::v2::CustomerEncryption& destination_customer_encryption() const;
+  ::google::storage::v2::CustomerEncryption* release_destination_customer_encryption();
+  ::google::storage::v2::CustomerEncryption* mutable_destination_customer_encryption();
+  void set_allocated_destination_customer_encryption(::google::storage::v2::CustomerEncryption* destination_customer_encryption);
+  private:
+  const ::google::storage::v2::CustomerEncryption& _internal_destination_customer_encryption() const;
+  ::google::storage::v2::CustomerEncryption* _internal_mutable_destination_customer_encryption();
+  public:
+  void unsafe_arena_set_allocated_destination_customer_encryption(
+      ::google::storage::v2::CustomerEncryption* destination_customer_encryption);
+  ::google::storage::v2::CustomerEncryption* unsafe_arena_release_destination_customer_encryption();
+
+  // int64 source_generation = 4;
+  void clear_source_generation();
+  ::PROTOBUF_NAMESPACE_ID::int64 source_generation() const;
+  void set_source_generation(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_source_generation() const;
+  void _internal_set_source_generation(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_generation_match = 7;
+  bool has_if_generation_match() const;
+  private:
+  bool _internal_has_if_generation_match() const;
+  public:
+  void clear_if_generation_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match() const;
+  void set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_match() const;
+  void _internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_generation_not_match = 8;
+  bool has_if_generation_not_match() const;
+  private:
+  bool _internal_has_if_generation_not_match() const;
+  public:
+  void clear_if_generation_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_not_match() const;
+  void set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_not_match() const;
+  void _internal_set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_match = 9;
+  bool has_if_metageneration_match() const;
+  private:
+  bool _internal_has_if_metageneration_match() const;
+  public:
+  void clear_if_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match() const;
+  void set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_match() const;
+  void _internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_not_match = 10;
+  bool has_if_metageneration_not_match() const;
+  private:
+  bool _internal_has_if_metageneration_not_match() const;
+  public:
+  void clear_if_metageneration_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match() const;
+  void set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_not_match() const;
+  void _internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_source_generation_match = 11;
+  bool has_if_source_generation_match() const;
+  private:
+  bool _internal_has_if_source_generation_match() const;
+  public:
+  void clear_if_source_generation_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_source_generation_match() const;
+  void set_if_source_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_source_generation_match() const;
+  void _internal_set_if_source_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_source_generation_not_match = 12;
+  bool has_if_source_generation_not_match() const;
+  private:
+  bool _internal_has_if_source_generation_not_match() const;
+  public:
+  void clear_if_source_generation_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_source_generation_not_match() const;
+  void set_if_source_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_source_generation_not_match() const;
+  void _internal_set_if_source_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_source_metageneration_match = 13;
+  bool has_if_source_metageneration_match() const;
+  private:
+  bool _internal_has_if_source_metageneration_match() const;
+  public:
+  void clear_if_source_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_source_metageneration_match() const;
+  void set_if_source_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_source_metageneration_match() const;
+  void _internal_set_if_source_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_source_metageneration_not_match = 14;
+  bool has_if_source_metageneration_not_match() const;
+  private:
+  bool _internal_has_if_source_metageneration_not_match() const;
+  public:
+  void clear_if_source_metageneration_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_source_metageneration_not_match() const;
+  void set_if_source_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_source_metageneration_not_match() const;
+  void _internal_set_if_source_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 max_bytes_rewritten_per_call = 15;
+  void clear_max_bytes_rewritten_per_call();
+  ::PROTOBUF_NAMESPACE_ID::int64 max_bytes_rewritten_per_call() const;
+  void set_max_bytes_rewritten_per_call(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_max_bytes_rewritten_per_call() const;
+  void _internal_set_max_bytes_rewritten_per_call(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // .google.storage.v2.PredefinedObjectAcl destination_predefined_acl = 6;
+  void clear_destination_predefined_acl();
+  ::google::storage::v2::PredefinedObjectAcl destination_predefined_acl() const;
+  void set_destination_predefined_acl(::google::storage::v2::PredefinedObjectAcl value);
+  private:
+  ::google::storage::v2::PredefinedObjectAcl _internal_destination_predefined_acl() const;
+  void _internal_set_destination_predefined_acl(::google::storage::v2::PredefinedObjectAcl value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.RewriteObjectRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr source_bucket_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr source_object_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rewrite_token_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr copy_source_encryption_algorithm_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr copy_source_encryption_key_bytes_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr copy_source_encryption_key_sha256_bytes_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr destination_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr destination_bucket_;
+  ::google::storage::v2::Object* destination_;
+  ::google::storage::v2::CommonObjectRequestParams* common_object_request_params_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::google::storage::v2::CustomerEncryption* destination_customer_encryption_;
+  ::PROTOBUF_NAMESPACE_ID::int64 source_generation_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_not_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_source_generation_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_source_generation_not_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_source_metageneration_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_source_metageneration_not_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 max_bytes_rewritten_per_call_;
+  int destination_predefined_acl_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RewriteResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.RewriteResponse) */ {
+ public:
+  inline RewriteResponse() : RewriteResponse(nullptr) {}
+  virtual ~RewriteResponse();
+  explicit constexpr RewriteResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RewriteResponse(const RewriteResponse& from);
+  RewriteResponse(RewriteResponse&& from) noexcept
+    : RewriteResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline RewriteResponse& operator=(const RewriteResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RewriteResponse& operator=(RewriteResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RewriteResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RewriteResponse* internal_default_instance() {
+    return reinterpret_cast<const RewriteResponse*>(
+               &_RewriteResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    26;
+
+  friend void swap(RewriteResponse& a, RewriteResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RewriteResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RewriteResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RewriteResponse* New() const final {
+    return CreateMaybeMessage<RewriteResponse>(nullptr);
+  }
+
+  RewriteResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RewriteResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RewriteResponse& from);
+  void MergeFrom(const RewriteResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RewriteResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.RewriteResponse";
+  }
+  protected:
+  explicit RewriteResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRewriteTokenFieldNumber = 4,
+    kResourceFieldNumber = 5,
+    kTotalBytesRewrittenFieldNumber = 1,
+    kObjectSizeFieldNumber = 2,
+    kDoneFieldNumber = 3,
+  };
+  // string rewrite_token = 4;
+  void clear_rewrite_token();
+  const std::string& rewrite_token() const;
+  void set_rewrite_token(const std::string& value);
+  void set_rewrite_token(std::string&& value);
+  void set_rewrite_token(const char* value);
+  void set_rewrite_token(const char* value, size_t size);
+  std::string* mutable_rewrite_token();
+  std::string* release_rewrite_token();
+  void set_allocated_rewrite_token(std::string* rewrite_token);
+  private:
+  const std::string& _internal_rewrite_token() const;
+  void _internal_set_rewrite_token(const std::string& value);
+  std::string* _internal_mutable_rewrite_token();
+  public:
+
+  // .google.storage.v2.Object resource = 5;
+  bool has_resource() const;
+  private:
+  bool _internal_has_resource() const;
+  public:
+  void clear_resource();
+  const ::google::storage::v2::Object& resource() const;
+  ::google::storage::v2::Object* release_resource();
+  ::google::storage::v2::Object* mutable_resource();
+  void set_allocated_resource(::google::storage::v2::Object* resource);
+  private:
+  const ::google::storage::v2::Object& _internal_resource() const;
+  ::google::storage::v2::Object* _internal_mutable_resource();
+  public:
+  void unsafe_arena_set_allocated_resource(
+      ::google::storage::v2::Object* resource);
+  ::google::storage::v2::Object* unsafe_arena_release_resource();
+
+  // int64 total_bytes_rewritten = 1;
+  void clear_total_bytes_rewritten();
+  ::PROTOBUF_NAMESPACE_ID::int64 total_bytes_rewritten() const;
+  void set_total_bytes_rewritten(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_total_bytes_rewritten() const;
+  void _internal_set_total_bytes_rewritten(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 object_size = 2;
+  void clear_object_size();
+  ::PROTOBUF_NAMESPACE_ID::int64 object_size() const;
+  void set_object_size(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_object_size() const;
+  void _internal_set_object_size(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // bool done = 3;
+  void clear_done();
+  bool done() const;
+  void set_done(bool value);
+  private:
+  bool _internal_done() const;
+  void _internal_set_done(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.RewriteResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rewrite_token_;
+  ::google::storage::v2::Object* resource_;
+  ::PROTOBUF_NAMESPACE_ID::int64 total_bytes_rewritten_;
+  ::PROTOBUF_NAMESPACE_ID::int64 object_size_;
+  bool done_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1956,7 +6521,7 @@ class StartResumableWriteRequest PROTOBUF_FINAL :
                &_StartResumableWriteRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    27;
 
   friend void swap(StartResumableWriteRequest& a, StartResumableWriteRequest& b) {
     a.Swap(&b);
@@ -2142,7 +6707,7 @@ class StartResumableWriteResponse PROTOBUF_FINAL :
                &_StartResumableWriteResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    28;
 
   friend void swap(StartResumableWriteResponse& a, StartResumableWriteResponse& b) {
     a.Swap(&b);
@@ -2243,6 +6808,1730 @@ class StartResumableWriteResponse PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class UpdateObjectRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.UpdateObjectRequest) */ {
+ public:
+  inline UpdateObjectRequest() : UpdateObjectRequest(nullptr) {}
+  virtual ~UpdateObjectRequest();
+  explicit constexpr UpdateObjectRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateObjectRequest(const UpdateObjectRequest& from);
+  UpdateObjectRequest(UpdateObjectRequest&& from) noexcept
+    : UpdateObjectRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateObjectRequest& operator=(const UpdateObjectRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateObjectRequest& operator=(UpdateObjectRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UpdateObjectRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateObjectRequest* internal_default_instance() {
+    return reinterpret_cast<const UpdateObjectRequest*>(
+               &_UpdateObjectRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    29;
+
+  friend void swap(UpdateObjectRequest& a, UpdateObjectRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateObjectRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateObjectRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UpdateObjectRequest* New() const final {
+    return CreateMaybeMessage<UpdateObjectRequest>(nullptr);
+  }
+
+  UpdateObjectRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UpdateObjectRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UpdateObjectRequest& from);
+  void MergeFrom(const UpdateObjectRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateObjectRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.UpdateObjectRequest";
+  }
+  protected:
+  explicit UpdateObjectRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kObjectFieldNumber = 1,
+    kUpdateMaskFieldNumber = 7,
+    kCommonObjectRequestParamsFieldNumber = 8,
+    kCommonRequestParamsFieldNumber = 9,
+    kIfGenerationMatchFieldNumber = 2,
+    kIfGenerationNotMatchFieldNumber = 3,
+    kIfMetagenerationMatchFieldNumber = 4,
+    kIfMetagenerationNotMatchFieldNumber = 5,
+    kPredefinedAclFieldNumber = 6,
+  };
+  // .google.storage.v2.Object object = 1;
+  bool has_object() const;
+  private:
+  bool _internal_has_object() const;
+  public:
+  void clear_object();
+  const ::google::storage::v2::Object& object() const;
+  ::google::storage::v2::Object* release_object();
+  ::google::storage::v2::Object* mutable_object();
+  void set_allocated_object(::google::storage::v2::Object* object);
+  private:
+  const ::google::storage::v2::Object& _internal_object() const;
+  ::google::storage::v2::Object* _internal_mutable_object();
+  public:
+  void unsafe_arena_set_allocated_object(
+      ::google::storage::v2::Object* object);
+  ::google::storage::v2::Object* unsafe_arena_release_object();
+
+  // .google.protobuf.FieldMask update_mask = 7;
+  bool has_update_mask() const;
+  private:
+  bool _internal_has_update_mask() const;
+  public:
+  void clear_update_mask();
+  const PROTOBUF_NAMESPACE_ID::FieldMask& update_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* release_update_mask();
+  PROTOBUF_NAMESPACE_ID::FieldMask* mutable_update_mask();
+  void set_allocated_update_mask(PROTOBUF_NAMESPACE_ID::FieldMask* update_mask);
+  private:
+  const PROTOBUF_NAMESPACE_ID::FieldMask& _internal_update_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* _internal_mutable_update_mask();
+  public:
+  void unsafe_arena_set_allocated_update_mask(
+      PROTOBUF_NAMESPACE_ID::FieldMask* update_mask);
+  PROTOBUF_NAMESPACE_ID::FieldMask* unsafe_arena_release_update_mask();
+
+  // .google.storage.v2.CommonObjectRequestParams common_object_request_params = 8;
+  bool has_common_object_request_params() const;
+  private:
+  bool _internal_has_common_object_request_params() const;
+  public:
+  void clear_common_object_request_params();
+  const ::google::storage::v2::CommonObjectRequestParams& common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* release_common_object_request_params();
+  ::google::storage::v2::CommonObjectRequestParams* mutable_common_object_request_params();
+  void set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  private:
+  const ::google::storage::v2::CommonObjectRequestParams& _internal_common_object_request_params() const;
+  ::google::storage::v2::CommonObjectRequestParams* _internal_mutable_common_object_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_object_request_params(
+      ::google::storage::v2::CommonObjectRequestParams* common_object_request_params);
+  ::google::storage::v2::CommonObjectRequestParams* unsafe_arena_release_common_object_request_params();
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 9;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // int64 if_generation_match = 2;
+  bool has_if_generation_match() const;
+  private:
+  bool _internal_has_if_generation_match() const;
+  public:
+  void clear_if_generation_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match() const;
+  void set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_match() const;
+  void _internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_generation_not_match = 3;
+  bool has_if_generation_not_match() const;
+  private:
+  bool _internal_has_if_generation_not_match() const;
+  public:
+  void clear_if_generation_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_not_match() const;
+  void set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_generation_not_match() const;
+  void _internal_set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_match = 4;
+  bool has_if_metageneration_match() const;
+  private:
+  bool _internal_has_if_metageneration_match() const;
+  public:
+  void clear_if_metageneration_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match() const;
+  void set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_match() const;
+  void _internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // int64 if_metageneration_not_match = 5;
+  bool has_if_metageneration_not_match() const;
+  private:
+  bool _internal_has_if_metageneration_not_match() const;
+  public:
+  void clear_if_metageneration_not_match();
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match() const;
+  void set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int64 _internal_if_metageneration_not_match() const;
+  void _internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value);
+  public:
+
+  // .google.storage.v2.PredefinedObjectAcl predefined_acl = 6;
+  void clear_predefined_acl();
+  ::google::storage::v2::PredefinedObjectAcl predefined_acl() const;
+  void set_predefined_acl(::google::storage::v2::PredefinedObjectAcl value);
+  private:
+  ::google::storage::v2::PredefinedObjectAcl _internal_predefined_acl() const;
+  void _internal_set_predefined_acl(::google::storage::v2::PredefinedObjectAcl value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.UpdateObjectRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::google::storage::v2::Object* object_;
+  PROTOBUF_NAMESPACE_ID::FieldMask* update_mask_;
+  ::google::storage::v2::CommonObjectRequestParams* common_object_request_params_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_generation_not_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_match_;
+  ::PROTOBUF_NAMESPACE_ID::int64 if_metageneration_not_match_;
+  int predefined_acl_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetServiceAccountRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.GetServiceAccountRequest) */ {
+ public:
+  inline GetServiceAccountRequest() : GetServiceAccountRequest(nullptr) {}
+  virtual ~GetServiceAccountRequest();
+  explicit constexpr GetServiceAccountRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetServiceAccountRequest(const GetServiceAccountRequest& from);
+  GetServiceAccountRequest(GetServiceAccountRequest&& from) noexcept
+    : GetServiceAccountRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetServiceAccountRequest& operator=(const GetServiceAccountRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetServiceAccountRequest& operator=(GetServiceAccountRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetServiceAccountRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetServiceAccountRequest* internal_default_instance() {
+    return reinterpret_cast<const GetServiceAccountRequest*>(
+               &_GetServiceAccountRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    30;
+
+  friend void swap(GetServiceAccountRequest& a, GetServiceAccountRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetServiceAccountRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetServiceAccountRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetServiceAccountRequest* New() const final {
+    return CreateMaybeMessage<GetServiceAccountRequest>(nullptr);
+  }
+
+  GetServiceAccountRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetServiceAccountRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetServiceAccountRequest& from);
+  void MergeFrom(const GetServiceAccountRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetServiceAccountRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.GetServiceAccountRequest";
+  }
+  protected:
+  explicit GetServiceAccountRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kProjectFieldNumber = 1,
+    kCommonRequestParamsFieldNumber = 2,
+  };
+  // string project = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_project();
+  const std::string& project() const;
+  void set_project(const std::string& value);
+  void set_project(std::string&& value);
+  void set_project(const char* value);
+  void set_project(const char* value, size_t size);
+  std::string* mutable_project();
+  std::string* release_project();
+  void set_allocated_project(std::string* project);
+  private:
+  const std::string& _internal_project() const;
+  void _internal_set_project(const std::string& value);
+  std::string* _internal_mutable_project();
+  public:
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 2;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.GetServiceAccountRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr project_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CreateHmacKeyRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.CreateHmacKeyRequest) */ {
+ public:
+  inline CreateHmacKeyRequest() : CreateHmacKeyRequest(nullptr) {}
+  virtual ~CreateHmacKeyRequest();
+  explicit constexpr CreateHmacKeyRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CreateHmacKeyRequest(const CreateHmacKeyRequest& from);
+  CreateHmacKeyRequest(CreateHmacKeyRequest&& from) noexcept
+    : CreateHmacKeyRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline CreateHmacKeyRequest& operator=(const CreateHmacKeyRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreateHmacKeyRequest& operator=(CreateHmacKeyRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CreateHmacKeyRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CreateHmacKeyRequest* internal_default_instance() {
+    return reinterpret_cast<const CreateHmacKeyRequest*>(
+               &_CreateHmacKeyRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    31;
+
+  friend void swap(CreateHmacKeyRequest& a, CreateHmacKeyRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CreateHmacKeyRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CreateHmacKeyRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CreateHmacKeyRequest* New() const final {
+    return CreateMaybeMessage<CreateHmacKeyRequest>(nullptr);
+  }
+
+  CreateHmacKeyRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CreateHmacKeyRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CreateHmacKeyRequest& from);
+  void MergeFrom(const CreateHmacKeyRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CreateHmacKeyRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.CreateHmacKeyRequest";
+  }
+  protected:
+  explicit CreateHmacKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kProjectFieldNumber = 1,
+    kServiceAccountEmailFieldNumber = 2,
+    kCommonRequestParamsFieldNumber = 3,
+  };
+  // string project = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_project();
+  const std::string& project() const;
+  void set_project(const std::string& value);
+  void set_project(std::string&& value);
+  void set_project(const char* value);
+  void set_project(const char* value, size_t size);
+  std::string* mutable_project();
+  std::string* release_project();
+  void set_allocated_project(std::string* project);
+  private:
+  const std::string& _internal_project() const;
+  void _internal_set_project(const std::string& value);
+  std::string* _internal_mutable_project();
+  public:
+
+  // string service_account_email = 2 [(.google.api.field_behavior) = REQUIRED];
+  void clear_service_account_email();
+  const std::string& service_account_email() const;
+  void set_service_account_email(const std::string& value);
+  void set_service_account_email(std::string&& value);
+  void set_service_account_email(const char* value);
+  void set_service_account_email(const char* value, size_t size);
+  std::string* mutable_service_account_email();
+  std::string* release_service_account_email();
+  void set_allocated_service_account_email(std::string* service_account_email);
+  private:
+  const std::string& _internal_service_account_email() const;
+  void _internal_set_service_account_email(const std::string& value);
+  std::string* _internal_mutable_service_account_email();
+  public:
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 3;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.CreateHmacKeyRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr project_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_account_email_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CreateHmacKeyResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.CreateHmacKeyResponse) */ {
+ public:
+  inline CreateHmacKeyResponse() : CreateHmacKeyResponse(nullptr) {}
+  virtual ~CreateHmacKeyResponse();
+  explicit constexpr CreateHmacKeyResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CreateHmacKeyResponse(const CreateHmacKeyResponse& from);
+  CreateHmacKeyResponse(CreateHmacKeyResponse&& from) noexcept
+    : CreateHmacKeyResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline CreateHmacKeyResponse& operator=(const CreateHmacKeyResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreateHmacKeyResponse& operator=(CreateHmacKeyResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CreateHmacKeyResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CreateHmacKeyResponse* internal_default_instance() {
+    return reinterpret_cast<const CreateHmacKeyResponse*>(
+               &_CreateHmacKeyResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    32;
+
+  friend void swap(CreateHmacKeyResponse& a, CreateHmacKeyResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CreateHmacKeyResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CreateHmacKeyResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CreateHmacKeyResponse* New() const final {
+    return CreateMaybeMessage<CreateHmacKeyResponse>(nullptr);
+  }
+
+  CreateHmacKeyResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CreateHmacKeyResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CreateHmacKeyResponse& from);
+  void MergeFrom(const CreateHmacKeyResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CreateHmacKeyResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.CreateHmacKeyResponse";
+  }
+  protected:
+  explicit CreateHmacKeyResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSecretKeyBytesFieldNumber = 3,
+    kMetadataFieldNumber = 1,
+  };
+  // bytes secret_key_bytes = 3;
+  void clear_secret_key_bytes();
+  const std::string& secret_key_bytes() const;
+  void set_secret_key_bytes(const std::string& value);
+  void set_secret_key_bytes(std::string&& value);
+  void set_secret_key_bytes(const char* value);
+  void set_secret_key_bytes(const void* value, size_t size);
+  std::string* mutable_secret_key_bytes();
+  std::string* release_secret_key_bytes();
+  void set_allocated_secret_key_bytes(std::string* secret_key_bytes);
+  private:
+  const std::string& _internal_secret_key_bytes() const;
+  void _internal_set_secret_key_bytes(const std::string& value);
+  std::string* _internal_mutable_secret_key_bytes();
+  public:
+
+  // .google.storage.v2.HmacKeyMetadata metadata = 1;
+  bool has_metadata() const;
+  private:
+  bool _internal_has_metadata() const;
+  public:
+  void clear_metadata();
+  const ::google::storage::v2::HmacKeyMetadata& metadata() const;
+  ::google::storage::v2::HmacKeyMetadata* release_metadata();
+  ::google::storage::v2::HmacKeyMetadata* mutable_metadata();
+  void set_allocated_metadata(::google::storage::v2::HmacKeyMetadata* metadata);
+  private:
+  const ::google::storage::v2::HmacKeyMetadata& _internal_metadata() const;
+  ::google::storage::v2::HmacKeyMetadata* _internal_mutable_metadata();
+  public:
+  void unsafe_arena_set_allocated_metadata(
+      ::google::storage::v2::HmacKeyMetadata* metadata);
+  ::google::storage::v2::HmacKeyMetadata* unsafe_arena_release_metadata();
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.CreateHmacKeyResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr secret_key_bytes_;
+  ::google::storage::v2::HmacKeyMetadata* metadata_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteHmacKeyRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.DeleteHmacKeyRequest) */ {
+ public:
+  inline DeleteHmacKeyRequest() : DeleteHmacKeyRequest(nullptr) {}
+  virtual ~DeleteHmacKeyRequest();
+  explicit constexpr DeleteHmacKeyRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteHmacKeyRequest(const DeleteHmacKeyRequest& from);
+  DeleteHmacKeyRequest(DeleteHmacKeyRequest&& from) noexcept
+    : DeleteHmacKeyRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteHmacKeyRequest& operator=(const DeleteHmacKeyRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteHmacKeyRequest& operator=(DeleteHmacKeyRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const DeleteHmacKeyRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteHmacKeyRequest* internal_default_instance() {
+    return reinterpret_cast<const DeleteHmacKeyRequest*>(
+               &_DeleteHmacKeyRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    33;
+
+  friend void swap(DeleteHmacKeyRequest& a, DeleteHmacKeyRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteHmacKeyRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteHmacKeyRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DeleteHmacKeyRequest* New() const final {
+    return CreateMaybeMessage<DeleteHmacKeyRequest>(nullptr);
+  }
+
+  DeleteHmacKeyRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DeleteHmacKeyRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const DeleteHmacKeyRequest& from);
+  void MergeFrom(const DeleteHmacKeyRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteHmacKeyRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.DeleteHmacKeyRequest";
+  }
+  protected:
+  explicit DeleteHmacKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAccessIdFieldNumber = 1,
+    kProjectFieldNumber = 2,
+    kCommonRequestParamsFieldNumber = 3,
+  };
+  // string access_id = 1 [(.google.api.field_behavior) = REQUIRED];
+  void clear_access_id();
+  const std::string& access_id() const;
+  void set_access_id(const std::string& value);
+  void set_access_id(std::string&& value);
+  void set_access_id(const char* value);
+  void set_access_id(const char* value, size_t size);
+  std::string* mutable_access_id();
+  std::string* release_access_id();
+  void set_allocated_access_id(std::string* access_id);
+  private:
+  const std::string& _internal_access_id() const;
+  void _internal_set_access_id(const std::string& value);
+  std::string* _internal_mutable_access_id();
+  public:
+
+  // string project = 2 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_project();
+  const std::string& project() const;
+  void set_project(const std::string& value);
+  void set_project(std::string&& value);
+  void set_project(const char* value);
+  void set_project(const char* value, size_t size);
+  std::string* mutable_project();
+  std::string* release_project();
+  void set_allocated_project(std::string* project);
+  private:
+  const std::string& _internal_project() const;
+  void _internal_set_project(const std::string& value);
+  std::string* _internal_mutable_project();
+  public:
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 3;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.DeleteHmacKeyRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr access_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr project_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetHmacKeyRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.GetHmacKeyRequest) */ {
+ public:
+  inline GetHmacKeyRequest() : GetHmacKeyRequest(nullptr) {}
+  virtual ~GetHmacKeyRequest();
+  explicit constexpr GetHmacKeyRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetHmacKeyRequest(const GetHmacKeyRequest& from);
+  GetHmacKeyRequest(GetHmacKeyRequest&& from) noexcept
+    : GetHmacKeyRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetHmacKeyRequest& operator=(const GetHmacKeyRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetHmacKeyRequest& operator=(GetHmacKeyRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetHmacKeyRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetHmacKeyRequest* internal_default_instance() {
+    return reinterpret_cast<const GetHmacKeyRequest*>(
+               &_GetHmacKeyRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    34;
+
+  friend void swap(GetHmacKeyRequest& a, GetHmacKeyRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetHmacKeyRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetHmacKeyRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetHmacKeyRequest* New() const final {
+    return CreateMaybeMessage<GetHmacKeyRequest>(nullptr);
+  }
+
+  GetHmacKeyRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetHmacKeyRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetHmacKeyRequest& from);
+  void MergeFrom(const GetHmacKeyRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetHmacKeyRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.GetHmacKeyRequest";
+  }
+  protected:
+  explicit GetHmacKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAccessIdFieldNumber = 1,
+    kProjectFieldNumber = 2,
+    kCommonRequestParamsFieldNumber = 3,
+  };
+  // string access_id = 1 [(.google.api.field_behavior) = REQUIRED];
+  void clear_access_id();
+  const std::string& access_id() const;
+  void set_access_id(const std::string& value);
+  void set_access_id(std::string&& value);
+  void set_access_id(const char* value);
+  void set_access_id(const char* value, size_t size);
+  std::string* mutable_access_id();
+  std::string* release_access_id();
+  void set_allocated_access_id(std::string* access_id);
+  private:
+  const std::string& _internal_access_id() const;
+  void _internal_set_access_id(const std::string& value);
+  std::string* _internal_mutable_access_id();
+  public:
+
+  // string project = 2 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_project();
+  const std::string& project() const;
+  void set_project(const std::string& value);
+  void set_project(std::string&& value);
+  void set_project(const char* value);
+  void set_project(const char* value, size_t size);
+  std::string* mutable_project();
+  std::string* release_project();
+  void set_allocated_project(std::string* project);
+  private:
+  const std::string& _internal_project() const;
+  void _internal_set_project(const std::string& value);
+  std::string* _internal_mutable_project();
+  public:
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 3;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.GetHmacKeyRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr access_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr project_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ListHmacKeysRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ListHmacKeysRequest) */ {
+ public:
+  inline ListHmacKeysRequest() : ListHmacKeysRequest(nullptr) {}
+  virtual ~ListHmacKeysRequest();
+  explicit constexpr ListHmacKeysRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListHmacKeysRequest(const ListHmacKeysRequest& from);
+  ListHmacKeysRequest(ListHmacKeysRequest&& from) noexcept
+    : ListHmacKeysRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ListHmacKeysRequest& operator=(const ListHmacKeysRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListHmacKeysRequest& operator=(ListHmacKeysRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ListHmacKeysRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListHmacKeysRequest* internal_default_instance() {
+    return reinterpret_cast<const ListHmacKeysRequest*>(
+               &_ListHmacKeysRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    35;
+
+  friend void swap(ListHmacKeysRequest& a, ListHmacKeysRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListHmacKeysRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListHmacKeysRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ListHmacKeysRequest* New() const final {
+    return CreateMaybeMessage<ListHmacKeysRequest>(nullptr);
+  }
+
+  ListHmacKeysRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ListHmacKeysRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ListHmacKeysRequest& from);
+  void MergeFrom(const ListHmacKeysRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ListHmacKeysRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ListHmacKeysRequest";
+  }
+  protected:
+  explicit ListHmacKeysRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kProjectFieldNumber = 1,
+    kPageTokenFieldNumber = 3,
+    kServiceAccountEmailFieldNumber = 4,
+    kCommonRequestParamsFieldNumber = 6,
+    kPageSizeFieldNumber = 2,
+    kShowDeletedKeysFieldNumber = 5,
+  };
+  // string project = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+  void clear_project();
+  const std::string& project() const;
+  void set_project(const std::string& value);
+  void set_project(std::string&& value);
+  void set_project(const char* value);
+  void set_project(const char* value, size_t size);
+  std::string* mutable_project();
+  std::string* release_project();
+  void set_allocated_project(std::string* project);
+  private:
+  const std::string& _internal_project() const;
+  void _internal_set_project(const std::string& value);
+  std::string* _internal_mutable_project();
+  public:
+
+  // string page_token = 3 [(.google.api.field_behavior) = OPTIONAL];
+  void clear_page_token();
+  const std::string& page_token() const;
+  void set_page_token(const std::string& value);
+  void set_page_token(std::string&& value);
+  void set_page_token(const char* value);
+  void set_page_token(const char* value, size_t size);
+  std::string* mutable_page_token();
+  std::string* release_page_token();
+  void set_allocated_page_token(std::string* page_token);
+  private:
+  const std::string& _internal_page_token() const;
+  void _internal_set_page_token(const std::string& value);
+  std::string* _internal_mutable_page_token();
+  public:
+
+  // string service_account_email = 4 [(.google.api.field_behavior) = OPTIONAL];
+  void clear_service_account_email();
+  const std::string& service_account_email() const;
+  void set_service_account_email(const std::string& value);
+  void set_service_account_email(std::string&& value);
+  void set_service_account_email(const char* value);
+  void set_service_account_email(const char* value, size_t size);
+  std::string* mutable_service_account_email();
+  std::string* release_service_account_email();
+  void set_allocated_service_account_email(std::string* service_account_email);
+  private:
+  const std::string& _internal_service_account_email() const;
+  void _internal_set_service_account_email(const std::string& value);
+  std::string* _internal_mutable_service_account_email();
+  public:
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 6 [(.google.api.field_behavior) = OPTIONAL];
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // int32 page_size = 2 [(.google.api.field_behavior) = OPTIONAL];
+  void clear_page_size();
+  ::PROTOBUF_NAMESPACE_ID::int32 page_size() const;
+  void set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_page_size() const;
+  void _internal_set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // bool show_deleted_keys = 5 [(.google.api.field_behavior) = OPTIONAL];
+  void clear_show_deleted_keys();
+  bool show_deleted_keys() const;
+  void set_show_deleted_keys(bool value);
+  private:
+  bool _internal_show_deleted_keys() const;
+  void _internal_set_show_deleted_keys(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ListHmacKeysRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr project_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr page_token_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_account_email_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  ::PROTOBUF_NAMESPACE_ID::int32 page_size_;
+  bool show_deleted_keys_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ListHmacKeysResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ListHmacKeysResponse) */ {
+ public:
+  inline ListHmacKeysResponse() : ListHmacKeysResponse(nullptr) {}
+  virtual ~ListHmacKeysResponse();
+  explicit constexpr ListHmacKeysResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListHmacKeysResponse(const ListHmacKeysResponse& from);
+  ListHmacKeysResponse(ListHmacKeysResponse&& from) noexcept
+    : ListHmacKeysResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline ListHmacKeysResponse& operator=(const ListHmacKeysResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListHmacKeysResponse& operator=(ListHmacKeysResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ListHmacKeysResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListHmacKeysResponse* internal_default_instance() {
+    return reinterpret_cast<const ListHmacKeysResponse*>(
+               &_ListHmacKeysResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    36;
+
+  friend void swap(ListHmacKeysResponse& a, ListHmacKeysResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListHmacKeysResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListHmacKeysResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ListHmacKeysResponse* New() const final {
+    return CreateMaybeMessage<ListHmacKeysResponse>(nullptr);
+  }
+
+  ListHmacKeysResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ListHmacKeysResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ListHmacKeysResponse& from);
+  void MergeFrom(const ListHmacKeysResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ListHmacKeysResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ListHmacKeysResponse";
+  }
+  protected:
+  explicit ListHmacKeysResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kHmacKeysFieldNumber = 1,
+    kNextPageTokenFieldNumber = 2,
+  };
+  // repeated .google.storage.v2.HmacKeyMetadata hmac_keys = 1;
+  int hmac_keys_size() const;
+  private:
+  int _internal_hmac_keys_size() const;
+  public:
+  void clear_hmac_keys();
+  ::google::storage::v2::HmacKeyMetadata* mutable_hmac_keys(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::HmacKeyMetadata >*
+      mutable_hmac_keys();
+  private:
+  const ::google::storage::v2::HmacKeyMetadata& _internal_hmac_keys(int index) const;
+  ::google::storage::v2::HmacKeyMetadata* _internal_add_hmac_keys();
+  public:
+  const ::google::storage::v2::HmacKeyMetadata& hmac_keys(int index) const;
+  ::google::storage::v2::HmacKeyMetadata* add_hmac_keys();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::HmacKeyMetadata >&
+      hmac_keys() const;
+
+  // string next_page_token = 2;
+  void clear_next_page_token();
+  const std::string& next_page_token() const;
+  void set_next_page_token(const std::string& value);
+  void set_next_page_token(std::string&& value);
+  void set_next_page_token(const char* value);
+  void set_next_page_token(const char* value, size_t size);
+  std::string* mutable_next_page_token();
+  std::string* release_next_page_token();
+  void set_allocated_next_page_token(std::string* next_page_token);
+  private:
+  const std::string& _internal_next_page_token() const;
+  void _internal_set_next_page_token(const std::string& value);
+  std::string* _internal_mutable_next_page_token();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ListHmacKeysResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::HmacKeyMetadata > hmac_keys_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr next_page_token_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UpdateHmacKeyRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.UpdateHmacKeyRequest) */ {
+ public:
+  inline UpdateHmacKeyRequest() : UpdateHmacKeyRequest(nullptr) {}
+  virtual ~UpdateHmacKeyRequest();
+  explicit constexpr UpdateHmacKeyRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateHmacKeyRequest(const UpdateHmacKeyRequest& from);
+  UpdateHmacKeyRequest(UpdateHmacKeyRequest&& from) noexcept
+    : UpdateHmacKeyRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateHmacKeyRequest& operator=(const UpdateHmacKeyRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateHmacKeyRequest& operator=(UpdateHmacKeyRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const UpdateHmacKeyRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateHmacKeyRequest* internal_default_instance() {
+    return reinterpret_cast<const UpdateHmacKeyRequest*>(
+               &_UpdateHmacKeyRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    37;
+
+  friend void swap(UpdateHmacKeyRequest& a, UpdateHmacKeyRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateHmacKeyRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateHmacKeyRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline UpdateHmacKeyRequest* New() const final {
+    return CreateMaybeMessage<UpdateHmacKeyRequest>(nullptr);
+  }
+
+  UpdateHmacKeyRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<UpdateHmacKeyRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const UpdateHmacKeyRequest& from);
+  void MergeFrom(const UpdateHmacKeyRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateHmacKeyRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.UpdateHmacKeyRequest";
+  }
+  protected:
+  explicit UpdateHmacKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kHmacKeyFieldNumber = 1,
+    kCommonRequestParamsFieldNumber = 2,
+    kUpdateMaskFieldNumber = 3,
+  };
+  // .google.storage.v2.HmacKeyMetadata hmac_key = 1 [(.google.api.field_behavior) = REQUIRED];
+  bool has_hmac_key() const;
+  private:
+  bool _internal_has_hmac_key() const;
+  public:
+  void clear_hmac_key();
+  const ::google::storage::v2::HmacKeyMetadata& hmac_key() const;
+  ::google::storage::v2::HmacKeyMetadata* release_hmac_key();
+  ::google::storage::v2::HmacKeyMetadata* mutable_hmac_key();
+  void set_allocated_hmac_key(::google::storage::v2::HmacKeyMetadata* hmac_key);
+  private:
+  const ::google::storage::v2::HmacKeyMetadata& _internal_hmac_key() const;
+  ::google::storage::v2::HmacKeyMetadata* _internal_mutable_hmac_key();
+  public:
+  void unsafe_arena_set_allocated_hmac_key(
+      ::google::storage::v2::HmacKeyMetadata* hmac_key);
+  ::google::storage::v2::HmacKeyMetadata* unsafe_arena_release_hmac_key();
+
+  // .google.storage.v2.CommonRequestParams common_request_params = 2;
+  bool has_common_request_params() const;
+  private:
+  bool _internal_has_common_request_params() const;
+  public:
+  void clear_common_request_params();
+  const ::google::storage::v2::CommonRequestParams& common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* release_common_request_params();
+  ::google::storage::v2::CommonRequestParams* mutable_common_request_params();
+  void set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params);
+  private:
+  const ::google::storage::v2::CommonRequestParams& _internal_common_request_params() const;
+  ::google::storage::v2::CommonRequestParams* _internal_mutable_common_request_params();
+  public:
+  void unsafe_arena_set_allocated_common_request_params(
+      ::google::storage::v2::CommonRequestParams* common_request_params);
+  ::google::storage::v2::CommonRequestParams* unsafe_arena_release_common_request_params();
+
+  // .google.protobuf.FieldMask update_mask = 3;
+  bool has_update_mask() const;
+  private:
+  bool _internal_has_update_mask() const;
+  public:
+  void clear_update_mask();
+  const PROTOBUF_NAMESPACE_ID::FieldMask& update_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* release_update_mask();
+  PROTOBUF_NAMESPACE_ID::FieldMask* mutable_update_mask();
+  void set_allocated_update_mask(PROTOBUF_NAMESPACE_ID::FieldMask* update_mask);
+  private:
+  const PROTOBUF_NAMESPACE_ID::FieldMask& _internal_update_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* _internal_mutable_update_mask();
+  public:
+  void unsafe_arena_set_allocated_update_mask(
+      PROTOBUF_NAMESPACE_ID::FieldMask* update_mask);
+  PROTOBUF_NAMESPACE_ID::FieldMask* unsafe_arena_release_update_mask();
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.UpdateHmacKeyRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::google::storage::v2::HmacKeyMetadata* hmac_key_;
+  ::google::storage::v2::CommonRequestParams* common_request_params_;
+  PROTOBUF_NAMESPACE_ID::FieldMask* update_mask_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CommonObjectRequestParams PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.CommonObjectRequestParams) */ {
  public:
@@ -2286,7 +8575,7 @@ class CommonObjectRequestParams PROTOBUF_FINAL :
                &_CommonObjectRequestParams_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    38;
 
   friend void swap(CommonObjectRequestParams& a, CommonObjectRequestParams& b) {
     a.Swap(&b);
@@ -2466,7 +8755,7 @@ class CommonRequestParams PROTOBUF_FINAL :
                &_CommonRequestParams_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    39;
 
   friend void swap(CommonRequestParams& a, CommonRequestParams& b) {
     a.Swap(&b);
@@ -2610,7 +8899,7 @@ class ServiceConstants PROTOBUF_FINAL :
                &_ServiceConstants_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    40;
 
   friend void swap(ServiceConstants& a, ServiceConstants& b) {
     a.Swap(&b);
@@ -2796,7 +9085,7 @@ class Bucket_Billing PROTOBUF_FINAL :
                &_Bucket_Billing_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    41;
 
   friend void swap(Bucket_Billing& a, Bucket_Billing& b) {
     a.Swap(&b);
@@ -2933,7 +9222,7 @@ class Bucket_Cors PROTOBUF_FINAL :
                &_Bucket_Cors_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    42;
 
   friend void swap(Bucket_Cors& a, Bucket_Cors& b) {
     a.Swap(&b);
@@ -3148,7 +9437,7 @@ class Bucket_Encryption PROTOBUF_FINAL :
                &_Bucket_Encryption_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    43;
 
   friend void swap(Bucket_Encryption& a, Bucket_Encryption& b) {
     a.Swap(&b);
@@ -3292,7 +9581,7 @@ class Bucket_IamConfig_UniformBucketLevelAccess PROTOBUF_FINAL :
                &_Bucket_IamConfig_UniformBucketLevelAccess_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    44;
 
   friend void swap(Bucket_IamConfig_UniformBucketLevelAccess& a, Bucket_IamConfig_UniformBucketLevelAccess& b) {
     a.Swap(&b);
@@ -3449,7 +9738,7 @@ class Bucket_IamConfig PROTOBUF_FINAL :
                &_Bucket_IamConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    45;
 
   friend void swap(Bucket_IamConfig& a, Bucket_IamConfig& b) {
     a.Swap(&b);
@@ -3523,6 +9812,8 @@ class Bucket_IamConfig PROTOBUF_FINAL :
     Bucket_IamConfig_PublicAccessPrevention_PUBLIC_ACCESS_PREVENTION_UNSPECIFIED;
   static constexpr PublicAccessPrevention ENFORCED =
     Bucket_IamConfig_PublicAccessPrevention_ENFORCED;
+  static constexpr PublicAccessPrevention INHERITED =
+    Bucket_IamConfig_PublicAccessPrevention_INHERITED;
   static inline bool PublicAccessPrevention_IsValid(int value) {
     return Bucket_IamConfig_PublicAccessPrevention_IsValid(value);
   }
@@ -3638,7 +9929,7 @@ class Bucket_Lifecycle_Rule_Action PROTOBUF_FINAL :
                &_Bucket_Lifecycle_Rule_Action_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    46;
 
   friend void swap(Bucket_Lifecycle_Rule_Action& a, Bucket_Lifecycle_Rule_Action& b) {
     a.Swap(&b);
@@ -3800,7 +10091,7 @@ class Bucket_Lifecycle_Rule_Condition PROTOBUF_FINAL :
                &_Bucket_Lifecycle_Rule_Condition_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    47;
 
   friend void swap(Bucket_Lifecycle_Rule_Condition& a, Bucket_Lifecycle_Rule_Condition& b) {
     a.Swap(&b);
@@ -4088,7 +10379,7 @@ class Bucket_Lifecycle_Rule PROTOBUF_FINAL :
                &_Bucket_Lifecycle_Rule_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    48;
 
   friend void swap(Bucket_Lifecycle_Rule& a, Bucket_Lifecycle_Rule& b) {
     a.Swap(&b);
@@ -4257,7 +10548,7 @@ class Bucket_Lifecycle PROTOBUF_FINAL :
                &_Bucket_Lifecycle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    49;
 
   friend void swap(Bucket_Lifecycle& a, Bucket_Lifecycle& b) {
     a.Swap(&b);
@@ -4405,7 +10696,7 @@ class Bucket_Logging PROTOBUF_FINAL :
                &_Bucket_Logging_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    50;
 
   friend void swap(Bucket_Logging& a, Bucket_Logging& b) {
     a.Swap(&b);
@@ -4567,7 +10858,7 @@ class Bucket_RetentionPolicy PROTOBUF_FINAL :
                &_Bucket_RetentionPolicy_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    51;
 
   friend void swap(Bucket_RetentionPolicy& a, Bucket_RetentionPolicy& b) {
     a.Swap(&b);
@@ -4735,7 +11026,7 @@ class Bucket_Versioning PROTOBUF_FINAL :
                &_Bucket_Versioning_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    52;
 
   friend void swap(Bucket_Versioning& a, Bucket_Versioning& b) {
     a.Swap(&b);
@@ -4872,7 +11163,7 @@ class Bucket_Website PROTOBUF_FINAL :
                &_Bucket_Website_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    53;
 
   friend void swap(Bucket_Website& a, Bucket_Website& b) {
     a.Swap(&b);
@@ -4991,6 +11282,158 @@ class Bucket_Website PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class Bucket_CustomPlacementConfig PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.Bucket.CustomPlacementConfig) */ {
+ public:
+  inline Bucket_CustomPlacementConfig() : Bucket_CustomPlacementConfig(nullptr) {}
+  virtual ~Bucket_CustomPlacementConfig();
+  explicit constexpr Bucket_CustomPlacementConfig(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Bucket_CustomPlacementConfig(const Bucket_CustomPlacementConfig& from);
+  Bucket_CustomPlacementConfig(Bucket_CustomPlacementConfig&& from) noexcept
+    : Bucket_CustomPlacementConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline Bucket_CustomPlacementConfig& operator=(const Bucket_CustomPlacementConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Bucket_CustomPlacementConfig& operator=(Bucket_CustomPlacementConfig&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Bucket_CustomPlacementConfig& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Bucket_CustomPlacementConfig* internal_default_instance() {
+    return reinterpret_cast<const Bucket_CustomPlacementConfig*>(
+               &_Bucket_CustomPlacementConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    54;
+
+  friend void swap(Bucket_CustomPlacementConfig& a, Bucket_CustomPlacementConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Bucket_CustomPlacementConfig* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Bucket_CustomPlacementConfig* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Bucket_CustomPlacementConfig* New() const final {
+    return CreateMaybeMessage<Bucket_CustomPlacementConfig>(nullptr);
+  }
+
+  Bucket_CustomPlacementConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Bucket_CustomPlacementConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Bucket_CustomPlacementConfig& from);
+  void MergeFrom(const Bucket_CustomPlacementConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Bucket_CustomPlacementConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.Bucket.CustomPlacementConfig";
+  }
+  protected:
+  explicit Bucket_CustomPlacementConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDataLocationsFieldNumber = 1,
+  };
+  // repeated string data_locations = 1;
+  int data_locations_size() const;
+  private:
+  int _internal_data_locations_size() const;
+  public:
+  void clear_data_locations();
+  const std::string& data_locations(int index) const;
+  std::string* mutable_data_locations(int index);
+  void set_data_locations(int index, const std::string& value);
+  void set_data_locations(int index, std::string&& value);
+  void set_data_locations(int index, const char* value);
+  void set_data_locations(int index, const char* value, size_t size);
+  std::string* add_data_locations();
+  void add_data_locations(const std::string& value);
+  void add_data_locations(std::string&& value);
+  void add_data_locations(const char* value);
+  void add_data_locations(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& data_locations() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_data_locations();
+  private:
+  const std::string& _internal_data_locations(int index) const;
+  std::string* _internal_add_data_locations();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.Bucket.CustomPlacementConfig)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> data_locations_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Bucket_LabelsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Bucket_LabelsEntry_DoNotUse, 
     std::string, std::string,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
@@ -5017,7 +11460,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto);
-    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto.file_level_metadata[25];
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto.file_level_metadata[55];
   }
 
   public:
@@ -5068,7 +11511,7 @@ class Bucket PROTOBUF_FINAL :
                &_Bucket_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    56;
 
   friend void swap(Bucket& a, Bucket& b) {
     a.Swap(&b);
@@ -5144,6 +11587,7 @@ class Bucket PROTOBUF_FINAL :
   typedef Bucket_RetentionPolicy RetentionPolicy;
   typedef Bucket_Versioning Versioning;
   typedef Bucket_Website Website;
+  typedef Bucket_CustomPlacementConfig CustomPlacementConfig;
 
   // accessors -------------------------------------------------------
 
@@ -5152,13 +11596,13 @@ class Bucket PROTOBUF_FINAL :
     kDefaultObjectAclFieldNumber = 9,
     kCorsFieldNumber = 12,
     kLabelsFieldNumber = 15,
-    kZoneAffinityFieldNumber = 24,
     kNameFieldNumber = 1,
     kBucketIdFieldNumber = 2,
     kProjectFieldNumber = 3,
     kLocationFieldNumber = 5,
     kLocationTypeFieldNumber = 6,
     kStorageClassFieldNumber = 7,
+    kRpoFieldNumber = 27,
     kLifecycleFieldNumber = 10,
     kCreateTimeFieldNumber = 11,
     kUpdateTimeFieldNumber = 13,
@@ -5170,6 +11614,7 @@ class Bucket PROTOBUF_FINAL :
     kBillingFieldNumber = 21,
     kRetentionPolicyFieldNumber = 22,
     kIamConfigFieldNumber = 23,
+    kCustomPlacementConfigFieldNumber = 26,
     kMetagenerationFieldNumber = 4,
     kDefaultEventBasedHoldFieldNumber = 14,
     kSatisfiesPzsFieldNumber = 25,
@@ -5244,30 +11689,6 @@ class Bucket PROTOBUF_FINAL :
       labels() const;
   ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
       mutable_labels();
-
-  // repeated string zone_affinity = 24 [(.google.api.field_behavior) = IMMUTABLE];
-  int zone_affinity_size() const;
-  private:
-  int _internal_zone_affinity_size() const;
-  public:
-  void clear_zone_affinity();
-  const std::string& zone_affinity(int index) const;
-  std::string* mutable_zone_affinity(int index);
-  void set_zone_affinity(int index, const std::string& value);
-  void set_zone_affinity(int index, std::string&& value);
-  void set_zone_affinity(int index, const char* value);
-  void set_zone_affinity(int index, const char* value, size_t size);
-  std::string* add_zone_affinity();
-  void add_zone_affinity(const std::string& value);
-  void add_zone_affinity(std::string&& value);
-  void add_zone_affinity(const char* value);
-  void add_zone_affinity(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& zone_affinity() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_zone_affinity();
-  private:
-  const std::string& _internal_zone_affinity(int index) const;
-  std::string* _internal_add_zone_affinity();
-  public:
 
   // string name = 1 [(.google.api.field_behavior) = IMMUTABLE];
   void clear_name();
@@ -5363,6 +11784,22 @@ class Bucket PROTOBUF_FINAL :
   const std::string& _internal_storage_class() const;
   void _internal_set_storage_class(const std::string& value);
   std::string* _internal_mutable_storage_class();
+  public:
+
+  // string rpo = 27;
+  void clear_rpo();
+  const std::string& rpo() const;
+  void set_rpo(const std::string& value);
+  void set_rpo(std::string&& value);
+  void set_rpo(const char* value);
+  void set_rpo(const char* value, size_t size);
+  std::string* mutable_rpo();
+  std::string* release_rpo();
+  void set_allocated_rpo(std::string* rpo);
+  private:
+  const std::string& _internal_rpo() const;
+  void _internal_set_rpo(const std::string& value);
+  std::string* _internal_mutable_rpo();
   public:
 
   // .google.storage.v2.Bucket.Lifecycle lifecycle = 10;
@@ -5563,6 +12000,24 @@ class Bucket PROTOBUF_FINAL :
       ::google::storage::v2::Bucket_IamConfig* iam_config);
   ::google::storage::v2::Bucket_IamConfig* unsafe_arena_release_iam_config();
 
+  // .google.storage.v2.Bucket.CustomPlacementConfig custom_placement_config = 26;
+  bool has_custom_placement_config() const;
+  private:
+  bool _internal_has_custom_placement_config() const;
+  public:
+  void clear_custom_placement_config();
+  const ::google::storage::v2::Bucket_CustomPlacementConfig& custom_placement_config() const;
+  ::google::storage::v2::Bucket_CustomPlacementConfig* release_custom_placement_config();
+  ::google::storage::v2::Bucket_CustomPlacementConfig* mutable_custom_placement_config();
+  void set_allocated_custom_placement_config(::google::storage::v2::Bucket_CustomPlacementConfig* custom_placement_config);
+  private:
+  const ::google::storage::v2::Bucket_CustomPlacementConfig& _internal_custom_placement_config() const;
+  ::google::storage::v2::Bucket_CustomPlacementConfig* _internal_mutable_custom_placement_config();
+  public:
+  void unsafe_arena_set_allocated_custom_placement_config(
+      ::google::storage::v2::Bucket_CustomPlacementConfig* custom_placement_config);
+  ::google::storage::v2::Bucket_CustomPlacementConfig* unsafe_arena_release_custom_placement_config();
+
   // int64 metageneration = 4 [(.google.api.field_behavior) = OUTPUT_ONLY];
   void clear_metageneration();
   ::PROTOBUF_NAMESPACE_ID::int64 metageneration() const;
@@ -5605,13 +12060,13 @@ class Bucket PROTOBUF_FINAL :
       std::string, std::string,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> labels_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> zone_affinity_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bucket_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr project_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr location_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr location_type_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr storage_class_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rpo_;
   ::google::storage::v2::Bucket_Lifecycle* lifecycle_;
   PROTOBUF_NAMESPACE_ID::Timestamp* create_time_;
   PROTOBUF_NAMESPACE_ID::Timestamp* update_time_;
@@ -5623,6 +12078,7 @@ class Bucket PROTOBUF_FINAL :
   ::google::storage::v2::Bucket_Billing* billing_;
   ::google::storage::v2::Bucket_RetentionPolicy* retention_policy_;
   ::google::storage::v2::Bucket_IamConfig* iam_config_;
+  ::google::storage::v2::Bucket_CustomPlacementConfig* custom_placement_config_;
   ::PROTOBUF_NAMESPACE_ID::int64 metageneration_;
   bool default_event_based_hold_;
   bool satisfies_pzs_;
@@ -5674,7 +12130,7 @@ class BucketAccessControl PROTOBUF_FINAL :
                &_BucketAccessControl_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    57;
 
   friend void swap(BucketAccessControl& a, BucketAccessControl& b) {
     a.Swap(&b);
@@ -5928,7 +12384,7 @@ class ChecksummedData PROTOBUF_FINAL :
                &_ChecksummedData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    58;
 
   friend void swap(ChecksummedData& a, ChecksummedData& b) {
     a.Swap(&b);
@@ -6088,7 +12544,7 @@ class ObjectChecksums PROTOBUF_FINAL :
                &_ObjectChecksums_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    59;
 
   friend void swap(ObjectChecksums& a, ObjectChecksums& b) {
     a.Swap(&b);
@@ -6205,24 +12661,24 @@ class ObjectChecksums PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class Object_CustomerEncryption PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.Object.CustomerEncryption) */ {
+class HmacKeyMetadata PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.HmacKeyMetadata) */ {
  public:
-  inline Object_CustomerEncryption() : Object_CustomerEncryption(nullptr) {}
-  virtual ~Object_CustomerEncryption();
-  explicit constexpr Object_CustomerEncryption(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline HmacKeyMetadata() : HmacKeyMetadata(nullptr) {}
+  virtual ~HmacKeyMetadata();
+  explicit constexpr HmacKeyMetadata(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  Object_CustomerEncryption(const Object_CustomerEncryption& from);
-  Object_CustomerEncryption(Object_CustomerEncryption&& from) noexcept
-    : Object_CustomerEncryption() {
+  HmacKeyMetadata(const HmacKeyMetadata& from);
+  HmacKeyMetadata(HmacKeyMetadata&& from) noexcept
+    : HmacKeyMetadata() {
     *this = ::std::move(from);
   }
 
-  inline Object_CustomerEncryption& operator=(const Object_CustomerEncryption& from) {
+  inline HmacKeyMetadata& operator=(const HmacKeyMetadata& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Object_CustomerEncryption& operator=(Object_CustomerEncryption&& from) noexcept {
+  inline HmacKeyMetadata& operator=(HmacKeyMetadata&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -6240,20 +12696,20 @@ class Object_CustomerEncryption PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const Object_CustomerEncryption& default_instance() {
+  static const HmacKeyMetadata& default_instance() {
     return *internal_default_instance();
   }
-  static inline const Object_CustomerEncryption* internal_default_instance() {
-    return reinterpret_cast<const Object_CustomerEncryption*>(
-               &_Object_CustomerEncryption_default_instance_);
+  static inline const HmacKeyMetadata* internal_default_instance() {
+    return reinterpret_cast<const HmacKeyMetadata*>(
+               &_HmacKeyMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    60;
 
-  friend void swap(Object_CustomerEncryption& a, Object_CustomerEncryption& b) {
+  friend void swap(HmacKeyMetadata& a, HmacKeyMetadata& b) {
     a.Swap(&b);
   }
-  inline void Swap(Object_CustomerEncryption* other) {
+  inline void Swap(HmacKeyMetadata* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -6261,7 +12717,7 @@ class Object_CustomerEncryption PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Object_CustomerEncryption* other) {
+  void UnsafeArenaSwap(HmacKeyMetadata* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -6269,17 +12725,17 @@ class Object_CustomerEncryption PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline Object_CustomerEncryption* New() const final {
-    return CreateMaybeMessage<Object_CustomerEncryption>(nullptr);
+  inline HmacKeyMetadata* New() const final {
+    return CreateMaybeMessage<HmacKeyMetadata>(nullptr);
   }
 
-  Object_CustomerEncryption* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<Object_CustomerEncryption>(arena);
+  HmacKeyMetadata* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<HmacKeyMetadata>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const Object_CustomerEncryption& from);
-  void MergeFrom(const Object_CustomerEncryption& from);
+  void CopyFrom(const HmacKeyMetadata& from);
+  void MergeFrom(const HmacKeyMetadata& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -6293,13 +12749,551 @@ class Object_CustomerEncryption PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Object_CustomerEncryption* other);
+  void InternalSwap(HmacKeyMetadata* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "google.storage.v2.Object.CustomerEncryption";
+    return "google.storage.v2.HmacKeyMetadata";
   }
   protected:
-  explicit Object_CustomerEncryption(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit HmacKeyMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kAccessIdFieldNumber = 2,
+    kProjectFieldNumber = 3,
+    kServiceAccountEmailFieldNumber = 4,
+    kStateFieldNumber = 5,
+    kCreateTimeFieldNumber = 6,
+    kUpdateTimeFieldNumber = 7,
+  };
+  // string id = 1;
+  void clear_id();
+  const std::string& id() const;
+  void set_id(const std::string& value);
+  void set_id(std::string&& value);
+  void set_id(const char* value);
+  void set_id(const char* value, size_t size);
+  std::string* mutable_id();
+  std::string* release_id();
+  void set_allocated_id(std::string* id);
+  private:
+  const std::string& _internal_id() const;
+  void _internal_set_id(const std::string& value);
+  std::string* _internal_mutable_id();
+  public:
+
+  // string access_id = 2;
+  void clear_access_id();
+  const std::string& access_id() const;
+  void set_access_id(const std::string& value);
+  void set_access_id(std::string&& value);
+  void set_access_id(const char* value);
+  void set_access_id(const char* value, size_t size);
+  std::string* mutable_access_id();
+  std::string* release_access_id();
+  void set_allocated_access_id(std::string* access_id);
+  private:
+  const std::string& _internal_access_id() const;
+  void _internal_set_access_id(const std::string& value);
+  std::string* _internal_mutable_access_id();
+  public:
+
+  // string project = 3 [(.google.api.resource_reference) = {
+  void clear_project();
+  const std::string& project() const;
+  void set_project(const std::string& value);
+  void set_project(std::string&& value);
+  void set_project(const char* value);
+  void set_project(const char* value, size_t size);
+  std::string* mutable_project();
+  std::string* release_project();
+  void set_allocated_project(std::string* project);
+  private:
+  const std::string& _internal_project() const;
+  void _internal_set_project(const std::string& value);
+  std::string* _internal_mutable_project();
+  public:
+
+  // string service_account_email = 4;
+  void clear_service_account_email();
+  const std::string& service_account_email() const;
+  void set_service_account_email(const std::string& value);
+  void set_service_account_email(std::string&& value);
+  void set_service_account_email(const char* value);
+  void set_service_account_email(const char* value, size_t size);
+  std::string* mutable_service_account_email();
+  std::string* release_service_account_email();
+  void set_allocated_service_account_email(std::string* service_account_email);
+  private:
+  const std::string& _internal_service_account_email() const;
+  void _internal_set_service_account_email(const std::string& value);
+  std::string* _internal_mutable_service_account_email();
+  public:
+
+  // string state = 5;
+  void clear_state();
+  const std::string& state() const;
+  void set_state(const std::string& value);
+  void set_state(std::string&& value);
+  void set_state(const char* value);
+  void set_state(const char* value, size_t size);
+  std::string* mutable_state();
+  std::string* release_state();
+  void set_allocated_state(std::string* state);
+  private:
+  const std::string& _internal_state() const;
+  void _internal_set_state(const std::string& value);
+  std::string* _internal_mutable_state();
+  public:
+
+  // .google.protobuf.Timestamp create_time = 6;
+  bool has_create_time() const;
+  private:
+  bool _internal_has_create_time() const;
+  public:
+  void clear_create_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& create_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_create_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_create_time();
+  void set_allocated_create_time(PROTOBUF_NAMESPACE_ID::Timestamp* create_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_create_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_create_time();
+  public:
+  void unsafe_arena_set_allocated_create_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* create_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_create_time();
+
+  // .google.protobuf.Timestamp update_time = 7;
+  bool has_update_time() const;
+  private:
+  bool _internal_has_update_time() const;
+  public:
+  void clear_update_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& update_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_update_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_update_time();
+  void set_allocated_update_time(PROTOBUF_NAMESPACE_ID::Timestamp* update_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_update_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_update_time();
+  public:
+  void unsafe_arena_set_allocated_update_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* update_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_update_time();
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.HmacKeyMetadata)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr access_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr project_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_account_email_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr state_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* create_time_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* update_time_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Notification_CustomAttributesEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Notification_CustomAttributesEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Notification_CustomAttributesEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> SuperType;
+  Notification_CustomAttributesEntry_DoNotUse();
+  explicit constexpr Notification_CustomAttributesEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit Notification_CustomAttributesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Notification_CustomAttributesEntry_DoNotUse& other);
+  static const Notification_CustomAttributesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Notification_CustomAttributesEntry_DoNotUse*>(&_Notification_CustomAttributesEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "google.storage.v2.Notification.CustomAttributesEntry.key");
+ }
+  static bool ValidateValue(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "google.storage.v2.Notification.CustomAttributesEntry.value");
+ }
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& other) final;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto);
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto.file_level_metadata[61];
+  }
+
+  public:
+};
+
+// -------------------------------------------------------------------
+
+class Notification PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.Notification) */ {
+ public:
+  inline Notification() : Notification(nullptr) {}
+  virtual ~Notification();
+  explicit constexpr Notification(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Notification(const Notification& from);
+  Notification(Notification&& from) noexcept
+    : Notification() {
+    *this = ::std::move(from);
+  }
+
+  inline Notification& operator=(const Notification& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Notification& operator=(Notification&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Notification& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Notification* internal_default_instance() {
+    return reinterpret_cast<const Notification*>(
+               &_Notification_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    62;
+
+  friend void swap(Notification& a, Notification& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Notification* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Notification* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Notification* New() const final {
+    return CreateMaybeMessage<Notification>(nullptr);
+  }
+
+  Notification* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Notification>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Notification& from);
+  void MergeFrom(const Notification& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Notification* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.Notification";
+  }
+  protected:
+  explicit Notification(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEventTypesFieldNumber = 3,
+    kCustomAttributesFieldNumber = 4,
+    kNameFieldNumber = 1,
+    kTopicFieldNumber = 2,
+    kObjectNamePrefixFieldNumber = 5,
+    kPayloadFormatFieldNumber = 6,
+  };
+  // repeated string event_types = 3 [(.google.api.field_behavior) = OPTIONAL];
+  int event_types_size() const;
+  private:
+  int _internal_event_types_size() const;
+  public:
+  void clear_event_types();
+  const std::string& event_types(int index) const;
+  std::string* mutable_event_types(int index);
+  void set_event_types(int index, const std::string& value);
+  void set_event_types(int index, std::string&& value);
+  void set_event_types(int index, const char* value);
+  void set_event_types(int index, const char* value, size_t size);
+  std::string* add_event_types();
+  void add_event_types(const std::string& value);
+  void add_event_types(std::string&& value);
+  void add_event_types(const char* value);
+  void add_event_types(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& event_types() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_event_types();
+  private:
+  const std::string& _internal_event_types(int index) const;
+  std::string* _internal_add_event_types();
+  public:
+
+  // map<string, string> custom_attributes = 4 [(.google.api.field_behavior) = OPTIONAL];
+  int custom_attributes_size() const;
+  private:
+  int _internal_custom_attributes_size() const;
+  public:
+  void clear_custom_attributes();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      _internal_custom_attributes() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      _internal_mutable_custom_attributes();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      custom_attributes() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      mutable_custom_attributes();
+
+  // string name = 1 [(.google.api.field_behavior) = REQUIRED];
+  void clear_name();
+  const std::string& name() const;
+  void set_name(const std::string& value);
+  void set_name(std::string&& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  std::string* mutable_name();
+  std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string topic = 2 [(.google.api.field_behavior) = REQUIRED];
+  void clear_topic();
+  const std::string& topic() const;
+  void set_topic(const std::string& value);
+  void set_topic(std::string&& value);
+  void set_topic(const char* value);
+  void set_topic(const char* value, size_t size);
+  std::string* mutable_topic();
+  std::string* release_topic();
+  void set_allocated_topic(std::string* topic);
+  private:
+  const std::string& _internal_topic() const;
+  void _internal_set_topic(const std::string& value);
+  std::string* _internal_mutable_topic();
+  public:
+
+  // string object_name_prefix = 5 [(.google.api.field_behavior) = OPTIONAL];
+  void clear_object_name_prefix();
+  const std::string& object_name_prefix() const;
+  void set_object_name_prefix(const std::string& value);
+  void set_object_name_prefix(std::string&& value);
+  void set_object_name_prefix(const char* value);
+  void set_object_name_prefix(const char* value, size_t size);
+  std::string* mutable_object_name_prefix();
+  std::string* release_object_name_prefix();
+  void set_allocated_object_name_prefix(std::string* object_name_prefix);
+  private:
+  const std::string& _internal_object_name_prefix() const;
+  void _internal_set_object_name_prefix(const std::string& value);
+  std::string* _internal_mutable_object_name_prefix();
+  public:
+
+  // string payload_format = 6 [(.google.api.field_behavior) = REQUIRED];
+  void clear_payload_format();
+  const std::string& payload_format() const;
+  void set_payload_format(const std::string& value);
+  void set_payload_format(std::string&& value);
+  void set_payload_format(const char* value);
+  void set_payload_format(const char* value, size_t size);
+  std::string* mutable_payload_format();
+  std::string* release_payload_format();
+  void set_allocated_payload_format(std::string* payload_format);
+  private:
+  const std::string& _internal_payload_format() const;
+  void _internal_set_payload_format(const std::string& value);
+  std::string* _internal_mutable_payload_format();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.Notification)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> event_types_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      Notification_CustomAttributesEntry_DoNotUse,
+      std::string, std::string,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> custom_attributes_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr topic_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr object_name_prefix_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr payload_format_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CustomerEncryption PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.CustomerEncryption) */ {
+ public:
+  inline CustomerEncryption() : CustomerEncryption(nullptr) {}
+  virtual ~CustomerEncryption();
+  explicit constexpr CustomerEncryption(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CustomerEncryption(const CustomerEncryption& from);
+  CustomerEncryption(CustomerEncryption&& from) noexcept
+    : CustomerEncryption() {
+    *this = ::std::move(from);
+  }
+
+  inline CustomerEncryption& operator=(const CustomerEncryption& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CustomerEncryption& operator=(CustomerEncryption&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CustomerEncryption& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CustomerEncryption* internal_default_instance() {
+    return reinterpret_cast<const CustomerEncryption*>(
+               &_CustomerEncryption_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    63;
+
+  friend void swap(CustomerEncryption& a, CustomerEncryption& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CustomerEncryption* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CustomerEncryption* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CustomerEncryption* New() const final {
+    return CreateMaybeMessage<CustomerEncryption>(nullptr);
+  }
+
+  CustomerEncryption* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CustomerEncryption>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CustomerEncryption& from);
+  void MergeFrom(const CustomerEncryption& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CustomerEncryption* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.CustomerEncryption";
+  }
+  protected:
+  explicit CustomerEncryption(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -6319,7 +13313,7 @@ class Object_CustomerEncryption PROTOBUF_FINAL :
 
   enum : int {
     kEncryptionAlgorithmFieldNumber = 1,
-    kKeySha256FieldNumber = 2,
+    kKeySha256BytesFieldNumber = 3,
   };
   // string encryption_algorithm = 1;
   void clear_encryption_algorithm();
@@ -6337,23 +13331,23 @@ class Object_CustomerEncryption PROTOBUF_FINAL :
   std::string* _internal_mutable_encryption_algorithm();
   public:
 
-  // string key_sha256 = 2;
-  void clear_key_sha256();
-  const std::string& key_sha256() const;
-  void set_key_sha256(const std::string& value);
-  void set_key_sha256(std::string&& value);
-  void set_key_sha256(const char* value);
-  void set_key_sha256(const char* value, size_t size);
-  std::string* mutable_key_sha256();
-  std::string* release_key_sha256();
-  void set_allocated_key_sha256(std::string* key_sha256);
+  // bytes key_sha256_bytes = 3;
+  void clear_key_sha256_bytes();
+  const std::string& key_sha256_bytes() const;
+  void set_key_sha256_bytes(const std::string& value);
+  void set_key_sha256_bytes(std::string&& value);
+  void set_key_sha256_bytes(const char* value);
+  void set_key_sha256_bytes(const void* value, size_t size);
+  std::string* mutable_key_sha256_bytes();
+  std::string* release_key_sha256_bytes();
+  void set_allocated_key_sha256_bytes(std::string* key_sha256_bytes);
   private:
-  const std::string& _internal_key_sha256() const;
-  void _internal_set_key_sha256(const std::string& value);
-  std::string* _internal_mutable_key_sha256();
+  const std::string& _internal_key_sha256_bytes() const;
+  void _internal_set_key_sha256_bytes(const std::string& value);
+  std::string* _internal_mutable_key_sha256_bytes();
   public:
 
-  // @@protoc_insertion_point(class_scope:google.storage.v2.Object.CustomerEncryption)
+  // @@protoc_insertion_point(class_scope:google.storage.v2.CustomerEncryption)
  private:
   class _Internal;
 
@@ -6361,7 +13355,7 @@ class Object_CustomerEncryption PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr encryption_algorithm_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr key_sha256_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr key_sha256_bytes_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
 };
@@ -6393,7 +13387,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto);
-    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto.file_level_metadata[31];
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto.file_level_metadata[64];
   }
 
   public:
@@ -6444,7 +13438,7 @@ class Object PROTOBUF_FINAL :
                &_Object_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    65;
 
   friend void swap(Object& a, Object& b) {
     a.Swap(&b);
@@ -6511,7 +13505,6 @@ class Object PROTOBUF_FINAL :
 
   // nested types ----------------------------------------------------
 
-  typedef Object_CustomerEncryption CustomerEncryption;
 
   // accessors -------------------------------------------------------
 
@@ -6848,23 +13841,23 @@ class Object PROTOBUF_FINAL :
       ::google::storage::v2::Owner* owner);
   ::google::storage::v2::Owner* unsafe_arena_release_owner();
 
-  // .google.storage.v2.Object.CustomerEncryption customer_encryption = 25;
+  // .google.storage.v2.CustomerEncryption customer_encryption = 25;
   bool has_customer_encryption() const;
   private:
   bool _internal_has_customer_encryption() const;
   public:
   void clear_customer_encryption();
-  const ::google::storage::v2::Object_CustomerEncryption& customer_encryption() const;
-  ::google::storage::v2::Object_CustomerEncryption* release_customer_encryption();
-  ::google::storage::v2::Object_CustomerEncryption* mutable_customer_encryption();
-  void set_allocated_customer_encryption(::google::storage::v2::Object_CustomerEncryption* customer_encryption);
+  const ::google::storage::v2::CustomerEncryption& customer_encryption() const;
+  ::google::storage::v2::CustomerEncryption* release_customer_encryption();
+  ::google::storage::v2::CustomerEncryption* mutable_customer_encryption();
+  void set_allocated_customer_encryption(::google::storage::v2::CustomerEncryption* customer_encryption);
   private:
-  const ::google::storage::v2::Object_CustomerEncryption& _internal_customer_encryption() const;
-  ::google::storage::v2::Object_CustomerEncryption* _internal_mutable_customer_encryption();
+  const ::google::storage::v2::CustomerEncryption& _internal_customer_encryption() const;
+  ::google::storage::v2::CustomerEncryption* _internal_mutable_customer_encryption();
   public:
   void unsafe_arena_set_allocated_customer_encryption(
-      ::google::storage::v2::Object_CustomerEncryption* customer_encryption);
-  ::google::storage::v2::Object_CustomerEncryption* unsafe_arena_release_customer_encryption();
+      ::google::storage::v2::CustomerEncryption* customer_encryption);
+  ::google::storage::v2::CustomerEncryption* unsafe_arena_release_customer_encryption();
 
   // .google.protobuf.Timestamp custom_time = 26;
   bool has_custom_time() const;
@@ -6973,7 +13966,7 @@ class Object PROTOBUF_FINAL :
   PROTOBUF_NAMESPACE_ID::Timestamp* update_storage_class_time_;
   PROTOBUF_NAMESPACE_ID::Timestamp* retention_expire_time_;
   ::google::storage::v2::Owner* owner_;
-  ::google::storage::v2::Object_CustomerEncryption* customer_encryption_;
+  ::google::storage::v2::CustomerEncryption* customer_encryption_;
   PROTOBUF_NAMESPACE_ID::Timestamp* custom_time_;
   ::PROTOBUF_NAMESPACE_ID::int64 generation_;
   ::PROTOBUF_NAMESPACE_ID::int64 metageneration_;
@@ -7028,7 +14021,7 @@ class ObjectAccessControl PROTOBUF_FINAL :
                &_ObjectAccessControl_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    66;
 
   friend void swap(ObjectAccessControl& a, ObjectAccessControl& b) {
     a.Swap(&b);
@@ -7239,6 +14232,196 @@ class ObjectAccessControl PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class ListObjectsResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ListObjectsResponse) */ {
+ public:
+  inline ListObjectsResponse() : ListObjectsResponse(nullptr) {}
+  virtual ~ListObjectsResponse();
+  explicit constexpr ListObjectsResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ListObjectsResponse(const ListObjectsResponse& from);
+  ListObjectsResponse(ListObjectsResponse&& from) noexcept
+    : ListObjectsResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline ListObjectsResponse& operator=(const ListObjectsResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ListObjectsResponse& operator=(ListObjectsResponse&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ListObjectsResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ListObjectsResponse* internal_default_instance() {
+    return reinterpret_cast<const ListObjectsResponse*>(
+               &_ListObjectsResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    67;
+
+  friend void swap(ListObjectsResponse& a, ListObjectsResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ListObjectsResponse* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ListObjectsResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ListObjectsResponse* New() const final {
+    return CreateMaybeMessage<ListObjectsResponse>(nullptr);
+  }
+
+  ListObjectsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ListObjectsResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ListObjectsResponse& from);
+  void MergeFrom(const ListObjectsResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ListObjectsResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ListObjectsResponse";
+  }
+  protected:
+  explicit ListObjectsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kObjectsFieldNumber = 1,
+    kPrefixesFieldNumber = 2,
+    kNextPageTokenFieldNumber = 3,
+  };
+  // repeated .google.storage.v2.Object objects = 1;
+  int objects_size() const;
+  private:
+  int _internal_objects_size() const;
+  public:
+  void clear_objects();
+  ::google::storage::v2::Object* mutable_objects(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Object >*
+      mutable_objects();
+  private:
+  const ::google::storage::v2::Object& _internal_objects(int index) const;
+  ::google::storage::v2::Object* _internal_add_objects();
+  public:
+  const ::google::storage::v2::Object& objects(int index) const;
+  ::google::storage::v2::Object* add_objects();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Object >&
+      objects() const;
+
+  // repeated string prefixes = 2;
+  int prefixes_size() const;
+  private:
+  int _internal_prefixes_size() const;
+  public:
+  void clear_prefixes();
+  const std::string& prefixes(int index) const;
+  std::string* mutable_prefixes(int index);
+  void set_prefixes(int index, const std::string& value);
+  void set_prefixes(int index, std::string&& value);
+  void set_prefixes(int index, const char* value);
+  void set_prefixes(int index, const char* value, size_t size);
+  std::string* add_prefixes();
+  void add_prefixes(const std::string& value);
+  void add_prefixes(std::string&& value);
+  void add_prefixes(const char* value);
+  void add_prefixes(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& prefixes() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_prefixes();
+  private:
+  const std::string& _internal_prefixes(int index) const;
+  std::string* _internal_add_prefixes();
+  public:
+
+  // string next_page_token = 3;
+  void clear_next_page_token();
+  const std::string& next_page_token() const;
+  void set_next_page_token(const std::string& value);
+  void set_next_page_token(std::string&& value);
+  void set_next_page_token(const char* value);
+  void set_next_page_token(const char* value, size_t size);
+  std::string* mutable_next_page_token();
+  std::string* release_next_page_token();
+  void set_allocated_next_page_token(std::string* next_page_token);
+  private:
+  const std::string& _internal_next_page_token() const;
+  void _internal_set_next_page_token(const std::string& value);
+  std::string* _internal_mutable_next_page_token();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ListObjectsResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Object > objects_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> prefixes_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr next_page_token_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ProjectTeam PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ProjectTeam) */ {
  public:
@@ -7282,7 +14465,7 @@ class ProjectTeam PROTOBUF_FINAL :
                &_ProjectTeam_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    68;
 
   friend void swap(ProjectTeam& a, ProjectTeam& b) {
     a.Swap(&b);
@@ -7401,6 +14584,150 @@ class ProjectTeam PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class ServiceAccount PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.ServiceAccount) */ {
+ public:
+  inline ServiceAccount() : ServiceAccount(nullptr) {}
+  virtual ~ServiceAccount();
+  explicit constexpr ServiceAccount(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ServiceAccount(const ServiceAccount& from);
+  ServiceAccount(ServiceAccount&& from) noexcept
+    : ServiceAccount() {
+    *this = ::std::move(from);
+  }
+
+  inline ServiceAccount& operator=(const ServiceAccount& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ServiceAccount& operator=(ServiceAccount&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ServiceAccount& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ServiceAccount* internal_default_instance() {
+    return reinterpret_cast<const ServiceAccount*>(
+               &_ServiceAccount_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    69;
+
+  friend void swap(ServiceAccount& a, ServiceAccount& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ServiceAccount* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ServiceAccount* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ServiceAccount* New() const final {
+    return CreateMaybeMessage<ServiceAccount>(nullptr);
+  }
+
+  ServiceAccount* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ServiceAccount>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ServiceAccount& from);
+  void MergeFrom(const ServiceAccount& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ServiceAccount* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.storage.v2.ServiceAccount";
+  }
+  protected:
+  explicit ServiceAccount(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fstorage_2fv2_2fstorage_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEmailAddressFieldNumber = 1,
+  };
+  // string email_address = 1;
+  void clear_email_address();
+  const std::string& email_address() const;
+  void set_email_address(const std::string& value);
+  void set_email_address(std::string&& value);
+  void set_email_address(const char* value);
+  void set_email_address(const char* value, size_t size);
+  std::string* mutable_email_address();
+  std::string* release_email_address();
+  void set_allocated_email_address(std::string* email_address);
+  private:
+  const std::string& _internal_email_address() const;
+  void _internal_set_email_address(const std::string& value);
+  std::string* _internal_mutable_email_address();
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.storage.v2.ServiceAccount)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_address_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fstorage_2fv2_2fstorage_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Owner PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.storage.v2.Owner) */ {
  public:
@@ -7444,7 +14771,7 @@ class Owner PROTOBUF_FINAL :
                &_Owner_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    70;
 
   friend void swap(Owner& a, Owner& b) {
     a.Swap(&b);
@@ -7606,7 +14933,7 @@ class ContentRange PROTOBUF_FINAL :
                &_ContentRange_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    71;
 
   friend void swap(ContentRange& a, ContentRange& b) {
     a.Swap(&b);
@@ -7729,6 +15056,3368 @@ class ContentRange PROTOBUF_FINAL :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// DeleteBucketRequest
+
+// string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void DeleteBucketRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& DeleteBucketRequest::name() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteBucketRequest.name)
+  return _internal_name();
+}
+inline void DeleteBucketRequest::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteBucketRequest.name)
+}
+inline std::string* DeleteBucketRequest::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteBucketRequest.name)
+  return _internal_mutable_name();
+}
+inline const std::string& DeleteBucketRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void DeleteBucketRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteBucketRequest::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.DeleteBucketRequest.name)
+}
+inline void DeleteBucketRequest::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.DeleteBucketRequest.name)
+}
+inline void DeleteBucketRequest::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.DeleteBucketRequest.name)
+}
+inline std::string* DeleteBucketRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteBucketRequest::release_name() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteBucketRequest.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteBucketRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteBucketRequest.name)
+}
+
+// int64 if_metageneration_match = 2;
+inline bool DeleteBucketRequest::_internal_has_if_metageneration_match() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool DeleteBucketRequest::has_if_metageneration_match() const {
+  return _internal_has_if_metageneration_match();
+}
+inline void DeleteBucketRequest::clear_if_metageneration_match() {
+  if_metageneration_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteBucketRequest::_internal_if_metageneration_match() const {
+  return if_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteBucketRequest::if_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteBucketRequest.if_metageneration_match)
+  return _internal_if_metageneration_match();
+}
+inline void DeleteBucketRequest::_internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  if_metageneration_match_ = value;
+}
+inline void DeleteBucketRequest::set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteBucketRequest.if_metageneration_match)
+}
+
+// int64 if_metageneration_not_match = 3;
+inline bool DeleteBucketRequest::_internal_has_if_metageneration_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool DeleteBucketRequest::has_if_metageneration_not_match() const {
+  return _internal_has_if_metageneration_not_match();
+}
+inline void DeleteBucketRequest::clear_if_metageneration_not_match() {
+  if_metageneration_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteBucketRequest::_internal_if_metageneration_not_match() const {
+  return if_metageneration_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteBucketRequest::if_metageneration_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteBucketRequest.if_metageneration_not_match)
+  return _internal_if_metageneration_not_match();
+}
+inline void DeleteBucketRequest::_internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  if_metageneration_not_match_ = value;
+}
+inline void DeleteBucketRequest::set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteBucketRequest.if_metageneration_not_match)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 5;
+inline bool DeleteBucketRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool DeleteBucketRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void DeleteBucketRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& DeleteBucketRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& DeleteBucketRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteBucketRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void DeleteBucketRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.DeleteBucketRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteBucketRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteBucketRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteBucketRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteBucketRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteBucketRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteBucketRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void DeleteBucketRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteBucketRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// GetBucketRequest
+
+// string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void GetBucketRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& GetBucketRequest::name() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetBucketRequest.name)
+  return _internal_name();
+}
+inline void GetBucketRequest::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetBucketRequest.name)
+}
+inline std::string* GetBucketRequest::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetBucketRequest.name)
+  return _internal_mutable_name();
+}
+inline const std::string& GetBucketRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void GetBucketRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void GetBucketRequest::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.GetBucketRequest.name)
+}
+inline void GetBucketRequest::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.GetBucketRequest.name)
+}
+inline void GetBucketRequest::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.GetBucketRequest.name)
+}
+inline std::string* GetBucketRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* GetBucketRequest::release_name() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetBucketRequest.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void GetBucketRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetBucketRequest.name)
+}
+
+// int64 if_metageneration_match = 2;
+inline bool GetBucketRequest::_internal_has_if_metageneration_match() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool GetBucketRequest::has_if_metageneration_match() const {
+  return _internal_has_if_metageneration_match();
+}
+inline void GetBucketRequest::clear_if_metageneration_match() {
+  if_metageneration_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetBucketRequest::_internal_if_metageneration_match() const {
+  return if_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetBucketRequest::if_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetBucketRequest.if_metageneration_match)
+  return _internal_if_metageneration_match();
+}
+inline void GetBucketRequest::_internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  if_metageneration_match_ = value;
+}
+inline void GetBucketRequest::set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetBucketRequest.if_metageneration_match)
+}
+
+// int64 if_metageneration_not_match = 3;
+inline bool GetBucketRequest::_internal_has_if_metageneration_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool GetBucketRequest::has_if_metageneration_not_match() const {
+  return _internal_has_if_metageneration_not_match();
+}
+inline void GetBucketRequest::clear_if_metageneration_not_match() {
+  if_metageneration_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetBucketRequest::_internal_if_metageneration_not_match() const {
+  return if_metageneration_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetBucketRequest::if_metageneration_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetBucketRequest.if_metageneration_not_match)
+  return _internal_if_metageneration_not_match();
+}
+inline void GetBucketRequest::_internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000004u;
+  if_metageneration_not_match_ = value;
+}
+inline void GetBucketRequest::set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetBucketRequest.if_metageneration_not_match)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 4;
+inline bool GetBucketRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool GetBucketRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void GetBucketRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& GetBucketRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& GetBucketRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetBucketRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void GetBucketRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.GetBucketRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* GetBucketRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* GetBucketRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetBucketRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* GetBucketRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* GetBucketRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetBucketRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void GetBucketRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetBucketRequest.common_request_params)
+}
+
+// .google.protobuf.FieldMask read_mask = 5;
+inline bool GetBucketRequest::_internal_has_read_mask() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || read_mask_ != nullptr);
+  return value;
+}
+inline bool GetBucketRequest::has_read_mask() const {
+  return _internal_has_read_mask();
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& GetBucketRequest::_internal_read_mask() const {
+  const PROTOBUF_NAMESPACE_ID::FieldMask* p = read_mask_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::FieldMask&>(
+      PROTOBUF_NAMESPACE_ID::_FieldMask_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& GetBucketRequest::read_mask() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetBucketRequest.read_mask)
+  return _internal_read_mask();
+}
+inline void GetBucketRequest::unsafe_arena_set_allocated_read_mask(
+    PROTOBUF_NAMESPACE_ID::FieldMask* read_mask) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask_);
+  }
+  read_mask_ = read_mask;
+  if (read_mask) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.GetBucketRequest.read_mask)
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* GetBucketRequest::release_read_mask() {
+  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = read_mask_;
+  read_mask_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* GetBucketRequest::unsafe_arena_release_read_mask() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetBucketRequest.read_mask)
+  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = read_mask_;
+  read_mask_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* GetBucketRequest::_internal_mutable_read_mask() {
+  _has_bits_[0] |= 0x00000001u;
+  if (read_mask_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::FieldMask>(GetArena());
+    read_mask_ = p;
+  }
+  return read_mask_;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* GetBucketRequest::mutable_read_mask() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetBucketRequest.read_mask)
+  return _internal_mutable_read_mask();
+}
+inline void GetBucketRequest::set_allocated_read_mask(PROTOBUF_NAMESPACE_ID::FieldMask* read_mask) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask_);
+  }
+  if (read_mask) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask)->GetArena();
+    if (message_arena != submessage_arena) {
+      read_mask = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, read_mask, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  read_mask_ = read_mask;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetBucketRequest.read_mask)
+}
+
+// -------------------------------------------------------------------
+
+// CreateBucketRequest
+
+// string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void CreateBucketRequest::clear_parent() {
+  parent_.ClearToEmpty();
+}
+inline const std::string& CreateBucketRequest::parent() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateBucketRequest.parent)
+  return _internal_parent();
+}
+inline void CreateBucketRequest::set_parent(const std::string& value) {
+  _internal_set_parent(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CreateBucketRequest.parent)
+}
+inline std::string* CreateBucketRequest::mutable_parent() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateBucketRequest.parent)
+  return _internal_mutable_parent();
+}
+inline const std::string& CreateBucketRequest::_internal_parent() const {
+  return parent_.Get();
+}
+inline void CreateBucketRequest::_internal_set_parent(const std::string& value) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void CreateBucketRequest::set_parent(std::string&& value) {
+  
+  parent_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CreateBucketRequest.parent)
+}
+inline void CreateBucketRequest::set_parent(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CreateBucketRequest.parent)
+}
+inline void CreateBucketRequest::set_parent(const char* value,
+    size_t size) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CreateBucketRequest.parent)
+}
+inline std::string* CreateBucketRequest::_internal_mutable_parent() {
+  
+  return parent_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* CreateBucketRequest::release_parent() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateBucketRequest.parent)
+  return parent_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void CreateBucketRequest::set_allocated_parent(std::string* parent) {
+  if (parent != nullptr) {
+    
+  } else {
+    
+  }
+  parent_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), parent,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateBucketRequest.parent)
+}
+
+// .google.storage.v2.Bucket bucket = 2 [(.google.api.field_behavior) = REQUIRED];
+inline bool CreateBucketRequest::_internal_has_bucket() const {
+  return this != internal_default_instance() && bucket_ != nullptr;
+}
+inline bool CreateBucketRequest::has_bucket() const {
+  return _internal_has_bucket();
+}
+inline void CreateBucketRequest::clear_bucket() {
+  if (GetArena() == nullptr && bucket_ != nullptr) {
+    delete bucket_;
+  }
+  bucket_ = nullptr;
+}
+inline const ::google::storage::v2::Bucket& CreateBucketRequest::_internal_bucket() const {
+  const ::google::storage::v2::Bucket* p = bucket_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::Bucket&>(
+      ::google::storage::v2::_Bucket_default_instance_);
+}
+inline const ::google::storage::v2::Bucket& CreateBucketRequest::bucket() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateBucketRequest.bucket)
+  return _internal_bucket();
+}
+inline void CreateBucketRequest::unsafe_arena_set_allocated_bucket(
+    ::google::storage::v2::Bucket* bucket) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(bucket_);
+  }
+  bucket_ = bucket;
+  if (bucket) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.CreateBucketRequest.bucket)
+}
+inline ::google::storage::v2::Bucket* CreateBucketRequest::release_bucket() {
+  
+  ::google::storage::v2::Bucket* temp = bucket_;
+  bucket_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::Bucket* CreateBucketRequest::unsafe_arena_release_bucket() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateBucketRequest.bucket)
+  
+  ::google::storage::v2::Bucket* temp = bucket_;
+  bucket_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::Bucket* CreateBucketRequest::_internal_mutable_bucket() {
+  
+  if (bucket_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::Bucket>(GetArena());
+    bucket_ = p;
+  }
+  return bucket_;
+}
+inline ::google::storage::v2::Bucket* CreateBucketRequest::mutable_bucket() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateBucketRequest.bucket)
+  return _internal_mutable_bucket();
+}
+inline void CreateBucketRequest::set_allocated_bucket(::google::storage::v2::Bucket* bucket) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete bucket_;
+  }
+  if (bucket) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(bucket);
+    if (message_arena != submessage_arena) {
+      bucket = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, bucket, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  bucket_ = bucket;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateBucketRequest.bucket)
+}
+
+// string bucket_id = 3 [(.google.api.field_behavior) = REQUIRED];
+inline void CreateBucketRequest::clear_bucket_id() {
+  bucket_id_.ClearToEmpty();
+}
+inline const std::string& CreateBucketRequest::bucket_id() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateBucketRequest.bucket_id)
+  return _internal_bucket_id();
+}
+inline void CreateBucketRequest::set_bucket_id(const std::string& value) {
+  _internal_set_bucket_id(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CreateBucketRequest.bucket_id)
+}
+inline std::string* CreateBucketRequest::mutable_bucket_id() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateBucketRequest.bucket_id)
+  return _internal_mutable_bucket_id();
+}
+inline const std::string& CreateBucketRequest::_internal_bucket_id() const {
+  return bucket_id_.Get();
+}
+inline void CreateBucketRequest::_internal_set_bucket_id(const std::string& value) {
+  
+  bucket_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void CreateBucketRequest::set_bucket_id(std::string&& value) {
+  
+  bucket_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CreateBucketRequest.bucket_id)
+}
+inline void CreateBucketRequest::set_bucket_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  bucket_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CreateBucketRequest.bucket_id)
+}
+inline void CreateBucketRequest::set_bucket_id(const char* value,
+    size_t size) {
+  
+  bucket_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CreateBucketRequest.bucket_id)
+}
+inline std::string* CreateBucketRequest::_internal_mutable_bucket_id() {
+  
+  return bucket_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* CreateBucketRequest::release_bucket_id() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateBucketRequest.bucket_id)
+  return bucket_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void CreateBucketRequest::set_allocated_bucket_id(std::string* bucket_id) {
+  if (bucket_id != nullptr) {
+    
+  } else {
+    
+  }
+  bucket_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), bucket_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateBucketRequest.bucket_id)
+}
+
+// .google.storage.v2.PredefinedBucketAcl predefined_acl = 4;
+inline void CreateBucketRequest::clear_predefined_acl() {
+  predefined_acl_ = 0;
+}
+inline ::google::storage::v2::PredefinedBucketAcl CreateBucketRequest::_internal_predefined_acl() const {
+  return static_cast< ::google::storage::v2::PredefinedBucketAcl >(predefined_acl_);
+}
+inline ::google::storage::v2::PredefinedBucketAcl CreateBucketRequest::predefined_acl() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateBucketRequest.predefined_acl)
+  return _internal_predefined_acl();
+}
+inline void CreateBucketRequest::_internal_set_predefined_acl(::google::storage::v2::PredefinedBucketAcl value) {
+  
+  predefined_acl_ = value;
+}
+inline void CreateBucketRequest::set_predefined_acl(::google::storage::v2::PredefinedBucketAcl value) {
+  _internal_set_predefined_acl(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CreateBucketRequest.predefined_acl)
+}
+
+// .google.storage.v2.PredefinedObjectAcl predefined_default_object_acl = 5;
+inline void CreateBucketRequest::clear_predefined_default_object_acl() {
+  predefined_default_object_acl_ = 0;
+}
+inline ::google::storage::v2::PredefinedObjectAcl CreateBucketRequest::_internal_predefined_default_object_acl() const {
+  return static_cast< ::google::storage::v2::PredefinedObjectAcl >(predefined_default_object_acl_);
+}
+inline ::google::storage::v2::PredefinedObjectAcl CreateBucketRequest::predefined_default_object_acl() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateBucketRequest.predefined_default_object_acl)
+  return _internal_predefined_default_object_acl();
+}
+inline void CreateBucketRequest::_internal_set_predefined_default_object_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  
+  predefined_default_object_acl_ = value;
+}
+inline void CreateBucketRequest::set_predefined_default_object_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  _internal_set_predefined_default_object_acl(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CreateBucketRequest.predefined_default_object_acl)
+}
+
+// -------------------------------------------------------------------
+
+// ListBucketsRequest
+
+// string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void ListBucketsRequest::clear_parent() {
+  parent_.ClearToEmpty();
+}
+inline const std::string& ListBucketsRequest::parent() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListBucketsRequest.parent)
+  return _internal_parent();
+}
+inline void ListBucketsRequest::set_parent(const std::string& value) {
+  _internal_set_parent(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListBucketsRequest.parent)
+}
+inline std::string* ListBucketsRequest::mutable_parent() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListBucketsRequest.parent)
+  return _internal_mutable_parent();
+}
+inline const std::string& ListBucketsRequest::_internal_parent() const {
+  return parent_.Get();
+}
+inline void ListBucketsRequest::_internal_set_parent(const std::string& value) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListBucketsRequest::set_parent(std::string&& value) {
+  
+  parent_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListBucketsRequest.parent)
+}
+inline void ListBucketsRequest::set_parent(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListBucketsRequest.parent)
+}
+inline void ListBucketsRequest::set_parent(const char* value,
+    size_t size) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListBucketsRequest.parent)
+}
+inline std::string* ListBucketsRequest::_internal_mutable_parent() {
+  
+  return parent_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListBucketsRequest::release_parent() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListBucketsRequest.parent)
+  return parent_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListBucketsRequest::set_allocated_parent(std::string* parent) {
+  if (parent != nullptr) {
+    
+  } else {
+    
+  }
+  parent_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), parent,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListBucketsRequest.parent)
+}
+
+// int32 page_size = 2;
+inline void ListBucketsRequest::clear_page_size() {
+  page_size_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ListBucketsRequest::_internal_page_size() const {
+  return page_size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ListBucketsRequest::page_size() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListBucketsRequest.page_size)
+  return _internal_page_size();
+}
+inline void ListBucketsRequest::_internal_set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  page_size_ = value;
+}
+inline void ListBucketsRequest::set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_page_size(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListBucketsRequest.page_size)
+}
+
+// string page_token = 3;
+inline void ListBucketsRequest::clear_page_token() {
+  page_token_.ClearToEmpty();
+}
+inline const std::string& ListBucketsRequest::page_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListBucketsRequest.page_token)
+  return _internal_page_token();
+}
+inline void ListBucketsRequest::set_page_token(const std::string& value) {
+  _internal_set_page_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListBucketsRequest.page_token)
+}
+inline std::string* ListBucketsRequest::mutable_page_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListBucketsRequest.page_token)
+  return _internal_mutable_page_token();
+}
+inline const std::string& ListBucketsRequest::_internal_page_token() const {
+  return page_token_.Get();
+}
+inline void ListBucketsRequest::_internal_set_page_token(const std::string& value) {
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListBucketsRequest::set_page_token(std::string&& value) {
+  
+  page_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListBucketsRequest.page_token)
+}
+inline void ListBucketsRequest::set_page_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListBucketsRequest.page_token)
+}
+inline void ListBucketsRequest::set_page_token(const char* value,
+    size_t size) {
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListBucketsRequest.page_token)
+}
+inline std::string* ListBucketsRequest::_internal_mutable_page_token() {
+  
+  return page_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListBucketsRequest::release_page_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListBucketsRequest.page_token)
+  return page_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListBucketsRequest::set_allocated_page_token(std::string* page_token) {
+  if (page_token != nullptr) {
+    
+  } else {
+    
+  }
+  page_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), page_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListBucketsRequest.page_token)
+}
+
+// string prefix = 4;
+inline void ListBucketsRequest::clear_prefix() {
+  prefix_.ClearToEmpty();
+}
+inline const std::string& ListBucketsRequest::prefix() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListBucketsRequest.prefix)
+  return _internal_prefix();
+}
+inline void ListBucketsRequest::set_prefix(const std::string& value) {
+  _internal_set_prefix(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListBucketsRequest.prefix)
+}
+inline std::string* ListBucketsRequest::mutable_prefix() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListBucketsRequest.prefix)
+  return _internal_mutable_prefix();
+}
+inline const std::string& ListBucketsRequest::_internal_prefix() const {
+  return prefix_.Get();
+}
+inline void ListBucketsRequest::_internal_set_prefix(const std::string& value) {
+  
+  prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListBucketsRequest::set_prefix(std::string&& value) {
+  
+  prefix_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListBucketsRequest.prefix)
+}
+inline void ListBucketsRequest::set_prefix(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListBucketsRequest.prefix)
+}
+inline void ListBucketsRequest::set_prefix(const char* value,
+    size_t size) {
+  
+  prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListBucketsRequest.prefix)
+}
+inline std::string* ListBucketsRequest::_internal_mutable_prefix() {
+  
+  return prefix_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListBucketsRequest::release_prefix() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListBucketsRequest.prefix)
+  return prefix_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListBucketsRequest::set_allocated_prefix(std::string* prefix) {
+  if (prefix != nullptr) {
+    
+  } else {
+    
+  }
+  prefix_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), prefix,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListBucketsRequest.prefix)
+}
+
+// .google.protobuf.FieldMask read_mask = 5;
+inline bool ListBucketsRequest::_internal_has_read_mask() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || read_mask_ != nullptr);
+  return value;
+}
+inline bool ListBucketsRequest::has_read_mask() const {
+  return _internal_has_read_mask();
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& ListBucketsRequest::_internal_read_mask() const {
+  const PROTOBUF_NAMESPACE_ID::FieldMask* p = read_mask_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::FieldMask&>(
+      PROTOBUF_NAMESPACE_ID::_FieldMask_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& ListBucketsRequest::read_mask() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListBucketsRequest.read_mask)
+  return _internal_read_mask();
+}
+inline void ListBucketsRequest::unsafe_arena_set_allocated_read_mask(
+    PROTOBUF_NAMESPACE_ID::FieldMask* read_mask) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask_);
+  }
+  read_mask_ = read_mask;
+  if (read_mask) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.ListBucketsRequest.read_mask)
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* ListBucketsRequest::release_read_mask() {
+  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = read_mask_;
+  read_mask_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* ListBucketsRequest::unsafe_arena_release_read_mask() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListBucketsRequest.read_mask)
+  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = read_mask_;
+  read_mask_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* ListBucketsRequest::_internal_mutable_read_mask() {
+  _has_bits_[0] |= 0x00000001u;
+  if (read_mask_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::FieldMask>(GetArena());
+    read_mask_ = p;
+  }
+  return read_mask_;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* ListBucketsRequest::mutable_read_mask() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListBucketsRequest.read_mask)
+  return _internal_mutable_read_mask();
+}
+inline void ListBucketsRequest::set_allocated_read_mask(PROTOBUF_NAMESPACE_ID::FieldMask* read_mask) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask_);
+  }
+  if (read_mask) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask)->GetArena();
+    if (message_arena != submessage_arena) {
+      read_mask = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, read_mask, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  read_mask_ = read_mask;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListBucketsRequest.read_mask)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 6;
+inline bool ListBucketsRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool ListBucketsRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void ListBucketsRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& ListBucketsRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& ListBucketsRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListBucketsRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void ListBucketsRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.ListBucketsRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* ListBucketsRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* ListBucketsRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListBucketsRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* ListBucketsRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* ListBucketsRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListBucketsRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void ListBucketsRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListBucketsRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// ListBucketsResponse
+
+// repeated .google.storage.v2.Bucket buckets = 1;
+inline int ListBucketsResponse::_internal_buckets_size() const {
+  return buckets_.size();
+}
+inline int ListBucketsResponse::buckets_size() const {
+  return _internal_buckets_size();
+}
+inline void ListBucketsResponse::clear_buckets() {
+  buckets_.Clear();
+}
+inline ::google::storage::v2::Bucket* ListBucketsResponse::mutable_buckets(int index) {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListBucketsResponse.buckets)
+  return buckets_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Bucket >*
+ListBucketsResponse::mutable_buckets() {
+  // @@protoc_insertion_point(field_mutable_list:google.storage.v2.ListBucketsResponse.buckets)
+  return &buckets_;
+}
+inline const ::google::storage::v2::Bucket& ListBucketsResponse::_internal_buckets(int index) const {
+  return buckets_.Get(index);
+}
+inline const ::google::storage::v2::Bucket& ListBucketsResponse::buckets(int index) const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListBucketsResponse.buckets)
+  return _internal_buckets(index);
+}
+inline ::google::storage::v2::Bucket* ListBucketsResponse::_internal_add_buckets() {
+  return buckets_.Add();
+}
+inline ::google::storage::v2::Bucket* ListBucketsResponse::add_buckets() {
+  // @@protoc_insertion_point(field_add:google.storage.v2.ListBucketsResponse.buckets)
+  return _internal_add_buckets();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Bucket >&
+ListBucketsResponse::buckets() const {
+  // @@protoc_insertion_point(field_list:google.storage.v2.ListBucketsResponse.buckets)
+  return buckets_;
+}
+
+// string next_page_token = 2;
+inline void ListBucketsResponse::clear_next_page_token() {
+  next_page_token_.ClearToEmpty();
+}
+inline const std::string& ListBucketsResponse::next_page_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListBucketsResponse.next_page_token)
+  return _internal_next_page_token();
+}
+inline void ListBucketsResponse::set_next_page_token(const std::string& value) {
+  _internal_set_next_page_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListBucketsResponse.next_page_token)
+}
+inline std::string* ListBucketsResponse::mutable_next_page_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListBucketsResponse.next_page_token)
+  return _internal_mutable_next_page_token();
+}
+inline const std::string& ListBucketsResponse::_internal_next_page_token() const {
+  return next_page_token_.Get();
+}
+inline void ListBucketsResponse::_internal_set_next_page_token(const std::string& value) {
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListBucketsResponse::set_next_page_token(std::string&& value) {
+  
+  next_page_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListBucketsResponse.next_page_token)
+}
+inline void ListBucketsResponse::set_next_page_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListBucketsResponse.next_page_token)
+}
+inline void ListBucketsResponse::set_next_page_token(const char* value,
+    size_t size) {
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListBucketsResponse.next_page_token)
+}
+inline std::string* ListBucketsResponse::_internal_mutable_next_page_token() {
+  
+  return next_page_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListBucketsResponse::release_next_page_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListBucketsResponse.next_page_token)
+  return next_page_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListBucketsResponse::set_allocated_next_page_token(std::string* next_page_token) {
+  if (next_page_token != nullptr) {
+    
+  } else {
+    
+  }
+  next_page_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), next_page_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListBucketsResponse.next_page_token)
+}
+
+// -------------------------------------------------------------------
+
+// LockBucketRetentionPolicyRequest
+
+// string bucket = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void LockBucketRetentionPolicyRequest::clear_bucket() {
+  bucket_.ClearToEmpty();
+}
+inline const std::string& LockBucketRetentionPolicyRequest::bucket() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.LockBucketRetentionPolicyRequest.bucket)
+  return _internal_bucket();
+}
+inline void LockBucketRetentionPolicyRequest::set_bucket(const std::string& value) {
+  _internal_set_bucket(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.LockBucketRetentionPolicyRequest.bucket)
+}
+inline std::string* LockBucketRetentionPolicyRequest::mutable_bucket() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.LockBucketRetentionPolicyRequest.bucket)
+  return _internal_mutable_bucket();
+}
+inline const std::string& LockBucketRetentionPolicyRequest::_internal_bucket() const {
+  return bucket_.Get();
+}
+inline void LockBucketRetentionPolicyRequest::_internal_set_bucket(const std::string& value) {
+  
+  bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void LockBucketRetentionPolicyRequest::set_bucket(std::string&& value) {
+  
+  bucket_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.LockBucketRetentionPolicyRequest.bucket)
+}
+inline void LockBucketRetentionPolicyRequest::set_bucket(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.LockBucketRetentionPolicyRequest.bucket)
+}
+inline void LockBucketRetentionPolicyRequest::set_bucket(const char* value,
+    size_t size) {
+  
+  bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.LockBucketRetentionPolicyRequest.bucket)
+}
+inline std::string* LockBucketRetentionPolicyRequest::_internal_mutable_bucket() {
+  
+  return bucket_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* LockBucketRetentionPolicyRequest::release_bucket() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.LockBucketRetentionPolicyRequest.bucket)
+  return bucket_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void LockBucketRetentionPolicyRequest::set_allocated_bucket(std::string* bucket) {
+  if (bucket != nullptr) {
+    
+  } else {
+    
+  }
+  bucket_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), bucket,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.LockBucketRetentionPolicyRequest.bucket)
+}
+
+// int64 if_metageneration_match = 2;
+inline void LockBucketRetentionPolicyRequest::clear_if_metageneration_match() {
+  if_metageneration_match_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 LockBucketRetentionPolicyRequest::_internal_if_metageneration_match() const {
+  return if_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 LockBucketRetentionPolicyRequest::if_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.LockBucketRetentionPolicyRequest.if_metageneration_match)
+  return _internal_if_metageneration_match();
+}
+inline void LockBucketRetentionPolicyRequest::_internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  if_metageneration_match_ = value;
+}
+inline void LockBucketRetentionPolicyRequest::set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.LockBucketRetentionPolicyRequest.if_metageneration_match)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 3;
+inline bool LockBucketRetentionPolicyRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool LockBucketRetentionPolicyRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void LockBucketRetentionPolicyRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& LockBucketRetentionPolicyRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& LockBucketRetentionPolicyRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.LockBucketRetentionPolicyRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void LockBucketRetentionPolicyRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.LockBucketRetentionPolicyRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* LockBucketRetentionPolicyRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* LockBucketRetentionPolicyRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.LockBucketRetentionPolicyRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* LockBucketRetentionPolicyRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* LockBucketRetentionPolicyRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.LockBucketRetentionPolicyRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void LockBucketRetentionPolicyRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.LockBucketRetentionPolicyRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// UpdateBucketRequest
+
+// .google.storage.v2.Bucket bucket = 1;
+inline bool UpdateBucketRequest::_internal_has_bucket() const {
+  return this != internal_default_instance() && bucket_ != nullptr;
+}
+inline bool UpdateBucketRequest::has_bucket() const {
+  return _internal_has_bucket();
+}
+inline void UpdateBucketRequest::clear_bucket() {
+  if (GetArena() == nullptr && bucket_ != nullptr) {
+    delete bucket_;
+  }
+  bucket_ = nullptr;
+}
+inline const ::google::storage::v2::Bucket& UpdateBucketRequest::_internal_bucket() const {
+  const ::google::storage::v2::Bucket* p = bucket_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::Bucket&>(
+      ::google::storage::v2::_Bucket_default_instance_);
+}
+inline const ::google::storage::v2::Bucket& UpdateBucketRequest::bucket() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateBucketRequest.bucket)
+  return _internal_bucket();
+}
+inline void UpdateBucketRequest::unsafe_arena_set_allocated_bucket(
+    ::google::storage::v2::Bucket* bucket) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(bucket_);
+  }
+  bucket_ = bucket;
+  if (bucket) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateBucketRequest.bucket)
+}
+inline ::google::storage::v2::Bucket* UpdateBucketRequest::release_bucket() {
+  
+  ::google::storage::v2::Bucket* temp = bucket_;
+  bucket_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::Bucket* UpdateBucketRequest::unsafe_arena_release_bucket() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateBucketRequest.bucket)
+  
+  ::google::storage::v2::Bucket* temp = bucket_;
+  bucket_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::Bucket* UpdateBucketRequest::_internal_mutable_bucket() {
+  
+  if (bucket_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::Bucket>(GetArena());
+    bucket_ = p;
+  }
+  return bucket_;
+}
+inline ::google::storage::v2::Bucket* UpdateBucketRequest::mutable_bucket() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateBucketRequest.bucket)
+  return _internal_mutable_bucket();
+}
+inline void UpdateBucketRequest::set_allocated_bucket(::google::storage::v2::Bucket* bucket) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete bucket_;
+  }
+  if (bucket) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(bucket);
+    if (message_arena != submessage_arena) {
+      bucket = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, bucket, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  bucket_ = bucket;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateBucketRequest.bucket)
+}
+
+// int64 if_metageneration_match = 2;
+inline bool UpdateBucketRequest::_internal_has_if_metageneration_match() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool UpdateBucketRequest::has_if_metageneration_match() const {
+  return _internal_has_if_metageneration_match();
+}
+inline void UpdateBucketRequest::clear_if_metageneration_match() {
+  if_metageneration_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateBucketRequest::_internal_if_metageneration_match() const {
+  return if_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateBucketRequest::if_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateBucketRequest.if_metageneration_match)
+  return _internal_if_metageneration_match();
+}
+inline void UpdateBucketRequest::_internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  if_metageneration_match_ = value;
+}
+inline void UpdateBucketRequest::set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.UpdateBucketRequest.if_metageneration_match)
+}
+
+// int64 if_metageneration_not_match = 3;
+inline bool UpdateBucketRequest::_internal_has_if_metageneration_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool UpdateBucketRequest::has_if_metageneration_not_match() const {
+  return _internal_has_if_metageneration_not_match();
+}
+inline void UpdateBucketRequest::clear_if_metageneration_not_match() {
+  if_metageneration_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateBucketRequest::_internal_if_metageneration_not_match() const {
+  return if_metageneration_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateBucketRequest::if_metageneration_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateBucketRequest.if_metageneration_not_match)
+  return _internal_if_metageneration_not_match();
+}
+inline void UpdateBucketRequest::_internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  if_metageneration_not_match_ = value;
+}
+inline void UpdateBucketRequest::set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.UpdateBucketRequest.if_metageneration_not_match)
+}
+
+// .google.storage.v2.PredefinedBucketAcl predefined_acl = 4;
+inline void UpdateBucketRequest::clear_predefined_acl() {
+  predefined_acl_ = 0;
+}
+inline ::google::storage::v2::PredefinedBucketAcl UpdateBucketRequest::_internal_predefined_acl() const {
+  return static_cast< ::google::storage::v2::PredefinedBucketAcl >(predefined_acl_);
+}
+inline ::google::storage::v2::PredefinedBucketAcl UpdateBucketRequest::predefined_acl() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateBucketRequest.predefined_acl)
+  return _internal_predefined_acl();
+}
+inline void UpdateBucketRequest::_internal_set_predefined_acl(::google::storage::v2::PredefinedBucketAcl value) {
+  
+  predefined_acl_ = value;
+}
+inline void UpdateBucketRequest::set_predefined_acl(::google::storage::v2::PredefinedBucketAcl value) {
+  _internal_set_predefined_acl(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.UpdateBucketRequest.predefined_acl)
+}
+
+// .google.storage.v2.PredefinedObjectAcl predefined_default_object_acl = 5;
+inline void UpdateBucketRequest::clear_predefined_default_object_acl() {
+  predefined_default_object_acl_ = 0;
+}
+inline ::google::storage::v2::PredefinedObjectAcl UpdateBucketRequest::_internal_predefined_default_object_acl() const {
+  return static_cast< ::google::storage::v2::PredefinedObjectAcl >(predefined_default_object_acl_);
+}
+inline ::google::storage::v2::PredefinedObjectAcl UpdateBucketRequest::predefined_default_object_acl() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateBucketRequest.predefined_default_object_acl)
+  return _internal_predefined_default_object_acl();
+}
+inline void UpdateBucketRequest::_internal_set_predefined_default_object_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  
+  predefined_default_object_acl_ = value;
+}
+inline void UpdateBucketRequest::set_predefined_default_object_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  _internal_set_predefined_default_object_acl(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.UpdateBucketRequest.predefined_default_object_acl)
+}
+
+// .google.protobuf.FieldMask update_mask = 6;
+inline bool UpdateBucketRequest::_internal_has_update_mask() const {
+  return this != internal_default_instance() && update_mask_ != nullptr;
+}
+inline bool UpdateBucketRequest::has_update_mask() const {
+  return _internal_has_update_mask();
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& UpdateBucketRequest::_internal_update_mask() const {
+  const PROTOBUF_NAMESPACE_ID::FieldMask* p = update_mask_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::FieldMask&>(
+      PROTOBUF_NAMESPACE_ID::_FieldMask_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& UpdateBucketRequest::update_mask() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateBucketRequest.update_mask)
+  return _internal_update_mask();
+}
+inline void UpdateBucketRequest::unsafe_arena_set_allocated_update_mask(
+    PROTOBUF_NAMESPACE_ID::FieldMask* update_mask) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask_);
+  }
+  update_mask_ = update_mask;
+  if (update_mask) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateBucketRequest.update_mask)
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateBucketRequest::release_update_mask() {
+  
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = update_mask_;
+  update_mask_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateBucketRequest::unsafe_arena_release_update_mask() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateBucketRequest.update_mask)
+  
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = update_mask_;
+  update_mask_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateBucketRequest::_internal_mutable_update_mask() {
+  
+  if (update_mask_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::FieldMask>(GetArena());
+    update_mask_ = p;
+  }
+  return update_mask_;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateBucketRequest::mutable_update_mask() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateBucketRequest.update_mask)
+  return _internal_mutable_update_mask();
+}
+inline void UpdateBucketRequest::set_allocated_update_mask(PROTOBUF_NAMESPACE_ID::FieldMask* update_mask) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask_);
+  }
+  if (update_mask) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask)->GetArena();
+    if (message_arena != submessage_arena) {
+      update_mask = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, update_mask, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  update_mask_ = update_mask;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateBucketRequest.update_mask)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 7;
+inline bool UpdateBucketRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool UpdateBucketRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void UpdateBucketRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& UpdateBucketRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& UpdateBucketRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateBucketRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void UpdateBucketRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateBucketRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateBucketRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateBucketRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateBucketRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateBucketRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateBucketRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateBucketRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void UpdateBucketRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateBucketRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// DeleteNotificationRequest
+
+// string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void DeleteNotificationRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& DeleteNotificationRequest::name() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteNotificationRequest.name)
+  return _internal_name();
+}
+inline void DeleteNotificationRequest::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteNotificationRequest.name)
+}
+inline std::string* DeleteNotificationRequest::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteNotificationRequest.name)
+  return _internal_mutable_name();
+}
+inline const std::string& DeleteNotificationRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void DeleteNotificationRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteNotificationRequest::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.DeleteNotificationRequest.name)
+}
+inline void DeleteNotificationRequest::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.DeleteNotificationRequest.name)
+}
+inline void DeleteNotificationRequest::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.DeleteNotificationRequest.name)
+}
+inline std::string* DeleteNotificationRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteNotificationRequest::release_name() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteNotificationRequest.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteNotificationRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteNotificationRequest.name)
+}
+
+// -------------------------------------------------------------------
+
+// GetNotificationRequest
+
+// string name = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void GetNotificationRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& GetNotificationRequest::name() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetNotificationRequest.name)
+  return _internal_name();
+}
+inline void GetNotificationRequest::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetNotificationRequest.name)
+}
+inline std::string* GetNotificationRequest::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetNotificationRequest.name)
+  return _internal_mutable_name();
+}
+inline const std::string& GetNotificationRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void GetNotificationRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void GetNotificationRequest::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.GetNotificationRequest.name)
+}
+inline void GetNotificationRequest::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.GetNotificationRequest.name)
+}
+inline void GetNotificationRequest::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.GetNotificationRequest.name)
+}
+inline std::string* GetNotificationRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* GetNotificationRequest::release_name() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetNotificationRequest.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void GetNotificationRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetNotificationRequest.name)
+}
+
+// -------------------------------------------------------------------
+
+// CreateNotificationRequest
+
+// string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void CreateNotificationRequest::clear_parent() {
+  parent_.ClearToEmpty();
+}
+inline const std::string& CreateNotificationRequest::parent() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateNotificationRequest.parent)
+  return _internal_parent();
+}
+inline void CreateNotificationRequest::set_parent(const std::string& value) {
+  _internal_set_parent(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CreateNotificationRequest.parent)
+}
+inline std::string* CreateNotificationRequest::mutable_parent() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateNotificationRequest.parent)
+  return _internal_mutable_parent();
+}
+inline const std::string& CreateNotificationRequest::_internal_parent() const {
+  return parent_.Get();
+}
+inline void CreateNotificationRequest::_internal_set_parent(const std::string& value) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void CreateNotificationRequest::set_parent(std::string&& value) {
+  
+  parent_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CreateNotificationRequest.parent)
+}
+inline void CreateNotificationRequest::set_parent(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CreateNotificationRequest.parent)
+}
+inline void CreateNotificationRequest::set_parent(const char* value,
+    size_t size) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CreateNotificationRequest.parent)
+}
+inline std::string* CreateNotificationRequest::_internal_mutable_parent() {
+  
+  return parent_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* CreateNotificationRequest::release_parent() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateNotificationRequest.parent)
+  return parent_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void CreateNotificationRequest::set_allocated_parent(std::string* parent) {
+  if (parent != nullptr) {
+    
+  } else {
+    
+  }
+  parent_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), parent,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateNotificationRequest.parent)
+}
+
+// .google.storage.v2.Notification notification = 2 [(.google.api.field_behavior) = REQUIRED];
+inline bool CreateNotificationRequest::_internal_has_notification() const {
+  return this != internal_default_instance() && notification_ != nullptr;
+}
+inline bool CreateNotificationRequest::has_notification() const {
+  return _internal_has_notification();
+}
+inline void CreateNotificationRequest::clear_notification() {
+  if (GetArena() == nullptr && notification_ != nullptr) {
+    delete notification_;
+  }
+  notification_ = nullptr;
+}
+inline const ::google::storage::v2::Notification& CreateNotificationRequest::_internal_notification() const {
+  const ::google::storage::v2::Notification* p = notification_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::Notification&>(
+      ::google::storage::v2::_Notification_default_instance_);
+}
+inline const ::google::storage::v2::Notification& CreateNotificationRequest::notification() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateNotificationRequest.notification)
+  return _internal_notification();
+}
+inline void CreateNotificationRequest::unsafe_arena_set_allocated_notification(
+    ::google::storage::v2::Notification* notification) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(notification_);
+  }
+  notification_ = notification;
+  if (notification) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.CreateNotificationRequest.notification)
+}
+inline ::google::storage::v2::Notification* CreateNotificationRequest::release_notification() {
+  
+  ::google::storage::v2::Notification* temp = notification_;
+  notification_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::Notification* CreateNotificationRequest::unsafe_arena_release_notification() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateNotificationRequest.notification)
+  
+  ::google::storage::v2::Notification* temp = notification_;
+  notification_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::Notification* CreateNotificationRequest::_internal_mutable_notification() {
+  
+  if (notification_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::Notification>(GetArena());
+    notification_ = p;
+  }
+  return notification_;
+}
+inline ::google::storage::v2::Notification* CreateNotificationRequest::mutable_notification() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateNotificationRequest.notification)
+  return _internal_mutable_notification();
+}
+inline void CreateNotificationRequest::set_allocated_notification(::google::storage::v2::Notification* notification) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete notification_;
+  }
+  if (notification) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(notification);
+    if (message_arena != submessage_arena) {
+      notification = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, notification, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  notification_ = notification;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateNotificationRequest.notification)
+}
+
+// -------------------------------------------------------------------
+
+// ListNotificationsRequest
+
+// string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void ListNotificationsRequest::clear_parent() {
+  parent_.ClearToEmpty();
+}
+inline const std::string& ListNotificationsRequest::parent() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListNotificationsRequest.parent)
+  return _internal_parent();
+}
+inline void ListNotificationsRequest::set_parent(const std::string& value) {
+  _internal_set_parent(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListNotificationsRequest.parent)
+}
+inline std::string* ListNotificationsRequest::mutable_parent() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListNotificationsRequest.parent)
+  return _internal_mutable_parent();
+}
+inline const std::string& ListNotificationsRequest::_internal_parent() const {
+  return parent_.Get();
+}
+inline void ListNotificationsRequest::_internal_set_parent(const std::string& value) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListNotificationsRequest::set_parent(std::string&& value) {
+  
+  parent_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListNotificationsRequest.parent)
+}
+inline void ListNotificationsRequest::set_parent(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListNotificationsRequest.parent)
+}
+inline void ListNotificationsRequest::set_parent(const char* value,
+    size_t size) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListNotificationsRequest.parent)
+}
+inline std::string* ListNotificationsRequest::_internal_mutable_parent() {
+  
+  return parent_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListNotificationsRequest::release_parent() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListNotificationsRequest.parent)
+  return parent_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListNotificationsRequest::set_allocated_parent(std::string* parent) {
+  if (parent != nullptr) {
+    
+  } else {
+    
+  }
+  parent_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), parent,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListNotificationsRequest.parent)
+}
+
+// int32 page_size = 2;
+inline void ListNotificationsRequest::clear_page_size() {
+  page_size_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ListNotificationsRequest::_internal_page_size() const {
+  return page_size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ListNotificationsRequest::page_size() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListNotificationsRequest.page_size)
+  return _internal_page_size();
+}
+inline void ListNotificationsRequest::_internal_set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  page_size_ = value;
+}
+inline void ListNotificationsRequest::set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_page_size(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListNotificationsRequest.page_size)
+}
+
+// string page_token = 3;
+inline void ListNotificationsRequest::clear_page_token() {
+  page_token_.ClearToEmpty();
+}
+inline const std::string& ListNotificationsRequest::page_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListNotificationsRequest.page_token)
+  return _internal_page_token();
+}
+inline void ListNotificationsRequest::set_page_token(const std::string& value) {
+  _internal_set_page_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListNotificationsRequest.page_token)
+}
+inline std::string* ListNotificationsRequest::mutable_page_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListNotificationsRequest.page_token)
+  return _internal_mutable_page_token();
+}
+inline const std::string& ListNotificationsRequest::_internal_page_token() const {
+  return page_token_.Get();
+}
+inline void ListNotificationsRequest::_internal_set_page_token(const std::string& value) {
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListNotificationsRequest::set_page_token(std::string&& value) {
+  
+  page_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListNotificationsRequest.page_token)
+}
+inline void ListNotificationsRequest::set_page_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListNotificationsRequest.page_token)
+}
+inline void ListNotificationsRequest::set_page_token(const char* value,
+    size_t size) {
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListNotificationsRequest.page_token)
+}
+inline std::string* ListNotificationsRequest::_internal_mutable_page_token() {
+  
+  return page_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListNotificationsRequest::release_page_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListNotificationsRequest.page_token)
+  return page_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListNotificationsRequest::set_allocated_page_token(std::string* page_token) {
+  if (page_token != nullptr) {
+    
+  } else {
+    
+  }
+  page_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), page_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListNotificationsRequest.page_token)
+}
+
+// -------------------------------------------------------------------
+
+// ListNotificationsResponse
+
+// repeated .google.storage.v2.Notification notifications = 1;
+inline int ListNotificationsResponse::_internal_notifications_size() const {
+  return notifications_.size();
+}
+inline int ListNotificationsResponse::notifications_size() const {
+  return _internal_notifications_size();
+}
+inline void ListNotificationsResponse::clear_notifications() {
+  notifications_.Clear();
+}
+inline ::google::storage::v2::Notification* ListNotificationsResponse::mutable_notifications(int index) {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListNotificationsResponse.notifications)
+  return notifications_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Notification >*
+ListNotificationsResponse::mutable_notifications() {
+  // @@protoc_insertion_point(field_mutable_list:google.storage.v2.ListNotificationsResponse.notifications)
+  return &notifications_;
+}
+inline const ::google::storage::v2::Notification& ListNotificationsResponse::_internal_notifications(int index) const {
+  return notifications_.Get(index);
+}
+inline const ::google::storage::v2::Notification& ListNotificationsResponse::notifications(int index) const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListNotificationsResponse.notifications)
+  return _internal_notifications(index);
+}
+inline ::google::storage::v2::Notification* ListNotificationsResponse::_internal_add_notifications() {
+  return notifications_.Add();
+}
+inline ::google::storage::v2::Notification* ListNotificationsResponse::add_notifications() {
+  // @@protoc_insertion_point(field_add:google.storage.v2.ListNotificationsResponse.notifications)
+  return _internal_add_notifications();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Notification >&
+ListNotificationsResponse::notifications() const {
+  // @@protoc_insertion_point(field_list:google.storage.v2.ListNotificationsResponse.notifications)
+  return notifications_;
+}
+
+// string next_page_token = 2;
+inline void ListNotificationsResponse::clear_next_page_token() {
+  next_page_token_.ClearToEmpty();
+}
+inline const std::string& ListNotificationsResponse::next_page_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListNotificationsResponse.next_page_token)
+  return _internal_next_page_token();
+}
+inline void ListNotificationsResponse::set_next_page_token(const std::string& value) {
+  _internal_set_next_page_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListNotificationsResponse.next_page_token)
+}
+inline std::string* ListNotificationsResponse::mutable_next_page_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListNotificationsResponse.next_page_token)
+  return _internal_mutable_next_page_token();
+}
+inline const std::string& ListNotificationsResponse::_internal_next_page_token() const {
+  return next_page_token_.Get();
+}
+inline void ListNotificationsResponse::_internal_set_next_page_token(const std::string& value) {
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListNotificationsResponse::set_next_page_token(std::string&& value) {
+  
+  next_page_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListNotificationsResponse.next_page_token)
+}
+inline void ListNotificationsResponse::set_next_page_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListNotificationsResponse.next_page_token)
+}
+inline void ListNotificationsResponse::set_next_page_token(const char* value,
+    size_t size) {
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListNotificationsResponse.next_page_token)
+}
+inline std::string* ListNotificationsResponse::_internal_mutable_next_page_token() {
+  
+  return next_page_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListNotificationsResponse::release_next_page_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListNotificationsResponse.next_page_token)
+  return next_page_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListNotificationsResponse::set_allocated_next_page_token(std::string* next_page_token) {
+  if (next_page_token != nullptr) {
+    
+  } else {
+    
+  }
+  next_page_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), next_page_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListNotificationsResponse.next_page_token)
+}
+
+// -------------------------------------------------------------------
+
+// ComposeObjectRequest_SourceObject_ObjectPreconditions
+
+// int64 if_generation_match = 1;
+inline bool ComposeObjectRequest_SourceObject_ObjectPreconditions::_internal_has_if_generation_match() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ComposeObjectRequest_SourceObject_ObjectPreconditions::has_if_generation_match() const {
+  return _internal_has_if_generation_match();
+}
+inline void ComposeObjectRequest_SourceObject_ObjectPreconditions::clear_if_generation_match() {
+  if_generation_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ComposeObjectRequest_SourceObject_ObjectPreconditions::_internal_if_generation_match() const {
+  return if_generation_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ComposeObjectRequest_SourceObject_ObjectPreconditions::if_generation_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.SourceObject.ObjectPreconditions.if_generation_match)
+  return _internal_if_generation_match();
+}
+inline void ComposeObjectRequest_SourceObject_ObjectPreconditions::_internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  if_generation_match_ = value;
+}
+inline void ComposeObjectRequest_SourceObject_ObjectPreconditions::set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ComposeObjectRequest.SourceObject.ObjectPreconditions.if_generation_match)
+}
+
+// -------------------------------------------------------------------
+
+// ComposeObjectRequest_SourceObject
+
+// string name = 1 [(.google.api.field_behavior) = REQUIRED];
+inline void ComposeObjectRequest_SourceObject::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& ComposeObjectRequest_SourceObject::name() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.SourceObject.name)
+  return _internal_name();
+}
+inline void ComposeObjectRequest_SourceObject::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ComposeObjectRequest.SourceObject.name)
+}
+inline std::string* ComposeObjectRequest_SourceObject::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ComposeObjectRequest.SourceObject.name)
+  return _internal_mutable_name();
+}
+inline const std::string& ComposeObjectRequest_SourceObject::_internal_name() const {
+  return name_.Get();
+}
+inline void ComposeObjectRequest_SourceObject::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ComposeObjectRequest_SourceObject::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ComposeObjectRequest.SourceObject.name)
+}
+inline void ComposeObjectRequest_SourceObject::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ComposeObjectRequest.SourceObject.name)
+}
+inline void ComposeObjectRequest_SourceObject::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ComposeObjectRequest.SourceObject.name)
+}
+inline std::string* ComposeObjectRequest_SourceObject::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ComposeObjectRequest_SourceObject::release_name() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ComposeObjectRequest.SourceObject.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ComposeObjectRequest_SourceObject::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ComposeObjectRequest.SourceObject.name)
+}
+
+// int64 generation = 2;
+inline void ComposeObjectRequest_SourceObject::clear_generation() {
+  generation_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ComposeObjectRequest_SourceObject::_internal_generation() const {
+  return generation_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ComposeObjectRequest_SourceObject::generation() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.SourceObject.generation)
+  return _internal_generation();
+}
+inline void ComposeObjectRequest_SourceObject::_internal_set_generation(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  generation_ = value;
+}
+inline void ComposeObjectRequest_SourceObject::set_generation(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_generation(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ComposeObjectRequest.SourceObject.generation)
+}
+
+// .google.storage.v2.ComposeObjectRequest.SourceObject.ObjectPreconditions object_preconditions = 3;
+inline bool ComposeObjectRequest_SourceObject::_internal_has_object_preconditions() const {
+  return this != internal_default_instance() && object_preconditions_ != nullptr;
+}
+inline bool ComposeObjectRequest_SourceObject::has_object_preconditions() const {
+  return _internal_has_object_preconditions();
+}
+inline void ComposeObjectRequest_SourceObject::clear_object_preconditions() {
+  if (GetArena() == nullptr && object_preconditions_ != nullptr) {
+    delete object_preconditions_;
+  }
+  object_preconditions_ = nullptr;
+}
+inline const ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions& ComposeObjectRequest_SourceObject::_internal_object_preconditions() const {
+  const ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* p = object_preconditions_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions&>(
+      ::google::storage::v2::_ComposeObjectRequest_SourceObject_ObjectPreconditions_default_instance_);
+}
+inline const ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions& ComposeObjectRequest_SourceObject::object_preconditions() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.SourceObject.object_preconditions)
+  return _internal_object_preconditions();
+}
+inline void ComposeObjectRequest_SourceObject::unsafe_arena_set_allocated_object_preconditions(
+    ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* object_preconditions) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(object_preconditions_);
+  }
+  object_preconditions_ = object_preconditions;
+  if (object_preconditions) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.ComposeObjectRequest.SourceObject.object_preconditions)
+}
+inline ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* ComposeObjectRequest_SourceObject::release_object_preconditions() {
+  
+  ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* temp = object_preconditions_;
+  object_preconditions_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* ComposeObjectRequest_SourceObject::unsafe_arena_release_object_preconditions() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ComposeObjectRequest.SourceObject.object_preconditions)
+  
+  ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* temp = object_preconditions_;
+  object_preconditions_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* ComposeObjectRequest_SourceObject::_internal_mutable_object_preconditions() {
+  
+  if (object_preconditions_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions>(GetArena());
+    object_preconditions_ = p;
+  }
+  return object_preconditions_;
+}
+inline ::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* ComposeObjectRequest_SourceObject::mutable_object_preconditions() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ComposeObjectRequest.SourceObject.object_preconditions)
+  return _internal_mutable_object_preconditions();
+}
+inline void ComposeObjectRequest_SourceObject::set_allocated_object_preconditions(::google::storage::v2::ComposeObjectRequest_SourceObject_ObjectPreconditions* object_preconditions) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete object_preconditions_;
+  }
+  if (object_preconditions) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(object_preconditions);
+    if (message_arena != submessage_arena) {
+      object_preconditions = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, object_preconditions, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  object_preconditions_ = object_preconditions;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ComposeObjectRequest.SourceObject.object_preconditions)
+}
+
+// -------------------------------------------------------------------
+
+// ComposeObjectRequest
+
+// .google.storage.v2.Object destination = 1 [(.google.api.field_behavior) = REQUIRED];
+inline bool ComposeObjectRequest::_internal_has_destination() const {
+  return this != internal_default_instance() && destination_ != nullptr;
+}
+inline bool ComposeObjectRequest::has_destination() const {
+  return _internal_has_destination();
+}
+inline void ComposeObjectRequest::clear_destination() {
+  if (GetArena() == nullptr && destination_ != nullptr) {
+    delete destination_;
+  }
+  destination_ = nullptr;
+}
+inline const ::google::storage::v2::Object& ComposeObjectRequest::_internal_destination() const {
+  const ::google::storage::v2::Object* p = destination_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::Object&>(
+      ::google::storage::v2::_Object_default_instance_);
+}
+inline const ::google::storage::v2::Object& ComposeObjectRequest::destination() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.destination)
+  return _internal_destination();
+}
+inline void ComposeObjectRequest::unsafe_arena_set_allocated_destination(
+    ::google::storage::v2::Object* destination) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(destination_);
+  }
+  destination_ = destination;
+  if (destination) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.ComposeObjectRequest.destination)
+}
+inline ::google::storage::v2::Object* ComposeObjectRequest::release_destination() {
+  
+  ::google::storage::v2::Object* temp = destination_;
+  destination_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::Object* ComposeObjectRequest::unsafe_arena_release_destination() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ComposeObjectRequest.destination)
+  
+  ::google::storage::v2::Object* temp = destination_;
+  destination_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::Object* ComposeObjectRequest::_internal_mutable_destination() {
+  
+  if (destination_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::Object>(GetArena());
+    destination_ = p;
+  }
+  return destination_;
+}
+inline ::google::storage::v2::Object* ComposeObjectRequest::mutable_destination() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ComposeObjectRequest.destination)
+  return _internal_mutable_destination();
+}
+inline void ComposeObjectRequest::set_allocated_destination(::google::storage::v2::Object* destination) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete destination_;
+  }
+  if (destination) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(destination);
+    if (message_arena != submessage_arena) {
+      destination = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, destination, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  destination_ = destination;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ComposeObjectRequest.destination)
+}
+
+// repeated .google.storage.v2.ComposeObjectRequest.SourceObject source_objects = 2;
+inline int ComposeObjectRequest::_internal_source_objects_size() const {
+  return source_objects_.size();
+}
+inline int ComposeObjectRequest::source_objects_size() const {
+  return _internal_source_objects_size();
+}
+inline void ComposeObjectRequest::clear_source_objects() {
+  source_objects_.Clear();
+}
+inline ::google::storage::v2::ComposeObjectRequest_SourceObject* ComposeObjectRequest::mutable_source_objects(int index) {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ComposeObjectRequest.source_objects)
+  return source_objects_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::ComposeObjectRequest_SourceObject >*
+ComposeObjectRequest::mutable_source_objects() {
+  // @@protoc_insertion_point(field_mutable_list:google.storage.v2.ComposeObjectRequest.source_objects)
+  return &source_objects_;
+}
+inline const ::google::storage::v2::ComposeObjectRequest_SourceObject& ComposeObjectRequest::_internal_source_objects(int index) const {
+  return source_objects_.Get(index);
+}
+inline const ::google::storage::v2::ComposeObjectRequest_SourceObject& ComposeObjectRequest::source_objects(int index) const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.source_objects)
+  return _internal_source_objects(index);
+}
+inline ::google::storage::v2::ComposeObjectRequest_SourceObject* ComposeObjectRequest::_internal_add_source_objects() {
+  return source_objects_.Add();
+}
+inline ::google::storage::v2::ComposeObjectRequest_SourceObject* ComposeObjectRequest::add_source_objects() {
+  // @@protoc_insertion_point(field_add:google.storage.v2.ComposeObjectRequest.source_objects)
+  return _internal_add_source_objects();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::ComposeObjectRequest_SourceObject >&
+ComposeObjectRequest::source_objects() const {
+  // @@protoc_insertion_point(field_list:google.storage.v2.ComposeObjectRequest.source_objects)
+  return source_objects_;
+}
+
+// .google.storage.v2.PredefinedObjectAcl destination_predefined_acl = 3;
+inline void ComposeObjectRequest::clear_destination_predefined_acl() {
+  destination_predefined_acl_ = 0;
+}
+inline ::google::storage::v2::PredefinedObjectAcl ComposeObjectRequest::_internal_destination_predefined_acl() const {
+  return static_cast< ::google::storage::v2::PredefinedObjectAcl >(destination_predefined_acl_);
+}
+inline ::google::storage::v2::PredefinedObjectAcl ComposeObjectRequest::destination_predefined_acl() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.destination_predefined_acl)
+  return _internal_destination_predefined_acl();
+}
+inline void ComposeObjectRequest::_internal_set_destination_predefined_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  
+  destination_predefined_acl_ = value;
+}
+inline void ComposeObjectRequest::set_destination_predefined_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  _internal_set_destination_predefined_acl(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ComposeObjectRequest.destination_predefined_acl)
+}
+
+// int64 if_generation_match = 4;
+inline bool ComposeObjectRequest::_internal_has_if_generation_match() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ComposeObjectRequest::has_if_generation_match() const {
+  return _internal_has_if_generation_match();
+}
+inline void ComposeObjectRequest::clear_if_generation_match() {
+  if_generation_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ComposeObjectRequest::_internal_if_generation_match() const {
+  return if_generation_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ComposeObjectRequest::if_generation_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.if_generation_match)
+  return _internal_if_generation_match();
+}
+inline void ComposeObjectRequest::_internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  if_generation_match_ = value;
+}
+inline void ComposeObjectRequest::set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ComposeObjectRequest.if_generation_match)
+}
+
+// int64 if_metageneration_match = 5;
+inline bool ComposeObjectRequest::_internal_has_if_metageneration_match() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool ComposeObjectRequest::has_if_metageneration_match() const {
+  return _internal_has_if_metageneration_match();
+}
+inline void ComposeObjectRequest::clear_if_metageneration_match() {
+  if_metageneration_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ComposeObjectRequest::_internal_if_metageneration_match() const {
+  return if_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 ComposeObjectRequest::if_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.if_metageneration_match)
+  return _internal_if_metageneration_match();
+}
+inline void ComposeObjectRequest::_internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  if_metageneration_match_ = value;
+}
+inline void ComposeObjectRequest::set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ComposeObjectRequest.if_metageneration_match)
+}
+
+// string kms_key = 6 [(.google.api.resource_reference) = {
+inline void ComposeObjectRequest::clear_kms_key() {
+  kms_key_.ClearToEmpty();
+}
+inline const std::string& ComposeObjectRequest::kms_key() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.kms_key)
+  return _internal_kms_key();
+}
+inline void ComposeObjectRequest::set_kms_key(const std::string& value) {
+  _internal_set_kms_key(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ComposeObjectRequest.kms_key)
+}
+inline std::string* ComposeObjectRequest::mutable_kms_key() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ComposeObjectRequest.kms_key)
+  return _internal_mutable_kms_key();
+}
+inline const std::string& ComposeObjectRequest::_internal_kms_key() const {
+  return kms_key_.Get();
+}
+inline void ComposeObjectRequest::_internal_set_kms_key(const std::string& value) {
+  
+  kms_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ComposeObjectRequest::set_kms_key(std::string&& value) {
+  
+  kms_key_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ComposeObjectRequest.kms_key)
+}
+inline void ComposeObjectRequest::set_kms_key(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  kms_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ComposeObjectRequest.kms_key)
+}
+inline void ComposeObjectRequest::set_kms_key(const char* value,
+    size_t size) {
+  
+  kms_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ComposeObjectRequest.kms_key)
+}
+inline std::string* ComposeObjectRequest::_internal_mutable_kms_key() {
+  
+  return kms_key_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ComposeObjectRequest::release_kms_key() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ComposeObjectRequest.kms_key)
+  return kms_key_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ComposeObjectRequest::set_allocated_kms_key(std::string* kms_key) {
+  if (kms_key != nullptr) {
+    
+  } else {
+    
+  }
+  kms_key_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), kms_key,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ComposeObjectRequest.kms_key)
+}
+
+// .google.storage.v2.CommonObjectRequestParams common_object_request_params = 7;
+inline bool ComposeObjectRequest::_internal_has_common_object_request_params() const {
+  return this != internal_default_instance() && common_object_request_params_ != nullptr;
+}
+inline bool ComposeObjectRequest::has_common_object_request_params() const {
+  return _internal_has_common_object_request_params();
+}
+inline void ComposeObjectRequest::clear_common_object_request_params() {
+  if (GetArena() == nullptr && common_object_request_params_ != nullptr) {
+    delete common_object_request_params_;
+  }
+  common_object_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& ComposeObjectRequest::_internal_common_object_request_params() const {
+  const ::google::storage::v2::CommonObjectRequestParams* p = common_object_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonObjectRequestParams&>(
+      ::google::storage::v2::_CommonObjectRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& ComposeObjectRequest::common_object_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.common_object_request_params)
+  return _internal_common_object_request_params();
+}
+inline void ComposeObjectRequest::unsafe_arena_set_allocated_common_object_request_params(
+    ::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_object_request_params_);
+  }
+  common_object_request_params_ = common_object_request_params;
+  if (common_object_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.ComposeObjectRequest.common_object_request_params)
+}
+inline ::google::storage::v2::CommonObjectRequestParams* ComposeObjectRequest::release_common_object_request_params() {
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* ComposeObjectRequest::unsafe_arena_release_common_object_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ComposeObjectRequest.common_object_request_params)
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* ComposeObjectRequest::_internal_mutable_common_object_request_params() {
+  
+  if (common_object_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonObjectRequestParams>(GetArena());
+    common_object_request_params_ = p;
+  }
+  return common_object_request_params_;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* ComposeObjectRequest::mutable_common_object_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ComposeObjectRequest.common_object_request_params)
+  return _internal_mutable_common_object_request_params();
+}
+inline void ComposeObjectRequest::set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_object_request_params_;
+  }
+  if (common_object_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_object_request_params);
+    if (message_arena != submessage_arena) {
+      common_object_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_object_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_object_request_params_ = common_object_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ComposeObjectRequest.common_object_request_params)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 8;
+inline bool ComposeObjectRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool ComposeObjectRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void ComposeObjectRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& ComposeObjectRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& ComposeObjectRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ComposeObjectRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void ComposeObjectRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.ComposeObjectRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* ComposeObjectRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* ComposeObjectRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ComposeObjectRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* ComposeObjectRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* ComposeObjectRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ComposeObjectRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void ComposeObjectRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ComposeObjectRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// DeleteObjectRequest
+
+// string bucket = 1 [(.google.api.field_behavior) = REQUIRED];
+inline void DeleteObjectRequest::clear_bucket() {
+  bucket_.ClearToEmpty();
+}
+inline const std::string& DeleteObjectRequest::bucket() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.bucket)
+  return _internal_bucket();
+}
+inline void DeleteObjectRequest::set_bucket(const std::string& value) {
+  _internal_set_bucket(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteObjectRequest.bucket)
+}
+inline std::string* DeleteObjectRequest::mutable_bucket() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteObjectRequest.bucket)
+  return _internal_mutable_bucket();
+}
+inline const std::string& DeleteObjectRequest::_internal_bucket() const {
+  return bucket_.Get();
+}
+inline void DeleteObjectRequest::_internal_set_bucket(const std::string& value) {
+  
+  bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteObjectRequest::set_bucket(std::string&& value) {
+  
+  bucket_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.DeleteObjectRequest.bucket)
+}
+inline void DeleteObjectRequest::set_bucket(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.DeleteObjectRequest.bucket)
+}
+inline void DeleteObjectRequest::set_bucket(const char* value,
+    size_t size) {
+  
+  bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.DeleteObjectRequest.bucket)
+}
+inline std::string* DeleteObjectRequest::_internal_mutable_bucket() {
+  
+  return bucket_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteObjectRequest::release_bucket() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteObjectRequest.bucket)
+  return bucket_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteObjectRequest::set_allocated_bucket(std::string* bucket) {
+  if (bucket != nullptr) {
+    
+  } else {
+    
+  }
+  bucket_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), bucket,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteObjectRequest.bucket)
+}
+
+// string object = 2 [(.google.api.field_behavior) = REQUIRED];
+inline void DeleteObjectRequest::clear_object() {
+  object_.ClearToEmpty();
+}
+inline const std::string& DeleteObjectRequest::object() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.object)
+  return _internal_object();
+}
+inline void DeleteObjectRequest::set_object(const std::string& value) {
+  _internal_set_object(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteObjectRequest.object)
+}
+inline std::string* DeleteObjectRequest::mutable_object() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteObjectRequest.object)
+  return _internal_mutable_object();
+}
+inline const std::string& DeleteObjectRequest::_internal_object() const {
+  return object_.Get();
+}
+inline void DeleteObjectRequest::_internal_set_object(const std::string& value) {
+  
+  object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteObjectRequest::set_object(std::string&& value) {
+  
+  object_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.DeleteObjectRequest.object)
+}
+inline void DeleteObjectRequest::set_object(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.DeleteObjectRequest.object)
+}
+inline void DeleteObjectRequest::set_object(const char* value,
+    size_t size) {
+  
+  object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.DeleteObjectRequest.object)
+}
+inline std::string* DeleteObjectRequest::_internal_mutable_object() {
+  
+  return object_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteObjectRequest::release_object() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteObjectRequest.object)
+  return object_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteObjectRequest::set_allocated_object(std::string* object) {
+  if (object != nullptr) {
+    
+  } else {
+    
+  }
+  object_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), object,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteObjectRequest.object)
+}
+
+// string upload_id = 3;
+inline void DeleteObjectRequest::clear_upload_id() {
+  upload_id_.ClearToEmpty();
+}
+inline const std::string& DeleteObjectRequest::upload_id() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.upload_id)
+  return _internal_upload_id();
+}
+inline void DeleteObjectRequest::set_upload_id(const std::string& value) {
+  _internal_set_upload_id(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteObjectRequest.upload_id)
+}
+inline std::string* DeleteObjectRequest::mutable_upload_id() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteObjectRequest.upload_id)
+  return _internal_mutable_upload_id();
+}
+inline const std::string& DeleteObjectRequest::_internal_upload_id() const {
+  return upload_id_.Get();
+}
+inline void DeleteObjectRequest::_internal_set_upload_id(const std::string& value) {
+  
+  upload_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteObjectRequest::set_upload_id(std::string&& value) {
+  
+  upload_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.DeleteObjectRequest.upload_id)
+}
+inline void DeleteObjectRequest::set_upload_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  upload_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.DeleteObjectRequest.upload_id)
+}
+inline void DeleteObjectRequest::set_upload_id(const char* value,
+    size_t size) {
+  
+  upload_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.DeleteObjectRequest.upload_id)
+}
+inline std::string* DeleteObjectRequest::_internal_mutable_upload_id() {
+  
+  return upload_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteObjectRequest::release_upload_id() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteObjectRequest.upload_id)
+  return upload_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteObjectRequest::set_allocated_upload_id(std::string* upload_id) {
+  if (upload_id != nullptr) {
+    
+  } else {
+    
+  }
+  upload_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), upload_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteObjectRequest.upload_id)
+}
+
+// int64 generation = 4;
+inline void DeleteObjectRequest::clear_generation() {
+  generation_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::_internal_generation() const {
+  return generation_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::generation() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.generation)
+  return _internal_generation();
+}
+inline void DeleteObjectRequest::_internal_set_generation(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  generation_ = value;
+}
+inline void DeleteObjectRequest::set_generation(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_generation(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteObjectRequest.generation)
+}
+
+// int64 if_generation_match = 5;
+inline bool DeleteObjectRequest::_internal_has_if_generation_match() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool DeleteObjectRequest::has_if_generation_match() const {
+  return _internal_has_if_generation_match();
+}
+inline void DeleteObjectRequest::clear_if_generation_match() {
+  if_generation_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::_internal_if_generation_match() const {
+  return if_generation_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::if_generation_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.if_generation_match)
+  return _internal_if_generation_match();
+}
+inline void DeleteObjectRequest::_internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  if_generation_match_ = value;
+}
+inline void DeleteObjectRequest::set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteObjectRequest.if_generation_match)
+}
+
+// int64 if_generation_not_match = 6;
+inline bool DeleteObjectRequest::_internal_has_if_generation_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool DeleteObjectRequest::has_if_generation_not_match() const {
+  return _internal_has_if_generation_not_match();
+}
+inline void DeleteObjectRequest::clear_if_generation_not_match() {
+  if_generation_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::_internal_if_generation_not_match() const {
+  return if_generation_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::if_generation_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.if_generation_not_match)
+  return _internal_if_generation_not_match();
+}
+inline void DeleteObjectRequest::_internal_set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  if_generation_not_match_ = value;
+}
+inline void DeleteObjectRequest::set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteObjectRequest.if_generation_not_match)
+}
+
+// int64 if_metageneration_match = 7;
+inline bool DeleteObjectRequest::_internal_has_if_metageneration_match() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool DeleteObjectRequest::has_if_metageneration_match() const {
+  return _internal_has_if_metageneration_match();
+}
+inline void DeleteObjectRequest::clear_if_metageneration_match() {
+  if_metageneration_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::_internal_if_metageneration_match() const {
+  return if_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::if_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.if_metageneration_match)
+  return _internal_if_metageneration_match();
+}
+inline void DeleteObjectRequest::_internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000004u;
+  if_metageneration_match_ = value;
+}
+inline void DeleteObjectRequest::set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteObjectRequest.if_metageneration_match)
+}
+
+// int64 if_metageneration_not_match = 8;
+inline bool DeleteObjectRequest::_internal_has_if_metageneration_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool DeleteObjectRequest::has_if_metageneration_not_match() const {
+  return _internal_has_if_metageneration_not_match();
+}
+inline void DeleteObjectRequest::clear_if_metageneration_not_match() {
+  if_metageneration_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::_internal_if_metageneration_not_match() const {
+  return if_metageneration_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 DeleteObjectRequest::if_metageneration_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.if_metageneration_not_match)
+  return _internal_if_metageneration_not_match();
+}
+inline void DeleteObjectRequest::_internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000008u;
+  if_metageneration_not_match_ = value;
+}
+inline void DeleteObjectRequest::set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteObjectRequest.if_metageneration_not_match)
+}
+
+// .google.storage.v2.CommonObjectRequestParams common_object_request_params = 10;
+inline bool DeleteObjectRequest::_internal_has_common_object_request_params() const {
+  return this != internal_default_instance() && common_object_request_params_ != nullptr;
+}
+inline bool DeleteObjectRequest::has_common_object_request_params() const {
+  return _internal_has_common_object_request_params();
+}
+inline void DeleteObjectRequest::clear_common_object_request_params() {
+  if (GetArena() == nullptr && common_object_request_params_ != nullptr) {
+    delete common_object_request_params_;
+  }
+  common_object_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& DeleteObjectRequest::_internal_common_object_request_params() const {
+  const ::google::storage::v2::CommonObjectRequestParams* p = common_object_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonObjectRequestParams&>(
+      ::google::storage::v2::_CommonObjectRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& DeleteObjectRequest::common_object_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.common_object_request_params)
+  return _internal_common_object_request_params();
+}
+inline void DeleteObjectRequest::unsafe_arena_set_allocated_common_object_request_params(
+    ::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_object_request_params_);
+  }
+  common_object_request_params_ = common_object_request_params;
+  if (common_object_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.DeleteObjectRequest.common_object_request_params)
+}
+inline ::google::storage::v2::CommonObjectRequestParams* DeleteObjectRequest::release_common_object_request_params() {
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* DeleteObjectRequest::unsafe_arena_release_common_object_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteObjectRequest.common_object_request_params)
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* DeleteObjectRequest::_internal_mutable_common_object_request_params() {
+  
+  if (common_object_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonObjectRequestParams>(GetArena());
+    common_object_request_params_ = p;
+  }
+  return common_object_request_params_;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* DeleteObjectRequest::mutable_common_object_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteObjectRequest.common_object_request_params)
+  return _internal_mutable_common_object_request_params();
+}
+inline void DeleteObjectRequest::set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_object_request_params_;
+  }
+  if (common_object_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_object_request_params);
+    if (message_arena != submessage_arena) {
+      common_object_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_object_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_object_request_params_ = common_object_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteObjectRequest.common_object_request_params)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 11;
+inline bool DeleteObjectRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool DeleteObjectRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void DeleteObjectRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& DeleteObjectRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& DeleteObjectRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteObjectRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void DeleteObjectRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.DeleteObjectRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteObjectRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteObjectRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteObjectRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteObjectRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteObjectRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteObjectRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void DeleteObjectRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteObjectRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
 // ReadObjectRequest
 
 // string bucket = 1;
@@ -8268,6 +18957,509 @@ inline void ReadObjectRequest::set_allocated_read_mask(PROTOBUF_NAMESPACE_ID::Fi
   }
   read_mask_ = read_mask;
   // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ReadObjectRequest.read_mask)
+}
+
+// -------------------------------------------------------------------
+
+// GetObjectRequest
+
+// string bucket = 1 [(.google.api.field_behavior) = REQUIRED];
+inline void GetObjectRequest::clear_bucket() {
+  bucket_.ClearToEmpty();
+}
+inline const std::string& GetObjectRequest::bucket() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.bucket)
+  return _internal_bucket();
+}
+inline void GetObjectRequest::set_bucket(const std::string& value) {
+  _internal_set_bucket(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetObjectRequest.bucket)
+}
+inline std::string* GetObjectRequest::mutable_bucket() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetObjectRequest.bucket)
+  return _internal_mutable_bucket();
+}
+inline const std::string& GetObjectRequest::_internal_bucket() const {
+  return bucket_.Get();
+}
+inline void GetObjectRequest::_internal_set_bucket(const std::string& value) {
+  
+  bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void GetObjectRequest::set_bucket(std::string&& value) {
+  
+  bucket_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.GetObjectRequest.bucket)
+}
+inline void GetObjectRequest::set_bucket(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.GetObjectRequest.bucket)
+}
+inline void GetObjectRequest::set_bucket(const char* value,
+    size_t size) {
+  
+  bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.GetObjectRequest.bucket)
+}
+inline std::string* GetObjectRequest::_internal_mutable_bucket() {
+  
+  return bucket_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* GetObjectRequest::release_bucket() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetObjectRequest.bucket)
+  return bucket_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void GetObjectRequest::set_allocated_bucket(std::string* bucket) {
+  if (bucket != nullptr) {
+    
+  } else {
+    
+  }
+  bucket_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), bucket,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetObjectRequest.bucket)
+}
+
+// string object = 2 [(.google.api.field_behavior) = REQUIRED];
+inline void GetObjectRequest::clear_object() {
+  object_.ClearToEmpty();
+}
+inline const std::string& GetObjectRequest::object() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.object)
+  return _internal_object();
+}
+inline void GetObjectRequest::set_object(const std::string& value) {
+  _internal_set_object(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetObjectRequest.object)
+}
+inline std::string* GetObjectRequest::mutable_object() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetObjectRequest.object)
+  return _internal_mutable_object();
+}
+inline const std::string& GetObjectRequest::_internal_object() const {
+  return object_.Get();
+}
+inline void GetObjectRequest::_internal_set_object(const std::string& value) {
+  
+  object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void GetObjectRequest::set_object(std::string&& value) {
+  
+  object_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.GetObjectRequest.object)
+}
+inline void GetObjectRequest::set_object(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.GetObjectRequest.object)
+}
+inline void GetObjectRequest::set_object(const char* value,
+    size_t size) {
+  
+  object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.GetObjectRequest.object)
+}
+inline std::string* GetObjectRequest::_internal_mutable_object() {
+  
+  return object_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* GetObjectRequest::release_object() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetObjectRequest.object)
+  return object_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void GetObjectRequest::set_allocated_object(std::string* object) {
+  if (object != nullptr) {
+    
+  } else {
+    
+  }
+  object_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), object,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetObjectRequest.object)
+}
+
+// int64 generation = 3;
+inline void GetObjectRequest::clear_generation() {
+  generation_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::_internal_generation() const {
+  return generation_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::generation() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.generation)
+  return _internal_generation();
+}
+inline void GetObjectRequest::_internal_set_generation(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  generation_ = value;
+}
+inline void GetObjectRequest::set_generation(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_generation(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetObjectRequest.generation)
+}
+
+// int64 if_generation_match = 4;
+inline bool GetObjectRequest::_internal_has_if_generation_match() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool GetObjectRequest::has_if_generation_match() const {
+  return _internal_has_if_generation_match();
+}
+inline void GetObjectRequest::clear_if_generation_match() {
+  if_generation_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::_internal_if_generation_match() const {
+  return if_generation_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::if_generation_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.if_generation_match)
+  return _internal_if_generation_match();
+}
+inline void GetObjectRequest::_internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  if_generation_match_ = value;
+}
+inline void GetObjectRequest::set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetObjectRequest.if_generation_match)
+}
+
+// int64 if_generation_not_match = 5;
+inline bool GetObjectRequest::_internal_has_if_generation_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool GetObjectRequest::has_if_generation_not_match() const {
+  return _internal_has_if_generation_not_match();
+}
+inline void GetObjectRequest::clear_if_generation_not_match() {
+  if_generation_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::_internal_if_generation_not_match() const {
+  return if_generation_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::if_generation_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.if_generation_not_match)
+  return _internal_if_generation_not_match();
+}
+inline void GetObjectRequest::_internal_set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000004u;
+  if_generation_not_match_ = value;
+}
+inline void GetObjectRequest::set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetObjectRequest.if_generation_not_match)
+}
+
+// int64 if_metageneration_match = 6;
+inline bool GetObjectRequest::_internal_has_if_metageneration_match() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool GetObjectRequest::has_if_metageneration_match() const {
+  return _internal_has_if_metageneration_match();
+}
+inline void GetObjectRequest::clear_if_metageneration_match() {
+  if_metageneration_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::_internal_if_metageneration_match() const {
+  return if_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::if_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.if_metageneration_match)
+  return _internal_if_metageneration_match();
+}
+inline void GetObjectRequest::_internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000008u;
+  if_metageneration_match_ = value;
+}
+inline void GetObjectRequest::set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetObjectRequest.if_metageneration_match)
+}
+
+// int64 if_metageneration_not_match = 7;
+inline bool GetObjectRequest::_internal_has_if_metageneration_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool GetObjectRequest::has_if_metageneration_not_match() const {
+  return _internal_has_if_metageneration_not_match();
+}
+inline void GetObjectRequest::clear_if_metageneration_not_match() {
+  if_metageneration_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::_internal_if_metageneration_not_match() const {
+  return if_metageneration_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 GetObjectRequest::if_metageneration_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.if_metageneration_not_match)
+  return _internal_if_metageneration_not_match();
+}
+inline void GetObjectRequest::_internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000010u;
+  if_metageneration_not_match_ = value;
+}
+inline void GetObjectRequest::set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetObjectRequest.if_metageneration_not_match)
+}
+
+// .google.storage.v2.CommonObjectRequestParams common_object_request_params = 8;
+inline bool GetObjectRequest::_internal_has_common_object_request_params() const {
+  return this != internal_default_instance() && common_object_request_params_ != nullptr;
+}
+inline bool GetObjectRequest::has_common_object_request_params() const {
+  return _internal_has_common_object_request_params();
+}
+inline void GetObjectRequest::clear_common_object_request_params() {
+  if (GetArena() == nullptr && common_object_request_params_ != nullptr) {
+    delete common_object_request_params_;
+  }
+  common_object_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& GetObjectRequest::_internal_common_object_request_params() const {
+  const ::google::storage::v2::CommonObjectRequestParams* p = common_object_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonObjectRequestParams&>(
+      ::google::storage::v2::_CommonObjectRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& GetObjectRequest::common_object_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.common_object_request_params)
+  return _internal_common_object_request_params();
+}
+inline void GetObjectRequest::unsafe_arena_set_allocated_common_object_request_params(
+    ::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_object_request_params_);
+  }
+  common_object_request_params_ = common_object_request_params;
+  if (common_object_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.GetObjectRequest.common_object_request_params)
+}
+inline ::google::storage::v2::CommonObjectRequestParams* GetObjectRequest::release_common_object_request_params() {
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* GetObjectRequest::unsafe_arena_release_common_object_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetObjectRequest.common_object_request_params)
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* GetObjectRequest::_internal_mutable_common_object_request_params() {
+  
+  if (common_object_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonObjectRequestParams>(GetArena());
+    common_object_request_params_ = p;
+  }
+  return common_object_request_params_;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* GetObjectRequest::mutable_common_object_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetObjectRequest.common_object_request_params)
+  return _internal_mutable_common_object_request_params();
+}
+inline void GetObjectRequest::set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_object_request_params_;
+  }
+  if (common_object_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_object_request_params);
+    if (message_arena != submessage_arena) {
+      common_object_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_object_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_object_request_params_ = common_object_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetObjectRequest.common_object_request_params)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 9;
+inline bool GetObjectRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool GetObjectRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void GetObjectRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& GetObjectRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& GetObjectRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void GetObjectRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.GetObjectRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* GetObjectRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* GetObjectRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetObjectRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* GetObjectRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* GetObjectRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetObjectRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void GetObjectRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetObjectRequest.common_request_params)
+}
+
+// .google.protobuf.FieldMask read_mask = 10;
+inline bool GetObjectRequest::_internal_has_read_mask() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || read_mask_ != nullptr);
+  return value;
+}
+inline bool GetObjectRequest::has_read_mask() const {
+  return _internal_has_read_mask();
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& GetObjectRequest::_internal_read_mask() const {
+  const PROTOBUF_NAMESPACE_ID::FieldMask* p = read_mask_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::FieldMask&>(
+      PROTOBUF_NAMESPACE_ID::_FieldMask_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& GetObjectRequest::read_mask() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetObjectRequest.read_mask)
+  return _internal_read_mask();
+}
+inline void GetObjectRequest::unsafe_arena_set_allocated_read_mask(
+    PROTOBUF_NAMESPACE_ID::FieldMask* read_mask) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask_);
+  }
+  read_mask_ = read_mask;
+  if (read_mask) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.GetObjectRequest.read_mask)
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* GetObjectRequest::release_read_mask() {
+  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = read_mask_;
+  read_mask_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* GetObjectRequest::unsafe_arena_release_read_mask() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetObjectRequest.read_mask)
+  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = read_mask_;
+  read_mask_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* GetObjectRequest::_internal_mutable_read_mask() {
+  _has_bits_[0] |= 0x00000001u;
+  if (read_mask_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::FieldMask>(GetArena());
+    read_mask_ = p;
+  }
+  return read_mask_;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* GetObjectRequest::mutable_read_mask() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetObjectRequest.read_mask)
+  return _internal_mutable_read_mask();
+}
+inline void GetObjectRequest::set_allocated_read_mask(PROTOBUF_NAMESPACE_ID::FieldMask* read_mask) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask_);
+  }
+  if (read_mask) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask)->GetArena();
+    if (message_arena != submessage_arena) {
+      read_mask = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, read_mask, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  read_mask_ = read_mask;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetObjectRequest.read_mask)
 }
 
 // -------------------------------------------------------------------
@@ -9396,42 +20588,42 @@ inline WriteObjectRequest::DataCase WriteObjectRequest::data_case() const {
 
 // WriteObjectResponse
 
-// int64 committed_size = 1;
-inline bool WriteObjectResponse::_internal_has_committed_size() const {
-  return write_status_case() == kCommittedSize;
+// int64 persisted_size = 1;
+inline bool WriteObjectResponse::_internal_has_persisted_size() const {
+  return write_status_case() == kPersistedSize;
 }
-inline bool WriteObjectResponse::has_committed_size() const {
-  return _internal_has_committed_size();
+inline bool WriteObjectResponse::has_persisted_size() const {
+  return _internal_has_persisted_size();
 }
-inline void WriteObjectResponse::set_has_committed_size() {
-  _oneof_case_[0] = kCommittedSize;
+inline void WriteObjectResponse::set_has_persisted_size() {
+  _oneof_case_[0] = kPersistedSize;
 }
-inline void WriteObjectResponse::clear_committed_size() {
-  if (_internal_has_committed_size()) {
-    write_status_.committed_size_ = PROTOBUF_LONGLONG(0);
+inline void WriteObjectResponse::clear_persisted_size() {
+  if (_internal_has_persisted_size()) {
+    write_status_.persisted_size_ = PROTOBUF_LONGLONG(0);
     clear_has_write_status();
   }
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 WriteObjectResponse::_internal_committed_size() const {
-  if (_internal_has_committed_size()) {
-    return write_status_.committed_size_;
+inline ::PROTOBUF_NAMESPACE_ID::int64 WriteObjectResponse::_internal_persisted_size() const {
+  if (_internal_has_persisted_size()) {
+    return write_status_.persisted_size_;
   }
   return PROTOBUF_LONGLONG(0);
 }
-inline void WriteObjectResponse::_internal_set_committed_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  if (!_internal_has_committed_size()) {
+inline void WriteObjectResponse::_internal_set_persisted_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  if (!_internal_has_persisted_size()) {
     clear_write_status();
-    set_has_committed_size();
+    set_has_persisted_size();
   }
-  write_status_.committed_size_ = value;
+  write_status_.persisted_size_ = value;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 WriteObjectResponse::committed_size() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.WriteObjectResponse.committed_size)
-  return _internal_committed_size();
+inline ::PROTOBUF_NAMESPACE_ID::int64 WriteObjectResponse::persisted_size() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.WriteObjectResponse.persisted_size)
+  return _internal_persisted_size();
 }
-inline void WriteObjectResponse::set_committed_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  _internal_set_committed_size(value);
-  // @@protoc_insertion_point(field_set:google.storage.v2.WriteObjectResponse.committed_size)
+inline void WriteObjectResponse::set_persisted_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_persisted_size(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.WriteObjectResponse.persisted_size)
 }
 
 // .google.storage.v2.Object resource = 2;
@@ -9516,6 +20708,598 @@ inline void WriteObjectResponse::clear_has_write_status() {
 inline WriteObjectResponse::WriteStatusCase WriteObjectResponse::write_status_case() const {
   return WriteObjectResponse::WriteStatusCase(_oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// ListObjectsRequest
+
+// string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void ListObjectsRequest::clear_parent() {
+  parent_.ClearToEmpty();
+}
+inline const std::string& ListObjectsRequest::parent() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.parent)
+  return _internal_parent();
+}
+inline void ListObjectsRequest::set_parent(const std::string& value) {
+  _internal_set_parent(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsRequest.parent)
+}
+inline std::string* ListObjectsRequest::mutable_parent() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsRequest.parent)
+  return _internal_mutable_parent();
+}
+inline const std::string& ListObjectsRequest::_internal_parent() const {
+  return parent_.Get();
+}
+inline void ListObjectsRequest::_internal_set_parent(const std::string& value) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListObjectsRequest::set_parent(std::string&& value) {
+  
+  parent_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListObjectsRequest.parent)
+}
+inline void ListObjectsRequest::set_parent(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListObjectsRequest.parent)
+}
+inline void ListObjectsRequest::set_parent(const char* value,
+    size_t size) {
+  
+  parent_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListObjectsRequest.parent)
+}
+inline std::string* ListObjectsRequest::_internal_mutable_parent() {
+  
+  return parent_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListObjectsRequest::release_parent() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListObjectsRequest.parent)
+  return parent_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListObjectsRequest::set_allocated_parent(std::string* parent) {
+  if (parent != nullptr) {
+    
+  } else {
+    
+  }
+  parent_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), parent,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListObjectsRequest.parent)
+}
+
+// int32 page_size = 2;
+inline void ListObjectsRequest::clear_page_size() {
+  page_size_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ListObjectsRequest::_internal_page_size() const {
+  return page_size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ListObjectsRequest::page_size() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.page_size)
+  return _internal_page_size();
+}
+inline void ListObjectsRequest::_internal_set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  page_size_ = value;
+}
+inline void ListObjectsRequest::set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_page_size(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsRequest.page_size)
+}
+
+// string page_token = 3;
+inline void ListObjectsRequest::clear_page_token() {
+  page_token_.ClearToEmpty();
+}
+inline const std::string& ListObjectsRequest::page_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.page_token)
+  return _internal_page_token();
+}
+inline void ListObjectsRequest::set_page_token(const std::string& value) {
+  _internal_set_page_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsRequest.page_token)
+}
+inline std::string* ListObjectsRequest::mutable_page_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsRequest.page_token)
+  return _internal_mutable_page_token();
+}
+inline const std::string& ListObjectsRequest::_internal_page_token() const {
+  return page_token_.Get();
+}
+inline void ListObjectsRequest::_internal_set_page_token(const std::string& value) {
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListObjectsRequest::set_page_token(std::string&& value) {
+  
+  page_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListObjectsRequest.page_token)
+}
+inline void ListObjectsRequest::set_page_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListObjectsRequest.page_token)
+}
+inline void ListObjectsRequest::set_page_token(const char* value,
+    size_t size) {
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListObjectsRequest.page_token)
+}
+inline std::string* ListObjectsRequest::_internal_mutable_page_token() {
+  
+  return page_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListObjectsRequest::release_page_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListObjectsRequest.page_token)
+  return page_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListObjectsRequest::set_allocated_page_token(std::string* page_token) {
+  if (page_token != nullptr) {
+    
+  } else {
+    
+  }
+  page_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), page_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListObjectsRequest.page_token)
+}
+
+// string delimiter = 4;
+inline void ListObjectsRequest::clear_delimiter() {
+  delimiter_.ClearToEmpty();
+}
+inline const std::string& ListObjectsRequest::delimiter() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.delimiter)
+  return _internal_delimiter();
+}
+inline void ListObjectsRequest::set_delimiter(const std::string& value) {
+  _internal_set_delimiter(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsRequest.delimiter)
+}
+inline std::string* ListObjectsRequest::mutable_delimiter() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsRequest.delimiter)
+  return _internal_mutable_delimiter();
+}
+inline const std::string& ListObjectsRequest::_internal_delimiter() const {
+  return delimiter_.Get();
+}
+inline void ListObjectsRequest::_internal_set_delimiter(const std::string& value) {
+  
+  delimiter_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListObjectsRequest::set_delimiter(std::string&& value) {
+  
+  delimiter_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListObjectsRequest.delimiter)
+}
+inline void ListObjectsRequest::set_delimiter(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  delimiter_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListObjectsRequest.delimiter)
+}
+inline void ListObjectsRequest::set_delimiter(const char* value,
+    size_t size) {
+  
+  delimiter_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListObjectsRequest.delimiter)
+}
+inline std::string* ListObjectsRequest::_internal_mutable_delimiter() {
+  
+  return delimiter_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListObjectsRequest::release_delimiter() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListObjectsRequest.delimiter)
+  return delimiter_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListObjectsRequest::set_allocated_delimiter(std::string* delimiter) {
+  if (delimiter != nullptr) {
+    
+  } else {
+    
+  }
+  delimiter_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), delimiter,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListObjectsRequest.delimiter)
+}
+
+// bool include_trailing_delimiter = 5;
+inline void ListObjectsRequest::clear_include_trailing_delimiter() {
+  include_trailing_delimiter_ = false;
+}
+inline bool ListObjectsRequest::_internal_include_trailing_delimiter() const {
+  return include_trailing_delimiter_;
+}
+inline bool ListObjectsRequest::include_trailing_delimiter() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.include_trailing_delimiter)
+  return _internal_include_trailing_delimiter();
+}
+inline void ListObjectsRequest::_internal_set_include_trailing_delimiter(bool value) {
+  
+  include_trailing_delimiter_ = value;
+}
+inline void ListObjectsRequest::set_include_trailing_delimiter(bool value) {
+  _internal_set_include_trailing_delimiter(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsRequest.include_trailing_delimiter)
+}
+
+// string prefix = 6;
+inline void ListObjectsRequest::clear_prefix() {
+  prefix_.ClearToEmpty();
+}
+inline const std::string& ListObjectsRequest::prefix() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.prefix)
+  return _internal_prefix();
+}
+inline void ListObjectsRequest::set_prefix(const std::string& value) {
+  _internal_set_prefix(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsRequest.prefix)
+}
+inline std::string* ListObjectsRequest::mutable_prefix() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsRequest.prefix)
+  return _internal_mutable_prefix();
+}
+inline const std::string& ListObjectsRequest::_internal_prefix() const {
+  return prefix_.Get();
+}
+inline void ListObjectsRequest::_internal_set_prefix(const std::string& value) {
+  
+  prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListObjectsRequest::set_prefix(std::string&& value) {
+  
+  prefix_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListObjectsRequest.prefix)
+}
+inline void ListObjectsRequest::set_prefix(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListObjectsRequest.prefix)
+}
+inline void ListObjectsRequest::set_prefix(const char* value,
+    size_t size) {
+  
+  prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListObjectsRequest.prefix)
+}
+inline std::string* ListObjectsRequest::_internal_mutable_prefix() {
+  
+  return prefix_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListObjectsRequest::release_prefix() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListObjectsRequest.prefix)
+  return prefix_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListObjectsRequest::set_allocated_prefix(std::string* prefix) {
+  if (prefix != nullptr) {
+    
+  } else {
+    
+  }
+  prefix_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), prefix,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListObjectsRequest.prefix)
+}
+
+// bool versions = 7;
+inline void ListObjectsRequest::clear_versions() {
+  versions_ = false;
+}
+inline bool ListObjectsRequest::_internal_versions() const {
+  return versions_;
+}
+inline bool ListObjectsRequest::versions() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.versions)
+  return _internal_versions();
+}
+inline void ListObjectsRequest::_internal_set_versions(bool value) {
+  
+  versions_ = value;
+}
+inline void ListObjectsRequest::set_versions(bool value) {
+  _internal_set_versions(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsRequest.versions)
+}
+
+// .google.protobuf.FieldMask read_mask = 8;
+inline bool ListObjectsRequest::_internal_has_read_mask() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || read_mask_ != nullptr);
+  return value;
+}
+inline bool ListObjectsRequest::has_read_mask() const {
+  return _internal_has_read_mask();
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& ListObjectsRequest::_internal_read_mask() const {
+  const PROTOBUF_NAMESPACE_ID::FieldMask* p = read_mask_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::FieldMask&>(
+      PROTOBUF_NAMESPACE_ID::_FieldMask_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& ListObjectsRequest::read_mask() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.read_mask)
+  return _internal_read_mask();
+}
+inline void ListObjectsRequest::unsafe_arena_set_allocated_read_mask(
+    PROTOBUF_NAMESPACE_ID::FieldMask* read_mask) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask_);
+  }
+  read_mask_ = read_mask;
+  if (read_mask) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.ListObjectsRequest.read_mask)
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* ListObjectsRequest::release_read_mask() {
+  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = read_mask_;
+  read_mask_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* ListObjectsRequest::unsafe_arena_release_read_mask() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListObjectsRequest.read_mask)
+  _has_bits_[0] &= ~0x00000001u;
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = read_mask_;
+  read_mask_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* ListObjectsRequest::_internal_mutable_read_mask() {
+  _has_bits_[0] |= 0x00000001u;
+  if (read_mask_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::FieldMask>(GetArena());
+    read_mask_ = p;
+  }
+  return read_mask_;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* ListObjectsRequest::mutable_read_mask() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsRequest.read_mask)
+  return _internal_mutable_read_mask();
+}
+inline void ListObjectsRequest::set_allocated_read_mask(PROTOBUF_NAMESPACE_ID::FieldMask* read_mask) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask_);
+  }
+  if (read_mask) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(read_mask)->GetArena();
+    if (message_arena != submessage_arena) {
+      read_mask = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, read_mask, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  read_mask_ = read_mask;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListObjectsRequest.read_mask)
+}
+
+// string lexicographic_start = 10;
+inline void ListObjectsRequest::clear_lexicographic_start() {
+  lexicographic_start_.ClearToEmpty();
+}
+inline const std::string& ListObjectsRequest::lexicographic_start() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.lexicographic_start)
+  return _internal_lexicographic_start();
+}
+inline void ListObjectsRequest::set_lexicographic_start(const std::string& value) {
+  _internal_set_lexicographic_start(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsRequest.lexicographic_start)
+}
+inline std::string* ListObjectsRequest::mutable_lexicographic_start() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsRequest.lexicographic_start)
+  return _internal_mutable_lexicographic_start();
+}
+inline const std::string& ListObjectsRequest::_internal_lexicographic_start() const {
+  return lexicographic_start_.Get();
+}
+inline void ListObjectsRequest::_internal_set_lexicographic_start(const std::string& value) {
+  
+  lexicographic_start_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListObjectsRequest::set_lexicographic_start(std::string&& value) {
+  
+  lexicographic_start_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListObjectsRequest.lexicographic_start)
+}
+inline void ListObjectsRequest::set_lexicographic_start(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  lexicographic_start_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListObjectsRequest.lexicographic_start)
+}
+inline void ListObjectsRequest::set_lexicographic_start(const char* value,
+    size_t size) {
+  
+  lexicographic_start_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListObjectsRequest.lexicographic_start)
+}
+inline std::string* ListObjectsRequest::_internal_mutable_lexicographic_start() {
+  
+  return lexicographic_start_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListObjectsRequest::release_lexicographic_start() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListObjectsRequest.lexicographic_start)
+  return lexicographic_start_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListObjectsRequest::set_allocated_lexicographic_start(std::string* lexicographic_start) {
+  if (lexicographic_start != nullptr) {
+    
+  } else {
+    
+  }
+  lexicographic_start_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), lexicographic_start,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListObjectsRequest.lexicographic_start)
+}
+
+// string lexicographic_end = 11;
+inline void ListObjectsRequest::clear_lexicographic_end() {
+  lexicographic_end_.ClearToEmpty();
+}
+inline const std::string& ListObjectsRequest::lexicographic_end() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.lexicographic_end)
+  return _internal_lexicographic_end();
+}
+inline void ListObjectsRequest::set_lexicographic_end(const std::string& value) {
+  _internal_set_lexicographic_end(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsRequest.lexicographic_end)
+}
+inline std::string* ListObjectsRequest::mutable_lexicographic_end() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsRequest.lexicographic_end)
+  return _internal_mutable_lexicographic_end();
+}
+inline const std::string& ListObjectsRequest::_internal_lexicographic_end() const {
+  return lexicographic_end_.Get();
+}
+inline void ListObjectsRequest::_internal_set_lexicographic_end(const std::string& value) {
+  
+  lexicographic_end_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListObjectsRequest::set_lexicographic_end(std::string&& value) {
+  
+  lexicographic_end_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListObjectsRequest.lexicographic_end)
+}
+inline void ListObjectsRequest::set_lexicographic_end(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  lexicographic_end_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListObjectsRequest.lexicographic_end)
+}
+inline void ListObjectsRequest::set_lexicographic_end(const char* value,
+    size_t size) {
+  
+  lexicographic_end_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListObjectsRequest.lexicographic_end)
+}
+inline std::string* ListObjectsRequest::_internal_mutable_lexicographic_end() {
+  
+  return lexicographic_end_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListObjectsRequest::release_lexicographic_end() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListObjectsRequest.lexicographic_end)
+  return lexicographic_end_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListObjectsRequest::set_allocated_lexicographic_end(std::string* lexicographic_end) {
+  if (lexicographic_end != nullptr) {
+    
+  } else {
+    
+  }
+  lexicographic_end_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), lexicographic_end,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListObjectsRequest.lexicographic_end)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 9;
+inline bool ListObjectsRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool ListObjectsRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void ListObjectsRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& ListObjectsRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& ListObjectsRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void ListObjectsRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.ListObjectsRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* ListObjectsRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* ListObjectsRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListObjectsRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* ListObjectsRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* ListObjectsRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void ListObjectsRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListObjectsRequest.common_request_params)
+}
+
 // -------------------------------------------------------------------
 
 // QueryWriteStatusRequest
@@ -9751,42 +21535,42 @@ inline void QueryWriteStatusRequest::set_allocated_common_request_params(::googl
 
 // QueryWriteStatusResponse
 
-// int64 committed_size = 1;
-inline bool QueryWriteStatusResponse::_internal_has_committed_size() const {
-  return write_status_case() == kCommittedSize;
+// int64 persisted_size = 1;
+inline bool QueryWriteStatusResponse::_internal_has_persisted_size() const {
+  return write_status_case() == kPersistedSize;
 }
-inline bool QueryWriteStatusResponse::has_committed_size() const {
-  return _internal_has_committed_size();
+inline bool QueryWriteStatusResponse::has_persisted_size() const {
+  return _internal_has_persisted_size();
 }
-inline void QueryWriteStatusResponse::set_has_committed_size() {
-  _oneof_case_[0] = kCommittedSize;
+inline void QueryWriteStatusResponse::set_has_persisted_size() {
+  _oneof_case_[0] = kPersistedSize;
 }
-inline void QueryWriteStatusResponse::clear_committed_size() {
-  if (_internal_has_committed_size()) {
-    write_status_.committed_size_ = PROTOBUF_LONGLONG(0);
+inline void QueryWriteStatusResponse::clear_persisted_size() {
+  if (_internal_has_persisted_size()) {
+    write_status_.persisted_size_ = PROTOBUF_LONGLONG(0);
     clear_has_write_status();
   }
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 QueryWriteStatusResponse::_internal_committed_size() const {
-  if (_internal_has_committed_size()) {
-    return write_status_.committed_size_;
+inline ::PROTOBUF_NAMESPACE_ID::int64 QueryWriteStatusResponse::_internal_persisted_size() const {
+  if (_internal_has_persisted_size()) {
+    return write_status_.persisted_size_;
   }
   return PROTOBUF_LONGLONG(0);
 }
-inline void QueryWriteStatusResponse::_internal_set_committed_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  if (!_internal_has_committed_size()) {
+inline void QueryWriteStatusResponse::_internal_set_persisted_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  if (!_internal_has_persisted_size()) {
     clear_write_status();
-    set_has_committed_size();
+    set_has_persisted_size();
   }
-  write_status_.committed_size_ = value;
+  write_status_.persisted_size_ = value;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int64 QueryWriteStatusResponse::committed_size() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.QueryWriteStatusResponse.committed_size)
-  return _internal_committed_size();
+inline ::PROTOBUF_NAMESPACE_ID::int64 QueryWriteStatusResponse::persisted_size() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.QueryWriteStatusResponse.persisted_size)
+  return _internal_persisted_size();
 }
-inline void QueryWriteStatusResponse::set_committed_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  _internal_set_committed_size(value);
-  // @@protoc_insertion_point(field_set:google.storage.v2.QueryWriteStatusResponse.committed_size)
+inline void QueryWriteStatusResponse::set_persisted_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_persisted_size(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.QueryWriteStatusResponse.persisted_size)
 }
 
 // .google.storage.v2.Object resource = 2;
@@ -9871,6 +21655,1322 @@ inline void QueryWriteStatusResponse::clear_has_write_status() {
 inline QueryWriteStatusResponse::WriteStatusCase QueryWriteStatusResponse::write_status_case() const {
   return QueryWriteStatusResponse::WriteStatusCase(_oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// RewriteObjectRequest
+
+// string destination_name = 24 [(.google.api.field_behavior) = IMMUTABLE];
+inline void RewriteObjectRequest::clear_destination_name() {
+  destination_name_.ClearToEmpty();
+}
+inline const std::string& RewriteObjectRequest::destination_name() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.destination_name)
+  return _internal_destination_name();
+}
+inline void RewriteObjectRequest::set_destination_name(const std::string& value) {
+  _internal_set_destination_name(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.destination_name)
+}
+inline std::string* RewriteObjectRequest::mutable_destination_name() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.destination_name)
+  return _internal_mutable_destination_name();
+}
+inline const std::string& RewriteObjectRequest::_internal_destination_name() const {
+  return destination_name_.Get();
+}
+inline void RewriteObjectRequest::_internal_set_destination_name(const std::string& value) {
+  
+  destination_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RewriteObjectRequest::set_destination_name(std::string&& value) {
+  
+  destination_name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.RewriteObjectRequest.destination_name)
+}
+inline void RewriteObjectRequest::set_destination_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  destination_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.RewriteObjectRequest.destination_name)
+}
+inline void RewriteObjectRequest::set_destination_name(const char* value,
+    size_t size) {
+  
+  destination_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.RewriteObjectRequest.destination_name)
+}
+inline std::string* RewriteObjectRequest::_internal_mutable_destination_name() {
+  
+  return destination_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RewriteObjectRequest::release_destination_name() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.destination_name)
+  return destination_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RewriteObjectRequest::set_allocated_destination_name(std::string* destination_name) {
+  if (destination_name != nullptr) {
+    
+  } else {
+    
+  }
+  destination_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), destination_name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.destination_name)
+}
+
+// string destination_bucket = 25 [(.google.api.field_behavior) = IMMUTABLE, (.google.api.resource_reference) = {
+inline void RewriteObjectRequest::clear_destination_bucket() {
+  destination_bucket_.ClearToEmpty();
+}
+inline const std::string& RewriteObjectRequest::destination_bucket() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.destination_bucket)
+  return _internal_destination_bucket();
+}
+inline void RewriteObjectRequest::set_destination_bucket(const std::string& value) {
+  _internal_set_destination_bucket(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.destination_bucket)
+}
+inline std::string* RewriteObjectRequest::mutable_destination_bucket() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.destination_bucket)
+  return _internal_mutable_destination_bucket();
+}
+inline const std::string& RewriteObjectRequest::_internal_destination_bucket() const {
+  return destination_bucket_.Get();
+}
+inline void RewriteObjectRequest::_internal_set_destination_bucket(const std::string& value) {
+  
+  destination_bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RewriteObjectRequest::set_destination_bucket(std::string&& value) {
+  
+  destination_bucket_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.RewriteObjectRequest.destination_bucket)
+}
+inline void RewriteObjectRequest::set_destination_bucket(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  destination_bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.RewriteObjectRequest.destination_bucket)
+}
+inline void RewriteObjectRequest::set_destination_bucket(const char* value,
+    size_t size) {
+  
+  destination_bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.RewriteObjectRequest.destination_bucket)
+}
+inline std::string* RewriteObjectRequest::_internal_mutable_destination_bucket() {
+  
+  return destination_bucket_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RewriteObjectRequest::release_destination_bucket() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.destination_bucket)
+  return destination_bucket_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RewriteObjectRequest::set_allocated_destination_bucket(std::string* destination_bucket) {
+  if (destination_bucket != nullptr) {
+    
+  } else {
+    
+  }
+  destination_bucket_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), destination_bucket,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.destination_bucket)
+}
+
+// .google.storage.v2.CustomerEncryption destination_customer_encryption = 26;
+inline bool RewriteObjectRequest::_internal_has_destination_customer_encryption() const {
+  return this != internal_default_instance() && destination_customer_encryption_ != nullptr;
+}
+inline bool RewriteObjectRequest::has_destination_customer_encryption() const {
+  return _internal_has_destination_customer_encryption();
+}
+inline void RewriteObjectRequest::clear_destination_customer_encryption() {
+  if (GetArena() == nullptr && destination_customer_encryption_ != nullptr) {
+    delete destination_customer_encryption_;
+  }
+  destination_customer_encryption_ = nullptr;
+}
+inline const ::google::storage::v2::CustomerEncryption& RewriteObjectRequest::_internal_destination_customer_encryption() const {
+  const ::google::storage::v2::CustomerEncryption* p = destination_customer_encryption_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CustomerEncryption&>(
+      ::google::storage::v2::_CustomerEncryption_default_instance_);
+}
+inline const ::google::storage::v2::CustomerEncryption& RewriteObjectRequest::destination_customer_encryption() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.destination_customer_encryption)
+  return _internal_destination_customer_encryption();
+}
+inline void RewriteObjectRequest::unsafe_arena_set_allocated_destination_customer_encryption(
+    ::google::storage::v2::CustomerEncryption* destination_customer_encryption) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(destination_customer_encryption_);
+  }
+  destination_customer_encryption_ = destination_customer_encryption;
+  if (destination_customer_encryption) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.RewriteObjectRequest.destination_customer_encryption)
+}
+inline ::google::storage::v2::CustomerEncryption* RewriteObjectRequest::release_destination_customer_encryption() {
+  
+  ::google::storage::v2::CustomerEncryption* temp = destination_customer_encryption_;
+  destination_customer_encryption_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CustomerEncryption* RewriteObjectRequest::unsafe_arena_release_destination_customer_encryption() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.destination_customer_encryption)
+  
+  ::google::storage::v2::CustomerEncryption* temp = destination_customer_encryption_;
+  destination_customer_encryption_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CustomerEncryption* RewriteObjectRequest::_internal_mutable_destination_customer_encryption() {
+  
+  if (destination_customer_encryption_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CustomerEncryption>(GetArena());
+    destination_customer_encryption_ = p;
+  }
+  return destination_customer_encryption_;
+}
+inline ::google::storage::v2::CustomerEncryption* RewriteObjectRequest::mutable_destination_customer_encryption() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.destination_customer_encryption)
+  return _internal_mutable_destination_customer_encryption();
+}
+inline void RewriteObjectRequest::set_allocated_destination_customer_encryption(::google::storage::v2::CustomerEncryption* destination_customer_encryption) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete destination_customer_encryption_;
+  }
+  if (destination_customer_encryption) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(destination_customer_encryption);
+    if (message_arena != submessage_arena) {
+      destination_customer_encryption = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, destination_customer_encryption, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  destination_customer_encryption_ = destination_customer_encryption;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.destination_customer_encryption)
+}
+
+// .google.storage.v2.Object destination = 1;
+inline bool RewriteObjectRequest::_internal_has_destination() const {
+  return this != internal_default_instance() && destination_ != nullptr;
+}
+inline bool RewriteObjectRequest::has_destination() const {
+  return _internal_has_destination();
+}
+inline void RewriteObjectRequest::clear_destination() {
+  if (GetArena() == nullptr && destination_ != nullptr) {
+    delete destination_;
+  }
+  destination_ = nullptr;
+}
+inline const ::google::storage::v2::Object& RewriteObjectRequest::_internal_destination() const {
+  const ::google::storage::v2::Object* p = destination_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::Object&>(
+      ::google::storage::v2::_Object_default_instance_);
+}
+inline const ::google::storage::v2::Object& RewriteObjectRequest::destination() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.destination)
+  return _internal_destination();
+}
+inline void RewriteObjectRequest::unsafe_arena_set_allocated_destination(
+    ::google::storage::v2::Object* destination) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(destination_);
+  }
+  destination_ = destination;
+  if (destination) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.RewriteObjectRequest.destination)
+}
+inline ::google::storage::v2::Object* RewriteObjectRequest::release_destination() {
+  
+  ::google::storage::v2::Object* temp = destination_;
+  destination_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::Object* RewriteObjectRequest::unsafe_arena_release_destination() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.destination)
+  
+  ::google::storage::v2::Object* temp = destination_;
+  destination_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::Object* RewriteObjectRequest::_internal_mutable_destination() {
+  
+  if (destination_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::Object>(GetArena());
+    destination_ = p;
+  }
+  return destination_;
+}
+inline ::google::storage::v2::Object* RewriteObjectRequest::mutable_destination() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.destination)
+  return _internal_mutable_destination();
+}
+inline void RewriteObjectRequest::set_allocated_destination(::google::storage::v2::Object* destination) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete destination_;
+  }
+  if (destination) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(destination);
+    if (message_arena != submessage_arena) {
+      destination = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, destination, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  destination_ = destination;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.destination)
+}
+
+// string source_bucket = 2 [(.google.api.field_behavior) = REQUIRED];
+inline void RewriteObjectRequest::clear_source_bucket() {
+  source_bucket_.ClearToEmpty();
+}
+inline const std::string& RewriteObjectRequest::source_bucket() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.source_bucket)
+  return _internal_source_bucket();
+}
+inline void RewriteObjectRequest::set_source_bucket(const std::string& value) {
+  _internal_set_source_bucket(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.source_bucket)
+}
+inline std::string* RewriteObjectRequest::mutable_source_bucket() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.source_bucket)
+  return _internal_mutable_source_bucket();
+}
+inline const std::string& RewriteObjectRequest::_internal_source_bucket() const {
+  return source_bucket_.Get();
+}
+inline void RewriteObjectRequest::_internal_set_source_bucket(const std::string& value) {
+  
+  source_bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RewriteObjectRequest::set_source_bucket(std::string&& value) {
+  
+  source_bucket_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.RewriteObjectRequest.source_bucket)
+}
+inline void RewriteObjectRequest::set_source_bucket(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  source_bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.RewriteObjectRequest.source_bucket)
+}
+inline void RewriteObjectRequest::set_source_bucket(const char* value,
+    size_t size) {
+  
+  source_bucket_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.RewriteObjectRequest.source_bucket)
+}
+inline std::string* RewriteObjectRequest::_internal_mutable_source_bucket() {
+  
+  return source_bucket_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RewriteObjectRequest::release_source_bucket() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.source_bucket)
+  return source_bucket_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RewriteObjectRequest::set_allocated_source_bucket(std::string* source_bucket) {
+  if (source_bucket != nullptr) {
+    
+  } else {
+    
+  }
+  source_bucket_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), source_bucket,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.source_bucket)
+}
+
+// string source_object = 3 [(.google.api.field_behavior) = REQUIRED];
+inline void RewriteObjectRequest::clear_source_object() {
+  source_object_.ClearToEmpty();
+}
+inline const std::string& RewriteObjectRequest::source_object() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.source_object)
+  return _internal_source_object();
+}
+inline void RewriteObjectRequest::set_source_object(const std::string& value) {
+  _internal_set_source_object(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.source_object)
+}
+inline std::string* RewriteObjectRequest::mutable_source_object() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.source_object)
+  return _internal_mutable_source_object();
+}
+inline const std::string& RewriteObjectRequest::_internal_source_object() const {
+  return source_object_.Get();
+}
+inline void RewriteObjectRequest::_internal_set_source_object(const std::string& value) {
+  
+  source_object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RewriteObjectRequest::set_source_object(std::string&& value) {
+  
+  source_object_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.RewriteObjectRequest.source_object)
+}
+inline void RewriteObjectRequest::set_source_object(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  source_object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.RewriteObjectRequest.source_object)
+}
+inline void RewriteObjectRequest::set_source_object(const char* value,
+    size_t size) {
+  
+  source_object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.RewriteObjectRequest.source_object)
+}
+inline std::string* RewriteObjectRequest::_internal_mutable_source_object() {
+  
+  return source_object_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RewriteObjectRequest::release_source_object() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.source_object)
+  return source_object_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RewriteObjectRequest::set_allocated_source_object(std::string* source_object) {
+  if (source_object != nullptr) {
+    
+  } else {
+    
+  }
+  source_object_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), source_object,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.source_object)
+}
+
+// int64 source_generation = 4;
+inline void RewriteObjectRequest::clear_source_generation() {
+  source_generation_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_source_generation() const {
+  return source_generation_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::source_generation() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.source_generation)
+  return _internal_source_generation();
+}
+inline void RewriteObjectRequest::_internal_set_source_generation(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  source_generation_ = value;
+}
+inline void RewriteObjectRequest::set_source_generation(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_source_generation(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.source_generation)
+}
+
+// string rewrite_token = 5;
+inline void RewriteObjectRequest::clear_rewrite_token() {
+  rewrite_token_.ClearToEmpty();
+}
+inline const std::string& RewriteObjectRequest::rewrite_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.rewrite_token)
+  return _internal_rewrite_token();
+}
+inline void RewriteObjectRequest::set_rewrite_token(const std::string& value) {
+  _internal_set_rewrite_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.rewrite_token)
+}
+inline std::string* RewriteObjectRequest::mutable_rewrite_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.rewrite_token)
+  return _internal_mutable_rewrite_token();
+}
+inline const std::string& RewriteObjectRequest::_internal_rewrite_token() const {
+  return rewrite_token_.Get();
+}
+inline void RewriteObjectRequest::_internal_set_rewrite_token(const std::string& value) {
+  
+  rewrite_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RewriteObjectRequest::set_rewrite_token(std::string&& value) {
+  
+  rewrite_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.RewriteObjectRequest.rewrite_token)
+}
+inline void RewriteObjectRequest::set_rewrite_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  rewrite_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.RewriteObjectRequest.rewrite_token)
+}
+inline void RewriteObjectRequest::set_rewrite_token(const char* value,
+    size_t size) {
+  
+  rewrite_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.RewriteObjectRequest.rewrite_token)
+}
+inline std::string* RewriteObjectRequest::_internal_mutable_rewrite_token() {
+  
+  return rewrite_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RewriteObjectRequest::release_rewrite_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.rewrite_token)
+  return rewrite_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RewriteObjectRequest::set_allocated_rewrite_token(std::string* rewrite_token) {
+  if (rewrite_token != nullptr) {
+    
+  } else {
+    
+  }
+  rewrite_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), rewrite_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.rewrite_token)
+}
+
+// .google.storage.v2.PredefinedObjectAcl destination_predefined_acl = 6;
+inline void RewriteObjectRequest::clear_destination_predefined_acl() {
+  destination_predefined_acl_ = 0;
+}
+inline ::google::storage::v2::PredefinedObjectAcl RewriteObjectRequest::_internal_destination_predefined_acl() const {
+  return static_cast< ::google::storage::v2::PredefinedObjectAcl >(destination_predefined_acl_);
+}
+inline ::google::storage::v2::PredefinedObjectAcl RewriteObjectRequest::destination_predefined_acl() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.destination_predefined_acl)
+  return _internal_destination_predefined_acl();
+}
+inline void RewriteObjectRequest::_internal_set_destination_predefined_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  
+  destination_predefined_acl_ = value;
+}
+inline void RewriteObjectRequest::set_destination_predefined_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  _internal_set_destination_predefined_acl(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.destination_predefined_acl)
+}
+
+// int64 if_generation_match = 7;
+inline bool RewriteObjectRequest::_internal_has_if_generation_match() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool RewriteObjectRequest::has_if_generation_match() const {
+  return _internal_has_if_generation_match();
+}
+inline void RewriteObjectRequest::clear_if_generation_match() {
+  if_generation_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_if_generation_match() const {
+  return if_generation_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::if_generation_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.if_generation_match)
+  return _internal_if_generation_match();
+}
+inline void RewriteObjectRequest::_internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  if_generation_match_ = value;
+}
+inline void RewriteObjectRequest::set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.if_generation_match)
+}
+
+// int64 if_generation_not_match = 8;
+inline bool RewriteObjectRequest::_internal_has_if_generation_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool RewriteObjectRequest::has_if_generation_not_match() const {
+  return _internal_has_if_generation_not_match();
+}
+inline void RewriteObjectRequest::clear_if_generation_not_match() {
+  if_generation_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_if_generation_not_match() const {
+  return if_generation_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::if_generation_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.if_generation_not_match)
+  return _internal_if_generation_not_match();
+}
+inline void RewriteObjectRequest::_internal_set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  if_generation_not_match_ = value;
+}
+inline void RewriteObjectRequest::set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.if_generation_not_match)
+}
+
+// int64 if_metageneration_match = 9;
+inline bool RewriteObjectRequest::_internal_has_if_metageneration_match() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool RewriteObjectRequest::has_if_metageneration_match() const {
+  return _internal_has_if_metageneration_match();
+}
+inline void RewriteObjectRequest::clear_if_metageneration_match() {
+  if_metageneration_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_if_metageneration_match() const {
+  return if_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::if_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.if_metageneration_match)
+  return _internal_if_metageneration_match();
+}
+inline void RewriteObjectRequest::_internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000004u;
+  if_metageneration_match_ = value;
+}
+inline void RewriteObjectRequest::set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.if_metageneration_match)
+}
+
+// int64 if_metageneration_not_match = 10;
+inline bool RewriteObjectRequest::_internal_has_if_metageneration_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool RewriteObjectRequest::has_if_metageneration_not_match() const {
+  return _internal_has_if_metageneration_not_match();
+}
+inline void RewriteObjectRequest::clear_if_metageneration_not_match() {
+  if_metageneration_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_if_metageneration_not_match() const {
+  return if_metageneration_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::if_metageneration_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.if_metageneration_not_match)
+  return _internal_if_metageneration_not_match();
+}
+inline void RewriteObjectRequest::_internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000008u;
+  if_metageneration_not_match_ = value;
+}
+inline void RewriteObjectRequest::set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.if_metageneration_not_match)
+}
+
+// int64 if_source_generation_match = 11;
+inline bool RewriteObjectRequest::_internal_has_if_source_generation_match() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool RewriteObjectRequest::has_if_source_generation_match() const {
+  return _internal_has_if_source_generation_match();
+}
+inline void RewriteObjectRequest::clear_if_source_generation_match() {
+  if_source_generation_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_if_source_generation_match() const {
+  return if_source_generation_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::if_source_generation_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.if_source_generation_match)
+  return _internal_if_source_generation_match();
+}
+inline void RewriteObjectRequest::_internal_set_if_source_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000010u;
+  if_source_generation_match_ = value;
+}
+inline void RewriteObjectRequest::set_if_source_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_source_generation_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.if_source_generation_match)
+}
+
+// int64 if_source_generation_not_match = 12;
+inline bool RewriteObjectRequest::_internal_has_if_source_generation_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool RewriteObjectRequest::has_if_source_generation_not_match() const {
+  return _internal_has_if_source_generation_not_match();
+}
+inline void RewriteObjectRequest::clear_if_source_generation_not_match() {
+  if_source_generation_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_if_source_generation_not_match() const {
+  return if_source_generation_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::if_source_generation_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.if_source_generation_not_match)
+  return _internal_if_source_generation_not_match();
+}
+inline void RewriteObjectRequest::_internal_set_if_source_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000020u;
+  if_source_generation_not_match_ = value;
+}
+inline void RewriteObjectRequest::set_if_source_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_source_generation_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.if_source_generation_not_match)
+}
+
+// int64 if_source_metageneration_match = 13;
+inline bool RewriteObjectRequest::_internal_has_if_source_metageneration_match() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool RewriteObjectRequest::has_if_source_metageneration_match() const {
+  return _internal_has_if_source_metageneration_match();
+}
+inline void RewriteObjectRequest::clear_if_source_metageneration_match() {
+  if_source_metageneration_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_if_source_metageneration_match() const {
+  return if_source_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::if_source_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.if_source_metageneration_match)
+  return _internal_if_source_metageneration_match();
+}
+inline void RewriteObjectRequest::_internal_set_if_source_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000040u;
+  if_source_metageneration_match_ = value;
+}
+inline void RewriteObjectRequest::set_if_source_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_source_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.if_source_metageneration_match)
+}
+
+// int64 if_source_metageneration_not_match = 14;
+inline bool RewriteObjectRequest::_internal_has_if_source_metageneration_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  return value;
+}
+inline bool RewriteObjectRequest::has_if_source_metageneration_not_match() const {
+  return _internal_has_if_source_metageneration_not_match();
+}
+inline void RewriteObjectRequest::clear_if_source_metageneration_not_match() {
+  if_source_metageneration_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_if_source_metageneration_not_match() const {
+  return if_source_metageneration_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::if_source_metageneration_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.if_source_metageneration_not_match)
+  return _internal_if_source_metageneration_not_match();
+}
+inline void RewriteObjectRequest::_internal_set_if_source_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000080u;
+  if_source_metageneration_not_match_ = value;
+}
+inline void RewriteObjectRequest::set_if_source_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_source_metageneration_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.if_source_metageneration_not_match)
+}
+
+// int64 max_bytes_rewritten_per_call = 15;
+inline void RewriteObjectRequest::clear_max_bytes_rewritten_per_call() {
+  max_bytes_rewritten_per_call_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::_internal_max_bytes_rewritten_per_call() const {
+  return max_bytes_rewritten_per_call_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteObjectRequest::max_bytes_rewritten_per_call() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.max_bytes_rewritten_per_call)
+  return _internal_max_bytes_rewritten_per_call();
+}
+inline void RewriteObjectRequest::_internal_set_max_bytes_rewritten_per_call(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  max_bytes_rewritten_per_call_ = value;
+}
+inline void RewriteObjectRequest::set_max_bytes_rewritten_per_call(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_max_bytes_rewritten_per_call(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.max_bytes_rewritten_per_call)
+}
+
+// string copy_source_encryption_algorithm = 16;
+inline void RewriteObjectRequest::clear_copy_source_encryption_algorithm() {
+  copy_source_encryption_algorithm_.ClearToEmpty();
+}
+inline const std::string& RewriteObjectRequest::copy_source_encryption_algorithm() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.copy_source_encryption_algorithm)
+  return _internal_copy_source_encryption_algorithm();
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_algorithm(const std::string& value) {
+  _internal_set_copy_source_encryption_algorithm(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.copy_source_encryption_algorithm)
+}
+inline std::string* RewriteObjectRequest::mutable_copy_source_encryption_algorithm() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.copy_source_encryption_algorithm)
+  return _internal_mutable_copy_source_encryption_algorithm();
+}
+inline const std::string& RewriteObjectRequest::_internal_copy_source_encryption_algorithm() const {
+  return copy_source_encryption_algorithm_.Get();
+}
+inline void RewriteObjectRequest::_internal_set_copy_source_encryption_algorithm(const std::string& value) {
+  
+  copy_source_encryption_algorithm_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_algorithm(std::string&& value) {
+  
+  copy_source_encryption_algorithm_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.RewriteObjectRequest.copy_source_encryption_algorithm)
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_algorithm(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  copy_source_encryption_algorithm_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.RewriteObjectRequest.copy_source_encryption_algorithm)
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_algorithm(const char* value,
+    size_t size) {
+  
+  copy_source_encryption_algorithm_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.RewriteObjectRequest.copy_source_encryption_algorithm)
+}
+inline std::string* RewriteObjectRequest::_internal_mutable_copy_source_encryption_algorithm() {
+  
+  return copy_source_encryption_algorithm_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RewriteObjectRequest::release_copy_source_encryption_algorithm() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.copy_source_encryption_algorithm)
+  return copy_source_encryption_algorithm_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RewriteObjectRequest::set_allocated_copy_source_encryption_algorithm(std::string* copy_source_encryption_algorithm) {
+  if (copy_source_encryption_algorithm != nullptr) {
+    
+  } else {
+    
+  }
+  copy_source_encryption_algorithm_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), copy_source_encryption_algorithm,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.copy_source_encryption_algorithm)
+}
+
+// bytes copy_source_encryption_key_bytes = 21;
+inline void RewriteObjectRequest::clear_copy_source_encryption_key_bytes() {
+  copy_source_encryption_key_bytes_.ClearToEmpty();
+}
+inline const std::string& RewriteObjectRequest::copy_source_encryption_key_bytes() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_bytes)
+  return _internal_copy_source_encryption_key_bytes();
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_key_bytes(const std::string& value) {
+  _internal_set_copy_source_encryption_key_bytes(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_bytes)
+}
+inline std::string* RewriteObjectRequest::mutable_copy_source_encryption_key_bytes() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_bytes)
+  return _internal_mutable_copy_source_encryption_key_bytes();
+}
+inline const std::string& RewriteObjectRequest::_internal_copy_source_encryption_key_bytes() const {
+  return copy_source_encryption_key_bytes_.Get();
+}
+inline void RewriteObjectRequest::_internal_set_copy_source_encryption_key_bytes(const std::string& value) {
+  
+  copy_source_encryption_key_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_key_bytes(std::string&& value) {
+  
+  copy_source_encryption_key_bytes_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_bytes)
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_key_bytes(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  copy_source_encryption_key_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_bytes)
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_key_bytes(const void* value,
+    size_t size) {
+  
+  copy_source_encryption_key_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_bytes)
+}
+inline std::string* RewriteObjectRequest::_internal_mutable_copy_source_encryption_key_bytes() {
+  
+  return copy_source_encryption_key_bytes_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RewriteObjectRequest::release_copy_source_encryption_key_bytes() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_bytes)
+  return copy_source_encryption_key_bytes_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RewriteObjectRequest::set_allocated_copy_source_encryption_key_bytes(std::string* copy_source_encryption_key_bytes) {
+  if (copy_source_encryption_key_bytes != nullptr) {
+    
+  } else {
+    
+  }
+  copy_source_encryption_key_bytes_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), copy_source_encryption_key_bytes,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_bytes)
+}
+
+// bytes copy_source_encryption_key_sha256_bytes = 22;
+inline void RewriteObjectRequest::clear_copy_source_encryption_key_sha256_bytes() {
+  copy_source_encryption_key_sha256_bytes_.ClearToEmpty();
+}
+inline const std::string& RewriteObjectRequest::copy_source_encryption_key_sha256_bytes() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_sha256_bytes)
+  return _internal_copy_source_encryption_key_sha256_bytes();
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_key_sha256_bytes(const std::string& value) {
+  _internal_set_copy_source_encryption_key_sha256_bytes(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_sha256_bytes)
+}
+inline std::string* RewriteObjectRequest::mutable_copy_source_encryption_key_sha256_bytes() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_sha256_bytes)
+  return _internal_mutable_copy_source_encryption_key_sha256_bytes();
+}
+inline const std::string& RewriteObjectRequest::_internal_copy_source_encryption_key_sha256_bytes() const {
+  return copy_source_encryption_key_sha256_bytes_.Get();
+}
+inline void RewriteObjectRequest::_internal_set_copy_source_encryption_key_sha256_bytes(const std::string& value) {
+  
+  copy_source_encryption_key_sha256_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_key_sha256_bytes(std::string&& value) {
+  
+  copy_source_encryption_key_sha256_bytes_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_sha256_bytes)
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_key_sha256_bytes(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  copy_source_encryption_key_sha256_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_sha256_bytes)
+}
+inline void RewriteObjectRequest::set_copy_source_encryption_key_sha256_bytes(const void* value,
+    size_t size) {
+  
+  copy_source_encryption_key_sha256_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_sha256_bytes)
+}
+inline std::string* RewriteObjectRequest::_internal_mutable_copy_source_encryption_key_sha256_bytes() {
+  
+  return copy_source_encryption_key_sha256_bytes_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RewriteObjectRequest::release_copy_source_encryption_key_sha256_bytes() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_sha256_bytes)
+  return copy_source_encryption_key_sha256_bytes_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RewriteObjectRequest::set_allocated_copy_source_encryption_key_sha256_bytes(std::string* copy_source_encryption_key_sha256_bytes) {
+  if (copy_source_encryption_key_sha256_bytes != nullptr) {
+    
+  } else {
+    
+  }
+  copy_source_encryption_key_sha256_bytes_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), copy_source_encryption_key_sha256_bytes,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.copy_source_encryption_key_sha256_bytes)
+}
+
+// .google.storage.v2.CommonObjectRequestParams common_object_request_params = 19;
+inline bool RewriteObjectRequest::_internal_has_common_object_request_params() const {
+  return this != internal_default_instance() && common_object_request_params_ != nullptr;
+}
+inline bool RewriteObjectRequest::has_common_object_request_params() const {
+  return _internal_has_common_object_request_params();
+}
+inline void RewriteObjectRequest::clear_common_object_request_params() {
+  if (GetArena() == nullptr && common_object_request_params_ != nullptr) {
+    delete common_object_request_params_;
+  }
+  common_object_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& RewriteObjectRequest::_internal_common_object_request_params() const {
+  const ::google::storage::v2::CommonObjectRequestParams* p = common_object_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonObjectRequestParams&>(
+      ::google::storage::v2::_CommonObjectRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& RewriteObjectRequest::common_object_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.common_object_request_params)
+  return _internal_common_object_request_params();
+}
+inline void RewriteObjectRequest::unsafe_arena_set_allocated_common_object_request_params(
+    ::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_object_request_params_);
+  }
+  common_object_request_params_ = common_object_request_params;
+  if (common_object_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.RewriteObjectRequest.common_object_request_params)
+}
+inline ::google::storage::v2::CommonObjectRequestParams* RewriteObjectRequest::release_common_object_request_params() {
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* RewriteObjectRequest::unsafe_arena_release_common_object_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.common_object_request_params)
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* RewriteObjectRequest::_internal_mutable_common_object_request_params() {
+  
+  if (common_object_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonObjectRequestParams>(GetArena());
+    common_object_request_params_ = p;
+  }
+  return common_object_request_params_;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* RewriteObjectRequest::mutable_common_object_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.common_object_request_params)
+  return _internal_mutable_common_object_request_params();
+}
+inline void RewriteObjectRequest::set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_object_request_params_;
+  }
+  if (common_object_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_object_request_params);
+    if (message_arena != submessage_arena) {
+      common_object_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_object_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_object_request_params_ = common_object_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.common_object_request_params)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 20;
+inline bool RewriteObjectRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool RewriteObjectRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void RewriteObjectRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& RewriteObjectRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& RewriteObjectRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteObjectRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void RewriteObjectRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.RewriteObjectRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* RewriteObjectRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* RewriteObjectRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteObjectRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* RewriteObjectRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* RewriteObjectRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteObjectRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void RewriteObjectRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteObjectRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// RewriteResponse
+
+// int64 total_bytes_rewritten = 1;
+inline void RewriteResponse::clear_total_bytes_rewritten() {
+  total_bytes_rewritten_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteResponse::_internal_total_bytes_rewritten() const {
+  return total_bytes_rewritten_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteResponse::total_bytes_rewritten() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteResponse.total_bytes_rewritten)
+  return _internal_total_bytes_rewritten();
+}
+inline void RewriteResponse::_internal_set_total_bytes_rewritten(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  total_bytes_rewritten_ = value;
+}
+inline void RewriteResponse::set_total_bytes_rewritten(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_total_bytes_rewritten(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteResponse.total_bytes_rewritten)
+}
+
+// int64 object_size = 2;
+inline void RewriteResponse::clear_object_size() {
+  object_size_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteResponse::_internal_object_size() const {
+  return object_size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 RewriteResponse::object_size() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteResponse.object_size)
+  return _internal_object_size();
+}
+inline void RewriteResponse::_internal_set_object_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  object_size_ = value;
+}
+inline void RewriteResponse::set_object_size(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_object_size(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteResponse.object_size)
+}
+
+// bool done = 3;
+inline void RewriteResponse::clear_done() {
+  done_ = false;
+}
+inline bool RewriteResponse::_internal_done() const {
+  return done_;
+}
+inline bool RewriteResponse::done() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteResponse.done)
+  return _internal_done();
+}
+inline void RewriteResponse::_internal_set_done(bool value) {
+  
+  done_ = value;
+}
+inline void RewriteResponse::set_done(bool value) {
+  _internal_set_done(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteResponse.done)
+}
+
+// string rewrite_token = 4;
+inline void RewriteResponse::clear_rewrite_token() {
+  rewrite_token_.ClearToEmpty();
+}
+inline const std::string& RewriteResponse::rewrite_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteResponse.rewrite_token)
+  return _internal_rewrite_token();
+}
+inline void RewriteResponse::set_rewrite_token(const std::string& value) {
+  _internal_set_rewrite_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.RewriteResponse.rewrite_token)
+}
+inline std::string* RewriteResponse::mutable_rewrite_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteResponse.rewrite_token)
+  return _internal_mutable_rewrite_token();
+}
+inline const std::string& RewriteResponse::_internal_rewrite_token() const {
+  return rewrite_token_.Get();
+}
+inline void RewriteResponse::_internal_set_rewrite_token(const std::string& value) {
+  
+  rewrite_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void RewriteResponse::set_rewrite_token(std::string&& value) {
+  
+  rewrite_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.RewriteResponse.rewrite_token)
+}
+inline void RewriteResponse::set_rewrite_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  rewrite_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.RewriteResponse.rewrite_token)
+}
+inline void RewriteResponse::set_rewrite_token(const char* value,
+    size_t size) {
+  
+  rewrite_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.RewriteResponse.rewrite_token)
+}
+inline std::string* RewriteResponse::_internal_mutable_rewrite_token() {
+  
+  return rewrite_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* RewriteResponse::release_rewrite_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteResponse.rewrite_token)
+  return rewrite_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void RewriteResponse::set_allocated_rewrite_token(std::string* rewrite_token) {
+  if (rewrite_token != nullptr) {
+    
+  } else {
+    
+  }
+  rewrite_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), rewrite_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteResponse.rewrite_token)
+}
+
+// .google.storage.v2.Object resource = 5;
+inline bool RewriteResponse::_internal_has_resource() const {
+  return this != internal_default_instance() && resource_ != nullptr;
+}
+inline bool RewriteResponse::has_resource() const {
+  return _internal_has_resource();
+}
+inline void RewriteResponse::clear_resource() {
+  if (GetArena() == nullptr && resource_ != nullptr) {
+    delete resource_;
+  }
+  resource_ = nullptr;
+}
+inline const ::google::storage::v2::Object& RewriteResponse::_internal_resource() const {
+  const ::google::storage::v2::Object* p = resource_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::Object&>(
+      ::google::storage::v2::_Object_default_instance_);
+}
+inline const ::google::storage::v2::Object& RewriteResponse::resource() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.RewriteResponse.resource)
+  return _internal_resource();
+}
+inline void RewriteResponse::unsafe_arena_set_allocated_resource(
+    ::google::storage::v2::Object* resource) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(resource_);
+  }
+  resource_ = resource;
+  if (resource) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.RewriteResponse.resource)
+}
+inline ::google::storage::v2::Object* RewriteResponse::release_resource() {
+  
+  ::google::storage::v2::Object* temp = resource_;
+  resource_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::Object* RewriteResponse::unsafe_arena_release_resource() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.RewriteResponse.resource)
+  
+  ::google::storage::v2::Object* temp = resource_;
+  resource_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::Object* RewriteResponse::_internal_mutable_resource() {
+  
+  if (resource_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::Object>(GetArena());
+    resource_ = p;
+  }
+  return resource_;
+}
+inline ::google::storage::v2::Object* RewriteResponse::mutable_resource() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.RewriteResponse.resource)
+  return _internal_mutable_resource();
+}
+inline void RewriteResponse::set_allocated_resource(::google::storage::v2::Object* resource) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete resource_;
+  }
+  if (resource) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(resource);
+    if (message_arena != submessage_arena) {
+      resource = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, resource, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  resource_ = resource;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.RewriteResponse.resource)
+}
+
 // -------------------------------------------------------------------
 
 // StartResumableWriteRequest
@@ -10187,6 +23287,2052 @@ inline void StartResumableWriteResponse::set_allocated_upload_id(std::string* up
   upload_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), upload_id,
       GetArena());
   // @@protoc_insertion_point(field_set_allocated:google.storage.v2.StartResumableWriteResponse.upload_id)
+}
+
+// -------------------------------------------------------------------
+
+// UpdateObjectRequest
+
+// .google.storage.v2.Object object = 1;
+inline bool UpdateObjectRequest::_internal_has_object() const {
+  return this != internal_default_instance() && object_ != nullptr;
+}
+inline bool UpdateObjectRequest::has_object() const {
+  return _internal_has_object();
+}
+inline void UpdateObjectRequest::clear_object() {
+  if (GetArena() == nullptr && object_ != nullptr) {
+    delete object_;
+  }
+  object_ = nullptr;
+}
+inline const ::google::storage::v2::Object& UpdateObjectRequest::_internal_object() const {
+  const ::google::storage::v2::Object* p = object_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::Object&>(
+      ::google::storage::v2::_Object_default_instance_);
+}
+inline const ::google::storage::v2::Object& UpdateObjectRequest::object() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateObjectRequest.object)
+  return _internal_object();
+}
+inline void UpdateObjectRequest::unsafe_arena_set_allocated_object(
+    ::google::storage::v2::Object* object) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(object_);
+  }
+  object_ = object;
+  if (object) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateObjectRequest.object)
+}
+inline ::google::storage::v2::Object* UpdateObjectRequest::release_object() {
+  
+  ::google::storage::v2::Object* temp = object_;
+  object_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::Object* UpdateObjectRequest::unsafe_arena_release_object() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateObjectRequest.object)
+  
+  ::google::storage::v2::Object* temp = object_;
+  object_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::Object* UpdateObjectRequest::_internal_mutable_object() {
+  
+  if (object_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::Object>(GetArena());
+    object_ = p;
+  }
+  return object_;
+}
+inline ::google::storage::v2::Object* UpdateObjectRequest::mutable_object() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateObjectRequest.object)
+  return _internal_mutable_object();
+}
+inline void UpdateObjectRequest::set_allocated_object(::google::storage::v2::Object* object) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete object_;
+  }
+  if (object) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(object);
+    if (message_arena != submessage_arena) {
+      object = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, object, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  object_ = object;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateObjectRequest.object)
+}
+
+// int64 if_generation_match = 2;
+inline bool UpdateObjectRequest::_internal_has_if_generation_match() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool UpdateObjectRequest::has_if_generation_match() const {
+  return _internal_has_if_generation_match();
+}
+inline void UpdateObjectRequest::clear_if_generation_match() {
+  if_generation_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateObjectRequest::_internal_if_generation_match() const {
+  return if_generation_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateObjectRequest::if_generation_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateObjectRequest.if_generation_match)
+  return _internal_if_generation_match();
+}
+inline void UpdateObjectRequest::_internal_set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000001u;
+  if_generation_match_ = value;
+}
+inline void UpdateObjectRequest::set_if_generation_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.UpdateObjectRequest.if_generation_match)
+}
+
+// int64 if_generation_not_match = 3;
+inline bool UpdateObjectRequest::_internal_has_if_generation_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool UpdateObjectRequest::has_if_generation_not_match() const {
+  return _internal_has_if_generation_not_match();
+}
+inline void UpdateObjectRequest::clear_if_generation_not_match() {
+  if_generation_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateObjectRequest::_internal_if_generation_not_match() const {
+  return if_generation_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateObjectRequest::if_generation_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateObjectRequest.if_generation_not_match)
+  return _internal_if_generation_not_match();
+}
+inline void UpdateObjectRequest::_internal_set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000002u;
+  if_generation_not_match_ = value;
+}
+inline void UpdateObjectRequest::set_if_generation_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_generation_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.UpdateObjectRequest.if_generation_not_match)
+}
+
+// int64 if_metageneration_match = 4;
+inline bool UpdateObjectRequest::_internal_has_if_metageneration_match() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool UpdateObjectRequest::has_if_metageneration_match() const {
+  return _internal_has_if_metageneration_match();
+}
+inline void UpdateObjectRequest::clear_if_metageneration_match() {
+  if_metageneration_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateObjectRequest::_internal_if_metageneration_match() const {
+  return if_metageneration_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateObjectRequest::if_metageneration_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateObjectRequest.if_metageneration_match)
+  return _internal_if_metageneration_match();
+}
+inline void UpdateObjectRequest::_internal_set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000004u;
+  if_metageneration_match_ = value;
+}
+inline void UpdateObjectRequest::set_if_metageneration_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.UpdateObjectRequest.if_metageneration_match)
+}
+
+// int64 if_metageneration_not_match = 5;
+inline bool UpdateObjectRequest::_internal_has_if_metageneration_not_match() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool UpdateObjectRequest::has_if_metageneration_not_match() const {
+  return _internal_has_if_metageneration_not_match();
+}
+inline void UpdateObjectRequest::clear_if_metageneration_not_match() {
+  if_metageneration_not_match_ = PROTOBUF_LONGLONG(0);
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateObjectRequest::_internal_if_metageneration_not_match() const {
+  return if_metageneration_not_match_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 UpdateObjectRequest::if_metageneration_not_match() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateObjectRequest.if_metageneration_not_match)
+  return _internal_if_metageneration_not_match();
+}
+inline void UpdateObjectRequest::_internal_set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _has_bits_[0] |= 0x00000008u;
+  if_metageneration_not_match_ = value;
+}
+inline void UpdateObjectRequest::set_if_metageneration_not_match(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  _internal_set_if_metageneration_not_match(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.UpdateObjectRequest.if_metageneration_not_match)
+}
+
+// .google.storage.v2.PredefinedObjectAcl predefined_acl = 6;
+inline void UpdateObjectRequest::clear_predefined_acl() {
+  predefined_acl_ = 0;
+}
+inline ::google::storage::v2::PredefinedObjectAcl UpdateObjectRequest::_internal_predefined_acl() const {
+  return static_cast< ::google::storage::v2::PredefinedObjectAcl >(predefined_acl_);
+}
+inline ::google::storage::v2::PredefinedObjectAcl UpdateObjectRequest::predefined_acl() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateObjectRequest.predefined_acl)
+  return _internal_predefined_acl();
+}
+inline void UpdateObjectRequest::_internal_set_predefined_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  
+  predefined_acl_ = value;
+}
+inline void UpdateObjectRequest::set_predefined_acl(::google::storage::v2::PredefinedObjectAcl value) {
+  _internal_set_predefined_acl(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.UpdateObjectRequest.predefined_acl)
+}
+
+// .google.protobuf.FieldMask update_mask = 7;
+inline bool UpdateObjectRequest::_internal_has_update_mask() const {
+  return this != internal_default_instance() && update_mask_ != nullptr;
+}
+inline bool UpdateObjectRequest::has_update_mask() const {
+  return _internal_has_update_mask();
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& UpdateObjectRequest::_internal_update_mask() const {
+  const PROTOBUF_NAMESPACE_ID::FieldMask* p = update_mask_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::FieldMask&>(
+      PROTOBUF_NAMESPACE_ID::_FieldMask_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& UpdateObjectRequest::update_mask() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateObjectRequest.update_mask)
+  return _internal_update_mask();
+}
+inline void UpdateObjectRequest::unsafe_arena_set_allocated_update_mask(
+    PROTOBUF_NAMESPACE_ID::FieldMask* update_mask) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask_);
+  }
+  update_mask_ = update_mask;
+  if (update_mask) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateObjectRequest.update_mask)
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateObjectRequest::release_update_mask() {
+  
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = update_mask_;
+  update_mask_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateObjectRequest::unsafe_arena_release_update_mask() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateObjectRequest.update_mask)
+  
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = update_mask_;
+  update_mask_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateObjectRequest::_internal_mutable_update_mask() {
+  
+  if (update_mask_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::FieldMask>(GetArena());
+    update_mask_ = p;
+  }
+  return update_mask_;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateObjectRequest::mutable_update_mask() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateObjectRequest.update_mask)
+  return _internal_mutable_update_mask();
+}
+inline void UpdateObjectRequest::set_allocated_update_mask(PROTOBUF_NAMESPACE_ID::FieldMask* update_mask) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask_);
+  }
+  if (update_mask) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask)->GetArena();
+    if (message_arena != submessage_arena) {
+      update_mask = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, update_mask, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  update_mask_ = update_mask;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateObjectRequest.update_mask)
+}
+
+// .google.storage.v2.CommonObjectRequestParams common_object_request_params = 8;
+inline bool UpdateObjectRequest::_internal_has_common_object_request_params() const {
+  return this != internal_default_instance() && common_object_request_params_ != nullptr;
+}
+inline bool UpdateObjectRequest::has_common_object_request_params() const {
+  return _internal_has_common_object_request_params();
+}
+inline void UpdateObjectRequest::clear_common_object_request_params() {
+  if (GetArena() == nullptr && common_object_request_params_ != nullptr) {
+    delete common_object_request_params_;
+  }
+  common_object_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& UpdateObjectRequest::_internal_common_object_request_params() const {
+  const ::google::storage::v2::CommonObjectRequestParams* p = common_object_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonObjectRequestParams&>(
+      ::google::storage::v2::_CommonObjectRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonObjectRequestParams& UpdateObjectRequest::common_object_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateObjectRequest.common_object_request_params)
+  return _internal_common_object_request_params();
+}
+inline void UpdateObjectRequest::unsafe_arena_set_allocated_common_object_request_params(
+    ::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_object_request_params_);
+  }
+  common_object_request_params_ = common_object_request_params;
+  if (common_object_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateObjectRequest.common_object_request_params)
+}
+inline ::google::storage::v2::CommonObjectRequestParams* UpdateObjectRequest::release_common_object_request_params() {
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* UpdateObjectRequest::unsafe_arena_release_common_object_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateObjectRequest.common_object_request_params)
+  
+  ::google::storage::v2::CommonObjectRequestParams* temp = common_object_request_params_;
+  common_object_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* UpdateObjectRequest::_internal_mutable_common_object_request_params() {
+  
+  if (common_object_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonObjectRequestParams>(GetArena());
+    common_object_request_params_ = p;
+  }
+  return common_object_request_params_;
+}
+inline ::google::storage::v2::CommonObjectRequestParams* UpdateObjectRequest::mutable_common_object_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateObjectRequest.common_object_request_params)
+  return _internal_mutable_common_object_request_params();
+}
+inline void UpdateObjectRequest::set_allocated_common_object_request_params(::google::storage::v2::CommonObjectRequestParams* common_object_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_object_request_params_;
+  }
+  if (common_object_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_object_request_params);
+    if (message_arena != submessage_arena) {
+      common_object_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_object_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_object_request_params_ = common_object_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateObjectRequest.common_object_request_params)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 9;
+inline bool UpdateObjectRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool UpdateObjectRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void UpdateObjectRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& UpdateObjectRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& UpdateObjectRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateObjectRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void UpdateObjectRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateObjectRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateObjectRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateObjectRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateObjectRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateObjectRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateObjectRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateObjectRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void UpdateObjectRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateObjectRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// GetServiceAccountRequest
+
+// string project = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void GetServiceAccountRequest::clear_project() {
+  project_.ClearToEmpty();
+}
+inline const std::string& GetServiceAccountRequest::project() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetServiceAccountRequest.project)
+  return _internal_project();
+}
+inline void GetServiceAccountRequest::set_project(const std::string& value) {
+  _internal_set_project(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetServiceAccountRequest.project)
+}
+inline std::string* GetServiceAccountRequest::mutable_project() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetServiceAccountRequest.project)
+  return _internal_mutable_project();
+}
+inline const std::string& GetServiceAccountRequest::_internal_project() const {
+  return project_.Get();
+}
+inline void GetServiceAccountRequest::_internal_set_project(const std::string& value) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void GetServiceAccountRequest::set_project(std::string&& value) {
+  
+  project_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.GetServiceAccountRequest.project)
+}
+inline void GetServiceAccountRequest::set_project(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.GetServiceAccountRequest.project)
+}
+inline void GetServiceAccountRequest::set_project(const char* value,
+    size_t size) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.GetServiceAccountRequest.project)
+}
+inline std::string* GetServiceAccountRequest::_internal_mutable_project() {
+  
+  return project_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* GetServiceAccountRequest::release_project() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetServiceAccountRequest.project)
+  return project_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void GetServiceAccountRequest::set_allocated_project(std::string* project) {
+  if (project != nullptr) {
+    
+  } else {
+    
+  }
+  project_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), project,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetServiceAccountRequest.project)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 2;
+inline bool GetServiceAccountRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool GetServiceAccountRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void GetServiceAccountRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& GetServiceAccountRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& GetServiceAccountRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetServiceAccountRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void GetServiceAccountRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.GetServiceAccountRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* GetServiceAccountRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* GetServiceAccountRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetServiceAccountRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* GetServiceAccountRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* GetServiceAccountRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetServiceAccountRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void GetServiceAccountRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetServiceAccountRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// CreateHmacKeyRequest
+
+// string project = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void CreateHmacKeyRequest::clear_project() {
+  project_.ClearToEmpty();
+}
+inline const std::string& CreateHmacKeyRequest::project() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateHmacKeyRequest.project)
+  return _internal_project();
+}
+inline void CreateHmacKeyRequest::set_project(const std::string& value) {
+  _internal_set_project(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CreateHmacKeyRequest.project)
+}
+inline std::string* CreateHmacKeyRequest::mutable_project() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateHmacKeyRequest.project)
+  return _internal_mutable_project();
+}
+inline const std::string& CreateHmacKeyRequest::_internal_project() const {
+  return project_.Get();
+}
+inline void CreateHmacKeyRequest::_internal_set_project(const std::string& value) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void CreateHmacKeyRequest::set_project(std::string&& value) {
+  
+  project_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CreateHmacKeyRequest.project)
+}
+inline void CreateHmacKeyRequest::set_project(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CreateHmacKeyRequest.project)
+}
+inline void CreateHmacKeyRequest::set_project(const char* value,
+    size_t size) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CreateHmacKeyRequest.project)
+}
+inline std::string* CreateHmacKeyRequest::_internal_mutable_project() {
+  
+  return project_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* CreateHmacKeyRequest::release_project() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateHmacKeyRequest.project)
+  return project_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void CreateHmacKeyRequest::set_allocated_project(std::string* project) {
+  if (project != nullptr) {
+    
+  } else {
+    
+  }
+  project_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), project,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateHmacKeyRequest.project)
+}
+
+// string service_account_email = 2 [(.google.api.field_behavior) = REQUIRED];
+inline void CreateHmacKeyRequest::clear_service_account_email() {
+  service_account_email_.ClearToEmpty();
+}
+inline const std::string& CreateHmacKeyRequest::service_account_email() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateHmacKeyRequest.service_account_email)
+  return _internal_service_account_email();
+}
+inline void CreateHmacKeyRequest::set_service_account_email(const std::string& value) {
+  _internal_set_service_account_email(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CreateHmacKeyRequest.service_account_email)
+}
+inline std::string* CreateHmacKeyRequest::mutable_service_account_email() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateHmacKeyRequest.service_account_email)
+  return _internal_mutable_service_account_email();
+}
+inline const std::string& CreateHmacKeyRequest::_internal_service_account_email() const {
+  return service_account_email_.Get();
+}
+inline void CreateHmacKeyRequest::_internal_set_service_account_email(const std::string& value) {
+  
+  service_account_email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void CreateHmacKeyRequest::set_service_account_email(std::string&& value) {
+  
+  service_account_email_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CreateHmacKeyRequest.service_account_email)
+}
+inline void CreateHmacKeyRequest::set_service_account_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  service_account_email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CreateHmacKeyRequest.service_account_email)
+}
+inline void CreateHmacKeyRequest::set_service_account_email(const char* value,
+    size_t size) {
+  
+  service_account_email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CreateHmacKeyRequest.service_account_email)
+}
+inline std::string* CreateHmacKeyRequest::_internal_mutable_service_account_email() {
+  
+  return service_account_email_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* CreateHmacKeyRequest::release_service_account_email() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateHmacKeyRequest.service_account_email)
+  return service_account_email_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void CreateHmacKeyRequest::set_allocated_service_account_email(std::string* service_account_email) {
+  if (service_account_email != nullptr) {
+    
+  } else {
+    
+  }
+  service_account_email_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), service_account_email,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateHmacKeyRequest.service_account_email)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 3;
+inline bool CreateHmacKeyRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool CreateHmacKeyRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void CreateHmacKeyRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& CreateHmacKeyRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& CreateHmacKeyRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateHmacKeyRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void CreateHmacKeyRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.CreateHmacKeyRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* CreateHmacKeyRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* CreateHmacKeyRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateHmacKeyRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* CreateHmacKeyRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* CreateHmacKeyRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateHmacKeyRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void CreateHmacKeyRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateHmacKeyRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// CreateHmacKeyResponse
+
+// .google.storage.v2.HmacKeyMetadata metadata = 1;
+inline bool CreateHmacKeyResponse::_internal_has_metadata() const {
+  return this != internal_default_instance() && metadata_ != nullptr;
+}
+inline bool CreateHmacKeyResponse::has_metadata() const {
+  return _internal_has_metadata();
+}
+inline void CreateHmacKeyResponse::clear_metadata() {
+  if (GetArena() == nullptr && metadata_ != nullptr) {
+    delete metadata_;
+  }
+  metadata_ = nullptr;
+}
+inline const ::google::storage::v2::HmacKeyMetadata& CreateHmacKeyResponse::_internal_metadata() const {
+  const ::google::storage::v2::HmacKeyMetadata* p = metadata_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::HmacKeyMetadata&>(
+      ::google::storage::v2::_HmacKeyMetadata_default_instance_);
+}
+inline const ::google::storage::v2::HmacKeyMetadata& CreateHmacKeyResponse::metadata() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateHmacKeyResponse.metadata)
+  return _internal_metadata();
+}
+inline void CreateHmacKeyResponse::unsafe_arena_set_allocated_metadata(
+    ::google::storage::v2::HmacKeyMetadata* metadata) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(metadata_);
+  }
+  metadata_ = metadata;
+  if (metadata) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.CreateHmacKeyResponse.metadata)
+}
+inline ::google::storage::v2::HmacKeyMetadata* CreateHmacKeyResponse::release_metadata() {
+  
+  ::google::storage::v2::HmacKeyMetadata* temp = metadata_;
+  metadata_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::HmacKeyMetadata* CreateHmacKeyResponse::unsafe_arena_release_metadata() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateHmacKeyResponse.metadata)
+  
+  ::google::storage::v2::HmacKeyMetadata* temp = metadata_;
+  metadata_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::HmacKeyMetadata* CreateHmacKeyResponse::_internal_mutable_metadata() {
+  
+  if (metadata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::HmacKeyMetadata>(GetArena());
+    metadata_ = p;
+  }
+  return metadata_;
+}
+inline ::google::storage::v2::HmacKeyMetadata* CreateHmacKeyResponse::mutable_metadata() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateHmacKeyResponse.metadata)
+  return _internal_mutable_metadata();
+}
+inline void CreateHmacKeyResponse::set_allocated_metadata(::google::storage::v2::HmacKeyMetadata* metadata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete metadata_;
+  }
+  if (metadata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(metadata);
+    if (message_arena != submessage_arena) {
+      metadata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, metadata, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  metadata_ = metadata;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateHmacKeyResponse.metadata)
+}
+
+// bytes secret_key_bytes = 3;
+inline void CreateHmacKeyResponse::clear_secret_key_bytes() {
+  secret_key_bytes_.ClearToEmpty();
+}
+inline const std::string& CreateHmacKeyResponse::secret_key_bytes() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CreateHmacKeyResponse.secret_key_bytes)
+  return _internal_secret_key_bytes();
+}
+inline void CreateHmacKeyResponse::set_secret_key_bytes(const std::string& value) {
+  _internal_set_secret_key_bytes(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CreateHmacKeyResponse.secret_key_bytes)
+}
+inline std::string* CreateHmacKeyResponse::mutable_secret_key_bytes() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CreateHmacKeyResponse.secret_key_bytes)
+  return _internal_mutable_secret_key_bytes();
+}
+inline const std::string& CreateHmacKeyResponse::_internal_secret_key_bytes() const {
+  return secret_key_bytes_.Get();
+}
+inline void CreateHmacKeyResponse::_internal_set_secret_key_bytes(const std::string& value) {
+  
+  secret_key_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void CreateHmacKeyResponse::set_secret_key_bytes(std::string&& value) {
+  
+  secret_key_bytes_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CreateHmacKeyResponse.secret_key_bytes)
+}
+inline void CreateHmacKeyResponse::set_secret_key_bytes(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  secret_key_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CreateHmacKeyResponse.secret_key_bytes)
+}
+inline void CreateHmacKeyResponse::set_secret_key_bytes(const void* value,
+    size_t size) {
+  
+  secret_key_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CreateHmacKeyResponse.secret_key_bytes)
+}
+inline std::string* CreateHmacKeyResponse::_internal_mutable_secret_key_bytes() {
+  
+  return secret_key_bytes_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* CreateHmacKeyResponse::release_secret_key_bytes() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CreateHmacKeyResponse.secret_key_bytes)
+  return secret_key_bytes_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void CreateHmacKeyResponse::set_allocated_secret_key_bytes(std::string* secret_key_bytes) {
+  if (secret_key_bytes != nullptr) {
+    
+  } else {
+    
+  }
+  secret_key_bytes_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), secret_key_bytes,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CreateHmacKeyResponse.secret_key_bytes)
+}
+
+// -------------------------------------------------------------------
+
+// DeleteHmacKeyRequest
+
+// string access_id = 1 [(.google.api.field_behavior) = REQUIRED];
+inline void DeleteHmacKeyRequest::clear_access_id() {
+  access_id_.ClearToEmpty();
+}
+inline const std::string& DeleteHmacKeyRequest::access_id() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteHmacKeyRequest.access_id)
+  return _internal_access_id();
+}
+inline void DeleteHmacKeyRequest::set_access_id(const std::string& value) {
+  _internal_set_access_id(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteHmacKeyRequest.access_id)
+}
+inline std::string* DeleteHmacKeyRequest::mutable_access_id() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteHmacKeyRequest.access_id)
+  return _internal_mutable_access_id();
+}
+inline const std::string& DeleteHmacKeyRequest::_internal_access_id() const {
+  return access_id_.Get();
+}
+inline void DeleteHmacKeyRequest::_internal_set_access_id(const std::string& value) {
+  
+  access_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteHmacKeyRequest::set_access_id(std::string&& value) {
+  
+  access_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.DeleteHmacKeyRequest.access_id)
+}
+inline void DeleteHmacKeyRequest::set_access_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  access_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.DeleteHmacKeyRequest.access_id)
+}
+inline void DeleteHmacKeyRequest::set_access_id(const char* value,
+    size_t size) {
+  
+  access_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.DeleteHmacKeyRequest.access_id)
+}
+inline std::string* DeleteHmacKeyRequest::_internal_mutable_access_id() {
+  
+  return access_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteHmacKeyRequest::release_access_id() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteHmacKeyRequest.access_id)
+  return access_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteHmacKeyRequest::set_allocated_access_id(std::string* access_id) {
+  if (access_id != nullptr) {
+    
+  } else {
+    
+  }
+  access_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), access_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteHmacKeyRequest.access_id)
+}
+
+// string project = 2 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void DeleteHmacKeyRequest::clear_project() {
+  project_.ClearToEmpty();
+}
+inline const std::string& DeleteHmacKeyRequest::project() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteHmacKeyRequest.project)
+  return _internal_project();
+}
+inline void DeleteHmacKeyRequest::set_project(const std::string& value) {
+  _internal_set_project(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.DeleteHmacKeyRequest.project)
+}
+inline std::string* DeleteHmacKeyRequest::mutable_project() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteHmacKeyRequest.project)
+  return _internal_mutable_project();
+}
+inline const std::string& DeleteHmacKeyRequest::_internal_project() const {
+  return project_.Get();
+}
+inline void DeleteHmacKeyRequest::_internal_set_project(const std::string& value) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void DeleteHmacKeyRequest::set_project(std::string&& value) {
+  
+  project_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.DeleteHmacKeyRequest.project)
+}
+inline void DeleteHmacKeyRequest::set_project(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.DeleteHmacKeyRequest.project)
+}
+inline void DeleteHmacKeyRequest::set_project(const char* value,
+    size_t size) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.DeleteHmacKeyRequest.project)
+}
+inline std::string* DeleteHmacKeyRequest::_internal_mutable_project() {
+  
+  return project_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* DeleteHmacKeyRequest::release_project() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteHmacKeyRequest.project)
+  return project_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void DeleteHmacKeyRequest::set_allocated_project(std::string* project) {
+  if (project != nullptr) {
+    
+  } else {
+    
+  }
+  project_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), project,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteHmacKeyRequest.project)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 3;
+inline bool DeleteHmacKeyRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool DeleteHmacKeyRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void DeleteHmacKeyRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& DeleteHmacKeyRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& DeleteHmacKeyRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.DeleteHmacKeyRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void DeleteHmacKeyRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.DeleteHmacKeyRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteHmacKeyRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteHmacKeyRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.DeleteHmacKeyRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteHmacKeyRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* DeleteHmacKeyRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.DeleteHmacKeyRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void DeleteHmacKeyRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.DeleteHmacKeyRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// GetHmacKeyRequest
+
+// string access_id = 1 [(.google.api.field_behavior) = REQUIRED];
+inline void GetHmacKeyRequest::clear_access_id() {
+  access_id_.ClearToEmpty();
+}
+inline const std::string& GetHmacKeyRequest::access_id() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetHmacKeyRequest.access_id)
+  return _internal_access_id();
+}
+inline void GetHmacKeyRequest::set_access_id(const std::string& value) {
+  _internal_set_access_id(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetHmacKeyRequest.access_id)
+}
+inline std::string* GetHmacKeyRequest::mutable_access_id() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetHmacKeyRequest.access_id)
+  return _internal_mutable_access_id();
+}
+inline const std::string& GetHmacKeyRequest::_internal_access_id() const {
+  return access_id_.Get();
+}
+inline void GetHmacKeyRequest::_internal_set_access_id(const std::string& value) {
+  
+  access_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void GetHmacKeyRequest::set_access_id(std::string&& value) {
+  
+  access_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.GetHmacKeyRequest.access_id)
+}
+inline void GetHmacKeyRequest::set_access_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  access_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.GetHmacKeyRequest.access_id)
+}
+inline void GetHmacKeyRequest::set_access_id(const char* value,
+    size_t size) {
+  
+  access_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.GetHmacKeyRequest.access_id)
+}
+inline std::string* GetHmacKeyRequest::_internal_mutable_access_id() {
+  
+  return access_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* GetHmacKeyRequest::release_access_id() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetHmacKeyRequest.access_id)
+  return access_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void GetHmacKeyRequest::set_allocated_access_id(std::string* access_id) {
+  if (access_id != nullptr) {
+    
+  } else {
+    
+  }
+  access_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), access_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetHmacKeyRequest.access_id)
+}
+
+// string project = 2 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void GetHmacKeyRequest::clear_project() {
+  project_.ClearToEmpty();
+}
+inline const std::string& GetHmacKeyRequest::project() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetHmacKeyRequest.project)
+  return _internal_project();
+}
+inline void GetHmacKeyRequest::set_project(const std::string& value) {
+  _internal_set_project(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.GetHmacKeyRequest.project)
+}
+inline std::string* GetHmacKeyRequest::mutable_project() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetHmacKeyRequest.project)
+  return _internal_mutable_project();
+}
+inline const std::string& GetHmacKeyRequest::_internal_project() const {
+  return project_.Get();
+}
+inline void GetHmacKeyRequest::_internal_set_project(const std::string& value) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void GetHmacKeyRequest::set_project(std::string&& value) {
+  
+  project_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.GetHmacKeyRequest.project)
+}
+inline void GetHmacKeyRequest::set_project(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.GetHmacKeyRequest.project)
+}
+inline void GetHmacKeyRequest::set_project(const char* value,
+    size_t size) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.GetHmacKeyRequest.project)
+}
+inline std::string* GetHmacKeyRequest::_internal_mutable_project() {
+  
+  return project_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* GetHmacKeyRequest::release_project() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetHmacKeyRequest.project)
+  return project_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void GetHmacKeyRequest::set_allocated_project(std::string* project) {
+  if (project != nullptr) {
+    
+  } else {
+    
+  }
+  project_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), project,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetHmacKeyRequest.project)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 3;
+inline bool GetHmacKeyRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool GetHmacKeyRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void GetHmacKeyRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& GetHmacKeyRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& GetHmacKeyRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.GetHmacKeyRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void GetHmacKeyRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.GetHmacKeyRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* GetHmacKeyRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* GetHmacKeyRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.GetHmacKeyRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* GetHmacKeyRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* GetHmacKeyRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.GetHmacKeyRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void GetHmacKeyRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.GetHmacKeyRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// ListHmacKeysRequest
+
+// string project = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
+inline void ListHmacKeysRequest::clear_project() {
+  project_.ClearToEmpty();
+}
+inline const std::string& ListHmacKeysRequest::project() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListHmacKeysRequest.project)
+  return _internal_project();
+}
+inline void ListHmacKeysRequest::set_project(const std::string& value) {
+  _internal_set_project(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListHmacKeysRequest.project)
+}
+inline std::string* ListHmacKeysRequest::mutable_project() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListHmacKeysRequest.project)
+  return _internal_mutable_project();
+}
+inline const std::string& ListHmacKeysRequest::_internal_project() const {
+  return project_.Get();
+}
+inline void ListHmacKeysRequest::_internal_set_project(const std::string& value) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListHmacKeysRequest::set_project(std::string&& value) {
+  
+  project_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListHmacKeysRequest.project)
+}
+inline void ListHmacKeysRequest::set_project(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListHmacKeysRequest.project)
+}
+inline void ListHmacKeysRequest::set_project(const char* value,
+    size_t size) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListHmacKeysRequest.project)
+}
+inline std::string* ListHmacKeysRequest::_internal_mutable_project() {
+  
+  return project_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListHmacKeysRequest::release_project() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListHmacKeysRequest.project)
+  return project_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListHmacKeysRequest::set_allocated_project(std::string* project) {
+  if (project != nullptr) {
+    
+  } else {
+    
+  }
+  project_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), project,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListHmacKeysRequest.project)
+}
+
+// int32 page_size = 2 [(.google.api.field_behavior) = OPTIONAL];
+inline void ListHmacKeysRequest::clear_page_size() {
+  page_size_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ListHmacKeysRequest::_internal_page_size() const {
+  return page_size_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ListHmacKeysRequest::page_size() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListHmacKeysRequest.page_size)
+  return _internal_page_size();
+}
+inline void ListHmacKeysRequest::_internal_set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  page_size_ = value;
+}
+inline void ListHmacKeysRequest::set_page_size(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_page_size(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListHmacKeysRequest.page_size)
+}
+
+// string page_token = 3 [(.google.api.field_behavior) = OPTIONAL];
+inline void ListHmacKeysRequest::clear_page_token() {
+  page_token_.ClearToEmpty();
+}
+inline const std::string& ListHmacKeysRequest::page_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListHmacKeysRequest.page_token)
+  return _internal_page_token();
+}
+inline void ListHmacKeysRequest::set_page_token(const std::string& value) {
+  _internal_set_page_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListHmacKeysRequest.page_token)
+}
+inline std::string* ListHmacKeysRequest::mutable_page_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListHmacKeysRequest.page_token)
+  return _internal_mutable_page_token();
+}
+inline const std::string& ListHmacKeysRequest::_internal_page_token() const {
+  return page_token_.Get();
+}
+inline void ListHmacKeysRequest::_internal_set_page_token(const std::string& value) {
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListHmacKeysRequest::set_page_token(std::string&& value) {
+  
+  page_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListHmacKeysRequest.page_token)
+}
+inline void ListHmacKeysRequest::set_page_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListHmacKeysRequest.page_token)
+}
+inline void ListHmacKeysRequest::set_page_token(const char* value,
+    size_t size) {
+  
+  page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListHmacKeysRequest.page_token)
+}
+inline std::string* ListHmacKeysRequest::_internal_mutable_page_token() {
+  
+  return page_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListHmacKeysRequest::release_page_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListHmacKeysRequest.page_token)
+  return page_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListHmacKeysRequest::set_allocated_page_token(std::string* page_token) {
+  if (page_token != nullptr) {
+    
+  } else {
+    
+  }
+  page_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), page_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListHmacKeysRequest.page_token)
+}
+
+// string service_account_email = 4 [(.google.api.field_behavior) = OPTIONAL];
+inline void ListHmacKeysRequest::clear_service_account_email() {
+  service_account_email_.ClearToEmpty();
+}
+inline const std::string& ListHmacKeysRequest::service_account_email() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListHmacKeysRequest.service_account_email)
+  return _internal_service_account_email();
+}
+inline void ListHmacKeysRequest::set_service_account_email(const std::string& value) {
+  _internal_set_service_account_email(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListHmacKeysRequest.service_account_email)
+}
+inline std::string* ListHmacKeysRequest::mutable_service_account_email() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListHmacKeysRequest.service_account_email)
+  return _internal_mutable_service_account_email();
+}
+inline const std::string& ListHmacKeysRequest::_internal_service_account_email() const {
+  return service_account_email_.Get();
+}
+inline void ListHmacKeysRequest::_internal_set_service_account_email(const std::string& value) {
+  
+  service_account_email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListHmacKeysRequest::set_service_account_email(std::string&& value) {
+  
+  service_account_email_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListHmacKeysRequest.service_account_email)
+}
+inline void ListHmacKeysRequest::set_service_account_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  service_account_email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListHmacKeysRequest.service_account_email)
+}
+inline void ListHmacKeysRequest::set_service_account_email(const char* value,
+    size_t size) {
+  
+  service_account_email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListHmacKeysRequest.service_account_email)
+}
+inline std::string* ListHmacKeysRequest::_internal_mutable_service_account_email() {
+  
+  return service_account_email_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListHmacKeysRequest::release_service_account_email() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListHmacKeysRequest.service_account_email)
+  return service_account_email_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListHmacKeysRequest::set_allocated_service_account_email(std::string* service_account_email) {
+  if (service_account_email != nullptr) {
+    
+  } else {
+    
+  }
+  service_account_email_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), service_account_email,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListHmacKeysRequest.service_account_email)
+}
+
+// bool show_deleted_keys = 5 [(.google.api.field_behavior) = OPTIONAL];
+inline void ListHmacKeysRequest::clear_show_deleted_keys() {
+  show_deleted_keys_ = false;
+}
+inline bool ListHmacKeysRequest::_internal_show_deleted_keys() const {
+  return show_deleted_keys_;
+}
+inline bool ListHmacKeysRequest::show_deleted_keys() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListHmacKeysRequest.show_deleted_keys)
+  return _internal_show_deleted_keys();
+}
+inline void ListHmacKeysRequest::_internal_set_show_deleted_keys(bool value) {
+  
+  show_deleted_keys_ = value;
+}
+inline void ListHmacKeysRequest::set_show_deleted_keys(bool value) {
+  _internal_set_show_deleted_keys(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListHmacKeysRequest.show_deleted_keys)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 6 [(.google.api.field_behavior) = OPTIONAL];
+inline bool ListHmacKeysRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool ListHmacKeysRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void ListHmacKeysRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& ListHmacKeysRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& ListHmacKeysRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListHmacKeysRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void ListHmacKeysRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.ListHmacKeysRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* ListHmacKeysRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* ListHmacKeysRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListHmacKeysRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* ListHmacKeysRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* ListHmacKeysRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListHmacKeysRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void ListHmacKeysRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListHmacKeysRequest.common_request_params)
+}
+
+// -------------------------------------------------------------------
+
+// ListHmacKeysResponse
+
+// repeated .google.storage.v2.HmacKeyMetadata hmac_keys = 1;
+inline int ListHmacKeysResponse::_internal_hmac_keys_size() const {
+  return hmac_keys_.size();
+}
+inline int ListHmacKeysResponse::hmac_keys_size() const {
+  return _internal_hmac_keys_size();
+}
+inline void ListHmacKeysResponse::clear_hmac_keys() {
+  hmac_keys_.Clear();
+}
+inline ::google::storage::v2::HmacKeyMetadata* ListHmacKeysResponse::mutable_hmac_keys(int index) {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListHmacKeysResponse.hmac_keys)
+  return hmac_keys_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::HmacKeyMetadata >*
+ListHmacKeysResponse::mutable_hmac_keys() {
+  // @@protoc_insertion_point(field_mutable_list:google.storage.v2.ListHmacKeysResponse.hmac_keys)
+  return &hmac_keys_;
+}
+inline const ::google::storage::v2::HmacKeyMetadata& ListHmacKeysResponse::_internal_hmac_keys(int index) const {
+  return hmac_keys_.Get(index);
+}
+inline const ::google::storage::v2::HmacKeyMetadata& ListHmacKeysResponse::hmac_keys(int index) const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListHmacKeysResponse.hmac_keys)
+  return _internal_hmac_keys(index);
+}
+inline ::google::storage::v2::HmacKeyMetadata* ListHmacKeysResponse::_internal_add_hmac_keys() {
+  return hmac_keys_.Add();
+}
+inline ::google::storage::v2::HmacKeyMetadata* ListHmacKeysResponse::add_hmac_keys() {
+  // @@protoc_insertion_point(field_add:google.storage.v2.ListHmacKeysResponse.hmac_keys)
+  return _internal_add_hmac_keys();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::HmacKeyMetadata >&
+ListHmacKeysResponse::hmac_keys() const {
+  // @@protoc_insertion_point(field_list:google.storage.v2.ListHmacKeysResponse.hmac_keys)
+  return hmac_keys_;
+}
+
+// string next_page_token = 2;
+inline void ListHmacKeysResponse::clear_next_page_token() {
+  next_page_token_.ClearToEmpty();
+}
+inline const std::string& ListHmacKeysResponse::next_page_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListHmacKeysResponse.next_page_token)
+  return _internal_next_page_token();
+}
+inline void ListHmacKeysResponse::set_next_page_token(const std::string& value) {
+  _internal_set_next_page_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListHmacKeysResponse.next_page_token)
+}
+inline std::string* ListHmacKeysResponse::mutable_next_page_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListHmacKeysResponse.next_page_token)
+  return _internal_mutable_next_page_token();
+}
+inline const std::string& ListHmacKeysResponse::_internal_next_page_token() const {
+  return next_page_token_.Get();
+}
+inline void ListHmacKeysResponse::_internal_set_next_page_token(const std::string& value) {
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListHmacKeysResponse::set_next_page_token(std::string&& value) {
+  
+  next_page_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListHmacKeysResponse.next_page_token)
+}
+inline void ListHmacKeysResponse::set_next_page_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListHmacKeysResponse.next_page_token)
+}
+inline void ListHmacKeysResponse::set_next_page_token(const char* value,
+    size_t size) {
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListHmacKeysResponse.next_page_token)
+}
+inline std::string* ListHmacKeysResponse::_internal_mutable_next_page_token() {
+  
+  return next_page_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListHmacKeysResponse::release_next_page_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListHmacKeysResponse.next_page_token)
+  return next_page_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListHmacKeysResponse::set_allocated_next_page_token(std::string* next_page_token) {
+  if (next_page_token != nullptr) {
+    
+  } else {
+    
+  }
+  next_page_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), next_page_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListHmacKeysResponse.next_page_token)
+}
+
+// -------------------------------------------------------------------
+
+// UpdateHmacKeyRequest
+
+// .google.storage.v2.HmacKeyMetadata hmac_key = 1 [(.google.api.field_behavior) = REQUIRED];
+inline bool UpdateHmacKeyRequest::_internal_has_hmac_key() const {
+  return this != internal_default_instance() && hmac_key_ != nullptr;
+}
+inline bool UpdateHmacKeyRequest::has_hmac_key() const {
+  return _internal_has_hmac_key();
+}
+inline void UpdateHmacKeyRequest::clear_hmac_key() {
+  if (GetArena() == nullptr && hmac_key_ != nullptr) {
+    delete hmac_key_;
+  }
+  hmac_key_ = nullptr;
+}
+inline const ::google::storage::v2::HmacKeyMetadata& UpdateHmacKeyRequest::_internal_hmac_key() const {
+  const ::google::storage::v2::HmacKeyMetadata* p = hmac_key_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::HmacKeyMetadata&>(
+      ::google::storage::v2::_HmacKeyMetadata_default_instance_);
+}
+inline const ::google::storage::v2::HmacKeyMetadata& UpdateHmacKeyRequest::hmac_key() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateHmacKeyRequest.hmac_key)
+  return _internal_hmac_key();
+}
+inline void UpdateHmacKeyRequest::unsafe_arena_set_allocated_hmac_key(
+    ::google::storage::v2::HmacKeyMetadata* hmac_key) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(hmac_key_);
+  }
+  hmac_key_ = hmac_key;
+  if (hmac_key) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateHmacKeyRequest.hmac_key)
+}
+inline ::google::storage::v2::HmacKeyMetadata* UpdateHmacKeyRequest::release_hmac_key() {
+  
+  ::google::storage::v2::HmacKeyMetadata* temp = hmac_key_;
+  hmac_key_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::HmacKeyMetadata* UpdateHmacKeyRequest::unsafe_arena_release_hmac_key() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateHmacKeyRequest.hmac_key)
+  
+  ::google::storage::v2::HmacKeyMetadata* temp = hmac_key_;
+  hmac_key_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::HmacKeyMetadata* UpdateHmacKeyRequest::_internal_mutable_hmac_key() {
+  
+  if (hmac_key_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::HmacKeyMetadata>(GetArena());
+    hmac_key_ = p;
+  }
+  return hmac_key_;
+}
+inline ::google::storage::v2::HmacKeyMetadata* UpdateHmacKeyRequest::mutable_hmac_key() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateHmacKeyRequest.hmac_key)
+  return _internal_mutable_hmac_key();
+}
+inline void UpdateHmacKeyRequest::set_allocated_hmac_key(::google::storage::v2::HmacKeyMetadata* hmac_key) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete hmac_key_;
+  }
+  if (hmac_key) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(hmac_key);
+    if (message_arena != submessage_arena) {
+      hmac_key = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, hmac_key, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  hmac_key_ = hmac_key;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateHmacKeyRequest.hmac_key)
+}
+
+// .google.storage.v2.CommonRequestParams common_request_params = 2;
+inline bool UpdateHmacKeyRequest::_internal_has_common_request_params() const {
+  return this != internal_default_instance() && common_request_params_ != nullptr;
+}
+inline bool UpdateHmacKeyRequest::has_common_request_params() const {
+  return _internal_has_common_request_params();
+}
+inline void UpdateHmacKeyRequest::clear_common_request_params() {
+  if (GetArena() == nullptr && common_request_params_ != nullptr) {
+    delete common_request_params_;
+  }
+  common_request_params_ = nullptr;
+}
+inline const ::google::storage::v2::CommonRequestParams& UpdateHmacKeyRequest::_internal_common_request_params() const {
+  const ::google::storage::v2::CommonRequestParams* p = common_request_params_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CommonRequestParams&>(
+      ::google::storage::v2::_CommonRequestParams_default_instance_);
+}
+inline const ::google::storage::v2::CommonRequestParams& UpdateHmacKeyRequest::common_request_params() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateHmacKeyRequest.common_request_params)
+  return _internal_common_request_params();
+}
+inline void UpdateHmacKeyRequest::unsafe_arena_set_allocated_common_request_params(
+    ::google::storage::v2::CommonRequestParams* common_request_params) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_request_params_);
+  }
+  common_request_params_ = common_request_params;
+  if (common_request_params) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateHmacKeyRequest.common_request_params)
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateHmacKeyRequest::release_common_request_params() {
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateHmacKeyRequest::unsafe_arena_release_common_request_params() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateHmacKeyRequest.common_request_params)
+  
+  ::google::storage::v2::CommonRequestParams* temp = common_request_params_;
+  common_request_params_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateHmacKeyRequest::_internal_mutable_common_request_params() {
+  
+  if (common_request_params_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::CommonRequestParams>(GetArena());
+    common_request_params_ = p;
+  }
+  return common_request_params_;
+}
+inline ::google::storage::v2::CommonRequestParams* UpdateHmacKeyRequest::mutable_common_request_params() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateHmacKeyRequest.common_request_params)
+  return _internal_mutable_common_request_params();
+}
+inline void UpdateHmacKeyRequest::set_allocated_common_request_params(::google::storage::v2::CommonRequestParams* common_request_params) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete common_request_params_;
+  }
+  if (common_request_params) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(common_request_params);
+    if (message_arena != submessage_arena) {
+      common_request_params = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_request_params, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_request_params_ = common_request_params;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateHmacKeyRequest.common_request_params)
+}
+
+// .google.protobuf.FieldMask update_mask = 3;
+inline bool UpdateHmacKeyRequest::_internal_has_update_mask() const {
+  return this != internal_default_instance() && update_mask_ != nullptr;
+}
+inline bool UpdateHmacKeyRequest::has_update_mask() const {
+  return _internal_has_update_mask();
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& UpdateHmacKeyRequest::_internal_update_mask() const {
+  const PROTOBUF_NAMESPACE_ID::FieldMask* p = update_mask_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::FieldMask&>(
+      PROTOBUF_NAMESPACE_ID::_FieldMask_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& UpdateHmacKeyRequest::update_mask() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.UpdateHmacKeyRequest.update_mask)
+  return _internal_update_mask();
+}
+inline void UpdateHmacKeyRequest::unsafe_arena_set_allocated_update_mask(
+    PROTOBUF_NAMESPACE_ID::FieldMask* update_mask) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask_);
+  }
+  update_mask_ = update_mask;
+  if (update_mask) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.UpdateHmacKeyRequest.update_mask)
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateHmacKeyRequest::release_update_mask() {
+  
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = update_mask_;
+  update_mask_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateHmacKeyRequest::unsafe_arena_release_update_mask() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.UpdateHmacKeyRequest.update_mask)
+  
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = update_mask_;
+  update_mask_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateHmacKeyRequest::_internal_mutable_update_mask() {
+  
+  if (update_mask_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::FieldMask>(GetArena());
+    update_mask_ = p;
+  }
+  return update_mask_;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* UpdateHmacKeyRequest::mutable_update_mask() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.UpdateHmacKeyRequest.update_mask)
+  return _internal_mutable_update_mask();
+}
+inline void UpdateHmacKeyRequest::set_allocated_update_mask(PROTOBUF_NAMESPACE_ID::FieldMask* update_mask) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask_);
+  }
+  if (update_mask) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask)->GetArena();
+    if (message_arena != submessage_arena) {
+      update_mask = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, update_mask, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  update_mask_ = update_mask;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.UpdateHmacKeyRequest.update_mask)
 }
 
 // -------------------------------------------------------------------
@@ -12175,6 +27321,84 @@ inline void Bucket_Website::set_allocated_not_found_page(std::string* not_found_
 
 // -------------------------------------------------------------------
 
+// Bucket_CustomPlacementConfig
+
+// repeated string data_locations = 1;
+inline int Bucket_CustomPlacementConfig::_internal_data_locations_size() const {
+  return data_locations_.size();
+}
+inline int Bucket_CustomPlacementConfig::data_locations_size() const {
+  return _internal_data_locations_size();
+}
+inline void Bucket_CustomPlacementConfig::clear_data_locations() {
+  data_locations_.Clear();
+}
+inline std::string* Bucket_CustomPlacementConfig::add_data_locations() {
+  // @@protoc_insertion_point(field_add_mutable:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+  return _internal_add_data_locations();
+}
+inline const std::string& Bucket_CustomPlacementConfig::_internal_data_locations(int index) const {
+  return data_locations_.Get(index);
+}
+inline const std::string& Bucket_CustomPlacementConfig::data_locations(int index) const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+  return _internal_data_locations(index);
+}
+inline std::string* Bucket_CustomPlacementConfig::mutable_data_locations(int index) {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+  return data_locations_.Mutable(index);
+}
+inline void Bucket_CustomPlacementConfig::set_data_locations(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+  data_locations_.Mutable(index)->assign(value);
+}
+inline void Bucket_CustomPlacementConfig::set_data_locations(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+  data_locations_.Mutable(index)->assign(std::move(value));
+}
+inline void Bucket_CustomPlacementConfig::set_data_locations(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  data_locations_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+}
+inline void Bucket_CustomPlacementConfig::set_data_locations(int index, const char* value, size_t size) {
+  data_locations_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+}
+inline std::string* Bucket_CustomPlacementConfig::_internal_add_data_locations() {
+  return data_locations_.Add();
+}
+inline void Bucket_CustomPlacementConfig::add_data_locations(const std::string& value) {
+  data_locations_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+}
+inline void Bucket_CustomPlacementConfig::add_data_locations(std::string&& value) {
+  data_locations_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+}
+inline void Bucket_CustomPlacementConfig::add_data_locations(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  data_locations_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+}
+inline void Bucket_CustomPlacementConfig::add_data_locations(const char* value, size_t size) {
+  data_locations_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+Bucket_CustomPlacementConfig::data_locations() const {
+  // @@protoc_insertion_point(field_list:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+  return data_locations_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+Bucket_CustomPlacementConfig::mutable_data_locations() {
+  // @@protoc_insertion_point(field_mutable_list:google.storage.v2.Bucket.CustomPlacementConfig.data_locations)
+  return &data_locations_;
+}
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // Bucket
@@ -12563,6 +27787,67 @@ inline void Bucket::set_allocated_storage_class(std::string* storage_class) {
   storage_class_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), storage_class,
       GetArena());
   // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.storage_class)
+}
+
+// string rpo = 27;
+inline void Bucket::clear_rpo() {
+  rpo_.ClearToEmpty();
+}
+inline const std::string& Bucket::rpo() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.rpo)
+  return _internal_rpo();
+}
+inline void Bucket::set_rpo(const std::string& value) {
+  _internal_set_rpo(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.rpo)
+}
+inline std::string* Bucket::mutable_rpo() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.rpo)
+  return _internal_mutable_rpo();
+}
+inline const std::string& Bucket::_internal_rpo() const {
+  return rpo_.Get();
+}
+inline void Bucket::_internal_set_rpo(const std::string& value) {
+  
+  rpo_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Bucket::set_rpo(std::string&& value) {
+  
+  rpo_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.Bucket.rpo)
+}
+inline void Bucket::set_rpo(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  rpo_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.Bucket.rpo)
+}
+inline void Bucket::set_rpo(const char* value,
+    size_t size) {
+  
+  rpo_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Bucket.rpo)
+}
+inline std::string* Bucket::_internal_mutable_rpo() {
+  
+  return rpo_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Bucket::release_rpo() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.Bucket.rpo)
+  return rpo_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Bucket::set_allocated_rpo(std::string* rpo) {
+  if (rpo != nullptr) {
+    
+  } else {
+    
+  }
+  rpo_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), rpo,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.rpo)
 }
 
 // repeated .google.storage.v2.BucketAccessControl acl = 8;
@@ -13632,80 +28917,6 @@ inline void Bucket::set_allocated_iam_config(::google::storage::v2::Bucket_IamCo
   // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.iam_config)
 }
 
-// repeated string zone_affinity = 24 [(.google.api.field_behavior) = IMMUTABLE];
-inline int Bucket::_internal_zone_affinity_size() const {
-  return zone_affinity_.size();
-}
-inline int Bucket::zone_affinity_size() const {
-  return _internal_zone_affinity_size();
-}
-inline void Bucket::clear_zone_affinity() {
-  zone_affinity_.Clear();
-}
-inline std::string* Bucket::add_zone_affinity() {
-  // @@protoc_insertion_point(field_add_mutable:google.storage.v2.Bucket.zone_affinity)
-  return _internal_add_zone_affinity();
-}
-inline const std::string& Bucket::_internal_zone_affinity(int index) const {
-  return zone_affinity_.Get(index);
-}
-inline const std::string& Bucket::zone_affinity(int index) const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.zone_affinity)
-  return _internal_zone_affinity(index);
-}
-inline std::string* Bucket::mutable_zone_affinity(int index) {
-  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.zone_affinity)
-  return zone_affinity_.Mutable(index);
-}
-inline void Bucket::set_zone_affinity(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.zone_affinity)
-  zone_affinity_.Mutable(index)->assign(value);
-}
-inline void Bucket::set_zone_affinity(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.zone_affinity)
-  zone_affinity_.Mutable(index)->assign(std::move(value));
-}
-inline void Bucket::set_zone_affinity(int index, const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  zone_affinity_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:google.storage.v2.Bucket.zone_affinity)
-}
-inline void Bucket::set_zone_affinity(int index, const char* value, size_t size) {
-  zone_affinity_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Bucket.zone_affinity)
-}
-inline std::string* Bucket::_internal_add_zone_affinity() {
-  return zone_affinity_.Add();
-}
-inline void Bucket::add_zone_affinity(const std::string& value) {
-  zone_affinity_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:google.storage.v2.Bucket.zone_affinity)
-}
-inline void Bucket::add_zone_affinity(std::string&& value) {
-  zone_affinity_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:google.storage.v2.Bucket.zone_affinity)
-}
-inline void Bucket::add_zone_affinity(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  zone_affinity_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:google.storage.v2.Bucket.zone_affinity)
-}
-inline void Bucket::add_zone_affinity(const char* value, size_t size) {
-  zone_affinity_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:google.storage.v2.Bucket.zone_affinity)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-Bucket::zone_affinity() const {
-  // @@protoc_insertion_point(field_list:google.storage.v2.Bucket.zone_affinity)
-  return zone_affinity_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-Bucket::mutable_zone_affinity() {
-  // @@protoc_insertion_point(field_mutable_list:google.storage.v2.Bucket.zone_affinity)
-  return &zone_affinity_;
-}
-
 // bool satisfies_pzs = 25;
 inline void Bucket::clear_satisfies_pzs() {
   satisfies_pzs_ = false;
@@ -13724,6 +28935,89 @@ inline void Bucket::_internal_set_satisfies_pzs(bool value) {
 inline void Bucket::set_satisfies_pzs(bool value) {
   _internal_set_satisfies_pzs(value);
   // @@protoc_insertion_point(field_set:google.storage.v2.Bucket.satisfies_pzs)
+}
+
+// .google.storage.v2.Bucket.CustomPlacementConfig custom_placement_config = 26;
+inline bool Bucket::_internal_has_custom_placement_config() const {
+  return this != internal_default_instance() && custom_placement_config_ != nullptr;
+}
+inline bool Bucket::has_custom_placement_config() const {
+  return _internal_has_custom_placement_config();
+}
+inline void Bucket::clear_custom_placement_config() {
+  if (GetArena() == nullptr && custom_placement_config_ != nullptr) {
+    delete custom_placement_config_;
+  }
+  custom_placement_config_ = nullptr;
+}
+inline const ::google::storage::v2::Bucket_CustomPlacementConfig& Bucket::_internal_custom_placement_config() const {
+  const ::google::storage::v2::Bucket_CustomPlacementConfig* p = custom_placement_config_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::Bucket_CustomPlacementConfig&>(
+      ::google::storage::v2::_Bucket_CustomPlacementConfig_default_instance_);
+}
+inline const ::google::storage::v2::Bucket_CustomPlacementConfig& Bucket::custom_placement_config() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Bucket.custom_placement_config)
+  return _internal_custom_placement_config();
+}
+inline void Bucket::unsafe_arena_set_allocated_custom_placement_config(
+    ::google::storage::v2::Bucket_CustomPlacementConfig* custom_placement_config) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(custom_placement_config_);
+  }
+  custom_placement_config_ = custom_placement_config;
+  if (custom_placement_config) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.Bucket.custom_placement_config)
+}
+inline ::google::storage::v2::Bucket_CustomPlacementConfig* Bucket::release_custom_placement_config() {
+  
+  ::google::storage::v2::Bucket_CustomPlacementConfig* temp = custom_placement_config_;
+  custom_placement_config_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::storage::v2::Bucket_CustomPlacementConfig* Bucket::unsafe_arena_release_custom_placement_config() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.Bucket.custom_placement_config)
+  
+  ::google::storage::v2::Bucket_CustomPlacementConfig* temp = custom_placement_config_;
+  custom_placement_config_ = nullptr;
+  return temp;
+}
+inline ::google::storage::v2::Bucket_CustomPlacementConfig* Bucket::_internal_mutable_custom_placement_config() {
+  
+  if (custom_placement_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::storage::v2::Bucket_CustomPlacementConfig>(GetArena());
+    custom_placement_config_ = p;
+  }
+  return custom_placement_config_;
+}
+inline ::google::storage::v2::Bucket_CustomPlacementConfig* Bucket::mutable_custom_placement_config() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Bucket.custom_placement_config)
+  return _internal_mutable_custom_placement_config();
+}
+inline void Bucket::set_allocated_custom_placement_config(::google::storage::v2::Bucket_CustomPlacementConfig* custom_placement_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete custom_placement_config_;
+  }
+  if (custom_placement_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(custom_placement_config);
+    if (message_arena != submessage_arena) {
+      custom_placement_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, custom_placement_config, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  custom_placement_config_ = custom_placement_config;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Bucket.custom_placement_config)
 }
 
 // -------------------------------------------------------------------
@@ -14367,59 +29661,875 @@ inline void ObjectChecksums::set_allocated_md5_hash(std::string* md5_hash) {
 
 // -------------------------------------------------------------------
 
-// Object_CustomerEncryption
+// HmacKeyMetadata
+
+// string id = 1;
+inline void HmacKeyMetadata::clear_id() {
+  id_.ClearToEmpty();
+}
+inline const std::string& HmacKeyMetadata::id() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.HmacKeyMetadata.id)
+  return _internal_id();
+}
+inline void HmacKeyMetadata::set_id(const std::string& value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.HmacKeyMetadata.id)
+}
+inline std::string* HmacKeyMetadata::mutable_id() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.HmacKeyMetadata.id)
+  return _internal_mutable_id();
+}
+inline const std::string& HmacKeyMetadata::_internal_id() const {
+  return id_.Get();
+}
+inline void HmacKeyMetadata::_internal_set_id(const std::string& value) {
+  
+  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void HmacKeyMetadata::set_id(std::string&& value) {
+  
+  id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.HmacKeyMetadata.id)
+}
+inline void HmacKeyMetadata::set_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.HmacKeyMetadata.id)
+}
+inline void HmacKeyMetadata::set_id(const char* value,
+    size_t size) {
+  
+  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.HmacKeyMetadata.id)
+}
+inline std::string* HmacKeyMetadata::_internal_mutable_id() {
+  
+  return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* HmacKeyMetadata::release_id() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.HmacKeyMetadata.id)
+  return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void HmacKeyMetadata::set_allocated_id(std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.HmacKeyMetadata.id)
+}
+
+// string access_id = 2;
+inline void HmacKeyMetadata::clear_access_id() {
+  access_id_.ClearToEmpty();
+}
+inline const std::string& HmacKeyMetadata::access_id() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.HmacKeyMetadata.access_id)
+  return _internal_access_id();
+}
+inline void HmacKeyMetadata::set_access_id(const std::string& value) {
+  _internal_set_access_id(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.HmacKeyMetadata.access_id)
+}
+inline std::string* HmacKeyMetadata::mutable_access_id() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.HmacKeyMetadata.access_id)
+  return _internal_mutable_access_id();
+}
+inline const std::string& HmacKeyMetadata::_internal_access_id() const {
+  return access_id_.Get();
+}
+inline void HmacKeyMetadata::_internal_set_access_id(const std::string& value) {
+  
+  access_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void HmacKeyMetadata::set_access_id(std::string&& value) {
+  
+  access_id_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.HmacKeyMetadata.access_id)
+}
+inline void HmacKeyMetadata::set_access_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  access_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.HmacKeyMetadata.access_id)
+}
+inline void HmacKeyMetadata::set_access_id(const char* value,
+    size_t size) {
+  
+  access_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.HmacKeyMetadata.access_id)
+}
+inline std::string* HmacKeyMetadata::_internal_mutable_access_id() {
+  
+  return access_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* HmacKeyMetadata::release_access_id() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.HmacKeyMetadata.access_id)
+  return access_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void HmacKeyMetadata::set_allocated_access_id(std::string* access_id) {
+  if (access_id != nullptr) {
+    
+  } else {
+    
+  }
+  access_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), access_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.HmacKeyMetadata.access_id)
+}
+
+// string project = 3 [(.google.api.resource_reference) = {
+inline void HmacKeyMetadata::clear_project() {
+  project_.ClearToEmpty();
+}
+inline const std::string& HmacKeyMetadata::project() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.HmacKeyMetadata.project)
+  return _internal_project();
+}
+inline void HmacKeyMetadata::set_project(const std::string& value) {
+  _internal_set_project(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.HmacKeyMetadata.project)
+}
+inline std::string* HmacKeyMetadata::mutable_project() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.HmacKeyMetadata.project)
+  return _internal_mutable_project();
+}
+inline const std::string& HmacKeyMetadata::_internal_project() const {
+  return project_.Get();
+}
+inline void HmacKeyMetadata::_internal_set_project(const std::string& value) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void HmacKeyMetadata::set_project(std::string&& value) {
+  
+  project_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.HmacKeyMetadata.project)
+}
+inline void HmacKeyMetadata::set_project(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.HmacKeyMetadata.project)
+}
+inline void HmacKeyMetadata::set_project(const char* value,
+    size_t size) {
+  
+  project_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.HmacKeyMetadata.project)
+}
+inline std::string* HmacKeyMetadata::_internal_mutable_project() {
+  
+  return project_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* HmacKeyMetadata::release_project() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.HmacKeyMetadata.project)
+  return project_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void HmacKeyMetadata::set_allocated_project(std::string* project) {
+  if (project != nullptr) {
+    
+  } else {
+    
+  }
+  project_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), project,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.HmacKeyMetadata.project)
+}
+
+// string service_account_email = 4;
+inline void HmacKeyMetadata::clear_service_account_email() {
+  service_account_email_.ClearToEmpty();
+}
+inline const std::string& HmacKeyMetadata::service_account_email() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.HmacKeyMetadata.service_account_email)
+  return _internal_service_account_email();
+}
+inline void HmacKeyMetadata::set_service_account_email(const std::string& value) {
+  _internal_set_service_account_email(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.HmacKeyMetadata.service_account_email)
+}
+inline std::string* HmacKeyMetadata::mutable_service_account_email() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.HmacKeyMetadata.service_account_email)
+  return _internal_mutable_service_account_email();
+}
+inline const std::string& HmacKeyMetadata::_internal_service_account_email() const {
+  return service_account_email_.Get();
+}
+inline void HmacKeyMetadata::_internal_set_service_account_email(const std::string& value) {
+  
+  service_account_email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void HmacKeyMetadata::set_service_account_email(std::string&& value) {
+  
+  service_account_email_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.HmacKeyMetadata.service_account_email)
+}
+inline void HmacKeyMetadata::set_service_account_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  service_account_email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.HmacKeyMetadata.service_account_email)
+}
+inline void HmacKeyMetadata::set_service_account_email(const char* value,
+    size_t size) {
+  
+  service_account_email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.HmacKeyMetadata.service_account_email)
+}
+inline std::string* HmacKeyMetadata::_internal_mutable_service_account_email() {
+  
+  return service_account_email_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* HmacKeyMetadata::release_service_account_email() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.HmacKeyMetadata.service_account_email)
+  return service_account_email_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void HmacKeyMetadata::set_allocated_service_account_email(std::string* service_account_email) {
+  if (service_account_email != nullptr) {
+    
+  } else {
+    
+  }
+  service_account_email_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), service_account_email,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.HmacKeyMetadata.service_account_email)
+}
+
+// string state = 5;
+inline void HmacKeyMetadata::clear_state() {
+  state_.ClearToEmpty();
+}
+inline const std::string& HmacKeyMetadata::state() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.HmacKeyMetadata.state)
+  return _internal_state();
+}
+inline void HmacKeyMetadata::set_state(const std::string& value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.HmacKeyMetadata.state)
+}
+inline std::string* HmacKeyMetadata::mutable_state() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.HmacKeyMetadata.state)
+  return _internal_mutable_state();
+}
+inline const std::string& HmacKeyMetadata::_internal_state() const {
+  return state_.Get();
+}
+inline void HmacKeyMetadata::_internal_set_state(const std::string& value) {
+  
+  state_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void HmacKeyMetadata::set_state(std::string&& value) {
+  
+  state_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.HmacKeyMetadata.state)
+}
+inline void HmacKeyMetadata::set_state(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  state_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.HmacKeyMetadata.state)
+}
+inline void HmacKeyMetadata::set_state(const char* value,
+    size_t size) {
+  
+  state_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.HmacKeyMetadata.state)
+}
+inline std::string* HmacKeyMetadata::_internal_mutable_state() {
+  
+  return state_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* HmacKeyMetadata::release_state() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.HmacKeyMetadata.state)
+  return state_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void HmacKeyMetadata::set_allocated_state(std::string* state) {
+  if (state != nullptr) {
+    
+  } else {
+    
+  }
+  state_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), state,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.HmacKeyMetadata.state)
+}
+
+// .google.protobuf.Timestamp create_time = 6;
+inline bool HmacKeyMetadata::_internal_has_create_time() const {
+  return this != internal_default_instance() && create_time_ != nullptr;
+}
+inline bool HmacKeyMetadata::has_create_time() const {
+  return _internal_has_create_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& HmacKeyMetadata::_internal_create_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = create_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& HmacKeyMetadata::create_time() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.HmacKeyMetadata.create_time)
+  return _internal_create_time();
+}
+inline void HmacKeyMetadata::unsafe_arena_set_allocated_create_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* create_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time_);
+  }
+  create_time_ = create_time;
+  if (create_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.HmacKeyMetadata.create_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* HmacKeyMetadata::release_create_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = create_time_;
+  create_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* HmacKeyMetadata::unsafe_arena_release_create_time() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.HmacKeyMetadata.create_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = create_time_;
+  create_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* HmacKeyMetadata::_internal_mutable_create_time() {
+  
+  if (create_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    create_time_ = p;
+  }
+  return create_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* HmacKeyMetadata::mutable_create_time() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.HmacKeyMetadata.create_time)
+  return _internal_mutable_create_time();
+}
+inline void HmacKeyMetadata::set_allocated_create_time(PROTOBUF_NAMESPACE_ID::Timestamp* create_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time_);
+  }
+  if (create_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      create_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, create_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  create_time_ = create_time;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.HmacKeyMetadata.create_time)
+}
+
+// .google.protobuf.Timestamp update_time = 7;
+inline bool HmacKeyMetadata::_internal_has_update_time() const {
+  return this != internal_default_instance() && update_time_ != nullptr;
+}
+inline bool HmacKeyMetadata::has_update_time() const {
+  return _internal_has_update_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& HmacKeyMetadata::_internal_update_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = update_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& HmacKeyMetadata::update_time() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.HmacKeyMetadata.update_time)
+  return _internal_update_time();
+}
+inline void HmacKeyMetadata::unsafe_arena_set_allocated_update_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* update_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_time_);
+  }
+  update_time_ = update_time;
+  if (update_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.HmacKeyMetadata.update_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* HmacKeyMetadata::release_update_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = update_time_;
+  update_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* HmacKeyMetadata::unsafe_arena_release_update_time() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.HmacKeyMetadata.update_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = update_time_;
+  update_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* HmacKeyMetadata::_internal_mutable_update_time() {
+  
+  if (update_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    update_time_ = p;
+  }
+  return update_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* HmacKeyMetadata::mutable_update_time() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.HmacKeyMetadata.update_time)
+  return _internal_mutable_update_time();
+}
+inline void HmacKeyMetadata::set_allocated_update_time(PROTOBUF_NAMESPACE_ID::Timestamp* update_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_time_);
+  }
+  if (update_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      update_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, update_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  update_time_ = update_time;
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.HmacKeyMetadata.update_time)
+}
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// Notification
+
+// string name = 1 [(.google.api.field_behavior) = REQUIRED];
+inline void Notification::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& Notification::name() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Notification.name)
+  return _internal_name();
+}
+inline void Notification::set_name(const std::string& value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.Notification.name)
+}
+inline std::string* Notification::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Notification.name)
+  return _internal_mutable_name();
+}
+inline const std::string& Notification::_internal_name() const {
+  return name_.Get();
+}
+inline void Notification::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Notification::set_name(std::string&& value) {
+  
+  name_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.Notification.name)
+}
+inline void Notification::set_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.Notification.name)
+}
+inline void Notification::set_name(const char* value,
+    size_t size) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Notification.name)
+}
+inline std::string* Notification::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Notification::release_name() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.Notification.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Notification::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Notification.name)
+}
+
+// string topic = 2 [(.google.api.field_behavior) = REQUIRED];
+inline void Notification::clear_topic() {
+  topic_.ClearToEmpty();
+}
+inline const std::string& Notification::topic() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Notification.topic)
+  return _internal_topic();
+}
+inline void Notification::set_topic(const std::string& value) {
+  _internal_set_topic(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.Notification.topic)
+}
+inline std::string* Notification::mutable_topic() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Notification.topic)
+  return _internal_mutable_topic();
+}
+inline const std::string& Notification::_internal_topic() const {
+  return topic_.Get();
+}
+inline void Notification::_internal_set_topic(const std::string& value) {
+  
+  topic_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Notification::set_topic(std::string&& value) {
+  
+  topic_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.Notification.topic)
+}
+inline void Notification::set_topic(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  topic_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.Notification.topic)
+}
+inline void Notification::set_topic(const char* value,
+    size_t size) {
+  
+  topic_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Notification.topic)
+}
+inline std::string* Notification::_internal_mutable_topic() {
+  
+  return topic_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Notification::release_topic() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.Notification.topic)
+  return topic_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Notification::set_allocated_topic(std::string* topic) {
+  if (topic != nullptr) {
+    
+  } else {
+    
+  }
+  topic_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), topic,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Notification.topic)
+}
+
+// repeated string event_types = 3 [(.google.api.field_behavior) = OPTIONAL];
+inline int Notification::_internal_event_types_size() const {
+  return event_types_.size();
+}
+inline int Notification::event_types_size() const {
+  return _internal_event_types_size();
+}
+inline void Notification::clear_event_types() {
+  event_types_.Clear();
+}
+inline std::string* Notification::add_event_types() {
+  // @@protoc_insertion_point(field_add_mutable:google.storage.v2.Notification.event_types)
+  return _internal_add_event_types();
+}
+inline const std::string& Notification::_internal_event_types(int index) const {
+  return event_types_.Get(index);
+}
+inline const std::string& Notification::event_types(int index) const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Notification.event_types)
+  return _internal_event_types(index);
+}
+inline std::string* Notification::mutable_event_types(int index) {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Notification.event_types)
+  return event_types_.Mutable(index);
+}
+inline void Notification::set_event_types(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.storage.v2.Notification.event_types)
+  event_types_.Mutable(index)->assign(value);
+}
+inline void Notification::set_event_types(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.storage.v2.Notification.event_types)
+  event_types_.Mutable(index)->assign(std::move(value));
+}
+inline void Notification::set_event_types(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  event_types_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.Notification.event_types)
+}
+inline void Notification::set_event_types(int index, const char* value, size_t size) {
+  event_types_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Notification.event_types)
+}
+inline std::string* Notification::_internal_add_event_types() {
+  return event_types_.Add();
+}
+inline void Notification::add_event_types(const std::string& value) {
+  event_types_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.storage.v2.Notification.event_types)
+}
+inline void Notification::add_event_types(std::string&& value) {
+  event_types_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.storage.v2.Notification.event_types)
+}
+inline void Notification::add_event_types(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  event_types_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.storage.v2.Notification.event_types)
+}
+inline void Notification::add_event_types(const char* value, size_t size) {
+  event_types_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.storage.v2.Notification.event_types)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+Notification::event_types() const {
+  // @@protoc_insertion_point(field_list:google.storage.v2.Notification.event_types)
+  return event_types_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+Notification::mutable_event_types() {
+  // @@protoc_insertion_point(field_mutable_list:google.storage.v2.Notification.event_types)
+  return &event_types_;
+}
+
+// map<string, string> custom_attributes = 4 [(.google.api.field_behavior) = OPTIONAL];
+inline int Notification::_internal_custom_attributes_size() const {
+  return custom_attributes_.size();
+}
+inline int Notification::custom_attributes_size() const {
+  return _internal_custom_attributes_size();
+}
+inline void Notification::clear_custom_attributes() {
+  custom_attributes_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Notification::_internal_custom_attributes() const {
+  return custom_attributes_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Notification::custom_attributes() const {
+  // @@protoc_insertion_point(field_map:google.storage.v2.Notification.custom_attributes)
+  return _internal_custom_attributes();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Notification::_internal_mutable_custom_attributes() {
+  return custom_attributes_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Notification::mutable_custom_attributes() {
+  // @@protoc_insertion_point(field_mutable_map:google.storage.v2.Notification.custom_attributes)
+  return _internal_mutable_custom_attributes();
+}
+
+// string object_name_prefix = 5 [(.google.api.field_behavior) = OPTIONAL];
+inline void Notification::clear_object_name_prefix() {
+  object_name_prefix_.ClearToEmpty();
+}
+inline const std::string& Notification::object_name_prefix() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Notification.object_name_prefix)
+  return _internal_object_name_prefix();
+}
+inline void Notification::set_object_name_prefix(const std::string& value) {
+  _internal_set_object_name_prefix(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.Notification.object_name_prefix)
+}
+inline std::string* Notification::mutable_object_name_prefix() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Notification.object_name_prefix)
+  return _internal_mutable_object_name_prefix();
+}
+inline const std::string& Notification::_internal_object_name_prefix() const {
+  return object_name_prefix_.Get();
+}
+inline void Notification::_internal_set_object_name_prefix(const std::string& value) {
+  
+  object_name_prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Notification::set_object_name_prefix(std::string&& value) {
+  
+  object_name_prefix_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.Notification.object_name_prefix)
+}
+inline void Notification::set_object_name_prefix(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  object_name_prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.Notification.object_name_prefix)
+}
+inline void Notification::set_object_name_prefix(const char* value,
+    size_t size) {
+  
+  object_name_prefix_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Notification.object_name_prefix)
+}
+inline std::string* Notification::_internal_mutable_object_name_prefix() {
+  
+  return object_name_prefix_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Notification::release_object_name_prefix() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.Notification.object_name_prefix)
+  return object_name_prefix_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Notification::set_allocated_object_name_prefix(std::string* object_name_prefix) {
+  if (object_name_prefix != nullptr) {
+    
+  } else {
+    
+  }
+  object_name_prefix_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), object_name_prefix,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Notification.object_name_prefix)
+}
+
+// string payload_format = 6 [(.google.api.field_behavior) = REQUIRED];
+inline void Notification::clear_payload_format() {
+  payload_format_.ClearToEmpty();
+}
+inline const std::string& Notification::payload_format() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.Notification.payload_format)
+  return _internal_payload_format();
+}
+inline void Notification::set_payload_format(const std::string& value) {
+  _internal_set_payload_format(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.Notification.payload_format)
+}
+inline std::string* Notification::mutable_payload_format() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.Notification.payload_format)
+  return _internal_mutable_payload_format();
+}
+inline const std::string& Notification::_internal_payload_format() const {
+  return payload_format_.Get();
+}
+inline void Notification::_internal_set_payload_format(const std::string& value) {
+  
+  payload_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void Notification::set_payload_format(std::string&& value) {
+  
+  payload_format_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.Notification.payload_format)
+}
+inline void Notification::set_payload_format(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  payload_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.Notification.payload_format)
+}
+inline void Notification::set_payload_format(const char* value,
+    size_t size) {
+  
+  payload_format_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Notification.payload_format)
+}
+inline std::string* Notification::_internal_mutable_payload_format() {
+  
+  return payload_format_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* Notification::release_payload_format() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.Notification.payload_format)
+  return payload_format_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Notification::set_allocated_payload_format(std::string* payload_format) {
+  if (payload_format != nullptr) {
+    
+  } else {
+    
+  }
+  payload_format_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), payload_format,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Notification.payload_format)
+}
+
+// -------------------------------------------------------------------
+
+// CustomerEncryption
 
 // string encryption_algorithm = 1;
-inline void Object_CustomerEncryption::clear_encryption_algorithm() {
+inline void CustomerEncryption::clear_encryption_algorithm() {
   encryption_algorithm_.ClearToEmpty();
 }
-inline const std::string& Object_CustomerEncryption::encryption_algorithm() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.Object.CustomerEncryption.encryption_algorithm)
+inline const std::string& CustomerEncryption::encryption_algorithm() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CustomerEncryption.encryption_algorithm)
   return _internal_encryption_algorithm();
 }
-inline void Object_CustomerEncryption::set_encryption_algorithm(const std::string& value) {
+inline void CustomerEncryption::set_encryption_algorithm(const std::string& value) {
   _internal_set_encryption_algorithm(value);
-  // @@protoc_insertion_point(field_set:google.storage.v2.Object.CustomerEncryption.encryption_algorithm)
+  // @@protoc_insertion_point(field_set:google.storage.v2.CustomerEncryption.encryption_algorithm)
 }
-inline std::string* Object_CustomerEncryption::mutable_encryption_algorithm() {
-  // @@protoc_insertion_point(field_mutable:google.storage.v2.Object.CustomerEncryption.encryption_algorithm)
+inline std::string* CustomerEncryption::mutable_encryption_algorithm() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CustomerEncryption.encryption_algorithm)
   return _internal_mutable_encryption_algorithm();
 }
-inline const std::string& Object_CustomerEncryption::_internal_encryption_algorithm() const {
+inline const std::string& CustomerEncryption::_internal_encryption_algorithm() const {
   return encryption_algorithm_.Get();
 }
-inline void Object_CustomerEncryption::_internal_set_encryption_algorithm(const std::string& value) {
+inline void CustomerEncryption::_internal_set_encryption_algorithm(const std::string& value) {
   
   encryption_algorithm_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void Object_CustomerEncryption::set_encryption_algorithm(std::string&& value) {
+inline void CustomerEncryption::set_encryption_algorithm(std::string&& value) {
   
   encryption_algorithm_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.Object.CustomerEncryption.encryption_algorithm)
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CustomerEncryption.encryption_algorithm)
 }
-inline void Object_CustomerEncryption::set_encryption_algorithm(const char* value) {
+inline void CustomerEncryption::set_encryption_algorithm(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   encryption_algorithm_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:google.storage.v2.Object.CustomerEncryption.encryption_algorithm)
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CustomerEncryption.encryption_algorithm)
 }
-inline void Object_CustomerEncryption::set_encryption_algorithm(const char* value,
+inline void CustomerEncryption::set_encryption_algorithm(const char* value,
     size_t size) {
   
   encryption_algorithm_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Object.CustomerEncryption.encryption_algorithm)
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CustomerEncryption.encryption_algorithm)
 }
-inline std::string* Object_CustomerEncryption::_internal_mutable_encryption_algorithm() {
+inline std::string* CustomerEncryption::_internal_mutable_encryption_algorithm() {
   
   return encryption_algorithm_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* Object_CustomerEncryption::release_encryption_algorithm() {
-  // @@protoc_insertion_point(field_release:google.storage.v2.Object.CustomerEncryption.encryption_algorithm)
+inline std::string* CustomerEncryption::release_encryption_algorithm() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CustomerEncryption.encryption_algorithm)
   return encryption_algorithm_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void Object_CustomerEncryption::set_allocated_encryption_algorithm(std::string* encryption_algorithm) {
+inline void CustomerEncryption::set_allocated_encryption_algorithm(std::string* encryption_algorithm) {
   if (encryption_algorithm != nullptr) {
     
   } else {
@@ -14427,68 +30537,68 @@ inline void Object_CustomerEncryption::set_allocated_encryption_algorithm(std::s
   }
   encryption_algorithm_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), encryption_algorithm,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Object.CustomerEncryption.encryption_algorithm)
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CustomerEncryption.encryption_algorithm)
 }
 
-// string key_sha256 = 2;
-inline void Object_CustomerEncryption::clear_key_sha256() {
-  key_sha256_.ClearToEmpty();
+// bytes key_sha256_bytes = 3;
+inline void CustomerEncryption::clear_key_sha256_bytes() {
+  key_sha256_bytes_.ClearToEmpty();
 }
-inline const std::string& Object_CustomerEncryption::key_sha256() const {
-  // @@protoc_insertion_point(field_get:google.storage.v2.Object.CustomerEncryption.key_sha256)
-  return _internal_key_sha256();
+inline const std::string& CustomerEncryption::key_sha256_bytes() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.CustomerEncryption.key_sha256_bytes)
+  return _internal_key_sha256_bytes();
 }
-inline void Object_CustomerEncryption::set_key_sha256(const std::string& value) {
-  _internal_set_key_sha256(value);
-  // @@protoc_insertion_point(field_set:google.storage.v2.Object.CustomerEncryption.key_sha256)
+inline void CustomerEncryption::set_key_sha256_bytes(const std::string& value) {
+  _internal_set_key_sha256_bytes(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.CustomerEncryption.key_sha256_bytes)
 }
-inline std::string* Object_CustomerEncryption::mutable_key_sha256() {
-  // @@protoc_insertion_point(field_mutable:google.storage.v2.Object.CustomerEncryption.key_sha256)
-  return _internal_mutable_key_sha256();
+inline std::string* CustomerEncryption::mutable_key_sha256_bytes() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.CustomerEncryption.key_sha256_bytes)
+  return _internal_mutable_key_sha256_bytes();
 }
-inline const std::string& Object_CustomerEncryption::_internal_key_sha256() const {
-  return key_sha256_.Get();
+inline const std::string& CustomerEncryption::_internal_key_sha256_bytes() const {
+  return key_sha256_bytes_.Get();
 }
-inline void Object_CustomerEncryption::_internal_set_key_sha256(const std::string& value) {
+inline void CustomerEncryption::_internal_set_key_sha256_bytes(const std::string& value) {
   
-  key_sha256_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+  key_sha256_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
 }
-inline void Object_CustomerEncryption::set_key_sha256(std::string&& value) {
+inline void CustomerEncryption::set_key_sha256_bytes(std::string&& value) {
   
-  key_sha256_.Set(
+  key_sha256_bytes_.Set(
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.Object.CustomerEncryption.key_sha256)
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.CustomerEncryption.key_sha256_bytes)
 }
-inline void Object_CustomerEncryption::set_key_sha256(const char* value) {
+inline void CustomerEncryption::set_key_sha256_bytes(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  key_sha256_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
-  // @@protoc_insertion_point(field_set_char:google.storage.v2.Object.CustomerEncryption.key_sha256)
+  key_sha256_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.CustomerEncryption.key_sha256_bytes)
 }
-inline void Object_CustomerEncryption::set_key_sha256(const char* value,
+inline void CustomerEncryption::set_key_sha256_bytes(const void* value,
     size_t size) {
   
-  key_sha256_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+  key_sha256_bytes_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.Object.CustomerEncryption.key_sha256)
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.CustomerEncryption.key_sha256_bytes)
 }
-inline std::string* Object_CustomerEncryption::_internal_mutable_key_sha256() {
+inline std::string* CustomerEncryption::_internal_mutable_key_sha256_bytes() {
   
-  return key_sha256_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+  return key_sha256_bytes_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
 }
-inline std::string* Object_CustomerEncryption::release_key_sha256() {
-  // @@protoc_insertion_point(field_release:google.storage.v2.Object.CustomerEncryption.key_sha256)
-  return key_sha256_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+inline std::string* CustomerEncryption::release_key_sha256_bytes() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.CustomerEncryption.key_sha256_bytes)
+  return key_sha256_bytes_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void Object_CustomerEncryption::set_allocated_key_sha256(std::string* key_sha256) {
-  if (key_sha256 != nullptr) {
+inline void CustomerEncryption::set_allocated_key_sha256_bytes(std::string* key_sha256_bytes) {
+  if (key_sha256_bytes != nullptr) {
     
   } else {
     
   }
-  key_sha256_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), key_sha256,
+  key_sha256_bytes_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), key_sha256_bytes,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Object.CustomerEncryption.key_sha256)
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.CustomerEncryption.key_sha256_bytes)
 }
 
 // -------------------------------------------------------------------
@@ -15793,7 +31903,7 @@ inline void Object::set_allocated_owner(::google::storage::v2::Owner* owner) {
   // @@protoc_insertion_point(field_set_allocated:google.storage.v2.Object.owner)
 }
 
-// .google.storage.v2.Object.CustomerEncryption customer_encryption = 25;
+// .google.storage.v2.CustomerEncryption customer_encryption = 25;
 inline bool Object::_internal_has_customer_encryption() const {
   return this != internal_default_instance() && customer_encryption_ != nullptr;
 }
@@ -15806,17 +31916,17 @@ inline void Object::clear_customer_encryption() {
   }
   customer_encryption_ = nullptr;
 }
-inline const ::google::storage::v2::Object_CustomerEncryption& Object::_internal_customer_encryption() const {
-  const ::google::storage::v2::Object_CustomerEncryption* p = customer_encryption_;
-  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::Object_CustomerEncryption&>(
-      ::google::storage::v2::_Object_CustomerEncryption_default_instance_);
+inline const ::google::storage::v2::CustomerEncryption& Object::_internal_customer_encryption() const {
+  const ::google::storage::v2::CustomerEncryption* p = customer_encryption_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::storage::v2::CustomerEncryption&>(
+      ::google::storage::v2::_CustomerEncryption_default_instance_);
 }
-inline const ::google::storage::v2::Object_CustomerEncryption& Object::customer_encryption() const {
+inline const ::google::storage::v2::CustomerEncryption& Object::customer_encryption() const {
   // @@protoc_insertion_point(field_get:google.storage.v2.Object.customer_encryption)
   return _internal_customer_encryption();
 }
 inline void Object::unsafe_arena_set_allocated_customer_encryption(
-    ::google::storage::v2::Object_CustomerEncryption* customer_encryption) {
+    ::google::storage::v2::CustomerEncryption* customer_encryption) {
   if (GetArena() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(customer_encryption_);
   }
@@ -15828,35 +31938,35 @@ inline void Object::unsafe_arena_set_allocated_customer_encryption(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.storage.v2.Object.customer_encryption)
 }
-inline ::google::storage::v2::Object_CustomerEncryption* Object::release_customer_encryption() {
+inline ::google::storage::v2::CustomerEncryption* Object::release_customer_encryption() {
   
-  ::google::storage::v2::Object_CustomerEncryption* temp = customer_encryption_;
+  ::google::storage::v2::CustomerEncryption* temp = customer_encryption_;
   customer_encryption_ = nullptr;
   if (GetArena() != nullptr) {
     temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
   }
   return temp;
 }
-inline ::google::storage::v2::Object_CustomerEncryption* Object::unsafe_arena_release_customer_encryption() {
+inline ::google::storage::v2::CustomerEncryption* Object::unsafe_arena_release_customer_encryption() {
   // @@protoc_insertion_point(field_release:google.storage.v2.Object.customer_encryption)
   
-  ::google::storage::v2::Object_CustomerEncryption* temp = customer_encryption_;
+  ::google::storage::v2::CustomerEncryption* temp = customer_encryption_;
   customer_encryption_ = nullptr;
   return temp;
 }
-inline ::google::storage::v2::Object_CustomerEncryption* Object::_internal_mutable_customer_encryption() {
+inline ::google::storage::v2::CustomerEncryption* Object::_internal_mutable_customer_encryption() {
   
   if (customer_encryption_ == nullptr) {
-    auto* p = CreateMaybeMessage<::google::storage::v2::Object_CustomerEncryption>(GetArena());
+    auto* p = CreateMaybeMessage<::google::storage::v2::CustomerEncryption>(GetArena());
     customer_encryption_ = p;
   }
   return customer_encryption_;
 }
-inline ::google::storage::v2::Object_CustomerEncryption* Object::mutable_customer_encryption() {
+inline ::google::storage::v2::CustomerEncryption* Object::mutable_customer_encryption() {
   // @@protoc_insertion_point(field_mutable:google.storage.v2.Object.customer_encryption)
   return _internal_mutable_customer_encryption();
 }
-inline void Object::set_allocated_customer_encryption(::google::storage::v2::Object_CustomerEncryption* customer_encryption) {
+inline void Object::set_allocated_customer_encryption(::google::storage::v2::CustomerEncryption* customer_encryption) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
   if (message_arena == nullptr) {
     delete customer_encryption_;
@@ -16408,6 +32518,184 @@ inline void ObjectAccessControl::set_allocated_project_team(::google::storage::v
 
 // -------------------------------------------------------------------
 
+// ListObjectsResponse
+
+// repeated .google.storage.v2.Object objects = 1;
+inline int ListObjectsResponse::_internal_objects_size() const {
+  return objects_.size();
+}
+inline int ListObjectsResponse::objects_size() const {
+  return _internal_objects_size();
+}
+inline void ListObjectsResponse::clear_objects() {
+  objects_.Clear();
+}
+inline ::google::storage::v2::Object* ListObjectsResponse::mutable_objects(int index) {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsResponse.objects)
+  return objects_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Object >*
+ListObjectsResponse::mutable_objects() {
+  // @@protoc_insertion_point(field_mutable_list:google.storage.v2.ListObjectsResponse.objects)
+  return &objects_;
+}
+inline const ::google::storage::v2::Object& ListObjectsResponse::_internal_objects(int index) const {
+  return objects_.Get(index);
+}
+inline const ::google::storage::v2::Object& ListObjectsResponse::objects(int index) const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsResponse.objects)
+  return _internal_objects(index);
+}
+inline ::google::storage::v2::Object* ListObjectsResponse::_internal_add_objects() {
+  return objects_.Add();
+}
+inline ::google::storage::v2::Object* ListObjectsResponse::add_objects() {
+  // @@protoc_insertion_point(field_add:google.storage.v2.ListObjectsResponse.objects)
+  return _internal_add_objects();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::google::storage::v2::Object >&
+ListObjectsResponse::objects() const {
+  // @@protoc_insertion_point(field_list:google.storage.v2.ListObjectsResponse.objects)
+  return objects_;
+}
+
+// repeated string prefixes = 2;
+inline int ListObjectsResponse::_internal_prefixes_size() const {
+  return prefixes_.size();
+}
+inline int ListObjectsResponse::prefixes_size() const {
+  return _internal_prefixes_size();
+}
+inline void ListObjectsResponse::clear_prefixes() {
+  prefixes_.Clear();
+}
+inline std::string* ListObjectsResponse::add_prefixes() {
+  // @@protoc_insertion_point(field_add_mutable:google.storage.v2.ListObjectsResponse.prefixes)
+  return _internal_add_prefixes();
+}
+inline const std::string& ListObjectsResponse::_internal_prefixes(int index) const {
+  return prefixes_.Get(index);
+}
+inline const std::string& ListObjectsResponse::prefixes(int index) const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsResponse.prefixes)
+  return _internal_prefixes(index);
+}
+inline std::string* ListObjectsResponse::mutable_prefixes(int index) {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsResponse.prefixes)
+  return prefixes_.Mutable(index);
+}
+inline void ListObjectsResponse::set_prefixes(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsResponse.prefixes)
+  prefixes_.Mutable(index)->assign(value);
+}
+inline void ListObjectsResponse::set_prefixes(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsResponse.prefixes)
+  prefixes_.Mutable(index)->assign(std::move(value));
+}
+inline void ListObjectsResponse::set_prefixes(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  prefixes_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListObjectsResponse.prefixes)
+}
+inline void ListObjectsResponse::set_prefixes(int index, const char* value, size_t size) {
+  prefixes_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListObjectsResponse.prefixes)
+}
+inline std::string* ListObjectsResponse::_internal_add_prefixes() {
+  return prefixes_.Add();
+}
+inline void ListObjectsResponse::add_prefixes(const std::string& value) {
+  prefixes_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:google.storage.v2.ListObjectsResponse.prefixes)
+}
+inline void ListObjectsResponse::add_prefixes(std::string&& value) {
+  prefixes_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:google.storage.v2.ListObjectsResponse.prefixes)
+}
+inline void ListObjectsResponse::add_prefixes(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  prefixes_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:google.storage.v2.ListObjectsResponse.prefixes)
+}
+inline void ListObjectsResponse::add_prefixes(const char* value, size_t size) {
+  prefixes_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:google.storage.v2.ListObjectsResponse.prefixes)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+ListObjectsResponse::prefixes() const {
+  // @@protoc_insertion_point(field_list:google.storage.v2.ListObjectsResponse.prefixes)
+  return prefixes_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+ListObjectsResponse::mutable_prefixes() {
+  // @@protoc_insertion_point(field_mutable_list:google.storage.v2.ListObjectsResponse.prefixes)
+  return &prefixes_;
+}
+
+// string next_page_token = 3;
+inline void ListObjectsResponse::clear_next_page_token() {
+  next_page_token_.ClearToEmpty();
+}
+inline const std::string& ListObjectsResponse::next_page_token() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ListObjectsResponse.next_page_token)
+  return _internal_next_page_token();
+}
+inline void ListObjectsResponse::set_next_page_token(const std::string& value) {
+  _internal_set_next_page_token(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ListObjectsResponse.next_page_token)
+}
+inline std::string* ListObjectsResponse::mutable_next_page_token() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ListObjectsResponse.next_page_token)
+  return _internal_mutable_next_page_token();
+}
+inline const std::string& ListObjectsResponse::_internal_next_page_token() const {
+  return next_page_token_.Get();
+}
+inline void ListObjectsResponse::_internal_set_next_page_token(const std::string& value) {
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ListObjectsResponse::set_next_page_token(std::string&& value) {
+  
+  next_page_token_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ListObjectsResponse.next_page_token)
+}
+inline void ListObjectsResponse::set_next_page_token(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ListObjectsResponse.next_page_token)
+}
+inline void ListObjectsResponse::set_next_page_token(const char* value,
+    size_t size) {
+  
+  next_page_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ListObjectsResponse.next_page_token)
+}
+inline std::string* ListObjectsResponse::_internal_mutable_next_page_token() {
+  
+  return next_page_token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ListObjectsResponse::release_next_page_token() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ListObjectsResponse.next_page_token)
+  return next_page_token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ListObjectsResponse::set_allocated_next_page_token(std::string* next_page_token) {
+  if (next_page_token != nullptr) {
+    
+  } else {
+    
+  }
+  next_page_token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), next_page_token,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ListObjectsResponse.next_page_token)
+}
+
+// -------------------------------------------------------------------
+
 // ProjectTeam
 
 // string project_number = 1;
@@ -16530,6 +32818,71 @@ inline void ProjectTeam::set_allocated_team(std::string* team) {
   team_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), team,
       GetArena());
   // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ProjectTeam.team)
+}
+
+// -------------------------------------------------------------------
+
+// ServiceAccount
+
+// string email_address = 1;
+inline void ServiceAccount::clear_email_address() {
+  email_address_.ClearToEmpty();
+}
+inline const std::string& ServiceAccount::email_address() const {
+  // @@protoc_insertion_point(field_get:google.storage.v2.ServiceAccount.email_address)
+  return _internal_email_address();
+}
+inline void ServiceAccount::set_email_address(const std::string& value) {
+  _internal_set_email_address(value);
+  // @@protoc_insertion_point(field_set:google.storage.v2.ServiceAccount.email_address)
+}
+inline std::string* ServiceAccount::mutable_email_address() {
+  // @@protoc_insertion_point(field_mutable:google.storage.v2.ServiceAccount.email_address)
+  return _internal_mutable_email_address();
+}
+inline const std::string& ServiceAccount::_internal_email_address() const {
+  return email_address_.Get();
+}
+inline void ServiceAccount::_internal_set_email_address(const std::string& value) {
+  
+  email_address_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArena());
+}
+inline void ServiceAccount::set_email_address(std::string&& value) {
+  
+  email_address_.Set(
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:google.storage.v2.ServiceAccount.email_address)
+}
+inline void ServiceAccount::set_email_address(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  email_address_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(value), GetArena());
+  // @@protoc_insertion_point(field_set_char:google.storage.v2.ServiceAccount.email_address)
+}
+inline void ServiceAccount::set_email_address(const char* value,
+    size_t size) {
+  
+  email_address_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:google.storage.v2.ServiceAccount.email_address)
+}
+inline std::string* ServiceAccount::_internal_mutable_email_address() {
+  
+  return email_address_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArena());
+}
+inline std::string* ServiceAccount::release_email_address() {
+  // @@protoc_insertion_point(field_release:google.storage.v2.ServiceAccount.email_address)
+  return email_address_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ServiceAccount::set_allocated_email_address(std::string* email_address) {
+  if (email_address != nullptr) {
+    
+  } else {
+    
+  }
+  email_address_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), email_address,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:google.storage.v2.ServiceAccount.email_address)
 }
 
 // -------------------------------------------------------------------
@@ -16797,6 +33150,76 @@ inline void ContentRange::set_complete_length(::PROTOBUF_NAMESPACE_ID::int64 val
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -16820,6 +33243,11 @@ template <> struct is_proto_enum< ::google::storage::v2::PredefinedObjectAcl> : 
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::google::storage::v2::PredefinedObjectAcl>() {
   return ::google::storage::v2::PredefinedObjectAcl_descriptor();
+}
+template <> struct is_proto_enum< ::google::storage::v2::PredefinedBucketAcl> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::google::storage::v2::PredefinedBucketAcl>() {
+  return ::google::storage::v2::PredefinedBucketAcl_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

@@ -32,13 +32,13 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "google/api/annotations.pb.h"
 #include "google/api/field_behavior.pb.h"
 #include "google/api/resource.pb.h"
 #include "google/longrunning/operations.pb.h"
 #include <google/protobuf/field_mask.pb.h>
 #include <google/protobuf/timestamp.pb.h>
 #include "google/spanner/admin/database/v1/common.pb.h"
-#include "google/api/annotations.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_google_2fspanner_2fadmin_2fdatabase_2fv1_2fbackup_2eproto
@@ -337,6 +337,7 @@ class Backup PROTOBUF_FINAL :
     kVersionTimeFieldNumber = 9,
     kSizeBytesFieldNumber = 5,
     kStateFieldNumber = 6,
+    kDatabaseDialectFieldNumber = 10,
   };
   // repeated string referencing_databases = 7 [(.google.api.field_behavior) = OUTPUT_ONLY, (.google.api.resource_reference) = {
   int referencing_databases_size() const;
@@ -484,6 +485,15 @@ class Backup PROTOBUF_FINAL :
   void _internal_set_state(::google::spanner::admin::database::v1::Backup_State value);
   public:
 
+  // .google.spanner.admin.database.v1.DatabaseDialect database_dialect = 10 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  void clear_database_dialect();
+  ::google::spanner::admin::database::v1::DatabaseDialect database_dialect() const;
+  void set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value);
+  private:
+  ::google::spanner::admin::database::v1::DatabaseDialect _internal_database_dialect() const;
+  void _internal_set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value);
+  public:
+
   // @@protoc_insertion_point(class_scope:google.spanner.admin.database.v1.Backup)
  private:
   class _Internal;
@@ -500,6 +510,7 @@ class Backup PROTOBUF_FINAL :
   PROTOBUF_NAMESPACE_ID::Timestamp* version_time_;
   ::PROTOBUF_NAMESPACE_ID::int64 size_bytes_;
   int state_;
+  int database_dialect_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fspanner_2fadmin_2fdatabase_2fv1_2fbackup_2eproto;
 };
@@ -3015,6 +3026,26 @@ inline void Backup::set_allocated_encryption_info(::google::spanner::admin::data
   }
   encryption_info_ = encryption_info;
   // @@protoc_insertion_point(field_set_allocated:google.spanner.admin.database.v1.Backup.encryption_info)
+}
+
+// .google.spanner.admin.database.v1.DatabaseDialect database_dialect = 10 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline void Backup::clear_database_dialect() {
+  database_dialect_ = 0;
+}
+inline ::google::spanner::admin::database::v1::DatabaseDialect Backup::_internal_database_dialect() const {
+  return static_cast< ::google::spanner::admin::database::v1::DatabaseDialect >(database_dialect_);
+}
+inline ::google::spanner::admin::database::v1::DatabaseDialect Backup::database_dialect() const {
+  // @@protoc_insertion_point(field_get:google.spanner.admin.database.v1.Backup.database_dialect)
+  return _internal_database_dialect();
+}
+inline void Backup::_internal_set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value) {
+  
+  database_dialect_ = value;
+}
+inline void Backup::set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value) {
+  _internal_set_database_dialect(value);
+  // @@protoc_insertion_point(field_set:google.spanner.admin.database.v1.Backup.database_dialect)
 }
 
 // -------------------------------------------------------------------

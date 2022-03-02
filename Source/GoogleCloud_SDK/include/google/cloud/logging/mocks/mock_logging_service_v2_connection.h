@@ -25,11 +25,13 @@
 namespace google {
 namespace cloud {
 namespace logging_mocks {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 class MockLoggingServiceV2Connection
     : public logging::LoggingServiceV2Connection {
  public:
+  MOCK_METHOD(Options, options, (), (override));
+
   MOCK_METHOD(Status, DeleteLog,
               (google::logging::v2::DeleteLogRequest const& request),
               (override));
@@ -50,9 +52,14 @@ class MockLoggingServiceV2Connection
 
   MOCK_METHOD(StreamRange<std::string>, ListLogs,
               (google::logging::v2::ListLogsRequest request), (override));
+
+  MOCK_METHOD((std::unique_ptr<::google::cloud::AsyncStreamingReadWriteRpc<
+                   google::logging::v2::TailLogEntriesRequest,
+                   google::logging::v2::TailLogEntriesResponse>>),
+              AsyncTailLogEntries, (), (override));
 };
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace logging_mocks
 }  // namespace cloud
 }  // namespace google

@@ -30,8 +30,12 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/map.h>  // IWYU pragma: export
+#include <google/protobuf/map_entry.h>
+#include <google/protobuf/map_field_inl.h>
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "google/api/field_behavior.pb.h"
 #include "google/api/resource.pb.h"
 #include <google/protobuf/duration.pb.h>
 #include <google/protobuf/timestamp.pb.h>
@@ -51,7 +55,7 @@ struct TableStruct_google_2fmonitoring_2fv3_2fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[20]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[22]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -89,6 +93,9 @@ extern ServiceLevelIndicatorDefaultTypeInternal _ServiceLevelIndicator_default_i
 class ServiceLevelObjective;
 struct ServiceLevelObjectiveDefaultTypeInternal;
 extern ServiceLevelObjectiveDefaultTypeInternal _ServiceLevelObjective_default_instance_;
+class ServiceLevelObjective_UserLabelsEntry_DoNotUse;
+struct ServiceLevelObjective_UserLabelsEntry_DoNotUseDefaultTypeInternal;
+extern ServiceLevelObjective_UserLabelsEntry_DoNotUseDefaultTypeInternal _ServiceLevelObjective_UserLabelsEntry_DoNotUse_default_instance_;
 class Service_AppEngine;
 struct Service_AppEngineDefaultTypeInternal;
 extern Service_AppEngineDefaultTypeInternal _Service_AppEngine_default_instance_;
@@ -110,6 +117,9 @@ extern Service_MeshIstioDefaultTypeInternal _Service_MeshIstio_default_instance_
 class Service_Telemetry;
 struct Service_TelemetryDefaultTypeInternal;
 extern Service_TelemetryDefaultTypeInternal _Service_Telemetry_default_instance_;
+class Service_UserLabelsEntry_DoNotUse;
+struct Service_UserLabelsEntry_DoNotUseDefaultTypeInternal;
+extern Service_UserLabelsEntry_DoNotUseDefaultTypeInternal _Service_UserLabelsEntry_DoNotUse_default_instance_;
 class TimeSeriesRatio;
 struct TimeSeriesRatioDefaultTypeInternal;
 extern TimeSeriesRatioDefaultTypeInternal _TimeSeriesRatio_default_instance_;
@@ -135,6 +145,7 @@ template<> ::google::monitoring::v3::RequestBasedSli* Arena::CreateMaybeMessage<
 template<> ::google::monitoring::v3::Service* Arena::CreateMaybeMessage<::google::monitoring::v3::Service>(Arena*);
 template<> ::google::monitoring::v3::ServiceLevelIndicator* Arena::CreateMaybeMessage<::google::monitoring::v3::ServiceLevelIndicator>(Arena*);
 template<> ::google::monitoring::v3::ServiceLevelObjective* Arena::CreateMaybeMessage<::google::monitoring::v3::ServiceLevelObjective>(Arena*);
+template<> ::google::monitoring::v3::ServiceLevelObjective_UserLabelsEntry_DoNotUse* Arena::CreateMaybeMessage<::google::monitoring::v3::ServiceLevelObjective_UserLabelsEntry_DoNotUse>(Arena*);
 template<> ::google::monitoring::v3::Service_AppEngine* Arena::CreateMaybeMessage<::google::monitoring::v3::Service_AppEngine>(Arena*);
 template<> ::google::monitoring::v3::Service_CloudEndpoints* Arena::CreateMaybeMessage<::google::monitoring::v3::Service_CloudEndpoints>(Arena*);
 template<> ::google::monitoring::v3::Service_ClusterIstio* Arena::CreateMaybeMessage<::google::monitoring::v3::Service_ClusterIstio>(Arena*);
@@ -142,6 +153,7 @@ template<> ::google::monitoring::v3::Service_Custom* Arena::CreateMaybeMessage<:
 template<> ::google::monitoring::v3::Service_IstioCanonicalService* Arena::CreateMaybeMessage<::google::monitoring::v3::Service_IstioCanonicalService>(Arena*);
 template<> ::google::monitoring::v3::Service_MeshIstio* Arena::CreateMaybeMessage<::google::monitoring::v3::Service_MeshIstio>(Arena*);
 template<> ::google::monitoring::v3::Service_Telemetry* Arena::CreateMaybeMessage<::google::monitoring::v3::Service_Telemetry>(Arena*);
+template<> ::google::monitoring::v3::Service_UserLabelsEntry_DoNotUse* Arena::CreateMaybeMessage<::google::monitoring::v3::Service_UserLabelsEntry_DoNotUse>(Arena*);
 template<> ::google::monitoring::v3::TimeSeriesRatio* Arena::CreateMaybeMessage<::google::monitoring::v3::TimeSeriesRatio>(Arena*);
 template<> ::google::monitoring::v3::WindowsBasedSli* Arena::CreateMaybeMessage<::google::monitoring::v3::WindowsBasedSli>(Arena*);
 template<> ::google::monitoring::v3::WindowsBasedSli_MetricRange* Arena::CreateMaybeMessage<::google::monitoring::v3::WindowsBasedSli_MetricRange>(Arena*);
@@ -1293,6 +1305,40 @@ class Service_Telemetry PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class Service_UserLabelsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Service_UserLabelsEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Service_UserLabelsEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> SuperType;
+  Service_UserLabelsEntry_DoNotUse();
+  explicit constexpr Service_UserLabelsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit Service_UserLabelsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Service_UserLabelsEntry_DoNotUse& other);
+  static const Service_UserLabelsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Service_UserLabelsEntry_DoNotUse*>(&_Service_UserLabelsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "google.monitoring.v3.Service.UserLabelsEntry.key");
+ }
+  static bool ValidateValue(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "google.monitoring.v3.Service.UserLabelsEntry.value");
+ }
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& other) final;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_google_2fmonitoring_2fv3_2fservice_2eproto);
+    return ::descriptor_table_google_2fmonitoring_2fv3_2fservice_2eproto.file_level_metadata[7];
+  }
+
+  public:
+};
+
+// -------------------------------------------------------------------
+
 class Service PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.monitoring.v3.Service) */ {
  public:
@@ -1346,7 +1392,7 @@ class Service PROTOBUF_FINAL :
                &_Service_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(Service& a, Service& b) {
     a.Swap(&b);
@@ -1424,6 +1470,7 @@ class Service PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kUserLabelsFieldNumber = 14,
     kNameFieldNumber = 1,
     kDisplayNameFieldNumber = 2,
     kTelemetryFieldNumber = 13,
@@ -1434,6 +1481,23 @@ class Service PROTOBUF_FINAL :
     kMeshIstioFieldNumber = 10,
     kIstioCanonicalServiceFieldNumber = 11,
   };
+  // map<string, string> user_labels = 14;
+  int user_labels_size() const;
+  private:
+  int _internal_user_labels_size() const;
+  public:
+  void clear_user_labels();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      _internal_user_labels() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      _internal_mutable_user_labels();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      user_labels() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      mutable_user_labels();
+
   // string name = 1;
   void clear_name();
   const std::string& name() const;
@@ -1610,6 +1674,11 @@ class Service PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      Service_UserLabelsEntry_DoNotUse,
+      std::string, std::string,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> user_labels_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr display_name_;
   ::google::monitoring::v3::Service_Telemetry* telemetry_;
@@ -1628,6 +1697,40 @@ class Service PROTOBUF_FINAL :
 
   friend struct ::TableStruct_google_2fmonitoring_2fv3_2fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class ServiceLevelObjective_UserLabelsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<ServiceLevelObjective_UserLabelsEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<ServiceLevelObjective_UserLabelsEntry_DoNotUse, 
+    std::string, std::string,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> SuperType;
+  ServiceLevelObjective_UserLabelsEntry_DoNotUse();
+  explicit constexpr ServiceLevelObjective_UserLabelsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit ServiceLevelObjective_UserLabelsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const ServiceLevelObjective_UserLabelsEntry_DoNotUse& other);
+  static const ServiceLevelObjective_UserLabelsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const ServiceLevelObjective_UserLabelsEntry_DoNotUse*>(&_ServiceLevelObjective_UserLabelsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "google.monitoring.v3.ServiceLevelObjective.UserLabelsEntry.key");
+ }
+  static bool ValidateValue(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "google.monitoring.v3.ServiceLevelObjective.UserLabelsEntry.value");
+ }
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& other) final;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_google_2fmonitoring_2fv3_2fservice_2eproto);
+    return ::descriptor_table_google_2fmonitoring_2fv3_2fservice_2eproto.file_level_metadata[9];
+  }
+
+  public:
+};
+
 // -------------------------------------------------------------------
 
 class ServiceLevelObjective PROTOBUF_FINAL :
@@ -1679,7 +1782,7 @@ class ServiceLevelObjective PROTOBUF_FINAL :
                &_ServiceLevelObjective_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(ServiceLevelObjective& a, ServiceLevelObjective& b) {
     a.Swap(&b);
@@ -1746,6 +1849,7 @@ class ServiceLevelObjective PROTOBUF_FINAL :
 
   // nested types ----------------------------------------------------
 
+
   typedef ServiceLevelObjective_View View;
   static constexpr View VIEW_UNSPECIFIED =
     ServiceLevelObjective_View_VIEW_UNSPECIFIED;
@@ -1781,6 +1885,7 @@ class ServiceLevelObjective PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kUserLabelsFieldNumber = 12,
     kNameFieldNumber = 1,
     kDisplayNameFieldNumber = 11,
     kServiceLevelIndicatorFieldNumber = 3,
@@ -1788,6 +1893,23 @@ class ServiceLevelObjective PROTOBUF_FINAL :
     kRollingPeriodFieldNumber = 5,
     kCalendarPeriodFieldNumber = 6,
   };
+  // map<string, string> user_labels = 12;
+  int user_labels_size() const;
+  private:
+  int _internal_user_labels_size() const;
+  public:
+  void clear_user_labels();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      _internal_user_labels() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      _internal_mutable_user_labels();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      user_labels() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      mutable_user_labels();
+
   // string name = 1;
   void clear_name();
   const std::string& name() const;
@@ -1892,6 +2014,11 @@ class ServiceLevelObjective PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      ServiceLevelObjective_UserLabelsEntry_DoNotUse,
+      std::string, std::string,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> user_labels_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr display_name_;
   ::google::monitoring::v3::ServiceLevelIndicator* service_level_indicator_;
@@ -1959,7 +2086,7 @@ class ServiceLevelIndicator PROTOBUF_FINAL :
                &_ServiceLevelIndicator_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(ServiceLevelIndicator& a, ServiceLevelIndicator& b) {
     a.Swap(&b);
@@ -2159,7 +2286,7 @@ class BasicSli_AvailabilityCriteria PROTOBUF_FINAL :
                &_BasicSli_AvailabilityCriteria_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(BasicSli_AvailabilityCriteria& a, BasicSli_AvailabilityCriteria& b) {
     a.Swap(&b);
@@ -2283,7 +2410,7 @@ class BasicSli_LatencyCriteria PROTOBUF_FINAL :
                &_BasicSli_LatencyCriteria_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(BasicSli_LatencyCriteria& a, BasicSli_LatencyCriteria& b) {
     a.Swap(&b);
@@ -2435,7 +2562,7 @@ class BasicSli PROTOBUF_FINAL :
                &_BasicSli_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(BasicSli& a, BasicSli& b) {
     a.Swap(&b);
@@ -2695,7 +2822,7 @@ class Range PROTOBUF_FINAL :
                &_Range_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(Range& a, Range& b) {
     a.Swap(&b);
@@ -2849,7 +2976,7 @@ class RequestBasedSli PROTOBUF_FINAL :
                &_RequestBasedSli_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(RequestBasedSli& a, RequestBasedSli& b) {
     a.Swap(&b);
@@ -3028,7 +3155,7 @@ class TimeSeriesRatio PROTOBUF_FINAL :
                &_TimeSeriesRatio_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(TimeSeriesRatio& a, TimeSeriesRatio& b) {
     a.Swap(&b);
@@ -3208,7 +3335,7 @@ class DistributionCut PROTOBUF_FINAL :
                &_DistributionCut_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(DistributionCut& a, DistributionCut& b) {
     a.Swap(&b);
@@ -3378,7 +3505,7 @@ class WindowsBasedSli_PerformanceThreshold PROTOBUF_FINAL :
                &_WindowsBasedSli_PerformanceThreshold_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(WindowsBasedSli_PerformanceThreshold& a, WindowsBasedSli_PerformanceThreshold& b) {
     a.Swap(&b);
@@ -3568,7 +3695,7 @@ class WindowsBasedSli_MetricRange PROTOBUF_FINAL :
                &_WindowsBasedSli_MetricRange_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(WindowsBasedSli_MetricRange& a, WindowsBasedSli_MetricRange& b) {
     a.Swap(&b);
@@ -3740,7 +3867,7 @@ class WindowsBasedSli PROTOBUF_FINAL :
                &_WindowsBasedSli_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(WindowsBasedSli& a, WindowsBasedSli& b) {
     a.Swap(&b);
@@ -4771,6 +4898,8 @@ inline void Service_Telemetry::set_allocated_resource_name(std::string* resource
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 // Service
 
 // string name = 1;
@@ -5416,6 +5545,35 @@ inline void Service::set_allocated_telemetry(::google::monitoring::v3::Service_T
   // @@protoc_insertion_point(field_set_allocated:google.monitoring.v3.Service.telemetry)
 }
 
+// map<string, string> user_labels = 14;
+inline int Service::_internal_user_labels_size() const {
+  return user_labels_.size();
+}
+inline int Service::user_labels_size() const {
+  return _internal_user_labels_size();
+}
+inline void Service::clear_user_labels() {
+  user_labels_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Service::_internal_user_labels() const {
+  return user_labels_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+Service::user_labels() const {
+  // @@protoc_insertion_point(field_map:google.monitoring.v3.Service.user_labels)
+  return _internal_user_labels();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Service::_internal_mutable_user_labels() {
+  return user_labels_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+Service::mutable_user_labels() {
+  // @@protoc_insertion_point(field_mutable_map:google.monitoring.v3.Service.user_labels)
+  return _internal_mutable_user_labels();
+}
+
 inline bool Service::has_identifier() const {
   return identifier_case() != IDENTIFIER_NOT_SET;
 }
@@ -5425,6 +5583,8 @@ inline void Service::clear_has_identifier() {
 inline Service::IdentifierCase Service::identifier_case() const {
   return Service::IdentifierCase(_oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // ServiceLevelObjective
@@ -5755,6 +5915,35 @@ inline void ServiceLevelObjective::_internal_set_calendar_period(::google::type:
 inline void ServiceLevelObjective::set_calendar_period(::google::type::CalendarPeriod value) {
   // @@protoc_insertion_point(field_set:google.monitoring.v3.ServiceLevelObjective.calendar_period)
   _internal_set_calendar_period(value);
+}
+
+// map<string, string> user_labels = 12;
+inline int ServiceLevelObjective::_internal_user_labels_size() const {
+  return user_labels_.size();
+}
+inline int ServiceLevelObjective::user_labels_size() const {
+  return _internal_user_labels_size();
+}
+inline void ServiceLevelObjective::clear_user_labels() {
+  user_labels_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+ServiceLevelObjective::_internal_user_labels() const {
+  return user_labels_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+ServiceLevelObjective::user_labels() const {
+  // @@protoc_insertion_point(field_map:google.monitoring.v3.ServiceLevelObjective.user_labels)
+  return _internal_user_labels();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+ServiceLevelObjective::_internal_mutable_user_labels() {
+  return user_labels_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+ServiceLevelObjective::mutable_user_labels() {
+  // @@protoc_insertion_point(field_mutable_map:google.monitoring.v3.ServiceLevelObjective.user_labels)
+  return _internal_mutable_user_labels();
 }
 
 inline bool ServiceLevelObjective::has_period() const {
@@ -7751,6 +7940,10 @@ inline WindowsBasedSli::WindowCriterionCase WindowsBasedSli::window_criterion_ca
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

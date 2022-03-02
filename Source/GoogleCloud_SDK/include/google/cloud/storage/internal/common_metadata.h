@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 /// A simple wrapper for the `owner` field in `internal::CommonMetadata`.
 struct Owner {
   std::string entity;
@@ -60,7 +60,8 @@ inline bool operator>=(Owner const& lhs, Owner const& rhs) {
 }
 
 namespace internal {
-class GrpcClient;
+struct GrpcBucketMetadataParser;
+struct GrpcObjectMetadataParser;
 template <typename Derived>
 struct CommonMetadataParser;
 
@@ -101,7 +102,8 @@ class CommonMetadata {
   std::chrono::system_clock::time_point updated() const { return updated_; }
 
  private:
-  friend class GrpcClient;
+  friend struct GrpcBucketMetadataParser;
+  friend struct GrpcObjectMetadataParser;
   template <typename ParserDerived>
   friend struct CommonMetadataParser;
 
@@ -142,7 +144,7 @@ inline bool operator!=(CommonMetadata<T> const& lhs,
 }
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

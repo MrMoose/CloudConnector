@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 
 class GrpcAuthenticationStrategy {
@@ -42,6 +42,9 @@ class GrpcAuthenticationStrategy {
 };
 
 std::shared_ptr<GrpcAuthenticationStrategy> CreateAuthenticationStrategy(
+    google::cloud::CompletionQueue cq, Options const& options);
+
+std::shared_ptr<GrpcAuthenticationStrategy> CreateAuthenticationStrategy(
     std::shared_ptr<Credentials> const& credentials, CompletionQueue cq,
     Options options = {});
 
@@ -51,7 +54,7 @@ std::shared_ptr<GrpcAuthenticationStrategy> CreateAuthenticationStrategy(
 absl::optional<std::string> LoadCAInfo(Options const& opts);
 
 }  // namespace internal
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

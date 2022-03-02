@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/bigtable/admin/v2/bigtable_instance_admin.proto
 // Original file comments:
-// Copyright 2020 Google LLC
+// Copyright 2021 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -57,6 +57,12 @@ class BigtableInstanceAdmin final {
    public:
     virtual ~StubInterface() {}
     // Create an instance within a project.
+    //
+    // Note that exactly one of Cluster.serve_nodes and
+    // Cluster.cluster_config.cluster_autoscaling_config can be set. If
+    // serve_nodes is set to non-zero, then the cluster is manually scaled. If
+    // cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+    // enabled.
     virtual ::grpc::Status CreateInstance(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateInstanceRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncCreateInstance(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateInstanceRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncCreateInstanceRaw(context, request, cq));
@@ -108,6 +114,12 @@ class BigtableInstanceAdmin final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteInstanceRaw(context, request, cq));
     }
     // Creates a cluster within an instance.
+    //
+    // Note that exactly one of Cluster.serve_nodes and
+    // Cluster.cluster_config.cluster_autoscaling_config can be set. If
+    // serve_nodes is set to non-zero, then the cluster is manually scaled. If
+    // cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+    // enabled.
     virtual ::grpc::Status CreateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateClusterRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncCreateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateClusterRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncCreateClusterRaw(context, request, cq));
@@ -132,12 +144,35 @@ class BigtableInstanceAdmin final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListClustersResponse>>(PrepareAsyncListClustersRaw(context, request, cq));
     }
     // Updates a cluster within an instance.
+    //
+    // Note that UpdateCluster does not support updating
+    // cluster_config.cluster_autoscaling_config. In order to update it, you
+    // must use PartialUpdateCluster.
     virtual ::grpc::Status UpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncUpdateClusterRaw(context, request, cq));
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncUpdateClusterRaw(context, request, cq));
+    }
+    // Partially updates a cluster within a project. This method is the preferred
+    // way to update a Cluster.
+    //
+    // To enable and update autoscaling, set
+    // cluster_config.cluster_autoscaling_config. When autoscaling is enabled,
+    // serve_nodes is treated as an OUTPUT_ONLY field, meaning that updates to it
+    // are ignored. Note that an update cannot simultaneously set serve_nodes to
+    // non-zero and cluster_config.cluster_autoscaling_config to non-empty, and
+    // also specify both in the update_mask.
+    //
+    // To disable autoscaling, clear cluster_config.cluster_autoscaling_config,
+    // and explicitly set a serve_node count via the update_mask.
+    virtual ::grpc::Status PartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::google::longrunning::Operation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncPartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncPartialUpdateClusterRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncPartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncPartialUpdateClusterRaw(context, request, cq));
     }
     // Deletes a cluster from an instance.
     virtual ::grpc::Status DeleteCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest& request, ::google::protobuf::Empty* response) = 0;
@@ -217,6 +252,12 @@ class BigtableInstanceAdmin final {
      public:
       virtual ~async_interface() {}
       // Create an instance within a project.
+      //
+      // Note that exactly one of Cluster.serve_nodes and
+      // Cluster.cluster_config.cluster_autoscaling_config can be set. If
+      // serve_nodes is set to non-zero, then the cluster is manually scaled. If
+      // cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+      // enabled.
       virtual void CreateInstance(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateInstanceRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateInstance(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateInstanceRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Gets information about an instance.
@@ -238,6 +279,12 @@ class BigtableInstanceAdmin final {
       virtual void DeleteInstance(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteInstanceRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteInstance(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteInstanceRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Creates a cluster within an instance.
+      //
+      // Note that exactly one of Cluster.serve_nodes and
+      // Cluster.cluster_config.cluster_autoscaling_config can be set. If
+      // serve_nodes is set to non-zero, then the cluster is manually scaled. If
+      // cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+      // enabled.
       virtual void CreateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateClusterRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateClusterRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Gets information about a cluster.
@@ -247,8 +294,26 @@ class BigtableInstanceAdmin final {
       virtual void ListClusters(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListClustersRequest* request, ::google::bigtable::admin::v2::ListClustersResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListClusters(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListClustersRequest* request, ::google::bigtable::admin::v2::ListClustersResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Updates a cluster within an instance.
+      //
+      // Note that UpdateCluster does not support updating
+      // cluster_config.cluster_autoscaling_config. In order to update it, you
+      // must use PartialUpdateCluster.
       virtual void UpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Partially updates a cluster within a project. This method is the preferred
+      // way to update a Cluster.
+      //
+      // To enable and update autoscaling, set
+      // cluster_config.cluster_autoscaling_config. When autoscaling is enabled,
+      // serve_nodes is treated as an OUTPUT_ONLY field, meaning that updates to it
+      // are ignored. Note that an update cannot simultaneously set serve_nodes to
+      // non-zero and cluster_config.cluster_autoscaling_config to non-empty, and
+      // also specify both in the update_mask.
+      //
+      // To disable autoscaling, clear cluster_config.cluster_autoscaling_config,
+      // and explicitly set a serve_node count via the update_mask.
+      virtual void PartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void PartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Deletes a cluster from an instance.
       virtual void DeleteCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -303,6 +368,8 @@ class BigtableInstanceAdmin final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListClustersResponse>* PrepareAsyncListClustersRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListClustersRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncUpdateClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncUpdateClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncPartialUpdateClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncPartialUpdateClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::AppProfile>* AsyncCreateAppProfileRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateAppProfileRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -395,6 +462,13 @@ class BigtableInstanceAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncUpdateClusterRaw(context, request, cq));
     }
+    ::grpc::Status PartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::google::longrunning::Operation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncPartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncPartialUpdateClusterRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncPartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncPartialUpdateClusterRaw(context, request, cq));
+    }
     ::grpc::Status DeleteCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest& request, ::google::protobuf::Empty* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteClusterRaw(context, request, cq));
@@ -481,6 +555,8 @@ class BigtableInstanceAdmin final {
       void ListClusters(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListClustersRequest* request, ::google::bigtable::admin::v2::ListClustersResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
       void UpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void PartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
+      void PartialUpdateCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
       void DeleteCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
       void DeleteCluster(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CreateAppProfile(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateAppProfileRequest* request, ::google::bigtable::admin::v2::AppProfile* response, std::function<void(::grpc::Status)>) override;
@@ -530,6 +606,8 @@ class BigtableInstanceAdmin final {
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::ListClustersResponse>* PrepareAsyncListClustersRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListClustersRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncUpdateClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncUpdateClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::Cluster& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncPartialUpdateClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncPartialUpdateClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteClusterRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::AppProfile>* AsyncCreateAppProfileRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateAppProfileRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -558,6 +636,7 @@ class BigtableInstanceAdmin final {
     const ::grpc::internal::RpcMethod rpcmethod_GetCluster_;
     const ::grpc::internal::RpcMethod rpcmethod_ListClusters_;
     const ::grpc::internal::RpcMethod rpcmethod_UpdateCluster_;
+    const ::grpc::internal::RpcMethod rpcmethod_PartialUpdateCluster_;
     const ::grpc::internal::RpcMethod rpcmethod_DeleteCluster_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateAppProfile_;
     const ::grpc::internal::RpcMethod rpcmethod_GetAppProfile_;
@@ -575,6 +654,12 @@ class BigtableInstanceAdmin final {
     Service();
     virtual ~Service();
     // Create an instance within a project.
+    //
+    // Note that exactly one of Cluster.serve_nodes and
+    // Cluster.cluster_config.cluster_autoscaling_config can be set. If
+    // serve_nodes is set to non-zero, then the cluster is manually scaled. If
+    // cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+    // enabled.
     virtual ::grpc::Status CreateInstance(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::CreateInstanceRequest* request, ::google::longrunning::Operation* response);
     // Gets information about an instance.
     virtual ::grpc::Status GetInstance(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::GetInstanceRequest* request, ::google::bigtable::admin::v2::Instance* response);
@@ -590,13 +675,36 @@ class BigtableInstanceAdmin final {
     // Delete an instance from a project.
     virtual ::grpc::Status DeleteInstance(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::DeleteInstanceRequest* request, ::google::protobuf::Empty* response);
     // Creates a cluster within an instance.
+    //
+    // Note that exactly one of Cluster.serve_nodes and
+    // Cluster.cluster_config.cluster_autoscaling_config can be set. If
+    // serve_nodes is set to non-zero, then the cluster is manually scaled. If
+    // cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+    // enabled.
     virtual ::grpc::Status CreateCluster(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::CreateClusterRequest* request, ::google::longrunning::Operation* response);
     // Gets information about a cluster.
     virtual ::grpc::Status GetCluster(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::GetClusterRequest* request, ::google::bigtable::admin::v2::Cluster* response);
     // Lists information about clusters in an instance.
     virtual ::grpc::Status ListClusters(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::ListClustersRequest* request, ::google::bigtable::admin::v2::ListClustersResponse* response);
     // Updates a cluster within an instance.
+    //
+    // Note that UpdateCluster does not support updating
+    // cluster_config.cluster_autoscaling_config. In order to update it, you
+    // must use PartialUpdateCluster.
     virtual ::grpc::Status UpdateCluster(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::Cluster* request, ::google::longrunning::Operation* response);
+    // Partially updates a cluster within a project. This method is the preferred
+    // way to update a Cluster.
+    //
+    // To enable and update autoscaling, set
+    // cluster_config.cluster_autoscaling_config. When autoscaling is enabled,
+    // serve_nodes is treated as an OUTPUT_ONLY field, meaning that updates to it
+    // are ignored. Note that an update cannot simultaneously set serve_nodes to
+    // non-zero and cluster_config.cluster_autoscaling_config to non-empty, and
+    // also specify both in the update_mask.
+    //
+    // To disable autoscaling, clear cluster_config.cluster_autoscaling_config,
+    // and explicitly set a serve_node count via the update_mask.
+    virtual ::grpc::Status PartialUpdateCluster(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* request, ::google::longrunning::Operation* response);
     // Deletes a cluster from an instance.
     virtual ::grpc::Status DeleteCluster(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest* request, ::google::protobuf::Empty* response);
     // Creates an app profile within an instance.
@@ -819,12 +927,32 @@ class BigtableInstanceAdmin final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_PartialUpdateCluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_PartialUpdateCluster() {
+      ::grpc::Service::MarkMethodAsync(10);
+    }
+    ~WithAsyncMethod_PartialUpdateCluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PartialUpdateCluster(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestPartialUpdateCluster(::grpc::ServerContext* context, ::google::bigtable::admin::v2::PartialUpdateClusterRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_DeleteCluster : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteCluster() {
-      ::grpc::Service::MarkMethodAsync(10);
+      ::grpc::Service::MarkMethodAsync(11);
     }
     ~WithAsyncMethod_DeleteCluster() override {
       BaseClassMustBeDerivedFromService(this);
@@ -835,7 +963,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteCluster(::grpc::ServerContext* context, ::google::bigtable::admin::v2::DeleteClusterRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -844,7 +972,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CreateAppProfile() {
-      ::grpc::Service::MarkMethodAsync(11);
+      ::grpc::Service::MarkMethodAsync(12);
     }
     ~WithAsyncMethod_CreateAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -855,7 +983,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateAppProfile(::grpc::ServerContext* context, ::google::bigtable::admin::v2::CreateAppProfileRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::AppProfile>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -864,7 +992,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetAppProfile() {
-      ::grpc::Service::MarkMethodAsync(12);
+      ::grpc::Service::MarkMethodAsync(13);
     }
     ~WithAsyncMethod_GetAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -875,7 +1003,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetAppProfile(::grpc::ServerContext* context, ::google::bigtable::admin::v2::GetAppProfileRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::AppProfile>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -884,7 +1012,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ListAppProfiles() {
-      ::grpc::Service::MarkMethodAsync(13);
+      ::grpc::Service::MarkMethodAsync(14);
     }
     ~WithAsyncMethod_ListAppProfiles() override {
       BaseClassMustBeDerivedFromService(this);
@@ -895,7 +1023,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListAppProfiles(::grpc::ServerContext* context, ::google::bigtable::admin::v2::ListAppProfilesRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::ListAppProfilesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -904,7 +1032,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateAppProfile() {
-      ::grpc::Service::MarkMethodAsync(14);
+      ::grpc::Service::MarkMethodAsync(15);
     }
     ~WithAsyncMethod_UpdateAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -915,7 +1043,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateAppProfile(::grpc::ServerContext* context, ::google::bigtable::admin::v2::UpdateAppProfileRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -924,7 +1052,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteAppProfile() {
-      ::grpc::Service::MarkMethodAsync(15);
+      ::grpc::Service::MarkMethodAsync(16);
     }
     ~WithAsyncMethod_DeleteAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -935,7 +1063,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteAppProfile(::grpc::ServerContext* context, ::google::bigtable::admin::v2::DeleteAppProfileRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -944,7 +1072,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodAsync(16);
+      ::grpc::Service::MarkMethodAsync(17);
     }
     ~WithAsyncMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -955,7 +1083,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetIamPolicy(::grpc::ServerContext* context, ::google::iam::v1::GetIamPolicyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::Policy>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -964,7 +1092,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodAsync(17);
+      ::grpc::Service::MarkMethodAsync(18);
     }
     ~WithAsyncMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -975,7 +1103,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetIamPolicy(::grpc::ServerContext* context, ::google::iam::v1::SetIamPolicyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::Policy>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -984,7 +1112,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodAsync(18);
+      ::grpc::Service::MarkMethodAsync(19);
     }
     ~WithAsyncMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
@@ -995,10 +1123,10 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestTestIamPermissions(::grpc::ServerContext* context, ::google::iam::v1::TestIamPermissionsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::TestIamPermissionsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CreateInstance<WithAsyncMethod_GetInstance<WithAsyncMethod_ListInstances<WithAsyncMethod_UpdateInstance<WithAsyncMethod_PartialUpdateInstance<WithAsyncMethod_DeleteInstance<WithAsyncMethod_CreateCluster<WithAsyncMethod_GetCluster<WithAsyncMethod_ListClusters<WithAsyncMethod_UpdateCluster<WithAsyncMethod_DeleteCluster<WithAsyncMethod_CreateAppProfile<WithAsyncMethod_GetAppProfile<WithAsyncMethod_ListAppProfiles<WithAsyncMethod_UpdateAppProfile<WithAsyncMethod_DeleteAppProfile<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_CreateInstance<WithAsyncMethod_GetInstance<WithAsyncMethod_ListInstances<WithAsyncMethod_UpdateInstance<WithAsyncMethod_PartialUpdateInstance<WithAsyncMethod_DeleteInstance<WithAsyncMethod_CreateCluster<WithAsyncMethod_GetCluster<WithAsyncMethod_ListClusters<WithAsyncMethod_UpdateCluster<WithAsyncMethod_PartialUpdateCluster<WithAsyncMethod_DeleteCluster<WithAsyncMethod_CreateAppProfile<WithAsyncMethod_GetAppProfile<WithAsyncMethod_ListAppProfiles<WithAsyncMethod_UpdateAppProfile<WithAsyncMethod_DeleteAppProfile<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CreateInstance : public BaseClass {
    private:
@@ -1270,18 +1398,45 @@ class BigtableInstanceAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::Cluster* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_PartialUpdateCluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_PartialUpdateCluster() {
+      ::grpc::Service::MarkMethodCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::PartialUpdateClusterRequest, ::google::longrunning::Operation>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* request, ::google::longrunning::Operation* response) { return this->PartialUpdateCluster(context, request, response); }));}
+    void SetMessageAllocatorFor_PartialUpdateCluster(
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::PartialUpdateClusterRequest, ::google::longrunning::Operation>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::PartialUpdateClusterRequest, ::google::longrunning::Operation>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_PartialUpdateCluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PartialUpdateCluster(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* PartialUpdateCluster(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_DeleteCluster : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DeleteCluster() {
-      ::grpc::Service::MarkMethodCallback(10,
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteClusterRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DeleteClusterRequest* request, ::google::protobuf::Empty* response) { return this->DeleteCluster(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteCluster(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DeleteClusterRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteClusterRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1302,13 +1457,13 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_CreateAppProfile() {
-      ::grpc::Service::MarkMethodCallback(11,
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateAppProfileRequest, ::google::bigtable::admin::v2::AppProfile>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::CreateAppProfileRequest* request, ::google::bigtable::admin::v2::AppProfile* response) { return this->CreateAppProfile(context, request, response); }));}
     void SetMessageAllocatorFor_CreateAppProfile(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::CreateAppProfileRequest, ::google::bigtable::admin::v2::AppProfile>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateAppProfileRequest, ::google::bigtable::admin::v2::AppProfile>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1329,13 +1484,13 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetAppProfile() {
-      ::grpc::Service::MarkMethodCallback(12,
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetAppProfileRequest, ::google::bigtable::admin::v2::AppProfile>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::GetAppProfileRequest* request, ::google::bigtable::admin::v2::AppProfile* response) { return this->GetAppProfile(context, request, response); }));}
     void SetMessageAllocatorFor_GetAppProfile(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::GetAppProfileRequest, ::google::bigtable::admin::v2::AppProfile>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetAppProfileRequest, ::google::bigtable::admin::v2::AppProfile>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1356,13 +1511,13 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ListAppProfiles() {
-      ::grpc::Service::MarkMethodCallback(13,
+      ::grpc::Service::MarkMethodCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListAppProfilesRequest, ::google::bigtable::admin::v2::ListAppProfilesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::ListAppProfilesRequest* request, ::google::bigtable::admin::v2::ListAppProfilesResponse* response) { return this->ListAppProfiles(context, request, response); }));}
     void SetMessageAllocatorFor_ListAppProfiles(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::ListAppProfilesRequest, ::google::bigtable::admin::v2::ListAppProfilesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListAppProfilesRequest, ::google::bigtable::admin::v2::ListAppProfilesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1383,13 +1538,13 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_UpdateAppProfile() {
-      ::grpc::Service::MarkMethodCallback(14,
+      ::grpc::Service::MarkMethodCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UpdateAppProfileRequest, ::google::longrunning::Operation>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::UpdateAppProfileRequest* request, ::google::longrunning::Operation* response) { return this->UpdateAppProfile(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateAppProfile(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::UpdateAppProfileRequest, ::google::longrunning::Operation>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UpdateAppProfileRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1410,13 +1565,13 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DeleteAppProfile() {
-      ::grpc::Service::MarkMethodCallback(15,
+      ::grpc::Service::MarkMethodCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteAppProfileRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DeleteAppProfileRequest* request, ::google::protobuf::Empty* response) { return this->DeleteAppProfile(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteAppProfile(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DeleteAppProfileRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteAppProfileRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1437,13 +1592,13 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodCallback(16,
+      ::grpc::Service::MarkMethodCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_GetIamPolicy(
         ::grpc::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1464,13 +1619,13 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodCallback(17,
+      ::grpc::Service::MarkMethodCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_SetIamPolicy(
         ::grpc::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1491,13 +1646,13 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodCallback(18,
+      ::grpc::Service::MarkMethodCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
     void SetMessageAllocatorFor_TestIamPermissions(
         ::grpc::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1512,7 +1667,7 @@ class BigtableInstanceAdmin final {
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
       ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_CreateInstance<WithCallbackMethod_GetInstance<WithCallbackMethod_ListInstances<WithCallbackMethod_UpdateInstance<WithCallbackMethod_PartialUpdateInstance<WithCallbackMethod_DeleteInstance<WithCallbackMethod_CreateCluster<WithCallbackMethod_GetCluster<WithCallbackMethod_ListClusters<WithCallbackMethod_UpdateCluster<WithCallbackMethod_DeleteCluster<WithCallbackMethod_CreateAppProfile<WithCallbackMethod_GetAppProfile<WithCallbackMethod_ListAppProfiles<WithCallbackMethod_UpdateAppProfile<WithCallbackMethod_DeleteAppProfile<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef WithCallbackMethod_CreateInstance<WithCallbackMethod_GetInstance<WithCallbackMethod_ListInstances<WithCallbackMethod_UpdateInstance<WithCallbackMethod_PartialUpdateInstance<WithCallbackMethod_DeleteInstance<WithCallbackMethod_CreateCluster<WithCallbackMethod_GetCluster<WithCallbackMethod_ListClusters<WithCallbackMethod_UpdateCluster<WithCallbackMethod_PartialUpdateCluster<WithCallbackMethod_DeleteCluster<WithCallbackMethod_CreateAppProfile<WithCallbackMethod_GetAppProfile<WithCallbackMethod_ListAppProfiles<WithCallbackMethod_UpdateAppProfile<WithCallbackMethod_DeleteAppProfile<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateInstance : public BaseClass {
@@ -1685,12 +1840,29 @@ class BigtableInstanceAdmin final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_PartialUpdateCluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_PartialUpdateCluster() {
+      ::grpc::Service::MarkMethodGeneric(10);
+    }
+    ~WithGenericMethod_PartialUpdateCluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PartialUpdateCluster(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_DeleteCluster : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteCluster() {
-      ::grpc::Service::MarkMethodGeneric(10);
+      ::grpc::Service::MarkMethodGeneric(11);
     }
     ~WithGenericMethod_DeleteCluster() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1707,7 +1879,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CreateAppProfile() {
-      ::grpc::Service::MarkMethodGeneric(11);
+      ::grpc::Service::MarkMethodGeneric(12);
     }
     ~WithGenericMethod_CreateAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1724,7 +1896,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetAppProfile() {
-      ::grpc::Service::MarkMethodGeneric(12);
+      ::grpc::Service::MarkMethodGeneric(13);
     }
     ~WithGenericMethod_GetAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1741,7 +1913,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ListAppProfiles() {
-      ::grpc::Service::MarkMethodGeneric(13);
+      ::grpc::Service::MarkMethodGeneric(14);
     }
     ~WithGenericMethod_ListAppProfiles() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1758,7 +1930,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateAppProfile() {
-      ::grpc::Service::MarkMethodGeneric(14);
+      ::grpc::Service::MarkMethodGeneric(15);
     }
     ~WithGenericMethod_UpdateAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1775,7 +1947,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteAppProfile() {
-      ::grpc::Service::MarkMethodGeneric(15);
+      ::grpc::Service::MarkMethodGeneric(16);
     }
     ~WithGenericMethod_DeleteAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1792,7 +1964,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodGeneric(16);
+      ::grpc::Service::MarkMethodGeneric(17);
     }
     ~WithGenericMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1809,7 +1981,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodGeneric(17);
+      ::grpc::Service::MarkMethodGeneric(18);
     }
     ~WithGenericMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1826,7 +1998,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodGeneric(18);
+      ::grpc::Service::MarkMethodGeneric(19);
     }
     ~WithGenericMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2038,12 +2210,32 @@ class BigtableInstanceAdmin final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_PartialUpdateCluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_PartialUpdateCluster() {
+      ::grpc::Service::MarkMethodRaw(10);
+    }
+    ~WithRawMethod_PartialUpdateCluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PartialUpdateCluster(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestPartialUpdateCluster(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_DeleteCluster : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteCluster() {
-      ::grpc::Service::MarkMethodRaw(10);
+      ::grpc::Service::MarkMethodRaw(11);
     }
     ~WithRawMethod_DeleteCluster() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2054,7 +2246,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteCluster(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2063,7 +2255,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CreateAppProfile() {
-      ::grpc::Service::MarkMethodRaw(11);
+      ::grpc::Service::MarkMethodRaw(12);
     }
     ~WithRawMethod_CreateAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2074,7 +2266,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateAppProfile(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2083,7 +2275,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetAppProfile() {
-      ::grpc::Service::MarkMethodRaw(12);
+      ::grpc::Service::MarkMethodRaw(13);
     }
     ~WithRawMethod_GetAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2094,7 +2286,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetAppProfile(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2103,7 +2295,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ListAppProfiles() {
-      ::grpc::Service::MarkMethodRaw(13);
+      ::grpc::Service::MarkMethodRaw(14);
     }
     ~WithRawMethod_ListAppProfiles() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2114,7 +2306,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListAppProfiles(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2123,7 +2315,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateAppProfile() {
-      ::grpc::Service::MarkMethodRaw(14);
+      ::grpc::Service::MarkMethodRaw(15);
     }
     ~WithRawMethod_UpdateAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2134,7 +2326,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateAppProfile(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2143,7 +2335,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteAppProfile() {
-      ::grpc::Service::MarkMethodRaw(15);
+      ::grpc::Service::MarkMethodRaw(16);
     }
     ~WithRawMethod_DeleteAppProfile() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2154,7 +2346,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteAppProfile(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2163,7 +2355,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodRaw(16);
+      ::grpc::Service::MarkMethodRaw(17);
     }
     ~WithRawMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2174,7 +2366,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetIamPolicy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2183,7 +2375,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodRaw(17);
+      ::grpc::Service::MarkMethodRaw(18);
     }
     ~WithRawMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2194,7 +2386,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetIamPolicy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2203,7 +2395,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodRaw(18);
+      ::grpc::Service::MarkMethodRaw(19);
     }
     ~WithRawMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2214,7 +2406,7 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestTestIamPermissions(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2438,12 +2630,34 @@ class BigtableInstanceAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_PartialUpdateCluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_PartialUpdateCluster() {
+      ::grpc::Service::MarkMethodRawCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PartialUpdateCluster(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_PartialUpdateCluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PartialUpdateCluster(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* PartialUpdateCluster(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_DeleteCluster : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DeleteCluster() {
-      ::grpc::Service::MarkMethodRawCallback(10,
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteCluster(context, request, response); }));
@@ -2465,7 +2679,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_CreateAppProfile() {
-      ::grpc::Service::MarkMethodRawCallback(11,
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateAppProfile(context, request, response); }));
@@ -2487,7 +2701,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetAppProfile() {
-      ::grpc::Service::MarkMethodRawCallback(12,
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAppProfile(context, request, response); }));
@@ -2509,7 +2723,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ListAppProfiles() {
-      ::grpc::Service::MarkMethodRawCallback(13,
+      ::grpc::Service::MarkMethodRawCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListAppProfiles(context, request, response); }));
@@ -2531,7 +2745,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_UpdateAppProfile() {
-      ::grpc::Service::MarkMethodRawCallback(14,
+      ::grpc::Service::MarkMethodRawCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateAppProfile(context, request, response); }));
@@ -2553,7 +2767,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DeleteAppProfile() {
-      ::grpc::Service::MarkMethodRawCallback(15,
+      ::grpc::Service::MarkMethodRawCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteAppProfile(context, request, response); }));
@@ -2575,7 +2789,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodRawCallback(16,
+      ::grpc::Service::MarkMethodRawCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
@@ -2597,7 +2811,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodRawCallback(17,
+      ::grpc::Service::MarkMethodRawCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
@@ -2619,7 +2833,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodRawCallback(18,
+      ::grpc::Service::MarkMethodRawCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
@@ -2906,12 +3120,39 @@ class BigtableInstanceAdmin final {
     virtual ::grpc::Status StreamedUpdateCluster(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::admin::v2::Cluster,::google::longrunning::Operation>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_PartialUpdateCluster : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_PartialUpdateCluster() {
+      ::grpc::Service::MarkMethodStreamed(10,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::bigtable::admin::v2::PartialUpdateClusterRequest, ::google::longrunning::Operation>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::bigtable::admin::v2::PartialUpdateClusterRequest, ::google::longrunning::Operation>* streamer) {
+                       return this->StreamedPartialUpdateCluster(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_PartialUpdateCluster() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status PartialUpdateCluster(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedPartialUpdateCluster(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::admin::v2::PartialUpdateClusterRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_DeleteCluster : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteCluster() {
-      ::grpc::Service::MarkMethodStreamed(10,
+      ::grpc::Service::MarkMethodStreamed(11,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::DeleteClusterRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -2938,7 +3179,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CreateAppProfile() {
-      ::grpc::Service::MarkMethodStreamed(11,
+      ::grpc::Service::MarkMethodStreamed(12,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::CreateAppProfileRequest, ::google::bigtable::admin::v2::AppProfile>(
             [this](::grpc::ServerContext* context,
@@ -2965,7 +3206,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetAppProfile() {
-      ::grpc::Service::MarkMethodStreamed(12,
+      ::grpc::Service::MarkMethodStreamed(13,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::GetAppProfileRequest, ::google::bigtable::admin::v2::AppProfile>(
             [this](::grpc::ServerContext* context,
@@ -2992,7 +3233,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ListAppProfiles() {
-      ::grpc::Service::MarkMethodStreamed(13,
+      ::grpc::Service::MarkMethodStreamed(14,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::ListAppProfilesRequest, ::google::bigtable::admin::v2::ListAppProfilesResponse>(
             [this](::grpc::ServerContext* context,
@@ -3019,7 +3260,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateAppProfile() {
-      ::grpc::Service::MarkMethodStreamed(14,
+      ::grpc::Service::MarkMethodStreamed(15,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::UpdateAppProfileRequest, ::google::longrunning::Operation>(
             [this](::grpc::ServerContext* context,
@@ -3046,7 +3287,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteAppProfile() {
-      ::grpc::Service::MarkMethodStreamed(15,
+      ::grpc::Service::MarkMethodStreamed(16,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::DeleteAppProfileRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -3073,7 +3314,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodStreamed(16,
+      ::grpc::Service::MarkMethodStreamed(17,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](::grpc::ServerContext* context,
@@ -3100,7 +3341,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodStreamed(17,
+      ::grpc::Service::MarkMethodStreamed(18,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](::grpc::ServerContext* context,
@@ -3127,7 +3368,7 @@ class BigtableInstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodStreamed(18,
+      ::grpc::Service::MarkMethodStreamed(19,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](::grpc::ServerContext* context,
@@ -3148,9 +3389,9 @@ class BigtableInstanceAdmin final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedTestIamPermissions(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::iam::v1::TestIamPermissionsRequest,::google::iam::v1::TestIamPermissionsResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_PartialUpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_CreateCluster<WithStreamedUnaryMethod_GetCluster<WithStreamedUnaryMethod_ListClusters<WithStreamedUnaryMethod_UpdateCluster<WithStreamedUnaryMethod_DeleteCluster<WithStreamedUnaryMethod_CreateAppProfile<WithStreamedUnaryMethod_GetAppProfile<WithStreamedUnaryMethod_ListAppProfiles<WithStreamedUnaryMethod_UpdateAppProfile<WithStreamedUnaryMethod_DeleteAppProfile<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_PartialUpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_CreateCluster<WithStreamedUnaryMethod_GetCluster<WithStreamedUnaryMethod_ListClusters<WithStreamedUnaryMethod_UpdateCluster<WithStreamedUnaryMethod_PartialUpdateCluster<WithStreamedUnaryMethod_DeleteCluster<WithStreamedUnaryMethod_CreateAppProfile<WithStreamedUnaryMethod_GetAppProfile<WithStreamedUnaryMethod_ListAppProfiles<WithStreamedUnaryMethod_UpdateAppProfile<WithStreamedUnaryMethod_DeleteAppProfile<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_PartialUpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_CreateCluster<WithStreamedUnaryMethod_GetCluster<WithStreamedUnaryMethod_ListClusters<WithStreamedUnaryMethod_UpdateCluster<WithStreamedUnaryMethod_DeleteCluster<WithStreamedUnaryMethod_CreateAppProfile<WithStreamedUnaryMethod_GetAppProfile<WithStreamedUnaryMethod_ListAppProfiles<WithStreamedUnaryMethod_UpdateAppProfile<WithStreamedUnaryMethod_DeleteAppProfile<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_PartialUpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_CreateCluster<WithStreamedUnaryMethod_GetCluster<WithStreamedUnaryMethod_ListClusters<WithStreamedUnaryMethod_UpdateCluster<WithStreamedUnaryMethod_PartialUpdateCluster<WithStreamedUnaryMethod_DeleteCluster<WithStreamedUnaryMethod_CreateAppProfile<WithStreamedUnaryMethod_GetAppProfile<WithStreamedUnaryMethod_ListAppProfiles<WithStreamedUnaryMethod_UpdateAppProfile<WithStreamedUnaryMethod_DeleteAppProfile<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v2

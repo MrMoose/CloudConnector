@@ -20,7 +20,6 @@
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_LOGGING_INTERNAL_LOGGING_SERVICE_V2_STUB_FACTORY_H
 
 #include "google/cloud/logging/internal/logging_service_v2_stub.h"
-#include "google/cloud/logging/logging_service_v2_connection.h"
 #include "google/cloud/completion_queue.h"
 #include "google/cloud/credentials.h"
 #include "google/cloud/internal/unified_grpc_credentials.h"
@@ -30,12 +29,12 @@
 namespace google {
 namespace cloud {
 namespace logging_internal {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 std::shared_ptr<LoggingServiceV2Stub> CreateDefaultLoggingServiceV2Stub(
     google::cloud::CompletionQueue cq, Options const& options);
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace logging_internal
 }  // namespace cloud
 }  // namespace google

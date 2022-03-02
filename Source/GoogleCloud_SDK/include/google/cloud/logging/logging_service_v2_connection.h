@@ -19,10 +19,11 @@
 #ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_LOGGING_LOGGING_SERVICE_V2_CONNECTION_H
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_LOGGING_LOGGING_SERVICE_V2_CONNECTION_H
 
+#include "google/cloud/logging/internal/logging_service_v2_retry_traits.h"
 #include "google/cloud/logging/internal/logging_service_v2_stub.h"
 #include "google/cloud/logging/logging_service_v2_connection_idempotency_policy.h"
-#include "google/cloud/logging/retry_traits.h"
 #include "google/cloud/backoff_policy.h"
+#include "google/cloud/internal/async_read_write_stream_impl.h"
 #include "google/cloud/options.h"
 #include "google/cloud/status_or.h"
 #include "google/cloud/stream_range.h"
@@ -32,7 +33,7 @@
 namespace google {
 namespace cloud {
 namespace logging {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 using LoggingServiceV2RetryPolicy =
     ::google::cloud::internal::TraitBasedRetryPolicy<
@@ -50,6 +51,8 @@ class LoggingServiceV2Connection {
  public:
   virtual ~LoggingServiceV2Connection() = 0;
 
+  virtual Options options() { return Options{}; }
+
   virtual Status DeleteLog(
       google::logging::v2::DeleteLogRequest const& request);
 
@@ -65,12 +68,17 @@ class LoggingServiceV2Connection {
 
   virtual StreamRange<std::string> ListLogs(
       google::logging::v2::ListLogsRequest request);
+
+  virtual std::unique_ptr<::google::cloud::AsyncStreamingReadWriteRpc<
+      google::logging::v2::TailLogEntriesRequest,
+      google::logging::v2::TailLogEntriesResponse>>
+  AsyncTailLogEntries();
 };
 
 std::shared_ptr<LoggingServiceV2Connection> MakeLoggingServiceV2Connection(
     Options options = {});
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace logging
 }  // namespace cloud
 }  // namespace google
@@ -78,13 +86,13 @@ std::shared_ptr<LoggingServiceV2Connection> MakeLoggingServiceV2Connection(
 namespace google {
 namespace cloud {
 namespace logging_internal {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 std::shared_ptr<logging::LoggingServiceV2Connection>
 MakeLoggingServiceV2Connection(std::shared_ptr<LoggingServiceV2Stub> stub,
                                Options options);
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace logging_internal
 }  // namespace cloud
 }  // namespace google

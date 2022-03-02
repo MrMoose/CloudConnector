@@ -19,7 +19,6 @@
 #ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_IAM_INTERNAL_IAM_STUB_FACTORY_H
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_IAM_INTERNAL_IAM_STUB_FACTORY_H
 
-#include "google/cloud/iam/iam_connection.h"
 #include "google/cloud/iam/internal/iam_stub.h"
 #include "google/cloud/completion_queue.h"
 #include "google/cloud/credentials.h"
@@ -30,12 +29,13 @@
 namespace google {
 namespace cloud {
 namespace iam_internal {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 std::shared_ptr<IAMStub> CreateDefaultIAMStub(google::cloud::CompletionQueue cq,
                                               Options const& options);
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
+namespace gcpcxxV1 = GOOGLE_CLOUD_CPP_NS;  // NOLINT(misc-unused-alias-decls)
 }  // namespace iam_internal
 }  // namespace cloud
 }  // namespace google

@@ -31,12 +31,12 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include "google/api/annotations.pb.h"
 #include "google/cloud/dialogflow/v2/context.pb.h"
 #include "google/cloud/dialogflow/v2/intent.pb.h"
 #include "google/cloud/dialogflow/v2/session.pb.h"
 #include "google/cloud/dialogflow/v2/session_entity_type.pb.h"
 #include <google/protobuf/struct.pb.h>
-#include "google/api/annotations.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_google_2fcloud_2fdialogflow_2fv2_2fwebhook_2eproto

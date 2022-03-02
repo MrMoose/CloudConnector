@@ -32,11 +32,11 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "google/api/annotations.pb.h"
 #include "google/api/field_behavior.pb.h"
 #include "google/api/resource.pb.h"
 #include <google/protobuf/timestamp.pb.h>
 #include "google/rpc/status.pb.h"
-#include "google/api/annotations.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_google_2fspanner_2fadmin_2fdatabase_2fv1_2fcommon_2eproto
@@ -115,6 +115,32 @@ inline bool EncryptionInfo_Type_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EncryptionInfo_Type* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EncryptionInfo_Type>(
     EncryptionInfo_Type_descriptor(), name, value);
+}
+enum DatabaseDialect : int {
+  DATABASE_DIALECT_UNSPECIFIED = 0,
+  GOOGLE_STANDARD_SQL = 1,
+  POSTGRESQL = 2,
+  DatabaseDialect_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  DatabaseDialect_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool DatabaseDialect_IsValid(int value);
+constexpr DatabaseDialect DatabaseDialect_MIN = DATABASE_DIALECT_UNSPECIFIED;
+constexpr DatabaseDialect DatabaseDialect_MAX = POSTGRESQL;
+constexpr int DatabaseDialect_ARRAYSIZE = DatabaseDialect_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* DatabaseDialect_descriptor();
+template<typename T>
+inline const std::string& DatabaseDialect_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, DatabaseDialect>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function DatabaseDialect_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    DatabaseDialect_descriptor(), enum_t_value);
+}
+inline bool DatabaseDialect_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DatabaseDialect* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<DatabaseDialect>(
+    DatabaseDialect_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -1078,6 +1104,11 @@ template <> struct is_proto_enum< ::google::spanner::admin::database::v1::Encryp
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::google::spanner::admin::database::v1::EncryptionInfo_Type>() {
   return ::google::spanner::admin::database::v1::EncryptionInfo_Type_descriptor();
+}
+template <> struct is_proto_enum< ::google::spanner::admin::database::v1::DatabaseDialect> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::google::spanner::admin::database::v1::DatabaseDialect>() {
+  return ::google::spanner::admin::database::v1::DatabaseDialect_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

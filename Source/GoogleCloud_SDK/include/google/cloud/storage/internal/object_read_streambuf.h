@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 
 /**
@@ -69,6 +69,16 @@ class ObjectReadStreambuf : public std::basic_streambuf<char> {
     return headers_;
   }
 
+  // See ObjectReadStream for details about these attributes.
+  absl::optional<std::int64_t> const& generation() const { return generation_; }
+  absl::optional<std::int64_t> const& metageneration() const {
+    return metageneration_;
+  }
+  absl::optional<std::string> const& storage_class() const {
+    return storage_class_;
+  }
+  absl::optional<std::uint64_t> const& size() const { return size_; }
+
  private:
   int_type ReportError(Status status);
   void ThrowHashMismatchDelegate(char const* function_name);
@@ -88,10 +98,14 @@ class ObjectReadStreambuf : public std::basic_streambuf<char> {
   std::string received_hash_;
   Status status_;
   std::multimap<std::string, std::string> headers_;
+  absl::optional<std::int64_t> generation_;
+  absl::optional<std::int64_t> metageneration_;
+  absl::optional<std::string> storage_class_;
+  absl::optional<std::uint64_t> size_;
 };
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

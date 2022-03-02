@@ -27,7 +27,7 @@
 namespace google {
 namespace cloud {
 namespace iam_internal {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 class IAMStub {
  public:
@@ -285,7 +285,8 @@ class DefaultIAMStub : public IAMStub {
   std::unique_ptr<google::iam::admin::v1::IAM::StubInterface> grpc_stub_;
 };
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
+namespace gcpcxxV1 = GOOGLE_CLOUD_CPP_NS;  // NOLINT(misc-unused-alias-decls)
 }  // namespace iam_internal
 }  // namespace cloud
 }  // namespace google

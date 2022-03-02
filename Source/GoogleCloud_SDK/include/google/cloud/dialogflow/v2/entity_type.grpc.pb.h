@@ -108,6 +108,13 @@ class EntityTypes final {
     }
     // Updates/Creates multiple entity types in the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: [BatchUpdateEntityTypesResponse][google.cloud.dialogflow.v2.BatchUpdateEntityTypesResponse]
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -121,6 +128,15 @@ class EntityTypes final {
     }
     // Deletes entity types in the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+    //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
     // documentation](https://cloud.google.com/dialogflow/es/docs/training).
@@ -132,6 +148,15 @@ class EntityTypes final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncBatchDeleteEntityTypesRaw(context, request, cq));
     }
     // Creates multiple new entities in the specified entity type.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -147,9 +172,19 @@ class EntityTypes final {
     // method does not affect entities in the entity type that aren't explicitly
     // specified in the request.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+    //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
     // documentation](https://cloud.google.com/dialogflow/es/docs/training).
+    //
     virtual ::grpc::Status BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncBatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncBatchUpdateEntitiesRaw(context, request, cq));
@@ -158,6 +193,15 @@ class EntityTypes final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncBatchUpdateEntitiesRaw(context, request, cq));
     }
     // Deletes entities in the specified entity type.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -201,6 +245,13 @@ class EntityTypes final {
       virtual void DeleteEntityType(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Updates/Creates multiple entity types in the specified agent.
       //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: [BatchUpdateEntityTypesResponse][google.cloud.dialogflow.v2.BatchUpdateEntityTypesResponse]
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
@@ -209,12 +260,30 @@ class EntityTypes final {
       virtual void BatchUpdateEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Deletes entity types in the specified agent.
       //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: An [Empty
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+      //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
       virtual void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void BatchDeleteEntityTypes(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Creates multiple new entities in the specified entity type.
+      //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: An [Empty
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
@@ -225,12 +294,31 @@ class EntityTypes final {
       // method does not affect entities in the entity type that aren't explicitly
       // specified in the request.
       //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: An [Empty
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+      //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
       // documentation](https://cloud.google.com/dialogflow/es/docs/training).
+      //
       virtual void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void BatchUpdateEntities(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Deletes entities in the specified entity type.
+      //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: An [Empty
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
@@ -431,6 +519,13 @@ class EntityTypes final {
     virtual ::grpc::Status DeleteEntityType(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::DeleteEntityTypeRequest* request, ::google::protobuf::Empty* response);
     // Updates/Creates multiple entity types in the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: [BatchUpdateEntityTypesResponse][google.cloud.dialogflow.v2.BatchUpdateEntityTypesResponse]
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -438,11 +533,29 @@ class EntityTypes final {
     virtual ::grpc::Status BatchUpdateEntityTypes(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntityTypesRequest* request, ::google::longrunning::Operation* response);
     // Deletes entity types in the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+    //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
     // documentation](https://cloud.google.com/dialogflow/es/docs/training).
     virtual ::grpc::Status BatchDeleteEntityTypes(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchDeleteEntityTypesRequest* request, ::google::longrunning::Operation* response);
     // Creates multiple new entities in the specified entity type.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -452,11 +565,30 @@ class EntityTypes final {
     // method does not affect entities in the entity type that aren't explicitly
     // specified in the request.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
+    //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
     // documentation](https://cloud.google.com/dialogflow/es/docs/training).
+    //
     virtual ::grpc::Status BatchUpdateEntities(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateEntitiesRequest* request, ::google::longrunning::Operation* response);
     // Deletes entities in the specified entity type.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training

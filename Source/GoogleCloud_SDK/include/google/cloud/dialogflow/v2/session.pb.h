@@ -41,6 +41,7 @@
 #include "google/api/resource.pb.h"
 #include "google/cloud/dialogflow/v2/audio_config.pb.h"
 #include "google/cloud/dialogflow/v2/context.pb.h"
+#include "google/cloud/dialogflow/v2/gcs.pb.h"
 #include "google/cloud/dialogflow/v2/intent.pb.h"
 #include "google/cloud/dialogflow/v2/session_entity_type.pb.h"
 #include <google/protobuf/duration.pb.h>

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 /**
  * The result of reading some data from the source.
@@ -50,6 +50,9 @@ struct ReadSourceResult {
   HttpResponse response;
   HashValues hashes;
   absl::optional<std::int64_t> generation;
+  absl::optional<std::int64_t> metageneration;
+  absl::optional<std::string> storage_class;
+  absl::optional<std::uint64_t> size;
 
   ReadSourceResult() = default;
   ReadSourceResult(std::size_t b, HttpResponse r)
@@ -96,7 +99,7 @@ class ObjectReadErrorSource : public ObjectReadSource {
 };
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

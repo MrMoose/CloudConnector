@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,7 +28,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 /**
  * Represents a request for the `ObjectAccessControls: list` API.
@@ -155,18 +155,23 @@ class PatchObjectAclRequest
                         ObjectAccessControl const& new_acl);
   PatchObjectAclRequest(std::string bucket, std::string object,
                         std::string entity,
-                        ObjectAccessControlPatchBuilder const& patch);
+                        ObjectAccessControlPatchBuilder patch);
 
-  std::string const& payload() const { return payload_; }
+  ObjectAccessControlPatchBuilder const& patch() const { return patch_; }
+  std::string payload() const { return patch_.BuildPatch(); }
 
  private:
+  ObjectAccessControlPatchBuilder patch_;
   std::string payload_;
 };
 
 std::ostream& operator<<(std::ostream& os, PatchObjectAclRequest const& r);
 
+ObjectAccessControlPatchBuilder DiffObjectAccessControl(
+    ObjectAccessControl const& original, ObjectAccessControl const& new_acl);
+
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 struct AccessControlCommonParser;
 }  // namespace internal
@@ -69,7 +69,8 @@ inline bool operator>=(ProjectTeam const& lhs, ProjectTeam const& rhs) {
 }
 
 namespace internal {
-class GrpcClient;
+struct GrpcBucketAccessControlParser;
+struct GrpcObjectAccessControlParser;
 
 /**
  * Defines common code to both `BucketAccessControl` and `ObjectAccessControl`.
@@ -131,7 +132,8 @@ class AccessControlCommon {
   std::string const& self_link() const { return self_link_; }
 
  private:
-  friend class GrpcClient;
+  friend struct GrpcBucketAccessControlParser;
+  friend struct GrpcObjectAccessControlParser;
   friend struct internal::AccessControlCommonParser;
 
   std::string bucket_;
@@ -167,7 +169,7 @@ inline bool operator!=(AccessControlCommon const& lhs,
 }
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

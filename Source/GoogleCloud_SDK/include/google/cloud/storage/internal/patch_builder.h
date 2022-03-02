@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,13 +16,14 @@
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_STORAGE_INTERNAL_PATCH_BUILDER_H
 
 #include "google/cloud/storage/version.h"
+#include <cstdint>
 #include <memory>
 #include <string>
 
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 /**
  * Prepares a patch for the '<Resource Type>: patch' APIs in Google Cloud
@@ -44,7 +45,7 @@ class PatchBuilder {
   PatchBuilder(PatchBuilder const& other);
   PatchBuilder& operator=(PatchBuilder const& other);
 
-  // This have to be declared explicitly and defined out of line because `Impl`
+  // These have to be declared explicitly and defined out of line because `Impl`
   // is incomplete at this point.
   PatchBuilder(PatchBuilder&&) noexcept;
   PatchBuilder& operator=(PatchBuilder&&) noexcept;
@@ -122,12 +123,15 @@ class PatchBuilder {
                               std::string const& json_stringified_object);
 
  private:
+  friend struct PatchBuilderDetails;
+
   struct Impl;
   explicit PatchBuilder(std::unique_ptr<Impl> impl);
   std::unique_ptr<Impl> pimpl_;
 };
+
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

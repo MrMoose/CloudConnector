@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 // Defined below.
 template <typename T>
@@ -169,7 +169,7 @@ class StreamRange {
  private:
   void Next() {
     // Jump to the end if we previously got an error.
-    if (!is_end_ && !current_) {
+    if (!is_end_ && !current_ok_) {
       is_end_ = true;
       return;
     }
@@ -177,10 +177,12 @@ class StreamRange {
       StreamRange& sr;
       void operator()(Status&& status) {
         sr.is_end_ = status.ok();
+        sr.current_ok_ = status.ok();
         if (!status.ok()) sr.current_ = std::move(status);
       }
       void operator()(T&& t) {
         sr.is_end_ = false;
+        sr.current_ok_ = true;
         sr.current_ = std::move(t);
       }
     };
@@ -224,6 +226,7 @@ class StreamRange {
 
   internal::StreamReader<T> reader_;
   StatusOr<T> current_;
+  bool current_ok_ = false;
   bool is_end_ = true;
 };
 
@@ -247,7 +250,7 @@ StreamRange<T> MakeStreamRange(StreamReader<T> reader) {
 
 }  // namespace internal
 
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

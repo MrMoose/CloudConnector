@@ -74,7 +74,7 @@ class BigQueryRead final {
     // limits are enforced based on the number of pre-filtered rows, so some
     // filters can lead to lopsided assignments.
     //
-    // Read sessions automatically expire 24 hours after they are created and do
+    // Read sessions automatically expire 6 hours after they are created and do
     // not require manual clean-up by the caller.
     virtual ::grpc::Status CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::google::cloud::bigquery::storage::v1::ReadSession* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::ReadSession>> AsyncCreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::grpc::CompletionQueue* cq) {
@@ -138,7 +138,7 @@ class BigQueryRead final {
       // limits are enforced based on the number of pre-filtered rows, so some
       // filters can lead to lopsided assignments.
       //
-      // Read sessions automatically expire 24 hours after they are created and do
+      // Read sessions automatically expire 6 hours after they are created and do
       // not require manual clean-up by the caller.
       virtual void CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateReadSession(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -256,7 +256,7 @@ class BigQueryRead final {
     // limits are enforced based on the number of pre-filtered rows, so some
     // filters can lead to lopsided assignments.
     //
-    // Read sessions automatically expire 24 hours after they are created and do
+    // Read sessions automatically expire 6 hours after they are created and do
     // not require manual clean-up by the caller.
     virtual ::grpc::Status CreateReadSession(::grpc::ServerContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest* request, ::google::cloud::bigquery::storage::v1::ReadSession* response);
     // Reads rows from the stream in the format prescribed by the ReadSession.
@@ -681,6 +681,1140 @@ class BigQueryRead final {
   };
   typedef WithSplitStreamingMethod_ReadRows<Service > SplitStreamedService;
   typedef WithStreamedUnaryMethod_CreateReadSession<WithSplitStreamingMethod_ReadRows<WithStreamedUnaryMethod_SplitReadStream<Service > > > StreamedService;
+};
+
+// BigQuery Write API.
+//
+// The Write API can be used to write data to BigQuery.
+//
+// For supplementary information about the Write API, see:
+// https://cloud.google.com/bigquery/docs/write-api
+class BigQueryWrite final {
+ public:
+  static constexpr char const* service_full_name() {
+    return "google.cloud.bigquery.storage.v1.BigQueryWrite";
+  }
+  class StubInterface {
+   public:
+    virtual ~StubInterface() {}
+    // Creates a write stream to the given table.
+    // Additionally, every table has a special stream named '_default'
+    // to which data can be written. This stream doesn't need to be created using
+    // CreateWriteStream. It is a stream that can be used simultaneously by any
+    // number of clients. Data written to this stream is considered committed as
+    // soon as an acknowledgement is received.
+    virtual ::grpc::Status CreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::google::cloud::bigquery::storage::v1::WriteStream* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>> AsyncCreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>>(AsyncCreateWriteStreamRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>> PrepareAsyncCreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>>(PrepareAsyncCreateWriteStreamRaw(context, request, cq));
+    }
+    // Appends data to the given stream.
+    //
+    // If `offset` is specified, the `offset` is checked against the end of
+    // stream. The server returns `OUT_OF_RANGE` in `AppendRowsResponse` if an
+    // attempt is made to append to an offset beyond the current end of the stream
+    // or `ALREADY_EXISTS` if user provides an `offset` that has already been
+    // written to. User can retry with adjusted offset within the same RPC
+    // connection. If `offset` is not specified, append happens at the end of the
+    // stream.
+    //
+    // The response contains an optional offset at which the append
+    // happened.  No offset information will be returned for appends to a
+    // default stream.
+    //
+    // Responses are received in the same order in which requests are sent.
+    // There will be one response for each successful inserted request.  Responses
+    // may optionally embed error information if the originating AppendRequest was
+    // not successfully processed.
+    //
+    // The specifics of when successfully appended data is made visible to the
+    // table are governed by the type of stream:
+    //
+    // * For COMMITTED streams (which includes the default stream), data is
+    // visible immediately upon successful append.
+    //
+    // * For BUFFERED streams, data is made visible via a subsequent `FlushRows`
+    // rpc which advances a cursor to a newer offset in the stream.
+    //
+    // * For PENDING streams, data is not made visible until the stream itself is
+    // finalized (via the `FinalizeWriteStream` rpc), and the stream is explicitly
+    // committed via the `BatchCommitWriteStreams` rpc.
+    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>> AppendRows(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>>(AppendRowsRaw(context));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>> AsyncAppendRows(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>>(AsyncAppendRowsRaw(context, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>> PrepareAsyncAppendRows(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>>(PrepareAsyncAppendRowsRaw(context, cq));
+    }
+    // Gets information about a write stream.
+    virtual ::grpc::Status GetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::google::cloud::bigquery::storage::v1::WriteStream* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>> AsyncGetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>>(AsyncGetWriteStreamRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>> PrepareAsyncGetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>>(PrepareAsyncGetWriteStreamRaw(context, request, cq));
+    }
+    // Finalize a write stream so that no new data can be appended to the
+    // stream. Finalize is not supported on the '_default' stream.
+    virtual ::grpc::Status FinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>> AsyncFinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>>(AsyncFinalizeWriteStreamRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>> PrepareAsyncFinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>>(PrepareAsyncFinalizeWriteStreamRaw(context, request, cq));
+    }
+    // Atomically commits a group of `PENDING` streams that belong to the same
+    // `parent` table.
+    //
+    // Streams must be finalized before commit and cannot be committed multiple
+    // times. Once a stream is committed, data in the stream becomes available
+    // for read operations.
+    virtual ::grpc::Status BatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>> AsyncBatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>>(AsyncBatchCommitWriteStreamsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>> PrepareAsyncBatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>>(PrepareAsyncBatchCommitWriteStreamsRaw(context, request, cq));
+    }
+    // Flushes rows to a BUFFERED stream.
+    //
+    // If users are appending rows to BUFFERED stream, flush operation is
+    // required in order for the rows to become available for reading. A
+    // Flush operation flushes up to any previously flushed offset in a BUFFERED
+    // stream, to the offset specified in the request.
+    //
+    // Flush is not supported on the _default stream, since it is not BUFFERED.
+    virtual ::grpc::Status FlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>> AsyncFlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>>(AsyncFlushRowsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>> PrepareAsyncFlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>>(PrepareAsyncFlushRowsRaw(context, request, cq));
+    }
+    class async_interface {
+     public:
+      virtual ~async_interface() {}
+      // Creates a write stream to the given table.
+      // Additionally, every table has a special stream named '_default'
+      // to which data can be written. This stream doesn't need to be created using
+      // CreateWriteStream. It is a stream that can be used simultaneously by any
+      // number of clients. Data written to this stream is considered committed as
+      // soon as an acknowledgement is received.
+      virtual void CreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Appends data to the given stream.
+      //
+      // If `offset` is specified, the `offset` is checked against the end of
+      // stream. The server returns `OUT_OF_RANGE` in `AppendRowsResponse` if an
+      // attempt is made to append to an offset beyond the current end of the stream
+      // or `ALREADY_EXISTS` if user provides an `offset` that has already been
+      // written to. User can retry with adjusted offset within the same RPC
+      // connection. If `offset` is not specified, append happens at the end of the
+      // stream.
+      //
+      // The response contains an optional offset at which the append
+      // happened.  No offset information will be returned for appends to a
+      // default stream.
+      //
+      // Responses are received in the same order in which requests are sent.
+      // There will be one response for each successful inserted request.  Responses
+      // may optionally embed error information if the originating AppendRequest was
+      // not successfully processed.
+      //
+      // The specifics of when successfully appended data is made visible to the
+      // table are governed by the type of stream:
+      //
+      // * For COMMITTED streams (which includes the default stream), data is
+      // visible immediately upon successful append.
+      //
+      // * For BUFFERED streams, data is made visible via a subsequent `FlushRows`
+      // rpc which advances a cursor to a newer offset in the stream.
+      //
+      // * For PENDING streams, data is not made visible until the stream itself is
+      // finalized (via the `FinalizeWriteStream` rpc), and the stream is explicitly
+      // committed via the `BatchCommitWriteStreams` rpc.
+      virtual void AppendRows(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::cloud::bigquery::storage::v1::AppendRowsRequest,::google::cloud::bigquery::storage::v1::AppendRowsResponse>* reactor) = 0;
+      // Gets information about a write stream.
+      virtual void GetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Finalize a write stream so that no new data can be appended to the
+      // stream. Finalize is not supported on the '_default' stream.
+      virtual void FinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void FinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Atomically commits a group of `PENDING` streams that belong to the same
+      // `parent` table.
+      //
+      // Streams must be finalized before commit and cannot be committed multiple
+      // times. Once a stream is committed, data in the stream becomes available
+      // for read operations.
+      virtual void BatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* request, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void BatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* request, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Flushes rows to a BUFFERED stream.
+      //
+      // If users are appending rows to BUFFERED stream, flush operation is
+      // required in order for the rows to become available for reading. A
+      // Flush operation flushes up to any previously flushed offset in a BUFFERED
+      // stream, to the offset specified in the request.
+      //
+      // Flush is not supported on the _default stream, since it is not BUFFERED.
+      virtual void FlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* request, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void FlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* request, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+    };
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+  private:
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>* AsyncCreateWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>* PrepareAsyncCreateWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>* AppendRowsRaw(::grpc::ClientContext* context) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>* AsyncAppendRowsRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>* PrepareAsyncAppendRowsRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>* AsyncGetWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>* PrepareAsyncGetWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>* AsyncFinalizeWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>* PrepareAsyncFinalizeWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>* AsyncBatchCommitWriteStreamsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>* PrepareAsyncBatchCommitWriteStreamsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>* AsyncFlushRowsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>* PrepareAsyncFlushRowsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+  };
+  class Stub final : public StubInterface {
+   public:
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+    ::grpc::Status CreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::google::cloud::bigquery::storage::v1::WriteStream* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>> AsyncCreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>>(AsyncCreateWriteStreamRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>> PrepareAsyncCreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>>(PrepareAsyncCreateWriteStreamRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>> AppendRows(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>>(AppendRowsRaw(context));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>> AsyncAppendRows(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>>(AsyncAppendRowsRaw(context, cq, tag));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>> PrepareAsyncAppendRows(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>>(PrepareAsyncAppendRowsRaw(context, cq));
+    }
+    ::grpc::Status GetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::google::cloud::bigquery::storage::v1::WriteStream* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>> AsyncGetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>>(AsyncGetWriteStreamRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>> PrepareAsyncGetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>>(PrepareAsyncGetWriteStreamRaw(context, request, cq));
+    }
+    ::grpc::Status FinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>> AsyncFinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>>(AsyncFinalizeWriteStreamRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>> PrepareAsyncFinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>>(PrepareAsyncFinalizeWriteStreamRaw(context, request, cq));
+    }
+    ::grpc::Status BatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>> AsyncBatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>>(AsyncBatchCommitWriteStreamsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>> PrepareAsyncBatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>>(PrepareAsyncBatchCommitWriteStreamsRaw(context, request, cq));
+    }
+    ::grpc::Status FlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>> AsyncFlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>>(AsyncFlushRowsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>> PrepareAsyncFlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>>(PrepareAsyncFlushRowsRaw(context, request, cq));
+    }
+    class async final :
+      public StubInterface::async_interface {
+     public:
+      void CreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response, std::function<void(::grpc::Status)>) override;
+      void CreateWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void AppendRows(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::cloud::bigquery::storage::v1::AppendRowsRequest,::google::cloud::bigquery::storage::v1::AppendRowsResponse>* reactor) override;
+      void GetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response, std::function<void(::grpc::Status)>) override;
+      void GetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void FinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* response, std::function<void(::grpc::Status)>) override;
+      void FinalizeWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void BatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* request, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* response, std::function<void(::grpc::Status)>) override;
+      void BatchCommitWriteStreams(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* request, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void FlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* request, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* response, std::function<void(::grpc::Status)>) override;
+      void FlushRows(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* request, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+     private:
+      friend class Stub;
+      explicit async(Stub* stub): stub_(stub) { }
+      Stub* stub() { return stub_; }
+      Stub* stub_;
+    };
+    class async* async() override { return &async_stub_; }
+
+   private:
+    std::shared_ptr< ::grpc::ChannelInterface> channel_;
+    class async async_stub_{this};
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>* AsyncCreateWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>* PrepareAsyncCreateWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>* AppendRowsRaw(::grpc::ClientContext* context) override;
+    ::grpc::ClientAsyncReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>* AsyncAppendRowsRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>* PrepareAsyncAppendRowsRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>* AsyncGetWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::WriteStream>* PrepareAsyncGetWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>* AsyncFinalizeWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>* PrepareAsyncFinalizeWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>* AsyncBatchCommitWriteStreamsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>* PrepareAsyncBatchCommitWriteStreamsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>* AsyncFlushRowsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>* PrepareAsyncFlushRowsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_CreateWriteStream_;
+    const ::grpc::internal::RpcMethod rpcmethod_AppendRows_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetWriteStream_;
+    const ::grpc::internal::RpcMethod rpcmethod_FinalizeWriteStream_;
+    const ::grpc::internal::RpcMethod rpcmethod_BatchCommitWriteStreams_;
+    const ::grpc::internal::RpcMethod rpcmethod_FlushRows_;
+  };
+  static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+
+  class Service : public ::grpc::Service {
+   public:
+    Service();
+    virtual ~Service();
+    // Creates a write stream to the given table.
+    // Additionally, every table has a special stream named '_default'
+    // to which data can be written. This stream doesn't need to be created using
+    // CreateWriteStream. It is a stream that can be used simultaneously by any
+    // number of clients. Data written to this stream is considered committed as
+    // soon as an acknowledgement is received.
+    virtual ::grpc::Status CreateWriteStream(::grpc::ServerContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response);
+    // Appends data to the given stream.
+    //
+    // If `offset` is specified, the `offset` is checked against the end of
+    // stream. The server returns `OUT_OF_RANGE` in `AppendRowsResponse` if an
+    // attempt is made to append to an offset beyond the current end of the stream
+    // or `ALREADY_EXISTS` if user provides an `offset` that has already been
+    // written to. User can retry with adjusted offset within the same RPC
+    // connection. If `offset` is not specified, append happens at the end of the
+    // stream.
+    //
+    // The response contains an optional offset at which the append
+    // happened.  No offset information will be returned for appends to a
+    // default stream.
+    //
+    // Responses are received in the same order in which requests are sent.
+    // There will be one response for each successful inserted request.  Responses
+    // may optionally embed error information if the originating AppendRequest was
+    // not successfully processed.
+    //
+    // The specifics of when successfully appended data is made visible to the
+    // table are governed by the type of stream:
+    //
+    // * For COMMITTED streams (which includes the default stream), data is
+    // visible immediately upon successful append.
+    //
+    // * For BUFFERED streams, data is made visible via a subsequent `FlushRows`
+    // rpc which advances a cursor to a newer offset in the stream.
+    //
+    // * For PENDING streams, data is not made visible until the stream itself is
+    // finalized (via the `FinalizeWriteStream` rpc), and the stream is explicitly
+    // committed via the `BatchCommitWriteStreams` rpc.
+    virtual ::grpc::Status AppendRows(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsResponse, ::google::cloud::bigquery::storage::v1::AppendRowsRequest>* stream);
+    // Gets information about a write stream.
+    virtual ::grpc::Status GetWriteStream(::grpc::ServerContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response);
+    // Finalize a write stream so that no new data can be appended to the
+    // stream. Finalize is not supported on the '_default' stream.
+    virtual ::grpc::Status FinalizeWriteStream(::grpc::ServerContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* response);
+    // Atomically commits a group of `PENDING` streams that belong to the same
+    // `parent` table.
+    //
+    // Streams must be finalized before commit and cannot be committed multiple
+    // times. Once a stream is committed, data in the stream becomes available
+    // for read operations.
+    virtual ::grpc::Status BatchCommitWriteStreams(::grpc::ServerContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* request, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* response);
+    // Flushes rows to a BUFFERED stream.
+    //
+    // If users are appending rows to BUFFERED stream, flush operation is
+    // required in order for the rows to become available for reading. A
+    // Flush operation flushes up to any previously flushed offset in a BUFFERED
+    // stream, to the offset specified in the request.
+    //
+    // Flush is not supported on the _default stream, since it is not BUFFERED.
+    virtual ::grpc::Status FlushRows(::grpc::ServerContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* request, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* response);
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_CreateWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CreateWriteStream() {
+      ::grpc::Service::MarkMethodAsync(0);
+    }
+    ~WithAsyncMethod_CreateWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateWriteStream(::grpc::ServerContext* context, ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::bigquery::storage::v1::WriteStream>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_AppendRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_AppendRows() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_AppendRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AppendRows(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsResponse, ::google::cloud::bigquery::storage::v1::AppendRowsRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestAppendRows(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsResponse, ::google::cloud::bigquery::storage::v1::AppendRowsRequest>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(1, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetWriteStream() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_GetWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetWriteStream(::grpc::ServerContext* context, ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::bigquery::storage::v1::WriteStream>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_FinalizeWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_FinalizeWriteStream() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_FinalizeWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FinalizeWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestFinalizeWriteStream(::grpc::ServerContext* context, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_BatchCommitWriteStreams : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_BatchCommitWriteStreams() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_BatchCommitWriteStreams() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status BatchCommitWriteStreams(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestBatchCommitWriteStreams(::grpc::ServerContext* context, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_FlushRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_FlushRows() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_FlushRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FlushRows(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestFlushRows(::grpc::ServerContext* context, ::google::cloud::bigquery::storage::v1::FlushRowsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::bigquery::storage::v1::FlushRowsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_CreateWriteStream<WithAsyncMethod_AppendRows<WithAsyncMethod_GetWriteStream<WithAsyncMethod_FinalizeWriteStream<WithAsyncMethod_BatchCommitWriteStreams<WithAsyncMethod_FlushRows<Service > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithCallbackMethod_CreateWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CreateWriteStream() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response) { return this->CreateWriteStream(context, request, response); }));}
+    void SetMessageAllocatorFor_CreateWriteStream(
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CreateWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateWriteStream(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_AppendRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_AppendRows() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackBidiHandler< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->AppendRows(context); }));
+    }
+    ~WithCallbackMethod_AppendRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AppendRows(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsResponse, ::google::cloud::bigquery::storage::v1::AppendRowsRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>* AppendRows(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetWriteStream() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response) { return this->GetWriteStream(context, request, response); }));}
+    void SetMessageAllocatorFor_GetWriteStream(
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetWriteStream(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_FinalizeWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_FinalizeWriteStream() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* response) { return this->FinalizeWriteStream(context, request, response); }));}
+    void SetMessageAllocatorFor_FinalizeWriteStream(
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_FinalizeWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FinalizeWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* FinalizeWriteStream(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_BatchCommitWriteStreams : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_BatchCommitWriteStreams() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* request, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* response) { return this->BatchCommitWriteStreams(context, request, response); }));}
+    void SetMessageAllocatorFor_BatchCommitWriteStreams(
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_BatchCommitWriteStreams() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status BatchCommitWriteStreams(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* BatchCommitWriteStreams(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_FlushRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_FlushRows() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::FlushRowsRequest, ::google::cloud::bigquery::storage::v1::FlushRowsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* request, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* response) { return this->FlushRows(context, request, response); }));}
+    void SetMessageAllocatorFor_FlushRows(
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::storage::v1::FlushRowsRequest, ::google::cloud::bigquery::storage::v1::FlushRowsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::storage::v1::FlushRowsRequest, ::google::cloud::bigquery::storage::v1::FlushRowsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_FlushRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FlushRows(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* FlushRows(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_CreateWriteStream<WithCallbackMethod_AppendRows<WithCallbackMethod_GetWriteStream<WithCallbackMethod_FinalizeWriteStream<WithCallbackMethod_BatchCommitWriteStreams<WithCallbackMethod_FlushRows<Service > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
+  class WithGenericMethod_CreateWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CreateWriteStream() {
+      ::grpc::Service::MarkMethodGeneric(0);
+    }
+    ~WithGenericMethod_CreateWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_AppendRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_AppendRows() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_AppendRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AppendRows(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsResponse, ::google::cloud::bigquery::storage::v1::AppendRowsRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetWriteStream() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_GetWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_FinalizeWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_FinalizeWriteStream() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_FinalizeWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FinalizeWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_BatchCommitWriteStreams : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_BatchCommitWriteStreams() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_BatchCommitWriteStreams() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status BatchCommitWriteStreams(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_FlushRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_FlushRows() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_FlushRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FlushRows(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_CreateWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CreateWriteStream() {
+      ::grpc::Service::MarkMethodRaw(0);
+    }
+    ~WithRawMethod_CreateWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateWriteStream(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_AppendRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_AppendRows() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_AppendRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AppendRows(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsResponse, ::google::cloud::bigquery::storage::v1::AppendRowsRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestAppendRows(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(1, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetWriteStream() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_GetWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetWriteStream(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_FinalizeWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_FinalizeWriteStream() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_FinalizeWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FinalizeWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestFinalizeWriteStream(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_BatchCommitWriteStreams : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_BatchCommitWriteStreams() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_BatchCommitWriteStreams() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status BatchCommitWriteStreams(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestBatchCommitWriteStreams(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_FlushRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_FlushRows() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_FlushRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FlushRows(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestFlushRows(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CreateWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CreateWriteStream() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateWriteStream(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CreateWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateWriteStream(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_AppendRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_AppendRows() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->AppendRows(context); }));
+    }
+    ~WithRawCallbackMethod_AppendRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AppendRows(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsResponse, ::google::cloud::bigquery::storage::v1::AppendRowsRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* AppendRows(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetWriteStream() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetWriteStream(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetWriteStream(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_FinalizeWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_FinalizeWriteStream() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->FinalizeWriteStream(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_FinalizeWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FinalizeWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* FinalizeWriteStream(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_BatchCommitWriteStreams : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_BatchCommitWriteStreams() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->BatchCommitWriteStreams(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_BatchCommitWriteStreams() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status BatchCommitWriteStreams(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* BatchCommitWriteStreams(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_FlushRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_FlushRows() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->FlushRows(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_FlushRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status FlushRows(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* FlushRows(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_CreateWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CreateWriteStream() {
+      ::grpc::Service::MarkMethodStreamed(0,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>* streamer) {
+                       return this->StreamedCreateWriteStream(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CreateWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CreateWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCreateWriteStream(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest,::google::cloud::bigquery::storage::v1::WriteStream>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetWriteStream() {
+      ::grpc::Service::MarkMethodStreamed(2,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest, ::google::cloud::bigquery::storage::v1::WriteStream>* streamer) {
+                       return this->StreamedGetWriteStream(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::WriteStream* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetWriteStream(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest,::google::cloud::bigquery::storage::v1::WriteStream>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_FinalizeWriteStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_FinalizeWriteStream() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>* streamer) {
+                       return this->StreamedFinalizeWriteStream(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_FinalizeWriteStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status FinalizeWriteStream(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedFinalizeWriteStream(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest,::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_BatchCommitWriteStreams : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_BatchCommitWriteStreams() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>* streamer) {
+                       return this->StreamedBatchCommitWriteStreams(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_BatchCommitWriteStreams() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status BatchCommitWriteStreams(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedBatchCommitWriteStreams(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest,::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_FlushRows : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_FlushRows() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::bigquery::storage::v1::FlushRowsRequest, ::google::cloud::bigquery::storage::v1::FlushRowsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::bigquery::storage::v1::FlushRowsRequest, ::google::cloud::bigquery::storage::v1::FlushRowsResponse>* streamer) {
+                       return this->StreamedFlushRows(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_FlushRows() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status FlushRows(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::storage::v1::FlushRowsRequest* /*request*/, ::google::cloud::bigquery::storage::v1::FlushRowsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedFlushRows(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::storage::v1::FlushRowsRequest,::google::cloud::bigquery::storage::v1::FlushRowsResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_CreateWriteStream<WithStreamedUnaryMethod_GetWriteStream<WithStreamedUnaryMethod_FinalizeWriteStream<WithStreamedUnaryMethod_BatchCommitWriteStreams<WithStreamedUnaryMethod_FlushRows<Service > > > > > StreamedUnaryService;
+  typedef Service SplitStreamedService;
+  typedef WithStreamedUnaryMethod_CreateWriteStream<WithStreamedUnaryMethod_GetWriteStream<WithStreamedUnaryMethod_FinalizeWriteStream<WithStreamedUnaryMethod_BatchCommitWriteStreams<WithStreamedUnaryMethod_FlushRows<Service > > > > > StreamedService;
 };
 
 }  // namespace v1

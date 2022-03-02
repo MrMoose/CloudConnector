@@ -29,7 +29,7 @@
 namespace google {
 namespace cloud {
 namespace logging_internal {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 class LoggingServiceV2Logging : public LoggingServiceV2Stub {
  public:
@@ -60,13 +60,19 @@ class LoggingServiceV2Logging : public LoggingServiceV2Stub {
       grpc::ClientContext& context,
       google::logging::v2::ListLogsRequest const& request) override;
 
+  std::unique_ptr<::google::cloud::AsyncStreamingReadWriteRpc<
+      google::logging::v2::TailLogEntriesRequest,
+      google::logging::v2::TailLogEntriesResponse>>
+  AsyncTailLogEntries(google::cloud::CompletionQueue const& cq,
+                      std::unique_ptr<grpc::ClientContext> context) override;
+
  private:
   std::shared_ptr<LoggingServiceV2Stub> child_;
   TracingOptions tracing_options_;
   std::set<std::string> components_;
 };  // LoggingServiceV2Logging
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace logging_internal
 }  // namespace cloud
 }  // namespace google

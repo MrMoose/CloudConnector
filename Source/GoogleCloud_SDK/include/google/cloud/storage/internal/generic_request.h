@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 /**
  * Sets the user IP on an operation for quota enforcement purposes.
  *
@@ -53,6 +53,30 @@ template <typename Derived, typename Option, typename... Options>
 class GenericRequestBase;
 
 /**
+ * Apply any number of options to a request builder.
+ */
+template <typename Builder>
+struct AddOptionsToBuilder {
+  Builder& builder;
+
+  template <typename Option>
+  void operator()(Option const& o) {
+    builder.AddOption(o);
+  }
+};
+
+template <typename Builder, typename Skip>
+struct AddOptionsWithSkip {
+  Builder& builder;
+
+  template <typename Option>
+  void operator()(Option const& o) {
+    if (std::is_same<Option, Skip>::value) return;
+    builder.AddOption(o);
+  }
+};
+
+/**
  * Refactors common functions that manipulate list of parameters in a request.
  *
  * This class is used in the implementation of `RequestParameters`, it is the
@@ -67,6 +91,11 @@ class GenericRequestBase<Derived, Option> {
   Derived& set_option(Option p) {
     option_ = std::move(p);
     return *static_cast<Derived*>(this);
+  }
+
+  template <typename Callable>
+  void ForEachOption(Callable& c) const {
+    c(option_);
   }
 
   template <typename HttpRequest>
@@ -114,10 +143,16 @@ class GenericRequestBase : public GenericRequestBase<Derived, Options...> {
     return *static_cast<Derived*>(this);
   }
 
+  template <typename Callable>
+  void ForEachOption(Callable& c) const {
+    c(option_);
+    GenericRequestBase<Derived, Options...>::ForEachOption(c);
+  }
+
   template <typename HttpRequest>
   void AddOptionsToHttpRequest(HttpRequest& request) const {
-    request.AddOption(option_);
-    GenericRequestBase<Derived, Options...>::AddOptionsToHttpRequest(request);
+    AddOptionsToBuilder<HttpRequest> add{request};
+    ForEachOption(add);
   }
 
   void DumpOptions(std::ostream& os, char const* sep) const {
@@ -226,7 +261,7 @@ class GenericRequest
 };
 
 }  // namespace internal
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

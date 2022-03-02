@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,10 +25,10 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 struct ObjectAccessControlParser;
-class GrpcClient;
+struct GrpcObjectAccessControlParser;
 }  // namespace internal
 
 /**
@@ -89,7 +89,7 @@ class ObjectAccessControl : private internal::AccessControlCommon {
 
  private:
   friend struct internal::ObjectAccessControlParser;
-  friend class internal::GrpcClient;
+  friend struct internal::GrpcObjectAccessControlParser;
 
   std::int64_t generation_ = 0;
   std::string object_;
@@ -141,7 +141,7 @@ class ObjectAccessControlPatchBuilder {
   internal::PatchBuilder impl_;
 };
 
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

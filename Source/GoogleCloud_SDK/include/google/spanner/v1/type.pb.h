@@ -32,8 +32,8 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
-#include "google/api/field_behavior.pb.h"
 #include "google/api/annotations.pb.h"
+#include "google/api/field_behavior.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_google_2fspanner_2fv1_2ftype_2eproto
@@ -115,6 +115,31 @@ inline bool TypeCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TypeCode* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<TypeCode>(
     TypeCode_descriptor(), name, value);
+}
+enum TypeAnnotationCode : int {
+  TYPE_ANNOTATION_CODE_UNSPECIFIED = 0,
+  PG_NUMERIC = 2,
+  TypeAnnotationCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  TypeAnnotationCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool TypeAnnotationCode_IsValid(int value);
+constexpr TypeAnnotationCode TypeAnnotationCode_MIN = TYPE_ANNOTATION_CODE_UNSPECIFIED;
+constexpr TypeAnnotationCode TypeAnnotationCode_MAX = PG_NUMERIC;
+constexpr int TypeAnnotationCode_ARRAYSIZE = TypeAnnotationCode_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* TypeAnnotationCode_descriptor();
+template<typename T>
+inline const std::string& TypeAnnotationCode_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, TypeAnnotationCode>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function TypeAnnotationCode_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    TypeAnnotationCode_descriptor(), enum_t_value);
+}
+inline bool TypeAnnotationCode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TypeAnnotationCode* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<TypeAnnotationCode>(
+    TypeAnnotationCode_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -234,6 +259,7 @@ class Type PROTOBUF_FINAL :
     kArrayElementTypeFieldNumber = 2,
     kStructTypeFieldNumber = 3,
     kCodeFieldNumber = 1,
+    kTypeAnnotationFieldNumber = 4,
   };
   // .google.spanner.v1.Type array_element_type = 2;
   bool has_array_element_type() const;
@@ -280,6 +306,15 @@ class Type PROTOBUF_FINAL :
   void _internal_set_code(::google::spanner::v1::TypeCode value);
   public:
 
+  // .google.spanner.v1.TypeAnnotationCode type_annotation = 4;
+  void clear_type_annotation();
+  ::google::spanner::v1::TypeAnnotationCode type_annotation() const;
+  void set_type_annotation(::google::spanner::v1::TypeAnnotationCode value);
+  private:
+  ::google::spanner::v1::TypeAnnotationCode _internal_type_annotation() const;
+  void _internal_set_type_annotation(::google::spanner::v1::TypeAnnotationCode value);
+  public:
+
   // @@protoc_insertion_point(class_scope:google.spanner.v1.Type)
  private:
   class _Internal;
@@ -290,6 +325,7 @@ class Type PROTOBUF_FINAL :
   ::google::spanner::v1::Type* array_element_type_;
   ::google::spanner::v1::StructType* struct_type_;
   int code_;
+  int type_annotation_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fspanner_2fv1_2ftype_2eproto;
 };
@@ -802,6 +838,26 @@ inline void Type::set_allocated_struct_type(::google::spanner::v1::StructType* s
   // @@protoc_insertion_point(field_set_allocated:google.spanner.v1.Type.struct_type)
 }
 
+// .google.spanner.v1.TypeAnnotationCode type_annotation = 4;
+inline void Type::clear_type_annotation() {
+  type_annotation_ = 0;
+}
+inline ::google::spanner::v1::TypeAnnotationCode Type::_internal_type_annotation() const {
+  return static_cast< ::google::spanner::v1::TypeAnnotationCode >(type_annotation_);
+}
+inline ::google::spanner::v1::TypeAnnotationCode Type::type_annotation() const {
+  // @@protoc_insertion_point(field_get:google.spanner.v1.Type.type_annotation)
+  return _internal_type_annotation();
+}
+inline void Type::_internal_set_type_annotation(::google::spanner::v1::TypeAnnotationCode value) {
+  
+  type_annotation_ = value;
+}
+inline void Type::set_type_annotation(::google::spanner::v1::TypeAnnotationCode value) {
+  _internal_set_type_annotation(value);
+  // @@protoc_insertion_point(field_set:google.spanner.v1.Type.type_annotation)
+}
+
 // -------------------------------------------------------------------
 
 // StructType_Field
@@ -1013,6 +1069,11 @@ template <> struct is_proto_enum< ::google::spanner::v1::TypeCode> : ::std::true
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::google::spanner::v1::TypeCode>() {
   return ::google::spanner::v1::TypeCode_descriptor();
+}
+template <> struct is_proto_enum< ::google::spanner::v1::TypeAnnotationCode> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::google::spanner::v1::TypeAnnotationCode>() {
+  return ::google::spanner::v1::TypeAnnotationCode_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

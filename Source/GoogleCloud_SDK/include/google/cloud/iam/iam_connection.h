@@ -20,8 +20,8 @@
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_IAM_IAM_CONNECTION_H
 
 #include "google/cloud/iam/iam_connection_idempotency_policy.h"
+#include "google/cloud/iam/internal/iam_retry_traits.h"
 #include "google/cloud/iam/internal/iam_stub.h"
-#include "google/cloud/iam/retry_traits.h"
 #include "google/cloud/backoff_policy.h"
 #include "google/cloud/options.h"
 #include "google/cloud/status_or.h"
@@ -32,7 +32,7 @@
 namespace google {
 namespace cloud {
 namespace iam {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 using IAMRetryPolicy = ::google::cloud::internal::TraitBasedRetryPolicy<
     iam_internal::IAMRetryTraits>;
@@ -48,6 +48,8 @@ using IAMLimitedErrorCountRetryPolicy =
 class IAMConnection {
  public:
   virtual ~IAMConnection() = 0;
+
+  virtual Options options() { return Options{}; }
 
   virtual StreamRange<google::iam::admin::v1::ServiceAccount>
   ListServiceAccounts(
@@ -138,7 +140,8 @@ class IAMConnection {
 
 std::shared_ptr<IAMConnection> MakeIAMConnection(Options options = {});
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
+namespace gcpcxxV1 = GOOGLE_CLOUD_CPP_NS;  // NOLINT(misc-unused-alias-decls)
 }  // namespace iam
 }  // namespace cloud
 }  // namespace google
@@ -146,12 +149,13 @@ std::shared_ptr<IAMConnection> MakeIAMConnection(Options options = {});
 namespace google {
 namespace cloud {
 namespace iam_internal {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 std::shared_ptr<iam::IAMConnection> MakeIAMConnection(
     std::shared_ptr<IAMStub> stub, Options options);
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
+namespace gcpcxxV1 = GOOGLE_CLOUD_CPP_NS;  // NOLINT(misc-unused-alias-decls)
 }  // namespace iam_internal
 }  // namespace cloud
 }  // namespace google

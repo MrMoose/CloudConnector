@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,8 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
+
 /**
  * Creates a google::cloud::Status from a grpc::Status.
  */
@@ -42,9 +43,9 @@ google::cloud::Status MakeStatusFromRpcError(grpc::StatusCode code,
  * libraries in `google-cloud-cpp` represent these errors using a
  * `google::cloud::Status`.
  */
-google::cloud::Status MakeStatusFromRpcError(google::rpc::Status const& status);
+google::cloud::Status MakeStatusFromRpcError(google::rpc::Status const& proto);
 
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

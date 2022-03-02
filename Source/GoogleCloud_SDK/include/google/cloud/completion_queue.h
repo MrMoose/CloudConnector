@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,12 +27,12 @@
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 class CompletionQueue;
 
 namespace internal {
 std::shared_ptr<CompletionQueueImpl> GetCompletionQueueImpl(
-    CompletionQueue& cq);
+    CompletionQueue const& cq);
 }  // namespace internal
 
 /**
@@ -250,20 +250,20 @@ class CompletionQueue {
 
  private:
   friend std::shared_ptr<internal::CompletionQueueImpl>
-  internal::GetCompletionQueueImpl(CompletionQueue& cq);
+  internal::GetCompletionQueueImpl(CompletionQueue const& cq);
   std::shared_ptr<internal::CompletionQueueImpl> impl_;
 };
 
 namespace internal {
 
 inline std::shared_ptr<CompletionQueueImpl> GetCompletionQueueImpl(
-    CompletionQueue& cq) {
+    CompletionQueue const& cq) {
   return cq.impl_;
 }
 
 }  // namespace internal
 
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

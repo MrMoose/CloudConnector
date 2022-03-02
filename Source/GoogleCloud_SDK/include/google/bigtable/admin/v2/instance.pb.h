@@ -38,6 +38,8 @@
 #include "google/api/field_behavior.pb.h"
 #include "google/api/resource.pb.h"
 #include "google/bigtable/admin/v2/common.pb.h"
+#include <google/protobuf/timestamp.pb.h>
+#include "google/api/annotations.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto
@@ -53,7 +55,7 @@ struct TableStruct_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[11]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -74,9 +76,21 @@ extern AppProfile_MultiClusterRoutingUseAnyDefaultTypeInternal _AppProfile_Multi
 class AppProfile_SingleClusterRouting;
 struct AppProfile_SingleClusterRoutingDefaultTypeInternal;
 extern AppProfile_SingleClusterRoutingDefaultTypeInternal _AppProfile_SingleClusterRouting_default_instance_;
+class AutoscalingLimits;
+struct AutoscalingLimitsDefaultTypeInternal;
+extern AutoscalingLimitsDefaultTypeInternal _AutoscalingLimits_default_instance_;
+class AutoscalingTargets;
+struct AutoscalingTargetsDefaultTypeInternal;
+extern AutoscalingTargetsDefaultTypeInternal _AutoscalingTargets_default_instance_;
 class Cluster;
 struct ClusterDefaultTypeInternal;
 extern ClusterDefaultTypeInternal _Cluster_default_instance_;
+class Cluster_ClusterAutoscalingConfig;
+struct Cluster_ClusterAutoscalingConfigDefaultTypeInternal;
+extern Cluster_ClusterAutoscalingConfigDefaultTypeInternal _Cluster_ClusterAutoscalingConfig_default_instance_;
+class Cluster_ClusterConfig;
+struct Cluster_ClusterConfigDefaultTypeInternal;
+extern Cluster_ClusterConfigDefaultTypeInternal _Cluster_ClusterConfig_default_instance_;
 class Cluster_EncryptionConfig;
 struct Cluster_EncryptionConfigDefaultTypeInternal;
 extern Cluster_EncryptionConfigDefaultTypeInternal _Cluster_EncryptionConfig_default_instance_;
@@ -94,7 +108,11 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::google::bigtable::admin::v2::AppProfile* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::AppProfile>(Arena*);
 template<> ::google::bigtable::admin::v2::AppProfile_MultiClusterRoutingUseAny* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::AppProfile_MultiClusterRoutingUseAny>(Arena*);
 template<> ::google::bigtable::admin::v2::AppProfile_SingleClusterRouting* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::AppProfile_SingleClusterRouting>(Arena*);
+template<> ::google::bigtable::admin::v2::AutoscalingLimits* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::AutoscalingLimits>(Arena*);
+template<> ::google::bigtable::admin::v2::AutoscalingTargets* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::AutoscalingTargets>(Arena*);
 template<> ::google::bigtable::admin::v2::Cluster* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::Cluster>(Arena*);
+template<> ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig>(Arena*);
+template<> ::google::bigtable::admin::v2::Cluster_ClusterConfig* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::Cluster_ClusterConfig>(Arena*);
 template<> ::google::bigtable::admin::v2::Cluster_EncryptionConfig* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::Cluster_EncryptionConfig>(Arena*);
 template<> ::google::bigtable::admin::v2::Instance* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::Instance>(Arena*);
 template<> ::google::bigtable::admin::v2::Instance_LabelsEntry_DoNotUse* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::Instance_LabelsEntry_DoNotUse>(Arena*);
@@ -401,6 +419,7 @@ class Instance PROTOBUF_FINAL :
     kLabelsFieldNumber = 5,
     kNameFieldNumber = 1,
     kDisplayNameFieldNumber = 2,
+    kCreateTimeFieldNumber = 7,
     kStateFieldNumber = 3,
     kTypeFieldNumber = 4,
   };
@@ -453,6 +472,24 @@ class Instance PROTOBUF_FINAL :
   std::string* _internal_mutable_display_name();
   public:
 
+  // .google.protobuf.Timestamp create_time = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  bool has_create_time() const;
+  private:
+  bool _internal_has_create_time() const;
+  public:
+  void clear_create_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& create_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_create_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_create_time();
+  void set_allocated_create_time(PROTOBUF_NAMESPACE_ID::Timestamp* create_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_create_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_create_time();
+  public:
+  void unsafe_arena_set_allocated_create_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* create_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_create_time();
+
   // .google.bigtable.admin.v2.Instance.State state = 3;
   void clear_state();
   ::google::bigtable::admin::v2::Instance_State state() const;
@@ -485,8 +522,606 @@ class Instance PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> labels_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr display_name_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* create_time_;
   int state_;
   int type_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AutoscalingTargets PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.bigtable.admin.v2.AutoscalingTargets) */ {
+ public:
+  inline AutoscalingTargets() : AutoscalingTargets(nullptr) {}
+  virtual ~AutoscalingTargets();
+  explicit constexpr AutoscalingTargets(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AutoscalingTargets(const AutoscalingTargets& from);
+  AutoscalingTargets(AutoscalingTargets&& from) noexcept
+    : AutoscalingTargets() {
+    *this = ::std::move(from);
+  }
+
+  inline AutoscalingTargets& operator=(const AutoscalingTargets& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AutoscalingTargets& operator=(AutoscalingTargets&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const AutoscalingTargets& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AutoscalingTargets* internal_default_instance() {
+    return reinterpret_cast<const AutoscalingTargets*>(
+               &_AutoscalingTargets_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(AutoscalingTargets& a, AutoscalingTargets& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AutoscalingTargets* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AutoscalingTargets* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AutoscalingTargets* New() const final {
+    return CreateMaybeMessage<AutoscalingTargets>(nullptr);
+  }
+
+  AutoscalingTargets* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AutoscalingTargets>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const AutoscalingTargets& from);
+  void MergeFrom(const AutoscalingTargets& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(AutoscalingTargets* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.bigtable.admin.v2.AutoscalingTargets";
+  }
+  protected:
+  explicit AutoscalingTargets(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCpuUtilizationPercentFieldNumber = 2,
+  };
+  // int32 cpu_utilization_percent = 2;
+  void clear_cpu_utilization_percent();
+  ::PROTOBUF_NAMESPACE_ID::int32 cpu_utilization_percent() const;
+  void set_cpu_utilization_percent(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_cpu_utilization_percent() const;
+  void _internal_set_cpu_utilization_percent(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.bigtable.admin.v2.AutoscalingTargets)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::int32 cpu_utilization_percent_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AutoscalingLimits PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.bigtable.admin.v2.AutoscalingLimits) */ {
+ public:
+  inline AutoscalingLimits() : AutoscalingLimits(nullptr) {}
+  virtual ~AutoscalingLimits();
+  explicit constexpr AutoscalingLimits(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AutoscalingLimits(const AutoscalingLimits& from);
+  AutoscalingLimits(AutoscalingLimits&& from) noexcept
+    : AutoscalingLimits() {
+    *this = ::std::move(from);
+  }
+
+  inline AutoscalingLimits& operator=(const AutoscalingLimits& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AutoscalingLimits& operator=(AutoscalingLimits&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const AutoscalingLimits& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AutoscalingLimits* internal_default_instance() {
+    return reinterpret_cast<const AutoscalingLimits*>(
+               &_AutoscalingLimits_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(AutoscalingLimits& a, AutoscalingLimits& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AutoscalingLimits* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AutoscalingLimits* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline AutoscalingLimits* New() const final {
+    return CreateMaybeMessage<AutoscalingLimits>(nullptr);
+  }
+
+  AutoscalingLimits* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AutoscalingLimits>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const AutoscalingLimits& from);
+  void MergeFrom(const AutoscalingLimits& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(AutoscalingLimits* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.bigtable.admin.v2.AutoscalingLimits";
+  }
+  protected:
+  explicit AutoscalingLimits(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMinServeNodesFieldNumber = 1,
+    kMaxServeNodesFieldNumber = 2,
+  };
+  // int32 min_serve_nodes = 1 [(.google.api.field_behavior) = REQUIRED];
+  void clear_min_serve_nodes();
+  ::PROTOBUF_NAMESPACE_ID::int32 min_serve_nodes() const;
+  void set_min_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_min_serve_nodes() const;
+  void _internal_set_min_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 max_serve_nodes = 2 [(.google.api.field_behavior) = REQUIRED];
+  void clear_max_serve_nodes();
+  ::PROTOBUF_NAMESPACE_ID::int32 max_serve_nodes() const;
+  void set_max_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_max_serve_nodes() const;
+  void _internal_set_max_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:google.bigtable.admin.v2.AutoscalingLimits)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::int32 min_serve_nodes_;
+  ::PROTOBUF_NAMESPACE_ID::int32 max_serve_nodes_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Cluster_ClusterAutoscalingConfig PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig) */ {
+ public:
+  inline Cluster_ClusterAutoscalingConfig() : Cluster_ClusterAutoscalingConfig(nullptr) {}
+  virtual ~Cluster_ClusterAutoscalingConfig();
+  explicit constexpr Cluster_ClusterAutoscalingConfig(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Cluster_ClusterAutoscalingConfig(const Cluster_ClusterAutoscalingConfig& from);
+  Cluster_ClusterAutoscalingConfig(Cluster_ClusterAutoscalingConfig&& from) noexcept
+    : Cluster_ClusterAutoscalingConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline Cluster_ClusterAutoscalingConfig& operator=(const Cluster_ClusterAutoscalingConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Cluster_ClusterAutoscalingConfig& operator=(Cluster_ClusterAutoscalingConfig&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Cluster_ClusterAutoscalingConfig& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Cluster_ClusterAutoscalingConfig* internal_default_instance() {
+    return reinterpret_cast<const Cluster_ClusterAutoscalingConfig*>(
+               &_Cluster_ClusterAutoscalingConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(Cluster_ClusterAutoscalingConfig& a, Cluster_ClusterAutoscalingConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Cluster_ClusterAutoscalingConfig* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Cluster_ClusterAutoscalingConfig* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Cluster_ClusterAutoscalingConfig* New() const final {
+    return CreateMaybeMessage<Cluster_ClusterAutoscalingConfig>(nullptr);
+  }
+
+  Cluster_ClusterAutoscalingConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Cluster_ClusterAutoscalingConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Cluster_ClusterAutoscalingConfig& from);
+  void MergeFrom(const Cluster_ClusterAutoscalingConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Cluster_ClusterAutoscalingConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig";
+  }
+  protected:
+  explicit Cluster_ClusterAutoscalingConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAutoscalingLimitsFieldNumber = 1,
+    kAutoscalingTargetsFieldNumber = 2,
+  };
+  // .google.bigtable.admin.v2.AutoscalingLimits autoscaling_limits = 1 [(.google.api.field_behavior) = REQUIRED];
+  bool has_autoscaling_limits() const;
+  private:
+  bool _internal_has_autoscaling_limits() const;
+  public:
+  void clear_autoscaling_limits();
+  const ::google::bigtable::admin::v2::AutoscalingLimits& autoscaling_limits() const;
+  ::google::bigtable::admin::v2::AutoscalingLimits* release_autoscaling_limits();
+  ::google::bigtable::admin::v2::AutoscalingLimits* mutable_autoscaling_limits();
+  void set_allocated_autoscaling_limits(::google::bigtable::admin::v2::AutoscalingLimits* autoscaling_limits);
+  private:
+  const ::google::bigtable::admin::v2::AutoscalingLimits& _internal_autoscaling_limits() const;
+  ::google::bigtable::admin::v2::AutoscalingLimits* _internal_mutable_autoscaling_limits();
+  public:
+  void unsafe_arena_set_allocated_autoscaling_limits(
+      ::google::bigtable::admin::v2::AutoscalingLimits* autoscaling_limits);
+  ::google::bigtable::admin::v2::AutoscalingLimits* unsafe_arena_release_autoscaling_limits();
+
+  // .google.bigtable.admin.v2.AutoscalingTargets autoscaling_targets = 2 [(.google.api.field_behavior) = REQUIRED];
+  bool has_autoscaling_targets() const;
+  private:
+  bool _internal_has_autoscaling_targets() const;
+  public:
+  void clear_autoscaling_targets();
+  const ::google::bigtable::admin::v2::AutoscalingTargets& autoscaling_targets() const;
+  ::google::bigtable::admin::v2::AutoscalingTargets* release_autoscaling_targets();
+  ::google::bigtable::admin::v2::AutoscalingTargets* mutable_autoscaling_targets();
+  void set_allocated_autoscaling_targets(::google::bigtable::admin::v2::AutoscalingTargets* autoscaling_targets);
+  private:
+  const ::google::bigtable::admin::v2::AutoscalingTargets& _internal_autoscaling_targets() const;
+  ::google::bigtable::admin::v2::AutoscalingTargets* _internal_mutable_autoscaling_targets();
+  public:
+  void unsafe_arena_set_allocated_autoscaling_targets(
+      ::google::bigtable::admin::v2::AutoscalingTargets* autoscaling_targets);
+  ::google::bigtable::admin::v2::AutoscalingTargets* unsafe_arena_release_autoscaling_targets();
+
+  // @@protoc_insertion_point(class_scope:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::google::bigtable::admin::v2::AutoscalingLimits* autoscaling_limits_;
+  ::google::bigtable::admin::v2::AutoscalingTargets* autoscaling_targets_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Cluster_ClusterConfig PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.bigtable.admin.v2.Cluster.ClusterConfig) */ {
+ public:
+  inline Cluster_ClusterConfig() : Cluster_ClusterConfig(nullptr) {}
+  virtual ~Cluster_ClusterConfig();
+  explicit constexpr Cluster_ClusterConfig(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Cluster_ClusterConfig(const Cluster_ClusterConfig& from);
+  Cluster_ClusterConfig(Cluster_ClusterConfig&& from) noexcept
+    : Cluster_ClusterConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline Cluster_ClusterConfig& operator=(const Cluster_ClusterConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Cluster_ClusterConfig& operator=(Cluster_ClusterConfig&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Cluster_ClusterConfig& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Cluster_ClusterConfig* internal_default_instance() {
+    return reinterpret_cast<const Cluster_ClusterConfig*>(
+               &_Cluster_ClusterConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(Cluster_ClusterConfig& a, Cluster_ClusterConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Cluster_ClusterConfig* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Cluster_ClusterConfig* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Cluster_ClusterConfig* New() const final {
+    return CreateMaybeMessage<Cluster_ClusterConfig>(nullptr);
+  }
+
+  Cluster_ClusterConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Cluster_ClusterConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Cluster_ClusterConfig& from);
+  void MergeFrom(const Cluster_ClusterConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Cluster_ClusterConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.bigtable.admin.v2.Cluster.ClusterConfig";
+  }
+  protected:
+  explicit Cluster_ClusterConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kClusterAutoscalingConfigFieldNumber = 1,
+  };
+  // .google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig cluster_autoscaling_config = 1;
+  bool has_cluster_autoscaling_config() const;
+  private:
+  bool _internal_has_cluster_autoscaling_config() const;
+  public:
+  void clear_cluster_autoscaling_config();
+  const ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig& cluster_autoscaling_config() const;
+  ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* release_cluster_autoscaling_config();
+  ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* mutable_cluster_autoscaling_config();
+  void set_allocated_cluster_autoscaling_config(::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* cluster_autoscaling_config);
+  private:
+  const ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig& _internal_cluster_autoscaling_config() const;
+  ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* _internal_mutable_cluster_autoscaling_config();
+  public:
+  void unsafe_arena_set_allocated_cluster_autoscaling_config(
+      ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* cluster_autoscaling_config);
+  ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* unsafe_arena_release_cluster_autoscaling_config();
+
+  // @@protoc_insertion_point(class_scope:google.bigtable.admin.v2.Cluster.ClusterConfig)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* cluster_autoscaling_config_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto;
 };
@@ -535,7 +1170,7 @@ class Cluster_EncryptionConfig PROTOBUF_FINAL :
                &_Cluster_EncryptionConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    6;
 
   friend void swap(Cluster_EncryptionConfig& a, Cluster_EncryptionConfig& b) {
     a.Swap(&b);
@@ -674,12 +1309,17 @@ class Cluster PROTOBUF_FINAL :
   static const Cluster& default_instance() {
     return *internal_default_instance();
   }
+  enum ConfigCase {
+    kClusterConfig = 7,
+    CONFIG_NOT_SET = 0,
+  };
+
   static inline const Cluster* internal_default_instance() {
     return reinterpret_cast<const Cluster*>(
                &_Cluster_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    7;
 
   friend void swap(Cluster& a, Cluster& b) {
     a.Swap(&b);
@@ -746,6 +1386,8 @@ class Cluster PROTOBUF_FINAL :
 
   // nested types ----------------------------------------------------
 
+  typedef Cluster_ClusterAutoscalingConfig ClusterAutoscalingConfig;
+  typedef Cluster_ClusterConfig ClusterConfig;
   typedef Cluster_EncryptionConfig EncryptionConfig;
 
   typedef Cluster_State State;
@@ -793,6 +1435,7 @@ class Cluster PROTOBUF_FINAL :
     kStateFieldNumber = 3,
     kServeNodesFieldNumber = 4,
     kDefaultStorageTypeFieldNumber = 5,
+    kClusterConfigFieldNumber = 7,
   };
   // string name = 1 [(.google.api.field_behavior) = OUTPUT_ONLY];
   void clear_name();
@@ -853,7 +1496,7 @@ class Cluster PROTOBUF_FINAL :
   void _internal_set_state(::google::bigtable::admin::v2::Cluster_State value);
   public:
 
-  // int32 serve_nodes = 4 [(.google.api.field_behavior) = REQUIRED];
+  // int32 serve_nodes = 4;
   void clear_serve_nodes();
   ::PROTOBUF_NAMESPACE_ID::int32 serve_nodes() const;
   void set_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value);
@@ -871,9 +1514,33 @@ class Cluster PROTOBUF_FINAL :
   void _internal_set_default_storage_type(::google::bigtable::admin::v2::StorageType value);
   public:
 
+  // .google.bigtable.admin.v2.Cluster.ClusterConfig cluster_config = 7;
+  bool has_cluster_config() const;
+  private:
+  bool _internal_has_cluster_config() const;
+  public:
+  void clear_cluster_config();
+  const ::google::bigtable::admin::v2::Cluster_ClusterConfig& cluster_config() const;
+  ::google::bigtable::admin::v2::Cluster_ClusterConfig* release_cluster_config();
+  ::google::bigtable::admin::v2::Cluster_ClusterConfig* mutable_cluster_config();
+  void set_allocated_cluster_config(::google::bigtable::admin::v2::Cluster_ClusterConfig* cluster_config);
+  private:
+  const ::google::bigtable::admin::v2::Cluster_ClusterConfig& _internal_cluster_config() const;
+  ::google::bigtable::admin::v2::Cluster_ClusterConfig* _internal_mutable_cluster_config();
+  public:
+  void unsafe_arena_set_allocated_cluster_config(
+      ::google::bigtable::admin::v2::Cluster_ClusterConfig* cluster_config);
+  ::google::bigtable::admin::v2::Cluster_ClusterConfig* unsafe_arena_release_cluster_config();
+
+  void clear_config();
+  ConfigCase config_case() const;
   // @@protoc_insertion_point(class_scope:google.bigtable.admin.v2.Cluster)
  private:
   class _Internal;
+  void set_has_cluster_config();
+
+  inline bool has_config() const;
+  inline void clear_has_config();
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -884,7 +1551,14 @@ class Cluster PROTOBUF_FINAL :
   int state_;
   ::PROTOBUF_NAMESPACE_ID::int32 serve_nodes_;
   int default_storage_type_;
+  union ConfigUnion {
+    constexpr ConfigUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::google::bigtable::admin::v2::Cluster_ClusterConfig* cluster_config_;
+  } config_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 _oneof_case_[1];
+
   friend struct ::TableStruct_google_2fbigtable_2fadmin_2fv2_2finstance_2eproto;
 };
 // -------------------------------------------------------------------
@@ -932,7 +1606,7 @@ class AppProfile_MultiClusterRoutingUseAny PROTOBUF_FINAL :
                &_AppProfile_MultiClusterRoutingUseAny_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    8;
 
   friend void swap(AppProfile_MultiClusterRoutingUseAny& a, AppProfile_MultiClusterRoutingUseAny& b) {
     a.Swap(&b);
@@ -1084,7 +1758,7 @@ class AppProfile_SingleClusterRouting PROTOBUF_FINAL :
                &_AppProfile_SingleClusterRouting_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    9;
 
   friend void swap(AppProfile_SingleClusterRouting& a, AppProfile_SingleClusterRouting& b) {
     a.Swap(&b);
@@ -1245,7 +1919,7 @@ class AppProfile PROTOBUF_FINAL :
                &_AppProfile_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    10;
 
   friend void swap(AppProfile& a, AppProfile& b) {
     a.Swap(&b);
@@ -1640,6 +2314,408 @@ Instance::mutable_labels() {
   return _internal_mutable_labels();
 }
 
+// .google.protobuf.Timestamp create_time = 7 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline bool Instance::_internal_has_create_time() const {
+  return this != internal_default_instance() && create_time_ != nullptr;
+}
+inline bool Instance::has_create_time() const {
+  return _internal_has_create_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& Instance::_internal_create_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = create_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& Instance::create_time() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.Instance.create_time)
+  return _internal_create_time();
+}
+inline void Instance::unsafe_arena_set_allocated_create_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* create_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time_);
+  }
+  create_time_ = create_time;
+  if (create_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.Instance.create_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* Instance::release_create_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = create_time_;
+  create_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* Instance::unsafe_arena_release_create_time() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.Instance.create_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = create_time_;
+  create_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* Instance::_internal_mutable_create_time() {
+  
+  if (create_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    create_time_ = p;
+  }
+  return create_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* Instance::mutable_create_time() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.Instance.create_time)
+  return _internal_mutable_create_time();
+}
+inline void Instance::set_allocated_create_time(PROTOBUF_NAMESPACE_ID::Timestamp* create_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time_);
+  }
+  if (create_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      create_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, create_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  create_time_ = create_time;
+  // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.Instance.create_time)
+}
+
+// -------------------------------------------------------------------
+
+// AutoscalingTargets
+
+// int32 cpu_utilization_percent = 2;
+inline void AutoscalingTargets::clear_cpu_utilization_percent() {
+  cpu_utilization_percent_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AutoscalingTargets::_internal_cpu_utilization_percent() const {
+  return cpu_utilization_percent_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AutoscalingTargets::cpu_utilization_percent() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.AutoscalingTargets.cpu_utilization_percent)
+  return _internal_cpu_utilization_percent();
+}
+inline void AutoscalingTargets::_internal_set_cpu_utilization_percent(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  cpu_utilization_percent_ = value;
+}
+inline void AutoscalingTargets::set_cpu_utilization_percent(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_cpu_utilization_percent(value);
+  // @@protoc_insertion_point(field_set:google.bigtable.admin.v2.AutoscalingTargets.cpu_utilization_percent)
+}
+
+// -------------------------------------------------------------------
+
+// AutoscalingLimits
+
+// int32 min_serve_nodes = 1 [(.google.api.field_behavior) = REQUIRED];
+inline void AutoscalingLimits::clear_min_serve_nodes() {
+  min_serve_nodes_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AutoscalingLimits::_internal_min_serve_nodes() const {
+  return min_serve_nodes_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AutoscalingLimits::min_serve_nodes() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.AutoscalingLimits.min_serve_nodes)
+  return _internal_min_serve_nodes();
+}
+inline void AutoscalingLimits::_internal_set_min_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  min_serve_nodes_ = value;
+}
+inline void AutoscalingLimits::set_min_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_min_serve_nodes(value);
+  // @@protoc_insertion_point(field_set:google.bigtable.admin.v2.AutoscalingLimits.min_serve_nodes)
+}
+
+// int32 max_serve_nodes = 2 [(.google.api.field_behavior) = REQUIRED];
+inline void AutoscalingLimits::clear_max_serve_nodes() {
+  max_serve_nodes_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AutoscalingLimits::_internal_max_serve_nodes() const {
+  return max_serve_nodes_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 AutoscalingLimits::max_serve_nodes() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.AutoscalingLimits.max_serve_nodes)
+  return _internal_max_serve_nodes();
+}
+inline void AutoscalingLimits::_internal_set_max_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  max_serve_nodes_ = value;
+}
+inline void AutoscalingLimits::set_max_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_max_serve_nodes(value);
+  // @@protoc_insertion_point(field_set:google.bigtable.admin.v2.AutoscalingLimits.max_serve_nodes)
+}
+
+// -------------------------------------------------------------------
+
+// Cluster_ClusterAutoscalingConfig
+
+// .google.bigtable.admin.v2.AutoscalingLimits autoscaling_limits = 1 [(.google.api.field_behavior) = REQUIRED];
+inline bool Cluster_ClusterAutoscalingConfig::_internal_has_autoscaling_limits() const {
+  return this != internal_default_instance() && autoscaling_limits_ != nullptr;
+}
+inline bool Cluster_ClusterAutoscalingConfig::has_autoscaling_limits() const {
+  return _internal_has_autoscaling_limits();
+}
+inline void Cluster_ClusterAutoscalingConfig::clear_autoscaling_limits() {
+  if (GetArena() == nullptr && autoscaling_limits_ != nullptr) {
+    delete autoscaling_limits_;
+  }
+  autoscaling_limits_ = nullptr;
+}
+inline const ::google::bigtable::admin::v2::AutoscalingLimits& Cluster_ClusterAutoscalingConfig::_internal_autoscaling_limits() const {
+  const ::google::bigtable::admin::v2::AutoscalingLimits* p = autoscaling_limits_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::bigtable::admin::v2::AutoscalingLimits&>(
+      ::google::bigtable::admin::v2::_AutoscalingLimits_default_instance_);
+}
+inline const ::google::bigtable::admin::v2::AutoscalingLimits& Cluster_ClusterAutoscalingConfig::autoscaling_limits() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_limits)
+  return _internal_autoscaling_limits();
+}
+inline void Cluster_ClusterAutoscalingConfig::unsafe_arena_set_allocated_autoscaling_limits(
+    ::google::bigtable::admin::v2::AutoscalingLimits* autoscaling_limits) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(autoscaling_limits_);
+  }
+  autoscaling_limits_ = autoscaling_limits;
+  if (autoscaling_limits) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_limits)
+}
+inline ::google::bigtable::admin::v2::AutoscalingLimits* Cluster_ClusterAutoscalingConfig::release_autoscaling_limits() {
+  
+  ::google::bigtable::admin::v2::AutoscalingLimits* temp = autoscaling_limits_;
+  autoscaling_limits_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::bigtable::admin::v2::AutoscalingLimits* Cluster_ClusterAutoscalingConfig::unsafe_arena_release_autoscaling_limits() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_limits)
+  
+  ::google::bigtable::admin::v2::AutoscalingLimits* temp = autoscaling_limits_;
+  autoscaling_limits_ = nullptr;
+  return temp;
+}
+inline ::google::bigtable::admin::v2::AutoscalingLimits* Cluster_ClusterAutoscalingConfig::_internal_mutable_autoscaling_limits() {
+  
+  if (autoscaling_limits_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::bigtable::admin::v2::AutoscalingLimits>(GetArena());
+    autoscaling_limits_ = p;
+  }
+  return autoscaling_limits_;
+}
+inline ::google::bigtable::admin::v2::AutoscalingLimits* Cluster_ClusterAutoscalingConfig::mutable_autoscaling_limits() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_limits)
+  return _internal_mutable_autoscaling_limits();
+}
+inline void Cluster_ClusterAutoscalingConfig::set_allocated_autoscaling_limits(::google::bigtable::admin::v2::AutoscalingLimits* autoscaling_limits) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete autoscaling_limits_;
+  }
+  if (autoscaling_limits) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(autoscaling_limits);
+    if (message_arena != submessage_arena) {
+      autoscaling_limits = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, autoscaling_limits, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  autoscaling_limits_ = autoscaling_limits;
+  // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_limits)
+}
+
+// .google.bigtable.admin.v2.AutoscalingTargets autoscaling_targets = 2 [(.google.api.field_behavior) = REQUIRED];
+inline bool Cluster_ClusterAutoscalingConfig::_internal_has_autoscaling_targets() const {
+  return this != internal_default_instance() && autoscaling_targets_ != nullptr;
+}
+inline bool Cluster_ClusterAutoscalingConfig::has_autoscaling_targets() const {
+  return _internal_has_autoscaling_targets();
+}
+inline void Cluster_ClusterAutoscalingConfig::clear_autoscaling_targets() {
+  if (GetArena() == nullptr && autoscaling_targets_ != nullptr) {
+    delete autoscaling_targets_;
+  }
+  autoscaling_targets_ = nullptr;
+}
+inline const ::google::bigtable::admin::v2::AutoscalingTargets& Cluster_ClusterAutoscalingConfig::_internal_autoscaling_targets() const {
+  const ::google::bigtable::admin::v2::AutoscalingTargets* p = autoscaling_targets_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::bigtable::admin::v2::AutoscalingTargets&>(
+      ::google::bigtable::admin::v2::_AutoscalingTargets_default_instance_);
+}
+inline const ::google::bigtable::admin::v2::AutoscalingTargets& Cluster_ClusterAutoscalingConfig::autoscaling_targets() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_targets)
+  return _internal_autoscaling_targets();
+}
+inline void Cluster_ClusterAutoscalingConfig::unsafe_arena_set_allocated_autoscaling_targets(
+    ::google::bigtable::admin::v2::AutoscalingTargets* autoscaling_targets) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(autoscaling_targets_);
+  }
+  autoscaling_targets_ = autoscaling_targets;
+  if (autoscaling_targets) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_targets)
+}
+inline ::google::bigtable::admin::v2::AutoscalingTargets* Cluster_ClusterAutoscalingConfig::release_autoscaling_targets() {
+  
+  ::google::bigtable::admin::v2::AutoscalingTargets* temp = autoscaling_targets_;
+  autoscaling_targets_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::bigtable::admin::v2::AutoscalingTargets* Cluster_ClusterAutoscalingConfig::unsafe_arena_release_autoscaling_targets() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_targets)
+  
+  ::google::bigtable::admin::v2::AutoscalingTargets* temp = autoscaling_targets_;
+  autoscaling_targets_ = nullptr;
+  return temp;
+}
+inline ::google::bigtable::admin::v2::AutoscalingTargets* Cluster_ClusterAutoscalingConfig::_internal_mutable_autoscaling_targets() {
+  
+  if (autoscaling_targets_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::bigtable::admin::v2::AutoscalingTargets>(GetArena());
+    autoscaling_targets_ = p;
+  }
+  return autoscaling_targets_;
+}
+inline ::google::bigtable::admin::v2::AutoscalingTargets* Cluster_ClusterAutoscalingConfig::mutable_autoscaling_targets() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_targets)
+  return _internal_mutable_autoscaling_targets();
+}
+inline void Cluster_ClusterAutoscalingConfig::set_allocated_autoscaling_targets(::google::bigtable::admin::v2::AutoscalingTargets* autoscaling_targets) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete autoscaling_targets_;
+  }
+  if (autoscaling_targets) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(autoscaling_targets);
+    if (message_arena != submessage_arena) {
+      autoscaling_targets = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, autoscaling_targets, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  autoscaling_targets_ = autoscaling_targets;
+  // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig.autoscaling_targets)
+}
+
+// -------------------------------------------------------------------
+
+// Cluster_ClusterConfig
+
+// .google.bigtable.admin.v2.Cluster.ClusterAutoscalingConfig cluster_autoscaling_config = 1;
+inline bool Cluster_ClusterConfig::_internal_has_cluster_autoscaling_config() const {
+  return this != internal_default_instance() && cluster_autoscaling_config_ != nullptr;
+}
+inline bool Cluster_ClusterConfig::has_cluster_autoscaling_config() const {
+  return _internal_has_cluster_autoscaling_config();
+}
+inline void Cluster_ClusterConfig::clear_cluster_autoscaling_config() {
+  if (GetArena() == nullptr && cluster_autoscaling_config_ != nullptr) {
+    delete cluster_autoscaling_config_;
+  }
+  cluster_autoscaling_config_ = nullptr;
+}
+inline const ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig& Cluster_ClusterConfig::_internal_cluster_autoscaling_config() const {
+  const ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* p = cluster_autoscaling_config_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig&>(
+      ::google::bigtable::admin::v2::_Cluster_ClusterAutoscalingConfig_default_instance_);
+}
+inline const ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig& Cluster_ClusterConfig::cluster_autoscaling_config() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.Cluster.ClusterConfig.cluster_autoscaling_config)
+  return _internal_cluster_autoscaling_config();
+}
+inline void Cluster_ClusterConfig::unsafe_arena_set_allocated_cluster_autoscaling_config(
+    ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* cluster_autoscaling_config) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(cluster_autoscaling_config_);
+  }
+  cluster_autoscaling_config_ = cluster_autoscaling_config;
+  if (cluster_autoscaling_config) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.Cluster.ClusterConfig.cluster_autoscaling_config)
+}
+inline ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* Cluster_ClusterConfig::release_cluster_autoscaling_config() {
+  
+  ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* temp = cluster_autoscaling_config_;
+  cluster_autoscaling_config_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* Cluster_ClusterConfig::unsafe_arena_release_cluster_autoscaling_config() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.Cluster.ClusterConfig.cluster_autoscaling_config)
+  
+  ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* temp = cluster_autoscaling_config_;
+  cluster_autoscaling_config_ = nullptr;
+  return temp;
+}
+inline ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* Cluster_ClusterConfig::_internal_mutable_cluster_autoscaling_config() {
+  
+  if (cluster_autoscaling_config_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig>(GetArena());
+    cluster_autoscaling_config_ = p;
+  }
+  return cluster_autoscaling_config_;
+}
+inline ::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* Cluster_ClusterConfig::mutable_cluster_autoscaling_config() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.Cluster.ClusterConfig.cluster_autoscaling_config)
+  return _internal_mutable_cluster_autoscaling_config();
+}
+inline void Cluster_ClusterConfig::set_allocated_cluster_autoscaling_config(::google::bigtable::admin::v2::Cluster_ClusterAutoscalingConfig* cluster_autoscaling_config) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete cluster_autoscaling_config_;
+  }
+  if (cluster_autoscaling_config) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(cluster_autoscaling_config);
+    if (message_arena != submessage_arena) {
+      cluster_autoscaling_config = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, cluster_autoscaling_config, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  cluster_autoscaling_config_ = cluster_autoscaling_config;
+  // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.Cluster.ClusterConfig.cluster_autoscaling_config)
+}
+
 // -------------------------------------------------------------------
 
 // Cluster_EncryptionConfig
@@ -1851,7 +2927,7 @@ inline void Cluster::set_state(::google::bigtable::admin::v2::Cluster_State valu
   // @@protoc_insertion_point(field_set:google.bigtable.admin.v2.Cluster.state)
 }
 
-// int32 serve_nodes = 4 [(.google.api.field_behavior) = REQUIRED];
+// int32 serve_nodes = 4;
 inline void Cluster::clear_serve_nodes() {
   serve_nodes_ = 0;
 }
@@ -1869,6 +2945,79 @@ inline void Cluster::_internal_set_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 va
 inline void Cluster::set_serve_nodes(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_serve_nodes(value);
   // @@protoc_insertion_point(field_set:google.bigtable.admin.v2.Cluster.serve_nodes)
+}
+
+// .google.bigtable.admin.v2.Cluster.ClusterConfig cluster_config = 7;
+inline bool Cluster::_internal_has_cluster_config() const {
+  return config_case() == kClusterConfig;
+}
+inline bool Cluster::has_cluster_config() const {
+  return _internal_has_cluster_config();
+}
+inline void Cluster::set_has_cluster_config() {
+  _oneof_case_[0] = kClusterConfig;
+}
+inline void Cluster::clear_cluster_config() {
+  if (_internal_has_cluster_config()) {
+    if (GetArena() == nullptr) {
+      delete config_.cluster_config_;
+    }
+    clear_has_config();
+  }
+}
+inline ::google::bigtable::admin::v2::Cluster_ClusterConfig* Cluster::release_cluster_config() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.Cluster.cluster_config)
+  if (_internal_has_cluster_config()) {
+    clear_has_config();
+      ::google::bigtable::admin::v2::Cluster_ClusterConfig* temp = config_.cluster_config_;
+    if (GetArena() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    config_.cluster_config_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::google::bigtable::admin::v2::Cluster_ClusterConfig& Cluster::_internal_cluster_config() const {
+  return _internal_has_cluster_config()
+      ? *config_.cluster_config_
+      : reinterpret_cast< ::google::bigtable::admin::v2::Cluster_ClusterConfig&>(::google::bigtable::admin::v2::_Cluster_ClusterConfig_default_instance_);
+}
+inline const ::google::bigtable::admin::v2::Cluster_ClusterConfig& Cluster::cluster_config() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.Cluster.cluster_config)
+  return _internal_cluster_config();
+}
+inline ::google::bigtable::admin::v2::Cluster_ClusterConfig* Cluster::unsafe_arena_release_cluster_config() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:google.bigtable.admin.v2.Cluster.cluster_config)
+  if (_internal_has_cluster_config()) {
+    clear_has_config();
+    ::google::bigtable::admin::v2::Cluster_ClusterConfig* temp = config_.cluster_config_;
+    config_.cluster_config_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void Cluster::unsafe_arena_set_allocated_cluster_config(::google::bigtable::admin::v2::Cluster_ClusterConfig* cluster_config) {
+  clear_config();
+  if (cluster_config) {
+    set_has_cluster_config();
+    config_.cluster_config_ = cluster_config;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.Cluster.cluster_config)
+}
+inline ::google::bigtable::admin::v2::Cluster_ClusterConfig* Cluster::_internal_mutable_cluster_config() {
+  if (!_internal_has_cluster_config()) {
+    clear_config();
+    set_has_cluster_config();
+    config_.cluster_config_ = CreateMaybeMessage< ::google::bigtable::admin::v2::Cluster_ClusterConfig >(GetArena());
+  }
+  return config_.cluster_config_;
+}
+inline ::google::bigtable::admin::v2::Cluster_ClusterConfig* Cluster::mutable_cluster_config() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.Cluster.cluster_config)
+  return _internal_mutable_cluster_config();
 }
 
 // .google.bigtable.admin.v2.StorageType default_storage_type = 5;
@@ -1974,6 +3123,15 @@ inline void Cluster::set_allocated_encryption_config(::google::bigtable::admin::
   // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.Cluster.encryption_config)
 }
 
+inline bool Cluster::has_config() const {
+  return config_case() != CONFIG_NOT_SET;
+}
+inline void Cluster::clear_has_config() {
+  _oneof_case_[0] = CONFIG_NOT_SET;
+}
+inline Cluster::ConfigCase Cluster::config_case() const {
+  return Cluster::ConfigCase(_oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // AppProfile_MultiClusterRoutingUseAny
@@ -2482,6 +3640,14 @@ inline AppProfile::RoutingPolicyCase AppProfile::routing_policy_case() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

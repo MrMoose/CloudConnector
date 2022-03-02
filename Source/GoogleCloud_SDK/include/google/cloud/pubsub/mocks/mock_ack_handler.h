@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,12 +32,12 @@ namespace pubsub_mocks {
  * `pubsub::Foo` in their source, but the symbols are versioned, i.e., the
  * symbol becomes `pubsub::v1::Foo`.
  */
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * A googlemock-based mock for [pubsub::AckHandler::Impl][mocked-link]
  *
- * [mocked-link]: @ref google::cloud::pubsub::v1::AckHandler::Impl
+ * [mocked-link]: @ref google::cloud::pubsub::AckHandler::Impl
  *
  * @see @ref subscriber-mock for an example using this class.
  */
@@ -49,7 +49,7 @@ class MockAckHandler : public pubsub::AckHandler::Impl {
   MOCK_METHOD(std::int32_t, delivery_attempt, (), (const, override));
 };
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub_mocks
 }  // namespace cloud
 }  // namespace google

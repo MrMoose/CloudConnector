@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -45,7 +45,7 @@
 namespace google {
 namespace cloud {
 namespace storage {
-inline namespace STORAGE_CLIENT_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 class NonResumableParallelUploadState;
 class ResumableParallelUploadState;
@@ -67,6 +67,33 @@ struct ClientImplDetails;
  * need to perform other bookkeeping operations that may impact performance.
  * For example, access tokens need to be refreshed from time to time, and this
  * may impact the performance of some operations.
+ *
+ * @par Connection Pool
+ * By default this class uses HTTPS to communicate with the service. Creating a
+ * new HTTPS session is relatively expensive, as it must go through the TCP/IP
+ * and SSL handshakes. To minimize this overhead the class maintains a
+ * connection pool to the service. After each request completes the connection
+ * is returned to the pool, and reused in future requests. Note that for
+ * downloads (implemented by the ReadObject() member function) the connection
+ * remains in use until the download completes. Therefore, having multiple
+ * downloads open at the same time requires multiple connections.
+ *
+ * The application can limit the maximum size of this connection pool using
+ * `storage::ConnectionPoolSizeOption`. If returning a connection to the pool
+ * would make the pool larger than this limit then the oldest connection in the
+ * pool is closed (recall that all connections in the pool are inactive). Note
+ * that this is the maximum size of the pool, the client library does not create
+ * connections until needed.
+ *
+ * Note that the application may (at times) use more connections than the
+ * maximum size of the pool. For example if N downloads are in progress the
+ * library may need N connections, even if the the pool size is smaller.
+ *
+ * Two clients that compare equal share the same connection pool. Two clients
+ * created with the default constructor or with the constructor from a
+ * `google::cloud::Options` are never equal and do not share connection pools.
+ * Clients created via copy (or move) construction compare equal and share the
+ * connection pool.
  *
  * @par Thread-safety
  * Instances of this class created via copy-construction or copy-assignment
@@ -109,8 +136,8 @@ struct ClientImplDetails;
  * This class uses `StatusOr<T>` to report errors. When an operation fails to
  * perform its work the returned `StatusOr<T>` contains the error details. If
  * the `ok()` member function in the `StatusOr<T>` returns `true` then it
- * contains the expected result. Please consult the
- * [`StatusOr<T>` documentation](#google::cloud::v1::StatusOr) for more details.
+ * contains the expected result. Please consult the [`StatusOr<T>`
+ * documentation](#google::cloud::StatusOr) for more details.
  *
  * @code
  * namespace gcs = google::cloud::storage;
@@ -181,7 +208,7 @@ struct ClientImplDetails;
  * @see https://cloud.google.com/docs/authentication/production for details
  *     about Application Default %Credentials.
  *
- * @see #google::cloud::v1::StatusOr.
+ * @see #google::cloud::StatusOr.
  *
  * @see `LimitedTimeRetryPolicy` and `LimitedErrorCountRetryPolicy` for
  * alternative retry policies.
@@ -293,6 +320,14 @@ class Client {
       " if you do.")
   explicit Client(std::shared_ptr<internal::RawClient> client, NoDecorations)
       : Client(InternalOnlyNoDecorations{}, std::move(client)) {}
+
+  //@{
+  // @name Equality
+  friend bool operator==(Client const& a, Client const& b) {
+    return a.raw_client_ == b.raw_client_;
+  }
+  friend bool operator!=(Client const& a, Client const& b) { return !(a == b); }
+  //@}
 
   /// Access the underlying `RawClient`.
   /// @deprecated Only intended for implementors, do not use.
@@ -622,7 +657,7 @@ class Client {
   }
 
   /**
-   * Fetches the [IAM policy](@ref google::cloud::v1::IamPolicy) for a Bucket.
+   * Fetches the [IAM policy](@ref google::cloud::IamPolicy) for a Bucket.
    *
    * Google Cloud Identity & Access Management (IAM) lets administrators
    * authorize who can take action on specific resources, including Google
@@ -654,7 +689,7 @@ class Client {
    * @par Example
    * Use #GetNativeBucketIamPolicy() instead.
    *
-   * @see #google::cloud::v1::IamPolicy for details about the `IamPolicy` class.
+   * @see #google::cloud::IamPolicy for details about the `IamPolicy` class.
    */
   template <typename... Options>
   GOOGLE_CLOUD_CPP_STORAGE_IAM_DEPRECATED("GetNativeBucketIamPolicy")
@@ -666,7 +701,7 @@ class Client {
   }
 
   /**
-   * Fetches the native [IAM policy](@ref google::cloud::v1::IamPolicy) for a
+   * Fetches the native [IAM policy](@ref google::cloud::IamPolicy) for a
    * Bucket.
    *
    * Google Cloud Identity & Access Management (IAM) lets administrators
@@ -695,7 +730,7 @@ class Client {
    * @par Example
    * @snippet storage_bucket_iam_samples.cc native get bucket iam policy
    *
-   * @see #google::cloud::v1::IamPolicy for details about the `IamPolicy` class.
+   * @see #google::cloud::IamPolicy for details about the `IamPolicy` class.
    */
   template <typename... Options>
   StatusOr<NativeIamPolicy> GetNativeBucketIamPolicy(
@@ -706,7 +741,7 @@ class Client {
   }
 
   /**
-   * Sets the [IAM Policy](@ref google::cloud::v1::IamPolicy) for a Bucket.
+   * Sets the [IAM Policy](@ref google::cloud::IamPolicy) for a Bucket.
    *
    * Google Cloud Identity & Access Management (IAM) lets administrators
    * authorize who can take action on specific resources, including Google
@@ -748,7 +783,7 @@ class Client {
    * @par Example: adding a new member
    * Use #GetNativeBucketIamPolicy() instead.
    *
-   * @see #google::cloud::v1::IamPolicy for details about the `IamPolicy` class.
+   * @see #google::cloud::IamPolicy for details about the `IamPolicy` class.
    */
   template <typename... Options>
   GOOGLE_CLOUD_CPP_STORAGE_IAM_DEPRECATED("SetNativeBucketIamPolicy")
@@ -761,8 +796,7 @@ class Client {
   }
 
   /**
-   * Sets the native [IAM Policy](@ref google::cloud::v1::IamPolicy) for a
-   * Bucket.
+   * Sets the native [IAM Policy](@ref google::cloud::IamPolicy) for a Bucket.
    *
    * Google Cloud Identity & Access Management (IAM) lets administrators
    * authorize who can take action on specific resources, including Google
@@ -803,7 +837,7 @@ class Client {
    * @par Example: removing a IAM member
    * @snippet storage_bucket_iam_samples.cc native remove bucket iam member
    *
-   * @see #google::cloud::v1::IamPolicy for details about the `IamPolicy` class.
+   * @see #google::cloud::IamPolicy for details about the `IamPolicy` class.
    */
   template <typename... Options>
   StatusOr<NativeIamPolicy> SetNativeBucketIamPolicy(
@@ -978,13 +1012,13 @@ class Client {
    *     new object.
    * @param destination_object_name the name of the new object.
    * @param options a list of optional query parameters and/or request headers.
-   *     Valid types for this operation include `DestinationPredefinedAcl`,
-   *     `EncryptionKey`, `IfGenerationMatch`, `IfGenerationNotMatch`,
-   *     `IfMetagenerationMatch`, `IfMetagenerationNotMatch`,
-   *     `IfSourceGenerationMatch`, `IfSourceGenerationNotMatch`,
-   *     `IfSourceMetagenerationMatch`, `IfSourceMetagenerationNotMatch`,
-   *     `Projection`, `SourceGeneration`, `UserProject`, and
-   *     `WithObjectMetadata`.
+   *     Valid types for this operation include `DestinationKmsKeyName`,
+   *     `DestinationPredefinedAcl`,`EncryptionKey`,`IfGenerationMatch`,
+   *     `IfGenerationNotMatch`, `IfMetagenerationMatch`,
+   *     `IfMetagenerationNotMatch`, `IfSourceGenerationMatch`,
+   *     `IfSourceGenerationNotMatch`, `IfSourceMetagenerationMatch`,
+   *     `IfSourceMetagenerationNotMatch`, `Projection`, `SourceGeneration`,
+   *     `SourceEncryptionKey`, `UserProject`, and `WithObjectMetadata`.
    *
    * @par Idempotency
    * This operation is only idempotent if restricted by pre-conditions, in this
@@ -1201,8 +1235,8 @@ class Client {
    *   `EncryptionKey`, `IfGenerationMatch`, `IfGenerationNotMatch`,
    *   `IfMetagenerationMatch`, `IfMetagenerationNotMatch`, `KmsKeyName`,
    *   `MD5HashValue`, `PredefinedAcl`, `Projection`,
-   *   `UseResumableUploadSession`, `UserProject`, `WithObjectMetadata` and
-   *   `UploadContentLength`, `AutoFinalize`.
+   *   `UseResumableUploadSession`, `UserProject`, `WithObjectMetadata`,
+   *   `UploadContentLength`, `AutoFinalize`, and `UploadBufferSize`.
    *
    * @par Idempotency
    * This operation is only idempotent if restricted by pre-conditions, in this
@@ -1441,7 +1475,7 @@ class Client {
    * @param options a list of optional query parameters and/or request headers.
    *     Valid types for this operation include `Generation`,
    *     `IfGenerationMatch`, `IfGenerationNotMatch`, `IfMetagenerationMatch`,
-   *     `IfMetagenerationNotMatch`, `PredefinedAcl`,
+   *     `IfMetagenerationNotMatch`, `PredefinedAcl`, `EncryptionKey`,
    *     `Projection`, and `UserProject`.
    *
    * @par Idempotency
@@ -3020,7 +3054,45 @@ class Client {
   /**
    * Creates a new notification config for a Bucket.
    *
-   * Cloud Pub/Sub Notifications sends information about changes to objects
+   * Cloud Pub/Sub Notifications send information about changes to objects
+   * in your buckets to Google Cloud Pub/Sub service. You can create multiple
+   * notifications per Bucket, with different topics and filtering options.
+   *
+   * @param bucket_name the name of the bucket.
+   * @param topic_name the Google Cloud Pub/Sub topic that will receive the
+   *     notifications. This requires the full name of the topic, i.e.:
+   *     `projects/<PROJECT_ID>/topics/<TOPIC_ID>`.
+   * @param metadata define any optional parameters for the notification, such
+   *     as the list of event types, or any custom attributes.
+   * @param options a list of optional query parameters and/or request headers.
+   *     Valid types for this operation include `UserProject`.
+   *
+   * @par Idempotency
+   * This operation is only idempotent if restricted by pre-conditions. There
+   * are no pre-conditions for this operation that can make it idempotent.
+   *
+   * @par Example
+   * @snippet storage_notification_samples.cc create notification
+   *
+   * @see https://cloud.google.com/storage/docs/pubsub-notifications for general
+   *     information on Cloud Pub/Sub Notifications for Google Cloud Storage.
+   *
+   * @see https://cloud.google.com/pubsub/ for general information on Google
+   *     Cloud Pub/Sub service.
+   */
+  template <typename... Options>
+  StatusOr<NotificationMetadata> CreateNotification(
+      std::string const& bucket_name, std::string const& topic_name,
+      NotificationMetadata metadata, Options&&... options) {
+    return CreateNotification(bucket_name, topic_name,
+                              payload_format::JsonApiV1(), std::move(metadata),
+                              std::forward<Options>(options)...);
+  }
+
+  /**
+   * Creates a new notification config for a Bucket.
+   *
+   * Cloud Pub/Sub Notifications send information about changes to objects
    * in your buckets to Google Cloud Pub/Sub service. You can create multiple
    * notifications per Bucket, with different topics and filtering options.
    *
@@ -3133,6 +3205,8 @@ class Client {
   //@}
 
  private:
+  friend class internal::NonResumableParallelUploadState;
+  friend class internal::ResumableParallelUploadState;
   friend internal::ClientImplDetails;
 
   struct InternalOnly {};
@@ -3226,9 +3300,6 @@ class Client {
       internal::PolicyDocumentV4Request request);
 
   std::shared_ptr<internal::RawClient> raw_client_;
-
-  friend class internal::NonResumableParallelUploadState;
-  friend class internal::ResumableParallelUploadState;
 };
 
 /**
@@ -3594,7 +3665,7 @@ StatusOr<ObjectMetadata> ComposeMany(
   return result;
 }
 
-}  // namespace STORAGE_CLIENT_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace storage
 }  // namespace cloud
 }  // namespace google

@@ -183,7 +183,7 @@ enum Agent_Tier : int {
   Agent_Tier_TIER_UNSPECIFIED = 0,
   Agent_Tier_TIER_STANDARD = 1,
   Agent_Tier_TIER_ENTERPRISE = 2,
-  Agent_Tier_TIER_ENTERPRISE_PLUS = 3,
+  Agent_Tier_TIER_ENTERPRISE_PLUS PROTOBUF_DEPRECATED_ENUM = 3,
   Agent_Tier_Agent_Tier_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   Agent_Tier_Agent_Tier_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
@@ -391,7 +391,7 @@ class Agent PROTOBUF_FINAL :
     Agent_Tier_TIER_STANDARD;
   static constexpr Tier TIER_ENTERPRISE =
     Agent_Tier_TIER_ENTERPRISE;
-  static constexpr Tier TIER_ENTERPRISE_PLUS =
+  PROTOBUF_DEPRECATED_ENUM static constexpr Tier TIER_ENTERPRISE_PLUS =
     Agent_Tier_TIER_ENTERPRISE_PLUS;
   static inline bool Tier_IsValid(int value) {
     return Agent_Tier_IsValid(value);

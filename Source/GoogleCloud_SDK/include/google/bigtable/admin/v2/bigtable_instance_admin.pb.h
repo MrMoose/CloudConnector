@@ -60,7 +60,7 @@ struct TableStruct_google_2fbigtable_2fadmin_2fv2_2fbigtable_5finstance_5fadmin_
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[23]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[25]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -126,6 +126,12 @@ extern ListInstancesRequestDefaultTypeInternal _ListInstancesRequest_default_ins
 class ListInstancesResponse;
 struct ListInstancesResponseDefaultTypeInternal;
 extern ListInstancesResponseDefaultTypeInternal _ListInstancesResponse_default_instance_;
+class PartialUpdateClusterMetadata;
+struct PartialUpdateClusterMetadataDefaultTypeInternal;
+extern PartialUpdateClusterMetadataDefaultTypeInternal _PartialUpdateClusterMetadata_default_instance_;
+class PartialUpdateClusterRequest;
+struct PartialUpdateClusterRequestDefaultTypeInternal;
+extern PartialUpdateClusterRequestDefaultTypeInternal _PartialUpdateClusterRequest_default_instance_;
 class PartialUpdateInstanceRequest;
 struct PartialUpdateInstanceRequestDefaultTypeInternal;
 extern PartialUpdateInstanceRequestDefaultTypeInternal _PartialUpdateInstanceRequest_default_instance_;
@@ -164,6 +170,8 @@ template<> ::google::bigtable::admin::v2::ListClustersRequest* Arena::CreateMayb
 template<> ::google::bigtable::admin::v2::ListClustersResponse* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::ListClustersResponse>(Arena*);
 template<> ::google::bigtable::admin::v2::ListInstancesRequest* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::ListInstancesRequest>(Arena*);
 template<> ::google::bigtable::admin::v2::ListInstancesResponse* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::ListInstancesResponse>(Arena*);
+template<> ::google::bigtable::admin::v2::PartialUpdateClusterMetadata* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::PartialUpdateClusterMetadata>(Arena*);
+template<> ::google::bigtable::admin::v2::PartialUpdateClusterRequest* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::PartialUpdateClusterRequest>(Arena*);
 template<> ::google::bigtable::admin::v2::PartialUpdateInstanceRequest* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::PartialUpdateInstanceRequest>(Arena*);
 template<> ::google::bigtable::admin::v2::UpdateAppProfileMetadata* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::UpdateAppProfileMetadata>(Arena*);
 template<> ::google::bigtable::admin::v2::UpdateAppProfileRequest* Arena::CreateMaybeMessage<::google::bigtable::admin::v2::UpdateAppProfileRequest>(Arena*);
@@ -2787,6 +2795,358 @@ class UpdateClusterMetadata PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class PartialUpdateClusterMetadata PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.bigtable.admin.v2.PartialUpdateClusterMetadata) */ {
+ public:
+  inline PartialUpdateClusterMetadata() : PartialUpdateClusterMetadata(nullptr) {}
+  virtual ~PartialUpdateClusterMetadata();
+  explicit constexpr PartialUpdateClusterMetadata(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PartialUpdateClusterMetadata(const PartialUpdateClusterMetadata& from);
+  PartialUpdateClusterMetadata(PartialUpdateClusterMetadata&& from) noexcept
+    : PartialUpdateClusterMetadata() {
+    *this = ::std::move(from);
+  }
+
+  inline PartialUpdateClusterMetadata& operator=(const PartialUpdateClusterMetadata& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PartialUpdateClusterMetadata& operator=(PartialUpdateClusterMetadata&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const PartialUpdateClusterMetadata& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PartialUpdateClusterMetadata* internal_default_instance() {
+    return reinterpret_cast<const PartialUpdateClusterMetadata*>(
+               &_PartialUpdateClusterMetadata_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(PartialUpdateClusterMetadata& a, PartialUpdateClusterMetadata& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PartialUpdateClusterMetadata* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PartialUpdateClusterMetadata* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PartialUpdateClusterMetadata* New() const final {
+    return CreateMaybeMessage<PartialUpdateClusterMetadata>(nullptr);
+  }
+
+  PartialUpdateClusterMetadata* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PartialUpdateClusterMetadata>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PartialUpdateClusterMetadata& from);
+  void MergeFrom(const PartialUpdateClusterMetadata& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PartialUpdateClusterMetadata* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.bigtable.admin.v2.PartialUpdateClusterMetadata";
+  }
+  protected:
+  explicit PartialUpdateClusterMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fbigtable_2fadmin_2fv2_2fbigtable_5finstance_5fadmin_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRequestTimeFieldNumber = 1,
+    kFinishTimeFieldNumber = 2,
+    kOriginalRequestFieldNumber = 3,
+  };
+  // .google.protobuf.Timestamp request_time = 1;
+  bool has_request_time() const;
+  private:
+  bool _internal_has_request_time() const;
+  public:
+  void clear_request_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& request_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_request_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_request_time();
+  void set_allocated_request_time(PROTOBUF_NAMESPACE_ID::Timestamp* request_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_request_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_request_time();
+  public:
+  void unsafe_arena_set_allocated_request_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* request_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_request_time();
+
+  // .google.protobuf.Timestamp finish_time = 2;
+  bool has_finish_time() const;
+  private:
+  bool _internal_has_finish_time() const;
+  public:
+  void clear_finish_time();
+  const PROTOBUF_NAMESPACE_ID::Timestamp& finish_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* release_finish_time();
+  PROTOBUF_NAMESPACE_ID::Timestamp* mutable_finish_time();
+  void set_allocated_finish_time(PROTOBUF_NAMESPACE_ID::Timestamp* finish_time);
+  private:
+  const PROTOBUF_NAMESPACE_ID::Timestamp& _internal_finish_time() const;
+  PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_finish_time();
+  public:
+  void unsafe_arena_set_allocated_finish_time(
+      PROTOBUF_NAMESPACE_ID::Timestamp* finish_time);
+  PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_finish_time();
+
+  // .google.bigtable.admin.v2.PartialUpdateClusterRequest original_request = 3;
+  bool has_original_request() const;
+  private:
+  bool _internal_has_original_request() const;
+  public:
+  void clear_original_request();
+  const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& original_request() const;
+  ::google::bigtable::admin::v2::PartialUpdateClusterRequest* release_original_request();
+  ::google::bigtable::admin::v2::PartialUpdateClusterRequest* mutable_original_request();
+  void set_allocated_original_request(::google::bigtable::admin::v2::PartialUpdateClusterRequest* original_request);
+  private:
+  const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& _internal_original_request() const;
+  ::google::bigtable::admin::v2::PartialUpdateClusterRequest* _internal_mutable_original_request();
+  public:
+  void unsafe_arena_set_allocated_original_request(
+      ::google::bigtable::admin::v2::PartialUpdateClusterRequest* original_request);
+  ::google::bigtable::admin::v2::PartialUpdateClusterRequest* unsafe_arena_release_original_request();
+
+  // @@protoc_insertion_point(class_scope:google.bigtable.admin.v2.PartialUpdateClusterMetadata)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* request_time_;
+  PROTOBUF_NAMESPACE_ID::Timestamp* finish_time_;
+  ::google::bigtable::admin::v2::PartialUpdateClusterRequest* original_request_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fbigtable_2fadmin_2fv2_2fbigtable_5finstance_5fadmin_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PartialUpdateClusterRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.bigtable.admin.v2.PartialUpdateClusterRequest) */ {
+ public:
+  inline PartialUpdateClusterRequest() : PartialUpdateClusterRequest(nullptr) {}
+  virtual ~PartialUpdateClusterRequest();
+  explicit constexpr PartialUpdateClusterRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PartialUpdateClusterRequest(const PartialUpdateClusterRequest& from);
+  PartialUpdateClusterRequest(PartialUpdateClusterRequest&& from) noexcept
+    : PartialUpdateClusterRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline PartialUpdateClusterRequest& operator=(const PartialUpdateClusterRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PartialUpdateClusterRequest& operator=(PartialUpdateClusterRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const PartialUpdateClusterRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PartialUpdateClusterRequest* internal_default_instance() {
+    return reinterpret_cast<const PartialUpdateClusterRequest*>(
+               &_PartialUpdateClusterRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  friend void swap(PartialUpdateClusterRequest& a, PartialUpdateClusterRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PartialUpdateClusterRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PartialUpdateClusterRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline PartialUpdateClusterRequest* New() const final {
+    return CreateMaybeMessage<PartialUpdateClusterRequest>(nullptr);
+  }
+
+  PartialUpdateClusterRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PartialUpdateClusterRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const PartialUpdateClusterRequest& from);
+  void MergeFrom(const PartialUpdateClusterRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PartialUpdateClusterRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "google.bigtable.admin.v2.PartialUpdateClusterRequest";
+  }
+  protected:
+  explicit PartialUpdateClusterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    return ::descriptor_table_google_2fbigtable_2fadmin_2fv2_2fbigtable_5finstance_5fadmin_2eproto_metadata_getter(kIndexInFileMessages);
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kClusterFieldNumber = 1,
+    kUpdateMaskFieldNumber = 2,
+  };
+  // .google.bigtable.admin.v2.Cluster cluster = 1 [(.google.api.field_behavior) = REQUIRED];
+  bool has_cluster() const;
+  private:
+  bool _internal_has_cluster() const;
+  public:
+  void clear_cluster();
+  const ::google::bigtable::admin::v2::Cluster& cluster() const;
+  ::google::bigtable::admin::v2::Cluster* release_cluster();
+  ::google::bigtable::admin::v2::Cluster* mutable_cluster();
+  void set_allocated_cluster(::google::bigtable::admin::v2::Cluster* cluster);
+  private:
+  const ::google::bigtable::admin::v2::Cluster& _internal_cluster() const;
+  ::google::bigtable::admin::v2::Cluster* _internal_mutable_cluster();
+  public:
+  void unsafe_arena_set_allocated_cluster(
+      ::google::bigtable::admin::v2::Cluster* cluster);
+  ::google::bigtable::admin::v2::Cluster* unsafe_arena_release_cluster();
+
+  // .google.protobuf.FieldMask update_mask = 2 [(.google.api.field_behavior) = REQUIRED];
+  bool has_update_mask() const;
+  private:
+  bool _internal_has_update_mask() const;
+  public:
+  void clear_update_mask();
+  const PROTOBUF_NAMESPACE_ID::FieldMask& update_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* release_update_mask();
+  PROTOBUF_NAMESPACE_ID::FieldMask* mutable_update_mask();
+  void set_allocated_update_mask(PROTOBUF_NAMESPACE_ID::FieldMask* update_mask);
+  private:
+  const PROTOBUF_NAMESPACE_ID::FieldMask& _internal_update_mask() const;
+  PROTOBUF_NAMESPACE_ID::FieldMask* _internal_mutable_update_mask();
+  public:
+  void unsafe_arena_set_allocated_update_mask(
+      PROTOBUF_NAMESPACE_ID::FieldMask* update_mask);
+  PROTOBUF_NAMESPACE_ID::FieldMask* unsafe_arena_release_update_mask();
+
+  // @@protoc_insertion_point(class_scope:google.bigtable.admin.v2.PartialUpdateClusterRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::google::bigtable::admin::v2::Cluster* cluster_;
+  PROTOBUF_NAMESPACE_ID::FieldMask* update_mask_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_google_2fbigtable_2fadmin_2fv2_2fbigtable_5finstance_5fadmin_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CreateAppProfileRequest PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:google.bigtable.admin.v2.CreateAppProfileRequest) */ {
  public:
@@ -2830,7 +3190,7 @@ class CreateAppProfileRequest PROTOBUF_FINAL :
                &_CreateAppProfileRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(CreateAppProfileRequest& a, CreateAppProfileRequest& b) {
     a.Swap(&b);
@@ -3023,7 +3383,7 @@ class GetAppProfileRequest PROTOBUF_FINAL :
                &_GetAppProfileRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(GetAppProfileRequest& a, GetAppProfileRequest& b) {
     a.Swap(&b);
@@ -3167,7 +3527,7 @@ class ListAppProfilesRequest PROTOBUF_FINAL :
                &_ListAppProfilesRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(ListAppProfilesRequest& a, ListAppProfilesRequest& b) {
     a.Swap(&b);
@@ -3340,7 +3700,7 @@ class ListAppProfilesResponse PROTOBUF_FINAL :
                &_ListAppProfilesResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(ListAppProfilesResponse& a, ListAppProfilesResponse& b) {
     a.Swap(&b);
@@ -3530,7 +3890,7 @@ class UpdateAppProfileRequest PROTOBUF_FINAL :
                &_UpdateAppProfileRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(UpdateAppProfileRequest& a, UpdateAppProfileRequest& b) {
     a.Swap(&b);
@@ -3707,7 +4067,7 @@ class DeleteAppProfileRequest PROTOBUF_FINAL :
                &_DeleteAppProfileRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(DeleteAppProfileRequest& a, DeleteAppProfileRequest& b) {
     a.Swap(&b);
@@ -3862,7 +4222,7 @@ class UpdateAppProfileMetadata PROTOBUF_FINAL :
                &_UpdateAppProfileMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    24;
 
   friend void swap(UpdateAppProfileMetadata& a, UpdateAppProfileMetadata& b) {
     a.Swap(&b);
@@ -6362,6 +6722,405 @@ inline void UpdateClusterMetadata::set_allocated_finish_time(PROTOBUF_NAMESPACE_
 
 // -------------------------------------------------------------------
 
+// PartialUpdateClusterMetadata
+
+// .google.protobuf.Timestamp request_time = 1;
+inline bool PartialUpdateClusterMetadata::_internal_has_request_time() const {
+  return this != internal_default_instance() && request_time_ != nullptr;
+}
+inline bool PartialUpdateClusterMetadata::has_request_time() const {
+  return _internal_has_request_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& PartialUpdateClusterMetadata::_internal_request_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = request_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& PartialUpdateClusterMetadata::request_time() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.PartialUpdateClusterMetadata.request_time)
+  return _internal_request_time();
+}
+inline void PartialUpdateClusterMetadata::unsafe_arena_set_allocated_request_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* request_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(request_time_);
+  }
+  request_time_ = request_time;
+  if (request_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterMetadata.request_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* PartialUpdateClusterMetadata::release_request_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = request_time_;
+  request_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* PartialUpdateClusterMetadata::unsafe_arena_release_request_time() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.PartialUpdateClusterMetadata.request_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = request_time_;
+  request_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* PartialUpdateClusterMetadata::_internal_mutable_request_time() {
+  
+  if (request_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    request_time_ = p;
+  }
+  return request_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* PartialUpdateClusterMetadata::mutable_request_time() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.PartialUpdateClusterMetadata.request_time)
+  return _internal_mutable_request_time();
+}
+inline void PartialUpdateClusterMetadata::set_allocated_request_time(PROTOBUF_NAMESPACE_ID::Timestamp* request_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(request_time_);
+  }
+  if (request_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(request_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      request_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, request_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  request_time_ = request_time;
+  // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterMetadata.request_time)
+}
+
+// .google.protobuf.Timestamp finish_time = 2;
+inline bool PartialUpdateClusterMetadata::_internal_has_finish_time() const {
+  return this != internal_default_instance() && finish_time_ != nullptr;
+}
+inline bool PartialUpdateClusterMetadata::has_finish_time() const {
+  return _internal_has_finish_time();
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& PartialUpdateClusterMetadata::_internal_finish_time() const {
+  const PROTOBUF_NAMESPACE_ID::Timestamp* p = finish_time_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::Timestamp&>(
+      PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::Timestamp& PartialUpdateClusterMetadata::finish_time() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.PartialUpdateClusterMetadata.finish_time)
+  return _internal_finish_time();
+}
+inline void PartialUpdateClusterMetadata::unsafe_arena_set_allocated_finish_time(
+    PROTOBUF_NAMESPACE_ID::Timestamp* finish_time) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(finish_time_);
+  }
+  finish_time_ = finish_time;
+  if (finish_time) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterMetadata.finish_time)
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* PartialUpdateClusterMetadata::release_finish_time() {
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = finish_time_;
+  finish_time_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* PartialUpdateClusterMetadata::unsafe_arena_release_finish_time() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.PartialUpdateClusterMetadata.finish_time)
+  
+  PROTOBUF_NAMESPACE_ID::Timestamp* temp = finish_time_;
+  finish_time_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* PartialUpdateClusterMetadata::_internal_mutable_finish_time() {
+  
+  if (finish_time_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::Timestamp>(GetArena());
+    finish_time_ = p;
+  }
+  return finish_time_;
+}
+inline PROTOBUF_NAMESPACE_ID::Timestamp* PartialUpdateClusterMetadata::mutable_finish_time() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.PartialUpdateClusterMetadata.finish_time)
+  return _internal_mutable_finish_time();
+}
+inline void PartialUpdateClusterMetadata::set_allocated_finish_time(PROTOBUF_NAMESPACE_ID::Timestamp* finish_time) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(finish_time_);
+  }
+  if (finish_time) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(finish_time)->GetArena();
+    if (message_arena != submessage_arena) {
+      finish_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, finish_time, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  finish_time_ = finish_time;
+  // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterMetadata.finish_time)
+}
+
+// .google.bigtable.admin.v2.PartialUpdateClusterRequest original_request = 3;
+inline bool PartialUpdateClusterMetadata::_internal_has_original_request() const {
+  return this != internal_default_instance() && original_request_ != nullptr;
+}
+inline bool PartialUpdateClusterMetadata::has_original_request() const {
+  return _internal_has_original_request();
+}
+inline void PartialUpdateClusterMetadata::clear_original_request() {
+  if (GetArena() == nullptr && original_request_ != nullptr) {
+    delete original_request_;
+  }
+  original_request_ = nullptr;
+}
+inline const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& PartialUpdateClusterMetadata::_internal_original_request() const {
+  const ::google::bigtable::admin::v2::PartialUpdateClusterRequest* p = original_request_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::bigtable::admin::v2::PartialUpdateClusterRequest&>(
+      ::google::bigtable::admin::v2::_PartialUpdateClusterRequest_default_instance_);
+}
+inline const ::google::bigtable::admin::v2::PartialUpdateClusterRequest& PartialUpdateClusterMetadata::original_request() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.PartialUpdateClusterMetadata.original_request)
+  return _internal_original_request();
+}
+inline void PartialUpdateClusterMetadata::unsafe_arena_set_allocated_original_request(
+    ::google::bigtable::admin::v2::PartialUpdateClusterRequest* original_request) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(original_request_);
+  }
+  original_request_ = original_request;
+  if (original_request) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterMetadata.original_request)
+}
+inline ::google::bigtable::admin::v2::PartialUpdateClusterRequest* PartialUpdateClusterMetadata::release_original_request() {
+  
+  ::google::bigtable::admin::v2::PartialUpdateClusterRequest* temp = original_request_;
+  original_request_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::bigtable::admin::v2::PartialUpdateClusterRequest* PartialUpdateClusterMetadata::unsafe_arena_release_original_request() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.PartialUpdateClusterMetadata.original_request)
+  
+  ::google::bigtable::admin::v2::PartialUpdateClusterRequest* temp = original_request_;
+  original_request_ = nullptr;
+  return temp;
+}
+inline ::google::bigtable::admin::v2::PartialUpdateClusterRequest* PartialUpdateClusterMetadata::_internal_mutable_original_request() {
+  
+  if (original_request_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::bigtable::admin::v2::PartialUpdateClusterRequest>(GetArena());
+    original_request_ = p;
+  }
+  return original_request_;
+}
+inline ::google::bigtable::admin::v2::PartialUpdateClusterRequest* PartialUpdateClusterMetadata::mutable_original_request() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.PartialUpdateClusterMetadata.original_request)
+  return _internal_mutable_original_request();
+}
+inline void PartialUpdateClusterMetadata::set_allocated_original_request(::google::bigtable::admin::v2::PartialUpdateClusterRequest* original_request) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete original_request_;
+  }
+  if (original_request) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(original_request);
+    if (message_arena != submessage_arena) {
+      original_request = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, original_request, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  original_request_ = original_request;
+  // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterMetadata.original_request)
+}
+
+// -------------------------------------------------------------------
+
+// PartialUpdateClusterRequest
+
+// .google.bigtable.admin.v2.Cluster cluster = 1 [(.google.api.field_behavior) = REQUIRED];
+inline bool PartialUpdateClusterRequest::_internal_has_cluster() const {
+  return this != internal_default_instance() && cluster_ != nullptr;
+}
+inline bool PartialUpdateClusterRequest::has_cluster() const {
+  return _internal_has_cluster();
+}
+inline const ::google::bigtable::admin::v2::Cluster& PartialUpdateClusterRequest::_internal_cluster() const {
+  const ::google::bigtable::admin::v2::Cluster* p = cluster_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::bigtable::admin::v2::Cluster&>(
+      ::google::bigtable::admin::v2::_Cluster_default_instance_);
+}
+inline const ::google::bigtable::admin::v2::Cluster& PartialUpdateClusterRequest::cluster() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.PartialUpdateClusterRequest.cluster)
+  return _internal_cluster();
+}
+inline void PartialUpdateClusterRequest::unsafe_arena_set_allocated_cluster(
+    ::google::bigtable::admin::v2::Cluster* cluster) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(cluster_);
+  }
+  cluster_ = cluster;
+  if (cluster) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterRequest.cluster)
+}
+inline ::google::bigtable::admin::v2::Cluster* PartialUpdateClusterRequest::release_cluster() {
+  
+  ::google::bigtable::admin::v2::Cluster* temp = cluster_;
+  cluster_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::google::bigtable::admin::v2::Cluster* PartialUpdateClusterRequest::unsafe_arena_release_cluster() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.PartialUpdateClusterRequest.cluster)
+  
+  ::google::bigtable::admin::v2::Cluster* temp = cluster_;
+  cluster_ = nullptr;
+  return temp;
+}
+inline ::google::bigtable::admin::v2::Cluster* PartialUpdateClusterRequest::_internal_mutable_cluster() {
+  
+  if (cluster_ == nullptr) {
+    auto* p = CreateMaybeMessage<::google::bigtable::admin::v2::Cluster>(GetArena());
+    cluster_ = p;
+  }
+  return cluster_;
+}
+inline ::google::bigtable::admin::v2::Cluster* PartialUpdateClusterRequest::mutable_cluster() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.PartialUpdateClusterRequest.cluster)
+  return _internal_mutable_cluster();
+}
+inline void PartialUpdateClusterRequest::set_allocated_cluster(::google::bigtable::admin::v2::Cluster* cluster) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(cluster_);
+  }
+  if (cluster) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(cluster)->GetArena();
+    if (message_arena != submessage_arena) {
+      cluster = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, cluster, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  cluster_ = cluster;
+  // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterRequest.cluster)
+}
+
+// .google.protobuf.FieldMask update_mask = 2 [(.google.api.field_behavior) = REQUIRED];
+inline bool PartialUpdateClusterRequest::_internal_has_update_mask() const {
+  return this != internal_default_instance() && update_mask_ != nullptr;
+}
+inline bool PartialUpdateClusterRequest::has_update_mask() const {
+  return _internal_has_update_mask();
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& PartialUpdateClusterRequest::_internal_update_mask() const {
+  const PROTOBUF_NAMESPACE_ID::FieldMask* p = update_mask_;
+  return p != nullptr ? *p : reinterpret_cast<const PROTOBUF_NAMESPACE_ID::FieldMask&>(
+      PROTOBUF_NAMESPACE_ID::_FieldMask_default_instance_);
+}
+inline const PROTOBUF_NAMESPACE_ID::FieldMask& PartialUpdateClusterRequest::update_mask() const {
+  // @@protoc_insertion_point(field_get:google.bigtable.admin.v2.PartialUpdateClusterRequest.update_mask)
+  return _internal_update_mask();
+}
+inline void PartialUpdateClusterRequest::unsafe_arena_set_allocated_update_mask(
+    PROTOBUF_NAMESPACE_ID::FieldMask* update_mask) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask_);
+  }
+  update_mask_ = update_mask;
+  if (update_mask) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterRequest.update_mask)
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* PartialUpdateClusterRequest::release_update_mask() {
+  
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = update_mask_;
+  update_mask_ = nullptr;
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* PartialUpdateClusterRequest::unsafe_arena_release_update_mask() {
+  // @@protoc_insertion_point(field_release:google.bigtable.admin.v2.PartialUpdateClusterRequest.update_mask)
+  
+  PROTOBUF_NAMESPACE_ID::FieldMask* temp = update_mask_;
+  update_mask_ = nullptr;
+  return temp;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* PartialUpdateClusterRequest::_internal_mutable_update_mask() {
+  
+  if (update_mask_ == nullptr) {
+    auto* p = CreateMaybeMessage<PROTOBUF_NAMESPACE_ID::FieldMask>(GetArena());
+    update_mask_ = p;
+  }
+  return update_mask_;
+}
+inline PROTOBUF_NAMESPACE_ID::FieldMask* PartialUpdateClusterRequest::mutable_update_mask() {
+  // @@protoc_insertion_point(field_mutable:google.bigtable.admin.v2.PartialUpdateClusterRequest.update_mask)
+  return _internal_mutable_update_mask();
+}
+inline void PartialUpdateClusterRequest::set_allocated_update_mask(PROTOBUF_NAMESPACE_ID::FieldMask* update_mask) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask_);
+  }
+  if (update_mask) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(update_mask)->GetArena();
+    if (message_arena != submessage_arena) {
+      update_mask = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, update_mask, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  update_mask_ = update_mask;
+  // @@protoc_insertion_point(field_set_allocated:google.bigtable.admin.v2.PartialUpdateClusterRequest.update_mask)
+}
+
+// -------------------------------------------------------------------
+
 // CreateAppProfileRequest
 
 // string parent = 1 [(.google.api.field_behavior) = REQUIRED, (.google.api.resource_reference) = {
@@ -7239,6 +7998,10 @@ inline void DeleteAppProfileRequest::set_ignore_warnings(bool value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

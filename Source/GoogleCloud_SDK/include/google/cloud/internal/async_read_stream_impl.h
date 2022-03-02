@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,13 +17,14 @@
 
 #include "google/cloud/grpc_error_delegate.h"
 #include "google/cloud/internal/completion_queue_impl.h"
+#include "google/cloud/options.h"
 #include "google/cloud/version.h"
 #include <grpcpp/support/async_stream.h>
 #include <memory>
 
 namespace google {
 namespace cloud {
-inline namespace GOOGLE_CLOUD_CPP_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
 class CompletionQueueImpl;
 
@@ -150,10 +151,12 @@ class AsyncReadStreamImpl
      private:
       void Cancel() override {}  // LCOV_EXCL_LINE
       bool Notify(bool ok) override {
+        OptionsSpan span(options_);
         control_->OnStart(ok);
         return true;
       }
       std::shared_ptr<AsyncReadStreamImpl> control_;
+      Options options_ = CurrentOptions();
     };
 
     context_ = std::move(context);
@@ -195,10 +198,12 @@ class AsyncReadStreamImpl
      private:
       void Cancel() override {}  // LCOV_EXCL_LINE
       bool Notify(bool ok) override {
+        OptionsSpan span(options_);
         control_->OnRead(ok, std::move(response));
         return true;
       }
       std::shared_ptr<AsyncReadStreamImpl> control_;
+      Options options_ = CurrentOptions();
     };
 
     auto callback = std::make_shared<NotifyRead>(this->shared_from_this());
@@ -243,10 +248,12 @@ class AsyncReadStreamImpl
      private:
       void Cancel() override {}  // LCOV_EXCL_LINE
       bool Notify(bool ok) override {
+        OptionsSpan span(options_);
         control_->OnFinish(ok, MakeStatusFromRpcError(status));
         return true;
       }
       std::shared_ptr<AsyncReadStreamImpl> control_;
+      Options options_ = CurrentOptions();
     };
 
     auto callback = std::make_shared<NotifyFinish>(this->shared_from_this());
@@ -281,10 +288,12 @@ class AsyncReadStreamImpl
      private:
       void Cancel() override {}  // LCOV_EXCL_LINE
       bool Notify(bool ok) override {
+        OptionsSpan span(options_);
         control_->OnDiscard(ok, std::move(response));
         return true;
       }
       std::shared_ptr<AsyncReadStreamImpl> control_;
+      Options options_ = CurrentOptions();
     };
 
     auto callback = std::make_shared<NotifyDiscard>(this->shared_from_this());
@@ -345,7 +354,7 @@ MakeAsyncReadStreamImpl(OnReadHandler&& on_read, OnFinishHandler&& on_finish) {
 }
 
 }  // namespace internal
-}  // namespace GOOGLE_CLOUD_CPP_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud
 }  // namespace google
 

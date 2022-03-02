@@ -7,6 +7,7 @@
  */
 
 #include <aws/http/http.h>
+#include <aws/http/proxy.h>
 
 struct aws_client_bootstrap;
 struct aws_socket_options;
@@ -83,13 +84,15 @@ typedef void(aws_http2_on_ping_complete_fn)(
  *      peer, and are safe to retry on another connection.
  * @param http2_error_code The HTTP/2 error code (RFC-7540 section 7) sent by peer.
  *      `enum aws_http2_error_code` lists official codes.
+ * @param debug_data The debug data sent by peer. It can be empty. (NOTE: this data is only valid for the lifetime of
+ *      the callback. Make a deep copy if you wish to keep it longer.)
  * @param user_data User-data passed to the callback.
  */
-
 typedef void(aws_http2_on_goaway_received_fn)(
     struct aws_http_connection *http2_connection,
     uint32_t last_stream_id,
     uint32_t http2_error_code,
+    struct aws_byte_cursor debug_data,
     void *user_data);
 
 /**
@@ -102,6 +105,14 @@ typedef void(aws_http2_on_remote_settings_change_fn)(
     const struct aws_http2_setting *settings_array,
     size_t num_settings,
     void *user_data);
+
+/**
+ * Callback invoked on each statistics sample.
+ *
+ * connection_nonce is unique to each connection for disambiguation of each callback per connection.
+ */
+typedef void(
+    aws_http_statistics_observer_fn)(size_t connection_nonce, const struct aws_array_list *stats_list, void *user_data);
 
 /**
  * Configuration options for connection monitoring
@@ -119,11 +130,21 @@ struct aws_http_connection_monitoring_options {
      * as unhealthy.
      */
     uint32_t allowable_throughput_failure_interval_seconds;
+
+    /**
+     * invoked on each statistics publish by the underlying IO channel. Install this callback to receive the statistics
+     * for observation. This field is optional.
+     */
+    aws_http_statistics_observer_fn *statistics_observer_fn;
+
+    /**
+     * user_data to be passed to statistics_observer_fn.
+     */
+    void *statistics_observer_user_data;
 };
 
 /**
  * Options specific to HTTP/1.x connections.
- * Initialize with AWS_HTTP1_CONNECTION_OPTIONS_INIT to set default values.
  */
 struct aws_http1_connection_options {
     /**
@@ -143,7 +164,6 @@ struct aws_http1_connection_options {
 
 /**
  * Options specific to HTTP/2 connections.
- * Initialize with AWS_HTTP2_CONNECTION_OPTIONS_INIT to set default values.
  */
 struct aws_http2_connection_options {
     /**
@@ -172,7 +192,7 @@ struct aws_http2_connection_options {
     /**
      * Optional
      * The max number of recently-closed streams to remember.
-     * A default number is set by AWS_HTTP2_CONNECTION_OPTIONS_INIT.
+     * Set it to zero to use the default setting, AWS_HTTP2_DEFAULT_MAX_CLOSED_STREAMS
      *
      * If the connection receives a frame for a closed stream,
      * the frame will be ignored or cause a connection error,
@@ -251,6 +271,13 @@ struct aws_http_client_connection_options {
      */
     const struct aws_http_proxy_options *proxy_options;
 
+    /*
+     * Optional.
+     * Configuration for using proxy from environment variable.
+     * Only works when proxy_options is not set.
+     */
+    const struct proxy_env_var_settings *proxy_ev_settings;
+
     /**
      * Optional
      * Configuration options related to connection health monitoring
@@ -301,6 +328,26 @@ struct aws_http_client_connection_options {
     aws_http_on_client_connection_shutdown_fn *on_shutdown;
 
     /**
+     * Optional.
+     * When true, use prior knowledge to set up an HTTP/2 connection on a cleartext
+     * connection.
+     * When TLS is set and this is true, the connection will failed to be established,
+     * as prior knowledge only works for cleartext TLS.
+     * Refer to RFC7540 3.4
+     */
+    bool prior_knowledge_http2;
+
+    /**
+     * Optional.
+     * Pointer to the hash map containing the ALPN string to protocol to use.
+     * Hash from `struct aws_string *` to `enum aws_http_version`.
+     * If not set, only the predefined string `h2` and `http/1.1` will be recognized. Other negotiated ALPN string will
+     * result in a HTTP1/1 connection
+     * Note: Connection will keep a deep copy of the table and the strings.
+     */
+    struct aws_hash_table *alpn_string_map;
+
+    /**
      * Options specific to HTTP/1.x connections.
      * Optional.
      * Ignored if connection is not HTTP/1.x.
@@ -336,12 +383,6 @@ struct aws_http2_setting {
 };
 
 /**
- * Initializes aws_http1_connection_options with default values.
- */
-#define AWS_HTTP1_CONNECTION_OPTIONS_INIT                                                                              \
-    { .read_buffer_capacity = 0 }
-
-/**
  * HTTP/2: Default value for max closed streams we will keep in memory.
  */
 #define AWS_HTTP2_DEFAULT_MAX_CLOSED_STREAMS (32)
@@ -356,11 +397,6 @@ struct aws_http2_setting {
  */
 #define AWS_HTTP2_SETTINGS_COUNT (6)
 
-/**
- * Initializes aws_http2_connection_options with default values.
- */
-#define AWS_HTTP2_CONNECTION_OPTIONS_INIT                                                                              \
-    { .max_closed_streams = AWS_HTTP2_DEFAULT_MAX_CLOSED_STREAMS }
 /**
  * Initializes aws_http_client_connection_options with default values.
  */
@@ -433,6 +469,22 @@ enum aws_http_version aws_http_connection_get_version(const struct aws_http_conn
  */
 AWS_HTTP_API
 struct aws_channel *aws_http_connection_get_channel(struct aws_http_connection *connection);
+
+/**
+ * Initialize an map copied from the *src map, which maps `struct aws_string *` to `enum aws_http_version`.
+ */
+AWS_HTTP_API
+int aws_http_alpn_map_init_copy(
+    struct aws_allocator *allocator,
+    struct aws_hash_table *dest,
+    struct aws_hash_table *src);
+
+/**
+ * Initialize an empty hash-table that maps `struct aws_string *` to `enum aws_http_version`.
+ * This map can used in aws_http_client_connections_options.alpn_string_map.
+ */
+AWS_HTTP_API
+int aws_http_alpn_map_init(struct aws_allocator *allocator, struct aws_hash_table *map);
 
 /**
  * Checks http proxy options for correctness
@@ -545,7 +597,8 @@ int aws_http2_connection_get_sent_goaway(
 
 /**
  * Get data about the latest GOAWAY frame received from peer (HTTP/2 only).
- * If no GOAWAY has been received, AWS_ERROR_HTTP_DATA_NOT_AVAILABLE will be raised.
+ * If no GOAWAY has been received, or the GOAWAY payload is still in transmitting,
+ * AWS_ERROR_HTTP_DATA_NOT_AVAILABLE will be raised.
  *
  * @param http2_connection HTTP/2 connection.
  * @param out_http2_error Gets set to HTTP/2 error code received in most recent GOAWAY.

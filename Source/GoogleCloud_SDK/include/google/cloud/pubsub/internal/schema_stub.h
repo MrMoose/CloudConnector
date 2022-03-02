@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,7 @@
 namespace google {
 namespace cloud {
 namespace pubsub_internal {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * Define the interface for the gRPC wrapper.
@@ -71,15 +71,12 @@ class SchemaStub {
 };
 
 /**
- * Creates a SchemaStub configured with @p opts and @p channel_id.
- *
- * @p channel_id should be unique among all stubs in the same Connection pool,
- * to ensure they use different underlying connections.
+ * Creates a SchemaStub with a pre-configured channel.
  */
-std::shared_ptr<SchemaStub> CreateDefaultSchemaStub(Options const& opts,
-                                                    int channel_id);
+std::shared_ptr<SchemaStub> CreateDefaultSchemaStub(
+    std::shared_ptr<grpc::Channel> channel);
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub_internal
 }  // namespace cloud
 }  // namespace google

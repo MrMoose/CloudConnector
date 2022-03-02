@@ -27,7 +27,7 @@
 namespace google {
 namespace cloud {
 namespace iam_internal {
-inline namespace GOOGLE_CLOUD_CPP_GENERATED_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 class IAMCredentialsMetadata : public IAMCredentialsStub {
  public:
@@ -56,11 +56,14 @@ class IAMCredentialsMetadata : public IAMCredentialsStub {
  private:
   void SetMetadata(grpc::ClientContext& context,
                    std::string const& request_params);
+  void SetMetadata(grpc::ClientContext& context);
+
   std::shared_ptr<IAMCredentialsStub> child_;
   std::string api_client_header_;
-};  // IAMCredentialsMetadata
+};
 
-}  // namespace GOOGLE_CLOUD_CPP_GENERATED_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
+namespace gcpcxxV1 = GOOGLE_CLOUD_CPP_NS;  // NOLINT(misc-unused-alias-decls)
 }  // namespace iam_internal
 }  // namespace cloud
 }  // namespace google

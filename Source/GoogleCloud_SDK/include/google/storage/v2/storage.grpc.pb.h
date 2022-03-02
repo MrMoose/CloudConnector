@@ -44,7 +44,27 @@ namespace google {
 namespace storage {
 namespace v2 {
 
-// Manages Google Cloud Storage resources.
+// ## API Overview and Naming Syntax
+//
+// The Cloud Storage gRPC API allows applications to read and write data through
+// the abstractions of buckets and objects. For a description of these
+// abstractions please see https://cloud.google.com/storage/docs.
+//
+// Resources are named as follows:
+//   - Projects are referred to as they are defined by the Resource Manager API,
+//     using strings like `projects/123456` or `projects/my-string-id`.
+//   - Buckets are named using string names of the form:
+//     `projects/{project}/buckets/{bucket}`
+//     For globally unique buckets, `_` may be substituted for the project.
+//   - Objects are uniquely identified by their name along with the name of the
+//     bucket they belong to, as separate strings in this API. For example:
+//
+//       ReadObjectRequest {
+//         bucket: 'projects/_/buckets/my-bucket'
+//         object: 'my-object'
+//       }
+//     Note that object names can contain `/` characters, which are treated as
+//     any other character (no special directory semantics).
 class Storage final {
  public:
   static constexpr char const* service_full_name() {
@@ -53,6 +73,141 @@ class Storage final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
+    // Permanently deletes an empty bucket.
+    virtual ::grpc::Status DeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::google::protobuf::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteBucketRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteBucketRaw(context, request, cq));
+    }
+    // Returns metadata for the specified bucket.
+    virtual ::grpc::Status GetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::google::storage::v2::Bucket* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> AsyncGetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(AsyncGetBucketRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> PrepareAsyncGetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(PrepareAsyncGetBucketRaw(context, request, cq));
+    }
+    // Creates a new bucket.
+    virtual ::grpc::Status CreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::google::storage::v2::Bucket* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> AsyncCreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(AsyncCreateBucketRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> PrepareAsyncCreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(PrepareAsyncCreateBucketRaw(context, request, cq));
+    }
+    // Retrieves a list of buckets for a given project.
+    virtual ::grpc::Status ListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::google::storage::v2::ListBucketsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListBucketsResponse>> AsyncListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListBucketsResponse>>(AsyncListBucketsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListBucketsResponse>> PrepareAsyncListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListBucketsResponse>>(PrepareAsyncListBucketsRaw(context, request, cq));
+    }
+    // Locks retention policy on a bucket.
+    virtual ::grpc::Status LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::google::storage::v2::Bucket* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> AsyncLockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(AsyncLockBucketRetentionPolicyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> PrepareAsyncLockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(PrepareAsyncLockBucketRetentionPolicyRaw(context, request, cq));
+    }
+    // Gets the IAM policy for a specified bucket.
+    virtual ::grpc::Status GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::google::iam::v1::Policy* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> AsyncGetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(AsyncGetIamPolicyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> PrepareAsyncGetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(PrepareAsyncGetIamPolicyRaw(context, request, cq));
+    }
+    // Updates an IAM policy for the specified bucket.
+    virtual ::grpc::Status SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::google::iam::v1::Policy* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> AsyncSetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(AsyncSetIamPolicyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> PrepareAsyncSetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(PrepareAsyncSetIamPolicyRaw(context, request, cq));
+    }
+    // Tests a set of permissions on the given bucket to see which, if
+    // any, are held by the caller.
+    virtual ::grpc::Status TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::google::iam::v1::TestIamPermissionsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>> AsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>>(AsyncTestIamPermissionsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>> PrepareAsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>>(PrepareAsyncTestIamPermissionsRaw(context, request, cq));
+    }
+    // Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
+    virtual ::grpc::Status UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::google::storage::v2::Bucket* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> AsyncUpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(AsyncUpdateBucketRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> PrepareAsyncUpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(PrepareAsyncUpdateBucketRaw(context, request, cq));
+    }
+    // Permanently deletes a notification subscription.
+    virtual ::grpc::Status DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::google::protobuf::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteNotificationRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteNotificationRaw(context, request, cq));
+    }
+    // View a notification config.
+    virtual ::grpc::Status GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::google::storage::v2::Notification* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>> AsyncGetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>>(AsyncGetNotificationRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>> PrepareAsyncGetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>>(PrepareAsyncGetNotificationRaw(context, request, cq));
+    }
+    // Creates a notification subscription for a given bucket.
+    // These notifications, when triggered, publish messages to the specified
+    // Pub/Sub topics.
+    // See https://cloud.google.com/storage/docs/pubsub-notifications.
+    virtual ::grpc::Status CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::google::storage::v2::Notification* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>> AsyncCreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>>(AsyncCreateNotificationRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>> PrepareAsyncCreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>>(PrepareAsyncCreateNotificationRaw(context, request, cq));
+    }
+    // Retrieves a list of notification subscriptions for a given bucket.
+    virtual ::grpc::Status ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::google::storage::v2::ListNotificationsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>> AsyncListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>>(AsyncListNotificationsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>> PrepareAsyncListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>>(PrepareAsyncListNotificationsRaw(context, request, cq));
+    }
+    // Concatenates a list of existing objects into a new object in the same
+    // bucket.
+    virtual ::grpc::Status ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::google::storage::v2::Object* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>> AsyncComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>>(AsyncComposeObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>> PrepareAsyncComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>>(PrepareAsyncComposeObjectRaw(context, request, cq));
+    }
+    // Deletes an object and its metadata. Deletions are permanent if versioning
+    // is not enabled for the bucket, or if the `generation` parameter
+    // is used.
+    virtual ::grpc::Status DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::google::protobuf::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteObjectRaw(context, request, cq));
+    }
+    // Retrieves an object's metadata.
+    virtual ::grpc::Status GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::google::storage::v2::Object* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>> AsyncGetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>>(AsyncGetObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>> PrepareAsyncGetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>>(PrepareAsyncGetObjectRaw(context, request, cq));
+    }
     // Reads an object's data.
     std::unique_ptr< ::grpc::ClientReaderInterface< ::google::storage::v2::ReadObjectResponse>> ReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request) {
       return std::unique_ptr< ::grpc::ClientReaderInterface< ::google::storage::v2::ReadObjectResponse>>(ReadObjectRaw(context, request));
@@ -62,6 +217,15 @@ class Storage final {
     }
     std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::storage::v2::ReadObjectResponse>> PrepareAsyncReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::storage::v2::ReadObjectResponse>>(PrepareAsyncReadObjectRaw(context, request, cq));
+    }
+    // Updates an object's metadata.
+    // Equivalent to JSON API's storage.objects.patch.
+    virtual ::grpc::Status UpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::google::storage::v2::Object* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>> AsyncUpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>>(AsyncUpdateObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>> PrepareAsyncUpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>>(PrepareAsyncUpdateObjectRaw(context, request, cq));
     }
     // Stores a new object and metadata.
     //
@@ -78,7 +242,7 @@ class Storage final {
     // each following call to `Create`. If there is an error or the connection is
     // broken during the resumable `Create()`, the client should check the status
     // of the `Create()` by calling `QueryWriteStatus()` and continue writing from
-    // the returned `committed_size`. This may be less than the amount of data the
+    // the returned `persisted_size`. This may be less than the amount of data the
     // client previously sent.
     //
     // The service will not view the object as complete until the client has
@@ -96,6 +260,23 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::google::storage::v2::WriteObjectRequest>> PrepareAsyncWriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::google::storage::v2::WriteObjectRequest>>(PrepareAsyncWriteObjectRaw(context, response, cq));
     }
+    // Retrieves a list of objects matching the criteria.
+    virtual ::grpc::Status ListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::google::storage::v2::ListObjectsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListObjectsResponse>> AsyncListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListObjectsResponse>>(AsyncListObjectsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListObjectsResponse>> PrepareAsyncListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListObjectsResponse>>(PrepareAsyncListObjectsRaw(context, request, cq));
+    }
+    // Rewrites a source object to a destination object. Optionally overrides
+    // metadata.
+    virtual ::grpc::Status RewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::google::storage::v2::RewriteResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::RewriteResponse>> AsyncRewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::RewriteResponse>>(AsyncRewriteObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::RewriteResponse>> PrepareAsyncRewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::RewriteResponse>>(PrepareAsyncRewriteObjectRaw(context, request, cq));
+    }
     // Starts a resumable write. How long the write operation remains valid, and
     // what happens when the write operation becomes invalid, are
     // service-dependent.
@@ -106,7 +287,7 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::StartResumableWriteResponse>> PrepareAsyncStartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::StartResumableWriteResponse>>(PrepareAsyncStartResumableWriteRaw(context, request, cq));
     }
-    // Determines the `committed_size` for an object that is being written, which
+    // Determines the `persisted_size` for an object that is being written, which
     // can then be used as the `write_offset` for the next `Write()` call.
     //
     // If the object does not exist (i.e., the object has been deleted, or the
@@ -117,7 +298,7 @@ class Storage final {
     // much data has been processed for this object. This is useful if the
     // client is buffering data and needs to know which data can be safely
     // evicted. For any sequence of `QueryWriteStatus()` calls for a given
-    // object name, the sequence of returned `committed_size` values will be
+    // object name, the sequence of returned `persisted_size` values will be
     // non-decreasing.
     virtual ::grpc::Status QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::google::storage::v2::QueryWriteStatusResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::QueryWriteStatusResponse>> AsyncQueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::grpc::CompletionQueue* cq) {
@@ -126,11 +307,118 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::QueryWriteStatusResponse>> PrepareAsyncQueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::QueryWriteStatusResponse>>(PrepareAsyncQueryWriteStatusRaw(context, request, cq));
     }
+    // Retrieves the name of a project's Google Cloud Storage service account.
+    virtual ::grpc::Status GetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::google::storage::v2::ServiceAccount* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ServiceAccount>> AsyncGetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ServiceAccount>>(AsyncGetServiceAccountRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ServiceAccount>> PrepareAsyncGetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ServiceAccount>>(PrepareAsyncGetServiceAccountRaw(context, request, cq));
+    }
+    // Creates a new HMAC key for the given service account.
+    virtual ::grpc::Status CreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::google::storage::v2::CreateHmacKeyResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CreateHmacKeyResponse>> AsyncCreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CreateHmacKeyResponse>>(AsyncCreateHmacKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CreateHmacKeyResponse>> PrepareAsyncCreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CreateHmacKeyResponse>>(PrepareAsyncCreateHmacKeyRaw(context, request, cq));
+    }
+    // Deletes a given HMAC key.  Key must be in an INACTIVE state.
+    virtual ::grpc::Status DeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::google::protobuf::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteHmacKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteHmacKeyRaw(context, request, cq));
+    }
+    // Gets an existing HMAC key metadata for the given id.
+    virtual ::grpc::Status GetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::google::storage::v2::HmacKeyMetadata* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>> AsyncGetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>>(AsyncGetHmacKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>> PrepareAsyncGetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>>(PrepareAsyncGetHmacKeyRaw(context, request, cq));
+    }
+    // Lists HMAC keys under a given project with the additional filters provided.
+    virtual ::grpc::Status ListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::google::storage::v2::ListHmacKeysResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListHmacKeysResponse>> AsyncListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListHmacKeysResponse>>(AsyncListHmacKeysRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListHmacKeysResponse>> PrepareAsyncListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListHmacKeysResponse>>(PrepareAsyncListHmacKeysRaw(context, request, cq));
+    }
+    // Updates a given HMAC key state between ACTIVE and INACTIVE.
+    virtual ::grpc::Status UpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::google::storage::v2::HmacKeyMetadata* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>> AsyncUpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>>(AsyncUpdateHmacKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>> PrepareAsyncUpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>>(PrepareAsyncUpdateHmacKeyRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
+      // Permanently deletes an empty bucket.
+      virtual void DeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Returns metadata for the specified bucket.
+      virtual void GetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Creates a new bucket.
+      virtual void CreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Retrieves a list of buckets for a given project.
+      virtual void ListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest* request, ::google::storage::v2::ListBucketsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest* request, ::google::storage::v2::ListBucketsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Locks retention policy on a bucket.
+      virtual void LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Gets the IAM policy for a specified bucket.
+      virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Updates an IAM policy for the specified bucket.
+      virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Tests a set of permissions on the given bucket to see which, if
+      // any, are held by the caller.
+      virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
+      virtual void UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Permanently deletes a notification subscription.
+      virtual void DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // View a notification config.
+      virtual void GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Creates a notification subscription for a given bucket.
+      // These notifications, when triggered, publish messages to the specified
+      // Pub/Sub topics.
+      // See https://cloud.google.com/storage/docs/pubsub-notifications.
+      virtual void CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Retrieves a list of notification subscriptions for a given bucket.
+      virtual void ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Concatenates a list of existing objects into a new object in the same
+      // bucket.
+      virtual void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Deletes an object and its metadata. Deletions are permanent if versioning
+      // is not enabled for the bucket, or if the `generation` parameter
+      // is used.
+      virtual void DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Retrieves an object's metadata.
+      virtual void GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Reads an object's data.
       virtual void ReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest* request, ::grpc::ClientReadReactor< ::google::storage::v2::ReadObjectResponse>* reactor) = 0;
+      // Updates an object's metadata.
+      // Equivalent to JSON API's storage.objects.patch.
+      virtual void UpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Stores a new object and metadata.
       //
       // An object can be written either in a single message stream or in a
@@ -146,7 +434,7 @@ class Storage final {
       // each following call to `Create`. If there is an error or the connection is
       // broken during the resumable `Create()`, the client should check the status
       // of the `Create()` by calling `QueryWriteStatus()` and continue writing from
-      // the returned `committed_size`. This may be less than the amount of data the
+      // the returned `persisted_size`. This may be less than the amount of data the
       // client previously sent.
       //
       // The service will not view the object as complete until the client has
@@ -156,12 +444,19 @@ class Storage final {
       // receives to determine how much data the service was able to commit and
       // whether the service views the object as complete.
       virtual void WriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::ClientWriteReactor< ::google::storage::v2::WriteObjectRequest>* reactor) = 0;
+      // Retrieves a list of objects matching the criteria.
+      virtual void ListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest* request, ::google::storage::v2::ListObjectsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest* request, ::google::storage::v2::ListObjectsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Rewrites a source object to a destination object. Optionally overrides
+      // metadata.
+      virtual void RewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest* request, ::google::storage::v2::RewriteResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest* request, ::google::storage::v2::RewriteResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Starts a resumable write. How long the write operation remains valid, and
       // what happens when the write operation becomes invalid, are
       // service-dependent.
       virtual void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Determines the `committed_size` for an object that is being written, which
+      // Determines the `persisted_size` for an object that is being written, which
       // can then be used as the `write_offset` for the next `Write()` call.
       //
       // If the object does not exist (i.e., the object has been deleted, or the
@@ -172,29 +467,209 @@ class Storage final {
       // much data has been processed for this object. This is useful if the
       // client is buffering data and needs to know which data can be safely
       // evicted. For any sequence of `QueryWriteStatus()` calls for a given
-      // object name, the sequence of returned `committed_size` values will be
+      // object name, the sequence of returned `persisted_size` values will be
       // non-decreasing.
       virtual void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Retrieves the name of a project's Google Cloud Storage service account.
+      virtual void GetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest* request, ::google::storage::v2::ServiceAccount* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest* request, ::google::storage::v2::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Creates a new HMAC key for the given service account.
+      virtual void CreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest* request, ::google::storage::v2::CreateHmacKeyResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest* request, ::google::storage::v2::CreateHmacKeyResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Deletes a given HMAC key.  Key must be in an INACTIVE state.
+      virtual void DeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Gets an existing HMAC key metadata for the given id.
+      virtual void GetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Lists HMAC keys under a given project with the additional filters provided.
+      virtual void ListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest* request, ::google::storage::v2::ListHmacKeysResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest* request, ::google::storage::v2::ListHmacKeysResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Updates a given HMAC key state between ACTIVE and INACTIVE.
+      virtual void UpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
   private:
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* AsyncGetBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* PrepareAsyncGetBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* AsyncCreateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* PrepareAsyncCreateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListBucketsResponse>* AsyncListBucketsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListBucketsResponse>* PrepareAsyncListBucketsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* AsyncLockBucketRetentionPolicyRaw(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* PrepareAsyncLockBucketRetentionPolicyRaw(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>* AsyncGetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>* PrepareAsyncGetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>* AsyncSetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>* PrepareAsyncSetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>* AsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>* PrepareAsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* AsyncUpdateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* PrepareAsyncUpdateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>* AsyncGetNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>* PrepareAsyncGetNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>* AsyncCreateNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>* PrepareAsyncCreateNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>* AsyncListNotificationsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>* PrepareAsyncListNotificationsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* AsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* PrepareAsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* AsyncGetObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* PrepareAsyncGetObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientReaderInterface< ::google::storage::v2::ReadObjectResponse>* ReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::google::storage::v2::ReadObjectResponse>* AsyncReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::google::storage::v2::ReadObjectResponse>* PrepareAsyncReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* AsyncUpdateObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* PrepareAsyncUpdateObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientWriterInterface< ::google::storage::v2::WriteObjectRequest>* WriteObjectRaw(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response) = 0;
     virtual ::grpc::ClientAsyncWriterInterface< ::google::storage::v2::WriteObjectRequest>* AsyncWriteObjectRaw(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncWriterInterface< ::google::storage::v2::WriteObjectRequest>* PrepareAsyncWriteObjectRaw(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListObjectsResponse>* AsyncListObjectsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListObjectsResponse>* PrepareAsyncListObjectsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::RewriteResponse>* AsyncRewriteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::RewriteResponse>* PrepareAsyncRewriteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::StartResumableWriteResponse>* AsyncStartResumableWriteRaw(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::StartResumableWriteResponse>* PrepareAsyncStartResumableWriteRaw(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::QueryWriteStatusResponse>* AsyncQueryWriteStatusRaw(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::QueryWriteStatusResponse>* PrepareAsyncQueryWriteStatusRaw(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ServiceAccount>* AsyncGetServiceAccountRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ServiceAccount>* PrepareAsyncGetServiceAccountRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CreateHmacKeyResponse>* AsyncCreateHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CreateHmacKeyResponse>* PrepareAsyncCreateHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>* AsyncGetHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>* PrepareAsyncGetHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListHmacKeysResponse>* AsyncListHmacKeysRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListHmacKeysResponse>* PrepareAsyncListHmacKeysRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>* AsyncUpdateHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::HmacKeyMetadata>* PrepareAsyncUpdateHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+    ::grpc::Status DeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::google::protobuf::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteBucketRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteBucketRaw(context, request, cq));
+    }
+    ::grpc::Status GetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::google::storage::v2::Bucket* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>> AsyncGetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>>(AsyncGetBucketRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>> PrepareAsyncGetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>>(PrepareAsyncGetBucketRaw(context, request, cq));
+    }
+    ::grpc::Status CreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::google::storage::v2::Bucket* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>> AsyncCreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>>(AsyncCreateBucketRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>> PrepareAsyncCreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>>(PrepareAsyncCreateBucketRaw(context, request, cq));
+    }
+    ::grpc::Status ListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::google::storage::v2::ListBucketsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListBucketsResponse>> AsyncListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListBucketsResponse>>(AsyncListBucketsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListBucketsResponse>> PrepareAsyncListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListBucketsResponse>>(PrepareAsyncListBucketsRaw(context, request, cq));
+    }
+    ::grpc::Status LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::google::storage::v2::Bucket* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>> AsyncLockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>>(AsyncLockBucketRetentionPolicyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>> PrepareAsyncLockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>>(PrepareAsyncLockBucketRetentionPolicyRaw(context, request, cq));
+    }
+    ::grpc::Status GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::google::iam::v1::Policy* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>> AsyncGetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>>(AsyncGetIamPolicyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>> PrepareAsyncGetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>>(PrepareAsyncGetIamPolicyRaw(context, request, cq));
+    }
+    ::grpc::Status SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::google::iam::v1::Policy* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>> AsyncSetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>>(AsyncSetIamPolicyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>> PrepareAsyncSetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>>(PrepareAsyncSetIamPolicyRaw(context, request, cq));
+    }
+    ::grpc::Status TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::google::iam::v1::TestIamPermissionsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>> AsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>>(AsyncTestIamPermissionsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>> PrepareAsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>>(PrepareAsyncTestIamPermissionsRaw(context, request, cq));
+    }
+    ::grpc::Status UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::google::storage::v2::Bucket* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>> AsyncUpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>>(AsyncUpdateBucketRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>> PrepareAsyncUpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>>(PrepareAsyncUpdateBucketRaw(context, request, cq));
+    }
+    ::grpc::Status DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::google::protobuf::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteNotificationRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteNotificationRaw(context, request, cq));
+    }
+    ::grpc::Status GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::google::storage::v2::Notification* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>> AsyncGetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>>(AsyncGetNotificationRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>> PrepareAsyncGetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>>(PrepareAsyncGetNotificationRaw(context, request, cq));
+    }
+    ::grpc::Status CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::google::storage::v2::Notification* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>> AsyncCreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>>(AsyncCreateNotificationRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>> PrepareAsyncCreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>>(PrepareAsyncCreateNotificationRaw(context, request, cq));
+    }
+    ::grpc::Status ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::google::storage::v2::ListNotificationsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>> AsyncListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>>(AsyncListNotificationsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>> PrepareAsyncListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>>(PrepareAsyncListNotificationsRaw(context, request, cq));
+    }
+    ::grpc::Status ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::google::storage::v2::Object* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>> AsyncComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>>(AsyncComposeObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>> PrepareAsyncComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>>(PrepareAsyncComposeObjectRaw(context, request, cq));
+    }
+    ::grpc::Status DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::google::protobuf::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteObjectRaw(context, request, cq));
+    }
+    ::grpc::Status GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::google::storage::v2::Object* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>> AsyncGetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>>(AsyncGetObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>> PrepareAsyncGetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>>(PrepareAsyncGetObjectRaw(context, request, cq));
+    }
     std::unique_ptr< ::grpc::ClientReader< ::google::storage::v2::ReadObjectResponse>> ReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request) {
       return std::unique_ptr< ::grpc::ClientReader< ::google::storage::v2::ReadObjectResponse>>(ReadObjectRaw(context, request));
     }
@@ -204,6 +679,13 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncReader< ::google::storage::v2::ReadObjectResponse>> PrepareAsyncReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReader< ::google::storage::v2::ReadObjectResponse>>(PrepareAsyncReadObjectRaw(context, request, cq));
     }
+    ::grpc::Status UpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::google::storage::v2::Object* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>> AsyncUpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>>(AsyncUpdateObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>> PrepareAsyncUpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>>(PrepareAsyncUpdateObjectRaw(context, request, cq));
+    }
     std::unique_ptr< ::grpc::ClientWriter< ::google::storage::v2::WriteObjectRequest>> WriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response) {
       return std::unique_ptr< ::grpc::ClientWriter< ::google::storage::v2::WriteObjectRequest>>(WriteObjectRaw(context, response));
     }
@@ -212,6 +694,20 @@ class Storage final {
     }
     std::unique_ptr< ::grpc::ClientAsyncWriter< ::google::storage::v2::WriteObjectRequest>> PrepareAsyncWriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncWriter< ::google::storage::v2::WriteObjectRequest>>(PrepareAsyncWriteObjectRaw(context, response, cq));
+    }
+    ::grpc::Status ListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::google::storage::v2::ListObjectsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListObjectsResponse>> AsyncListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListObjectsResponse>>(AsyncListObjectsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListObjectsResponse>> PrepareAsyncListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListObjectsResponse>>(PrepareAsyncListObjectsRaw(context, request, cq));
+    }
+    ::grpc::Status RewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::google::storage::v2::RewriteResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::RewriteResponse>> AsyncRewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::RewriteResponse>>(AsyncRewriteObjectRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::RewriteResponse>> PrepareAsyncRewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::RewriteResponse>>(PrepareAsyncRewriteObjectRaw(context, request, cq));
     }
     ::grpc::Status StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest& request, ::google::storage::v2::StartResumableWriteResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::StartResumableWriteResponse>> AsyncStartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest& request, ::grpc::CompletionQueue* cq) {
@@ -227,15 +723,107 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::QueryWriteStatusResponse>> PrepareAsyncQueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::QueryWriteStatusResponse>>(PrepareAsyncQueryWriteStatusRaw(context, request, cq));
     }
+    ::grpc::Status GetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::google::storage::v2::ServiceAccount* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ServiceAccount>> AsyncGetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ServiceAccount>>(AsyncGetServiceAccountRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ServiceAccount>> PrepareAsyncGetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ServiceAccount>>(PrepareAsyncGetServiceAccountRaw(context, request, cq));
+    }
+    ::grpc::Status CreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::google::storage::v2::CreateHmacKeyResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CreateHmacKeyResponse>> AsyncCreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CreateHmacKeyResponse>>(AsyncCreateHmacKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CreateHmacKeyResponse>> PrepareAsyncCreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CreateHmacKeyResponse>>(PrepareAsyncCreateHmacKeyRaw(context, request, cq));
+    }
+    ::grpc::Status DeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::google::protobuf::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteHmacKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteHmacKeyRaw(context, request, cq));
+    }
+    ::grpc::Status GetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::google::storage::v2::HmacKeyMetadata* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>> AsyncGetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>>(AsyncGetHmacKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>> PrepareAsyncGetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>>(PrepareAsyncGetHmacKeyRaw(context, request, cq));
+    }
+    ::grpc::Status ListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::google::storage::v2::ListHmacKeysResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListHmacKeysResponse>> AsyncListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListHmacKeysResponse>>(AsyncListHmacKeysRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListHmacKeysResponse>> PrepareAsyncListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListHmacKeysResponse>>(PrepareAsyncListHmacKeysRaw(context, request, cq));
+    }
+    ::grpc::Status UpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::google::storage::v2::HmacKeyMetadata* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>> AsyncUpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>>(AsyncUpdateHmacKeyRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>> PrepareAsyncUpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>>(PrepareAsyncUpdateHmacKeyRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
+      void DeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
+      void DeleteBucket(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) override;
+      void GetBucket(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) override;
+      void CreateBucket(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest* request, ::google::storage::v2::ListBucketsResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListBuckets(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest* request, ::google::storage::v2::ListBucketsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) override;
+      void LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
+      void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) override;
+      void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) override;
+      void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) override;
+      void UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
+      void DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response, std::function<void(::grpc::Status)>) override;
+      void GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response, std::function<void(::grpc::Status)>) override;
+      void CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) override;
+      void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
+      void DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) override;
+      void GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest* request, ::grpc::ClientReadReactor< ::google::storage::v2::ReadObjectResponse>* reactor) override;
+      void UpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) override;
+      void UpdateObject(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) override;
       void WriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::ClientWriteReactor< ::google::storage::v2::WriteObjectRequest>* reactor) override;
+      void ListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest* request, ::google::storage::v2::ListObjectsResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest* request, ::google::storage::v2::ListObjectsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void RewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest* request, ::google::storage::v2::RewriteResponse* response, std::function<void(::grpc::Status)>) override;
+      void RewriteObject(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest* request, ::google::storage::v2::RewriteResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, std::function<void(::grpc::Status)>) override;
       void StartResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, std::function<void(::grpc::Status)>) override;
       void QueryWriteStatus(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest* request, ::google::storage::v2::ServiceAccount* response, std::function<void(::grpc::Status)>) override;
+      void GetServiceAccount(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest* request, ::google::storage::v2::ServiceAccount* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest* request, ::google::storage::v2::CreateHmacKeyResponse* response, std::function<void(::grpc::Status)>) override;
+      void CreateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest* request, ::google::storage::v2::CreateHmacKeyResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void DeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
+      void DeleteHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response, std::function<void(::grpc::Status)>) override;
+      void GetHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest* request, ::google::storage::v2::ListHmacKeysResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListHmacKeys(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest* request, ::google::storage::v2::ListHmacKeysResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response, std::function<void(::grpc::Status)>) override;
+      void UpdateHmacKey(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -247,20 +835,95 @@ class Storage final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* AsyncGetBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* PrepareAsyncGetBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* AsyncCreateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* PrepareAsyncCreateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListBucketsResponse>* AsyncListBucketsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListBucketsResponse>* PrepareAsyncListBucketsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* AsyncLockBucketRetentionPolicyRaw(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* PrepareAsyncLockBucketRetentionPolicyRaw(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>* AsyncGetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>* PrepareAsyncGetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>* AsyncSetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>* PrepareAsyncSetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>* AsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>* PrepareAsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* AsyncUpdateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* PrepareAsyncUpdateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>* AsyncGetNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>* PrepareAsyncGetNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>* AsyncCreateNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>* PrepareAsyncCreateNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>* AsyncListNotificationsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>* PrepareAsyncListNotificationsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* AsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* PrepareAsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* AsyncGetObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* PrepareAsyncGetObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientReader< ::google::storage::v2::ReadObjectResponse>* ReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request) override;
     ::grpc::ClientAsyncReader< ::google::storage::v2::ReadObjectResponse>* AsyncReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncReader< ::google::storage::v2::ReadObjectResponse>* PrepareAsyncReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* AsyncUpdateObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* PrepareAsyncUpdateObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateObjectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientWriter< ::google::storage::v2::WriteObjectRequest>* WriteObjectRaw(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response) override;
     ::grpc::ClientAsyncWriter< ::google::storage::v2::WriteObjectRequest>* AsyncWriteObjectRaw(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncWriter< ::google::storage::v2::WriteObjectRequest>* PrepareAsyncWriteObjectRaw(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListObjectsResponse>* AsyncListObjectsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListObjectsResponse>* PrepareAsyncListObjectsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::RewriteResponse>* AsyncRewriteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::RewriteResponse>* PrepareAsyncRewriteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::RewriteObjectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::StartResumableWriteResponse>* AsyncStartResumableWriteRaw(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::StartResumableWriteResponse>* PrepareAsyncStartResumableWriteRaw(::grpc::ClientContext* context, const ::google::storage::v2::StartResumableWriteRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::QueryWriteStatusResponse>* AsyncQueryWriteStatusRaw(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::QueryWriteStatusResponse>* PrepareAsyncQueryWriteStatusRaw(::grpc::ClientContext* context, const ::google::storage::v2::QueryWriteStatusRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ServiceAccount>* AsyncGetServiceAccountRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ServiceAccount>* PrepareAsyncGetServiceAccountRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetServiceAccountRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CreateHmacKeyResponse>* AsyncCreateHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CreateHmacKeyResponse>* PrepareAsyncCreateHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteHmacKeyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>* AsyncGetHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>* PrepareAsyncGetHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetHmacKeyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListHmacKeysResponse>* AsyncListHmacKeysRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListHmacKeysResponse>* PrepareAsyncListHmacKeysRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListHmacKeysRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>* AsyncUpdateHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::HmacKeyMetadata>* PrepareAsyncUpdateHmacKeyRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateHmacKeyRequest& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_DeleteBucket_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetBucket_;
+    const ::grpc::internal::RpcMethod rpcmethod_CreateBucket_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListBuckets_;
+    const ::grpc::internal::RpcMethod rpcmethod_LockBucketRetentionPolicy_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetIamPolicy_;
+    const ::grpc::internal::RpcMethod rpcmethod_SetIamPolicy_;
+    const ::grpc::internal::RpcMethod rpcmethod_TestIamPermissions_;
+    const ::grpc::internal::RpcMethod rpcmethod_UpdateBucket_;
+    const ::grpc::internal::RpcMethod rpcmethod_DeleteNotification_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetNotification_;
+    const ::grpc::internal::RpcMethod rpcmethod_CreateNotification_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListNotifications_;
+    const ::grpc::internal::RpcMethod rpcmethod_ComposeObject_;
+    const ::grpc::internal::RpcMethod rpcmethod_DeleteObject_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetObject_;
     const ::grpc::internal::RpcMethod rpcmethod_ReadObject_;
+    const ::grpc::internal::RpcMethod rpcmethod_UpdateObject_;
     const ::grpc::internal::RpcMethod rpcmethod_WriteObject_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListObjects_;
+    const ::grpc::internal::RpcMethod rpcmethod_RewriteObject_;
     const ::grpc::internal::RpcMethod rpcmethod_StartResumableWrite_;
     const ::grpc::internal::RpcMethod rpcmethod_QueryWriteStatus_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetServiceAccount_;
+    const ::grpc::internal::RpcMethod rpcmethod_CreateHmacKey_;
+    const ::grpc::internal::RpcMethod rpcmethod_DeleteHmacKey_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetHmacKey_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListHmacKeys_;
+    const ::grpc::internal::RpcMethod rpcmethod_UpdateHmacKey_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -268,8 +931,50 @@ class Storage final {
    public:
     Service();
     virtual ~Service();
+    // Permanently deletes an empty bucket.
+    virtual ::grpc::Status DeleteBucket(::grpc::ServerContext* context, const ::google::storage::v2::DeleteBucketRequest* request, ::google::protobuf::Empty* response);
+    // Returns metadata for the specified bucket.
+    virtual ::grpc::Status GetBucket(::grpc::ServerContext* context, const ::google::storage::v2::GetBucketRequest* request, ::google::storage::v2::Bucket* response);
+    // Creates a new bucket.
+    virtual ::grpc::Status CreateBucket(::grpc::ServerContext* context, const ::google::storage::v2::CreateBucketRequest* request, ::google::storage::v2::Bucket* response);
+    // Retrieves a list of buckets for a given project.
+    virtual ::grpc::Status ListBuckets(::grpc::ServerContext* context, const ::google::storage::v2::ListBucketsRequest* request, ::google::storage::v2::ListBucketsResponse* response);
+    // Locks retention policy on a bucket.
+    virtual ::grpc::Status LockBucketRetentionPolicy(::grpc::ServerContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response);
+    // Gets the IAM policy for a specified bucket.
+    virtual ::grpc::Status GetIamPolicy(::grpc::ServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response);
+    // Updates an IAM policy for the specified bucket.
+    virtual ::grpc::Status SetIamPolicy(::grpc::ServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response);
+    // Tests a set of permissions on the given bucket to see which, if
+    // any, are held by the caller.
+    virtual ::grpc::Status TestIamPermissions(::grpc::ServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response);
+    // Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
+    virtual ::grpc::Status UpdateBucket(::grpc::ServerContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response);
+    // Permanently deletes a notification subscription.
+    virtual ::grpc::Status DeleteNotification(::grpc::ServerContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response);
+    // View a notification config.
+    virtual ::grpc::Status GetNotification(::grpc::ServerContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response);
+    // Creates a notification subscription for a given bucket.
+    // These notifications, when triggered, publish messages to the specified
+    // Pub/Sub topics.
+    // See https://cloud.google.com/storage/docs/pubsub-notifications.
+    virtual ::grpc::Status CreateNotification(::grpc::ServerContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response);
+    // Retrieves a list of notification subscriptions for a given bucket.
+    virtual ::grpc::Status ListNotifications(::grpc::ServerContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response);
+    // Concatenates a list of existing objects into a new object in the same
+    // bucket.
+    virtual ::grpc::Status ComposeObject(::grpc::ServerContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response);
+    // Deletes an object and its metadata. Deletions are permanent if versioning
+    // is not enabled for the bucket, or if the `generation` parameter
+    // is used.
+    virtual ::grpc::Status DeleteObject(::grpc::ServerContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response);
+    // Retrieves an object's metadata.
+    virtual ::grpc::Status GetObject(::grpc::ServerContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response);
     // Reads an object's data.
     virtual ::grpc::Status ReadObject(::grpc::ServerContext* context, const ::google::storage::v2::ReadObjectRequest* request, ::grpc::ServerWriter< ::google::storage::v2::ReadObjectResponse>* writer);
+    // Updates an object's metadata.
+    // Equivalent to JSON API's storage.objects.patch.
+    virtual ::grpc::Status UpdateObject(::grpc::ServerContext* context, const ::google::storage::v2::UpdateObjectRequest* request, ::google::storage::v2::Object* response);
     // Stores a new object and metadata.
     //
     // An object can be written either in a single message stream or in a
@@ -285,7 +990,7 @@ class Storage final {
     // each following call to `Create`. If there is an error or the connection is
     // broken during the resumable `Create()`, the client should check the status
     // of the `Create()` by calling `QueryWriteStatus()` and continue writing from
-    // the returned `committed_size`. This may be less than the amount of data the
+    // the returned `persisted_size`. This may be less than the amount of data the
     // client previously sent.
     //
     // The service will not view the object as complete until the client has
@@ -295,11 +1000,16 @@ class Storage final {
     // receives to determine how much data the service was able to commit and
     // whether the service views the object as complete.
     virtual ::grpc::Status WriteObject(::grpc::ServerContext* context, ::grpc::ServerReader< ::google::storage::v2::WriteObjectRequest>* reader, ::google::storage::v2::WriteObjectResponse* response);
+    // Retrieves a list of objects matching the criteria.
+    virtual ::grpc::Status ListObjects(::grpc::ServerContext* context, const ::google::storage::v2::ListObjectsRequest* request, ::google::storage::v2::ListObjectsResponse* response);
+    // Rewrites a source object to a destination object. Optionally overrides
+    // metadata.
+    virtual ::grpc::Status RewriteObject(::grpc::ServerContext* context, const ::google::storage::v2::RewriteObjectRequest* request, ::google::storage::v2::RewriteResponse* response);
     // Starts a resumable write. How long the write operation remains valid, and
     // what happens when the write operation becomes invalid, are
     // service-dependent.
     virtual ::grpc::Status StartResumableWrite(::grpc::ServerContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response);
-    // Determines the `committed_size` for an object that is being written, which
+    // Determines the `persisted_size` for an object that is being written, which
     // can then be used as the `write_offset` for the next `Write()` call.
     //
     // If the object does not exist (i.e., the object has been deleted, or the
@@ -310,9 +1020,341 @@ class Storage final {
     // much data has been processed for this object. This is useful if the
     // client is buffering data and needs to know which data can be safely
     // evicted. For any sequence of `QueryWriteStatus()` calls for a given
-    // object name, the sequence of returned `committed_size` values will be
+    // object name, the sequence of returned `persisted_size` values will be
     // non-decreasing.
     virtual ::grpc::Status QueryWriteStatus(::grpc::ServerContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response);
+    // Retrieves the name of a project's Google Cloud Storage service account.
+    virtual ::grpc::Status GetServiceAccount(::grpc::ServerContext* context, const ::google::storage::v2::GetServiceAccountRequest* request, ::google::storage::v2::ServiceAccount* response);
+    // Creates a new HMAC key for the given service account.
+    virtual ::grpc::Status CreateHmacKey(::grpc::ServerContext* context, const ::google::storage::v2::CreateHmacKeyRequest* request, ::google::storage::v2::CreateHmacKeyResponse* response);
+    // Deletes a given HMAC key.  Key must be in an INACTIVE state.
+    virtual ::grpc::Status DeleteHmacKey(::grpc::ServerContext* context, const ::google::storage::v2::DeleteHmacKeyRequest* request, ::google::protobuf::Empty* response);
+    // Gets an existing HMAC key metadata for the given id.
+    virtual ::grpc::Status GetHmacKey(::grpc::ServerContext* context, const ::google::storage::v2::GetHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response);
+    // Lists HMAC keys under a given project with the additional filters provided.
+    virtual ::grpc::Status ListHmacKeys(::grpc::ServerContext* context, const ::google::storage::v2::ListHmacKeysRequest* request, ::google::storage::v2::ListHmacKeysResponse* response);
+    // Updates a given HMAC key state between ACTIVE and INACTIVE.
+    virtual ::grpc::Status UpdateHmacKey(::grpc::ServerContext* context, const ::google::storage::v2::UpdateHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response);
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_DeleteBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_DeleteBucket() {
+      ::grpc::Service::MarkMethodAsync(0);
+    }
+    ~WithAsyncMethod_DeleteBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteBucketRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteBucket(::grpc::ServerContext* context, ::google::storage::v2::DeleteBucketRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetBucket() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_GetBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetBucket(::grpc::ServerContext* context, ::google::storage::v2::GetBucketRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Bucket>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_CreateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CreateBucket() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_CreateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateBucket(::grpc::ServerContext* context, ::google::storage::v2::CreateBucketRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Bucket>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ListBuckets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListBuckets() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_ListBuckets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListBuckets(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListBucketsRequest* /*request*/, ::google::storage::v2::ListBucketsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListBuckets(::grpc::ServerContext* context, ::google::storage::v2::ListBucketsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ListBucketsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_LockBucketRetentionPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_LockBucketRetentionPolicy() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_LockBucketRetentionPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LockBucketRetentionPolicy(::grpc::ServerContext* /*context*/, const ::google::storage::v2::LockBucketRetentionPolicyRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestLockBucketRetentionPolicy(::grpc::ServerContext* context, ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Bucket>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_GetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetIamPolicy(::grpc::ServerContext* context, ::google::iam::v1::GetIamPolicyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::Policy>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_SetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodAsync(6);
+    }
+    ~WithAsyncMethod_SetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetIamPolicy(::grpc::ServerContext* context, ::google::iam::v1::SetIamPolicyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::Policy>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_TestIamPermissions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodAsync(7);
+    }
+    ~WithAsyncMethod_TestIamPermissions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status TestIamPermissions(::grpc::ServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestTestIamPermissions(::grpc::ServerContext* context, ::google::iam::v1::TestIamPermissionsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::TestIamPermissionsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_UpdateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UpdateBucket() {
+      ::grpc::Service::MarkMethodAsync(8);
+    }
+    ~WithAsyncMethod_UpdateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateBucket(::grpc::ServerContext* context, ::google::storage::v2::UpdateBucketRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Bucket>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_DeleteNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_DeleteNotification() {
+      ::grpc::Service::MarkMethodAsync(9);
+    }
+    ~WithAsyncMethod_DeleteNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteNotification(::grpc::ServerContext* context, ::google::storage::v2::DeleteNotificationRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetNotification() {
+      ::grpc::Service::MarkMethodAsync(10);
+    }
+    ~WithAsyncMethod_GetNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetNotification(::grpc::ServerContext* context, ::google::storage::v2::GetNotificationRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Notification>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_CreateNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CreateNotification() {
+      ::grpc::Service::MarkMethodAsync(11);
+    }
+    ~WithAsyncMethod_CreateNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateNotification(::grpc::ServerContext* context, ::google::storage::v2::CreateNotificationRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Notification>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ListNotifications : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListNotifications() {
+      ::grpc::Service::MarkMethodAsync(12);
+    }
+    ~WithAsyncMethod_ListNotifications() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListNotifications(::grpc::ServerContext* context, ::google::storage::v2::ListNotificationsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ListNotificationsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ComposeObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ComposeObject() {
+      ::grpc::Service::MarkMethodAsync(13);
+    }
+    ~WithAsyncMethod_ComposeObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComposeObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ComposeObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComposeObject(::grpc::ServerContext* context, ::google::storage::v2::ComposeObjectRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Object>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_DeleteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_DeleteObject() {
+      ::grpc::Service::MarkMethodAsync(14);
+    }
+    ~WithAsyncMethod_DeleteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteObjectRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteObject(::grpc::ServerContext* context, ::google::storage::v2::DeleteObjectRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetObject() {
+      ::grpc::Service::MarkMethodAsync(15);
+    }
+    ~WithAsyncMethod_GetObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetObject(::grpc::ServerContext* context, ::google::storage::v2::GetObjectRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Object>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+    }
   };
   template <class BaseClass>
   class WithAsyncMethod_ReadObject : public BaseClass {
@@ -320,7 +1362,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ReadObject() {
-      ::grpc::Service::MarkMethodAsync(0);
+      ::grpc::Service::MarkMethodAsync(16);
     }
     ~WithAsyncMethod_ReadObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -331,7 +1373,27 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestReadObject(::grpc::ServerContext* context, ::google::storage::v2::ReadObjectRequest* request, ::grpc::ServerAsyncWriter< ::google::storage::v2::ReadObjectResponse>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncServerStreaming(0, context, request, writer, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncServerStreaming(16, context, request, writer, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_UpdateObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UpdateObject() {
+      ::grpc::Service::MarkMethodAsync(17);
+    }
+    ~WithAsyncMethod_UpdateObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateObject(::grpc::ServerContext* context, ::google::storage::v2::UpdateObjectRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Object>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -340,7 +1402,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_WriteObject() {
-      ::grpc::Service::MarkMethodAsync(1);
+      ::grpc::Service::MarkMethodAsync(18);
     }
     ~WithAsyncMethod_WriteObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -351,7 +1413,47 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestWriteObject(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::google::storage::v2::WriteObjectResponse, ::google::storage::v2::WriteObjectRequest>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncClientStreaming(1, context, reader, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncClientStreaming(18, context, reader, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ListObjects : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListObjects() {
+      ::grpc::Service::MarkMethodAsync(19);
+    }
+    ~WithAsyncMethod_ListObjects() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListObjects(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListObjectsRequest* /*request*/, ::google::storage::v2::ListObjectsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListObjects(::grpc::ServerContext* context, ::google::storage::v2::ListObjectsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ListObjectsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_RewriteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_RewriteObject() {
+      ::grpc::Service::MarkMethodAsync(20);
+    }
+    ~WithAsyncMethod_RewriteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RewriteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::RewriteObjectRequest* /*request*/, ::google::storage::v2::RewriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestRewriteObject(::grpc::ServerContext* context, ::google::storage::v2::RewriteObjectRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::RewriteResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -360,7 +1462,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodAsync(2);
+      ::grpc::Service::MarkMethodAsync(21);
     }
     ~WithAsyncMethod_StartResumableWrite() override {
       BaseClassMustBeDerivedFromService(this);
@@ -371,7 +1473,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestStartResumableWrite(::grpc::ServerContext* context, ::google::storage::v2::StartResumableWriteRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::StartResumableWriteResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -380,7 +1482,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodAsync(3);
+      ::grpc::Service::MarkMethodAsync(22);
     }
     ~WithAsyncMethod_QueryWriteStatus() override {
       BaseClassMustBeDerivedFromService(this);
@@ -391,17 +1493,569 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestQueryWriteStatus(::grpc::ServerContext* context, ::google::storage::v2::QueryWriteStatusRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::QueryWriteStatusResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ReadObject<WithAsyncMethod_WriteObject<WithAsyncMethod_StartResumableWrite<WithAsyncMethod_QueryWriteStatus<Service > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetServiceAccount : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetServiceAccount() {
+      ::grpc::Service::MarkMethodAsync(23);
+    }
+    ~WithAsyncMethod_GetServiceAccount() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceAccount(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetServiceAccountRequest* /*request*/, ::google::storage::v2::ServiceAccount* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetServiceAccount(::grpc::ServerContext* context, ::google::storage::v2::GetServiceAccountRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ServiceAccount>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_CreateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CreateHmacKey() {
+      ::grpc::Service::MarkMethodAsync(24);
+    }
+    ~WithAsyncMethod_CreateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateHmacKeyRequest* /*request*/, ::google::storage::v2::CreateHmacKeyResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateHmacKey(::grpc::ServerContext* context, ::google::storage::v2::CreateHmacKeyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::CreateHmacKeyResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_DeleteHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_DeleteHmacKey() {
+      ::grpc::Service::MarkMethodAsync(25);
+    }
+    ~WithAsyncMethod_DeleteHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteHmacKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteHmacKey(::grpc::ServerContext* context, ::google::storage::v2::DeleteHmacKeyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetHmacKey() {
+      ::grpc::Service::MarkMethodAsync(26);
+    }
+    ~WithAsyncMethod_GetHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetHmacKey(::grpc::ServerContext* context, ::google::storage::v2::GetHmacKeyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::HmacKeyMetadata>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ListHmacKeys : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListHmacKeys() {
+      ::grpc::Service::MarkMethodAsync(27);
+    }
+    ~WithAsyncMethod_ListHmacKeys() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHmacKeys(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListHmacKeysRequest* /*request*/, ::google::storage::v2::ListHmacKeysResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListHmacKeys(::grpc::ServerContext* context, ::google::storage::v2::ListHmacKeysRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ListHmacKeysResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(27, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_UpdateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UpdateHmacKey() {
+      ::grpc::Service::MarkMethodAsync(28);
+    }
+    ~WithAsyncMethod_UpdateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateHmacKey(::grpc::ServerContext* context, ::google::storage::v2::UpdateHmacKeyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::HmacKeyMetadata>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(28, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_DeleteBucket<WithAsyncMethod_GetBucket<WithAsyncMethod_CreateBucket<WithAsyncMethod_ListBuckets<WithAsyncMethod_LockBucketRetentionPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_UpdateBucket<WithAsyncMethod_DeleteNotification<WithAsyncMethod_GetNotification<WithAsyncMethod_CreateNotification<WithAsyncMethod_ListNotifications<WithAsyncMethod_ComposeObject<WithAsyncMethod_DeleteObject<WithAsyncMethod_GetObject<WithAsyncMethod_ReadObject<WithAsyncMethod_UpdateObject<WithAsyncMethod_WriteObject<WithAsyncMethod_ListObjects<WithAsyncMethod_RewriteObject<WithAsyncMethod_StartResumableWrite<WithAsyncMethod_QueryWriteStatus<WithAsyncMethod_GetServiceAccount<WithAsyncMethod_CreateHmacKey<WithAsyncMethod_DeleteHmacKey<WithAsyncMethod_GetHmacKey<WithAsyncMethod_ListHmacKeys<WithAsyncMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithCallbackMethod_DeleteBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_DeleteBucket() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteBucketRequest, ::google::protobuf::Empty>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::DeleteBucketRequest* request, ::google::protobuf::Empty* response) { return this->DeleteBucket(context, request, response); }));}
+    void SetMessageAllocatorFor_DeleteBucket(
+        ::grpc::MessageAllocator< ::google::storage::v2::DeleteBucketRequest, ::google::protobuf::Empty>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteBucketRequest, ::google::protobuf::Empty>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_DeleteBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteBucketRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteBucket(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::DeleteBucketRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetBucket() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetBucketRequest, ::google::storage::v2::Bucket>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetBucketRequest* request, ::google::storage::v2::Bucket* response) { return this->GetBucket(context, request, response); }));}
+    void SetMessageAllocatorFor_GetBucket(
+        ::grpc::MessageAllocator< ::google::storage::v2::GetBucketRequest, ::google::storage::v2::Bucket>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetBucketRequest, ::google::storage::v2::Bucket>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetBucket(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::GetBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CreateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CreateBucket() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateBucketRequest, ::google::storage::v2::Bucket>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::CreateBucketRequest* request, ::google::storage::v2::Bucket* response) { return this->CreateBucket(context, request, response); }));}
+    void SetMessageAllocatorFor_CreateBucket(
+        ::grpc::MessageAllocator< ::google::storage::v2::CreateBucketRequest, ::google::storage::v2::Bucket>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateBucketRequest, ::google::storage::v2::Bucket>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CreateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateBucket(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::CreateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ListBuckets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListBuckets() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListBucketsRequest, ::google::storage::v2::ListBucketsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::ListBucketsRequest* request, ::google::storage::v2::ListBucketsResponse* response) { return this->ListBuckets(context, request, response); }));}
+    void SetMessageAllocatorFor_ListBuckets(
+        ::grpc::MessageAllocator< ::google::storage::v2::ListBucketsRequest, ::google::storage::v2::ListBucketsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListBucketsRequest, ::google::storage::v2::ListBucketsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListBuckets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListBuckets(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListBucketsRequest* /*request*/, ::google::storage::v2::ListBucketsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListBuckets(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ListBucketsRequest* /*request*/, ::google::storage::v2::ListBucketsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_LockBucketRetentionPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_LockBucketRetentionPolicy() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::LockBucketRetentionPolicyRequest, ::google::storage::v2::Bucket>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response) { return this->LockBucketRetentionPolicy(context, request, response); }));}
+    void SetMessageAllocatorFor_LockBucketRetentionPolicy(
+        ::grpc::MessageAllocator< ::google::storage::v2::LockBucketRetentionPolicyRequest, ::google::storage::v2::Bucket>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::LockBucketRetentionPolicyRequest, ::google::storage::v2::Bucket>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_LockBucketRetentionPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LockBucketRetentionPolicy(::grpc::ServerContext* /*context*/, const ::google::storage::v2::LockBucketRetentionPolicyRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LockBucketRetentionPolicy(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::LockBucketRetentionPolicyRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
+    void SetMessageAllocatorFor_GetIamPolicy(
+        ::grpc::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_SetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
+    void SetMessageAllocatorFor_SetIamPolicy(
+        ::grpc::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_TestIamPermissions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
+    void SetMessageAllocatorFor_TestIamPermissions(
+        ::grpc::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_TestIamPermissions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status TestIamPermissions(::grpc::ServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateBucket() {
+      ::grpc::Service::MarkMethodCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateBucketRequest, ::google::storage::v2::Bucket>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response) { return this->UpdateBucket(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateBucket(
+        ::grpc::MessageAllocator< ::google::storage::v2::UpdateBucketRequest, ::google::storage::v2::Bucket>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateBucketRequest, ::google::storage::v2::Bucket>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateBucket(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::UpdateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_DeleteNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_DeleteNotification() {
+      ::grpc::Service::MarkMethodCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response) { return this->DeleteNotification(context, request, response); }));}
+    void SetMessageAllocatorFor_DeleteNotification(
+        ::grpc::MessageAllocator< ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_DeleteNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetNotification() {
+      ::grpc::Service::MarkMethodCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response) { return this->GetNotification(context, request, response); }));}
+    void SetMessageAllocatorFor_GetNotification(
+        ::grpc::MessageAllocator< ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CreateNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CreateNotification() {
+      ::grpc::Service::MarkMethodCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response) { return this->CreateNotification(context, request, response); }));}
+    void SetMessageAllocatorFor_CreateNotification(
+        ::grpc::MessageAllocator< ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CreateNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ListNotifications : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListNotifications() {
+      ::grpc::Service::MarkMethodCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response) { return this->ListNotifications(context, request, response); }));}
+    void SetMessageAllocatorFor_ListNotifications(
+        ::grpc::MessageAllocator< ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListNotifications() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListNotifications(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ComposeObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ComposeObject() {
+      ::grpc::Service::MarkMethodCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ComposeObjectRequest, ::google::storage::v2::Object>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response) { return this->ComposeObject(context, request, response); }));}
+    void SetMessageAllocatorFor_ComposeObject(
+        ::grpc::MessageAllocator< ::google::storage::v2::ComposeObjectRequest, ::google::storage::v2::Object>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ComposeObjectRequest, ::google::storage::v2::Object>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ComposeObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComposeObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ComposeObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ComposeObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ComposeObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_DeleteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_DeleteObject() {
+      ::grpc::Service::MarkMethodCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteObjectRequest, ::google::protobuf::Empty>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response) { return this->DeleteObject(context, request, response); }));}
+    void SetMessageAllocatorFor_DeleteObject(
+        ::grpc::MessageAllocator< ::google::storage::v2::DeleteObjectRequest, ::google::protobuf::Empty>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteObjectRequest, ::google::protobuf::Empty>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_DeleteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteObjectRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::DeleteObjectRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetObject() {
+      ::grpc::Service::MarkMethodCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetObjectRequest, ::google::storage::v2::Object>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response) { return this->GetObject(context, request, response); }));}
+    void SetMessageAllocatorFor_GetObject(
+        ::grpc::MessageAllocator< ::google::storage::v2::GetObjectRequest, ::google::storage::v2::Object>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetObjectRequest, ::google::storage::v2::Object>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::GetObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/)  { return nullptr; }
+  };
   template <class BaseClass>
   class WithCallbackMethod_ReadObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ReadObject() {
-      ::grpc::Service::MarkMethodCallback(0,
+      ::grpc::Service::MarkMethodCallback(16,
           new ::grpc::internal::CallbackServerStreamingHandler< ::google::storage::v2::ReadObjectRequest, ::google::storage::v2::ReadObjectResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::ReadObjectRequest* request) { return this->ReadObject(context, request); }));
@@ -418,12 +2072,39 @@ class Storage final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ReadObjectRequest* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_UpdateObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateObject() {
+      ::grpc::Service::MarkMethodCallback(17,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateObjectRequest, ::google::storage::v2::Object>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::UpdateObjectRequest* request, ::google::storage::v2::Object* response) { return this->UpdateObject(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateObject(
+        ::grpc::MessageAllocator< ::google::storage::v2::UpdateObjectRequest, ::google::storage::v2::Object>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateObjectRequest, ::google::storage::v2::Object>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::UpdateObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_WriteObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_WriteObject() {
-      ::grpc::Service::MarkMethodCallback(1,
+      ::grpc::Service::MarkMethodCallback(18,
           new ::grpc::internal::CallbackClientStreamingHandler< ::google::storage::v2::WriteObjectRequest, ::google::storage::v2::WriteObjectResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, ::google::storage::v2::WriteObjectResponse* response) { return this->WriteObject(context, response); }));
@@ -440,18 +2121,72 @@ class Storage final {
       ::grpc::CallbackServerContext* /*context*/, ::google::storage::v2::WriteObjectResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_ListObjects : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListObjects() {
+      ::grpc::Service::MarkMethodCallback(19,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListObjectsRequest, ::google::storage::v2::ListObjectsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::ListObjectsRequest* request, ::google::storage::v2::ListObjectsResponse* response) { return this->ListObjects(context, request, response); }));}
+    void SetMessageAllocatorFor_ListObjects(
+        ::grpc::MessageAllocator< ::google::storage::v2::ListObjectsRequest, ::google::storage::v2::ListObjectsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListObjectsRequest, ::google::storage::v2::ListObjectsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListObjects() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListObjects(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListObjectsRequest* /*request*/, ::google::storage::v2::ListObjectsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListObjects(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ListObjectsRequest* /*request*/, ::google::storage::v2::ListObjectsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_RewriteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_RewriteObject() {
+      ::grpc::Service::MarkMethodCallback(20,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::RewriteObjectRequest, ::google::storage::v2::RewriteResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::RewriteObjectRequest* request, ::google::storage::v2::RewriteResponse* response) { return this->RewriteObject(context, request, response); }));}
+    void SetMessageAllocatorFor_RewriteObject(
+        ::grpc::MessageAllocator< ::google::storage::v2::RewriteObjectRequest, ::google::storage::v2::RewriteResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::RewriteObjectRequest, ::google::storage::v2::RewriteResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_RewriteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RewriteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::RewriteObjectRequest* /*request*/, ::google::storage::v2::RewriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RewriteObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::RewriteObjectRequest* /*request*/, ::google::storage::v2::RewriteResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_StartResumableWrite : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodCallback(2,
+      ::grpc::Service::MarkMethodCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response) { return this->StartResumableWrite(context, request, response); }));}
     void SetMessageAllocatorFor_StartResumableWrite(
         ::grpc::MessageAllocator< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -472,13 +2207,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodCallback(3,
+      ::grpc::Service::MarkMethodCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response) { return this->QueryWriteStatus(context, request, response); }));}
     void SetMessageAllocatorFor_QueryWriteStatus(
         ::grpc::MessageAllocator< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(22);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -493,15 +2228,449 @@ class Storage final {
     virtual ::grpc::ServerUnaryReactor* QueryWriteStatus(
       ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::QueryWriteStatusRequest* /*request*/, ::google::storage::v2::QueryWriteStatusResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ReadObject<WithCallbackMethod_WriteObject<WithCallbackMethod_StartResumableWrite<WithCallbackMethod_QueryWriteStatus<Service > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_GetServiceAccount : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetServiceAccount() {
+      ::grpc::Service::MarkMethodCallback(23,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetServiceAccountRequest, ::google::storage::v2::ServiceAccount>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetServiceAccountRequest* request, ::google::storage::v2::ServiceAccount* response) { return this->GetServiceAccount(context, request, response); }));}
+    void SetMessageAllocatorFor_GetServiceAccount(
+        ::grpc::MessageAllocator< ::google::storage::v2::GetServiceAccountRequest, ::google::storage::v2::ServiceAccount>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(23);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetServiceAccountRequest, ::google::storage::v2::ServiceAccount>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetServiceAccount() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceAccount(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetServiceAccountRequest* /*request*/, ::google::storage::v2::ServiceAccount* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetServiceAccount(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::GetServiceAccountRequest* /*request*/, ::google::storage::v2::ServiceAccount* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CreateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CreateHmacKey() {
+      ::grpc::Service::MarkMethodCallback(24,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateHmacKeyRequest, ::google::storage::v2::CreateHmacKeyResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::CreateHmacKeyRequest* request, ::google::storage::v2::CreateHmacKeyResponse* response) { return this->CreateHmacKey(context, request, response); }));}
+    void SetMessageAllocatorFor_CreateHmacKey(
+        ::grpc::MessageAllocator< ::google::storage::v2::CreateHmacKeyRequest, ::google::storage::v2::CreateHmacKeyResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(24);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateHmacKeyRequest, ::google::storage::v2::CreateHmacKeyResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CreateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateHmacKeyRequest* /*request*/, ::google::storage::v2::CreateHmacKeyResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateHmacKey(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::CreateHmacKeyRequest* /*request*/, ::google::storage::v2::CreateHmacKeyResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_DeleteHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_DeleteHmacKey() {
+      ::grpc::Service::MarkMethodCallback(25,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteHmacKeyRequest, ::google::protobuf::Empty>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::DeleteHmacKeyRequest* request, ::google::protobuf::Empty* response) { return this->DeleteHmacKey(context, request, response); }));}
+    void SetMessageAllocatorFor_DeleteHmacKey(
+        ::grpc::MessageAllocator< ::google::storage::v2::DeleteHmacKeyRequest, ::google::protobuf::Empty>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(25);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteHmacKeyRequest, ::google::protobuf::Empty>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_DeleteHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteHmacKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteHmacKey(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::DeleteHmacKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetHmacKey() {
+      ::grpc::Service::MarkMethodCallback(26,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response) { return this->GetHmacKey(context, request, response); }));}
+    void SetMessageAllocatorFor_GetHmacKey(
+        ::grpc::MessageAllocator< ::google::storage::v2::GetHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(26);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetHmacKey(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::GetHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ListHmacKeys : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListHmacKeys() {
+      ::grpc::Service::MarkMethodCallback(27,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListHmacKeysRequest, ::google::storage::v2::ListHmacKeysResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::ListHmacKeysRequest* request, ::google::storage::v2::ListHmacKeysResponse* response) { return this->ListHmacKeys(context, request, response); }));}
+    void SetMessageAllocatorFor_ListHmacKeys(
+        ::grpc::MessageAllocator< ::google::storage::v2::ListHmacKeysRequest, ::google::storage::v2::ListHmacKeysResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(27);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListHmacKeysRequest, ::google::storage::v2::ListHmacKeysResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListHmacKeys() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHmacKeys(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListHmacKeysRequest* /*request*/, ::google::storage::v2::ListHmacKeysResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListHmacKeys(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ListHmacKeysRequest* /*request*/, ::google::storage::v2::ListHmacKeysResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateHmacKey() {
+      ::grpc::Service::MarkMethodCallback(28,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::UpdateHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response) { return this->UpdateHmacKey(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateHmacKey(
+        ::grpc::MessageAllocator< ::google::storage::v2::UpdateHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(28);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateHmacKey(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::UpdateHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_DeleteBucket<WithCallbackMethod_GetBucket<WithCallbackMethod_CreateBucket<WithCallbackMethod_ListBuckets<WithCallbackMethod_LockBucketRetentionPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_UpdateBucket<WithCallbackMethod_DeleteNotification<WithCallbackMethod_GetNotification<WithCallbackMethod_CreateNotification<WithCallbackMethod_ListNotifications<WithCallbackMethod_ComposeObject<WithCallbackMethod_DeleteObject<WithCallbackMethod_GetObject<WithCallbackMethod_ReadObject<WithCallbackMethod_UpdateObject<WithCallbackMethod_WriteObject<WithCallbackMethod_ListObjects<WithCallbackMethod_RewriteObject<WithCallbackMethod_StartResumableWrite<WithCallbackMethod_QueryWriteStatus<WithCallbackMethod_GetServiceAccount<WithCallbackMethod_CreateHmacKey<WithCallbackMethod_DeleteHmacKey<WithCallbackMethod_GetHmacKey<WithCallbackMethod_ListHmacKeys<WithCallbackMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
+  class WithGenericMethod_DeleteBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_DeleteBucket() {
+      ::grpc::Service::MarkMethodGeneric(0);
+    }
+    ~WithGenericMethod_DeleteBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteBucketRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetBucket() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_GetBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_CreateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CreateBucket() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_CreateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ListBuckets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListBuckets() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_ListBuckets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListBuckets(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListBucketsRequest* /*request*/, ::google::storage::v2::ListBucketsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_LockBucketRetentionPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_LockBucketRetentionPolicy() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_LockBucketRetentionPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LockBucketRetentionPolicy(::grpc::ServerContext* /*context*/, const ::google::storage::v2::LockBucketRetentionPolicyRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_GetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_SetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodGeneric(6);
+    }
+    ~WithGenericMethod_SetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_TestIamPermissions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodGeneric(7);
+    }
+    ~WithGenericMethod_TestIamPermissions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status TestIamPermissions(::grpc::ServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_UpdateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UpdateBucket() {
+      ::grpc::Service::MarkMethodGeneric(8);
+    }
+    ~WithGenericMethod_UpdateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DeleteNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_DeleteNotification() {
+      ::grpc::Service::MarkMethodGeneric(9);
+    }
+    ~WithGenericMethod_DeleteNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetNotification() {
+      ::grpc::Service::MarkMethodGeneric(10);
+    }
+    ~WithGenericMethod_GetNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_CreateNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CreateNotification() {
+      ::grpc::Service::MarkMethodGeneric(11);
+    }
+    ~WithGenericMethod_CreateNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ListNotifications : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListNotifications() {
+      ::grpc::Service::MarkMethodGeneric(12);
+    }
+    ~WithGenericMethod_ListNotifications() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ComposeObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ComposeObject() {
+      ::grpc::Service::MarkMethodGeneric(13);
+    }
+    ~WithGenericMethod_ComposeObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComposeObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ComposeObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DeleteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_DeleteObject() {
+      ::grpc::Service::MarkMethodGeneric(14);
+    }
+    ~WithGenericMethod_DeleteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteObjectRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetObject() {
+      ::grpc::Service::MarkMethodGeneric(15);
+    }
+    ~WithGenericMethod_GetObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
   template <class BaseClass>
   class WithGenericMethod_ReadObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ReadObject() {
-      ::grpc::Service::MarkMethodGeneric(0);
+      ::grpc::Service::MarkMethodGeneric(16);
     }
     ~WithGenericMethod_ReadObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -513,12 +2682,29 @@ class Storage final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_UpdateObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UpdateObject() {
+      ::grpc::Service::MarkMethodGeneric(17);
+    }
+    ~WithGenericMethod_UpdateObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_WriteObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_WriteObject() {
-      ::grpc::Service::MarkMethodGeneric(1);
+      ::grpc::Service::MarkMethodGeneric(18);
     }
     ~WithGenericMethod_WriteObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -530,12 +2716,46 @@ class Storage final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_ListObjects : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListObjects() {
+      ::grpc::Service::MarkMethodGeneric(19);
+    }
+    ~WithGenericMethod_ListObjects() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListObjects(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListObjectsRequest* /*request*/, ::google::storage::v2::ListObjectsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_RewriteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_RewriteObject() {
+      ::grpc::Service::MarkMethodGeneric(20);
+    }
+    ~WithGenericMethod_RewriteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RewriteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::RewriteObjectRequest* /*request*/, ::google::storage::v2::RewriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_StartResumableWrite : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodGeneric(2);
+      ::grpc::Service::MarkMethodGeneric(21);
     }
     ~WithGenericMethod_StartResumableWrite() override {
       BaseClassMustBeDerivedFromService(this);
@@ -552,7 +2772,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodGeneric(3);
+      ::grpc::Service::MarkMethodGeneric(22);
     }
     ~WithGenericMethod_QueryWriteStatus() override {
       BaseClassMustBeDerivedFromService(this);
@@ -564,12 +2784,434 @@ class Storage final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_GetServiceAccount : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetServiceAccount() {
+      ::grpc::Service::MarkMethodGeneric(23);
+    }
+    ~WithGenericMethod_GetServiceAccount() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceAccount(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetServiceAccountRequest* /*request*/, ::google::storage::v2::ServiceAccount* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_CreateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CreateHmacKey() {
+      ::grpc::Service::MarkMethodGeneric(24);
+    }
+    ~WithGenericMethod_CreateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateHmacKeyRequest* /*request*/, ::google::storage::v2::CreateHmacKeyResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DeleteHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_DeleteHmacKey() {
+      ::grpc::Service::MarkMethodGeneric(25);
+    }
+    ~WithGenericMethod_DeleteHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteHmacKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetHmacKey() {
+      ::grpc::Service::MarkMethodGeneric(26);
+    }
+    ~WithGenericMethod_GetHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ListHmacKeys : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListHmacKeys() {
+      ::grpc::Service::MarkMethodGeneric(27);
+    }
+    ~WithGenericMethod_ListHmacKeys() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHmacKeys(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListHmacKeysRequest* /*request*/, ::google::storage::v2::ListHmacKeysResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_UpdateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UpdateHmacKey() {
+      ::grpc::Service::MarkMethodGeneric(28);
+    }
+    ~WithGenericMethod_UpdateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_DeleteBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_DeleteBucket() {
+      ::grpc::Service::MarkMethodRaw(0);
+    }
+    ~WithRawMethod_DeleteBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteBucketRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteBucket(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetBucket() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_GetBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetBucket(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_CreateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CreateBucket() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_CreateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateBucket(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ListBuckets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListBuckets() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_ListBuckets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListBuckets(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListBucketsRequest* /*request*/, ::google::storage::v2::ListBucketsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListBuckets(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_LockBucketRetentionPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_LockBucketRetentionPolicy() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_LockBucketRetentionPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LockBucketRetentionPolicy(::grpc::ServerContext* /*context*/, const ::google::storage::v2::LockBucketRetentionPolicyRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestLockBucketRetentionPolicy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_GetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetIamPolicy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_SetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodRaw(6);
+    }
+    ~WithRawMethod_SetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetIamPolicy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_TestIamPermissions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodRaw(7);
+    }
+    ~WithRawMethod_TestIamPermissions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status TestIamPermissions(::grpc::ServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestTestIamPermissions(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_UpdateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UpdateBucket() {
+      ::grpc::Service::MarkMethodRaw(8);
+    }
+    ~WithRawMethod_UpdateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateBucket(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_DeleteNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_DeleteNotification() {
+      ::grpc::Service::MarkMethodRaw(9);
+    }
+    ~WithRawMethod_DeleteNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteNotification(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetNotification() {
+      ::grpc::Service::MarkMethodRaw(10);
+    }
+    ~WithRawMethod_GetNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetNotification(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_CreateNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CreateNotification() {
+      ::grpc::Service::MarkMethodRaw(11);
+    }
+    ~WithRawMethod_CreateNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateNotification(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ListNotifications : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListNotifications() {
+      ::grpc::Service::MarkMethodRaw(12);
+    }
+    ~WithRawMethod_ListNotifications() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListNotifications(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ComposeObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ComposeObject() {
+      ::grpc::Service::MarkMethodRaw(13);
+    }
+    ~WithRawMethod_ComposeObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComposeObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ComposeObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComposeObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_DeleteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_DeleteObject() {
+      ::grpc::Service::MarkMethodRaw(14);
+    }
+    ~WithRawMethod_DeleteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteObjectRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetObject() {
+      ::grpc::Service::MarkMethodRaw(15);
+    }
+    ~WithRawMethod_GetObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_ReadObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ReadObject() {
-      ::grpc::Service::MarkMethodRaw(0);
+      ::grpc::Service::MarkMethodRaw(16);
     }
     ~WithRawMethod_ReadObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -580,7 +3222,27 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestReadObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncWriter< ::grpc::ByteBuffer>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncServerStreaming(0, context, request, writer, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncServerStreaming(16, context, request, writer, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_UpdateObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UpdateObject() {
+      ::grpc::Service::MarkMethodRaw(17);
+    }
+    ~WithRawMethod_UpdateObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -589,7 +3251,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_WriteObject() {
-      ::grpc::Service::MarkMethodRaw(1);
+      ::grpc::Service::MarkMethodRaw(18);
     }
     ~WithRawMethod_WriteObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -600,7 +3262,47 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestWriteObject(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncClientStreaming(1, context, reader, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncClientStreaming(18, context, reader, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ListObjects : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListObjects() {
+      ::grpc::Service::MarkMethodRaw(19);
+    }
+    ~WithRawMethod_ListObjects() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListObjects(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListObjectsRequest* /*request*/, ::google::storage::v2::ListObjectsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListObjects(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_RewriteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_RewriteObject() {
+      ::grpc::Service::MarkMethodRaw(20);
+    }
+    ~WithRawMethod_RewriteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RewriteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::RewriteObjectRequest* /*request*/, ::google::storage::v2::RewriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestRewriteObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -609,7 +3311,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodRaw(2);
+      ::grpc::Service::MarkMethodRaw(21);
     }
     ~WithRawMethod_StartResumableWrite() override {
       BaseClassMustBeDerivedFromService(this);
@@ -620,7 +3322,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestStartResumableWrite(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -629,7 +3331,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodRaw(3);
+      ::grpc::Service::MarkMethodRaw(22);
     }
     ~WithRawMethod_QueryWriteStatus() override {
       BaseClassMustBeDerivedFromService(this);
@@ -640,8 +3342,480 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestQueryWriteStatus(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetServiceAccount : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetServiceAccount() {
+      ::grpc::Service::MarkMethodRaw(23);
+    }
+    ~WithRawMethod_GetServiceAccount() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceAccount(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetServiceAccountRequest* /*request*/, ::google::storage::v2::ServiceAccount* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetServiceAccount(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_CreateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CreateHmacKey() {
+      ::grpc::Service::MarkMethodRaw(24);
+    }
+    ~WithRawMethod_CreateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateHmacKeyRequest* /*request*/, ::google::storage::v2::CreateHmacKeyResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateHmacKey(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_DeleteHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_DeleteHmacKey() {
+      ::grpc::Service::MarkMethodRaw(25);
+    }
+    ~WithRawMethod_DeleteHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteHmacKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteHmacKey(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetHmacKey() {
+      ::grpc::Service::MarkMethodRaw(26);
+    }
+    ~WithRawMethod_GetHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetHmacKey(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ListHmacKeys : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListHmacKeys() {
+      ::grpc::Service::MarkMethodRaw(27);
+    }
+    ~WithRawMethod_ListHmacKeys() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHmacKeys(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListHmacKeysRequest* /*request*/, ::google::storage::v2::ListHmacKeysResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListHmacKeys(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(27, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_UpdateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UpdateHmacKey() {
+      ::grpc::Service::MarkMethodRaw(28);
+    }
+    ~WithRawMethod_UpdateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateHmacKey(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(28, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_DeleteBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_DeleteBucket() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteBucket(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_DeleteBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteBucketRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteBucket(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetBucket() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBucket(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetBucket(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CreateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CreateBucket() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateBucket(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CreateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateBucket(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ListBuckets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListBuckets() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBuckets(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListBuckets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListBuckets(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListBucketsRequest* /*request*/, ::google::storage::v2::ListBucketsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListBuckets(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_LockBucketRetentionPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_LockBucketRetentionPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LockBucketRetentionPolicy(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_LockBucketRetentionPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LockBucketRetentionPolicy(::grpc::ServerContext* /*context*/, const ::google::storage::v2::LockBucketRetentionPolicyRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LockBucketRetentionPolicy(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetIamPolicy(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetIamPolicy(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_TestIamPermissions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodRawCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_TestIamPermissions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status TestIamPermissions(::grpc::ServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateBucket() {
+      ::grpc::Service::MarkMethodRawCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateBucket(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateBucket(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_DeleteNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_DeleteNotification() {
+      ::grpc::Service::MarkMethodRawCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteNotification(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_DeleteNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetNotification() {
+      ::grpc::Service::MarkMethodRawCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetNotification(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CreateNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CreateNotification() {
+      ::grpc::Service::MarkMethodRawCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateNotification(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CreateNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ListNotifications : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListNotifications() {
+      ::grpc::Service::MarkMethodRawCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListNotifications(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListNotifications() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListNotifications(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ComposeObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ComposeObject() {
+      ::grpc::Service::MarkMethodRawCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ComposeObject(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ComposeObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComposeObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ComposeObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ComposeObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_DeleteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_DeleteObject() {
+      ::grpc::Service::MarkMethodRawCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteObject(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_DeleteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteObjectRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetObject() {
+      ::grpc::Service::MarkMethodRawCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetObject(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithRawCallbackMethod_ReadObject : public BaseClass {
@@ -649,7 +3823,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ReadObject() {
-      ::grpc::Service::MarkMethodRawCallback(0,
+      ::grpc::Service::MarkMethodRawCallback(16,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->ReadObject(context, request); }));
@@ -666,12 +3840,34 @@ class Storage final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_UpdateObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateObject() {
+      ::grpc::Service::MarkMethodRawCallback(17,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateObject(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_WriteObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_WriteObject() {
-      ::grpc::Service::MarkMethodRawCallback(1,
+      ::grpc::Service::MarkMethodRawCallback(18,
           new ::grpc::internal::CallbackClientStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, ::grpc::ByteBuffer* response) { return this->WriteObject(context, response); }));
@@ -688,12 +3884,56 @@ class Storage final {
       ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_ListObjects : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListObjects() {
+      ::grpc::Service::MarkMethodRawCallback(19,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListObjects(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListObjects() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListObjects(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListObjectsRequest* /*request*/, ::google::storage::v2::ListObjectsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListObjects(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_RewriteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_RewriteObject() {
+      ::grpc::Service::MarkMethodRawCallback(20,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RewriteObject(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_RewriteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RewriteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::RewriteObjectRequest* /*request*/, ::google::storage::v2::RewriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RewriteObject(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_StartResumableWrite : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodRawCallback(2,
+      ::grpc::Service::MarkMethodRawCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartResumableWrite(context, request, response); }));
@@ -715,7 +3955,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodRawCallback(3,
+      ::grpc::Service::MarkMethodRawCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryWriteStatus(context, request, response); }));
@@ -732,12 +3972,657 @@ class Storage final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_GetServiceAccount : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetServiceAccount() {
+      ::grpc::Service::MarkMethodRawCallback(23,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServiceAccount(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetServiceAccount() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetServiceAccount(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetServiceAccountRequest* /*request*/, ::google::storage::v2::ServiceAccount* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetServiceAccount(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CreateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CreateHmacKey() {
+      ::grpc::Service::MarkMethodRawCallback(24,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateHmacKey(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CreateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateHmacKeyRequest* /*request*/, ::google::storage::v2::CreateHmacKeyResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateHmacKey(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_DeleteHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_DeleteHmacKey() {
+      ::grpc::Service::MarkMethodRawCallback(25,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteHmacKey(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_DeleteHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteHmacKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteHmacKey(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetHmacKey() {
+      ::grpc::Service::MarkMethodRawCallback(26,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetHmacKey(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetHmacKey(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ListHmacKeys : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListHmacKeys() {
+      ::grpc::Service::MarkMethodRawCallback(27,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListHmacKeys(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListHmacKeys() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHmacKeys(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListHmacKeysRequest* /*request*/, ::google::storage::v2::ListHmacKeysResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListHmacKeys(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateHmacKey() {
+      ::grpc::Service::MarkMethodRawCallback(28,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateHmacKey(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateHmacKey(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DeleteBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_DeleteBucket() {
+      ::grpc::Service::MarkMethodStreamed(0,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::DeleteBucketRequest, ::google::protobuf::Empty>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::DeleteBucketRequest, ::google::protobuf::Empty>* streamer) {
+                       return this->StreamedDeleteBucket(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_DeleteBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DeleteBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteBucketRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDeleteBucket(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::DeleteBucketRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetBucket() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::GetBucketRequest, ::google::storage::v2::Bucket>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::GetBucketRequest, ::google::storage::v2::Bucket>* streamer) {
+                       return this->StreamedGetBucket(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetBucket(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::GetBucketRequest,::google::storage::v2::Bucket>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_CreateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CreateBucket() {
+      ::grpc::Service::MarkMethodStreamed(2,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::CreateBucketRequest, ::google::storage::v2::Bucket>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::CreateBucketRequest, ::google::storage::v2::Bucket>* streamer) {
+                       return this->StreamedCreateBucket(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CreateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CreateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCreateBucket(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::CreateBucketRequest,::google::storage::v2::Bucket>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ListBuckets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListBuckets() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::ListBucketsRequest, ::google::storage::v2::ListBucketsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::ListBucketsRequest, ::google::storage::v2::ListBucketsResponse>* streamer) {
+                       return this->StreamedListBuckets(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListBuckets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListBuckets(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListBucketsRequest* /*request*/, ::google::storage::v2::ListBucketsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListBuckets(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::ListBucketsRequest,::google::storage::v2::ListBucketsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_LockBucketRetentionPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_LockBucketRetentionPolicy() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::LockBucketRetentionPolicyRequest, ::google::storage::v2::Bucket>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::LockBucketRetentionPolicyRequest, ::google::storage::v2::Bucket>* streamer) {
+                       return this->StreamedLockBucketRetentionPolicy(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_LockBucketRetentionPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status LockBucketRetentionPolicy(::grpc::ServerContext* /*context*/, const ::google::storage::v2::LockBucketRetentionPolicyRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedLockBucketRetentionPolicy(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::LockBucketRetentionPolicyRequest,::google::storage::v2::Bucket>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetIamPolicy() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* streamer) {
+                       return this->StreamedGetIamPolicy(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::GetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetIamPolicy(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::iam::v1::GetIamPolicyRequest,::google::iam::v1::Policy>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_SetIamPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_SetIamPolicy() {
+      ::grpc::Service::MarkMethodStreamed(6,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* streamer) {
+                       return this->StreamedSetIamPolicy(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_SetIamPolicy() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status SetIamPolicy(::grpc::ServerContext* /*context*/, const ::google::iam::v1::SetIamPolicyRequest* /*request*/, ::google::iam::v1::Policy* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedSetIamPolicy(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::iam::v1::SetIamPolicyRequest,::google::iam::v1::Policy>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_TestIamPermissions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_TestIamPermissions() {
+      ::grpc::Service::MarkMethodStreamed(7,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* streamer) {
+                       return this->StreamedTestIamPermissions(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_TestIamPermissions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status TestIamPermissions(::grpc::ServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedTestIamPermissions(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::iam::v1::TestIamPermissionsRequest,::google::iam::v1::TestIamPermissionsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_UpdateBucket : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UpdateBucket() {
+      ::grpc::Service::MarkMethodStreamed(8,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::UpdateBucketRequest, ::google::storage::v2::Bucket>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::UpdateBucketRequest, ::google::storage::v2::Bucket>* streamer) {
+                       return this->StreamedUpdateBucket(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UpdateBucket() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UpdateBucket(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUpdateBucket(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::UpdateBucketRequest,::google::storage::v2::Bucket>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DeleteNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_DeleteNotification() {
+      ::grpc::Service::MarkMethodStreamed(9,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>* streamer) {
+                       return this->StreamedDeleteNotification(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_DeleteNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDeleteNotification(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::DeleteNotificationRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetNotification() {
+      ::grpc::Service::MarkMethodStreamed(10,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>* streamer) {
+                       return this->StreamedGetNotification(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetNotification(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::GetNotificationRequest,::google::storage::v2::Notification>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_CreateNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CreateNotification() {
+      ::grpc::Service::MarkMethodStreamed(11,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>* streamer) {
+                       return this->StreamedCreateNotification(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CreateNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCreateNotification(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::CreateNotificationRequest,::google::storage::v2::Notification>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ListNotifications : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListNotifications() {
+      ::grpc::Service::MarkMethodStreamed(12,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>* streamer) {
+                       return this->StreamedListNotifications(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListNotifications() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListNotifications(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::ListNotificationsRequest,::google::storage::v2::ListNotificationsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ComposeObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ComposeObject() {
+      ::grpc::Service::MarkMethodStreamed(13,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::ComposeObjectRequest, ::google::storage::v2::Object>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::ComposeObjectRequest, ::google::storage::v2::Object>* streamer) {
+                       return this->StreamedComposeObject(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ComposeObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ComposeObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ComposeObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedComposeObject(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::ComposeObjectRequest,::google::storage::v2::Object>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DeleteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_DeleteObject() {
+      ::grpc::Service::MarkMethodStreamed(14,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::DeleteObjectRequest, ::google::protobuf::Empty>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::DeleteObjectRequest, ::google::protobuf::Empty>* streamer) {
+                       return this->StreamedDeleteObject(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_DeleteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DeleteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteObjectRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDeleteObject(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::DeleteObjectRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetObject() {
+      ::grpc::Service::MarkMethodStreamed(15,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::GetObjectRequest, ::google::storage::v2::Object>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::GetObjectRequest, ::google::storage::v2::Object>* streamer) {
+                       return this->StreamedGetObject(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetObject(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::GetObjectRequest,::google::storage::v2::Object>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_UpdateObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UpdateObject() {
+      ::grpc::Service::MarkMethodStreamed(17,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::UpdateObjectRequest, ::google::storage::v2::Object>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::UpdateObjectRequest, ::google::storage::v2::Object>* streamer) {
+                       return this->StreamedUpdateObject(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UpdateObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UpdateObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateObjectRequest* /*request*/, ::google::storage::v2::Object* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUpdateObject(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::UpdateObjectRequest,::google::storage::v2::Object>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ListObjects : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListObjects() {
+      ::grpc::Service::MarkMethodStreamed(19,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::ListObjectsRequest, ::google::storage::v2::ListObjectsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::ListObjectsRequest, ::google::storage::v2::ListObjectsResponse>* streamer) {
+                       return this->StreamedListObjects(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListObjects() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListObjects(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListObjectsRequest* /*request*/, ::google::storage::v2::ListObjectsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListObjects(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::ListObjectsRequest,::google::storage::v2::ListObjectsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_RewriteObject : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_RewriteObject() {
+      ::grpc::Service::MarkMethodStreamed(20,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::RewriteObjectRequest, ::google::storage::v2::RewriteResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::RewriteObjectRequest, ::google::storage::v2::RewriteResponse>* streamer) {
+                       return this->StreamedRewriteObject(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_RewriteObject() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status RewriteObject(::grpc::ServerContext* /*context*/, const ::google::storage::v2::RewriteObjectRequest* /*request*/, ::google::storage::v2::RewriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedRewriteObject(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::RewriteObjectRequest,::google::storage::v2::RewriteResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_StartResumableWrite : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodStreamed(2,
+      ::grpc::Service::MarkMethodStreamed(21,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>(
             [this](::grpc::ServerContext* context,
@@ -764,7 +4649,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodStreamed(3,
+      ::grpc::Service::MarkMethodStreamed(22,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>(
             [this](::grpc::ServerContext* context,
@@ -785,14 +4670,176 @@ class Storage final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedQueryWriteStatus(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::QueryWriteStatusRequest,::google::storage::v2::QueryWriteStatusResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<Service > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetServiceAccount : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetServiceAccount() {
+      ::grpc::Service::MarkMethodStreamed(23,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::GetServiceAccountRequest, ::google::storage::v2::ServiceAccount>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::GetServiceAccountRequest, ::google::storage::v2::ServiceAccount>* streamer) {
+                       return this->StreamedGetServiceAccount(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetServiceAccount() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetServiceAccount(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetServiceAccountRequest* /*request*/, ::google::storage::v2::ServiceAccount* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetServiceAccount(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::GetServiceAccountRequest,::google::storage::v2::ServiceAccount>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_CreateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CreateHmacKey() {
+      ::grpc::Service::MarkMethodStreamed(24,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::CreateHmacKeyRequest, ::google::storage::v2::CreateHmacKeyResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::CreateHmacKeyRequest, ::google::storage::v2::CreateHmacKeyResponse>* streamer) {
+                       return this->StreamedCreateHmacKey(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CreateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CreateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateHmacKeyRequest* /*request*/, ::google::storage::v2::CreateHmacKeyResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCreateHmacKey(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::CreateHmacKeyRequest,::google::storage::v2::CreateHmacKeyResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DeleteHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_DeleteHmacKey() {
+      ::grpc::Service::MarkMethodStreamed(25,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::DeleteHmacKeyRequest, ::google::protobuf::Empty>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::DeleteHmacKeyRequest, ::google::protobuf::Empty>* streamer) {
+                       return this->StreamedDeleteHmacKey(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_DeleteHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DeleteHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteHmacKeyRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDeleteHmacKey(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::DeleteHmacKeyRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetHmacKey() {
+      ::grpc::Service::MarkMethodStreamed(26,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::GetHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::GetHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>* streamer) {
+                       return this->StreamedGetHmacKey(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetHmacKey(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::GetHmacKeyRequest,::google::storage::v2::HmacKeyMetadata>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ListHmacKeys : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListHmacKeys() {
+      ::grpc::Service::MarkMethodStreamed(27,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::ListHmacKeysRequest, ::google::storage::v2::ListHmacKeysResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::ListHmacKeysRequest, ::google::storage::v2::ListHmacKeysResponse>* streamer) {
+                       return this->StreamedListHmacKeys(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListHmacKeys() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListHmacKeys(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListHmacKeysRequest* /*request*/, ::google::storage::v2::ListHmacKeysResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListHmacKeys(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::ListHmacKeysRequest,::google::storage::v2::ListHmacKeysResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_UpdateHmacKey : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UpdateHmacKey() {
+      ::grpc::Service::MarkMethodStreamed(28,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::UpdateHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::UpdateHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>* streamer) {
+                       return this->StreamedUpdateHmacKey(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UpdateHmacKey() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UpdateHmacKey(::grpc::ServerContext* /*context*/, const ::google::storage::v2::UpdateHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUpdateHmacKey(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::UpdateHmacKeyRequest,::google::storage::v2::HmacKeyMetadata>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotification<WithStreamedUnaryMethod_GetNotification<WithStreamedUnaryMethod_CreateNotification<WithStreamedUnaryMethod_ListNotifications<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_GetObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   template <class BaseClass>
   class WithSplitStreamingMethod_ReadObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithSplitStreamingMethod_ReadObject() {
-      ::grpc::Service::MarkMethodStreamed(0,
+      ::grpc::Service::MarkMethodStreamed(16,
         new ::grpc::internal::SplitServerStreamingHandler<
           ::google::storage::v2::ReadObjectRequest, ::google::storage::v2::ReadObjectResponse>(
             [this](::grpc::ServerContext* context,
@@ -814,7 +4861,7 @@ class Storage final {
     virtual ::grpc::Status StreamedReadObject(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::google::storage::v2::ReadObjectRequest,::google::storage::v2::ReadObjectResponse>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_ReadObject<Service > SplitStreamedService;
-  typedef WithSplitStreamingMethod_ReadObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<Service > > > StreamedService;
+  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotification<WithStreamedUnaryMethod_GetNotification<WithStreamedUnaryMethod_CreateNotification<WithStreamedUnaryMethod_ListNotifications<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_GetObject<WithSplitStreamingMethod_ReadObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v2

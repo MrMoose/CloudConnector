@@ -108,6 +108,13 @@ class Intents final {
     }
     // Updates/Creates multiple intents in the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: [BatchUpdateIntentsResponse][google.cloud.dialogflow.v2.BatchUpdateIntentsResponse]
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -121,6 +128,14 @@ class Intents final {
     }
     // Deletes intents in the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -164,6 +179,13 @@ class Intents final {
       virtual void DeleteIntent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Updates/Creates multiple intents in the specified agent.
       //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: [BatchUpdateIntentsResponse][google.cloud.dialogflow.v2.BatchUpdateIntentsResponse]
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
@@ -172,6 +194,14 @@ class Intents final {
       virtual void BatchUpdateIntents(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Deletes intents in the specified agent.
       //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: An empty [Struct
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+      // - `response`: An [Empty
+      //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
       //
       // Note: You should always train an agent prior to sending it queries. See the
       // [training
@@ -330,6 +360,13 @@ class Intents final {
     virtual ::grpc::Status DeleteIntent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::DeleteIntentRequest* request, ::google::protobuf::Empty* response);
     // Updates/Creates multiple intents in the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: [BatchUpdateIntentsResponse][google.cloud.dialogflow.v2.BatchUpdateIntentsResponse]
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training
@@ -337,6 +374,14 @@ class Intents final {
     virtual ::grpc::Status BatchUpdateIntents(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::BatchUpdateIntentsRequest* request, ::google::longrunning::Operation* response);
     // Deletes intents in the specified agent.
     //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: An empty [Struct
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
+    // - `response`: An [Empty
+    //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     //
     // Note: You should always train an agent prior to sending it queries. See the
     // [training

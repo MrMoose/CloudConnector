@@ -40,6 +40,7 @@
 #include "google/iam/v1/policy.pb.h"
 #include "google/longrunning/operations.pb.h"
 #include <google/protobuf/empty.pb.h>
+#include <google/protobuf/field_mask.pb.h>
 #include <google/protobuf/timestamp.pb.h>
 #include "google/spanner/admin/database/v1/backup.pb.h"
 #include "google/spanner/admin/database/v1/common.pb.h"
@@ -567,6 +568,7 @@ class Database PROTOBUF_FINAL :
     kEncryptionConfigFieldNumber = 5,
     kEarliestVersionTimeFieldNumber = 7,
     kStateFieldNumber = 2,
+    kDatabaseDialectFieldNumber = 10,
   };
   // repeated .google.spanner.admin.database.v1.EncryptionInfo encryption_info = 8 [(.google.api.field_behavior) = OUTPUT_ONLY];
   int encryption_info_size() const;
@@ -715,6 +717,15 @@ class Database PROTOBUF_FINAL :
   void _internal_set_state(::google::spanner::admin::database::v1::Database_State value);
   public:
 
+  // .google.spanner.admin.database.v1.DatabaseDialect database_dialect = 10 [(.google.api.field_behavior) = OUTPUT_ONLY];
+  void clear_database_dialect();
+  ::google::spanner::admin::database::v1::DatabaseDialect database_dialect() const;
+  void set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value);
+  private:
+  ::google::spanner::admin::database::v1::DatabaseDialect _internal_database_dialect() const;
+  void _internal_set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value);
+  public:
+
   // @@protoc_insertion_point(class_scope:google.spanner.admin.database.v1.Database)
  private:
   class _Internal;
@@ -731,6 +742,7 @@ class Database PROTOBUF_FINAL :
   ::google::spanner::admin::database::v1::EncryptionConfig* encryption_config_;
   PROTOBUF_NAMESPACE_ID::Timestamp* earliest_version_time_;
   int state_;
+  int database_dialect_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fspanner_2fadmin_2fdatabase_2fv1_2fspanner_5fdatabase_5fadmin_2eproto;
 };
@@ -1190,6 +1202,7 @@ class CreateDatabaseRequest PROTOBUF_FINAL :
     kParentFieldNumber = 1,
     kCreateStatementFieldNumber = 2,
     kEncryptionConfigFieldNumber = 4,
+    kDatabaseDialectFieldNumber = 5,
   };
   // repeated string extra_statements = 3 [(.google.api.field_behavior) = OPTIONAL];
   int extra_statements_size() const;
@@ -1265,6 +1278,15 @@ class CreateDatabaseRequest PROTOBUF_FINAL :
       ::google::spanner::admin::database::v1::EncryptionConfig* encryption_config);
   ::google::spanner::admin::database::v1::EncryptionConfig* unsafe_arena_release_encryption_config();
 
+  // .google.spanner.admin.database.v1.DatabaseDialect database_dialect = 5 [(.google.api.field_behavior) = OPTIONAL];
+  void clear_database_dialect();
+  ::google::spanner::admin::database::v1::DatabaseDialect database_dialect() const;
+  void set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value);
+  private:
+  ::google::spanner::admin::database::v1::DatabaseDialect _internal_database_dialect() const;
+  void _internal_set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value);
+  public:
+
   // @@protoc_insertion_point(class_scope:google.spanner.admin.database.v1.CreateDatabaseRequest)
  private:
   class _Internal;
@@ -1276,6 +1298,7 @@ class CreateDatabaseRequest PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr parent_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr create_statement_;
   ::google::spanner::admin::database::v1::EncryptionConfig* encryption_config_;
+  int database_dialect_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_google_2fspanner_2fadmin_2fdatabase_2fv1_2fspanner_5fdatabase_5fadmin_2eproto;
 };
@@ -4257,6 +4280,26 @@ inline void Database::set_allocated_default_leader(std::string* default_leader) 
   // @@protoc_insertion_point(field_set_allocated:google.spanner.admin.database.v1.Database.default_leader)
 }
 
+// .google.spanner.admin.database.v1.DatabaseDialect database_dialect = 10 [(.google.api.field_behavior) = OUTPUT_ONLY];
+inline void Database::clear_database_dialect() {
+  database_dialect_ = 0;
+}
+inline ::google::spanner::admin::database::v1::DatabaseDialect Database::_internal_database_dialect() const {
+  return static_cast< ::google::spanner::admin::database::v1::DatabaseDialect >(database_dialect_);
+}
+inline ::google::spanner::admin::database::v1::DatabaseDialect Database::database_dialect() const {
+  // @@protoc_insertion_point(field_get:google.spanner.admin.database.v1.Database.database_dialect)
+  return _internal_database_dialect();
+}
+inline void Database::_internal_set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value) {
+  
+  database_dialect_ = value;
+}
+inline void Database::set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value) {
+  _internal_set_database_dialect(value);
+  // @@protoc_insertion_point(field_set:google.spanner.admin.database.v1.Database.database_dialect)
+}
+
 // -------------------------------------------------------------------
 
 // ListDatabasesRequest
@@ -4782,6 +4825,26 @@ inline void CreateDatabaseRequest::set_allocated_encryption_config(::google::spa
   }
   encryption_config_ = encryption_config;
   // @@protoc_insertion_point(field_set_allocated:google.spanner.admin.database.v1.CreateDatabaseRequest.encryption_config)
+}
+
+// .google.spanner.admin.database.v1.DatabaseDialect database_dialect = 5 [(.google.api.field_behavior) = OPTIONAL];
+inline void CreateDatabaseRequest::clear_database_dialect() {
+  database_dialect_ = 0;
+}
+inline ::google::spanner::admin::database::v1::DatabaseDialect CreateDatabaseRequest::_internal_database_dialect() const {
+  return static_cast< ::google::spanner::admin::database::v1::DatabaseDialect >(database_dialect_);
+}
+inline ::google::spanner::admin::database::v1::DatabaseDialect CreateDatabaseRequest::database_dialect() const {
+  // @@protoc_insertion_point(field_get:google.spanner.admin.database.v1.CreateDatabaseRequest.database_dialect)
+  return _internal_database_dialect();
+}
+inline void CreateDatabaseRequest::_internal_set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value) {
+  
+  database_dialect_ = value;
+}
+inline void CreateDatabaseRequest::set_database_dialect(::google::spanner::admin::database::v1::DatabaseDialect value) {
+  _internal_set_database_dialect(value);
+  // @@protoc_insertion_point(field_set:google.spanner.admin.database.v1.CreateDatabaseRequest.database_dialect)
 }
 
 // -------------------------------------------------------------------

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,18 +19,18 @@
 #include "google/cloud/pubsub/internal/subscription_batch_source.h"
 #include "google/cloud/pubsub/internal/subscription_message_source.h"
 #include "google/cloud/pubsub/version.h"
-#include "google/cloud/internal/absl_flat_hash_map_quiet.h"
 #include "google/cloud/internal/random.h"
 #include <google/pubsub/v1/pubsub.pb.h>
 #include <deque>
 #include <functional>
 #include <mutex>
 #include <string>
+#include <unordered_map>
 
 namespace google {
 namespace cloud {
 namespace pubsub_internal {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * Keeps the queue of runnable messages.
@@ -95,8 +95,8 @@ class SubscriptionMessageQueue
   std::shared_ptr<SubscriptionBatchSource> const source_;
 
   using QueueByOrderingKey =
-      absl::flat_hash_map<std::string,
-                          std::deque<google::pubsub::v1::ReceivedMessage>>;
+      std::unordered_map<std::string,
+                         std::deque<google::pubsub::v1::ReceivedMessage>>;
 
   std::mutex mu_;
   MessageCallback callback_;
@@ -104,10 +104,10 @@ class SubscriptionMessageQueue
   std::size_t available_slots_ = 0;
   std::deque<google::pubsub::v1::ReceivedMessage> runnable_messages_;
   QueueByOrderingKey queues_;
-  absl::flat_hash_map<std::string, std::string> ordering_key_by_ack_id_;
+  std::unordered_map<std::string, std::string> ordering_key_by_ack_id_;
 };
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub_internal
 }  // namespace cloud
 }  // namespace google

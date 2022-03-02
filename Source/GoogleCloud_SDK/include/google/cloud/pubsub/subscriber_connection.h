@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//     https://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,13 +19,13 @@
 #include "google/cloud/pubsub/application_callback.h"
 #include "google/cloud/pubsub/backoff_policy.h"
 #include "google/cloud/pubsub/connection_options.h"
-#include "google/cloud/pubsub/internal/non_constructible.h"
 #include "google/cloud/pubsub/internal/subscriber_stub.h"
 #include "google/cloud/pubsub/message.h"
 #include "google/cloud/pubsub/retry_policy.h"
 #include "google/cloud/pubsub/subscriber_options.h"
 #include "google/cloud/pubsub/subscription.h"
 #include "google/cloud/pubsub/version.h"
+#include "google/cloud/internal/non_constructible.h"
 #include "google/cloud/status_or.h"
 #include <functional>
 #include <initializer_list>
@@ -34,7 +34,7 @@
 namespace google {
 namespace cloud {
 namespace pubsub {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
 /**
  * A connection to the Cloud Pub/Sub service to receive events.
@@ -79,7 +79,7 @@ class SubscriberConnection {
  */
 std::shared_ptr<SubscriberConnection> MakeSubscriberConnection(
     Subscription subscription,
-    std::initializer_list<pubsub_internal::NonConstructible>);
+    std::initializer_list<internal::NonConstructible>);
 
 /**
  * Creates a new `SubscriberConnection` object to work with `Subscriber`.
@@ -155,17 +155,17 @@ std::shared_ptr<SubscriberConnection> MakeSubscriberConnection(
     std::unique_ptr<pubsub::RetryPolicy const> retry_policy = {},
     std::unique_ptr<pubsub::BackoffPolicy const> backoff_policy = {});
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub
 
 namespace pubsub_internal {
-inline namespace GOOGLE_CLOUD_CPP_PUBSUB_NS {
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 
-std::shared_ptr<pubsub::SubscriberConnection> MakeSubscriberConnection(
+std::shared_ptr<pubsub::SubscriberConnection> MakeTestSubscriberConnection(
     pubsub::Subscription subscription, Options opts,
     std::vector<std::shared_ptr<SubscriberStub>> stubs);
 
-}  // namespace GOOGLE_CLOUD_CPP_PUBSUB_NS
+GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub_internal
 }  // namespace cloud
 }  // namespace google
