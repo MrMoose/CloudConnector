@@ -13,6 +13,7 @@
 #include "HAL/Thread.h"
 #include "Engine/Engine.h" // to get viewport
 #include "Engine/GameViewportClient.h" // to get viewport
+#include "GenericPlatform/GenericPlatformProcess.h" // for sleep
 
  // AWS SDK
 #include "Windows/PreWindowsApi.h"
@@ -120,7 +121,7 @@ class SQSSubscription {
 
 			// Sanity please
 			checkf(m_handler.IsBound(), TEXT("Handler for SQS must be bound"));
-
+			
 			// And fire up a thread to run while we're gone
 			m_runner = MakeUnique<FThread>(TEXT("AWS SQS Subscription Runner"), [this] { this->run(); });
 		}
@@ -157,9 +158,9 @@ class SQSSubscription {
 			// When this object lives on the stack it will crash in the d'tor
 			// for unknown reasons. So I have to create it dynamic and leak it intentionally.
 			//
-			Aws::UniquePtr<ReceiveMessageRequest> rm_req = Aws::MakeUnique<ReceiveMessageRequest>("SQSREQ");
-			rm_req->SetQueueUrl(m_queue_url);
-			rm_req->SetMaxNumberOfMessages(1);
+			ReceiveMessageRequest rm_req;
+			rm_req.SetQueueUrl(m_queue_url);
+			rm_req.SetMaxNumberOfMessages(1);
 
 			// This is not a timeout per se but long polling, which means the call will return
 			// After this many seconds even if there are no messages, which is not an error.
@@ -167,18 +168,24 @@ class SQSSubscription {
 			//
 			// I am hard-choosing 4 here as values of 5 and above caused weird errors in testing.
 			//
-			rm_req->SetWaitTimeSeconds(4);
+			rm_req.SetWaitTimeSeconds(4);
 
 			// Request some additional info with each message
-			rm_req->AddAttributeNames(QueueAttributeName::SentTimestamp);
-			rm_req->AddAttributeNames(QueueAttributeName::ApproximateReceiveCount);
+			rm_req.AddAttributeNames(QueueAttributeName::SentTimestamp);
+			rm_req.AddAttributeNames(QueueAttributeName::ApproximateReceiveCount);
 
 			// AWS Trace headers cannot propagate through SNS, therefore I won't 
 			// even try to receive them here. A long standing issue. See here:
 			// https://github.com/aws/aws-xray-sdk-node/issues/208
 
-			while (!m_interrupted.load()) 	{
-				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(*rm_req);
+			while (!m_interrupted) {
+
+				if (!m_continue) {	
+					FPlatformProcess::SleepNoStats(0.1);
+					continue;
+				}
+
+				const ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(rm_req);
 				if (!rm_out.IsSuccess()) {
 					UE_LOG(LogCloudConnector, Warning, TEXT("Failed to retrieve message from queue '%s': '%s'"),
 							UTF8_TO_TCHAR(m_queue_url.c_str()), UTF8_TO_TCHAR(rm_out.GetError().GetMessage().c_str()));
@@ -194,6 +201,10 @@ class SQSSubscription {
 				UE_LOG(LogCloudConnector, Verbose, TEXT("Long polling with a timeout of 4s returned from queue '%s', %i messages"),
 						UTF8_TO_TCHAR(m_queue_url.c_str()), rm_out.GetResult().GetMessages().size());
 
+				if (!m_subscription.AutoPoll) {
+					m_continue.store(false);
+				}
+
 				// Process the message and call handler
 				process_message(rm_out.GetResult().GetMessages()[0]);
 
@@ -204,6 +215,12 @@ class SQSSubscription {
 			if (!m_subscription.Reused) {
 				delete_queue();
 			}
+		}
+
+		/// Set the internal continuation variable to true
+		void continue_polling() {
+
+			m_continue.store(true);
 		}
 
 		/// Stops the runnable object from foreign thread
@@ -507,6 +524,7 @@ class SQSSubscription {
 		const bool                           m_handle_on_game_thread;
 		const FPubsubMessageReceived         m_handler;
 		std::atomic<bool>                    m_interrupted = false;
+		std::atomic<bool>                    m_continue = true; // didn't want to use std::condition as I fear this collides with FThread
 		ReceiveMessageOutcomeCallable        m_future_out;
 		Aws::UniquePtr<Aws::SQS::SQSClient>  m_sqs;
 		Aws::UniquePtr<Aws::SNS::SNSClient>  m_sns;
@@ -566,6 +584,26 @@ bool AWSPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscript
 	m_subscriptions.Emplace(n_subscription, MoveTemp(runner));
 
 	return true;
+}
+
+void AWSPubsubImpl::continue_polling(FSubscription &n_subscription) {
+
+	if (m_shut_down) {
+		UE_LOG(LogCloudConnector, Display, TEXT("AWS Pubsub Object is being shut down. Ignore continue_polling cmd"));
+		return;
+	}
+
+	// Locate the subscriber
+	TUniquePtr<SQSSubscription> *subscriber = nullptr;
+
+	FScopeLock slock(&m_subscriptions_mutex);
+	subscriber = m_subscriptions.Find(n_subscription);
+	if (!subscriber) {
+		UE_LOG(LogCloudConnector, Error, TEXT("Cannot continue polling on '%s', internal data missing"), *n_subscription.Id);
+		return;
+	}
+
+	(*subscriber)->continue_polling();
 }
 
 bool AWSPubsubImpl::unsubscribe(FSubscription &&n_subscription) {

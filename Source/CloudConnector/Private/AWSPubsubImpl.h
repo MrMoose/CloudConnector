@@ -22,6 +22,7 @@ class AWSPubsubImpl : public ICloudPubsub {
 
 		bool publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler) override;
 		bool subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) override;
+		void continue_polling(FSubscription &n_subscription) override;
 		bool unsubscribe(FSubscription &&n_subscription) override;
 
 		void shutdown() noexcept override;

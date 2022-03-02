@@ -10,7 +10,6 @@
 
 #include "CoreMinimal.h"
 #include "ICloudPubsub.h"
-#include "Templates/Tuple.h"
 #include "HAL/Thread.h"
 
 #pragma warning(push)
@@ -40,6 +39,7 @@ class GooglePubsubImpl : public ICloudPubsub {
 		void shutdown() noexcept override;
 		bool publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler) override;
 		bool subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) override;
+		void continue_polling(FSubscription &n_subscription) override;
 		bool unsubscribe(FSubscription &&n_subscription) override;
 
 	private:
@@ -49,14 +49,14 @@ class GooglePubsubImpl : public ICloudPubsub {
 
 		// internal information to maintain a subscription
 		// including a future to shut it down.
-		using GoogleSubscriptionTuple = TTuple<
-				google::cloud::pubsub::Subscription,
-				TUniquePtr<google::cloud::pubsub::Subscriber>,
-				google::cloud::future<google::cloud::Status>
-		>;
+		struct GoogleSubscriptionInfo {
+			google::cloud::pubsub::Subscription           m_subscription;
+			TUniquePtr<google::cloud::pubsub::Subscriber> m_subscriber;
+			google::cloud::future<google::cloud::Status>  m_handle;
+		};
 
 		// A map to store them with my FSubscription info as key
-		using GoogleSubscriptionMap = TMap<FSubscription, GoogleSubscriptionTuple>;
+		using GoogleSubscriptionMap = TMap<FSubscription, GoogleSubscriptionInfo>;
 
 		// We store a publisher for each topic we ever talked to
 		using PublisherPtr = TSharedPtr<google::cloud::pubsub::Publisher, ESPMode::ThreadSafe>;
@@ -78,7 +78,8 @@ class GooglePubsubImpl : public ICloudPubsub {
 		 * my own completion Q and runner solved the issue.
 		 */
 		google::cloud::CompletionQueue m_completion_q;
-		TUniquePtr<FThread>            m_runner;   //!< background thread for the SDK
+		TUniquePtr<FThread>            m_q_runner_1;    //!< background thread for the SDK polling messages
+		TUniquePtr<FThread>            m_q_runner_2;    //!< and one more to be able to extend leases on messages and send messages
 };
 
 // I have not found a way to exclude those files from the build if Google Cloud is 

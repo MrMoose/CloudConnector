@@ -12,6 +12,7 @@
 
 #include "Async/Async.h"
 #include "Internationalization/Regex.h"
+#include "GenericPlatform/GenericPlatformMath.h"
 
  // GoogleCloud SDK uses a few Cpp features that cause problems in Unreal Context.
  // See here: https://github.com/akrzemi1/Optional/issues/57 for an explanation
@@ -41,7 +42,12 @@ GooglePubsubImpl::GooglePubsubImpl(const ACloudConnector *n_config)
 		, m_visibility_timeout{ visibility_timeout(n_config->VisibilityTimeout) }
 		, m_handle_in_game_thread{ n_config->HandleOnGameThread } {
 
-	m_runner.Reset(new FThread(TEXT("Google Pubsub Runner"),
+	m_q_runner_1.Reset(new FThread(TEXT("Google Pubsub Q Runner 1"),
+		[this] {
+			this->m_completion_q.Run();
+		}
+	));
+	m_q_runner_2.Reset(new FThread(TEXT("Google Pubsub Q Runner 2"),
 		[this] {
 			this->m_completion_q.Run();
 		}
@@ -50,6 +56,11 @@ GooglePubsubImpl::GooglePubsubImpl(const ACloudConnector *n_config)
 
 GooglePubsubImpl::~GooglePubsubImpl() noexcept {
 
+	shutdown();
+}
+
+void GooglePubsubImpl::shutdown() noexcept {
+
 	try {
 		// user may have not unsubscribed
 		TArray<FSubscription> remaining_subs;
@@ -57,7 +68,7 @@ GooglePubsubImpl::~GooglePubsubImpl() noexcept {
 		{
 			FScopeLock slock(&s_subscriptions_mutex);
 			remaining_subs.Reserve(m_subscriptions.Num());
-			for (const TPair<FSubscription, GoogleSubscriptionTuple> &i : m_subscriptions) {
+			for (const TPair<FSubscription, GoogleSubscriptionInfo> &i : m_subscriptions) {
 				remaining_subs.Add(i.Key);
 			}
 		}
@@ -65,20 +76,30 @@ GooglePubsubImpl::~GooglePubsubImpl() noexcept {
 		for (FSubscription &s : remaining_subs) {
 			unsubscribe(MoveTemp(s));
 		}
-	
+
+		{
+			FScopeLock slock(&m_publishers_mutex);
+			for (const TPair<FString, PublisherPtr> &i : m_publishers) {
+				i.Value->Flush();
+			}
+			m_publishers.Empty();
+		}
+
+		m_completion_q.CancelAll();
 		m_completion_q.Shutdown();
 
-		m_runner->Join();
-		m_runner.Reset();
+		if (m_q_runner_1 && m_q_runner_1->IsJoinable()) {
+			m_q_runner_1->Join();
+		}
+		if (m_q_runner_2 && m_q_runner_2->IsJoinable()) {
+			m_q_runner_2->Join();
+		}
+		m_q_runner_1.Reset();
+		m_q_runner_2.Reset();
 
 	} catch (const std::exception &sex) {
 		UE_LOG(LogCloudConnector, Error, TEXT("Unexpected exception tearing down pubsub: %s"), UTF8_TO_TCHAR(sex.what()));
 	}
-}
-
-void GooglePubsubImpl::shutdown() noexcept {
-
-	UE_LOG(LogCloudConnector, Warning, TEXT("Google Pubsub shutdown not implemented yet"));
 }
 
 bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) {
@@ -120,7 +141,7 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 
 	// Subscription parameters
 	pubsub::SubscriptionBuilder sboptions;
-	sboptions.set_ack_deadline(std::chrono::seconds(m_visibility_timeout));
+	sboptions.set_ack_deadline(std::chrono::seconds(FGenericPlatformMath::Min<uint32>(m_visibility_timeout, 600)));
 	sboptions.set_retain_acked_messages(false);
 
 	// Create it. This can take a while.
@@ -143,6 +164,8 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	// Now we should have a subscription for us. Next step is to hook up to it.
 	pubsub::SubscriberOptions subscriber_options;
 	subscriber_options.set_max_concurrency(1);
+	subscriber_options.set_max_outstanding_messages(1);
+	subscriber_options.set_max_deadline_time(std::chrono::seconds(m_visibility_timeout));
 
 	pubsub::ConnectionOptions connection_options;
 	connection_options.DisableBackgroundThreads(m_completion_q);
@@ -156,10 +179,10 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 		connection_options));
 
 	// remember our subscription in a map
-	GoogleSubscriptionTuple *new_entry = nullptr;
+	GoogleSubscriptionInfo *new_entry = nullptr;
 	{
 		FScopeLock slock(&s_subscriptions_mutex);
-		m_subscriptions.Emplace(n_subscription, GoogleSubscriptionTuple{
+		m_subscriptions.Emplace(n_subscription, GoogleSubscriptionInfo {
 					MoveTemp(sub),
 					MoveTemp(subscriber),
 					gc::future<gc::Status>{}
@@ -172,11 +195,10 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 
 	// Yes, we have race here in case multiple subscribers do this at 
 	// once and cause rebalancing of the map but I take the liberty of ignoring this for now.
-
-	pubsub::Subscriber &s = *new_entry->Get< TUniquePtr<pubsub::Subscriber> >().Get();
+	pubsub::Subscriber &s = *new_entry->m_subscriber.Get();
 
 	// Hook up our handler function
-	new_entry->Get< gc::future<gc::Status> >() = s.Subscribe(
+	new_entry->m_handle = s.Subscribe(
 		[this, n_handler](pubsub::Message const &n_message, pubsub::AckHandler n_ack_handler) {
 
 			// call message processing function which will do the rest
@@ -229,10 +251,15 @@ void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const F
 	}
 }
 
+void GooglePubsubImpl::continue_polling(FSubscription &n_subscription) {
+
+	UE_LOG(LogCloudConnector, Warning, TEXT("Poll cannot be interrupted for Google Pubsub"));
+}
+
 bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 
 	// Locate the subscriber
-	GoogleSubscriptionTuple *s = nullptr;
+	GoogleSubscriptionInfo *s = nullptr;
 	{
 		FScopeLock slock(&s_subscriptions_mutex);
 		s = m_subscriptions.Find(n_subscription);
@@ -243,10 +270,10 @@ bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 	}
 
 	// Stop the subscriber. cancel() on the future is said to halt message retrieval
-	s->Get< gc::future<gc::Status> >().cancel();
+	s->m_handle.cancel();
 
 	// Do I have to wait? In Tests this returned right away but still I feel it's safer.
-	const std::future_status status = s->Get< gc::future<gc::Status> >().wait_for(std::chrono::seconds(4));
+	const std::future_status status = s->m_handle.wait_for(std::chrono::seconds(4));
 	
 	// Delete internal structs and subscriber
 	{

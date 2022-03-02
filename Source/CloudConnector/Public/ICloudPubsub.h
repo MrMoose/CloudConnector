@@ -38,6 +38,12 @@ struct CLOUDCONNECTOR_API FSubscription {
 	UPROPERTY()
 	bool Reused = false;
 
+	/// Set this to false to cause the subscription to not automatically poll
+	/// new messages after the last one was acknowledged.
+	/// This is only implemented on AWS currently
+	UPROPERTY()
+	bool AutoPoll = true;
+
 	/// These are needed to be able to use FSubscription as key to a TMap
 	bool operator==(const FSubscription &n_other) const {
 
@@ -142,7 +148,8 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		 */
 		virtual bool publish(const FString &n_topic, const FString &n_message, FPubsubMessagePublished &&n_handler = FPubsubMessagePublished{}) = 0;
 
-		/** @brief Subscribe to the default subscription as specified environment
+		/**
+		 * @brief Subscribe to the default subscription as specified environment
 		 *  variable CLOUDCONNECTOR_DEFAULT_TOPIC
 		 *  Users are strongly encouraged to unsubscribe_default().
 		 *  This is safe to be called from any thread.
@@ -154,22 +161,37 @@ class CLOUDCONNECTOR_API ICloudPubsub {
 		 */
 		virtual bool subscribe_default(FSubscription &n_subscription, FPubsubMessageReceived &&n_handler);
 
-		/** @brief Subscribe to a "topic" which maps to a SQS Queue URL or a Pubsub topic
+		/** 
+		 * @brief Subscribe to a "topic" which maps to a SQS Queue URL or a Pubsub topic
 		 *  You can subscribe to multiple topics but only once to each. Meaning
 		 *  Subscribing twice to the same topic results in undefined behavior.
 		 *  Users are strongly encouraged to unsubscribe() from each topic.
 		 *  This is safe to be called from any thread.
+		 *  If property AutoPoll in n_subscription is false, after the first message is retrieved,
+		 *  the next message will only be polled after continue_polling() is called
 		 * 
 		 *  @param n_topic the Queue URL (SQS) or Topic (Pubsub) you want to subscribe to
 		 *  @param n_subscription will hold the subscription handle (to unsubscribe)
 		 *			you may preset the value of Id to force a subscription name
-		 *			if return is false, contents are undefined
+		 *			if return is false, contents are undefined.
+		 *			Can be filled with Queue / Subscription ID beforehand, which will be used.
+		 * 
 		 *  @param n_completion will fire on the game thread (or in its own, depending on config) when the operation is complete
 		 *  @return true when the operation was successfully started
 		 */
 		virtual bool subscribe(const FString &n_topic, FSubscription &n_subscription, FPubsubMessageReceived &&n_handler) = 0;
 	
-		/** @brief Unsubscribe from a subscription
+		/**
+		 * @brief continue to poll a subscription which has AutoPoll false
+		 *  If this is not the case the statement has no effect.
+		 *  You may call this before a possibly executed message is acknowledged.
+		 *  Only implemented on AWS.
+		 * @param n_subscription 
+		 */
+		virtual void continue_polling(FSubscription &n_subscription) = 0;
+
+		/**
+		 * @brief Unsubscribe from a subscription
 		 *  Remaining messages may be in flight. This blocks until all remaining handlers
 		 *  have been called.
 		 *  This is safe to be called from any thread.

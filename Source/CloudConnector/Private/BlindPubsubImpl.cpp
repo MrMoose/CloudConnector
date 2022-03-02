@@ -23,6 +23,10 @@ bool BlindPubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscri
 	return true;
 }
 
+void BlindPubsubImpl::continue_polling(FSubscription &n_subscription) {
+
+}
+
 bool BlindPubsubImpl::unsubscribe(FSubscription &&n_subscription) {
 
 	UE_LOG(LogCloudConnector, Display, TEXT("Blind pubsub impl unsubscribed from '%s'"), *n_subscription.Id);
