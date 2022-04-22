@@ -318,7 +318,7 @@ class Agents final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Agent>* AsyncGetAgentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Agent>* PrepareAsyncGetAgentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetAgentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Agent>* AsyncSetAgentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetAgentRequest& request, ::grpc::CompletionQueue* cq) = 0;

@@ -128,7 +128,7 @@ class Versions final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListVersionsResponse>* AsyncListVersionsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListVersionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListVersionsResponse>* PrepareAsyncListVersionsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListVersionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Version>* AsyncGetVersionRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetVersionRequest& request, ::grpc::CompletionQueue* cq) = 0;

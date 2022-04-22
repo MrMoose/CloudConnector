@@ -382,7 +382,7 @@ class InstanceAdmin final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstanceConfigsResponse>* AsyncListInstanceConfigsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstanceConfigsResponse>* PrepareAsyncListInstanceConfigsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::InstanceConfig>* AsyncGetInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;

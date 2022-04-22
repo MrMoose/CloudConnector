@@ -188,7 +188,7 @@ class Publisher final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Topic>* AsyncCreateTopicRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Topic>* PrepareAsyncCreateTopicRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Topic& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Topic>* AsyncUpdateTopicRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateTopicRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -1933,7 +1933,7 @@ class Subscriber final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Subscription>* AsyncCreateSubscriptionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Subscription>* PrepareAsyncCreateSubscriptionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::Subscription& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Subscription>* AsyncGetSubscriptionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSubscriptionRequest& request, ::grpc::CompletionQueue* cq) = 0;

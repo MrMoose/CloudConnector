@@ -66,10 +66,42 @@ struct TracingComponentsOption {
 };
 
 /**
+ * Specifies a project for quota and billing purposes.
+ *
+ * The caller must have `serviceusage.services.use` permission on the project.
+ *
+ * @see https://cloud.google.com/iam/docs/permissions-reference for more
+ *     information about the `seviceusage.services.use` permission, including
+ *     default roles that grant it.
+ * @see https://cloud.google.com/apis/docs/system-parameters
+ */
+struct UserProjectOption {
+  using Type = std::string;
+};
+
+/**
+ * Configure the "authority" attribute.
+ *
+ * For gRPC requests this is the `authority()` field in the
+ * `grpc::ClientContext`. This configures the :authority pseudo-header in the
+ * HTTP/2 request.
+ *     https://datatracker.ietf.org/doc/html/rfc7540#section-8.1.2.3
+ *
+ * For REST-based services using HTTP/1.1 or HTTP/1.0 this is the `Host` header.
+ *
+ * Setting this option to the empty string has no effect, i.e., no headers are
+ * set. This can be useful if you are not using Google's production environment.
+ */
+struct AuthorityOption {
+  using Type = std::string;
+};
+
+/**
  * A list of all the common options.
  */
-using CommonOptionList = OptionList<EndpointOption, UserAgentProductsOption,
-                                    TracingComponentsOption>;
+using CommonOptionList =
+    OptionList<EndpointOption, UserAgentProductsOption, TracingComponentsOption,
+               UserProjectOption, AuthorityOption>;
 
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace cloud

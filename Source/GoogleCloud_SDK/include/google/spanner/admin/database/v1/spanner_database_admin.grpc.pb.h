@@ -427,7 +427,7 @@ class DatabaseAdmin final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabasesResponse>* AsyncListDatabasesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabasesResponse>* PrepareAsyncListDatabasesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabasesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncCreateDatabaseRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateDatabaseRequest& request, ::grpc::CompletionQueue* cq) = 0;

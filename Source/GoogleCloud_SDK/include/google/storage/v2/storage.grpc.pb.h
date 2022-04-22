@@ -493,7 +493,7 @@ class Storage final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* AsyncGetBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;

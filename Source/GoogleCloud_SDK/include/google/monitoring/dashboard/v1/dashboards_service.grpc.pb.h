@@ -151,7 +151,7 @@ class DashboardsService final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::dashboard::v1::Dashboard>* AsyncCreateDashboardRaw(::grpc::ClientContext* context, const ::google::monitoring::dashboard::v1::CreateDashboardRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::dashboard::v1::Dashboard>* PrepareAsyncCreateDashboardRaw(::grpc::ClientContext* context, const ::google::monitoring::dashboard::v1::CreateDashboardRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::dashboard::v1::ListDashboardsResponse>* AsyncListDashboardsRaw(::grpc::ClientContext* context, const ::google::monitoring::dashboard::v1::ListDashboardsRequest& request, ::grpc::CompletionQueue* cq) = 0;

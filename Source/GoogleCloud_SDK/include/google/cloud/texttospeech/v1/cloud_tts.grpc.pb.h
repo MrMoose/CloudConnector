@@ -85,7 +85,7 @@ class TextToSpeech final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::texttospeech::v1::ListVoicesResponse>* AsyncListVoicesRaw(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::texttospeech::v1::ListVoicesResponse>* PrepareAsyncListVoicesRaw(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::ListVoicesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::texttospeech::v1::SynthesizeSpeechResponse>* AsyncSynthesizeSpeechRaw(::grpc::ClientContext* context, const ::google::cloud::texttospeech::v1::SynthesizeSpeechRequest& request, ::grpc::CompletionQueue* cq) = 0;

@@ -132,7 +132,7 @@ class ConversationProfiles final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListConversationProfilesResponse>* AsyncListConversationProfilesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListConversationProfilesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListConversationProfilesResponse>* PrepareAsyncListConversationProfilesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListConversationProfilesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ConversationProfile>* AsyncGetConversationProfileRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetConversationProfileRequest& request, ::grpc::CompletionQueue* cq) = 0;

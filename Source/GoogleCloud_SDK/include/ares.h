@@ -39,7 +39,7 @@
 #if defined(_AIX) || defined(__NOVELL_LIBC__) || defined(__NetBSD__) || \
     defined(__minix) || defined(__SYMBIAN32__) || defined(__INTEGRITY) || \
     defined(ANDROID) || defined(__ANDROID__) || defined(__OpenBSD__) || \
-    defined(__QNXNTO__)
+    defined(__QNXNTO__) || defined(__MVS__)
 #include <sys/select.h>
 #endif
 #if (defined(NETWARE) && !defined(__NOVELL_LIBC__))
@@ -135,6 +135,9 @@ extern "C" {
 /* More error codes */
 #define ARES_ECANCELLED         24          /* introduced in 1.7.0 */
 
+/* More ares_getaddrinfo error codes */
+#define ARES_ESERVICE           25          /* introduced in 1.?.0 */
+
 /* Flag values */
 #define ARES_FLAG_USEVC         (1 << 0)
 #define ARES_FLAG_PRIMARY       (1 << 1)
@@ -192,6 +195,8 @@ extern "C" {
 #define ARES_AI_V4MAPPED                (1 << 4)
 #define ARES_AI_ALL                     (1 << 5)
 #define ARES_AI_ADDRCONFIG              (1 << 6)
+#define ARES_AI_NOSORT                  (1 << 7)
+#define ARES_AI_ENVHOSTS                (1 << 8)
 /* Reserved for future use */
 #define ARES_AI_IDN                     (1 << 10)
 #define ARES_AI_IDN_ALLOW_UNASSIGNED    (1 << 11)
@@ -278,6 +283,8 @@ struct hostent;
 struct timeval;
 struct sockaddr;
 struct ares_channeldata;
+struct ares_addrinfo;
+struct ares_addrinfo_hints;
 
 typedef struct ares_channeldata *ares_channel;
 
@@ -305,6 +312,11 @@ typedef int  (*ares_sock_create_callback)(ares_socket_t socket_fd,
 typedef int  (*ares_sock_config_callback)(ares_socket_t socket_fd,
                                           int type,
                                           void *data);
+
+typedef void (*ares_addrinfo_callback)(void *arg,
+                                   int status,
+                                   int timeouts,
+                                   struct ares_addrinfo *res);
 
 CARES_EXTERN int ares_library_init(int flags);
 
@@ -368,6 +380,15 @@ CARES_EXTERN void ares_set_socket_configure_callback(ares_channel channel,
 
 CARES_EXTERN int ares_set_sortlist(ares_channel channel,
                                    const char *sortstr);
+
+CARES_EXTERN void ares_getaddrinfo(ares_channel channel,
+                                   const char* node,
+                                   const char* service,
+                                   const struct ares_addrinfo_hints* hints,
+                                   ares_addrinfo_callback callback,
+                                   void* arg);
+
+CARES_EXTERN void ares_freeaddrinfo(struct ares_addrinfo* ai);
 
 /*
  * Virtual function set to have user-managed socket IO.
@@ -507,6 +528,15 @@ struct ares_addr6ttl {
   int             ttl;
 };
 
+struct ares_caa_reply {
+  struct ares_caa_reply  *next;
+  int                     critical;
+  unsigned char          *property;
+  size_t                  plength;  /* plength excludes null termination */
+  unsigned char          *value;
+  size_t                  length;   /* length excludes null termination */
+};
+
 struct ares_srv_reply {
   struct ares_srv_reply  *next;
   char                   *host;
@@ -559,6 +589,44 @@ struct ares_soa_reply {
 };
 
 /*
+ * Similar to addrinfo, but with extra ttl and missing canonname.
+ */
+struct ares_addrinfo_node {
+  int                        ai_ttl;
+  int                        ai_flags;
+  int                        ai_family;
+  int                        ai_socktype;
+  int                        ai_protocol;
+  ares_socklen_t             ai_addrlen;
+  struct sockaddr           *ai_addr;
+  struct ares_addrinfo_node *ai_next;
+};
+
+/*
+ * alias - label of the resource record.
+ * name - value (canonical name) of the resource record.
+ * See RFC2181 10.1.1. CNAME terminology.
+ */
+struct ares_addrinfo_cname {
+  int                         ttl;
+  char                       *alias;
+  char                       *name;
+  struct ares_addrinfo_cname *next;
+};
+
+struct ares_addrinfo {
+  struct ares_addrinfo_cname *cnames;
+  struct ares_addrinfo_node  *nodes;
+};
+
+struct ares_addrinfo_hints {
+  int ai_flags;
+  int ai_family;
+  int ai_socktype;
+  int ai_protocol;
+};
+
+/*
 ** Parse the buffer, starting at *abuf and of length alen bytes, previously
 ** obtained from an ares_search call.  Put the results in *host, if nonnull.
 ** Also, if addrttls is nonnull, put up to *naddrttls IPv4 addresses along with
@@ -577,6 +645,10 @@ CARES_EXTERN int ares_parse_aaaa_reply(const unsigned char *abuf,
                                        struct hostent **host,
                                        struct ares_addr6ttl *addrttls,
                                        int *naddrttls);
+
+CARES_EXTERN int ares_parse_caa_reply(const unsigned char* abuf,
+				      int alen,
+				      struct ares_caa_reply** caa_out);
 
 CARES_EXTERN int ares_parse_ptr_reply(const unsigned char *abuf,
                                       int alen,

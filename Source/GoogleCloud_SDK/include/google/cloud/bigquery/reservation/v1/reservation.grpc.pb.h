@@ -582,7 +582,7 @@ class ReservationService final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Reservation>* AsyncCreateReservationRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::CreateReservationRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Reservation>* PrepareAsyncCreateReservationRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::CreateReservationRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::ListReservationsResponse>* AsyncListReservationsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::ListReservationsRequest& request, ::grpc::CompletionQueue* cq) = 0;

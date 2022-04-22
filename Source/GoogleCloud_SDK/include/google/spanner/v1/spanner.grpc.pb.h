@@ -450,7 +450,7 @@ class Spanner final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::v1::Session>* AsyncCreateSessionRaw(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::v1::Session>* PrepareAsyncCreateSessionRaw(::grpc::ClientContext* context, const ::google::spanner::v1::CreateSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::v1::BatchCreateSessionsResponse>* AsyncBatchCreateSessionsRaw(::grpc::ClientContext* context, const ::google::spanner::v1::BatchCreateSessionsRequest& request, ::grpc::CompletionQueue* cq) = 0;

@@ -131,7 +131,7 @@ class Contexts final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListContextsResponse>* AsyncListContextsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListContextsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListContextsResponse>* PrepareAsyncListContextsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListContextsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Context>* AsyncGetContextRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetContextRequest& request, ::grpc::CompletionQueue* cq) = 0;

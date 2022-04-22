@@ -15,6 +15,7 @@
 #ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_STREAM_RANGE_H
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_STREAM_RANGE_H
 
+#include "google/cloud/options.h"
 #include "google/cloud/status.h"
 #include "google/cloud/status_or.h"
 #include "google/cloud/version.h"
@@ -153,6 +154,11 @@ class StreamRange {
    */
   StreamRange() = default;
 
+  ~StreamRange() {
+    internal::OptionsSpan span(options_);
+    reader_ = nullptr;
+  }
+
   //@{
   // @name Move-only
   StreamRange(StreamRange const&) = delete;
@@ -186,6 +192,7 @@ class StreamRange {
         sr.current_ = std::move(t);
       }
     };
+    internal::OptionsSpan span(options_);
     auto v = reader_();
     absl::visit(UnpackVariant{*this}, std::move(v));
   }
@@ -224,6 +231,7 @@ class StreamRange {
     Next();
   }
 
+  Options options_ = internal::CurrentOptions();
   internal::StreamReader<T> reader_;
   StatusOr<T> current_;
   bool current_ok_ = false;

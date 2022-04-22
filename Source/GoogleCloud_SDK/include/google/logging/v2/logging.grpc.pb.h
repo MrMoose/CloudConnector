@@ -155,7 +155,7 @@ class LoggingServiceV2 final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteLogRaw(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteLogRaw(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::WriteLogEntriesResponse>* AsyncWriteLogEntriesRaw(::grpc::ClientContext* context, const ::google::logging::v2::WriteLogEntriesRequest& request, ::grpc::CompletionQueue* cq) = 0;

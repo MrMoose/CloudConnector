@@ -168,7 +168,7 @@ class BigQueryRead final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::ReadSession>* AsyncCreateReadSessionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::ReadSession>* PrepareAsyncCreateReadSessionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateReadSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientReaderInterface< ::google::cloud::bigquery::storage::v1::ReadRowsResponse>* ReadRowsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::ReadRowsRequest& request) = 0;
@@ -867,7 +867,7 @@ class BigQueryWrite final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>* AsyncCreateWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::storage::v1::WriteStream>* PrepareAsyncCreateWriteStreamRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>* AppendRowsRaw(::grpc::ClientContext* context) = 0;

@@ -83,7 +83,7 @@ class Fulfillments final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Fulfillment>* AsyncGetFulfillmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetFulfillmentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Fulfillment>* PrepareAsyncGetFulfillmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetFulfillmentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Fulfillment>* AsyncUpdateFulfillmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateFulfillmentRequest& request, ::grpc::CompletionQueue* cq) = 0;

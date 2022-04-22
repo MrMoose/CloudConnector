@@ -113,7 +113,7 @@ class IAMCredentials final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::credentials::v1::GenerateAccessTokenResponse>* AsyncGenerateAccessTokenRaw(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::credentials::v1::GenerateAccessTokenResponse>* PrepareAsyncGenerateAccessTokenRaw(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateAccessTokenRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::credentials::v1::GenerateIdTokenResponse>* AsyncGenerateIdTokenRaw(::grpc::ClientContext* context, const ::google::iam::credentials::v1::GenerateIdTokenRequest& request, ::grpc::CompletionQueue* cq) = 0;

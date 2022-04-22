@@ -165,7 +165,7 @@ class Participants final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Participant>* AsyncCreateParticipantRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateParticipantRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Participant>* PrepareAsyncCreateParticipantRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateParticipantRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Participant>* AsyncGetParticipantRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetParticipantRequest& request, ::grpc::CompletionQueue* cq) = 0;

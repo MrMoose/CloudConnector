@@ -174,7 +174,7 @@ class ConnectionService final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::connection::v1::Connection>* AsyncCreateConnectionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1::CreateConnectionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::connection::v1::Connection>* PrepareAsyncCreateConnectionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1::CreateConnectionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::connection::v1::Connection>* AsyncGetConnectionRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::connection::v1::GetConnectionRequest& request, ::grpc::CompletionQueue* cq) = 0;

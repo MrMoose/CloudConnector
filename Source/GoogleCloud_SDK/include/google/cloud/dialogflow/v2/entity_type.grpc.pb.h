@@ -329,7 +329,7 @@ class EntityTypes final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListEntityTypesResponse>* AsyncListEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListEntityTypesResponse>* PrepareAsyncListEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEntityTypesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::EntityType>* AsyncGetEntityTypeRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEntityTypeRequest& request, ::grpc::CompletionQueue* cq) = 0;

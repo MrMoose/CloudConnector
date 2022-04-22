@@ -162,7 +162,7 @@ class SessionEntityTypes final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>* AsyncListSessionEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListSessionEntityTypesResponse>* PrepareAsyncListSessionEntityTypesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListSessionEntityTypesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SessionEntityType>* AsyncGetSessionEntityTypeRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetSessionEntityTypeRequest& request, ::grpc::CompletionQueue* cq) = 0;

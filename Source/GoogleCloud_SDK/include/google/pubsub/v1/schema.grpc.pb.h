@@ -126,7 +126,7 @@ class SchemaService final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* AsyncCreateSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* PrepareAsyncCreateSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* AsyncGetSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;

@@ -157,7 +157,7 @@ class Bigtable final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientReaderInterface< ::google::bigtable::v2::ReadRowsResponse>* ReadRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest& request) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::ReadRowsResponse>* AsyncReadRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::ReadRowsResponse>* PrepareAsyncReadRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadRowsRequest& request, ::grpc::CompletionQueue* cq) = 0;

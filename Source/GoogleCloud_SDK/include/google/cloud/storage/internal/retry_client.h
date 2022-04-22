@@ -33,8 +33,8 @@ namespace internal {
 class RetryClient : public RawClient,
                     public std::enable_shared_from_this<RetryClient> {
  public:
-  explicit RetryClient(std::shared_ptr<RawClient> client,
-                       Options const& options);
+  static std::shared_ptr<RetryClient> Create(std::shared_ptr<RawClient> client,
+                                             Options const& options);
 
   ~RetryClient() override = default;
 
@@ -51,12 +51,8 @@ class RetryClient : public RawClient,
       UpdateBucketRequest const& request) override;
   StatusOr<BucketMetadata> PatchBucket(
       PatchBucketRequest const& request) override;
-  StatusOr<IamPolicy> GetBucketIamPolicy(
-      GetBucketIamPolicyRequest const& request) override;
   StatusOr<NativeIamPolicy> GetNativeBucketIamPolicy(
       GetBucketIamPolicyRequest const& request) override;
-  StatusOr<IamPolicy> SetBucketIamPolicy(
-      SetBucketIamPolicyRequest const& request) override;
   StatusOr<NativeIamPolicy> SetNativeBucketIamPolicy(
       SetNativeBucketIamPolicyRequest const& request) override;
   StatusOr<TestBucketIamPermissionsResponse> TestBucketIamPermissions(
@@ -154,6 +150,9 @@ class RetryClient : public RawClient,
   std::shared_ptr<RawClient> client() const { return client_; }
 
  private:
+  explicit RetryClient(std::shared_ptr<RawClient> client,
+                       Options const& options);
+
   std::shared_ptr<RawClient> client_;
   std::shared_ptr<RetryPolicy const> retry_policy_prototype_;
   std::shared_ptr<BackoffPolicy const> backoff_policy_prototype_;

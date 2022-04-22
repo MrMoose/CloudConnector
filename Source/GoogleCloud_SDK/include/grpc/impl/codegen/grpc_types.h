@@ -19,14 +19,16 @@
 #ifndef GRPC_IMPL_CODEGEN_GRPC_TYPES_H
 #define GRPC_IMPL_CODEGEN_GRPC_TYPES_H
 
+// IWYU pragma: private
+
 #include <grpc/impl/codegen/port_platform.h>
+
+#include <stddef.h>
 
 #include <grpc/impl/codegen/compression_types.h>
 #include <grpc/impl/codegen/gpr_types.h>
 #include <grpc/impl/codegen/slice.h>
 #include <grpc/impl/codegen/status.h>
-
-#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -54,9 +56,6 @@ typedef struct grpc_byte_buffer {
 /** Completion Queues enable notification of the completion of
  * asynchronous actions. */
 typedef struct grpc_completion_queue grpc_completion_queue;
-
-/** An alarm associated with a completion queue. */
-typedef struct grpc_alarm grpc_alarm;
 
 /** The Channel interface allows creation of Call objects. */
 typedef struct grpc_channel grpc_channel;
@@ -384,12 +383,25 @@ typedef struct {
     Defaults to "blend". In the current implementation "blend" is equivalent to
     "latency". */
 #define GRPC_ARG_OPTIMIZATION_TARGET "grpc.optimization_target"
-/** If set to zero, disables retry behavior. Otherwise, transparent retries
-    are enabled for all RPCs, and configurable retries are enabled when they
-    are configured via the service config. For details, see:
+/** Enables retry functionality.  Defaults to true.  When enabled,
+    transparent retries will be performed as appropriate, and configurable
+    retries are enabled when they are configured via the service config.
+    For details, see:
       https://github.com/grpc/proposal/blob/master/A6-client-retries.md
+    NOTE: Hedging functionality is not yet implemented, so those
+          fields in the service config will currently be ignored.  See
+          also the GRPC_ARG_EXPERIMENTAL_ENABLE_HEDGING arg below.
  */
 #define GRPC_ARG_ENABLE_RETRIES "grpc.enable_retries"
+/** Enables hedging functionality, as described in:
+      https://github.com/grpc/proposal/blob/master/A6-client-retries.md
+    Default is currently false, since this functionality is not yet
+    fully implemented.
+    NOTE: This channel arg is experimental and will eventually be removed.
+          Once hedging functionality has been implemented and proves stable,
+          this arg will be removed, and the hedging functionality will
+          be enabled via the GRPC_ARG_ENABLE_RETRIES arg above. */
+#define GRPC_ARG_EXPERIMENTAL_ENABLE_HEDGING "grpc.experimental.enable_hedging"
 /** Per-RPC retry buffer size, in bytes. Default is 256 KiB. */
 #define GRPC_ARG_PER_RPC_RETRY_BUFFER_SIZE "grpc.per_rpc_retry_buffer_size"
 /** Channel arg that carries the bridged objective c object for custom metrics
@@ -409,10 +421,14 @@ typedef struct {
 /** If set, inhibits health checking (which may be enabled via the
  *  service config.) */
 #define GRPC_ARG_INHIBIT_HEALTH_CHECKING "grpc.inhibit_health_checking"
-/** If set, the channel's resolver is allowed to query for SRV records.
- * For example, this is useful as a way to enable the "grpclb"
- * load balancing policy. Note that this only works with the "ares"
- * DNS resolver, and isn't supported by the "native" DNS resolver. */
+/** If enabled, the channel's DNS resolver queries for SRV records.
+ *  This is useful only when using the "grpclb" load balancing policy,
+ *  as described in the following documents:
+ *   https://github.com/grpc/proposal/blob/master/A5-grpclb-in-dns.md
+ *   https://github.com/grpc/proposal/blob/master/A24-lb-policy-config.md
+ *   https://github.com/grpc/proposal/blob/master/A26-grpclb-selection.md
+ *  Note that this works only with the "ares" DNS resolver; it isn't supported
+ *  by the "native" DNS resolver. */
 #define GRPC_ARG_DNS_ENABLE_SRV_QUERIES "grpc.dns_enable_srv_queries"
 /** If set, determines an upper bound on the number of milliseconds that the
  * c-ares based DNS resolver will wait on queries before cancelling them.
@@ -432,6 +448,12 @@ typedef struct {
     gRPC authorization check. */
 #define GRPC_ARG_AUTHORIZATION_POLICY_PROVIDER \
   "grpc.authorization_policy_provider"
+/** EXPERIMENTAL. Updates to a server's configuration from a config fetcher (for
+ * example, listener updates from xDS) cause all older connections to be
+ * gracefully shut down (i.e., "drained") with a grace period configured by this
+ * channel arg. Int valued, milliseconds. Defaults to 10 minutes.*/
+#define GRPC_ARG_SERVER_CONFIG_CHANGE_DRAIN_GRACE_TIME_MS \
+  "grpc.experimental.server_config_change_drain_grace_time_ms"
 /** \} */
 
 /** Result of a grpc call. If the caller satisfies the prerequisites of a
@@ -495,6 +517,7 @@ typedef enum grpc_call_error {
   (GRPC_WRITE_BUFFER_HINT | GRPC_WRITE_NO_COMPRESS | GRPC_WRITE_THROUGH)
 
 /** Initial metadata flags */
+/** These flags are to be passed to the `grpc_op::flags` field */
 /** Signal that the call is idempotent */
 #define GRPC_INITIAL_METADATA_IDEMPOTENT_REQUEST (0x00000010u)
 /** Signal that the call should not return UNAVAILABLE before it has started */
@@ -521,8 +544,6 @@ typedef struct grpc_metadata {
      changing them, update metadata.h at the same time. */
   grpc_slice key;
   grpc_slice value;
-
-  uint32_t flags;
 
   /** The following fields are reserved for grpc internal use.
       There is no need to initialize them, and they will be set to garbage
@@ -769,9 +790,6 @@ typedef struct grpc_completion_queue_functor {
   int internal_success;
   struct grpc_completion_queue_functor* internal_next;
 } grpc_completion_queue_functor;
-
-typedef grpc_completion_queue_functor
-    grpc_experimental_completion_queue_functor;
 
 #define GRPC_CQ_CURRENT_VERSION 2
 #define GRPC_CQ_VERSION_MINIMUM_FOR_CALLBACKABLE 2

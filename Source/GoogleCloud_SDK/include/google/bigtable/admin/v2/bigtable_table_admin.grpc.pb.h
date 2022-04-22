@@ -431,7 +431,7 @@ class BigtableTableAdmin final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>* AsyncCreateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>* PrepareAsyncCreateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncCreateTableFromSnapshotRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::CreateTableFromSnapshotRequest& request, ::grpc::CompletionQueue* cq) = 0;

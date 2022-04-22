@@ -365,8 +365,12 @@ class ParallelUploadFileShard {
   std::shared_ptr<ParallelUploadStateImpl> state_;
   ObjectWriteStream ostream_;
   std::string file_name_;
-  std::uintmax_t offset_in_file_;
-  std::uintmax_t left_to_upload_;
+  // GCS only supports objects up to 5TiB, that fits comfortably in a
+  // `std::int64_t`, allows for any expected growth on that limit (not that we
+  // anticipate any), and plays nicer with the types in the standard C++
+  // library.
+  std::int64_t offset_in_file_;
+  std::int64_t left_to_upload_;
   std::size_t upload_buffer_size_;
   std::string resumable_session_id_;
 };
@@ -640,7 +644,7 @@ StatusOr<ResumableParallelUploadState> PrepareParallelUpload(
   if (resumable_session_id.empty()) {
     return ResumableParallelUploadState::CreateNew(
         std::move(client), bucket_name, object_name, num_shards, prefix,
-        extra_state_arg ? std::move(extra_state_arg).value().payload()
+        extra_state_arg ? (*std::move(extra_state_arg)).payload()
                         : std::string(),
         std::move(forwarded_args));
   }
@@ -743,8 +747,7 @@ Composer ResumableParallelUploadState::CreateComposer(
                 UserIp, UserProject, WithObjectMetadata>::TPred>(options),
       std::make_tuple(IfGenerationMatch(expected_generation)));
   auto get_metadata_options = StaticTupleFilter<
-      Among<DestinationPredefinedAcl, EncryptionKey, KmsKeyName, QuotaUser,
-            UserIp, UserProject, WithObjectMetadata>::TPred>(options);
+      Among<EncryptionKey, QuotaUser, UserIp, UserProject>::TPred>(options);
   auto composer = [client, bucket_name, object_name, compose_options,
                    get_metadata_options,
                    prefix](std::vector<ComposeSourceObject> sources) mutable

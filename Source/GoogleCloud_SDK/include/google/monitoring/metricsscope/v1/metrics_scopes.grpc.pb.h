@@ -112,7 +112,7 @@ class MetricsScopes final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::metricsscope::v1::MetricsScope>* AsyncGetMetricsScopeRaw(::grpc::ClientContext* context, const ::google::monitoring::metricsscope::v1::GetMetricsScopeRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::metricsscope::v1::MetricsScope>* PrepareAsyncGetMetricsScopeRaw(::grpc::ClientContext* context, const ::google::monitoring::metricsscope::v1::GetMetricsScopeRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::metricsscope::v1::ListMetricsScopesByMonitoredProjectResponse>* AsyncListMetricsScopesByMonitoredProjectRaw(::grpc::ClientContext* context, const ::google::monitoring::metricsscope::v1::ListMetricsScopesByMonitoredProjectRequest& request, ::grpc::CompletionQueue* cq) = 0;

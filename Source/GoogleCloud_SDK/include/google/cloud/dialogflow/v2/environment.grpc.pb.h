@@ -149,7 +149,7 @@ class Environments final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListEnvironmentsResponse>* AsyncListEnvironmentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEnvironmentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListEnvironmentsResponse>* PrepareAsyncListEnvironmentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListEnvironmentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Environment>* AsyncGetEnvironmentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetEnvironmentRequest& request, ::grpc::CompletionQueue* cq) = 0;

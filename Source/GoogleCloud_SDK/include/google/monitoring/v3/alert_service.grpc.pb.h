@@ -129,7 +129,7 @@ class AlertPolicyService final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListAlertPoliciesResponse>* AsyncListAlertPoliciesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListAlertPoliciesResponse>* PrepareAsyncListAlertPoliciesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListAlertPoliciesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::AlertPolicy>* AsyncGetAlertPolicyRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::GetAlertPolicyRequest& request, ::grpc::CompletionQueue* cq) = 0;

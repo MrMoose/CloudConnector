@@ -21,7 +21,6 @@
 #include "google/cloud/storage/internal/http_response.h"
 #include "google/cloud/storage/version.h"
 #include "google/cloud/storage/well_known_parameters.h"
-#include "google/cloud/iam_policy.h"
 #include <iosfwd>
 #include <string>
 #include <vector>
@@ -206,44 +205,22 @@ class GetBucketIamPolicyRequest
 
 std::ostream& operator<<(std::ostream& os, GetBucketIamPolicyRequest const& r);
 
-StatusOr<google::cloud::IamPolicy> ParseIamPolicyFromString(
-    std::string const& payload);
-
-/**
- * Represents a request to the `Buckets: setIamPolicy` API.
- */
-class SetBucketIamPolicyRequest
-    : public GenericRequest<SetBucketIamPolicyRequest, UserProject> {
- public:
-  SetBucketIamPolicyRequest() = default;
-  explicit SetBucketIamPolicyRequest(std::string bucket_name,
-                                     google::cloud::IamPolicy const& policy);
-
-  std::string const& bucket_name() const { return bucket_name_; }
-  std::string const& json_payload() const { return json_payload_; }
-
- private:
-  std::string bucket_name_;
-  std::string json_payload_;
-};
-
-std::ostream& operator<<(std::ostream& os, SetBucketIamPolicyRequest const& r);
-
 /**
  * Represents a request to the `Buckets: setIamPolicy` native API.
  */
 class SetNativeBucketIamPolicyRequest
     : public GenericRequest<SetNativeBucketIamPolicyRequest, UserProject> {
  public:
-  SetNativeBucketIamPolicyRequest() = default;
   explicit SetNativeBucketIamPolicyRequest(std::string bucket_name,
                                            NativeIamPolicy const& policy);
 
   std::string const& bucket_name() const { return bucket_name_; }
+  NativeIamPolicy const& policy() const { return policy_; }
   std::string const& json_payload() const { return json_payload_; }
 
  private:
   std::string bucket_name_;
+  NativeIamPolicy policy_;
   std::string json_payload_;
 };
 

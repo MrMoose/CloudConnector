@@ -73,7 +73,7 @@ class QueryService final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::QueryTimeSeriesResponse>* AsyncQueryTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::QueryTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::QueryTimeSeriesResponse>* PrepareAsyncQueryTimeSeriesRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::QueryTimeSeriesRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };

@@ -89,6 +89,9 @@ class SchemaAdminConnection {
   /// Defines the interface for `SchemaAdminClient::ValidateMessage()`
   virtual StatusOr<google::pubsub::v1::ValidateMessageResponse> ValidateMessage(
       google::pubsub::v1::ValidateMessageRequest const&) = 0;
+
+  /// Return the options used to create the connection.
+  virtual Options options() const { return Options{}; }
 };
 
 /**
@@ -99,7 +102,8 @@ class SchemaAdminConnection {
  *     existing code that calls `MakeSchemaAdminConnection({})` from breaking,
  *     due to ambiguity.
  *
- * @deprecated Please use `MakeSchemaAdminConnection()` instead.
+ * @deprecated Please use the `MakeSchemaAdminConnection` function that accepts
+ *     `google::cloud::Options` instead.
  */
 std::shared_ptr<SchemaAdminConnection> MakeSchemaAdminConnection(
     std::initializer_list<internal::NonConstructible>);

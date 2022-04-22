@@ -212,7 +212,7 @@ class Intents final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListIntentsResponse>* AsyncListIntentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListIntentsResponse>* PrepareAsyncListIntentsRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListIntentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Intent>* AsyncGetIntentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetIntentRequest& request, ::grpc::CompletionQueue* cq) = 0;

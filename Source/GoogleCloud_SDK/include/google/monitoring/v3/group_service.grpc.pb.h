@@ -139,7 +139,7 @@ class GroupService final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListGroupsResponse>* AsyncListGroupsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListGroupsResponse>* PrepareAsyncListGroupsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListGroupsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::Group>* AsyncGetGroupRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::GetGroupRequest& request, ::grpc::CompletionQueue* cq) = 0;

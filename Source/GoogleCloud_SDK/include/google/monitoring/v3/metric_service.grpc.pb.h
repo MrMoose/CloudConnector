@@ -194,7 +194,7 @@ class MetricService final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>* AsyncListMonitoredResourceDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::v3::ListMonitoredResourceDescriptorsResponse>* PrepareAsyncListMonitoredResourceDescriptorsRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::ListMonitoredResourceDescriptorsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::api::MonitoredResourceDescriptor>* AsyncGetMonitoredResourceDescriptorRaw(::grpc::ClientContext* context, const ::google::monitoring::v3::GetMonitoredResourceDescriptorRequest& request, ::grpc::CompletionQueue* cq) = 0;

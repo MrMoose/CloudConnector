@@ -259,7 +259,7 @@ class DataTransferService final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::DataSource>* AsyncGetDataSourceRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::DataSource>* PrepareAsyncGetDataSourceRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::GetDataSourceRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesResponse>* AsyncListDataSourcesRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::ListDataSourcesRequest& request, ::grpc::CompletionQueue* cq) = 0;

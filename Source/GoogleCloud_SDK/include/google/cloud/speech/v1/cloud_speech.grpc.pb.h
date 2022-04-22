@@ -109,7 +109,7 @@ class Speech final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::speech::v1::RecognizeResponse>* AsyncRecognizeRaw(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::speech::v1::RecognizeResponse>* PrepareAsyncRecognizeRaw(::grpc::ClientContext* context, const ::google::cloud::speech::v1::RecognizeRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncLongRunningRecognizeRaw(::grpc::ClientContext* context, const ::google::cloud::speech::v1::LongRunningRecognizeRequest& request, ::grpc::CompletionQueue* cq) = 0;

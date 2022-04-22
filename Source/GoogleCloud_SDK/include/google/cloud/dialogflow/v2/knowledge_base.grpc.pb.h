@@ -116,7 +116,7 @@ class KnowledgeBases final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListKnowledgeBasesResponse>* AsyncListKnowledgeBasesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListKnowledgeBasesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListKnowledgeBasesResponse>* PrepareAsyncListKnowledgeBasesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListKnowledgeBasesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::KnowledgeBase>* AsyncGetKnowledgeBaseRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::GetKnowledgeBaseRequest& request, ::grpc::CompletionQueue* cq) = 0;

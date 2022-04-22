@@ -409,7 +409,7 @@ class ConfigServiceV2 final {
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
-  private:
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListBucketsResponse>* AsyncListBucketsRaw(::grpc::ClientContext* context, const ::google::logging::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListBucketsResponse>* PrepareAsyncListBucketsRaw(::grpc::ClientContext* context, const ::google::logging::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>* AsyncGetBucketRaw(::grpc::ClientContext* context, const ::google::logging::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
