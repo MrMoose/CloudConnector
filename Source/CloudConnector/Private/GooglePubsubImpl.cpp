@@ -45,11 +45,13 @@ GooglePubsubImpl::GooglePubsubImpl(const ACloudConnector *n_config)
 	m_q_runner_1.Reset(new FThread(TEXT("Google Pubsub Q Runner 1"),
 		[this] {
 			this->m_completion_q.Run();
+			UE_LOG(LogCloudConnector, Display, TEXT("Pubsub Q runner thread 1 exited"));
 		}
 	));
 	m_q_runner_2.Reset(new FThread(TEXT("Google Pubsub Q Runner 2"),
 		[this] {
 			this->m_completion_q.Run();
+			UE_LOG(LogCloudConnector, Display, TEXT("Pubsub Q runner thread 2 exited"));
 		}
 	));
 }
@@ -62,6 +64,8 @@ GooglePubsubImpl::~GooglePubsubImpl() noexcept {
 void GooglePubsubImpl::shutdown() noexcept {
 
 	try {
+		UE_LOG(LogCloudConnector, Display, TEXT("Google Pubsub impl shutting down"));
+
 		// user may have not unsubscribed
 		TArray<FSubscription> remaining_subs;
 
@@ -244,7 +248,7 @@ void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const F
 		// deleting one in SQS. I couldn't find any means to delete a message otherwise
 		// so that seems to be all I can do for now.
 		std::move(n_ack_handler).ack();
-		UE_LOG(LogCloudConnector, Verbose, TEXT("Acknowledged message '%s', handler returned true"), *message.m_google_pubsub_message_id);
+		UE_LOG(LogCloudConnector, Display, TEXT("Acknowledged message '%s', handler returned true"), *message.m_google_pubsub_message_id);
 	} else {
 		std::move(n_ack_handler).nack();
 		UE_LOG(LogCloudConnector, Display, TEXT("Not acknowledging message '%s', handler returned false"), *message.m_google_pubsub_message_id);
@@ -257,6 +261,8 @@ void GooglePubsubImpl::continue_polling(FSubscription &n_subscription) {
 }
 
 bool GooglePubsubImpl::unsubscribe(FSubscription &&n_subscription) {
+
+	UE_LOG(LogCloudConnector, Display, TEXT("Unsubscribing from '%s'"), *n_subscription.Id);
 
 	// Locate the subscriber
 	GoogleSubscriptionInfo *s = nullptr;
