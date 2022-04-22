@@ -125,7 +125,7 @@ FString google_project_id(const FString n_default) {
 	if (env.IsEmpty()) {
 		return n_default;
 	} else {
-		return n_default;
+		return env;
 	}
 }
 
