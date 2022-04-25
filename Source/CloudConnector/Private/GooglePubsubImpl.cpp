@@ -163,7 +163,6 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	subscriber_options.set_max_concurrency(1);
 	subscriber_options.set_max_outstanding_messages(1);
 	subscriber_options.set_max_deadline_time(std::chrono::seconds(m_visibility_timeout));
-	//subscriber_options.set_max_deadline_time(std::chrono::seconds(m_visibility_timeout));
 	subscriber_options.set_max_deadline_extension(std::chrono::seconds(15));
 
 	pubsub::ConnectionOptions connection_options;
