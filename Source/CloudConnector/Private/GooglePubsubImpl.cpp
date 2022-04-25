@@ -42,18 +42,15 @@ GooglePubsubImpl::GooglePubsubImpl(const ACloudConnector *n_config)
 		, m_visibility_timeout{ visibility_timeout(n_config->VisibilityTimeout) }
 		, m_handle_in_game_thread{ n_config->HandleOnGameThread } {
 
-	m_q_runner_1.Reset(new FThread(TEXT("Google Pubsub Q Runner 1"),
-		[this] {
-			this->m_completion_q.Run();
-			UE_LOG(LogCloudConnector, Display, TEXT("Pubsub Q runner thread 1 exited"));
-		}
-	));
-	m_q_runner_2.Reset(new FThread(TEXT("Google Pubsub Q Runner 2"),
-		[this] {
-			this->m_completion_q.Run();
-			UE_LOG(LogCloudConnector, Display, TEXT("Pubsub Q runner thread 2 exited"));
-		}
-	));
+	m_q_runners.Reserve(5);
+	for (unsigned int i = 0; i < 5; i++) {
+		m_q_runners.Emplace(new FThread(TEXT("Google Pubsub Q Runner 1"),
+			[this] {
+				this->m_completion_q.Run();
+				UE_LOG(LogCloudConnector, Display, TEXT("Pubsub Q runner thread 1 exited"));
+			})
+		);
+	}
 }
 
 GooglePubsubImpl::~GooglePubsubImpl() noexcept {
@@ -92,14 +89,10 @@ void GooglePubsubImpl::shutdown() noexcept {
 		m_completion_q.CancelAll();
 		m_completion_q.Shutdown();
 
-		if (m_q_runner_1 && m_q_runner_1->IsJoinable()) {
-			m_q_runner_1->Join();
+		for (TUniquePtr<FThread> &t : m_q_runners) {
+			t->Join();
 		}
-		if (m_q_runner_2 && m_q_runner_2->IsJoinable()) {
-			m_q_runner_2->Join();
-		}
-		m_q_runner_1.Reset();
-		m_q_runner_2.Reset();
+		m_q_runners.Empty();
 
 	} catch (const std::exception &sex) {
 		UE_LOG(LogCloudConnector, Error, TEXT("Unexpected exception tearing down pubsub: %s"), UTF8_TO_TCHAR(sex.what()));
@@ -170,6 +163,8 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	subscriber_options.set_max_concurrency(1);
 	subscriber_options.set_max_outstanding_messages(1);
 	subscriber_options.set_max_deadline_time(std::chrono::seconds(m_visibility_timeout));
+	//subscriber_options.set_max_deadline_time(std::chrono::seconds(m_visibility_timeout));
+	subscriber_options.set_max_deadline_extension(std::chrono::seconds(15));
 
 	pubsub::ConnectionOptions connection_options;
 	connection_options.DisableBackgroundThreads(m_completion_q);

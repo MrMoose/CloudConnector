@@ -78,8 +78,9 @@ class GooglePubsubImpl : public ICloudPubsub {
 		 * my own completion Q and runner solved the issue.
 		 */
 		google::cloud::CompletionQueue m_completion_q;
-		TUniquePtr<FThread>            m_q_runner_1;    //!< background thread for the SDK polling messages
-		TUniquePtr<FThread>            m_q_runner_2;    //!< and one more to be able to extend leases on messages and send messages
+
+		//!< background thread for the SDK polling messages
+		TArray<TUniquePtr<FThread> >   m_q_runners;
 };
 
 // I have not found a way to exclude those files from the build if Google Cloud is 
