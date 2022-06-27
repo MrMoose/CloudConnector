@@ -159,22 +159,20 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	}
 
 	// Now we should have a subscription for us. Next step is to hook up to it.
-	pubsub::SubscriberOptions subscriber_options;
-	subscriber_options.set_max_concurrency(1);
-	subscriber_options.set_max_outstanding_messages(1);
-	subscriber_options.set_max_deadline_time(std::chrono::seconds(m_visibility_timeout));
-	subscriber_options.set_max_deadline_extension(std::chrono::seconds(15));
+	gc::Options options;
+	options.set<pubsub::MaxConcurrencyOption>(1);
+	options.set<pubsub::MaxOutstandingMessagesOption>(1);
+	options.set<pubsub::MaxDeadlineTimeOption>(std::chrono::seconds(m_visibility_timeout));
+	options.set<pubsub::MaxDeadlineExtensionOption>(std::chrono::seconds(15));
 
-	pubsub::ConnectionOptions connection_options;
-	connection_options.DisableBackgroundThreads(m_completion_q);
+	options.set<gc::GrpcCompletionQueueOption>(m_completion_q);
 
 	// create a "Subscriber", which is basically a runner for one subscription 
 	// with no thread pool as we run the thread ourselves. I don't know yet if it is
 	// a problem to potentially have multiple subscribers working on this one completion Q
 	TUniquePtr<pubsub::Subscriber> subscriber = MakeUnique<pubsub::Subscriber>(pubsub::MakeSubscriberConnection(
 		sub,
-		subscriber_options,
-		connection_options));
+		options));
 
 	// remember our subscription in a map
 	GoogleSubscriptionInfo *new_entry = nullptr;
@@ -321,21 +319,17 @@ bool GooglePubsubImpl::publish(const FString &n_topic, const FString &n_message,
 			if (PublisherPtr * const existing = m_publishers.Find(n_topic)) {
 				return *existing;
 			} else {
-				pubsub::PublisherOptions publisher_options;
-				// Look at these options! Do we want any of them?
-
 				// I am assuming this object can use the same completion Q as the subscribers
 				// Since it runs only one thread, this would give us the guarantee that
 				// publish and subscriber cannot overlap.
-				pubsub::ConnectionOptions connection_options;
-				connection_options.DisableBackgroundThreads(m_completion_q);
+				gc::Options options;
+				options.set<gc::GrpcCompletionQueueOption>(m_completion_q);
 
 				// Can this return null? Browsed the code a little and it looks like it's not supposed to.
 				return m_publishers.Emplace(n_topic, MakeShared<pubsub::Publisher, ESPMode::ThreadSafe>(
 						pubsub::MakePublisherConnection(
 							pubsub::Topic{ TCHAR_TO_UTF8(*m_project_id), TCHAR_TO_UTF8(*n_topic) },
-							publisher_options,
-							connection_options
+							options
 						)));
 			}
 		}();

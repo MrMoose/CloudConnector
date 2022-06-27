@@ -343,6 +343,17 @@ Options const& CurrentOptions();
 class ABSL_MUST_USE_RESULT OptionsSpan {
  public:
   explicit OptionsSpan(Options opts);
+
+  // `OptionsSpan` should not be copied/moved.
+  OptionsSpan(OptionsSpan const&) = delete;
+  OptionsSpan(OptionsSpan&&) = delete;
+  OptionsSpan& operator=(OptionsSpan const&) = delete;
+  OptionsSpan& operator=(OptionsSpan&&) = delete;
+
+  // `OptionsSpan` should only be used for block-scoped objects.
+  static void* operator new(std::size_t) = delete;
+  static void* operator new[](std::size_t) = delete;
+
   ~OptionsSpan();
 
  private:

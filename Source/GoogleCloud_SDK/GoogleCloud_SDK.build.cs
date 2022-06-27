@@ -51,6 +51,7 @@ public class GoogleCloud_SDK : ModuleRules {
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_monitoring_protos.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_pubsub.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_pubsub_protos.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_rest_internal.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_rpc_error_details_protos.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_rpc_status_protos.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_storage.lib"));

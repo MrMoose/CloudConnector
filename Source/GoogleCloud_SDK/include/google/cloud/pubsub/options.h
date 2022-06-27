@@ -169,11 +169,34 @@ struct FullPublisherActionOption {
   using Type = FullPublisherAction;
 };
 
+/**
+ * Compression threshold.
+ *
+ * If set, the client library turns on gRPC compression for batches larger (in
+ * bytes) than the give threshold.
+ */
+struct CompressionThresholdOption {
+  using Type = std::size_t;
+};
+
+/**
+ * Compression algorithm.
+ *
+ * Select the gRPC compression algorithm when compression is enabled. As of this
+ * writing, gRPC supports `GRPC_COMPRESS_DEFLATE` and `GRPC_COMPRESS_GZIP`.
+ * Other values may be added in the future and should be settable via this
+ * feature.
+ */
+struct CompressionAlgorithmOption {
+  using Type = int;
+};
+
 /// The list of options specific to publishers.
 using PublisherOptionList =
     OptionList<MaxHoldTimeOption, MaxBatchMessagesOption, MaxBatchBytesOption,
                MaxPendingMessagesOption, MaxPendingBytesOption,
-               MessageOrderingOption, FullPublisherActionOption>;
+               MessageOrderingOption, FullPublisherActionOption,
+               CompressionThresholdOption>;
 
 /**
  * The maximum deadline for each incoming message.
@@ -283,6 +306,20 @@ using SubscriberOptionList =
     OptionList<MaxDeadlineTimeOption, MaxDeadlineExtensionOption,
                MaxOutstandingMessagesOption, MaxOutstandingBytesOption,
                MaxConcurrencyOption, ShutdownPollingPeriodOption>;
+
+/**
+ * Convenience function to initialize a
+ * `google::cloud::iam::IAMPolicyConnection`.
+ *
+ * To manage the IAM policies of Pub/Sub resources you need to configure the
+ * `google::cloud::IAMPolicyClient` to use `pubsub.googleapis.com` as the
+ * `google::cloud::EndpointOption` and `google::cloud::AuthorityOption`.
+ *
+ * This function returns an object that is initialized with these values, you
+ * can provide additional configuration, or override some of the values before
+ * passing the object to `google::cloud::iam::MakeIAMPolicyConnection`.
+ */
+Options IAMPolicyOptions(Options opts = {});
 
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace pubsub

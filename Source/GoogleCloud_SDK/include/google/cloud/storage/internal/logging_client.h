@@ -33,6 +33,7 @@ class LoggingClient : public RawClient {
   ~LoggingClient() override = default;
 
   ClientOptions const& client_options() const override;
+  Options options() const override;
 
   StatusOr<ListBucketsResponse> ListBuckets(
       ListBucketsRequest const& request) override;
@@ -72,10 +73,15 @@ class LoggingClient : public RawClient {
       ComposeObjectRequest const& request) override;
   StatusOr<RewriteObjectResponse> RewriteObject(
       RewriteObjectRequest const&) override;
-  StatusOr<std::unique_ptr<ResumableUploadSession>> CreateResumableSession(
+
+  StatusOr<CreateResumableUploadResponse> CreateResumableUpload(
       ResumableUploadRequest const& request) override;
+  StatusOr<QueryResumableUploadResponse> QueryResumableUpload(
+      QueryResumableUploadRequest const& request) override;
   StatusOr<EmptyResponse> DeleteResumableUpload(
       DeleteResumableUploadRequest const& request) override;
+  StatusOr<QueryResumableUploadResponse> UploadChunk(
+      UploadChunkRequest const& request) override;
 
   StatusOr<ListBucketAclResponse> ListBucketAcl(
       ListBucketAclRequest const& request) override;

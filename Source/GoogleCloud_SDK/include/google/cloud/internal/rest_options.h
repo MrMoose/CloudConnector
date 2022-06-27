@@ -38,25 +38,6 @@ struct UserIpOption {
 };
 
 /**
- * Configure the REST endpoint for the GCS client library.
- *
- * This endpoint must include the URL scheme (`http` or `https`) and `authority`
- * (host and port) used to access the GCS service, for example:
- *    https://storage.googleapis.com
- * When using emulators or testbench it can be of the form:
- *    http://localhost:8080/my-gcs-emulator-path
- *
- * @note The `Host` header is based on the `authority` component of the URL.
- *   Applications can override this default value using
- *   `google::cloud::AuthorityOption`
- *
- * @see https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#URLs_and_URNs
- */
-struct RestEndpointOption {
-  using Type = std::string;
-};
-
-/**
  * Sets the transfer stall timeout.
  *
  * If a transfer (upload, download, or request) *stalls*, i.e., no bytes are
@@ -93,11 +74,20 @@ struct DownloadStallTimeoutOption {
   using Type = std::chrono::seconds;
 };
 
+/**
+ * Some services appropriate Http error codes for their own use. If any such
+ * error codes need to be treated as non-failures, this option can indicate
+ * which codes.
+ */
+struct IgnoredHttpErrorCodes {
+  using Type = std::set<std::int32_t>;
+};
+
 /// The complete list of options accepted by `CurlRestClient`
 using RestOptionList =
-    ::google::cloud::OptionList<UserIpOption, RestEndpointOption,
-                                TransferStallTimeoutOption,
-                                DownloadStallTimeoutOption>;
+    ::google::cloud::OptionList<UserIpOption, TransferStallTimeoutOption,
+                                DownloadStallTimeoutOption,
+                                IgnoredHttpErrorCodes>;
 
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace rest_internal

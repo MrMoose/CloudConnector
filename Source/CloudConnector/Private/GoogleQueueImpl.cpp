@@ -131,20 +131,16 @@ bool GoogleQueueImpl::listen(const FString &n_queue, FQueueSubscription &n_subsc
 	UE_LOG(LogCloudConnector, Display, TEXT("Successfully created subscription '%s'"), *n_subscription.Id);
 
 	// Now we should have a subscription for us. Next step is to hook up to it.
-	pubsub::SubscriberOptions subscriber_options;
-	subscriber_options.set_max_concurrency(2);
-
-	pubsub::ConnectionOptions connection_options;
-	connection_options.DisableBackgroundThreads(m_completion_q);
-	//connection_options.set_background_thread_pool_size(1);  // This is when using the internal thread pool, not ours.
+	gc::Options sub_options;
+	sub_options.set<pubsub::MaxConcurrencyOption>(1);
+	sub_options.set<gc::GrpcCompletionQueueOption>(m_completion_q);
 
 	// create a "Subscriber", which is basically a runner for one subscription 
 	// with no thread pool as we run the thread ourselves. I don't know yet if it is
 	// a problem to potentially have multiple subscribers working on this one completion Q
 	TUniquePtr<pubsub::Subscriber> subscriber = MakeUnique<pubsub::Subscriber>(pubsub::MakeSubscriberConnection(
 		sub,
-		subscriber_options,
-		connection_options));
+		sub_options));
 
 	// remember our subscription in a map
 	GoogleSubscriptionTuple *new_entry = nullptr;
