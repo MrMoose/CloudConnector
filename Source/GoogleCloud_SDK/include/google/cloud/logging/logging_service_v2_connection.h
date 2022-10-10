@@ -93,20 +93,19 @@ class LoggingServiceV2Connection {
  * `LoggingServiceV2Connection`.
  *
  * The returned connection object should not be used directly; instead it
- * should be passed as an argument to the constructor of LoggingServiceV2Client,
- * and that class used instead.
+ * should be passed as an argument to the constructor of LoggingServiceV2Client.
  *
- * The optional @p opts argument may be used to configure aspects of the
+ * The optional @p options argument may be used to configure aspects of the
  * returned `LoggingServiceV2Connection`. Expected options are any of the types
  * in the following option lists:
  *
  * - `google::cloud::CommonOptionList`
  * - `google::cloud::GrpcOptionList`
+ * - `google::cloud::UnifiedCredentialsOptionList`
  * - `google::cloud::logging::LoggingServiceV2PolicyOptionList`
  *
- * @note Unrecognized options will be ignored. To debug issues with options set
- *     `GOOGLE_CLOUD_CPP_ENABLE_CLOG=yes` in the environment and unexpected
- *     options will be logged.
+ * @note Unexpected options will be ignored. To log unexpected options instead,
+ *     set `GOOGLE_CLOUD_CPP_ENABLE_CLOG=yes` in the environment.
  *
  * @param options (optional) Configure the `LoggingServiceV2Connection` created
  * by this function.
@@ -116,20 +115,6 @@ std::shared_ptr<LoggingServiceV2Connection> MakeLoggingServiceV2Connection(
 
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace logging
-}  // namespace cloud
-}  // namespace google
-
-namespace google {
-namespace cloud {
-namespace logging_internal {
-GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
-
-std::shared_ptr<logging::LoggingServiceV2Connection>
-MakeLoggingServiceV2Connection(std::shared_ptr<LoggingServiceV2Stub> stub,
-                               Options options);
-
-GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
-}  // namespace logging_internal
 }  // namespace cloud
 }  // namespace google
 

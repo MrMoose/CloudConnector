@@ -76,20 +76,19 @@ class IAMPolicyConnection {
  * A factory function to construct an object of type `IAMPolicyConnection`.
  *
  * The returned connection object should not be used directly; instead it
- * should be passed as an argument to the constructor of IAMPolicyClient,
- * and that class used instead.
+ * should be passed as an argument to the constructor of IAMPolicyClient.
  *
- * The optional @p opts argument may be used to configure aspects of the
+ * The optional @p options argument may be used to configure aspects of the
  * returned `IAMPolicyConnection`. Expected options are any of the types in
  * the following option lists:
  *
  * - `google::cloud::CommonOptionList`
  * - `google::cloud::GrpcOptionList`
+ * - `google::cloud::UnifiedCredentialsOptionList`
  * - `google::cloud::iam::IAMPolicyPolicyOptionList`
  *
- * @note Unrecognized options will be ignored. To debug issues with options set
- *     `GOOGLE_CLOUD_CPP_ENABLE_CLOG=yes` in the environment and unexpected
- *     options will be logged.
+ * @note Unexpected options will be ignored. To log unexpected options instead,
+ *     set `GOOGLE_CLOUD_CPP_ENABLE_CLOG=yes` in the environment.
  *
  * @param options (optional) Configure the `IAMPolicyConnection` created by
  * this function.
@@ -99,19 +98,6 @@ std::shared_ptr<IAMPolicyConnection> MakeIAMPolicyConnection(
 
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace iam
-}  // namespace cloud
-}  // namespace google
-
-namespace google {
-namespace cloud {
-namespace iam_internal {
-GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
-
-std::shared_ptr<iam::IAMPolicyConnection> MakeIAMPolicyConnection(
-    std::shared_ptr<IAMPolicyStub> stub, Options options);
-
-GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
-}  // namespace iam_internal
 }  // namespace cloud
 }  // namespace google
 

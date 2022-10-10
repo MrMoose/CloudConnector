@@ -50,10 +50,19 @@ using CurlReceivedHeaders = std::multimap<std::string, std::string>;
 std::size_t CurlAppendHeaderData(CurlReceivedHeaders& received_headers,
                                  char const* data, std::size_t size);
 
+std::string DebugInfo(char const* data, std::size_t size);
+std::string DebugRecvHeader(char const* data, std::size_t size);
+std::string DebugSendHeader(char const* data, std::size_t size);
+std::string DebugInData(char const* data, std::size_t size);
+std::string DebugOutData(char const* data, std::size_t size);
+
 using CurlShare = std::unique_ptr<CURLSH, decltype(&curl_share_cleanup)>;
 
 /// Returns true if the SSL locking callbacks are installed.
 bool SslLockingCallbacksInstalled();
+
+/// Return the default global options
+Options CurlInitializeOptions(Options options);
 
 /// Initializes (if needed) the SSL locking callbacks.
 void CurlInitializeOnce(Options const& options);

@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/logging/v2/logging_config.proto
 // Original file comments:
-// Copyright 2020 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ class ConfigServiceV2 final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    // Lists buckets.
+    // Lists log buckets.
     virtual ::grpc::Status ListBuckets(::grpc::ClientContext* context, const ::google::logging::v2::ListBucketsRequest& request, ::google::logging::v2::ListBucketsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListBucketsResponse>> AsyncListBuckets(::grpc::ClientContext* context, const ::google::logging::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListBucketsResponse>>(AsyncListBucketsRaw(context, request, cq));
@@ -61,7 +61,7 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListBucketsResponse>> PrepareAsyncListBuckets(::grpc::ClientContext* context, const ::google::logging::v2::ListBucketsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListBucketsResponse>>(PrepareAsyncListBucketsRaw(context, request, cq));
     }
-    // Gets a bucket.
+    // Gets a log bucket.
     virtual ::grpc::Status GetBucket(::grpc::ClientContext* context, const ::google::logging::v2::GetBucketRequest& request, ::google::logging::v2::LogBucket* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>> AsyncGetBucket(::grpc::ClientContext* context, const ::google::logging::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>>(AsyncGetBucketRaw(context, request, cq));
@@ -69,8 +69,8 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>> PrepareAsyncGetBucket(::grpc::ClientContext* context, const ::google::logging::v2::GetBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>>(PrepareAsyncGetBucketRaw(context, request, cq));
     }
-    // Creates a bucket that can be used to store log entries. Once a bucket has
-    // been created, the region cannot be changed.
+    // Creates a log bucket that can be used to store log entries. After a bucket
+    // has been created, the bucket's location cannot be changed.
     virtual ::grpc::Status CreateBucket(::grpc::ClientContext* context, const ::google::logging::v2::CreateBucketRequest& request, ::google::logging::v2::LogBucket* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>> AsyncCreateBucket(::grpc::ClientContext* context, const ::google::logging::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>>(AsyncCreateBucketRaw(context, request, cq));
@@ -78,16 +78,16 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>> PrepareAsyncCreateBucket(::grpc::ClientContext* context, const ::google::logging::v2::CreateBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>>(PrepareAsyncCreateBucketRaw(context, request, cq));
     }
-    // Updates a bucket. This method replaces the following fields in the
+    // Updates a log bucket. This method replaces the following fields in the
     // existing bucket with values from the new bucket: `retention_period`
     //
     // If the retention period is decreased and the bucket is locked,
-    // FAILED_PRECONDITION will be returned.
+    // `FAILED_PRECONDITION` will be returned.
     //
-    // If the bucket has a LifecycleState of DELETE_REQUESTED, FAILED_PRECONDITION
-    // will be returned.
+    // If the bucket has a `lifecycle_state` of `DELETE_REQUESTED`, then
+    // `FAILED_PRECONDITION` will be returned.
     //
-    // A buckets region may not be modified after it is created.
+    // After a bucket has been created, the bucket's location cannot be changed.
     virtual ::grpc::Status UpdateBucket(::grpc::ClientContext* context, const ::google::logging::v2::UpdateBucketRequest& request, ::google::logging::v2::LogBucket* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>> AsyncUpdateBucket(::grpc::ClientContext* context, const ::google::logging::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>>(AsyncUpdateBucketRaw(context, request, cq));
@@ -95,10 +95,11 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>> PrepareAsyncUpdateBucket(::grpc::ClientContext* context, const ::google::logging::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogBucket>>(PrepareAsyncUpdateBucketRaw(context, request, cq));
     }
-    // Deletes a bucket.
-    // Moves the bucket to the DELETE_REQUESTED state. After 7 days, the
-    // bucket will be purged and all logs in the bucket will be permanently
-    // deleted.
+    // Deletes a log bucket.
+    //
+    // Changes the bucket's `lifecycle_state` to the `DELETE_REQUESTED` state.
+    // After 7 days, the bucket will be purged and all log entries in the bucket
+    // will be permanently deleted.
     virtual ::grpc::Status DeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::DeleteBucketRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteBucketRaw(context, request, cq));
@@ -106,8 +107,8 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::DeleteBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteBucketRaw(context, request, cq));
     }
-    // Undeletes a bucket. A bucket that has been deleted may be undeleted within
-    // the grace period of 7 days.
+    // Undeletes a log bucket. A bucket that has been deleted can be undeleted
+    // within the grace period of 7 days.
     virtual ::grpc::Status UndeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::UndeleteBucketRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncUndeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::UndeleteBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncUndeleteBucketRaw(context, request, cq));
@@ -115,7 +116,7 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncUndeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::UndeleteBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncUndeleteBucketRaw(context, request, cq));
     }
-    // Lists views on a bucket.
+    // Lists views on a log bucket.
     virtual ::grpc::Status ListViews(::grpc::ClientContext* context, const ::google::logging::v2::ListViewsRequest& request, ::google::logging::v2::ListViewsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListViewsResponse>> AsyncListViews(::grpc::ClientContext* context, const ::google::logging::v2::ListViewsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListViewsResponse>>(AsyncListViewsRaw(context, request, cq));
@@ -123,7 +124,7 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListViewsResponse>> PrepareAsyncListViews(::grpc::ClientContext* context, const ::google::logging::v2::ListViewsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListViewsResponse>>(PrepareAsyncListViewsRaw(context, request, cq));
     }
-    // Gets a view.
+    // Gets a view on a log bucket..
     virtual ::grpc::Status GetView(::grpc::ClientContext* context, const ::google::logging::v2::GetViewRequest& request, ::google::logging::v2::LogView* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>> AsyncGetView(::grpc::ClientContext* context, const ::google::logging::v2::GetViewRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>>(AsyncGetViewRaw(context, request, cq));
@@ -131,8 +132,8 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>> PrepareAsyncGetView(::grpc::ClientContext* context, const ::google::logging::v2::GetViewRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>>(PrepareAsyncGetViewRaw(context, request, cq));
     }
-    // Creates a view over logs in a bucket. A bucket may contain a maximum of
-    // 50 views.
+    // Creates a view over log entries in a log bucket. A bucket may contain a
+    // maximum of 30 views.
     virtual ::grpc::Status CreateView(::grpc::ClientContext* context, const ::google::logging::v2::CreateViewRequest& request, ::google::logging::v2::LogView* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>> AsyncCreateView(::grpc::ClientContext* context, const ::google::logging::v2::CreateViewRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>>(AsyncCreateViewRaw(context, request, cq));
@@ -140,8 +141,11 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>> PrepareAsyncCreateView(::grpc::ClientContext* context, const ::google::logging::v2::CreateViewRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>>(PrepareAsyncCreateViewRaw(context, request, cq));
     }
-    // Updates a view. This method replaces the following fields in the existing
-    // view with values from the new view: `filter`.
+    // Updates a view on a log bucket. This method replaces the following fields
+    // in the existing view with values from the new view: `filter`.
+    // If an `UNAVAILABLE` error is returned, this indicates that system is not in
+    // a state where it can update the view. If this occurs, please try again in a
+    // few minutes.
     virtual ::grpc::Status UpdateView(::grpc::ClientContext* context, const ::google::logging::v2::UpdateViewRequest& request, ::google::logging::v2::LogView* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>> AsyncUpdateView(::grpc::ClientContext* context, const ::google::logging::v2::UpdateViewRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>>(AsyncUpdateViewRaw(context, request, cq));
@@ -149,7 +153,10 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>> PrepareAsyncUpdateView(::grpc::ClientContext* context, const ::google::logging::v2::UpdateViewRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogView>>(PrepareAsyncUpdateViewRaw(context, request, cq));
     }
-    // Deletes a view from a bucket.
+    // Deletes a view on a log bucket.
+    // If an `UNAVAILABLE` error is returned, this indicates that system is not in
+    // a state where it can delete the view. If this occurs, please try again in a
+    // few minutes.
     virtual ::grpc::Status DeleteView(::grpc::ClientContext* context, const ::google::logging::v2::DeleteViewRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteView(::grpc::ClientContext* context, const ::google::logging::v2::DeleteViewRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteViewRaw(context, request, cq));
@@ -205,7 +212,7 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteSink(::grpc::ClientContext* context, const ::google::logging::v2::DeleteSinkRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteSinkRaw(context, request, cq));
     }
-    // Lists all the exclusions in a parent resource.
+    // Lists all the exclusions on the _Default sink in a parent resource.
     virtual ::grpc::Status ListExclusions(::grpc::ClientContext* context, const ::google::logging::v2::ListExclusionsRequest& request, ::google::logging::v2::ListExclusionsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListExclusionsResponse>> AsyncListExclusions(::grpc::ClientContext* context, const ::google::logging::v2::ListExclusionsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListExclusionsResponse>>(AsyncListExclusionsRaw(context, request, cq));
@@ -213,7 +220,7 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListExclusionsResponse>> PrepareAsyncListExclusions(::grpc::ClientContext* context, const ::google::logging::v2::ListExclusionsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::ListExclusionsResponse>>(PrepareAsyncListExclusionsRaw(context, request, cq));
     }
-    // Gets the description of an exclusion.
+    // Gets the description of an exclusion in the _Default sink.
     virtual ::grpc::Status GetExclusion(::grpc::ClientContext* context, const ::google::logging::v2::GetExclusionRequest& request, ::google::logging::v2::LogExclusion* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>> AsyncGetExclusion(::grpc::ClientContext* context, const ::google::logging::v2::GetExclusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>>(AsyncGetExclusionRaw(context, request, cq));
@@ -221,9 +228,9 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>> PrepareAsyncGetExclusion(::grpc::ClientContext* context, const ::google::logging::v2::GetExclusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>>(PrepareAsyncGetExclusionRaw(context, request, cq));
     }
-    // Creates a new exclusion in a specified parent resource.
-    // Only log entries belonging to that resource can be excluded.
-    // You can have up to 10 exclusions in a resource.
+    // Creates a new exclusion in the _Default sink in a specified parent
+    // resource. Only log entries belonging to that resource can be excluded. You
+    // can have up to 10 exclusions in a resource.
     virtual ::grpc::Status CreateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::CreateExclusionRequest& request, ::google::logging::v2::LogExclusion* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>> AsyncCreateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::CreateExclusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>>(AsyncCreateExclusionRaw(context, request, cq));
@@ -231,7 +238,8 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>> PrepareAsyncCreateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::CreateExclusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>>(PrepareAsyncCreateExclusionRaw(context, request, cq));
     }
-    // Changes one or more properties of an existing exclusion.
+    // Changes one or more properties of an existing exclusion in the _Default
+    // sink.
     virtual ::grpc::Status UpdateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::UpdateExclusionRequest& request, ::google::logging::v2::LogExclusion* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>> AsyncUpdateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::UpdateExclusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>>(AsyncUpdateExclusionRaw(context, request, cq));
@@ -239,7 +247,7 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>> PrepareAsyncUpdateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::UpdateExclusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::LogExclusion>>(PrepareAsyncUpdateExclusionRaw(context, request, cq));
     }
-    // Deletes an exclusion.
+    // Deletes an exclusion in the _Default sink.
     virtual ::grpc::Status DeleteExclusion(::grpc::ClientContext* context, const ::google::logging::v2::DeleteExclusionRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteExclusion(::grpc::ClientContext* context, const ::google::logging::v2::DeleteExclusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteExclusionRaw(context, request, cq));
@@ -247,13 +255,14 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteExclusion(::grpc::ClientContext* context, const ::google::logging::v2::DeleteExclusionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteExclusionRaw(context, request, cq));
     }
-    // Gets the Logs Router CMEK settings for the given resource.
+    // Gets the Logging CMEK settings for the given resource.
     //
-    // Note: CMEK for the Logs Router can currently only be configured for GCP
-    // organizations. Once configured, it applies to all projects and folders in
-    // the GCP organization.
+    // Note: CMEK for the Log Router can be configured for Google Cloud projects,
+    // folders, organizations and billing accounts. Once configured for an
+    // organization, it applies to all projects and folders in the Google Cloud
+    // organization.
     //
-    // See [Enabling CMEK for Logs
+    // See [Enabling CMEK for Log
     // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     // for more information.
     virtual ::grpc::Status GetCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetCmekSettingsRequest& request, ::google::logging::v2::CmekSettings* response) = 0;
@@ -263,11 +272,11 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::CmekSettings>> PrepareAsyncGetCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetCmekSettingsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::CmekSettings>>(PrepareAsyncGetCmekSettingsRaw(context, request, cq));
     }
-    // Updates the Logs Router CMEK settings for the given resource.
+    // Updates the Log Router CMEK settings for the given resource.
     //
-    // Note: CMEK for the Logs Router can currently only be configured for GCP
-    // organizations. Once configured, it applies to all projects and folders in
-    // the GCP organization.
+    // Note: CMEK for the Log Router can currently only be configured for Google
+    // Cloud organizations. Once configured, it applies to all projects and
+    // folders in the Google Cloud organization.
     //
     // [UpdateCmekSettings][google.logging.v2.ConfigServiceV2.UpdateCmekSettings]
     // will fail if 1) `kms_key_name` is invalid, or 2) the associated service
@@ -275,7 +284,7 @@ class ConfigServiceV2 final {
     // `roles/cloudkms.cryptoKeyEncrypterDecrypter` role assigned for the key, or
     // 3) access to the key is disabled.
     //
-    // See [Enabling CMEK for Logs
+    // See [Enabling CMEK for Log
     // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     // for more information.
     virtual ::grpc::Status UpdateCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest& request, ::google::logging::v2::CmekSettings* response) = 0;
@@ -285,56 +294,111 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::CmekSettings>> PrepareAsyncUpdateCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::CmekSettings>>(PrepareAsyncUpdateCmekSettingsRaw(context, request, cq));
     }
+    // Gets the Log Router settings for the given resource.
+    //
+    // Note: Settings for the Log Router can be get for Google Cloud projects,
+    // folders, organizations and billing accounts. Currently it can only be
+    // configured for organizations. Once configured for an organization, it
+    // applies to all projects and folders in the Google Cloud organization.
+    //
+    // See [Enabling CMEK for Log
+    // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
+    // for more information.
+    virtual ::grpc::Status GetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::google::logging::v2::Settings* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>> AsyncGetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>>(AsyncGetSettingsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>> PrepareAsyncGetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>>(PrepareAsyncGetSettingsRaw(context, request, cq));
+    }
+    // Updates the Log Router settings for the given resource.
+    //
+    // Note: Settings for the Log Router can currently only be configured for
+    // Google Cloud organizations. Once configured, it applies to all projects and
+    // folders in the Google Cloud organization.
+    //
+    // [UpdateSettings][google.logging.v2.ConfigServiceV2.UpdateSettings]
+    // will fail if 1) `kms_key_name` is invalid, or 2) the associated service
+    // account does not have the required
+    // `roles/cloudkms.cryptoKeyEncrypterDecrypter` role assigned for the key, or
+    // 3) access to the key is disabled. 4) `location_id` is not supported by
+    // Logging. 5) `location_id` violate OrgPolicy.
+    //
+    // See [Enabling CMEK for Log
+    // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
+    // for more information.
+    virtual ::grpc::Status UpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::google::logging::v2::Settings* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>> AsyncUpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>>(AsyncUpdateSettingsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>> PrepareAsyncUpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>>(PrepareAsyncUpdateSettingsRaw(context, request, cq));
+    }
+    // Copies a set of log entries from a log bucket to a Cloud Storage bucket.
+    virtual ::grpc::Status CopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::google::longrunning::Operation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncCopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncCopyLogEntriesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncCopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncCopyLogEntriesRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
-      // Lists buckets.
+      // Lists log buckets.
       virtual void ListBuckets(::grpc::ClientContext* context, const ::google::logging::v2::ListBucketsRequest* request, ::google::logging::v2::ListBucketsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListBuckets(::grpc::ClientContext* context, const ::google::logging::v2::ListBucketsRequest* request, ::google::logging::v2::ListBucketsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Gets a bucket.
+      // Gets a log bucket.
       virtual void GetBucket(::grpc::ClientContext* context, const ::google::logging::v2::GetBucketRequest* request, ::google::logging::v2::LogBucket* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetBucket(::grpc::ClientContext* context, const ::google::logging::v2::GetBucketRequest* request, ::google::logging::v2::LogBucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Creates a bucket that can be used to store log entries. Once a bucket has
-      // been created, the region cannot be changed.
+      // Creates a log bucket that can be used to store log entries. After a bucket
+      // has been created, the bucket's location cannot be changed.
       virtual void CreateBucket(::grpc::ClientContext* context, const ::google::logging::v2::CreateBucketRequest* request, ::google::logging::v2::LogBucket* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateBucket(::grpc::ClientContext* context, const ::google::logging::v2::CreateBucketRequest* request, ::google::logging::v2::LogBucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Updates a bucket. This method replaces the following fields in the
+      // Updates a log bucket. This method replaces the following fields in the
       // existing bucket with values from the new bucket: `retention_period`
       //
       // If the retention period is decreased and the bucket is locked,
-      // FAILED_PRECONDITION will be returned.
+      // `FAILED_PRECONDITION` will be returned.
       //
-      // If the bucket has a LifecycleState of DELETE_REQUESTED, FAILED_PRECONDITION
-      // will be returned.
+      // If the bucket has a `lifecycle_state` of `DELETE_REQUESTED`, then
+      // `FAILED_PRECONDITION` will be returned.
       //
-      // A buckets region may not be modified after it is created.
+      // After a bucket has been created, the bucket's location cannot be changed.
       virtual void UpdateBucket(::grpc::ClientContext* context, const ::google::logging::v2::UpdateBucketRequest* request, ::google::logging::v2::LogBucket* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateBucket(::grpc::ClientContext* context, const ::google::logging::v2::UpdateBucketRequest* request, ::google::logging::v2::LogBucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Deletes a bucket.
-      // Moves the bucket to the DELETE_REQUESTED state. After 7 days, the
-      // bucket will be purged and all logs in the bucket will be permanently
-      // deleted.
+      // Deletes a log bucket.
+      //
+      // Changes the bucket's `lifecycle_state` to the `DELETE_REQUESTED` state.
+      // After 7 days, the bucket will be purged and all log entries in the bucket
+      // will be permanently deleted.
       virtual void DeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::DeleteBucketRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::DeleteBucketRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Undeletes a bucket. A bucket that has been deleted may be undeleted within
-      // the grace period of 7 days.
+      // Undeletes a log bucket. A bucket that has been deleted can be undeleted
+      // within the grace period of 7 days.
       virtual void UndeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::UndeleteBucketRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UndeleteBucket(::grpc::ClientContext* context, const ::google::logging::v2::UndeleteBucketRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Lists views on a bucket.
+      // Lists views on a log bucket.
       virtual void ListViews(::grpc::ClientContext* context, const ::google::logging::v2::ListViewsRequest* request, ::google::logging::v2::ListViewsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListViews(::grpc::ClientContext* context, const ::google::logging::v2::ListViewsRequest* request, ::google::logging::v2::ListViewsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Gets a view.
+      // Gets a view on a log bucket..
       virtual void GetView(::grpc::ClientContext* context, const ::google::logging::v2::GetViewRequest* request, ::google::logging::v2::LogView* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetView(::grpc::ClientContext* context, const ::google::logging::v2::GetViewRequest* request, ::google::logging::v2::LogView* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Creates a view over logs in a bucket. A bucket may contain a maximum of
-      // 50 views.
+      // Creates a view over log entries in a log bucket. A bucket may contain a
+      // maximum of 30 views.
       virtual void CreateView(::grpc::ClientContext* context, const ::google::logging::v2::CreateViewRequest* request, ::google::logging::v2::LogView* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateView(::grpc::ClientContext* context, const ::google::logging::v2::CreateViewRequest* request, ::google::logging::v2::LogView* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Updates a view. This method replaces the following fields in the existing
-      // view with values from the new view: `filter`.
+      // Updates a view on a log bucket. This method replaces the following fields
+      // in the existing view with values from the new view: `filter`.
+      // If an `UNAVAILABLE` error is returned, this indicates that system is not in
+      // a state where it can update the view. If this occurs, please try again in a
+      // few minutes.
       virtual void UpdateView(::grpc::ClientContext* context, const ::google::logging::v2::UpdateViewRequest* request, ::google::logging::v2::LogView* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateView(::grpc::ClientContext* context, const ::google::logging::v2::UpdateViewRequest* request, ::google::logging::v2::LogView* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Deletes a view from a bucket.
+      // Deletes a view on a log bucket.
+      // If an `UNAVAILABLE` error is returned, this indicates that system is not in
+      // a state where it can delete the view. If this occurs, please try again in a
+      // few minutes.
       virtual void DeleteView(::grpc::ClientContext* context, const ::google::logging::v2::DeleteViewRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteView(::grpc::ClientContext* context, const ::google::logging::v2::DeleteViewRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Lists sinks.
@@ -360,39 +424,41 @@ class ConfigServiceV2 final {
       // service account is also deleted.
       virtual void DeleteSink(::grpc::ClientContext* context, const ::google::logging::v2::DeleteSinkRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteSink(::grpc::ClientContext* context, const ::google::logging::v2::DeleteSinkRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Lists all the exclusions in a parent resource.
+      // Lists all the exclusions on the _Default sink in a parent resource.
       virtual void ListExclusions(::grpc::ClientContext* context, const ::google::logging::v2::ListExclusionsRequest* request, ::google::logging::v2::ListExclusionsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListExclusions(::grpc::ClientContext* context, const ::google::logging::v2::ListExclusionsRequest* request, ::google::logging::v2::ListExclusionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Gets the description of an exclusion.
+      // Gets the description of an exclusion in the _Default sink.
       virtual void GetExclusion(::grpc::ClientContext* context, const ::google::logging::v2::GetExclusionRequest* request, ::google::logging::v2::LogExclusion* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetExclusion(::grpc::ClientContext* context, const ::google::logging::v2::GetExclusionRequest* request, ::google::logging::v2::LogExclusion* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Creates a new exclusion in a specified parent resource.
-      // Only log entries belonging to that resource can be excluded.
-      // You can have up to 10 exclusions in a resource.
+      // Creates a new exclusion in the _Default sink in a specified parent
+      // resource. Only log entries belonging to that resource can be excluded. You
+      // can have up to 10 exclusions in a resource.
       virtual void CreateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::CreateExclusionRequest* request, ::google::logging::v2::LogExclusion* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::CreateExclusionRequest* request, ::google::logging::v2::LogExclusion* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Changes one or more properties of an existing exclusion.
+      // Changes one or more properties of an existing exclusion in the _Default
+      // sink.
       virtual void UpdateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::UpdateExclusionRequest* request, ::google::logging::v2::LogExclusion* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateExclusion(::grpc::ClientContext* context, const ::google::logging::v2::UpdateExclusionRequest* request, ::google::logging::v2::LogExclusion* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Deletes an exclusion.
+      // Deletes an exclusion in the _Default sink.
       virtual void DeleteExclusion(::grpc::ClientContext* context, const ::google::logging::v2::DeleteExclusionRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteExclusion(::grpc::ClientContext* context, const ::google::logging::v2::DeleteExclusionRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Gets the Logs Router CMEK settings for the given resource.
+      // Gets the Logging CMEK settings for the given resource.
       //
-      // Note: CMEK for the Logs Router can currently only be configured for GCP
-      // organizations. Once configured, it applies to all projects and folders in
-      // the GCP organization.
+      // Note: CMEK for the Log Router can be configured for Google Cloud projects,
+      // folders, organizations and billing accounts. Once configured for an
+      // organization, it applies to all projects and folders in the Google Cloud
+      // organization.
       //
-      // See [Enabling CMEK for Logs
+      // See [Enabling CMEK for Log
       // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
       // for more information.
       virtual void GetCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetCmekSettingsRequest* request, ::google::logging::v2::CmekSettings* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetCmekSettingsRequest* request, ::google::logging::v2::CmekSettings* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Updates the Logs Router CMEK settings for the given resource.
+      // Updates the Log Router CMEK settings for the given resource.
       //
-      // Note: CMEK for the Logs Router can currently only be configured for GCP
-      // organizations. Once configured, it applies to all projects and folders in
-      // the GCP organization.
+      // Note: CMEK for the Log Router can currently only be configured for Google
+      // Cloud organizations. Once configured, it applies to all projects and
+      // folders in the Google Cloud organization.
       //
       // [UpdateCmekSettings][google.logging.v2.ConfigServiceV2.UpdateCmekSettings]
       // will fail if 1) `kms_key_name` is invalid, or 2) the associated service
@@ -400,11 +466,44 @@ class ConfigServiceV2 final {
       // `roles/cloudkms.cryptoKeyEncrypterDecrypter` role assigned for the key, or
       // 3) access to the key is disabled.
       //
-      // See [Enabling CMEK for Logs
+      // See [Enabling CMEK for Log
       // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
       // for more information.
       virtual void UpdateCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest* request, ::google::logging::v2::CmekSettings* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest* request, ::google::logging::v2::CmekSettings* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Gets the Log Router settings for the given resource.
+      //
+      // Note: Settings for the Log Router can be get for Google Cloud projects,
+      // folders, organizations and billing accounts. Currently it can only be
+      // configured for organizations. Once configured for an organization, it
+      // applies to all projects and folders in the Google Cloud organization.
+      //
+      // See [Enabling CMEK for Log
+      // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
+      // for more information.
+      virtual void GetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest* request, ::google::logging::v2::Settings* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest* request, ::google::logging::v2::Settings* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Updates the Log Router settings for the given resource.
+      //
+      // Note: Settings for the Log Router can currently only be configured for
+      // Google Cloud organizations. Once configured, it applies to all projects and
+      // folders in the Google Cloud organization.
+      //
+      // [UpdateSettings][google.logging.v2.ConfigServiceV2.UpdateSettings]
+      // will fail if 1) `kms_key_name` is invalid, or 2) the associated service
+      // account does not have the required
+      // `roles/cloudkms.cryptoKeyEncrypterDecrypter` role assigned for the key, or
+      // 3) access to the key is disabled. 4) `location_id` is not supported by
+      // Logging. 5) `location_id` violate OrgPolicy.
+      //
+      // See [Enabling CMEK for Log
+      // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
+      // for more information.
+      virtual void UpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest* request, ::google::logging::v2::Settings* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest* request, ::google::logging::v2::Settings* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Copies a set of log entries from a log bucket to a Cloud Storage bucket.
+      virtual void CopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -456,6 +555,12 @@ class ConfigServiceV2 final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::CmekSettings>* PrepareAsyncGetCmekSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::GetCmekSettingsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::CmekSettings>* AsyncUpdateCmekSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::CmekSettings>* PrepareAsyncUpdateCmekSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>* AsyncGetSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>* PrepareAsyncGetSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>* AsyncUpdateSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::logging::v2::Settings>* PrepareAsyncUpdateSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncCopyLogEntriesRaw(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncCopyLogEntriesRaw(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -621,6 +726,27 @@ class ConfigServiceV2 final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::CmekSettings>> PrepareAsyncUpdateCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::CmekSettings>>(PrepareAsyncUpdateCmekSettingsRaw(context, request, cq));
     }
+    ::grpc::Status GetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::google::logging::v2::Settings* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>> AsyncGetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>>(AsyncGetSettingsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>> PrepareAsyncGetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>>(PrepareAsyncGetSettingsRaw(context, request, cq));
+    }
+    ::grpc::Status UpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::google::logging::v2::Settings* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>> AsyncUpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>>(AsyncUpdateSettingsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>> PrepareAsyncUpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>>(PrepareAsyncUpdateSettingsRaw(context, request, cq));
+    }
+    ::grpc::Status CopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::google::longrunning::Operation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncCopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncCopyLogEntriesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncCopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncCopyLogEntriesRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -670,6 +796,12 @@ class ConfigServiceV2 final {
       void GetCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetCmekSettingsRequest* request, ::google::logging::v2::CmekSettings* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest* request, ::google::logging::v2::CmekSettings* response, std::function<void(::grpc::Status)>) override;
       void UpdateCmekSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest* request, ::google::logging::v2::CmekSettings* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest* request, ::google::logging::v2::Settings* response, std::function<void(::grpc::Status)>) override;
+      void GetSettings(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest* request, ::google::logging::v2::Settings* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest* request, ::google::logging::v2::Settings* response, std::function<void(::grpc::Status)>) override;
+      void UpdateSettings(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest* request, ::google::logging::v2::Settings* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
+      void CopyLogEntries(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -727,6 +859,12 @@ class ConfigServiceV2 final {
     ::grpc::ClientAsyncResponseReader< ::google::logging::v2::CmekSettings>* PrepareAsyncGetCmekSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::GetCmekSettingsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::logging::v2::CmekSettings>* AsyncUpdateCmekSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::logging::v2::CmekSettings>* PrepareAsyncUpdateCmekSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>* AsyncGetSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>* PrepareAsyncGetSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::GetSettingsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>* AsyncUpdateSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::logging::v2::Settings>* PrepareAsyncUpdateSettingsRaw(::grpc::ClientContext* context, const ::google::logging::v2::UpdateSettingsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncCopyLogEntriesRaw(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncCopyLogEntriesRaw(::grpc::ClientContext* context, const ::google::logging::v2::CopyLogEntriesRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_ListBuckets_;
     const ::grpc::internal::RpcMethod rpcmethod_GetBucket_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateBucket_;
@@ -750,6 +888,9 @@ class ConfigServiceV2 final {
     const ::grpc::internal::RpcMethod rpcmethod_DeleteExclusion_;
     const ::grpc::internal::RpcMethod rpcmethod_GetCmekSettings_;
     const ::grpc::internal::RpcMethod rpcmethod_UpdateCmekSettings_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetSettings_;
+    const ::grpc::internal::RpcMethod rpcmethod_UpdateSettings_;
+    const ::grpc::internal::RpcMethod rpcmethod_CopyLogEntries_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -757,43 +898,50 @@ class ConfigServiceV2 final {
    public:
     Service();
     virtual ~Service();
-    // Lists buckets.
+    // Lists log buckets.
     virtual ::grpc::Status ListBuckets(::grpc::ServerContext* context, const ::google::logging::v2::ListBucketsRequest* request, ::google::logging::v2::ListBucketsResponse* response);
-    // Gets a bucket.
+    // Gets a log bucket.
     virtual ::grpc::Status GetBucket(::grpc::ServerContext* context, const ::google::logging::v2::GetBucketRequest* request, ::google::logging::v2::LogBucket* response);
-    // Creates a bucket that can be used to store log entries. Once a bucket has
-    // been created, the region cannot be changed.
+    // Creates a log bucket that can be used to store log entries. After a bucket
+    // has been created, the bucket's location cannot be changed.
     virtual ::grpc::Status CreateBucket(::grpc::ServerContext* context, const ::google::logging::v2::CreateBucketRequest* request, ::google::logging::v2::LogBucket* response);
-    // Updates a bucket. This method replaces the following fields in the
+    // Updates a log bucket. This method replaces the following fields in the
     // existing bucket with values from the new bucket: `retention_period`
     //
     // If the retention period is decreased and the bucket is locked,
-    // FAILED_PRECONDITION will be returned.
+    // `FAILED_PRECONDITION` will be returned.
     //
-    // If the bucket has a LifecycleState of DELETE_REQUESTED, FAILED_PRECONDITION
-    // will be returned.
+    // If the bucket has a `lifecycle_state` of `DELETE_REQUESTED`, then
+    // `FAILED_PRECONDITION` will be returned.
     //
-    // A buckets region may not be modified after it is created.
+    // After a bucket has been created, the bucket's location cannot be changed.
     virtual ::grpc::Status UpdateBucket(::grpc::ServerContext* context, const ::google::logging::v2::UpdateBucketRequest* request, ::google::logging::v2::LogBucket* response);
-    // Deletes a bucket.
-    // Moves the bucket to the DELETE_REQUESTED state. After 7 days, the
-    // bucket will be purged and all logs in the bucket will be permanently
-    // deleted.
+    // Deletes a log bucket.
+    //
+    // Changes the bucket's `lifecycle_state` to the `DELETE_REQUESTED` state.
+    // After 7 days, the bucket will be purged and all log entries in the bucket
+    // will be permanently deleted.
     virtual ::grpc::Status DeleteBucket(::grpc::ServerContext* context, const ::google::logging::v2::DeleteBucketRequest* request, ::google::protobuf::Empty* response);
-    // Undeletes a bucket. A bucket that has been deleted may be undeleted within
-    // the grace period of 7 days.
+    // Undeletes a log bucket. A bucket that has been deleted can be undeleted
+    // within the grace period of 7 days.
     virtual ::grpc::Status UndeleteBucket(::grpc::ServerContext* context, const ::google::logging::v2::UndeleteBucketRequest* request, ::google::protobuf::Empty* response);
-    // Lists views on a bucket.
+    // Lists views on a log bucket.
     virtual ::grpc::Status ListViews(::grpc::ServerContext* context, const ::google::logging::v2::ListViewsRequest* request, ::google::logging::v2::ListViewsResponse* response);
-    // Gets a view.
+    // Gets a view on a log bucket..
     virtual ::grpc::Status GetView(::grpc::ServerContext* context, const ::google::logging::v2::GetViewRequest* request, ::google::logging::v2::LogView* response);
-    // Creates a view over logs in a bucket. A bucket may contain a maximum of
-    // 50 views.
+    // Creates a view over log entries in a log bucket. A bucket may contain a
+    // maximum of 30 views.
     virtual ::grpc::Status CreateView(::grpc::ServerContext* context, const ::google::logging::v2::CreateViewRequest* request, ::google::logging::v2::LogView* response);
-    // Updates a view. This method replaces the following fields in the existing
-    // view with values from the new view: `filter`.
+    // Updates a view on a log bucket. This method replaces the following fields
+    // in the existing view with values from the new view: `filter`.
+    // If an `UNAVAILABLE` error is returned, this indicates that system is not in
+    // a state where it can update the view. If this occurs, please try again in a
+    // few minutes.
     virtual ::grpc::Status UpdateView(::grpc::ServerContext* context, const ::google::logging::v2::UpdateViewRequest* request, ::google::logging::v2::LogView* response);
-    // Deletes a view from a bucket.
+    // Deletes a view on a log bucket.
+    // If an `UNAVAILABLE` error is returned, this indicates that system is not in
+    // a state where it can delete the view. If this occurs, please try again in a
+    // few minutes.
     virtual ::grpc::Status DeleteView(::grpc::ServerContext* context, const ::google::logging::v2::DeleteViewRequest* request, ::google::protobuf::Empty* response);
     // Lists sinks.
     virtual ::grpc::Status ListSinks(::grpc::ServerContext* context, const ::google::logging::v2::ListSinksRequest* request, ::google::logging::v2::ListSinksResponse* response);
@@ -813,33 +961,35 @@ class ConfigServiceV2 final {
     // Deletes a sink. If the sink has a unique `writer_identity`, then that
     // service account is also deleted.
     virtual ::grpc::Status DeleteSink(::grpc::ServerContext* context, const ::google::logging::v2::DeleteSinkRequest* request, ::google::protobuf::Empty* response);
-    // Lists all the exclusions in a parent resource.
+    // Lists all the exclusions on the _Default sink in a parent resource.
     virtual ::grpc::Status ListExclusions(::grpc::ServerContext* context, const ::google::logging::v2::ListExclusionsRequest* request, ::google::logging::v2::ListExclusionsResponse* response);
-    // Gets the description of an exclusion.
+    // Gets the description of an exclusion in the _Default sink.
     virtual ::grpc::Status GetExclusion(::grpc::ServerContext* context, const ::google::logging::v2::GetExclusionRequest* request, ::google::logging::v2::LogExclusion* response);
-    // Creates a new exclusion in a specified parent resource.
-    // Only log entries belonging to that resource can be excluded.
-    // You can have up to 10 exclusions in a resource.
+    // Creates a new exclusion in the _Default sink in a specified parent
+    // resource. Only log entries belonging to that resource can be excluded. You
+    // can have up to 10 exclusions in a resource.
     virtual ::grpc::Status CreateExclusion(::grpc::ServerContext* context, const ::google::logging::v2::CreateExclusionRequest* request, ::google::logging::v2::LogExclusion* response);
-    // Changes one or more properties of an existing exclusion.
+    // Changes one or more properties of an existing exclusion in the _Default
+    // sink.
     virtual ::grpc::Status UpdateExclusion(::grpc::ServerContext* context, const ::google::logging::v2::UpdateExclusionRequest* request, ::google::logging::v2::LogExclusion* response);
-    // Deletes an exclusion.
+    // Deletes an exclusion in the _Default sink.
     virtual ::grpc::Status DeleteExclusion(::grpc::ServerContext* context, const ::google::logging::v2::DeleteExclusionRequest* request, ::google::protobuf::Empty* response);
-    // Gets the Logs Router CMEK settings for the given resource.
+    // Gets the Logging CMEK settings for the given resource.
     //
-    // Note: CMEK for the Logs Router can currently only be configured for GCP
-    // organizations. Once configured, it applies to all projects and folders in
-    // the GCP organization.
+    // Note: CMEK for the Log Router can be configured for Google Cloud projects,
+    // folders, organizations and billing accounts. Once configured for an
+    // organization, it applies to all projects and folders in the Google Cloud
+    // organization.
     //
-    // See [Enabling CMEK for Logs
+    // See [Enabling CMEK for Log
     // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     // for more information.
     virtual ::grpc::Status GetCmekSettings(::grpc::ServerContext* context, const ::google::logging::v2::GetCmekSettingsRequest* request, ::google::logging::v2::CmekSettings* response);
-    // Updates the Logs Router CMEK settings for the given resource.
+    // Updates the Log Router CMEK settings for the given resource.
     //
-    // Note: CMEK for the Logs Router can currently only be configured for GCP
-    // organizations. Once configured, it applies to all projects and folders in
-    // the GCP organization.
+    // Note: CMEK for the Log Router can currently only be configured for Google
+    // Cloud organizations. Once configured, it applies to all projects and
+    // folders in the Google Cloud organization.
     //
     // [UpdateCmekSettings][google.logging.v2.ConfigServiceV2.UpdateCmekSettings]
     // will fail if 1) `kms_key_name` is invalid, or 2) the associated service
@@ -847,10 +997,40 @@ class ConfigServiceV2 final {
     // `roles/cloudkms.cryptoKeyEncrypterDecrypter` role assigned for the key, or
     // 3) access to the key is disabled.
     //
-    // See [Enabling CMEK for Logs
+    // See [Enabling CMEK for Log
     // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
     // for more information.
     virtual ::grpc::Status UpdateCmekSettings(::grpc::ServerContext* context, const ::google::logging::v2::UpdateCmekSettingsRequest* request, ::google::logging::v2::CmekSettings* response);
+    // Gets the Log Router settings for the given resource.
+    //
+    // Note: Settings for the Log Router can be get for Google Cloud projects,
+    // folders, organizations and billing accounts. Currently it can only be
+    // configured for organizations. Once configured for an organization, it
+    // applies to all projects and folders in the Google Cloud organization.
+    //
+    // See [Enabling CMEK for Log
+    // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
+    // for more information.
+    virtual ::grpc::Status GetSettings(::grpc::ServerContext* context, const ::google::logging::v2::GetSettingsRequest* request, ::google::logging::v2::Settings* response);
+    // Updates the Log Router settings for the given resource.
+    //
+    // Note: Settings for the Log Router can currently only be configured for
+    // Google Cloud organizations. Once configured, it applies to all projects and
+    // folders in the Google Cloud organization.
+    //
+    // [UpdateSettings][google.logging.v2.ConfigServiceV2.UpdateSettings]
+    // will fail if 1) `kms_key_name` is invalid, or 2) the associated service
+    // account does not have the required
+    // `roles/cloudkms.cryptoKeyEncrypterDecrypter` role assigned for the key, or
+    // 3) access to the key is disabled. 4) `location_id` is not supported by
+    // Logging. 5) `location_id` violate OrgPolicy.
+    //
+    // See [Enabling CMEK for Log
+    // Router](https://cloud.google.com/logging/docs/routing/managed-encryption)
+    // for more information.
+    virtual ::grpc::Status UpdateSettings(::grpc::ServerContext* context, const ::google::logging::v2::UpdateSettingsRequest* request, ::google::logging::v2::Settings* response);
+    // Copies a set of log entries from a log bucket to a Cloud Storage bucket.
+    virtual ::grpc::Status CopyLogEntries(::grpc::ServerContext* context, const ::google::logging::v2::CopyLogEntriesRequest* request, ::google::longrunning::Operation* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_ListBuckets : public BaseClass {
@@ -1312,7 +1492,67 @@ class ConfigServiceV2 final {
       ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ListBuckets<WithAsyncMethod_GetBucket<WithAsyncMethod_CreateBucket<WithAsyncMethod_UpdateBucket<WithAsyncMethod_DeleteBucket<WithAsyncMethod_UndeleteBucket<WithAsyncMethod_ListViews<WithAsyncMethod_GetView<WithAsyncMethod_CreateView<WithAsyncMethod_UpdateView<WithAsyncMethod_DeleteView<WithAsyncMethod_ListSinks<WithAsyncMethod_GetSink<WithAsyncMethod_CreateSink<WithAsyncMethod_UpdateSink<WithAsyncMethod_DeleteSink<WithAsyncMethod_ListExclusions<WithAsyncMethod_GetExclusion<WithAsyncMethod_CreateExclusion<WithAsyncMethod_UpdateExclusion<WithAsyncMethod_DeleteExclusion<WithAsyncMethod_GetCmekSettings<WithAsyncMethod_UpdateCmekSettings<Service > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetSettings() {
+      ::grpc::Service::MarkMethodAsync(23);
+    }
+    ~WithAsyncMethod_GetSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::GetSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetSettings(::grpc::ServerContext* context, ::google::logging::v2::GetSettingsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::logging::v2::Settings>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_UpdateSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UpdateSettings() {
+      ::grpc::Service::MarkMethodAsync(24);
+    }
+    ~WithAsyncMethod_UpdateSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::UpdateSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateSettings(::grpc::ServerContext* context, ::google::logging::v2::UpdateSettingsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::logging::v2::Settings>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_CopyLogEntries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CopyLogEntries() {
+      ::grpc::Service::MarkMethodAsync(25);
+    }
+    ~WithAsyncMethod_CopyLogEntries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyLogEntries(::grpc::ServerContext* /*context*/, const ::google::logging::v2::CopyLogEntriesRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCopyLogEntries(::grpc::ServerContext* context, ::google::logging::v2::CopyLogEntriesRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_ListBuckets<WithAsyncMethod_GetBucket<WithAsyncMethod_CreateBucket<WithAsyncMethod_UpdateBucket<WithAsyncMethod_DeleteBucket<WithAsyncMethod_UndeleteBucket<WithAsyncMethod_ListViews<WithAsyncMethod_GetView<WithAsyncMethod_CreateView<WithAsyncMethod_UpdateView<WithAsyncMethod_DeleteView<WithAsyncMethod_ListSinks<WithAsyncMethod_GetSink<WithAsyncMethod_CreateSink<WithAsyncMethod_UpdateSink<WithAsyncMethod_DeleteSink<WithAsyncMethod_ListExclusions<WithAsyncMethod_GetExclusion<WithAsyncMethod_CreateExclusion<WithAsyncMethod_UpdateExclusion<WithAsyncMethod_DeleteExclusion<WithAsyncMethod_GetCmekSettings<WithAsyncMethod_UpdateCmekSettings<WithAsyncMethod_GetSettings<WithAsyncMethod_UpdateSettings<WithAsyncMethod_CopyLogEntries<Service > > > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ListBuckets : public BaseClass {
    private:
@@ -1934,7 +2174,88 @@ class ConfigServiceV2 final {
     virtual ::grpc::ServerUnaryReactor* UpdateCmekSettings(
       ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::UpdateCmekSettingsRequest* /*request*/, ::google::logging::v2::CmekSettings* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ListBuckets<WithCallbackMethod_GetBucket<WithCallbackMethod_CreateBucket<WithCallbackMethod_UpdateBucket<WithCallbackMethod_DeleteBucket<WithCallbackMethod_UndeleteBucket<WithCallbackMethod_ListViews<WithCallbackMethod_GetView<WithCallbackMethod_CreateView<WithCallbackMethod_UpdateView<WithCallbackMethod_DeleteView<WithCallbackMethod_ListSinks<WithCallbackMethod_GetSink<WithCallbackMethod_CreateSink<WithCallbackMethod_UpdateSink<WithCallbackMethod_DeleteSink<WithCallbackMethod_ListExclusions<WithCallbackMethod_GetExclusion<WithCallbackMethod_CreateExclusion<WithCallbackMethod_UpdateExclusion<WithCallbackMethod_DeleteExclusion<WithCallbackMethod_GetCmekSettings<WithCallbackMethod_UpdateCmekSettings<Service > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_GetSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetSettings() {
+      ::grpc::Service::MarkMethodCallback(23,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::GetSettingsRequest, ::google::logging::v2::Settings>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::logging::v2::GetSettingsRequest* request, ::google::logging::v2::Settings* response) { return this->GetSettings(context, request, response); }));}
+    void SetMessageAllocatorFor_GetSettings(
+        ::grpc::MessageAllocator< ::google::logging::v2::GetSettingsRequest, ::google::logging::v2::Settings>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(23);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::GetSettingsRequest, ::google::logging::v2::Settings>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::GetSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetSettings(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::GetSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateSettings() {
+      ::grpc::Service::MarkMethodCallback(24,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::UpdateSettingsRequest, ::google::logging::v2::Settings>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::logging::v2::UpdateSettingsRequest* request, ::google::logging::v2::Settings* response) { return this->UpdateSettings(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateSettings(
+        ::grpc::MessageAllocator< ::google::logging::v2::UpdateSettingsRequest, ::google::logging::v2::Settings>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(24);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::UpdateSettingsRequest, ::google::logging::v2::Settings>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::UpdateSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateSettings(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::UpdateSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CopyLogEntries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CopyLogEntries() {
+      ::grpc::Service::MarkMethodCallback(25,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::CopyLogEntriesRequest, ::google::longrunning::Operation>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::logging::v2::CopyLogEntriesRequest* request, ::google::longrunning::Operation* response) { return this->CopyLogEntries(context, request, response); }));}
+    void SetMessageAllocatorFor_CopyLogEntries(
+        ::grpc::MessageAllocator< ::google::logging::v2::CopyLogEntriesRequest, ::google::longrunning::Operation>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(25);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::logging::v2::CopyLogEntriesRequest, ::google::longrunning::Operation>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CopyLogEntries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyLogEntries(::grpc::ServerContext* /*context*/, const ::google::logging::v2::CopyLogEntriesRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CopyLogEntries(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::logging::v2::CopyLogEntriesRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_ListBuckets<WithCallbackMethod_GetBucket<WithCallbackMethod_CreateBucket<WithCallbackMethod_UpdateBucket<WithCallbackMethod_DeleteBucket<WithCallbackMethod_UndeleteBucket<WithCallbackMethod_ListViews<WithCallbackMethod_GetView<WithCallbackMethod_CreateView<WithCallbackMethod_UpdateView<WithCallbackMethod_DeleteView<WithCallbackMethod_ListSinks<WithCallbackMethod_GetSink<WithCallbackMethod_CreateSink<WithCallbackMethod_UpdateSink<WithCallbackMethod_DeleteSink<WithCallbackMethod_ListExclusions<WithCallbackMethod_GetExclusion<WithCallbackMethod_CreateExclusion<WithCallbackMethod_UpdateExclusion<WithCallbackMethod_DeleteExclusion<WithCallbackMethod_GetCmekSettings<WithCallbackMethod_UpdateCmekSettings<WithCallbackMethod_GetSettings<WithCallbackMethod_UpdateSettings<WithCallbackMethod_CopyLogEntries<Service > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListBuckets : public BaseClass {
@@ -2323,6 +2644,57 @@ class ConfigServiceV2 final {
     }
     // disable synchronous version of this method
     ::grpc::Status UpdateCmekSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::UpdateCmekSettingsRequest* /*request*/, ::google::logging::v2::CmekSettings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetSettings() {
+      ::grpc::Service::MarkMethodGeneric(23);
+    }
+    ~WithGenericMethod_GetSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::GetSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_UpdateSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UpdateSettings() {
+      ::grpc::Service::MarkMethodGeneric(24);
+    }
+    ~WithGenericMethod_UpdateSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::UpdateSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_CopyLogEntries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CopyLogEntries() {
+      ::grpc::Service::MarkMethodGeneric(25);
+    }
+    ~WithGenericMethod_CopyLogEntries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyLogEntries(::grpc::ServerContext* /*context*/, const ::google::logging::v2::CopyLogEntriesRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2785,6 +3157,66 @@ class ConfigServiceV2 final {
     }
     void RequestUpdateCmekSettings(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetSettings() {
+      ::grpc::Service::MarkMethodRaw(23);
+    }
+    ~WithRawMethod_GetSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::GetSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetSettings(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_UpdateSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UpdateSettings() {
+      ::grpc::Service::MarkMethodRaw(24);
+    }
+    ~WithRawMethod_UpdateSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::UpdateSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateSettings(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_CopyLogEntries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CopyLogEntries() {
+      ::grpc::Service::MarkMethodRaw(25);
+    }
+    ~WithRawMethod_CopyLogEntries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyLogEntries(::grpc::ServerContext* /*context*/, const ::google::logging::v2::CopyLogEntriesRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCopyLogEntries(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3291,6 +3723,72 @@ class ConfigServiceV2 final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* UpdateCmekSettings(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetSettings() {
+      ::grpc::Service::MarkMethodRawCallback(23,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSettings(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::GetSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetSettings(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateSettings() {
+      ::grpc::Service::MarkMethodRawCallback(24,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateSettings(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::UpdateSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateSettings(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CopyLogEntries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CopyLogEntries() {
+      ::grpc::Service::MarkMethodRawCallback(25,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CopyLogEntries(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CopyLogEntries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyLogEntries(::grpc::ServerContext* /*context*/, const ::google::logging::v2::CopyLogEntriesRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CopyLogEntries(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -3914,9 +4412,90 @@ class ConfigServiceV2 final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedUpdateCmekSettings(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::logging::v2::UpdateCmekSettingsRequest,::google::logging::v2::CmekSettings>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_UndeleteBucket<WithStreamedUnaryMethod_ListViews<WithStreamedUnaryMethod_GetView<WithStreamedUnaryMethod_CreateView<WithStreamedUnaryMethod_UpdateView<WithStreamedUnaryMethod_DeleteView<WithStreamedUnaryMethod_ListSinks<WithStreamedUnaryMethod_GetSink<WithStreamedUnaryMethod_CreateSink<WithStreamedUnaryMethod_UpdateSink<WithStreamedUnaryMethod_DeleteSink<WithStreamedUnaryMethod_ListExclusions<WithStreamedUnaryMethod_GetExclusion<WithStreamedUnaryMethod_CreateExclusion<WithStreamedUnaryMethod_UpdateExclusion<WithStreamedUnaryMethod_DeleteExclusion<WithStreamedUnaryMethod_GetCmekSettings<WithStreamedUnaryMethod_UpdateCmekSettings<Service > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetSettings() {
+      ::grpc::Service::MarkMethodStreamed(23,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::logging::v2::GetSettingsRequest, ::google::logging::v2::Settings>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::logging::v2::GetSettingsRequest, ::google::logging::v2::Settings>* streamer) {
+                       return this->StreamedGetSettings(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::GetSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetSettings(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::logging::v2::GetSettingsRequest,::google::logging::v2::Settings>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_UpdateSettings : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UpdateSettings() {
+      ::grpc::Service::MarkMethodStreamed(24,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::logging::v2::UpdateSettingsRequest, ::google::logging::v2::Settings>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::logging::v2::UpdateSettingsRequest, ::google::logging::v2::Settings>* streamer) {
+                       return this->StreamedUpdateSettings(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UpdateSettings() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UpdateSettings(::grpc::ServerContext* /*context*/, const ::google::logging::v2::UpdateSettingsRequest* /*request*/, ::google::logging::v2::Settings* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUpdateSettings(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::logging::v2::UpdateSettingsRequest,::google::logging::v2::Settings>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_CopyLogEntries : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CopyLogEntries() {
+      ::grpc::Service::MarkMethodStreamed(25,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::logging::v2::CopyLogEntriesRequest, ::google::longrunning::Operation>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::logging::v2::CopyLogEntriesRequest, ::google::longrunning::Operation>* streamer) {
+                       return this->StreamedCopyLogEntries(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CopyLogEntries() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CopyLogEntries(::grpc::ServerContext* /*context*/, const ::google::logging::v2::CopyLogEntriesRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCopyLogEntries(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::logging::v2::CopyLogEntriesRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_UndeleteBucket<WithStreamedUnaryMethod_ListViews<WithStreamedUnaryMethod_GetView<WithStreamedUnaryMethod_CreateView<WithStreamedUnaryMethod_UpdateView<WithStreamedUnaryMethod_DeleteView<WithStreamedUnaryMethod_ListSinks<WithStreamedUnaryMethod_GetSink<WithStreamedUnaryMethod_CreateSink<WithStreamedUnaryMethod_UpdateSink<WithStreamedUnaryMethod_DeleteSink<WithStreamedUnaryMethod_ListExclusions<WithStreamedUnaryMethod_GetExclusion<WithStreamedUnaryMethod_CreateExclusion<WithStreamedUnaryMethod_UpdateExclusion<WithStreamedUnaryMethod_DeleteExclusion<WithStreamedUnaryMethod_GetCmekSettings<WithStreamedUnaryMethod_UpdateCmekSettings<WithStreamedUnaryMethod_GetSettings<WithStreamedUnaryMethod_UpdateSettings<WithStreamedUnaryMethod_CopyLogEntries<Service > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_UndeleteBucket<WithStreamedUnaryMethod_ListViews<WithStreamedUnaryMethod_GetView<WithStreamedUnaryMethod_CreateView<WithStreamedUnaryMethod_UpdateView<WithStreamedUnaryMethod_DeleteView<WithStreamedUnaryMethod_ListSinks<WithStreamedUnaryMethod_GetSink<WithStreamedUnaryMethod_CreateSink<WithStreamedUnaryMethod_UpdateSink<WithStreamedUnaryMethod_DeleteSink<WithStreamedUnaryMethod_ListExclusions<WithStreamedUnaryMethod_GetExclusion<WithStreamedUnaryMethod_CreateExclusion<WithStreamedUnaryMethod_UpdateExclusion<WithStreamedUnaryMethod_DeleteExclusion<WithStreamedUnaryMethod_GetCmekSettings<WithStreamedUnaryMethod_UpdateCmekSettings<Service > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_UndeleteBucket<WithStreamedUnaryMethod_ListViews<WithStreamedUnaryMethod_GetView<WithStreamedUnaryMethod_CreateView<WithStreamedUnaryMethod_UpdateView<WithStreamedUnaryMethod_DeleteView<WithStreamedUnaryMethod_ListSinks<WithStreamedUnaryMethod_GetSink<WithStreamedUnaryMethod_CreateSink<WithStreamedUnaryMethod_UpdateSink<WithStreamedUnaryMethod_DeleteSink<WithStreamedUnaryMethod_ListExclusions<WithStreamedUnaryMethod_GetExclusion<WithStreamedUnaryMethod_CreateExclusion<WithStreamedUnaryMethod_UpdateExclusion<WithStreamedUnaryMethod_DeleteExclusion<WithStreamedUnaryMethod_GetCmekSettings<WithStreamedUnaryMethod_UpdateCmekSettings<WithStreamedUnaryMethod_GetSettings<WithStreamedUnaryMethod_UpdateSettings<WithStreamedUnaryMethod_CopyLogEntries<Service > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v2

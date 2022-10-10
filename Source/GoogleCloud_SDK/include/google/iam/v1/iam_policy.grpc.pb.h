@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/iam/v1/iam_policy.proto
 // Original file comments:
-// Copyright 2019 Google LLC.
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-//
 //
 #ifndef GRPC_google_2fiam_2fv1_2fiam_5fpolicy_2eproto__INCLUDED
 #define GRPC_google_2fiam_2fv1_2fiam_5fpolicy_2eproto__INCLUDED
@@ -45,7 +44,8 @@ namespace google {
 namespace iam {
 namespace v1 {
 
-// ## API Overview
+// API Overview
+//
 //
 // Manages Identity and Access Management (IAM) policies.
 //
@@ -80,6 +80,8 @@ class IAMPolicy final {
     virtual ~StubInterface() {}
     // Sets the access control policy on the specified resource. Replaces any
     // existing policy.
+    //
+    // Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
     virtual ::grpc::Status SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::google::iam::v1::Policy* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> AsyncSetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(AsyncSetIamPolicyRaw(context, request, cq));
@@ -99,7 +101,7 @@ class IAMPolicy final {
     }
     // Returns permissions that a caller has on the specified resource.
     // If the resource does not exist, this will return an empty set of
-    // permissions, not a NOT_FOUND error.
+    // permissions, not a `NOT_FOUND` error.
     //
     // Note: This operation is designed to be used for building permission-aware
     // UIs and command-line tools, not for authorization checking. This operation
@@ -116,6 +118,8 @@ class IAMPolicy final {
       virtual ~async_interface() {}
       // Sets the access control policy on the specified resource. Replaces any
       // existing policy.
+      //
+      // Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Gets the access control policy for a resource.
@@ -125,7 +129,7 @@ class IAMPolicy final {
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Returns permissions that a caller has on the specified resource.
       // If the resource does not exist, this will return an empty set of
-      // permissions, not a NOT_FOUND error.
+      // permissions, not a `NOT_FOUND` error.
       //
       // Note: This operation is designed to be used for building permission-aware
       // UIs and command-line tools, not for authorization checking. This operation
@@ -206,6 +210,8 @@ class IAMPolicy final {
     virtual ~Service();
     // Sets the access control policy on the specified resource. Replaces any
     // existing policy.
+    //
+    // Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
     virtual ::grpc::Status SetIamPolicy(::grpc::ServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response);
     // Gets the access control policy for a resource.
     // Returns an empty policy if the resource exists and does not have a policy
@@ -213,7 +219,7 @@ class IAMPolicy final {
     virtual ::grpc::Status GetIamPolicy(::grpc::ServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response);
     // Returns permissions that a caller has on the specified resource.
     // If the resource does not exist, this will return an empty set of
-    // permissions, not a NOT_FOUND error.
+    // permissions, not a `NOT_FOUND` error.
     //
     // Note: This operation is designed to be used for building permission-aware
     // UIs and command-line tools, not for authorization checking. This operation

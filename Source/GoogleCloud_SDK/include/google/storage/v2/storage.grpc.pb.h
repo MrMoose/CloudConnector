@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/storage/v2/storage.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -113,7 +113,7 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> PrepareAsyncLockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(PrepareAsyncLockBucketRetentionPolicyRaw(context, request, cq));
     }
-    // Gets the IAM policy for a specified bucket.
+    // Gets the IAM policy for a specified bucket or object.
     virtual ::grpc::Status GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::google::iam::v1::Policy* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> AsyncGetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(AsyncGetIamPolicyRaw(context, request, cq));
@@ -121,7 +121,7 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> PrepareAsyncGetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(PrepareAsyncGetIamPolicyRaw(context, request, cq));
     }
-    // Updates an IAM policy for the specified bucket.
+    // Updates an IAM policy for the specified bucket or object.
     virtual ::grpc::Status SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::google::iam::v1::Policy* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> AsyncSetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(AsyncSetIamPolicyRaw(context, request, cq));
@@ -129,7 +129,7 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> PrepareAsyncSetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(PrepareAsyncSetIamPolicyRaw(context, request, cq));
     }
-    // Tests a set of permissions on the given bucket to see which, if
+    // Tests a set of permissions on the given bucket or object to see which, if
     // any, are held by the caller.
     virtual ::grpc::Status TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::google::iam::v1::TestIamPermissionsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>> AsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
@@ -191,14 +191,21 @@ class Storage final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>>(PrepareAsyncComposeObjectRaw(context, request, cq));
     }
     // Deletes an object and its metadata. Deletions are permanent if versioning
-    // is not enabled for the bucket, or if the `generation` parameter
-    // is used.
+    // is not enabled for the bucket, or if the `generation` parameter is used.
     virtual ::grpc::Status DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteObjectRaw(context, request, cq));
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteObjectRaw(context, request, cq));
+    }
+    // Cancels an in-progress resumable upload.
+    virtual ::grpc::Status CancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::google::storage::v2::CancelResumableWriteResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CancelResumableWriteResponse>> AsyncCancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CancelResumableWriteResponse>>(AsyncCancelResumableWriteRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CancelResumableWriteResponse>> PrepareAsyncCancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CancelResumableWriteResponse>>(PrepareAsyncCancelResumableWriteRaw(context, request, cq));
     }
     // Retrieves an object's metadata.
     virtual ::grpc::Status GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::google::storage::v2::Object* response) = 0;
@@ -237,13 +244,37 @@ class Storage final {
     // true, or else it is an error.
     //
     // For a resumable write, the client should instead call
-    // `StartResumableWrite()` and provide that method an `WriteObjectSpec.`
+    // `StartResumableWrite()`, populating a `WriteObjectSpec` into that request.
     // They should then attach the returned `upload_id` to the first message of
-    // each following call to `Create`. If there is an error or the connection is
-    // broken during the resumable `Create()`, the client should check the status
-    // of the `Create()` by calling `QueryWriteStatus()` and continue writing from
-    // the returned `persisted_size`. This may be less than the amount of data the
-    // client previously sent.
+    // each following call to `WriteObject`. If the stream is closed before
+    // finishing the upload (either explicitly by the client or due to a network
+    // error or an error response from the server), the client should do as
+    // follows:
+    //   - Check the result Status of the stream, to determine if writing can be
+    //     resumed on this stream or must be restarted from scratch (by calling
+    //     `StartResumableWrite()`). The resumable errors are DEADLINE_EXCEEDED,
+    //     INTERNAL, and UNAVAILABLE. For each case, the client should use binary
+    //     exponential backoff before retrying.  Additionally, writes can be
+    //     resumed after RESOURCE_EXHAUSTED errors, but only after taking
+    //     appropriate measures, which may include reducing aggregate send rate
+    //     across clients and/or requesting a quota increase for your project.
+    //   - If the call to `WriteObject` returns `ABORTED`, that indicates
+    //     concurrent attempts to update the resumable write, caused either by
+    //     multiple racing clients or by a single client where the previous
+    //     request was timed out on the client side but nonetheless reached the
+    //     server. In this case the client should take steps to prevent further
+    //     concurrent writes (e.g., increase the timeouts, stop using more than
+    //     one process to perform the upload, etc.), and then should follow the
+    //     steps below for resuming the upload.
+    //   - For resumable errors, the client should call `QueryWriteStatus()` and
+    //     then continue writing from the returned `persisted_size`. This may be
+    //     less than the amount of data the client previously sent. Note also that
+    //     it is acceptable to send data starting at an offset earlier than the
+    //     returned `persisted_size`; in this case, the service will skip data at
+    //     offsets that were already persisted (without checking that it matches
+    //     the previously written data), and write only the data starting from the
+    //     persisted offset. This behavior can make client-side handling simpler
+    //     in some cases.
     //
     // The service will not view the object as complete until the client has
     // sent a `WriteObjectRequest` with `finish_write` set to `true`. Sending any
@@ -251,6 +282,10 @@ class Storage final {
     // `true` will cause an error. The client **should** check the response it
     // receives to determine how much data the service was able to commit and
     // whether the service views the object as complete.
+    //
+    // Attempting to resume an already finalized object will result in an OK
+    // status, with a WriteObjectResponse containing the finalized object's
+    // metadata.
     std::unique_ptr< ::grpc::ClientWriterInterface< ::google::storage::v2::WriteObjectRequest>> WriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response) {
       return std::unique_ptr< ::grpc::ClientWriterInterface< ::google::storage::v2::WriteObjectRequest>>(WriteObjectRaw(context, response));
     }
@@ -373,13 +408,13 @@ class Storage final {
       // Locks retention policy on a bucket.
       virtual void LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) = 0;
       virtual void LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Gets the IAM policy for a specified bucket.
+      // Gets the IAM policy for a specified bucket or object.
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Updates an IAM policy for the specified bucket.
+      // Updates an IAM policy for the specified bucket or object.
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Tests a set of permissions on the given bucket to see which, if
+      // Tests a set of permissions on the given bucket or object to see which, if
       // any, are held by the caller.
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -406,10 +441,12 @@ class Storage final {
       virtual void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Deletes an object and its metadata. Deletions are permanent if versioning
-      // is not enabled for the bucket, or if the `generation` parameter
-      // is used.
+      // is not enabled for the bucket, or if the `generation` parameter is used.
       virtual void DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Cancels an in-progress resumable upload.
+      virtual void CancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest* request, ::google::storage::v2::CancelResumableWriteResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest* request, ::google::storage::v2::CancelResumableWriteResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves an object's metadata.
       virtual void GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -429,13 +466,37 @@ class Storage final {
       // true, or else it is an error.
       //
       // For a resumable write, the client should instead call
-      // `StartResumableWrite()` and provide that method an `WriteObjectSpec.`
+      // `StartResumableWrite()`, populating a `WriteObjectSpec` into that request.
       // They should then attach the returned `upload_id` to the first message of
-      // each following call to `Create`. If there is an error or the connection is
-      // broken during the resumable `Create()`, the client should check the status
-      // of the `Create()` by calling `QueryWriteStatus()` and continue writing from
-      // the returned `persisted_size`. This may be less than the amount of data the
-      // client previously sent.
+      // each following call to `WriteObject`. If the stream is closed before
+      // finishing the upload (either explicitly by the client or due to a network
+      // error or an error response from the server), the client should do as
+      // follows:
+      //   - Check the result Status of the stream, to determine if writing can be
+      //     resumed on this stream or must be restarted from scratch (by calling
+      //     `StartResumableWrite()`). The resumable errors are DEADLINE_EXCEEDED,
+      //     INTERNAL, and UNAVAILABLE. For each case, the client should use binary
+      //     exponential backoff before retrying.  Additionally, writes can be
+      //     resumed after RESOURCE_EXHAUSTED errors, but only after taking
+      //     appropriate measures, which may include reducing aggregate send rate
+      //     across clients and/or requesting a quota increase for your project.
+      //   - If the call to `WriteObject` returns `ABORTED`, that indicates
+      //     concurrent attempts to update the resumable write, caused either by
+      //     multiple racing clients or by a single client where the previous
+      //     request was timed out on the client side but nonetheless reached the
+      //     server. In this case the client should take steps to prevent further
+      //     concurrent writes (e.g., increase the timeouts, stop using more than
+      //     one process to perform the upload, etc.), and then should follow the
+      //     steps below for resuming the upload.
+      //   - For resumable errors, the client should call `QueryWriteStatus()` and
+      //     then continue writing from the returned `persisted_size`. This may be
+      //     less than the amount of data the client previously sent. Note also that
+      //     it is acceptable to send data starting at an offset earlier than the
+      //     returned `persisted_size`; in this case, the service will skip data at
+      //     offsets that were already persisted (without checking that it matches
+      //     the previously written data), and write only the data starting from the
+      //     persisted offset. This behavior can make client-side handling simpler
+      //     in some cases.
       //
       // The service will not view the object as complete until the client has
       // sent a `WriteObjectRequest` with `finish_write` set to `true`. Sending any
@@ -443,6 +504,10 @@ class Storage final {
       // `true` will cause an error. The client **should** check the response it
       // receives to determine how much data the service was able to commit and
       // whether the service views the object as complete.
+      //
+      // Attempting to resume an already finalized object will result in an OK
+      // status, with a WriteObjectResponse containing the finalized object's
+      // metadata.
       virtual void WriteObject(::grpc::ClientContext* context, ::google::storage::v2::WriteObjectResponse* response, ::grpc::ClientWriteReactor< ::google::storage::v2::WriteObjectRequest>* reactor) = 0;
       // Retrieves a list of objects matching the criteria.
       virtual void ListObjects(::grpc::ClientContext* context, const ::google::storage::v2::ListObjectsRequest* request, ::google::storage::v2::ListObjectsResponse* response, std::function<void(::grpc::Status)>) = 0;
@@ -524,6 +589,8 @@ class Storage final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* PrepareAsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CancelResumableWriteResponse>* AsyncCancelResumableWriteRaw(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::CancelResumableWriteResponse>* PrepareAsyncCancelResumableWriteRaw(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* AsyncGetObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* PrepareAsyncGetObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientReaderInterface< ::google::storage::v2::ReadObjectResponse>* ReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request) = 0;
@@ -663,6 +730,13 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteObjectRaw(context, request, cq));
     }
+    ::grpc::Status CancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::google::storage::v2::CancelResumableWriteResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CancelResumableWriteResponse>> AsyncCancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CancelResumableWriteResponse>>(AsyncCancelResumableWriteRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CancelResumableWriteResponse>> PrepareAsyncCancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CancelResumableWriteResponse>>(PrepareAsyncCancelResumableWriteRaw(context, request, cq));
+    }
     ::grpc::Status GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::google::storage::v2::Object* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>> AsyncGetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>>(AsyncGetObjectRaw(context, request, cq));
@@ -798,6 +872,8 @@ class Storage final {
       void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) override;
       void DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
       void DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest* request, ::google::storage::v2::CancelResumableWriteResponse* response, std::function<void(::grpc::Status)>) override;
+      void CancelResumableWrite(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest* request, ::google::storage::v2::CancelResumableWriteResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) override;
       void GetObject(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ReadObject(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest* request, ::grpc::ClientReadReactor< ::google::storage::v2::ReadObjectResponse>* reactor) override;
@@ -865,6 +941,8 @@ class Storage final {
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* PrepareAsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CancelResumableWriteResponse>* AsyncCancelResumableWriteRaw(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::CancelResumableWriteResponse>* PrepareAsyncCancelResumableWriteRaw(::grpc::ClientContext* context, const ::google::storage::v2::CancelResumableWriteRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* AsyncGetObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* PrepareAsyncGetObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetObjectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientReader< ::google::storage::v2::ReadObjectResponse>* ReadObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ReadObjectRequest& request) override;
@@ -910,6 +988,7 @@ class Storage final {
     const ::grpc::internal::RpcMethod rpcmethod_ListNotifications_;
     const ::grpc::internal::RpcMethod rpcmethod_ComposeObject_;
     const ::grpc::internal::RpcMethod rpcmethod_DeleteObject_;
+    const ::grpc::internal::RpcMethod rpcmethod_CancelResumableWrite_;
     const ::grpc::internal::RpcMethod rpcmethod_GetObject_;
     const ::grpc::internal::RpcMethod rpcmethod_ReadObject_;
     const ::grpc::internal::RpcMethod rpcmethod_UpdateObject_;
@@ -941,11 +1020,11 @@ class Storage final {
     virtual ::grpc::Status ListBuckets(::grpc::ServerContext* context, const ::google::storage::v2::ListBucketsRequest* request, ::google::storage::v2::ListBucketsResponse* response);
     // Locks retention policy on a bucket.
     virtual ::grpc::Status LockBucketRetentionPolicy(::grpc::ServerContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response);
-    // Gets the IAM policy for a specified bucket.
+    // Gets the IAM policy for a specified bucket or object.
     virtual ::grpc::Status GetIamPolicy(::grpc::ServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response);
-    // Updates an IAM policy for the specified bucket.
+    // Updates an IAM policy for the specified bucket or object.
     virtual ::grpc::Status SetIamPolicy(::grpc::ServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response);
-    // Tests a set of permissions on the given bucket to see which, if
+    // Tests a set of permissions on the given bucket or object to see which, if
     // any, are held by the caller.
     virtual ::grpc::Status TestIamPermissions(::grpc::ServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response);
     // Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
@@ -965,9 +1044,10 @@ class Storage final {
     // bucket.
     virtual ::grpc::Status ComposeObject(::grpc::ServerContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response);
     // Deletes an object and its metadata. Deletions are permanent if versioning
-    // is not enabled for the bucket, or if the `generation` parameter
-    // is used.
+    // is not enabled for the bucket, or if the `generation` parameter is used.
     virtual ::grpc::Status DeleteObject(::grpc::ServerContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response);
+    // Cancels an in-progress resumable upload.
+    virtual ::grpc::Status CancelResumableWrite(::grpc::ServerContext* context, const ::google::storage::v2::CancelResumableWriteRequest* request, ::google::storage::v2::CancelResumableWriteResponse* response);
     // Retrieves an object's metadata.
     virtual ::grpc::Status GetObject(::grpc::ServerContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response);
     // Reads an object's data.
@@ -985,13 +1065,37 @@ class Storage final {
     // true, or else it is an error.
     //
     // For a resumable write, the client should instead call
-    // `StartResumableWrite()` and provide that method an `WriteObjectSpec.`
+    // `StartResumableWrite()`, populating a `WriteObjectSpec` into that request.
     // They should then attach the returned `upload_id` to the first message of
-    // each following call to `Create`. If there is an error or the connection is
-    // broken during the resumable `Create()`, the client should check the status
-    // of the `Create()` by calling `QueryWriteStatus()` and continue writing from
-    // the returned `persisted_size`. This may be less than the amount of data the
-    // client previously sent.
+    // each following call to `WriteObject`. If the stream is closed before
+    // finishing the upload (either explicitly by the client or due to a network
+    // error or an error response from the server), the client should do as
+    // follows:
+    //   - Check the result Status of the stream, to determine if writing can be
+    //     resumed on this stream or must be restarted from scratch (by calling
+    //     `StartResumableWrite()`). The resumable errors are DEADLINE_EXCEEDED,
+    //     INTERNAL, and UNAVAILABLE. For each case, the client should use binary
+    //     exponential backoff before retrying.  Additionally, writes can be
+    //     resumed after RESOURCE_EXHAUSTED errors, but only after taking
+    //     appropriate measures, which may include reducing aggregate send rate
+    //     across clients and/or requesting a quota increase for your project.
+    //   - If the call to `WriteObject` returns `ABORTED`, that indicates
+    //     concurrent attempts to update the resumable write, caused either by
+    //     multiple racing clients or by a single client where the previous
+    //     request was timed out on the client side but nonetheless reached the
+    //     server. In this case the client should take steps to prevent further
+    //     concurrent writes (e.g., increase the timeouts, stop using more than
+    //     one process to perform the upload, etc.), and then should follow the
+    //     steps below for resuming the upload.
+    //   - For resumable errors, the client should call `QueryWriteStatus()` and
+    //     then continue writing from the returned `persisted_size`. This may be
+    //     less than the amount of data the client previously sent. Note also that
+    //     it is acceptable to send data starting at an offset earlier than the
+    //     returned `persisted_size`; in this case, the service will skip data at
+    //     offsets that were already persisted (without checking that it matches
+    //     the previously written data), and write only the data starting from the
+    //     persisted offset. This behavior can make client-side handling simpler
+    //     in some cases.
     //
     // The service will not view the object as complete until the client has
     // sent a `WriteObjectRequest` with `finish_write` set to `true`. Sending any
@@ -999,6 +1103,10 @@ class Storage final {
     // `true` will cause an error. The client **should** check the response it
     // receives to determine how much data the service was able to commit and
     // whether the service views the object as complete.
+    //
+    // Attempting to resume an already finalized object will result in an OK
+    // status, with a WriteObjectResponse containing the finalized object's
+    // metadata.
     virtual ::grpc::Status WriteObject(::grpc::ServerContext* context, ::grpc::ServerReader< ::google::storage::v2::WriteObjectRequest>* reader, ::google::storage::v2::WriteObjectResponse* response);
     // Retrieves a list of objects matching the criteria.
     virtual ::grpc::Status ListObjects(::grpc::ServerContext* context, const ::google::storage::v2::ListObjectsRequest* request, ::google::storage::v2::ListObjectsResponse* response);
@@ -1337,12 +1445,32 @@ class Storage final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_CancelResumableWrite : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CancelResumableWrite() {
+      ::grpc::Service::MarkMethodAsync(15);
+    }
+    ~WithAsyncMethod_CancelResumableWrite() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelResumableWrite(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CancelResumableWriteRequest* /*request*/, ::google::storage::v2::CancelResumableWriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCancelResumableWrite(::grpc::ServerContext* context, ::google::storage::v2::CancelResumableWriteRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::CancelResumableWriteResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_GetObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetObject() {
-      ::grpc::Service::MarkMethodAsync(15);
+      ::grpc::Service::MarkMethodAsync(16);
     }
     ~WithAsyncMethod_GetObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1353,7 +1481,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetObject(::grpc::ServerContext* context, ::google::storage::v2::GetObjectRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Object>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1362,7 +1490,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ReadObject() {
-      ::grpc::Service::MarkMethodAsync(16);
+      ::grpc::Service::MarkMethodAsync(17);
     }
     ~WithAsyncMethod_ReadObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1373,7 +1501,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestReadObject(::grpc::ServerContext* context, ::google::storage::v2::ReadObjectRequest* request, ::grpc::ServerAsyncWriter< ::google::storage::v2::ReadObjectResponse>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncServerStreaming(16, context, request, writer, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncServerStreaming(17, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1382,7 +1510,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateObject() {
-      ::grpc::Service::MarkMethodAsync(17);
+      ::grpc::Service::MarkMethodAsync(18);
     }
     ~WithAsyncMethod_UpdateObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1393,7 +1521,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateObject(::grpc::ServerContext* context, ::google::storage::v2::UpdateObjectRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Object>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1402,7 +1530,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_WriteObject() {
-      ::grpc::Service::MarkMethodAsync(18);
+      ::grpc::Service::MarkMethodAsync(19);
     }
     ~WithAsyncMethod_WriteObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1413,7 +1541,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestWriteObject(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::google::storage::v2::WriteObjectResponse, ::google::storage::v2::WriteObjectRequest>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncClientStreaming(18, context, reader, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncClientStreaming(19, context, reader, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1422,7 +1550,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ListObjects() {
-      ::grpc::Service::MarkMethodAsync(19);
+      ::grpc::Service::MarkMethodAsync(20);
     }
     ~WithAsyncMethod_ListObjects() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1433,7 +1561,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListObjects(::grpc::ServerContext* context, ::google::storage::v2::ListObjectsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ListObjectsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1442,7 +1570,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_RewriteObject() {
-      ::grpc::Service::MarkMethodAsync(20);
+      ::grpc::Service::MarkMethodAsync(21);
     }
     ~WithAsyncMethod_RewriteObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1453,7 +1581,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRewriteObject(::grpc::ServerContext* context, ::google::storage::v2::RewriteObjectRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::RewriteResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1462,7 +1590,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodAsync(21);
+      ::grpc::Service::MarkMethodAsync(22);
     }
     ~WithAsyncMethod_StartResumableWrite() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1473,7 +1601,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestStartResumableWrite(::grpc::ServerContext* context, ::google::storage::v2::StartResumableWriteRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::StartResumableWriteResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1482,7 +1610,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodAsync(22);
+      ::grpc::Service::MarkMethodAsync(23);
     }
     ~WithAsyncMethod_QueryWriteStatus() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1493,7 +1621,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestQueryWriteStatus(::grpc::ServerContext* context, ::google::storage::v2::QueryWriteStatusRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::QueryWriteStatusResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1502,7 +1630,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetServiceAccount() {
-      ::grpc::Service::MarkMethodAsync(23);
+      ::grpc::Service::MarkMethodAsync(24);
     }
     ~WithAsyncMethod_GetServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1513,7 +1641,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetServiceAccount(::grpc::ServerContext* context, ::google::storage::v2::GetServiceAccountRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ServiceAccount>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1522,7 +1650,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CreateHmacKey() {
-      ::grpc::Service::MarkMethodAsync(24);
+      ::grpc::Service::MarkMethodAsync(25);
     }
     ~WithAsyncMethod_CreateHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1533,7 +1661,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateHmacKey(::grpc::ServerContext* context, ::google::storage::v2::CreateHmacKeyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::CreateHmacKeyResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1542,7 +1670,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteHmacKey() {
-      ::grpc::Service::MarkMethodAsync(25);
+      ::grpc::Service::MarkMethodAsync(26);
     }
     ~WithAsyncMethod_DeleteHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1553,7 +1681,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteHmacKey(::grpc::ServerContext* context, ::google::storage::v2::DeleteHmacKeyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1562,7 +1690,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetHmacKey() {
-      ::grpc::Service::MarkMethodAsync(26);
+      ::grpc::Service::MarkMethodAsync(27);
     }
     ~WithAsyncMethod_GetHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1573,7 +1701,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetHmacKey(::grpc::ServerContext* context, ::google::storage::v2::GetHmacKeyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::HmacKeyMetadata>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(27, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1582,7 +1710,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ListHmacKeys() {
-      ::grpc::Service::MarkMethodAsync(27);
+      ::grpc::Service::MarkMethodAsync(28);
     }
     ~WithAsyncMethod_ListHmacKeys() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1593,7 +1721,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListHmacKeys(::grpc::ServerContext* context, ::google::storage::v2::ListHmacKeysRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ListHmacKeysResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(27, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(28, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1602,7 +1730,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateHmacKey() {
-      ::grpc::Service::MarkMethodAsync(28);
+      ::grpc::Service::MarkMethodAsync(29);
     }
     ~WithAsyncMethod_UpdateHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1613,10 +1741,10 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateHmacKey(::grpc::ServerContext* context, ::google::storage::v2::UpdateHmacKeyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::HmacKeyMetadata>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(28, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(29, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_DeleteBucket<WithAsyncMethod_GetBucket<WithAsyncMethod_CreateBucket<WithAsyncMethod_ListBuckets<WithAsyncMethod_LockBucketRetentionPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_UpdateBucket<WithAsyncMethod_DeleteNotification<WithAsyncMethod_GetNotification<WithAsyncMethod_CreateNotification<WithAsyncMethod_ListNotifications<WithAsyncMethod_ComposeObject<WithAsyncMethod_DeleteObject<WithAsyncMethod_GetObject<WithAsyncMethod_ReadObject<WithAsyncMethod_UpdateObject<WithAsyncMethod_WriteObject<WithAsyncMethod_ListObjects<WithAsyncMethod_RewriteObject<WithAsyncMethod_StartResumableWrite<WithAsyncMethod_QueryWriteStatus<WithAsyncMethod_GetServiceAccount<WithAsyncMethod_CreateHmacKey<WithAsyncMethod_DeleteHmacKey<WithAsyncMethod_GetHmacKey<WithAsyncMethod_ListHmacKeys<WithAsyncMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_DeleteBucket<WithAsyncMethod_GetBucket<WithAsyncMethod_CreateBucket<WithAsyncMethod_ListBuckets<WithAsyncMethod_LockBucketRetentionPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_UpdateBucket<WithAsyncMethod_DeleteNotification<WithAsyncMethod_GetNotification<WithAsyncMethod_CreateNotification<WithAsyncMethod_ListNotifications<WithAsyncMethod_ComposeObject<WithAsyncMethod_DeleteObject<WithAsyncMethod_CancelResumableWrite<WithAsyncMethod_GetObject<WithAsyncMethod_ReadObject<WithAsyncMethod_UpdateObject<WithAsyncMethod_WriteObject<WithAsyncMethod_ListObjects<WithAsyncMethod_RewriteObject<WithAsyncMethod_StartResumableWrite<WithAsyncMethod_QueryWriteStatus<WithAsyncMethod_GetServiceAccount<WithAsyncMethod_CreateHmacKey<WithAsyncMethod_DeleteHmacKey<WithAsyncMethod_GetHmacKey<WithAsyncMethod_ListHmacKeys<WithAsyncMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_DeleteBucket : public BaseClass {
    private:
@@ -2023,18 +2151,45 @@ class Storage final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::DeleteObjectRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_CancelResumableWrite : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CancelResumableWrite() {
+      ::grpc::Service::MarkMethodCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CancelResumableWriteRequest, ::google::storage::v2::CancelResumableWriteResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::CancelResumableWriteRequest* request, ::google::storage::v2::CancelResumableWriteResponse* response) { return this->CancelResumableWrite(context, request, response); }));}
+    void SetMessageAllocatorFor_CancelResumableWrite(
+        ::grpc::MessageAllocator< ::google::storage::v2::CancelResumableWriteRequest, ::google::storage::v2::CancelResumableWriteResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CancelResumableWriteRequest, ::google::storage::v2::CancelResumableWriteResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CancelResumableWrite() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelResumableWrite(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CancelResumableWriteRequest* /*request*/, ::google::storage::v2::CancelResumableWriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CancelResumableWrite(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::CancelResumableWriteRequest* /*request*/, ::google::storage::v2::CancelResumableWriteResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_GetObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetObject() {
-      ::grpc::Service::MarkMethodCallback(15,
+      ::grpc::Service::MarkMethodCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetObjectRequest, ::google::storage::v2::Object>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetObjectRequest* request, ::google::storage::v2::Object* response) { return this->GetObject(context, request, response); }));}
     void SetMessageAllocatorFor_GetObject(
         ::grpc::MessageAllocator< ::google::storage::v2::GetObjectRequest, ::google::storage::v2::Object>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetObjectRequest, ::google::storage::v2::Object>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2055,7 +2210,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ReadObject() {
-      ::grpc::Service::MarkMethodCallback(16,
+      ::grpc::Service::MarkMethodCallback(17,
           new ::grpc::internal::CallbackServerStreamingHandler< ::google::storage::v2::ReadObjectRequest, ::google::storage::v2::ReadObjectResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::ReadObjectRequest* request) { return this->ReadObject(context, request); }));
@@ -2077,13 +2232,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_UpdateObject() {
-      ::grpc::Service::MarkMethodCallback(17,
+      ::grpc::Service::MarkMethodCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateObjectRequest, ::google::storage::v2::Object>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::UpdateObjectRequest* request, ::google::storage::v2::Object* response) { return this->UpdateObject(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateObject(
         ::grpc::MessageAllocator< ::google::storage::v2::UpdateObjectRequest, ::google::storage::v2::Object>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateObjectRequest, ::google::storage::v2::Object>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2104,7 +2259,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_WriteObject() {
-      ::grpc::Service::MarkMethodCallback(18,
+      ::grpc::Service::MarkMethodCallback(19,
           new ::grpc::internal::CallbackClientStreamingHandler< ::google::storage::v2::WriteObjectRequest, ::google::storage::v2::WriteObjectResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, ::google::storage::v2::WriteObjectResponse* response) { return this->WriteObject(context, response); }));
@@ -2126,13 +2281,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ListObjects() {
-      ::grpc::Service::MarkMethodCallback(19,
+      ::grpc::Service::MarkMethodCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListObjectsRequest, ::google::storage::v2::ListObjectsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::ListObjectsRequest* request, ::google::storage::v2::ListObjectsResponse* response) { return this->ListObjects(context, request, response); }));}
     void SetMessageAllocatorFor_ListObjects(
         ::grpc::MessageAllocator< ::google::storage::v2::ListObjectsRequest, ::google::storage::v2::ListObjectsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListObjectsRequest, ::google::storage::v2::ListObjectsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2153,13 +2308,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_RewriteObject() {
-      ::grpc::Service::MarkMethodCallback(20,
+      ::grpc::Service::MarkMethodCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::RewriteObjectRequest, ::google::storage::v2::RewriteResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::RewriteObjectRequest* request, ::google::storage::v2::RewriteResponse* response) { return this->RewriteObject(context, request, response); }));}
     void SetMessageAllocatorFor_RewriteObject(
         ::grpc::MessageAllocator< ::google::storage::v2::RewriteObjectRequest, ::google::storage::v2::RewriteResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::RewriteObjectRequest, ::google::storage::v2::RewriteResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2180,13 +2335,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodCallback(21,
+      ::grpc::Service::MarkMethodCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::StartResumableWriteRequest* request, ::google::storage::v2::StartResumableWriteResponse* response) { return this->StartResumableWrite(context, request, response); }));}
     void SetMessageAllocatorFor_StartResumableWrite(
         ::grpc::MessageAllocator< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(22);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2207,13 +2362,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodCallback(22,
+      ::grpc::Service::MarkMethodCallback(23,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::QueryWriteStatusRequest* request, ::google::storage::v2::QueryWriteStatusResponse* response) { return this->QueryWriteStatus(context, request, response); }));}
     void SetMessageAllocatorFor_QueryWriteStatus(
         ::grpc::MessageAllocator< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(22);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(23);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2234,13 +2389,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetServiceAccount() {
-      ::grpc::Service::MarkMethodCallback(23,
+      ::grpc::Service::MarkMethodCallback(24,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetServiceAccountRequest, ::google::storage::v2::ServiceAccount>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetServiceAccountRequest* request, ::google::storage::v2::ServiceAccount* response) { return this->GetServiceAccount(context, request, response); }));}
     void SetMessageAllocatorFor_GetServiceAccount(
         ::grpc::MessageAllocator< ::google::storage::v2::GetServiceAccountRequest, ::google::storage::v2::ServiceAccount>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(23);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(24);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetServiceAccountRequest, ::google::storage::v2::ServiceAccount>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2261,13 +2416,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_CreateHmacKey() {
-      ::grpc::Service::MarkMethodCallback(24,
+      ::grpc::Service::MarkMethodCallback(25,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateHmacKeyRequest, ::google::storage::v2::CreateHmacKeyResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::CreateHmacKeyRequest* request, ::google::storage::v2::CreateHmacKeyResponse* response) { return this->CreateHmacKey(context, request, response); }));}
     void SetMessageAllocatorFor_CreateHmacKey(
         ::grpc::MessageAllocator< ::google::storage::v2::CreateHmacKeyRequest, ::google::storage::v2::CreateHmacKeyResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(24);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(25);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateHmacKeyRequest, ::google::storage::v2::CreateHmacKeyResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2288,13 +2443,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DeleteHmacKey() {
-      ::grpc::Service::MarkMethodCallback(25,
+      ::grpc::Service::MarkMethodCallback(26,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteHmacKeyRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::DeleteHmacKeyRequest* request, ::google::protobuf::Empty* response) { return this->DeleteHmacKey(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteHmacKey(
         ::grpc::MessageAllocator< ::google::storage::v2::DeleteHmacKeyRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(25);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(26);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteHmacKeyRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2315,13 +2470,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetHmacKey() {
-      ::grpc::Service::MarkMethodCallback(26,
+      ::grpc::Service::MarkMethodCallback(27,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response) { return this->GetHmacKey(context, request, response); }));}
     void SetMessageAllocatorFor_GetHmacKey(
         ::grpc::MessageAllocator< ::google::storage::v2::GetHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(26);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(27);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2342,13 +2497,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ListHmacKeys() {
-      ::grpc::Service::MarkMethodCallback(27,
+      ::grpc::Service::MarkMethodCallback(28,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListHmacKeysRequest, ::google::storage::v2::ListHmacKeysResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::ListHmacKeysRequest* request, ::google::storage::v2::ListHmacKeysResponse* response) { return this->ListHmacKeys(context, request, response); }));}
     void SetMessageAllocatorFor_ListHmacKeys(
         ::grpc::MessageAllocator< ::google::storage::v2::ListHmacKeysRequest, ::google::storage::v2::ListHmacKeysResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(27);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(28);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListHmacKeysRequest, ::google::storage::v2::ListHmacKeysResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2369,13 +2524,13 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_UpdateHmacKey() {
-      ::grpc::Service::MarkMethodCallback(28,
+      ::grpc::Service::MarkMethodCallback(29,
           new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::storage::v2::UpdateHmacKeyRequest* request, ::google::storage::v2::HmacKeyMetadata* response) { return this->UpdateHmacKey(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateHmacKey(
         ::grpc::MessageAllocator< ::google::storage::v2::UpdateHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(28);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(29);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::UpdateHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2390,7 +2545,7 @@ class Storage final {
     virtual ::grpc::ServerUnaryReactor* UpdateHmacKey(
       ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::UpdateHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_DeleteBucket<WithCallbackMethod_GetBucket<WithCallbackMethod_CreateBucket<WithCallbackMethod_ListBuckets<WithCallbackMethod_LockBucketRetentionPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_UpdateBucket<WithCallbackMethod_DeleteNotification<WithCallbackMethod_GetNotification<WithCallbackMethod_CreateNotification<WithCallbackMethod_ListNotifications<WithCallbackMethod_ComposeObject<WithCallbackMethod_DeleteObject<WithCallbackMethod_GetObject<WithCallbackMethod_ReadObject<WithCallbackMethod_UpdateObject<WithCallbackMethod_WriteObject<WithCallbackMethod_ListObjects<WithCallbackMethod_RewriteObject<WithCallbackMethod_StartResumableWrite<WithCallbackMethod_QueryWriteStatus<WithCallbackMethod_GetServiceAccount<WithCallbackMethod_CreateHmacKey<WithCallbackMethod_DeleteHmacKey<WithCallbackMethod_GetHmacKey<WithCallbackMethod_ListHmacKeys<WithCallbackMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef WithCallbackMethod_DeleteBucket<WithCallbackMethod_GetBucket<WithCallbackMethod_CreateBucket<WithCallbackMethod_ListBuckets<WithCallbackMethod_LockBucketRetentionPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_UpdateBucket<WithCallbackMethod_DeleteNotification<WithCallbackMethod_GetNotification<WithCallbackMethod_CreateNotification<WithCallbackMethod_ListNotifications<WithCallbackMethod_ComposeObject<WithCallbackMethod_DeleteObject<WithCallbackMethod_CancelResumableWrite<WithCallbackMethod_GetObject<WithCallbackMethod_ReadObject<WithCallbackMethod_UpdateObject<WithCallbackMethod_WriteObject<WithCallbackMethod_ListObjects<WithCallbackMethod_RewriteObject<WithCallbackMethod_StartResumableWrite<WithCallbackMethod_QueryWriteStatus<WithCallbackMethod_GetServiceAccount<WithCallbackMethod_CreateHmacKey<WithCallbackMethod_DeleteHmacKey<WithCallbackMethod_GetHmacKey<WithCallbackMethod_ListHmacKeys<WithCallbackMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_DeleteBucket : public BaseClass {
@@ -2648,12 +2803,29 @@ class Storage final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_CancelResumableWrite : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CancelResumableWrite() {
+      ::grpc::Service::MarkMethodGeneric(15);
+    }
+    ~WithGenericMethod_CancelResumableWrite() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelResumableWrite(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CancelResumableWriteRequest* /*request*/, ::google::storage::v2::CancelResumableWriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_GetObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetObject() {
-      ::grpc::Service::MarkMethodGeneric(15);
+      ::grpc::Service::MarkMethodGeneric(16);
     }
     ~WithGenericMethod_GetObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2670,7 +2842,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ReadObject() {
-      ::grpc::Service::MarkMethodGeneric(16);
+      ::grpc::Service::MarkMethodGeneric(17);
     }
     ~WithGenericMethod_ReadObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2687,7 +2859,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateObject() {
-      ::grpc::Service::MarkMethodGeneric(17);
+      ::grpc::Service::MarkMethodGeneric(18);
     }
     ~WithGenericMethod_UpdateObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2704,7 +2876,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_WriteObject() {
-      ::grpc::Service::MarkMethodGeneric(18);
+      ::grpc::Service::MarkMethodGeneric(19);
     }
     ~WithGenericMethod_WriteObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2721,7 +2893,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ListObjects() {
-      ::grpc::Service::MarkMethodGeneric(19);
+      ::grpc::Service::MarkMethodGeneric(20);
     }
     ~WithGenericMethod_ListObjects() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2738,7 +2910,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_RewriteObject() {
-      ::grpc::Service::MarkMethodGeneric(20);
+      ::grpc::Service::MarkMethodGeneric(21);
     }
     ~WithGenericMethod_RewriteObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2755,7 +2927,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodGeneric(21);
+      ::grpc::Service::MarkMethodGeneric(22);
     }
     ~WithGenericMethod_StartResumableWrite() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2772,7 +2944,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodGeneric(22);
+      ::grpc::Service::MarkMethodGeneric(23);
     }
     ~WithGenericMethod_QueryWriteStatus() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2789,7 +2961,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetServiceAccount() {
-      ::grpc::Service::MarkMethodGeneric(23);
+      ::grpc::Service::MarkMethodGeneric(24);
     }
     ~WithGenericMethod_GetServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2806,7 +2978,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CreateHmacKey() {
-      ::grpc::Service::MarkMethodGeneric(24);
+      ::grpc::Service::MarkMethodGeneric(25);
     }
     ~WithGenericMethod_CreateHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2823,7 +2995,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteHmacKey() {
-      ::grpc::Service::MarkMethodGeneric(25);
+      ::grpc::Service::MarkMethodGeneric(26);
     }
     ~WithGenericMethod_DeleteHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2840,7 +3012,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetHmacKey() {
-      ::grpc::Service::MarkMethodGeneric(26);
+      ::grpc::Service::MarkMethodGeneric(27);
     }
     ~WithGenericMethod_GetHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2857,7 +3029,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ListHmacKeys() {
-      ::grpc::Service::MarkMethodGeneric(27);
+      ::grpc::Service::MarkMethodGeneric(28);
     }
     ~WithGenericMethod_ListHmacKeys() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2874,7 +3046,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateHmacKey() {
-      ::grpc::Service::MarkMethodGeneric(28);
+      ::grpc::Service::MarkMethodGeneric(29);
     }
     ~WithGenericMethod_UpdateHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3186,12 +3358,32 @@ class Storage final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_CancelResumableWrite : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CancelResumableWrite() {
+      ::grpc::Service::MarkMethodRaw(15);
+    }
+    ~WithRawMethod_CancelResumableWrite() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelResumableWrite(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CancelResumableWriteRequest* /*request*/, ::google::storage::v2::CancelResumableWriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCancelResumableWrite(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_GetObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetObject() {
-      ::grpc::Service::MarkMethodRaw(15);
+      ::grpc::Service::MarkMethodRaw(16);
     }
     ~WithRawMethod_GetObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3202,7 +3394,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3211,7 +3403,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ReadObject() {
-      ::grpc::Service::MarkMethodRaw(16);
+      ::grpc::Service::MarkMethodRaw(17);
     }
     ~WithRawMethod_ReadObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3222,7 +3414,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestReadObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncWriter< ::grpc::ByteBuffer>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncServerStreaming(16, context, request, writer, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncServerStreaming(17, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3231,7 +3423,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateObject() {
-      ::grpc::Service::MarkMethodRaw(17);
+      ::grpc::Service::MarkMethodRaw(18);
     }
     ~WithRawMethod_UpdateObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3242,7 +3434,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3251,7 +3443,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_WriteObject() {
-      ::grpc::Service::MarkMethodRaw(18);
+      ::grpc::Service::MarkMethodRaw(19);
     }
     ~WithRawMethod_WriteObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3262,7 +3454,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestWriteObject(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncClientStreaming(18, context, reader, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncClientStreaming(19, context, reader, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3271,7 +3463,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ListObjects() {
-      ::grpc::Service::MarkMethodRaw(19);
+      ::grpc::Service::MarkMethodRaw(20);
     }
     ~WithRawMethod_ListObjects() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3282,7 +3474,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListObjects(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3291,7 +3483,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_RewriteObject() {
-      ::grpc::Service::MarkMethodRaw(20);
+      ::grpc::Service::MarkMethodRaw(21);
     }
     ~WithRawMethod_RewriteObject() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3302,7 +3494,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRewriteObject(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3311,7 +3503,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodRaw(21);
+      ::grpc::Service::MarkMethodRaw(22);
     }
     ~WithRawMethod_StartResumableWrite() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3322,7 +3514,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestStartResumableWrite(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3331,7 +3523,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodRaw(22);
+      ::grpc::Service::MarkMethodRaw(23);
     }
     ~WithRawMethod_QueryWriteStatus() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3342,7 +3534,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestQueryWriteStatus(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3351,7 +3543,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetServiceAccount() {
-      ::grpc::Service::MarkMethodRaw(23);
+      ::grpc::Service::MarkMethodRaw(24);
     }
     ~WithRawMethod_GetServiceAccount() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3362,7 +3554,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetServiceAccount(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3371,7 +3563,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CreateHmacKey() {
-      ::grpc::Service::MarkMethodRaw(24);
+      ::grpc::Service::MarkMethodRaw(25);
     }
     ~WithRawMethod_CreateHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3382,7 +3574,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateHmacKey(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(24, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3391,7 +3583,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteHmacKey() {
-      ::grpc::Service::MarkMethodRaw(25);
+      ::grpc::Service::MarkMethodRaw(26);
     }
     ~WithRawMethod_DeleteHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3402,7 +3594,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteHmacKey(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(25, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3411,7 +3603,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetHmacKey() {
-      ::grpc::Service::MarkMethodRaw(26);
+      ::grpc::Service::MarkMethodRaw(27);
     }
     ~WithRawMethod_GetHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3422,7 +3614,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetHmacKey(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(26, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(27, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3431,7 +3623,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ListHmacKeys() {
-      ::grpc::Service::MarkMethodRaw(27);
+      ::grpc::Service::MarkMethodRaw(28);
     }
     ~WithRawMethod_ListHmacKeys() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3442,7 +3634,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListHmacKeys(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(27, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(28, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3451,7 +3643,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateHmacKey() {
-      ::grpc::Service::MarkMethodRaw(28);
+      ::grpc::Service::MarkMethodRaw(29);
     }
     ~WithRawMethod_UpdateHmacKey() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3462,7 +3654,7 @@ class Storage final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateHmacKey(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(28, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(29, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3796,12 +3988,34 @@ class Storage final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_CancelResumableWrite : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CancelResumableWrite() {
+      ::grpc::Service::MarkMethodRawCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CancelResumableWrite(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CancelResumableWrite() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelResumableWrite(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CancelResumableWriteRequest* /*request*/, ::google::storage::v2::CancelResumableWriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CancelResumableWrite(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_GetObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetObject() {
-      ::grpc::Service::MarkMethodRawCallback(15,
+      ::grpc::Service::MarkMethodRawCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetObject(context, request, response); }));
@@ -3823,7 +4037,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ReadObject() {
-      ::grpc::Service::MarkMethodRawCallback(16,
+      ::grpc::Service::MarkMethodRawCallback(17,
           new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->ReadObject(context, request); }));
@@ -3845,7 +4059,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_UpdateObject() {
-      ::grpc::Service::MarkMethodRawCallback(17,
+      ::grpc::Service::MarkMethodRawCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateObject(context, request, response); }));
@@ -3867,7 +4081,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_WriteObject() {
-      ::grpc::Service::MarkMethodRawCallback(18,
+      ::grpc::Service::MarkMethodRawCallback(19,
           new ::grpc::internal::CallbackClientStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, ::grpc::ByteBuffer* response) { return this->WriteObject(context, response); }));
@@ -3889,7 +4103,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ListObjects() {
-      ::grpc::Service::MarkMethodRawCallback(19,
+      ::grpc::Service::MarkMethodRawCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListObjects(context, request, response); }));
@@ -3911,7 +4125,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_RewriteObject() {
-      ::grpc::Service::MarkMethodRawCallback(20,
+      ::grpc::Service::MarkMethodRawCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RewriteObject(context, request, response); }));
@@ -3933,7 +4147,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodRawCallback(21,
+      ::grpc::Service::MarkMethodRawCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartResumableWrite(context, request, response); }));
@@ -3955,7 +4169,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodRawCallback(22,
+      ::grpc::Service::MarkMethodRawCallback(23,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->QueryWriteStatus(context, request, response); }));
@@ -3977,7 +4191,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetServiceAccount() {
-      ::grpc::Service::MarkMethodRawCallback(23,
+      ::grpc::Service::MarkMethodRawCallback(24,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetServiceAccount(context, request, response); }));
@@ -3999,7 +4213,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_CreateHmacKey() {
-      ::grpc::Service::MarkMethodRawCallback(24,
+      ::grpc::Service::MarkMethodRawCallback(25,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateHmacKey(context, request, response); }));
@@ -4021,7 +4235,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DeleteHmacKey() {
-      ::grpc::Service::MarkMethodRawCallback(25,
+      ::grpc::Service::MarkMethodRawCallback(26,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteHmacKey(context, request, response); }));
@@ -4043,7 +4257,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetHmacKey() {
-      ::grpc::Service::MarkMethodRawCallback(26,
+      ::grpc::Service::MarkMethodRawCallback(27,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetHmacKey(context, request, response); }));
@@ -4065,7 +4279,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ListHmacKeys() {
-      ::grpc::Service::MarkMethodRawCallback(27,
+      ::grpc::Service::MarkMethodRawCallback(28,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListHmacKeys(context, request, response); }));
@@ -4087,7 +4301,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_UpdateHmacKey() {
-      ::grpc::Service::MarkMethodRawCallback(28,
+      ::grpc::Service::MarkMethodRawCallback(29,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateHmacKey(context, request, response); }));
@@ -4509,12 +4723,39 @@ class Storage final {
     virtual ::grpc::Status StreamedDeleteObject(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::DeleteObjectRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_CancelResumableWrite : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CancelResumableWrite() {
+      ::grpc::Service::MarkMethodStreamed(15,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::storage::v2::CancelResumableWriteRequest, ::google::storage::v2::CancelResumableWriteResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::storage::v2::CancelResumableWriteRequest, ::google::storage::v2::CancelResumableWriteResponse>* streamer) {
+                       return this->StreamedCancelResumableWrite(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CancelResumableWrite() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CancelResumableWrite(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CancelResumableWriteRequest* /*request*/, ::google::storage::v2::CancelResumableWriteResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCancelResumableWrite(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::CancelResumableWriteRequest,::google::storage::v2::CancelResumableWriteResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_GetObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetObject() {
-      ::grpc::Service::MarkMethodStreamed(15,
+      ::grpc::Service::MarkMethodStreamed(16,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::GetObjectRequest, ::google::storage::v2::Object>(
             [this](::grpc::ServerContext* context,
@@ -4541,7 +4782,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateObject() {
-      ::grpc::Service::MarkMethodStreamed(17,
+      ::grpc::Service::MarkMethodStreamed(18,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::UpdateObjectRequest, ::google::storage::v2::Object>(
             [this](::grpc::ServerContext* context,
@@ -4568,7 +4809,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ListObjects() {
-      ::grpc::Service::MarkMethodStreamed(19,
+      ::grpc::Service::MarkMethodStreamed(20,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::ListObjectsRequest, ::google::storage::v2::ListObjectsResponse>(
             [this](::grpc::ServerContext* context,
@@ -4595,7 +4836,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_RewriteObject() {
-      ::grpc::Service::MarkMethodStreamed(20,
+      ::grpc::Service::MarkMethodStreamed(21,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::RewriteObjectRequest, ::google::storage::v2::RewriteResponse>(
             [this](::grpc::ServerContext* context,
@@ -4622,7 +4863,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_StartResumableWrite() {
-      ::grpc::Service::MarkMethodStreamed(21,
+      ::grpc::Service::MarkMethodStreamed(22,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::StartResumableWriteRequest, ::google::storage::v2::StartResumableWriteResponse>(
             [this](::grpc::ServerContext* context,
@@ -4649,7 +4890,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_QueryWriteStatus() {
-      ::grpc::Service::MarkMethodStreamed(22,
+      ::grpc::Service::MarkMethodStreamed(23,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::QueryWriteStatusRequest, ::google::storage::v2::QueryWriteStatusResponse>(
             [this](::grpc::ServerContext* context,
@@ -4676,7 +4917,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetServiceAccount() {
-      ::grpc::Service::MarkMethodStreamed(23,
+      ::grpc::Service::MarkMethodStreamed(24,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::GetServiceAccountRequest, ::google::storage::v2::ServiceAccount>(
             [this](::grpc::ServerContext* context,
@@ -4703,7 +4944,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CreateHmacKey() {
-      ::grpc::Service::MarkMethodStreamed(24,
+      ::grpc::Service::MarkMethodStreamed(25,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::CreateHmacKeyRequest, ::google::storage::v2::CreateHmacKeyResponse>(
             [this](::grpc::ServerContext* context,
@@ -4730,7 +4971,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteHmacKey() {
-      ::grpc::Service::MarkMethodStreamed(25,
+      ::grpc::Service::MarkMethodStreamed(26,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::DeleteHmacKeyRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -4757,7 +4998,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetHmacKey() {
-      ::grpc::Service::MarkMethodStreamed(26,
+      ::grpc::Service::MarkMethodStreamed(27,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::GetHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>(
             [this](::grpc::ServerContext* context,
@@ -4784,7 +5025,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ListHmacKeys() {
-      ::grpc::Service::MarkMethodStreamed(27,
+      ::grpc::Service::MarkMethodStreamed(28,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::ListHmacKeysRequest, ::google::storage::v2::ListHmacKeysResponse>(
             [this](::grpc::ServerContext* context,
@@ -4811,7 +5052,7 @@ class Storage final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateHmacKey() {
-      ::grpc::Service::MarkMethodStreamed(28,
+      ::grpc::Service::MarkMethodStreamed(29,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::storage::v2::UpdateHmacKeyRequest, ::google::storage::v2::HmacKeyMetadata>(
             [this](::grpc::ServerContext* context,
@@ -4832,14 +5073,14 @@ class Storage final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedUpdateHmacKey(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::UpdateHmacKeyRequest,::google::storage::v2::HmacKeyMetadata>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotification<WithStreamedUnaryMethod_GetNotification<WithStreamedUnaryMethod_CreateNotification<WithStreamedUnaryMethod_ListNotifications<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_GetObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotification<WithStreamedUnaryMethod_GetNotification<WithStreamedUnaryMethod_CreateNotification<WithStreamedUnaryMethod_ListNotifications<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_CancelResumableWrite<WithStreamedUnaryMethod_GetObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   template <class BaseClass>
   class WithSplitStreamingMethod_ReadObject : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithSplitStreamingMethod_ReadObject() {
-      ::grpc::Service::MarkMethodStreamed(16,
+      ::grpc::Service::MarkMethodStreamed(17,
         new ::grpc::internal::SplitServerStreamingHandler<
           ::google::storage::v2::ReadObjectRequest, ::google::storage::v2::ReadObjectResponse>(
             [this](::grpc::ServerContext* context,
@@ -4861,7 +5102,7 @@ class Storage final {
     virtual ::grpc::Status StreamedReadObject(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::google::storage::v2::ReadObjectRequest,::google::storage::v2::ReadObjectResponse>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_ReadObject<Service > SplitStreamedService;
-  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotification<WithStreamedUnaryMethod_GetNotification<WithStreamedUnaryMethod_CreateNotification<WithStreamedUnaryMethod_ListNotifications<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_GetObject<WithSplitStreamingMethod_ReadObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotification<WithStreamedUnaryMethod_GetNotification<WithStreamedUnaryMethod_CreateNotification<WithStreamedUnaryMethod_ListNotifications<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_CancelResumableWrite<WithStreamedUnaryMethod_GetObject<WithSplitStreamingMethod_ReadObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v2

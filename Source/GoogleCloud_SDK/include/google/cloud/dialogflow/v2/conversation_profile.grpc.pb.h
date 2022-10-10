@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/cloud/dialogflow/v2/conversation_profile.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -102,6 +102,45 @@ class ConversationProfiles final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteConversationProfileRaw(context, request, cq));
     }
+    // Adds or updates a suggestion feature in a conversation profile.
+    // If the conversation profile contains the type of suggestion feature for
+    // the participant role, it will update it. Otherwise it will insert the
+    // suggestion feature.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: [SetSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.SetSuggestionFeatureConfigOperationMetadata]
+    // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+    //
+    // If a long running operation to add or update suggestion feature
+    // config for the same conversation profile, participant role and suggestion
+    // feature type exists, please cancel the existing long running operation
+    // before sending such request, otherwise the request will be rejected.
+    virtual ::grpc::Status SetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::google::longrunning::Operation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncSetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncSetSuggestionFeatureConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncSetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncSetSuggestionFeatureConfigRaw(context, request, cq));
+    }
+    // Clears a suggestion feature from a conversation profile for the given
+    // participant role.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: [ClearSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.ClearSuggestionFeatureConfigOperationMetadata]
+    // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+    virtual ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::google::longrunning::Operation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncClearSuggestionFeatureConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncClearSuggestionFeatureConfigRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -128,6 +167,35 @@ class ConversationProfiles final {
       // Deletes the specified conversation profile.
       virtual void DeleteConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Adds or updates a suggestion feature in a conversation profile.
+      // If the conversation profile contains the type of suggestion feature for
+      // the participant role, it will update it. Otherwise it will insert the
+      // suggestion feature.
+      //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: [SetSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.SetSuggestionFeatureConfigOperationMetadata]
+      // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+      //
+      // If a long running operation to add or update suggestion feature
+      // config for the same conversation profile, participant role and suggestion
+      // feature type exists, please cancel the existing long running operation
+      // before sending such request, otherwise the request will be rejected.
+      virtual void SetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Clears a suggestion feature from a conversation profile for the given
+      // participant role.
+      //
+      // This method is a [long-running
+      // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+      // The returned `Operation` type has the following method-specific fields:
+      //
+      // - `metadata`: [ClearSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.ClearSuggestionFeatureConfigOperationMetadata]
+      // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+      virtual void ClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -143,6 +211,10 @@ class ConversationProfiles final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ConversationProfile>* PrepareAsyncUpdateConversationProfileRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateConversationProfileRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteConversationProfileRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteConversationProfileRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncSetSuggestionFeatureConfigRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncSetSuggestionFeatureConfigRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncClearSuggestionFeatureConfigRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncClearSuggestionFeatureConfigRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -182,6 +254,20 @@ class ConversationProfiles final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteConversationProfileRaw(context, request, cq));
     }
+    ::grpc::Status SetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::google::longrunning::Operation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncSetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncSetSuggestionFeatureConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncSetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncSetSuggestionFeatureConfigRaw(context, request, cq));
+    }
+    ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::google::longrunning::Operation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncClearSuggestionFeatureConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncClearSuggestionFeatureConfigRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -195,6 +281,10 @@ class ConversationProfiles final {
       void UpdateConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateConversationProfileRequest* request, ::google::cloud::dialogflow::v2::ConversationProfile* response, ::grpc::ClientUnaryReactor* reactor) override;
       void DeleteConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
       void DeleteConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void SetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
+      void SetSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
+      void ClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -216,11 +306,17 @@ class ConversationProfiles final {
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ConversationProfile>* PrepareAsyncUpdateConversationProfileRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateConversationProfileRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteConversationProfileRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteConversationProfileRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncSetSuggestionFeatureConfigRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncSetSuggestionFeatureConfigRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncClearSuggestionFeatureConfigRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncClearSuggestionFeatureConfigRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_ListConversationProfiles_;
     const ::grpc::internal::RpcMethod rpcmethod_GetConversationProfile_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateConversationProfile_;
     const ::grpc::internal::RpcMethod rpcmethod_UpdateConversationProfile_;
     const ::grpc::internal::RpcMethod rpcmethod_DeleteConversationProfile_;
+    const ::grpc::internal::RpcMethod rpcmethod_SetSuggestionFeatureConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_ClearSuggestionFeatureConfig_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -246,6 +342,33 @@ class ConversationProfiles final {
     virtual ::grpc::Status UpdateConversationProfile(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::UpdateConversationProfileRequest* request, ::google::cloud::dialogflow::v2::ConversationProfile* response);
     // Deletes the specified conversation profile.
     virtual ::grpc::Status DeleteConversationProfile(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest* request, ::google::protobuf::Empty* response);
+    // Adds or updates a suggestion feature in a conversation profile.
+    // If the conversation profile contains the type of suggestion feature for
+    // the participant role, it will update it. Otherwise it will insert the
+    // suggestion feature.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: [SetSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.SetSuggestionFeatureConfigOperationMetadata]
+    // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+    //
+    // If a long running operation to add or update suggestion feature
+    // config for the same conversation profile, participant role and suggestion
+    // feature type exists, please cancel the existing long running operation
+    // before sending such request, otherwise the request will be rejected.
+    virtual ::grpc::Status SetSuggestionFeatureConfig(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response);
+    // Clears a suggestion feature from a conversation profile for the given
+    // participant role.
+    //
+    // This method is a [long-running
+    // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
+    // The returned `Operation` type has the following method-specific fields:
+    //
+    // - `metadata`: [ClearSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.ClearSuggestionFeatureConfigOperationMetadata]
+    // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+    virtual ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_ListConversationProfiles : public BaseClass {
@@ -347,7 +470,47 @@ class ConversationProfiles final {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ListConversationProfiles<WithAsyncMethod_GetConversationProfile<WithAsyncMethod_CreateConversationProfile<WithAsyncMethod_UpdateConversationProfile<WithAsyncMethod_DeleteConversationProfile<Service > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_SetSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_SetSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_SetSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetSuggestionFeatureConfig(::grpc::ServerContext* context, ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ClearSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ClearSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodAsync(6);
+    }
+    ~WithAsyncMethod_ClearSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestClearSuggestionFeatureConfig(::grpc::ServerContext* context, ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_ListConversationProfiles<WithAsyncMethod_GetConversationProfile<WithAsyncMethod_CreateConversationProfile<WithAsyncMethod_UpdateConversationProfile<WithAsyncMethod_DeleteConversationProfile<WithAsyncMethod_SetSuggestionFeatureConfig<WithAsyncMethod_ClearSuggestionFeatureConfig<Service > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ListConversationProfiles : public BaseClass {
    private:
@@ -483,7 +646,61 @@ class ConversationProfiles final {
     virtual ::grpc::ServerUnaryReactor* DeleteConversationProfile(
       ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ListConversationProfiles<WithCallbackMethod_GetConversationProfile<WithCallbackMethod_CreateConversationProfile<WithCallbackMethod_UpdateConversationProfile<WithCallbackMethod_DeleteConversationProfile<Service > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_SetSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SetSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest, ::google::longrunning::Operation>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response) { return this->SetSuggestionFeatureConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_SetSuggestionFeatureConfig(
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest, ::google::longrunning::Operation>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest, ::google::longrunning::Operation>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SetSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetSuggestionFeatureConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ClearSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ClearSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest, ::google::longrunning::Operation>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response) { return this->ClearSuggestionFeatureConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_ClearSuggestionFeatureConfig(
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest, ::google::longrunning::Operation>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest, ::google::longrunning::Operation>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ClearSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ClearSuggestionFeatureConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_ListConversationProfiles<WithCallbackMethod_GetConversationProfile<WithCallbackMethod_CreateConversationProfile<WithCallbackMethod_UpdateConversationProfile<WithCallbackMethod_DeleteConversationProfile<WithCallbackMethod_SetSuggestionFeatureConfig<WithCallbackMethod_ClearSuggestionFeatureConfig<Service > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListConversationProfiles : public BaseClass {
@@ -566,6 +783,40 @@ class ConversationProfiles final {
     }
     // disable synchronous version of this method
     ::grpc::Status DeleteConversationProfile(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_SetSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_SetSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_SetSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ClearSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ClearSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodGeneric(6);
+    }
+    ~WithGenericMethod_ClearSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -668,6 +919,46 @@ class ConversationProfiles final {
     }
     void RequestDeleteConversationProfile(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_SetSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_SetSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_SetSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetSuggestionFeatureConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ClearSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ClearSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodRaw(6);
+    }
+    ~WithRawMethod_ClearSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestClearSuggestionFeatureConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -778,6 +1069,50 @@ class ConversationProfiles final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* DeleteConversationProfile(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SetSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SetSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetSuggestionFeatureConfig(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SetSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetSuggestionFeatureConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ClearSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ClearSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ClearSuggestionFeatureConfig(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ClearSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ClearSuggestionFeatureConfig(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -915,9 +1250,63 @@ class ConversationProfiles final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedDeleteConversationProfile(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ListConversationProfiles<WithStreamedUnaryMethod_GetConversationProfile<WithStreamedUnaryMethod_CreateConversationProfile<WithStreamedUnaryMethod_UpdateConversationProfile<WithStreamedUnaryMethod_DeleteConversationProfile<Service > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_SetSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_SetSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest, ::google::longrunning::Operation>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest, ::google::longrunning::Operation>* streamer) {
+                       return this->StreamedSetSuggestionFeatureConfig(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_SetSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status SetSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedSetSuggestionFeatureConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::dialogflow::v2::SetSuggestionFeatureConfigRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ClearSuggestionFeatureConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ClearSuggestionFeatureConfig() {
+      ::grpc::Service::MarkMethodStreamed(6,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest, ::google::longrunning::Operation>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest, ::google::longrunning::Operation>* streamer) {
+                       return this->StreamedClearSuggestionFeatureConfig(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ClearSuggestionFeatureConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedClearSuggestionFeatureConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_ListConversationProfiles<WithStreamedUnaryMethod_GetConversationProfile<WithStreamedUnaryMethod_CreateConversationProfile<WithStreamedUnaryMethod_UpdateConversationProfile<WithStreamedUnaryMethod_DeleteConversationProfile<WithStreamedUnaryMethod_SetSuggestionFeatureConfig<WithStreamedUnaryMethod_ClearSuggestionFeatureConfig<Service > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ListConversationProfiles<WithStreamedUnaryMethod_GetConversationProfile<WithStreamedUnaryMethod_CreateConversationProfile<WithStreamedUnaryMethod_UpdateConversationProfile<WithStreamedUnaryMethod_DeleteConversationProfile<Service > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_ListConversationProfiles<WithStreamedUnaryMethod_GetConversationProfile<WithStreamedUnaryMethod_CreateConversationProfile<WithStreamedUnaryMethod_UpdateConversationProfile<WithStreamedUnaryMethod_DeleteConversationProfile<WithStreamedUnaryMethod_SetSuggestionFeatureConfig<WithStreamedUnaryMethod_ClearSuggestionFeatureConfig<Service > > > > > > > StreamedService;
 };
 
 }  // namespace v2

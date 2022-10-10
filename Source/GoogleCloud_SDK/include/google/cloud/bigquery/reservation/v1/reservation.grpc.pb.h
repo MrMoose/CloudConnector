@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/cloud/bigquery/reservation/v1/reservation.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -166,7 +166,7 @@ class ReservationService final {
     //
     // For example, in order to downgrade from 10000 slots to 8000, you might
     // split a 10000 capacity commitment into commitments of 2000 and 8000. Then,
-    // you would change the plan of the first one to `FLEX` and then delete it.
+    // you delete the first one after the commitment end time passes.
     virtual ::grpc::Status SplitCapacityCommitment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentRequest& request, ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentResponse>> AsyncSplitCapacityCommitment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentResponse>>(AsyncSplitCapacityCommitmentRaw(context, request, cq));
@@ -280,8 +280,8 @@ class ReservationService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::DeleteAssignmentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteAssignmentRaw(context, request, cq));
     }
-    // Deprecated: Looks up assignments for a specified resource for a particular region.
-    // If the request is about a project:
+    // Deprecated: Looks up assignments for a specified resource for a particular
+    // region. If the request is about a project:
     //
     // 1. Assignments created on the project will be returned if they exist.
     // 2. Otherwise assignments created on the closest ancestor will be
@@ -348,6 +348,16 @@ class ReservationService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>> PrepareAsyncMoveAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>>(PrepareAsyncMoveAssignmentRaw(context, request, cq));
+    }
+    // Updates an existing assignment.
+    //
+    // Only the `priority` field can be updated.
+    virtual ::grpc::Status UpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::google::cloud::bigquery::reservation::v1::Assignment* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>> AsyncUpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>>(AsyncUpdateAssignmentRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>> PrepareAsyncUpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>>(PrepareAsyncUpdateAssignmentRaw(context, request, cq));
     }
     // Retrieves a BI reservation.
     virtual ::grpc::Status GetBiReservation(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest& request, ::google::cloud::bigquery::reservation::v1::BiReservation* response) = 0;
@@ -422,7 +432,7 @@ class ReservationService final {
       //
       // For example, in order to downgrade from 10000 slots to 8000, you might
       // split a 10000 capacity commitment into commitments of 2000 and 8000. Then,
-      // you would change the plan of the first one to `FLEX` and then delete it.
+      // you delete the first one after the commitment end time passes.
       virtual void SplitCapacityCommitment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentRequest* request, ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void SplitCapacityCommitment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentRequest* request, ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Merges capacity commitments of the same plan into a single commitment.
@@ -511,8 +521,8 @@ class ReservationService final {
       // `project2` will switch to use on-demand mode.
       virtual void DeleteAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::DeleteAssignmentRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::DeleteAssignmentRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Deprecated: Looks up assignments for a specified resource for a particular region.
-      // If the request is about a project:
+      // Deprecated: Looks up assignments for a specified resource for a particular
+      // region. If the request is about a project:
       //
       // 1. Assignments created on the project will be returned if they exist.
       // 2. Otherwise assignments created on the closest ancestor will be
@@ -565,6 +575,11 @@ class ReservationService final {
       // associated reservation.
       virtual void MoveAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response, std::function<void(::grpc::Status)>) = 0;
       virtual void MoveAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Updates an existing assignment.
+      //
+      // Only the `priority` field can be updated.
+      virtual void UpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves a BI reservation.
       virtual void GetBiReservation(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest* request, ::google::cloud::bigquery::reservation::v1::BiReservation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetBiReservation(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest* request, ::google::cloud::bigquery::reservation::v1::BiReservation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -619,6 +634,8 @@ class ReservationService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::SearchAllAssignmentsResponse>* PrepareAsyncSearchAllAssignmentsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::SearchAllAssignmentsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>* AsyncMoveAssignmentRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>* PrepareAsyncMoveAssignmentRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>* AsyncUpdateAssignmentRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::Assignment>* PrepareAsyncUpdateAssignmentRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::BiReservation>* AsyncGetBiReservationRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::BiReservation>* PrepareAsyncGetBiReservationRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::bigquery::reservation::v1::BiReservation>* AsyncUpdateBiReservationRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -753,6 +770,13 @@ class ReservationService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>> PrepareAsyncMoveAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>>(PrepareAsyncMoveAssignmentRaw(context, request, cq));
     }
+    ::grpc::Status UpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::google::cloud::bigquery::reservation::v1::Assignment* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>> AsyncUpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>>(AsyncUpdateAssignmentRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>> PrepareAsyncUpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>>(PrepareAsyncUpdateAssignmentRaw(context, request, cq));
+    }
     ::grpc::Status GetBiReservation(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest& request, ::google::cloud::bigquery::reservation::v1::BiReservation* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::BiReservation>> AsyncGetBiReservation(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::BiReservation>>(AsyncGetBiReservationRaw(context, request, cq));
@@ -806,6 +830,8 @@ class ReservationService final {
       void SearchAllAssignments(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::SearchAllAssignmentsRequest* request, ::google::cloud::bigquery::reservation::v1::SearchAllAssignmentsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void MoveAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response, std::function<void(::grpc::Status)>) override;
       void MoveAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response, std::function<void(::grpc::Status)>) override;
+      void UpdateAssignment(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetBiReservation(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest* request, ::google::cloud::bigquery::reservation::v1::BiReservation* response, std::function<void(::grpc::Status)>) override;
       void GetBiReservation(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest* request, ::google::cloud::bigquery::reservation::v1::BiReservation* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateBiReservation(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest* request, ::google::cloud::bigquery::reservation::v1::BiReservation* response, std::function<void(::grpc::Status)>) override;
@@ -857,6 +883,8 @@ class ReservationService final {
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::SearchAllAssignmentsResponse>* PrepareAsyncSearchAllAssignmentsRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::SearchAllAssignmentsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>* AsyncMoveAssignmentRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>* PrepareAsyncMoveAssignmentRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>* AsyncUpdateAssignmentRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::Assignment>* PrepareAsyncUpdateAssignmentRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::BiReservation>* AsyncGetBiReservationRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::BiReservation>* PrepareAsyncGetBiReservationRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::bigquery::reservation::v1::BiReservation>* AsyncUpdateBiReservationRaw(::grpc::ClientContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -879,6 +907,7 @@ class ReservationService final {
     const ::grpc::internal::RpcMethod rpcmethod_SearchAssignments_;
     const ::grpc::internal::RpcMethod rpcmethod_SearchAllAssignments_;
     const ::grpc::internal::RpcMethod rpcmethod_MoveAssignment_;
+    const ::grpc::internal::RpcMethod rpcmethod_UpdateAssignment_;
     const ::grpc::internal::RpcMethod rpcmethod_GetBiReservation_;
     const ::grpc::internal::RpcMethod rpcmethod_UpdateBiReservation_;
   };
@@ -925,7 +954,7 @@ class ReservationService final {
     //
     // For example, in order to downgrade from 10000 slots to 8000, you might
     // split a 10000 capacity commitment into commitments of 2000 and 8000. Then,
-    // you would change the plan of the first one to `FLEX` and then delete it.
+    // you delete the first one after the commitment end time passes.
     virtual ::grpc::Status SplitCapacityCommitment(::grpc::ServerContext* context, const ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentRequest* request, ::google::cloud::bigquery::reservation::v1::SplitCapacityCommitmentResponse* response);
     // Merges capacity commitments of the same plan into a single commitment.
     //
@@ -1009,8 +1038,8 @@ class ReservationService final {
     // queries from `project1` will still use `res1` while queries from
     // `project2` will switch to use on-demand mode.
     virtual ::grpc::Status DeleteAssignment(::grpc::ServerContext* context, const ::google::cloud::bigquery::reservation::v1::DeleteAssignmentRequest* request, ::google::protobuf::Empty* response);
-    // Deprecated: Looks up assignments for a specified resource for a particular region.
-    // If the request is about a project:
+    // Deprecated: Looks up assignments for a specified resource for a particular
+    // region. If the request is about a project:
     //
     // 1. Assignments created on the project will be returned if they exist.
     // 2. Otherwise assignments created on the closest ancestor will be
@@ -1060,6 +1089,10 @@ class ReservationService final {
     // by providing a transactional change that ensures an assignee always has an
     // associated reservation.
     virtual ::grpc::Status MoveAssignment(::grpc::ServerContext* context, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response);
+    // Updates an existing assignment.
+    //
+    // Only the `priority` field can be updated.
+    virtual ::grpc::Status UpdateAssignment(::grpc::ServerContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response);
     // Retrieves a BI reservation.
     virtual ::grpc::Status GetBiReservation(::grpc::ServerContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest* request, ::google::cloud::bigquery::reservation::v1::BiReservation* response);
     // Updates a BI reservation.
@@ -1433,12 +1466,32 @@ class ReservationService final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_UpdateAssignment : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UpdateAssignment() {
+      ::grpc::Service::MarkMethodAsync(18);
+    }
+    ~WithAsyncMethod_UpdateAssignment() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateAssignment(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* /*request*/, ::google::cloud::bigquery::reservation::v1::Assignment* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateAssignment(::grpc::ServerContext* context, ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::bigquery::reservation::v1::Assignment>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_GetBiReservation : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetBiReservation() {
-      ::grpc::Service::MarkMethodAsync(18);
+      ::grpc::Service::MarkMethodAsync(19);
     }
     ~WithAsyncMethod_GetBiReservation() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1449,7 +1502,7 @@ class ReservationService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBiReservation(::grpc::ServerContext* context, ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::bigquery::reservation::v1::BiReservation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1458,7 +1511,7 @@ class ReservationService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateBiReservation() {
-      ::grpc::Service::MarkMethodAsync(19);
+      ::grpc::Service::MarkMethodAsync(20);
     }
     ~WithAsyncMethod_UpdateBiReservation() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1469,10 +1522,10 @@ class ReservationService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateBiReservation(::grpc::ServerContext* context, ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::bigquery::reservation::v1::BiReservation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CreateReservation<WithAsyncMethod_ListReservations<WithAsyncMethod_GetReservation<WithAsyncMethod_DeleteReservation<WithAsyncMethod_UpdateReservation<WithAsyncMethod_CreateCapacityCommitment<WithAsyncMethod_ListCapacityCommitments<WithAsyncMethod_GetCapacityCommitment<WithAsyncMethod_DeleteCapacityCommitment<WithAsyncMethod_UpdateCapacityCommitment<WithAsyncMethod_SplitCapacityCommitment<WithAsyncMethod_MergeCapacityCommitments<WithAsyncMethod_CreateAssignment<WithAsyncMethod_ListAssignments<WithAsyncMethod_DeleteAssignment<WithAsyncMethod_SearchAssignments<WithAsyncMethod_SearchAllAssignments<WithAsyncMethod_MoveAssignment<WithAsyncMethod_GetBiReservation<WithAsyncMethod_UpdateBiReservation<Service > > > > > > > > > > > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_CreateReservation<WithAsyncMethod_ListReservations<WithAsyncMethod_GetReservation<WithAsyncMethod_DeleteReservation<WithAsyncMethod_UpdateReservation<WithAsyncMethod_CreateCapacityCommitment<WithAsyncMethod_ListCapacityCommitments<WithAsyncMethod_GetCapacityCommitment<WithAsyncMethod_DeleteCapacityCommitment<WithAsyncMethod_UpdateCapacityCommitment<WithAsyncMethod_SplitCapacityCommitment<WithAsyncMethod_MergeCapacityCommitments<WithAsyncMethod_CreateAssignment<WithAsyncMethod_ListAssignments<WithAsyncMethod_DeleteAssignment<WithAsyncMethod_SearchAssignments<WithAsyncMethod_SearchAllAssignments<WithAsyncMethod_MoveAssignment<WithAsyncMethod_UpdateAssignment<WithAsyncMethod_GetBiReservation<WithAsyncMethod_UpdateBiReservation<Service > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CreateReservation : public BaseClass {
    private:
@@ -1960,18 +2013,45 @@ class ReservationService final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest* /*request*/, ::google::cloud::bigquery::reservation::v1::Assignment* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_UpdateAssignment : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateAssignment() {
+      ::grpc::Service::MarkMethodCallback(18,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest, ::google::cloud::bigquery::reservation::v1::Assignment>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* request, ::google::cloud::bigquery::reservation::v1::Assignment* response) { return this->UpdateAssignment(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateAssignment(
+        ::grpc::MessageAllocator< ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest, ::google::cloud::bigquery::reservation::v1::Assignment>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest, ::google::cloud::bigquery::reservation::v1::Assignment>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateAssignment() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateAssignment(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* /*request*/, ::google::cloud::bigquery::reservation::v1::Assignment* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateAssignment(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* /*request*/, ::google::cloud::bigquery::reservation::v1::Assignment* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_GetBiReservation : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetBiReservation() {
-      ::grpc::Service::MarkMethodCallback(18,
+      ::grpc::Service::MarkMethodCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest, ::google::cloud::bigquery::reservation::v1::BiReservation>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest* request, ::google::cloud::bigquery::reservation::v1::BiReservation* response) { return this->GetBiReservation(context, request, response); }));}
     void SetMessageAllocatorFor_GetBiReservation(
         ::grpc::MessageAllocator< ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest, ::google::cloud::bigquery::reservation::v1::BiReservation>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest, ::google::cloud::bigquery::reservation::v1::BiReservation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1992,13 +2072,13 @@ class ReservationService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_UpdateBiReservation() {
-      ::grpc::Service::MarkMethodCallback(19,
+      ::grpc::Service::MarkMethodCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest, ::google::cloud::bigquery::reservation::v1::BiReservation>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest* request, ::google::cloud::bigquery::reservation::v1::BiReservation* response) { return this->UpdateBiReservation(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateBiReservation(
         ::grpc::MessageAllocator< ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest, ::google::cloud::bigquery::reservation::v1::BiReservation>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest, ::google::cloud::bigquery::reservation::v1::BiReservation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -2013,7 +2093,7 @@ class ReservationService final {
     virtual ::grpc::ServerUnaryReactor* UpdateBiReservation(
       ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest* /*request*/, ::google::cloud::bigquery::reservation::v1::BiReservation* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_CreateReservation<WithCallbackMethod_ListReservations<WithCallbackMethod_GetReservation<WithCallbackMethod_DeleteReservation<WithCallbackMethod_UpdateReservation<WithCallbackMethod_CreateCapacityCommitment<WithCallbackMethod_ListCapacityCommitments<WithCallbackMethod_GetCapacityCommitment<WithCallbackMethod_DeleteCapacityCommitment<WithCallbackMethod_UpdateCapacityCommitment<WithCallbackMethod_SplitCapacityCommitment<WithCallbackMethod_MergeCapacityCommitments<WithCallbackMethod_CreateAssignment<WithCallbackMethod_ListAssignments<WithCallbackMethod_DeleteAssignment<WithCallbackMethod_SearchAssignments<WithCallbackMethod_SearchAllAssignments<WithCallbackMethod_MoveAssignment<WithCallbackMethod_GetBiReservation<WithCallbackMethod_UpdateBiReservation<Service > > > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef WithCallbackMethod_CreateReservation<WithCallbackMethod_ListReservations<WithCallbackMethod_GetReservation<WithCallbackMethod_DeleteReservation<WithCallbackMethod_UpdateReservation<WithCallbackMethod_CreateCapacityCommitment<WithCallbackMethod_ListCapacityCommitments<WithCallbackMethod_GetCapacityCommitment<WithCallbackMethod_DeleteCapacityCommitment<WithCallbackMethod_UpdateCapacityCommitment<WithCallbackMethod_SplitCapacityCommitment<WithCallbackMethod_MergeCapacityCommitments<WithCallbackMethod_CreateAssignment<WithCallbackMethod_ListAssignments<WithCallbackMethod_DeleteAssignment<WithCallbackMethod_SearchAssignments<WithCallbackMethod_SearchAllAssignments<WithCallbackMethod_MoveAssignment<WithCallbackMethod_UpdateAssignment<WithCallbackMethod_GetBiReservation<WithCallbackMethod_UpdateBiReservation<Service > > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateReservation : public BaseClass {
@@ -2322,12 +2402,29 @@ class ReservationService final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_UpdateAssignment : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UpdateAssignment() {
+      ::grpc::Service::MarkMethodGeneric(18);
+    }
+    ~WithGenericMethod_UpdateAssignment() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateAssignment(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* /*request*/, ::google::cloud::bigquery::reservation::v1::Assignment* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_GetBiReservation : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetBiReservation() {
-      ::grpc::Service::MarkMethodGeneric(18);
+      ::grpc::Service::MarkMethodGeneric(19);
     }
     ~WithGenericMethod_GetBiReservation() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2344,7 +2441,7 @@ class ReservationService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateBiReservation() {
-      ::grpc::Service::MarkMethodGeneric(19);
+      ::grpc::Service::MarkMethodGeneric(20);
     }
     ~WithGenericMethod_UpdateBiReservation() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2716,12 +2813,32 @@ class ReservationService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_UpdateAssignment : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UpdateAssignment() {
+      ::grpc::Service::MarkMethodRaw(18);
+    }
+    ~WithRawMethod_UpdateAssignment() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateAssignment(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* /*request*/, ::google::cloud::bigquery::reservation::v1::Assignment* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateAssignment(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_GetBiReservation : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetBiReservation() {
-      ::grpc::Service::MarkMethodRaw(18);
+      ::grpc::Service::MarkMethodRaw(19);
     }
     ~WithRawMethod_GetBiReservation() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2732,7 +2849,7 @@ class ReservationService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBiReservation(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2741,7 +2858,7 @@ class ReservationService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateBiReservation() {
-      ::grpc::Service::MarkMethodRaw(19);
+      ::grpc::Service::MarkMethodRaw(20);
     }
     ~WithRawMethod_UpdateBiReservation() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2752,7 +2869,7 @@ class ReservationService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateBiReservation(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3152,12 +3269,34 @@ class ReservationService final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_UpdateAssignment : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateAssignment() {
+      ::grpc::Service::MarkMethodRawCallback(18,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateAssignment(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateAssignment() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateAssignment(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* /*request*/, ::google::cloud::bigquery::reservation::v1::Assignment* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateAssignment(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_GetBiReservation : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetBiReservation() {
-      ::grpc::Service::MarkMethodRawCallback(18,
+      ::grpc::Service::MarkMethodRawCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBiReservation(context, request, response); }));
@@ -3179,7 +3318,7 @@ class ReservationService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_UpdateBiReservation() {
-      ::grpc::Service::MarkMethodRawCallback(19,
+      ::grpc::Service::MarkMethodRawCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateBiReservation(context, request, response); }));
@@ -3682,12 +3821,39 @@ class ReservationService final {
     virtual ::grpc::Status StreamedMoveAssignment(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::reservation::v1::MoveAssignmentRequest,::google::cloud::bigquery::reservation::v1::Assignment>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_UpdateAssignment : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UpdateAssignment() {
+      ::grpc::Service::MarkMethodStreamed(18,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest, ::google::cloud::bigquery::reservation::v1::Assignment>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest, ::google::cloud::bigquery::reservation::v1::Assignment>* streamer) {
+                       return this->StreamedUpdateAssignment(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UpdateAssignment() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UpdateAssignment(::grpc::ServerContext* /*context*/, const ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest* /*request*/, ::google::cloud::bigquery::reservation::v1::Assignment* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUpdateAssignment(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::reservation::v1::UpdateAssignmentRequest,::google::cloud::bigquery::reservation::v1::Assignment>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_GetBiReservation : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetBiReservation() {
-      ::grpc::Service::MarkMethodStreamed(18,
+      ::grpc::Service::MarkMethodStreamed(19,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::cloud::bigquery::reservation::v1::GetBiReservationRequest, ::google::cloud::bigquery::reservation::v1::BiReservation>(
             [this](::grpc::ServerContext* context,
@@ -3714,7 +3880,7 @@ class ReservationService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateBiReservation() {
-      ::grpc::Service::MarkMethodStreamed(19,
+      ::grpc::Service::MarkMethodStreamed(20,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest, ::google::cloud::bigquery::reservation::v1::BiReservation>(
             [this](::grpc::ServerContext* context,
@@ -3735,9 +3901,9 @@ class ReservationService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedUpdateBiReservation(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::bigquery::reservation::v1::UpdateBiReservationRequest,::google::cloud::bigquery::reservation::v1::BiReservation>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_CreateReservation<WithStreamedUnaryMethod_ListReservations<WithStreamedUnaryMethod_GetReservation<WithStreamedUnaryMethod_DeleteReservation<WithStreamedUnaryMethod_UpdateReservation<WithStreamedUnaryMethod_CreateCapacityCommitment<WithStreamedUnaryMethod_ListCapacityCommitments<WithStreamedUnaryMethod_GetCapacityCommitment<WithStreamedUnaryMethod_DeleteCapacityCommitment<WithStreamedUnaryMethod_UpdateCapacityCommitment<WithStreamedUnaryMethod_SplitCapacityCommitment<WithStreamedUnaryMethod_MergeCapacityCommitments<WithStreamedUnaryMethod_CreateAssignment<WithStreamedUnaryMethod_ListAssignments<WithStreamedUnaryMethod_DeleteAssignment<WithStreamedUnaryMethod_SearchAssignments<WithStreamedUnaryMethod_SearchAllAssignments<WithStreamedUnaryMethod_MoveAssignment<WithStreamedUnaryMethod_GetBiReservation<WithStreamedUnaryMethod_UpdateBiReservation<Service > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_CreateReservation<WithStreamedUnaryMethod_ListReservations<WithStreamedUnaryMethod_GetReservation<WithStreamedUnaryMethod_DeleteReservation<WithStreamedUnaryMethod_UpdateReservation<WithStreamedUnaryMethod_CreateCapacityCommitment<WithStreamedUnaryMethod_ListCapacityCommitments<WithStreamedUnaryMethod_GetCapacityCommitment<WithStreamedUnaryMethod_DeleteCapacityCommitment<WithStreamedUnaryMethod_UpdateCapacityCommitment<WithStreamedUnaryMethod_SplitCapacityCommitment<WithStreamedUnaryMethod_MergeCapacityCommitments<WithStreamedUnaryMethod_CreateAssignment<WithStreamedUnaryMethod_ListAssignments<WithStreamedUnaryMethod_DeleteAssignment<WithStreamedUnaryMethod_SearchAssignments<WithStreamedUnaryMethod_SearchAllAssignments<WithStreamedUnaryMethod_MoveAssignment<WithStreamedUnaryMethod_UpdateAssignment<WithStreamedUnaryMethod_GetBiReservation<WithStreamedUnaryMethod_UpdateBiReservation<Service > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_CreateReservation<WithStreamedUnaryMethod_ListReservations<WithStreamedUnaryMethod_GetReservation<WithStreamedUnaryMethod_DeleteReservation<WithStreamedUnaryMethod_UpdateReservation<WithStreamedUnaryMethod_CreateCapacityCommitment<WithStreamedUnaryMethod_ListCapacityCommitments<WithStreamedUnaryMethod_GetCapacityCommitment<WithStreamedUnaryMethod_DeleteCapacityCommitment<WithStreamedUnaryMethod_UpdateCapacityCommitment<WithStreamedUnaryMethod_SplitCapacityCommitment<WithStreamedUnaryMethod_MergeCapacityCommitments<WithStreamedUnaryMethod_CreateAssignment<WithStreamedUnaryMethod_ListAssignments<WithStreamedUnaryMethod_DeleteAssignment<WithStreamedUnaryMethod_SearchAssignments<WithStreamedUnaryMethod_SearchAllAssignments<WithStreamedUnaryMethod_MoveAssignment<WithStreamedUnaryMethod_GetBiReservation<WithStreamedUnaryMethod_UpdateBiReservation<Service > > > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_CreateReservation<WithStreamedUnaryMethod_ListReservations<WithStreamedUnaryMethod_GetReservation<WithStreamedUnaryMethod_DeleteReservation<WithStreamedUnaryMethod_UpdateReservation<WithStreamedUnaryMethod_CreateCapacityCommitment<WithStreamedUnaryMethod_ListCapacityCommitments<WithStreamedUnaryMethod_GetCapacityCommitment<WithStreamedUnaryMethod_DeleteCapacityCommitment<WithStreamedUnaryMethod_UpdateCapacityCommitment<WithStreamedUnaryMethod_SplitCapacityCommitment<WithStreamedUnaryMethod_MergeCapacityCommitments<WithStreamedUnaryMethod_CreateAssignment<WithStreamedUnaryMethod_ListAssignments<WithStreamedUnaryMethod_DeleteAssignment<WithStreamedUnaryMethod_SearchAssignments<WithStreamedUnaryMethod_SearchAllAssignments<WithStreamedUnaryMethod_MoveAssignment<WithStreamedUnaryMethod_UpdateAssignment<WithStreamedUnaryMethod_GetBiReservation<WithStreamedUnaryMethod_UpdateBiReservation<Service > > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v1

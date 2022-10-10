@@ -154,20 +154,19 @@ class IAMConnection {
  * A factory function to construct an object of type `IAMConnection`.
  *
  * The returned connection object should not be used directly; instead it
- * should be passed as an argument to the constructor of IAMClient,
- * and that class used instead.
+ * should be passed as an argument to the constructor of IAMClient.
  *
- * The optional @p opts argument may be used to configure aspects of the
+ * The optional @p options argument may be used to configure aspects of the
  * returned `IAMConnection`. Expected options are any of the types in
  * the following option lists:
  *
  * - `google::cloud::CommonOptionList`
  * - `google::cloud::GrpcOptionList`
+ * - `google::cloud::UnifiedCredentialsOptionList`
  * - `google::cloud::iam::IAMPolicyOptionList`
  *
- * @note Unrecognized options will be ignored. To debug issues with options set
- *     `GOOGLE_CLOUD_CPP_ENABLE_CLOG=yes` in the environment and unexpected
- *     options will be logged.
+ * @note Unexpected options will be ignored. To log unexpected options instead,
+ *     set `GOOGLE_CLOUD_CPP_ENABLE_CLOG=yes` in the environment.
  *
  * @param options (optional) Configure the `IAMConnection` created by
  * this function.
@@ -177,20 +176,6 @@ std::shared_ptr<IAMConnection> MakeIAMConnection(Options options = {});
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 namespace gcpcxxV1 = GOOGLE_CLOUD_CPP_NS;  // NOLINT(misc-unused-alias-decls)
 }  // namespace iam
-}  // namespace cloud
-}  // namespace google
-
-namespace google {
-namespace cloud {
-namespace iam_internal {
-GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
-
-std::shared_ptr<iam::IAMConnection> MakeIAMConnection(
-    std::shared_ptr<IAMStub> stub, Options options);
-
-GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
-namespace gcpcxxV1 = GOOGLE_CLOUD_CPP_NS;  // NOLINT(misc-unused-alias-decls)
-}  // namespace iam_internal
 }  // namespace cloud
 }  // namespace google
 

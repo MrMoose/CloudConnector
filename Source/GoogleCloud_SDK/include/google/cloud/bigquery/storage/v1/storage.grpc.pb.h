@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/cloud/bigquery/storage/v1/storage.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -741,6 +741,13 @@ class BigQueryWrite final {
     // * For PENDING streams, data is not made visible until the stream itself is
     // finalized (via the `FinalizeWriteStream` rpc), and the stream is explicitly
     // committed via the `BatchCommitWriteStreams` rpc.
+    //
+    // Note: For users coding against the gRPC api directly, it may be
+    // necessary to supply the x-goog-request-params system parameter
+    // with `write_stream=<full_write_stream_name>`.
+    //
+    // More information about system parameters:
+    // https://cloud.google.com/apis/docs/system-parameters
     std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>> AppendRows(::grpc::ClientContext* context) {
       return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::google::cloud::bigquery::storage::v1::AppendRowsRequest, ::google::cloud::bigquery::storage::v1::AppendRowsResponse>>(AppendRowsRaw(context));
     }
@@ -837,6 +844,13 @@ class BigQueryWrite final {
       // * For PENDING streams, data is not made visible until the stream itself is
       // finalized (via the `FinalizeWriteStream` rpc), and the stream is explicitly
       // committed via the `BatchCommitWriteStreams` rpc.
+      //
+      // Note: For users coding against the gRPC api directly, it may be
+      // necessary to supply the x-goog-request-params system parameter
+      // with `write_stream=<full_write_stream_name>`.
+      //
+      // More information about system parameters:
+      // https://cloud.google.com/apis/docs/system-parameters
       virtual void AppendRows(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::cloud::bigquery::storage::v1::AppendRowsRequest,::google::cloud::bigquery::storage::v1::AppendRowsResponse>* reactor) = 0;
       // Gets information about a write stream.
       virtual void GetWriteStream(::grpc::ClientContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response, std::function<void(::grpc::Status)>) = 0;
@@ -1018,6 +1032,13 @@ class BigQueryWrite final {
     // * For PENDING streams, data is not made visible until the stream itself is
     // finalized (via the `FinalizeWriteStream` rpc), and the stream is explicitly
     // committed via the `BatchCommitWriteStreams` rpc.
+    //
+    // Note: For users coding against the gRPC api directly, it may be
+    // necessary to supply the x-goog-request-params system parameter
+    // with `write_stream=<full_write_stream_name>`.
+    //
+    // More information about system parameters:
+    // https://cloud.google.com/apis/docs/system-parameters
     virtual ::grpc::Status AppendRows(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::google::cloud::bigquery::storage::v1::AppendRowsResponse, ::google::cloud::bigquery::storage::v1::AppendRowsRequest>* stream);
     // Gets information about a write stream.
     virtual ::grpc::Status GetWriteStream(::grpc::ServerContext* context, const ::google::cloud::bigquery::storage::v1::GetWriteStreamRequest* request, ::google::cloud::bigquery::storage::v1::WriteStream* response);

@@ -16,10 +16,10 @@
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_STORAGE_BUCKET_METADATA_H
 
 #include "google/cloud/storage/bucket_access_control.h"
-#include "google/cloud/storage/internal/common_metadata.h"
 #include "google/cloud/storage/internal/patch_builder.h"
 #include "google/cloud/storage/lifecycle_rule.h"
 #include "google/cloud/storage/object_access_control.h"
+#include "google/cloud/storage/owner.h"
 #include "google/cloud/storage/version.h"
 #include "google/cloud/optional.h"
 #include "absl/types/optional.h"
@@ -34,11 +34,6 @@ namespace google {
 namespace cloud {
 namespace storage {
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
-namespace internal {
-struct BucketMetadataParser;
-struct GrpcBucketMetadataParser;
-struct GrpcBucketRequestParser;
-}  // namespace internal
 
 /**
  * The billing configuration for a Bucket.
@@ -522,9 +517,59 @@ inline bool operator>=(BucketWebsite const& lhs, BucketWebsite const& rhs) {
 }
 
 /**
+ * Configuration for Custom Dual Regions.
+ *
+ * It should specify precisely two eligible regions within the same Multiregion.
+ *
+ * @see Additional information on custom dual regions in the
+ *     [feature documentation][cdr-link].
+ *
+ * [cdr-link]: https://cloud.google.com/storage/docs/locations
+ */
+struct BucketCustomPlacementConfig {
+  std::vector<std::string> data_locations;
+};
+
+//@{
+/// @name Comparison operators for BucketCustomPlacementConfig.
+inline bool operator==(BucketCustomPlacementConfig const& lhs,
+                       BucketCustomPlacementConfig const& rhs) {
+  return lhs.data_locations == rhs.data_locations;
+}
+
+inline bool operator<(BucketCustomPlacementConfig const& lhs,
+                      BucketCustomPlacementConfig const& rhs) {
+  return lhs.data_locations < rhs.data_locations;
+}
+
+inline bool operator!=(BucketCustomPlacementConfig const& lhs,
+                       BucketCustomPlacementConfig const& rhs) {
+  return std::rel_ops::operator!=(lhs, rhs);
+}
+
+inline bool operator>(BucketCustomPlacementConfig const& lhs,
+                      BucketCustomPlacementConfig const& rhs) {
+  return std::rel_ops::operator>(lhs, rhs);
+}
+
+inline bool operator<=(BucketCustomPlacementConfig const& lhs,
+                       BucketCustomPlacementConfig const& rhs) {
+  return std::rel_ops::operator<=(lhs, rhs);
+}
+
+inline bool operator>=(BucketCustomPlacementConfig const& lhs,
+                       BucketCustomPlacementConfig const& rhs) {
+  return std::rel_ops::operator>=(lhs, rhs);
+}
+//@}
+
+std::ostream& operator<<(std::ostream& os,
+                         BucketCustomPlacementConfig const& rhs);
+
+/**
  * Represents a Google Cloud Storage Bucket Metadata object.
  */
-class BucketMetadata : private internal::CommonMetadata<BucketMetadata> {
+class BucketMetadata {
  public:
   BucketMetadata() = default;
 
@@ -660,7 +705,13 @@ class BucketMetadata : private internal::CommonMetadata<BucketMetadata> {
   }
   ///@}
 
-  using CommonMetadata::etag;
+  std::string const& etag() const { return etag_; }
+
+  /// @note This is only intended for mocking.
+  BucketMetadata& set_etag(std::string v) {
+    etag_ = std::move(v);
+    return *this;
+  }
 
   /**
    * @name Get and set the IAM configuration.
@@ -693,8 +744,22 @@ class BucketMetadata : private internal::CommonMetadata<BucketMetadata> {
   }
   ///@}
 
-  using CommonMetadata::id;
-  using CommonMetadata::kind;
+  /// Return the bucket id.
+  std::string const& id() const { return id_; }
+
+  /// @note This is only intended for mocking.
+  BucketMetadata& set_id(std::string v) {
+    id_ = std::move(v);
+    return *this;
+  }
+
+  std::string const& kind() const { return kind_; }
+
+  /// @note This is only intended for mocking
+  BucketMetadata& set_kind(std::string v) {
+    kind_ = std::move(v);
+    return *this;
+  }
 
   /// @name Accessors and modifiers to the `labels`.
   ///@{
@@ -763,13 +828,23 @@ class BucketMetadata : private internal::CommonMetadata<BucketMetadata> {
   }
   ///@}
 
+  /// Return the bucket location.
   std::string const& location() const { return location_; }
+
+  /// Set the bucket location. Only applicable when creating buckets.
   BucketMetadata& set_location(std::string v) {
     location_ = std::move(v);
     return *this;
   }
 
+  /// Returns the location type (e.g. regional vs. dual region).
   std::string const& location_type() const { return location_type_; }
+
+  /// @note This is only intended for mocking.
+  BucketMetadata& set_location_type(std::string v) {
+    location_type_ = std::move(v);
+    return *this;
+  }
 
   /// @name Accessors and modifiers for logging configuration.
   ///@{
@@ -789,10 +864,16 @@ class BucketMetadata : private internal::CommonMetadata<BucketMetadata> {
   ///@}
 
   /// The bucket metageneration.
-  using CommonMetadata::metageneration;
+  std::int64_t metageneration() const { return metageneration_; }
+
+  /// @note this is only intended for mocking.
+  BucketMetadata& set_metageneration(std::int64_t v) {
+    metageneration_ = v;
+    return *this;
+  }
 
   /// The bucket name.
-  using CommonMetadata::name;
+  std::string const& name() const { return name_; }
 
   /**
    * Changes the name.
@@ -802,17 +883,46 @@ class BucketMetadata : private internal::CommonMetadata<BucketMetadata> {
    *   some other attribute.
    */
   BucketMetadata& set_name(std::string v) {
-    CommonMetadata::set_name(std::move(v));
+    name_ = std::move(v);
     return *this;
   }
 
   /// Returns true if the bucket `owner` attribute is present.
-  using CommonMetadata::has_owner;
-  using CommonMetadata::owner;
+  bool has_owner() const { return owner_.has_value(); }
+  /**
+   * Returns the owner.
+   *
+   * It is undefined behavior to call `owner()` if `has_owner()` is false.
+   */
+  Owner const& owner() const { return *owner_; }
+
+  /// @note this is only intended for mocking.
+  BucketMetadata& set_owner(Owner v) {
+    owner_ = std::move(v);
+    return *this;
+  }
+  /// @note this is only intended for mocking.
+  BucketMetadata& reset_owner() {
+    owner_.reset();
+    return *this;
+  }
 
   std::int64_t const& project_number() const { return project_number_; }
 
-  using CommonMetadata::self_link;
+  /// @note this is only intended for mocking.
+  BucketMetadata& set_project_number(std::int64_t v) {
+    project_number_ = v;
+    return *this;
+  }
+
+  /// Returns a HTTP link to retrieve the bucket metadata.
+  std::string const& self_link() const { return self_link_; }
+
+  /// @note this is only intended for mocking.
+  BucketMetadata& set_self_link(std::string v) {
+    self_link_ = std::move(v);
+    return *this;
+  }
 
   /// @name Accessors and modifiers for retention policy configuration.
   ///@{
@@ -858,18 +968,32 @@ class BucketMetadata : private internal::CommonMetadata<BucketMetadata> {
 
   /// @name Access and modify the default storage class attribute.
   ///@{
-  using CommonMetadata::storage_class;
+  std::string const& storage_class() const { return storage_class_; }
   BucketMetadata& set_storage_class(std::string v) {
-    CommonMetadata::set_storage_class(std::move(v));
+    storage_class_ = std::move(v);
     return *this;
   }
   ///@}
 
   /// Returns the bucket creation timestamp.
-  using CommonMetadata::time_created;
+  std::chrono::system_clock::time_point time_created() const {
+    return time_created_;
+  }
+
+  /// @note This is only intended for mocking.
+  BucketMetadata& set_time_created(std::chrono::system_clock::time_point v) {
+    time_created_ = v;
+    return *this;
+  }
 
   /// Returns the timestamp for the last bucket metadata update.
-  using CommonMetadata::updated;
+  std::chrono::system_clock::time_point updated() const { return updated_; }
+
+  /// @note This is only intended for mocking.
+  BucketMetadata& set_updated(std::chrono::system_clock::time_point v) {
+    updated_ = v;
+    return *this;
+  }
 
   /// @name Accessors and modifiers for versioning configuration.
   ///@{
@@ -912,32 +1036,64 @@ class BucketMetadata : private internal::CommonMetadata<BucketMetadata> {
   }
   ///@}
 
+  /// @name Accessors and modifiers for custom placement configuration.
+  ///@{
+  bool has_custom_placement_config() const {
+    return custom_placement_config_.has_value();
+  }
+  BucketCustomPlacementConfig const& custom_placement_config() const {
+    return *custom_placement_config_;
+  }
+  absl::optional<BucketCustomPlacementConfig> const&
+  custom_placement_config_as_optional() const {
+    return custom_placement_config_;
+  }
+  /// Placement configuration can only be set when the bucket is created.
+  BucketMetadata& set_custom_placement_config(BucketCustomPlacementConfig v) {
+    custom_placement_config_ = std::move(v);
+    return *this;
+  }
+  /// Placement configuration can only be set when the bucket is created.
+  BucketMetadata& reset_custom_placement_config() {
+    custom_placement_config_.reset();
+    return *this;
+  }
+  ///@}
+
   friend bool operator==(BucketMetadata const& lhs, BucketMetadata const& rhs);
   friend bool operator!=(BucketMetadata const& lhs, BucketMetadata const& rhs) {
     return !(lhs == rhs);
   }
 
  private:
-  friend struct internal::BucketMetadataParser;
-  friend struct internal::GrpcBucketMetadataParser;
-
   friend std::ostream& operator<<(std::ostream& os, BucketMetadata const& rhs);
   // Keep the fields in alphabetical order.
   std::vector<BucketAccessControl> acl_;
   absl::optional<BucketBilling> billing_;
   std::vector<CorsEntry> cors_;
-  bool default_event_based_hold_ = false;
+  absl::optional<BucketCustomPlacementConfig> custom_placement_config_;
   std::vector<ObjectAccessControl> default_acl_;
+  bool default_event_based_hold_ = false;
   absl::optional<BucketEncryption> encryption_;
+  std::string etag_;
   absl::optional<BucketIamConfiguration> iam_configuration_;
+  std::string id_;
+  std::string kind_;
   std::map<std::string, std::string> labels_;
   absl::optional<BucketLifecycle> lifecycle_;
   std::string location_;
   std::string location_type_;
   absl::optional<BucketLogging> logging_;
+  std::int64_t metageneration_{0};
+  std::string name_;
+  absl::optional<Owner> owner_;
   std::int64_t project_number_ = 0;
   absl::optional<BucketRetentionPolicy> retention_policy_;
   std::string rpo_;
+  std::string self_link_;
+  std::string storage_class_;
+  std::chrono::system_clock::time_point time_created_;
+  std::chrono::system_clock::time_point updated_;
   absl::optional<BucketVersioning> versioning_;
   absl::optional<BucketWebsite> website_;
 };
@@ -1035,7 +1191,7 @@ class BucketMetadataPatchBuilder {
   BucketMetadataPatchBuilder& ResetWebsite();
 
  private:
-  friend struct internal::GrpcBucketRequestParser;
+  friend struct internal::PatchBuilderDetails;
 
   internal::PatchBuilder impl_;
   bool labels_subpatch_dirty_{false};

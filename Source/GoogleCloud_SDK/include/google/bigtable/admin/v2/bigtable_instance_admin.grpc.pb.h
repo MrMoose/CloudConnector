@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/bigtable/admin/v2/bigtable_instance_admin.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -248,6 +248,15 @@ class BigtableInstanceAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>> PrepareAsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>>(PrepareAsyncTestIamPermissionsRaw(context, request, cq));
     }
+    // Lists hot tablets in a cluster, within the time range provided. Hot
+    // tablets are ordered based on CPU usage.
+    virtual ::grpc::Status ListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::google::bigtable::admin::v2::ListHotTabletsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListHotTabletsResponse>> AsyncListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListHotTabletsResponse>>(AsyncListHotTabletsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListHotTabletsResponse>> PrepareAsyncListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListHotTabletsResponse>>(PrepareAsyncListHotTabletsRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -343,6 +352,10 @@ class BigtableInstanceAdmin final {
       // Returns permissions that the caller has on the specified instance resource.
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Lists hot tablets in a cluster, within the time range provided. Hot
+      // tablets are ordered based on CPU usage.
+      virtual void ListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest* request, ::google::bigtable::admin::v2::ListHotTabletsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest* request, ::google::bigtable::admin::v2::ListHotTabletsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -388,6 +401,8 @@ class BigtableInstanceAdmin final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>* PrepareAsyncSetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>* AsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>* PrepareAsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListHotTabletsResponse>* AsyncListHotTabletsRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListHotTabletsResponse>* PrepareAsyncListHotTabletsRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -532,6 +547,13 @@ class BigtableInstanceAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>> PrepareAsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>>(PrepareAsyncTestIamPermissionsRaw(context, request, cq));
     }
+    ::grpc::Status ListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::google::bigtable::admin::v2::ListHotTabletsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::ListHotTabletsResponse>> AsyncListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::ListHotTabletsResponse>>(AsyncListHotTabletsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::ListHotTabletsResponse>> PrepareAsyncListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::ListHotTabletsResponse>>(PrepareAsyncListHotTabletsRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -575,6 +597,8 @@ class BigtableInstanceAdmin final {
       void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) override;
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) override;
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest* request, ::google::bigtable::admin::v2::ListHotTabletsResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListHotTablets(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest* request, ::google::bigtable::admin::v2::ListHotTabletsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -626,6 +650,8 @@ class BigtableInstanceAdmin final {
     ::grpc::ClientAsyncResponseReader< ::google::iam::v1::Policy>* PrepareAsyncSetIamPolicyRaw(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>* AsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>* PrepareAsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::ListHotTabletsResponse>* AsyncListHotTabletsRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::ListHotTabletsResponse>* PrepareAsyncListHotTabletsRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_CreateInstance_;
     const ::grpc::internal::RpcMethod rpcmethod_GetInstance_;
     const ::grpc::internal::RpcMethod rpcmethod_ListInstances_;
@@ -646,6 +672,7 @@ class BigtableInstanceAdmin final {
     const ::grpc::internal::RpcMethod rpcmethod_GetIamPolicy_;
     const ::grpc::internal::RpcMethod rpcmethod_SetIamPolicy_;
     const ::grpc::internal::RpcMethod rpcmethod_TestIamPermissions_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListHotTablets_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -725,6 +752,9 @@ class BigtableInstanceAdmin final {
     virtual ::grpc::Status SetIamPolicy(::grpc::ServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response);
     // Returns permissions that the caller has on the specified instance resource.
     virtual ::grpc::Status TestIamPermissions(::grpc::ServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response);
+    // Lists hot tablets in a cluster, within the time range provided. Hot
+    // tablets are ordered based on CPU usage.
+    virtual ::grpc::Status ListHotTablets(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest* request, ::google::bigtable::admin::v2::ListHotTabletsResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_CreateInstance : public BaseClass {
@@ -1126,7 +1156,27 @@ class BigtableInstanceAdmin final {
       ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CreateInstance<WithAsyncMethod_GetInstance<WithAsyncMethod_ListInstances<WithAsyncMethod_UpdateInstance<WithAsyncMethod_PartialUpdateInstance<WithAsyncMethod_DeleteInstance<WithAsyncMethod_CreateCluster<WithAsyncMethod_GetCluster<WithAsyncMethod_ListClusters<WithAsyncMethod_UpdateCluster<WithAsyncMethod_PartialUpdateCluster<WithAsyncMethod_DeleteCluster<WithAsyncMethod_CreateAppProfile<WithAsyncMethod_GetAppProfile<WithAsyncMethod_ListAppProfiles<WithAsyncMethod_UpdateAppProfile<WithAsyncMethod_DeleteAppProfile<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_ListHotTablets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListHotTablets() {
+      ::grpc::Service::MarkMethodAsync(20);
+    }
+    ~WithAsyncMethod_ListHotTablets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHotTablets(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::ListHotTabletsRequest* /*request*/, ::google::bigtable::admin::v2::ListHotTabletsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListHotTablets(::grpc::ServerContext* context, ::google::bigtable::admin::v2::ListHotTabletsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::ListHotTabletsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_CreateInstance<WithAsyncMethod_GetInstance<WithAsyncMethod_ListInstances<WithAsyncMethod_UpdateInstance<WithAsyncMethod_PartialUpdateInstance<WithAsyncMethod_DeleteInstance<WithAsyncMethod_CreateCluster<WithAsyncMethod_GetCluster<WithAsyncMethod_ListClusters<WithAsyncMethod_UpdateCluster<WithAsyncMethod_PartialUpdateCluster<WithAsyncMethod_DeleteCluster<WithAsyncMethod_CreateAppProfile<WithAsyncMethod_GetAppProfile<WithAsyncMethod_ListAppProfiles<WithAsyncMethod_UpdateAppProfile<WithAsyncMethod_DeleteAppProfile<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_ListHotTablets<Service > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CreateInstance : public BaseClass {
    private:
@@ -1667,7 +1717,34 @@ class BigtableInstanceAdmin final {
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
       ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_CreateInstance<WithCallbackMethod_GetInstance<WithCallbackMethod_ListInstances<WithCallbackMethod_UpdateInstance<WithCallbackMethod_PartialUpdateInstance<WithCallbackMethod_DeleteInstance<WithCallbackMethod_CreateCluster<WithCallbackMethod_GetCluster<WithCallbackMethod_ListClusters<WithCallbackMethod_UpdateCluster<WithCallbackMethod_PartialUpdateCluster<WithCallbackMethod_DeleteCluster<WithCallbackMethod_CreateAppProfile<WithCallbackMethod_GetAppProfile<WithCallbackMethod_ListAppProfiles<WithCallbackMethod_UpdateAppProfile<WithCallbackMethod_DeleteAppProfile<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_ListHotTablets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListHotTablets() {
+      ::grpc::Service::MarkMethodCallback(20,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListHotTabletsRequest, ::google::bigtable::admin::v2::ListHotTabletsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::ListHotTabletsRequest* request, ::google::bigtable::admin::v2::ListHotTabletsResponse* response) { return this->ListHotTablets(context, request, response); }));}
+    void SetMessageAllocatorFor_ListHotTablets(
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::ListHotTabletsRequest, ::google::bigtable::admin::v2::ListHotTabletsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListHotTabletsRequest, ::google::bigtable::admin::v2::ListHotTabletsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListHotTablets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHotTablets(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::ListHotTabletsRequest* /*request*/, ::google::bigtable::admin::v2::ListHotTabletsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListHotTablets(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::ListHotTabletsRequest* /*request*/, ::google::bigtable::admin::v2::ListHotTabletsResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_CreateInstance<WithCallbackMethod_GetInstance<WithCallbackMethod_ListInstances<WithCallbackMethod_UpdateInstance<WithCallbackMethod_PartialUpdateInstance<WithCallbackMethod_DeleteInstance<WithCallbackMethod_CreateCluster<WithCallbackMethod_GetCluster<WithCallbackMethod_ListClusters<WithCallbackMethod_UpdateCluster<WithCallbackMethod_PartialUpdateCluster<WithCallbackMethod_DeleteCluster<WithCallbackMethod_CreateAppProfile<WithCallbackMethod_GetAppProfile<WithCallbackMethod_ListAppProfiles<WithCallbackMethod_UpdateAppProfile<WithCallbackMethod_DeleteAppProfile<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_ListHotTablets<Service > > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateInstance : public BaseClass {
@@ -2005,6 +2082,23 @@ class BigtableInstanceAdmin final {
     }
     // disable synchronous version of this method
     ::grpc::Status TestIamPermissions(::grpc::ServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ListHotTablets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListHotTablets() {
+      ::grpc::Service::MarkMethodGeneric(20);
+    }
+    ~WithGenericMethod_ListHotTablets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHotTablets(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::ListHotTabletsRequest* /*request*/, ::google::bigtable::admin::v2::ListHotTabletsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2407,6 +2501,26 @@ class BigtableInstanceAdmin final {
     }
     void RequestTestIamPermissions(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ListHotTablets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListHotTablets() {
+      ::grpc::Service::MarkMethodRaw(20);
+    }
+    ~WithRawMethod_ListHotTablets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHotTablets(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::ListHotTabletsRequest* /*request*/, ::google::bigtable::admin::v2::ListHotTabletsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListHotTablets(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2847,6 +2961,28 @@ class BigtableInstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ListHotTablets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListHotTablets() {
+      ::grpc::Service::MarkMethodRawCallback(20,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListHotTablets(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListHotTablets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListHotTablets(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::ListHotTabletsRequest* /*request*/, ::google::bigtable::admin::v2::ListHotTabletsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListHotTablets(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -3389,9 +3525,36 @@ class BigtableInstanceAdmin final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedTestIamPermissions(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::iam::v1::TestIamPermissionsRequest,::google::iam::v1::TestIamPermissionsResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_PartialUpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_CreateCluster<WithStreamedUnaryMethod_GetCluster<WithStreamedUnaryMethod_ListClusters<WithStreamedUnaryMethod_UpdateCluster<WithStreamedUnaryMethod_PartialUpdateCluster<WithStreamedUnaryMethod_DeleteCluster<WithStreamedUnaryMethod_CreateAppProfile<WithStreamedUnaryMethod_GetAppProfile<WithStreamedUnaryMethod_ListAppProfiles<WithStreamedUnaryMethod_UpdateAppProfile<WithStreamedUnaryMethod_DeleteAppProfile<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ListHotTablets : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListHotTablets() {
+      ::grpc::Service::MarkMethodStreamed(20,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::bigtable::admin::v2::ListHotTabletsRequest, ::google::bigtable::admin::v2::ListHotTabletsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::bigtable::admin::v2::ListHotTabletsRequest, ::google::bigtable::admin::v2::ListHotTabletsResponse>* streamer) {
+                       return this->StreamedListHotTablets(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListHotTablets() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListHotTablets(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::ListHotTabletsRequest* /*request*/, ::google::bigtable::admin::v2::ListHotTabletsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListHotTablets(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::admin::v2::ListHotTabletsRequest,::google::bigtable::admin::v2::ListHotTabletsResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_PartialUpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_CreateCluster<WithStreamedUnaryMethod_GetCluster<WithStreamedUnaryMethod_ListClusters<WithStreamedUnaryMethod_UpdateCluster<WithStreamedUnaryMethod_PartialUpdateCluster<WithStreamedUnaryMethod_DeleteCluster<WithStreamedUnaryMethod_CreateAppProfile<WithStreamedUnaryMethod_GetAppProfile<WithStreamedUnaryMethod_ListAppProfiles<WithStreamedUnaryMethod_UpdateAppProfile<WithStreamedUnaryMethod_DeleteAppProfile<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_ListHotTablets<Service > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_PartialUpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_CreateCluster<WithStreamedUnaryMethod_GetCluster<WithStreamedUnaryMethod_ListClusters<WithStreamedUnaryMethod_UpdateCluster<WithStreamedUnaryMethod_PartialUpdateCluster<WithStreamedUnaryMethod_DeleteCluster<WithStreamedUnaryMethod_CreateAppProfile<WithStreamedUnaryMethod_GetAppProfile<WithStreamedUnaryMethod_ListAppProfiles<WithStreamedUnaryMethod_UpdateAppProfile<WithStreamedUnaryMethod_DeleteAppProfile<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_PartialUpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_CreateCluster<WithStreamedUnaryMethod_GetCluster<WithStreamedUnaryMethod_ListClusters<WithStreamedUnaryMethod_UpdateCluster<WithStreamedUnaryMethod_PartialUpdateCluster<WithStreamedUnaryMethod_DeleteCluster<WithStreamedUnaryMethod_CreateAppProfile<WithStreamedUnaryMethod_GetAppProfile<WithStreamedUnaryMethod_ListAppProfiles<WithStreamedUnaryMethod_UpdateAppProfile<WithStreamedUnaryMethod_DeleteAppProfile<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_ListHotTablets<Service > > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v2

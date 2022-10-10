@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/spanner/admin/instance/v1/spanner_instance_admin.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -91,6 +91,138 @@ class InstanceAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::InstanceConfig>> PrepareAsyncGetInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::InstanceConfig>>(PrepareAsyncGetInstanceConfigRaw(context, request, cq));
     }
+    // Creates an instance config and begins preparing it to be used. The
+    // returned [long-running operation][google.longrunning.Operation]
+    // can be used to track the progress of preparing the new
+    // instance config. The instance config name is assigned by the caller. If the
+    // named instance config already exists, `CreateInstanceConfig` returns
+    // `ALREADY_EXISTS`.
+    //
+    // Immediately after the request returns:
+    //
+    //   * The instance config is readable via the API, with all requested
+    //     attributes. The instance config's
+    //     [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+    //     field is set to true. Its state is `CREATING`.
+    //
+    // While the operation is pending:
+    //
+    //   * Cancelling the operation renders the instance config immediately
+    //     unreadable via the API.
+    //   * Except for deleting the creating resource, all other attempts to modify
+    //     the instance config are rejected.
+    //
+    // Upon completion of the returned operation:
+    //
+    //   * Instances can be created using the instance configuration.
+    //   * The instance config's
+    //   [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+    //   field becomes false. Its state becomes `READY`.
+    //
+    // The returned [long-running operation][google.longrunning.Operation] will
+    // have a name of the format
+    // `<instance_config_name>/operations/<operation_id>` and can be used to track
+    // creation of the instance config. The
+    // [metadata][google.longrunning.Operation.metadata] field type is
+    // [CreateInstanceConfigMetadata][google.spanner.admin.instance.v1.CreateInstanceConfigMetadata].
+    // The [response][google.longrunning.Operation.response] field type is
+    // [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig], if
+    // successful.
+    //
+    // Authorization requires `spanner.instanceConfigs.create` permission on
+    // the resource
+    // [parent][google.spanner.admin.instance.v1.CreateInstanceConfigRequest.parent].
+    virtual ::grpc::Status CreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::google::longrunning::Operation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncCreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncCreateInstanceConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncCreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncCreateInstanceConfigRaw(context, request, cq));
+    }
+    // Updates an instance config. The returned
+    // [long-running operation][google.longrunning.Operation] can be used to track
+    // the progress of updating the instance. If the named instance config does
+    // not exist, returns `NOT_FOUND`.
+    //
+    // Only user managed configurations can be updated.
+    //
+    // Immediately after the request returns:
+    //
+    //   * The instance config's
+    //     [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+    //     field is set to true.
+    //
+    // While the operation is pending:
+    //
+    //   * Cancelling the operation sets its metadata's
+    //     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceConfigMetadata.cancel_time].
+    //     The operation is guaranteed to succeed at undoing all changes, after
+    //     which point it terminates with a `CANCELLED` status.
+    //   * All other attempts to modify the instance config are rejected.
+    //   * Reading the instance config via the API continues to give the
+    //     pre-request values.
+    //
+    // Upon completion of the returned operation:
+    //
+    //   * Creating instances using the instance configuration uses the new
+    //     values.
+    //   * The instance config's new values are readable via the API.
+    //   * The instance config's
+    //   [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+    //   field becomes false.
+    //
+    // The returned [long-running operation][google.longrunning.Operation] will
+    // have a name of the format
+    // `<instance_config_name>/operations/<operation_id>` and can be used to track
+    // the instance config modification.  The
+    // [metadata][google.longrunning.Operation.metadata] field type is
+    // [UpdateInstanceConfigMetadata][google.spanner.admin.instance.v1.UpdateInstanceConfigMetadata].
+    // The [response][google.longrunning.Operation.response] field type is
+    // [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig], if
+    // successful.
+    //
+    // Authorization requires `spanner.instanceConfigs.update` permission on
+    // the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
+    virtual ::grpc::Status UpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::google::longrunning::Operation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncUpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncUpdateInstanceConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncUpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncUpdateInstanceConfigRaw(context, request, cq));
+    }
+    // Deletes the instance config. Deletion is only allowed when no
+    // instances are using the configuration. If any instances are using
+    // the config, returns `FAILED_PRECONDITION`.
+    //
+    // Only user managed configurations can be deleted.
+    //
+    // Authorization requires `spanner.instanceConfigs.delete` permission on
+    // the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
+    virtual ::grpc::Status DeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::google::protobuf::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteInstanceConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteInstanceConfigRaw(context, request, cq));
+    }
+    // Lists the user-managed instance config [long-running
+    // operations][google.longrunning.Operation] in the given project. An instance
+    // config operation has a name of the form
+    // `projects/<project>/instanceConfigs/<instance_config>/operations/<operation>`.
+    // The long-running operation
+    // [metadata][google.longrunning.Operation.metadata] field type
+    // `metadata.type_url` describes the type of the metadata. Operations returned
+    // include those that have completed/failed/canceled within the last 7 days,
+    // and pending operations. Operations returned are ordered by
+    // `operation.metadata.value.start_time` in descending order starting
+    // from the most recently started operation.
+    virtual ::grpc::Status ListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>> AsyncListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>>(AsyncListInstanceConfigOperationsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>> PrepareAsyncListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>>(PrepareAsyncListInstanceConfigOperationsRaw(context, request, cq));
+    }
     // Lists all instances in the given project.
     virtual ::grpc::Status ListInstances(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest& request, ::google::spanner::admin::instance::v1::ListInstancesResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstancesResponse>> AsyncListInstances(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest& request, ::grpc::CompletionQueue* cq) {
@@ -162,9 +294,9 @@ class InstanceAdmin final {
     // Until completion of the returned operation:
     //
     //   * Cancelling the operation sets its metadata's
-    //     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceMetadata.cancel_time], and begins
-    //     restoring resources to their pre-request values. The operation
-    //     is guaranteed to succeed at undoing all resource changes,
+    //     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceMetadata.cancel_time],
+    //     and begins restoring resources to their pre-request values. The
+    //     operation is guaranteed to succeed at undoing all resource changes,
     //     after which point it terminates with a `CANCELLED` status.
     //   * All other attempts to modify the instance are rejected.
     //   * Reading the instance via the API continues to give the pre-request
@@ -187,7 +319,7 @@ class InstanceAdmin final {
     // [Instance][google.spanner.admin.instance.v1.Instance], if successful.
     //
     // Authorization requires `spanner.instances.update` permission on
-    // resource [name][google.spanner.admin.instance.v1.Instance.name].
+    // the resource [name][google.spanner.admin.instance.v1.Instance.name].
     virtual ::grpc::Status UpdateInstance(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncUpdateInstance(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncUpdateInstanceRaw(context, request, cq));
@@ -259,6 +391,118 @@ class InstanceAdmin final {
       // Gets information about a particular instance configuration.
       virtual void GetInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest* request, ::google::spanner::admin::instance::v1::InstanceConfig* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest* request, ::google::spanner::admin::instance::v1::InstanceConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Creates an instance config and begins preparing it to be used. The
+      // returned [long-running operation][google.longrunning.Operation]
+      // can be used to track the progress of preparing the new
+      // instance config. The instance config name is assigned by the caller. If the
+      // named instance config already exists, `CreateInstanceConfig` returns
+      // `ALREADY_EXISTS`.
+      //
+      // Immediately after the request returns:
+      //
+      //   * The instance config is readable via the API, with all requested
+      //     attributes. The instance config's
+      //     [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+      //     field is set to true. Its state is `CREATING`.
+      //
+      // While the operation is pending:
+      //
+      //   * Cancelling the operation renders the instance config immediately
+      //     unreadable via the API.
+      //   * Except for deleting the creating resource, all other attempts to modify
+      //     the instance config are rejected.
+      //
+      // Upon completion of the returned operation:
+      //
+      //   * Instances can be created using the instance configuration.
+      //   * The instance config's
+      //   [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+      //   field becomes false. Its state becomes `READY`.
+      //
+      // The returned [long-running operation][google.longrunning.Operation] will
+      // have a name of the format
+      // `<instance_config_name>/operations/<operation_id>` and can be used to track
+      // creation of the instance config. The
+      // [metadata][google.longrunning.Operation.metadata] field type is
+      // [CreateInstanceConfigMetadata][google.spanner.admin.instance.v1.CreateInstanceConfigMetadata].
+      // The [response][google.longrunning.Operation.response] field type is
+      // [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig], if
+      // successful.
+      //
+      // Authorization requires `spanner.instanceConfigs.create` permission on
+      // the resource
+      // [parent][google.spanner.admin.instance.v1.CreateInstanceConfigRequest.parent].
+      virtual void CreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Updates an instance config. The returned
+      // [long-running operation][google.longrunning.Operation] can be used to track
+      // the progress of updating the instance. If the named instance config does
+      // not exist, returns `NOT_FOUND`.
+      //
+      // Only user managed configurations can be updated.
+      //
+      // Immediately after the request returns:
+      //
+      //   * The instance config's
+      //     [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+      //     field is set to true.
+      //
+      // While the operation is pending:
+      //
+      //   * Cancelling the operation sets its metadata's
+      //     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceConfigMetadata.cancel_time].
+      //     The operation is guaranteed to succeed at undoing all changes, after
+      //     which point it terminates with a `CANCELLED` status.
+      //   * All other attempts to modify the instance config are rejected.
+      //   * Reading the instance config via the API continues to give the
+      //     pre-request values.
+      //
+      // Upon completion of the returned operation:
+      //
+      //   * Creating instances using the instance configuration uses the new
+      //     values.
+      //   * The instance config's new values are readable via the API.
+      //   * The instance config's
+      //   [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+      //   field becomes false.
+      //
+      // The returned [long-running operation][google.longrunning.Operation] will
+      // have a name of the format
+      // `<instance_config_name>/operations/<operation_id>` and can be used to track
+      // the instance config modification.  The
+      // [metadata][google.longrunning.Operation.metadata] field type is
+      // [UpdateInstanceConfigMetadata][google.spanner.admin.instance.v1.UpdateInstanceConfigMetadata].
+      // The [response][google.longrunning.Operation.response] field type is
+      // [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig], if
+      // successful.
+      //
+      // Authorization requires `spanner.instanceConfigs.update` permission on
+      // the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
+      virtual void UpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Deletes the instance config. Deletion is only allowed when no
+      // instances are using the configuration. If any instances are using
+      // the config, returns `FAILED_PRECONDITION`.
+      //
+      // Only user managed configurations can be deleted.
+      //
+      // Authorization requires `spanner.instanceConfigs.delete` permission on
+      // the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
+      virtual void DeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Lists the user-managed instance config [long-running
+      // operations][google.longrunning.Operation] in the given project. An instance
+      // config operation has a name of the form
+      // `projects/<project>/instanceConfigs/<instance_config>/operations/<operation>`.
+      // The long-running operation
+      // [metadata][google.longrunning.Operation.metadata] field type
+      // `metadata.type_url` describes the type of the metadata. Operations returned
+      // include those that have completed/failed/canceled within the last 7 days,
+      // and pending operations. Operations returned are ordered by
+      // `operation.metadata.value.start_time` in descending order starting
+      // from the most recently started operation.
+      virtual void ListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* request, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* request, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Lists all instances in the given project.
       virtual void ListInstances(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest* request, ::google::spanner::admin::instance::v1::ListInstancesResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListInstances(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest* request, ::google::spanner::admin::instance::v1::ListInstancesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -315,9 +559,9 @@ class InstanceAdmin final {
       // Until completion of the returned operation:
       //
       //   * Cancelling the operation sets its metadata's
-      //     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceMetadata.cancel_time], and begins
-      //     restoring resources to their pre-request values. The operation
-      //     is guaranteed to succeed at undoing all resource changes,
+      //     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceMetadata.cancel_time],
+      //     and begins restoring resources to their pre-request values. The
+      //     operation is guaranteed to succeed at undoing all resource changes,
       //     after which point it terminates with a `CANCELLED` status.
       //   * All other attempts to modify the instance are rejected.
       //   * Reading the instance via the API continues to give the pre-request
@@ -340,7 +584,7 @@ class InstanceAdmin final {
       // [Instance][google.spanner.admin.instance.v1.Instance], if successful.
       //
       // Authorization requires `spanner.instances.update` permission on
-      // resource [name][google.spanner.admin.instance.v1.Instance.name].
+      // the resource [name][google.spanner.admin.instance.v1.Instance.name].
       virtual void UpdateInstance(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateInstance(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Deletes an instance.
@@ -387,6 +631,14 @@ class InstanceAdmin final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstanceConfigsResponse>* PrepareAsyncListInstanceConfigsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::InstanceConfig>* AsyncGetInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::InstanceConfig>* PrepareAsyncGetInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncCreateInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncCreateInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncUpdateInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncUpdateInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>* AsyncListInstanceConfigOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>* PrepareAsyncListInstanceConfigOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstancesResponse>* AsyncListInstancesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::ListInstancesResponse>* PrepareAsyncListInstancesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::instance::v1::Instance>* AsyncGetInstanceRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -420,6 +672,34 @@ class InstanceAdmin final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::InstanceConfig>> PrepareAsyncGetInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::InstanceConfig>>(PrepareAsyncGetInstanceConfigRaw(context, request, cq));
+    }
+    ::grpc::Status CreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::google::longrunning::Operation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncCreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncCreateInstanceConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncCreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncCreateInstanceConfigRaw(context, request, cq));
+    }
+    ::grpc::Status UpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::google::longrunning::Operation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncUpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncUpdateInstanceConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncUpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncUpdateInstanceConfigRaw(context, request, cq));
+    }
+    ::grpc::Status DeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::google::protobuf::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteInstanceConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteInstanceConfigRaw(context, request, cq));
+    }
+    ::grpc::Status ListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>> AsyncListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>>(AsyncListInstanceConfigOperationsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>> PrepareAsyncListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>>(PrepareAsyncListInstanceConfigOperationsRaw(context, request, cq));
     }
     ::grpc::Status ListInstances(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest& request, ::google::spanner::admin::instance::v1::ListInstancesResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstancesResponse>> AsyncListInstances(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest& request, ::grpc::CompletionQueue* cq) {
@@ -484,6 +764,14 @@ class InstanceAdmin final {
       void ListInstanceConfigs(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigsRequest* request, ::google::spanner::admin::instance::v1::ListInstanceConfigsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest* request, ::google::spanner::admin::instance::v1::InstanceConfig* response, std::function<void(::grpc::Status)>) override;
       void GetInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest* request, ::google::spanner::admin::instance::v1::InstanceConfig* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
+      void CreateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
+      void UpdateInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void DeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
+      void DeleteInstanceConfig(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* request, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListInstanceConfigOperations(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* request, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ListInstances(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest* request, ::google::spanner::admin::instance::v1::ListInstancesResponse* response, std::function<void(::grpc::Status)>) override;
       void ListInstances(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest* request, ::google::spanner::admin::instance::v1::ListInstancesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetInstance(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceRequest* request, ::google::spanner::admin::instance::v1::Instance* response, std::function<void(::grpc::Status)>) override;
@@ -515,6 +803,14 @@ class InstanceAdmin final {
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstanceConfigsResponse>* PrepareAsyncListInstanceConfigsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::InstanceConfig>* AsyncGetInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::InstanceConfig>* PrepareAsyncGetInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncCreateInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncCreateInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncUpdateInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncUpdateInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteInstanceConfigRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>* AsyncListInstanceConfigOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>* PrepareAsyncListInstanceConfigOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstancesResponse>* AsyncListInstancesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::ListInstancesResponse>* PrepareAsyncListInstancesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::instance::v1::Instance>* AsyncGetInstanceRaw(::grpc::ClientContext* context, const ::google::spanner::admin::instance::v1::GetInstanceRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -533,6 +829,10 @@ class InstanceAdmin final {
     ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>* PrepareAsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_ListInstanceConfigs_;
     const ::grpc::internal::RpcMethod rpcmethod_GetInstanceConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_CreateInstanceConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_UpdateInstanceConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_DeleteInstanceConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListInstanceConfigOperations_;
     const ::grpc::internal::RpcMethod rpcmethod_ListInstances_;
     const ::grpc::internal::RpcMethod rpcmethod_GetInstance_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateInstance_;
@@ -552,6 +852,114 @@ class InstanceAdmin final {
     virtual ::grpc::Status ListInstanceConfigs(::grpc::ServerContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigsRequest* request, ::google::spanner::admin::instance::v1::ListInstanceConfigsResponse* response);
     // Gets information about a particular instance configuration.
     virtual ::grpc::Status GetInstanceConfig(::grpc::ServerContext* context, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest* request, ::google::spanner::admin::instance::v1::InstanceConfig* response);
+    // Creates an instance config and begins preparing it to be used. The
+    // returned [long-running operation][google.longrunning.Operation]
+    // can be used to track the progress of preparing the new
+    // instance config. The instance config name is assigned by the caller. If the
+    // named instance config already exists, `CreateInstanceConfig` returns
+    // `ALREADY_EXISTS`.
+    //
+    // Immediately after the request returns:
+    //
+    //   * The instance config is readable via the API, with all requested
+    //     attributes. The instance config's
+    //     [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+    //     field is set to true. Its state is `CREATING`.
+    //
+    // While the operation is pending:
+    //
+    //   * Cancelling the operation renders the instance config immediately
+    //     unreadable via the API.
+    //   * Except for deleting the creating resource, all other attempts to modify
+    //     the instance config are rejected.
+    //
+    // Upon completion of the returned operation:
+    //
+    //   * Instances can be created using the instance configuration.
+    //   * The instance config's
+    //   [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+    //   field becomes false. Its state becomes `READY`.
+    //
+    // The returned [long-running operation][google.longrunning.Operation] will
+    // have a name of the format
+    // `<instance_config_name>/operations/<operation_id>` and can be used to track
+    // creation of the instance config. The
+    // [metadata][google.longrunning.Operation.metadata] field type is
+    // [CreateInstanceConfigMetadata][google.spanner.admin.instance.v1.CreateInstanceConfigMetadata].
+    // The [response][google.longrunning.Operation.response] field type is
+    // [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig], if
+    // successful.
+    //
+    // Authorization requires `spanner.instanceConfigs.create` permission on
+    // the resource
+    // [parent][google.spanner.admin.instance.v1.CreateInstanceConfigRequest.parent].
+    virtual ::grpc::Status CreateInstanceConfig(::grpc::ServerContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* request, ::google::longrunning::Operation* response);
+    // Updates an instance config. The returned
+    // [long-running operation][google.longrunning.Operation] can be used to track
+    // the progress of updating the instance. If the named instance config does
+    // not exist, returns `NOT_FOUND`.
+    //
+    // Only user managed configurations can be updated.
+    //
+    // Immediately after the request returns:
+    //
+    //   * The instance config's
+    //     [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+    //     field is set to true.
+    //
+    // While the operation is pending:
+    //
+    //   * Cancelling the operation sets its metadata's
+    //     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceConfigMetadata.cancel_time].
+    //     The operation is guaranteed to succeed at undoing all changes, after
+    //     which point it terminates with a `CANCELLED` status.
+    //   * All other attempts to modify the instance config are rejected.
+    //   * Reading the instance config via the API continues to give the
+    //     pre-request values.
+    //
+    // Upon completion of the returned operation:
+    //
+    //   * Creating instances using the instance configuration uses the new
+    //     values.
+    //   * The instance config's new values are readable via the API.
+    //   * The instance config's
+    //   [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+    //   field becomes false.
+    //
+    // The returned [long-running operation][google.longrunning.Operation] will
+    // have a name of the format
+    // `<instance_config_name>/operations/<operation_id>` and can be used to track
+    // the instance config modification.  The
+    // [metadata][google.longrunning.Operation.metadata] field type is
+    // [UpdateInstanceConfigMetadata][google.spanner.admin.instance.v1.UpdateInstanceConfigMetadata].
+    // The [response][google.longrunning.Operation.response] field type is
+    // [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig], if
+    // successful.
+    //
+    // Authorization requires `spanner.instanceConfigs.update` permission on
+    // the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
+    virtual ::grpc::Status UpdateInstanceConfig(::grpc::ServerContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* request, ::google::longrunning::Operation* response);
+    // Deletes the instance config. Deletion is only allowed when no
+    // instances are using the configuration. If any instances are using
+    // the config, returns `FAILED_PRECONDITION`.
+    //
+    // Only user managed configurations can be deleted.
+    //
+    // Authorization requires `spanner.instanceConfigs.delete` permission on
+    // the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
+    virtual ::grpc::Status DeleteInstanceConfig(::grpc::ServerContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* request, ::google::protobuf::Empty* response);
+    // Lists the user-managed instance config [long-running
+    // operations][google.longrunning.Operation] in the given project. An instance
+    // config operation has a name of the form
+    // `projects/<project>/instanceConfigs/<instance_config>/operations/<operation>`.
+    // The long-running operation
+    // [metadata][google.longrunning.Operation.metadata] field type
+    // `metadata.type_url` describes the type of the metadata. Operations returned
+    // include those that have completed/failed/canceled within the last 7 days,
+    // and pending operations. Operations returned are ordered by
+    // `operation.metadata.value.start_time` in descending order starting
+    // from the most recently started operation.
+    virtual ::grpc::Status ListInstanceConfigOperations(::grpc::ServerContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* request, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* response);
     // Lists all instances in the given project.
     virtual ::grpc::Status ListInstances(::grpc::ServerContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest* request, ::google::spanner::admin::instance::v1::ListInstancesResponse* response);
     // Gets information about a particular instance.
@@ -605,9 +1013,9 @@ class InstanceAdmin final {
     // Until completion of the returned operation:
     //
     //   * Cancelling the operation sets its metadata's
-    //     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceMetadata.cancel_time], and begins
-    //     restoring resources to their pre-request values. The operation
-    //     is guaranteed to succeed at undoing all resource changes,
+    //     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceMetadata.cancel_time],
+    //     and begins restoring resources to their pre-request values. The
+    //     operation is guaranteed to succeed at undoing all resource changes,
     //     after which point it terminates with a `CANCELLED` status.
     //   * All other attempts to modify the instance are rejected.
     //   * Reading the instance via the API continues to give the pre-request
@@ -630,7 +1038,7 @@ class InstanceAdmin final {
     // [Instance][google.spanner.admin.instance.v1.Instance], if successful.
     //
     // Authorization requires `spanner.instances.update` permission on
-    // resource [name][google.spanner.admin.instance.v1.Instance.name].
+    // the resource [name][google.spanner.admin.instance.v1.Instance.name].
     virtual ::grpc::Status UpdateInstance(::grpc::ServerContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceRequest* request, ::google::longrunning::Operation* response);
     // Deletes an instance.
     //
@@ -705,12 +1113,92 @@ class InstanceAdmin final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_CreateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CreateInstanceConfig() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_CreateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateInstanceConfig(::grpc::ServerContext* context, ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_UpdateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UpdateInstanceConfig() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_UpdateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateInstanceConfig(::grpc::ServerContext* context, ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_DeleteInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_DeleteInstanceConfig() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_DeleteInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteInstanceConfig(::grpc::ServerContext* context, ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ListInstanceConfigOperations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListInstanceConfigOperations() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_ListInstanceConfigOperations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListInstanceConfigOperations(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* /*request*/, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListInstanceConfigOperations(::grpc::ServerContext* context, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_ListInstances : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ListInstances() {
-      ::grpc::Service::MarkMethodAsync(2);
+      ::grpc::Service::MarkMethodAsync(6);
     }
     ~WithAsyncMethod_ListInstances() override {
       BaseClassMustBeDerivedFromService(this);
@@ -721,7 +1209,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListInstances(::grpc::ServerContext* context, ::google::spanner::admin::instance::v1::ListInstancesRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::spanner::admin::instance::v1::ListInstancesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -730,7 +1218,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetInstance() {
-      ::grpc::Service::MarkMethodAsync(3);
+      ::grpc::Service::MarkMethodAsync(7);
     }
     ~WithAsyncMethod_GetInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -741,7 +1229,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetInstance(::grpc::ServerContext* context, ::google::spanner::admin::instance::v1::GetInstanceRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::spanner::admin::instance::v1::Instance>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -750,7 +1238,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CreateInstance() {
-      ::grpc::Service::MarkMethodAsync(4);
+      ::grpc::Service::MarkMethodAsync(8);
     }
     ~WithAsyncMethod_CreateInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -761,7 +1249,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateInstance(::grpc::ServerContext* context, ::google::spanner::admin::instance::v1::CreateInstanceRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -770,7 +1258,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateInstance() {
-      ::grpc::Service::MarkMethodAsync(5);
+      ::grpc::Service::MarkMethodAsync(9);
     }
     ~WithAsyncMethod_UpdateInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -781,7 +1269,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateInstance(::grpc::ServerContext* context, ::google::spanner::admin::instance::v1::UpdateInstanceRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -790,7 +1278,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteInstance() {
-      ::grpc::Service::MarkMethodAsync(6);
+      ::grpc::Service::MarkMethodAsync(10);
     }
     ~WithAsyncMethod_DeleteInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -801,7 +1289,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteInstance(::grpc::ServerContext* context, ::google::spanner::admin::instance::v1::DeleteInstanceRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -810,7 +1298,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodAsync(7);
+      ::grpc::Service::MarkMethodAsync(11);
     }
     ~WithAsyncMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -821,7 +1309,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetIamPolicy(::grpc::ServerContext* context, ::google::iam::v1::SetIamPolicyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::Policy>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -830,7 +1318,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodAsync(8);
+      ::grpc::Service::MarkMethodAsync(12);
     }
     ~WithAsyncMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -841,7 +1329,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetIamPolicy(::grpc::ServerContext* context, ::google::iam::v1::GetIamPolicyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::Policy>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -850,7 +1338,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodAsync(9);
+      ::grpc::Service::MarkMethodAsync(13);
     }
     ~WithAsyncMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
@@ -861,10 +1349,10 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestTestIamPermissions(::grpc::ServerContext* context, ::google::iam::v1::TestIamPermissionsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::TestIamPermissionsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ListInstanceConfigs<WithAsyncMethod_GetInstanceConfig<WithAsyncMethod_ListInstances<WithAsyncMethod_GetInstance<WithAsyncMethod_CreateInstance<WithAsyncMethod_UpdateInstance<WithAsyncMethod_DeleteInstance<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_TestIamPermissions<Service > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_ListInstanceConfigs<WithAsyncMethod_GetInstanceConfig<WithAsyncMethod_CreateInstanceConfig<WithAsyncMethod_UpdateInstanceConfig<WithAsyncMethod_DeleteInstanceConfig<WithAsyncMethod_ListInstanceConfigOperations<WithAsyncMethod_ListInstances<WithAsyncMethod_GetInstance<WithAsyncMethod_CreateInstance<WithAsyncMethod_UpdateInstance<WithAsyncMethod_DeleteInstance<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_TestIamPermissions<Service > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ListInstanceConfigs : public BaseClass {
    private:
@@ -920,18 +1408,126 @@ class InstanceAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::instance::v1::GetInstanceConfigRequest* /*request*/, ::google::spanner::admin::instance::v1::InstanceConfig* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_CreateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CreateInstanceConfig() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest, ::google::longrunning::Operation>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* request, ::google::longrunning::Operation* response) { return this->CreateInstanceConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_CreateInstanceConfig(
+        ::grpc::MessageAllocator< ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest, ::google::longrunning::Operation>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest, ::google::longrunning::Operation>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CreateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateInstanceConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateInstanceConfig() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest, ::google::longrunning::Operation>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* request, ::google::longrunning::Operation* response) { return this->UpdateInstanceConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateInstanceConfig(
+        ::grpc::MessageAllocator< ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest, ::google::longrunning::Operation>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest, ::google::longrunning::Operation>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateInstanceConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_DeleteInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_DeleteInstanceConfig() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest, ::google::protobuf::Empty>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* request, ::google::protobuf::Empty* response) { return this->DeleteInstanceConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_DeleteInstanceConfig(
+        ::grpc::MessageAllocator< ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest, ::google::protobuf::Empty>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest, ::google::protobuf::Empty>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_DeleteInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteInstanceConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ListInstanceConfigOperations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListInstanceConfigOperations() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* request, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* response) { return this->ListInstanceConfigOperations(context, request, response); }));}
+    void SetMessageAllocatorFor_ListInstanceConfigOperations(
+        ::grpc::MessageAllocator< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListInstanceConfigOperations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListInstanceConfigOperations(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* /*request*/, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListInstanceConfigOperations(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* /*request*/, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_ListInstances : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ListInstances() {
-      ::grpc::Service::MarkMethodCallback(2,
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::ListInstancesRequest, ::google::spanner::admin::instance::v1::ListInstancesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::instance::v1::ListInstancesRequest* request, ::google::spanner::admin::instance::v1::ListInstancesResponse* response) { return this->ListInstances(context, request, response); }));}
     void SetMessageAllocatorFor_ListInstances(
         ::grpc::MessageAllocator< ::google::spanner::admin::instance::v1::ListInstancesRequest, ::google::spanner::admin::instance::v1::ListInstancesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::ListInstancesRequest, ::google::spanner::admin::instance::v1::ListInstancesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -952,13 +1548,13 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetInstance() {
-      ::grpc::Service::MarkMethodCallback(3,
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::GetInstanceRequest, ::google::spanner::admin::instance::v1::Instance>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::instance::v1::GetInstanceRequest* request, ::google::spanner::admin::instance::v1::Instance* response) { return this->GetInstance(context, request, response); }));}
     void SetMessageAllocatorFor_GetInstance(
         ::grpc::MessageAllocator< ::google::spanner::admin::instance::v1::GetInstanceRequest, ::google::spanner::admin::instance::v1::Instance>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::GetInstanceRequest, ::google::spanner::admin::instance::v1::Instance>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -979,13 +1575,13 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_CreateInstance() {
-      ::grpc::Service::MarkMethodCallback(4,
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::CreateInstanceRequest, ::google::longrunning::Operation>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::instance::v1::CreateInstanceRequest* request, ::google::longrunning::Operation* response) { return this->CreateInstance(context, request, response); }));}
     void SetMessageAllocatorFor_CreateInstance(
         ::grpc::MessageAllocator< ::google::spanner::admin::instance::v1::CreateInstanceRequest, ::google::longrunning::Operation>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::CreateInstanceRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1006,13 +1602,13 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_UpdateInstance() {
-      ::grpc::Service::MarkMethodCallback(5,
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::UpdateInstanceRequest, ::google::longrunning::Operation>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::instance::v1::UpdateInstanceRequest* request, ::google::longrunning::Operation* response) { return this->UpdateInstance(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateInstance(
         ::grpc::MessageAllocator< ::google::spanner::admin::instance::v1::UpdateInstanceRequest, ::google::longrunning::Operation>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::UpdateInstanceRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1033,13 +1629,13 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DeleteInstance() {
-      ::grpc::Service::MarkMethodCallback(6,
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::DeleteInstanceRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::instance::v1::DeleteInstanceRequest* request, ::google::protobuf::Empty* response) { return this->DeleteInstance(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteInstance(
         ::grpc::MessageAllocator< ::google::spanner::admin::instance::v1::DeleteInstanceRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::instance::v1::DeleteInstanceRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1060,13 +1656,13 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodCallback(7,
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_SetIamPolicy(
         ::grpc::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1087,13 +1683,13 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodCallback(8,
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_GetIamPolicy(
         ::grpc::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1114,13 +1710,13 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodCallback(9,
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
     void SetMessageAllocatorFor_TestIamPermissions(
         ::grpc::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1135,7 +1731,7 @@ class InstanceAdmin final {
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
       ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ListInstanceConfigs<WithCallbackMethod_GetInstanceConfig<WithCallbackMethod_ListInstances<WithCallbackMethod_GetInstance<WithCallbackMethod_CreateInstance<WithCallbackMethod_UpdateInstance<WithCallbackMethod_DeleteInstance<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > CallbackService;
+  typedef WithCallbackMethod_ListInstanceConfigs<WithCallbackMethod_GetInstanceConfig<WithCallbackMethod_CreateInstanceConfig<WithCallbackMethod_UpdateInstanceConfig<WithCallbackMethod_DeleteInstanceConfig<WithCallbackMethod_ListInstanceConfigOperations<WithCallbackMethod_ListInstances<WithCallbackMethod_GetInstance<WithCallbackMethod_CreateInstance<WithCallbackMethod_UpdateInstance<WithCallbackMethod_DeleteInstance<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListInstanceConfigs : public BaseClass {
@@ -1172,12 +1768,80 @@ class InstanceAdmin final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_CreateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CreateInstanceConfig() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_CreateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_UpdateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UpdateInstanceConfig() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_UpdateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DeleteInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_DeleteInstanceConfig() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_DeleteInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ListInstanceConfigOperations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListInstanceConfigOperations() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_ListInstanceConfigOperations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListInstanceConfigOperations(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* /*request*/, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_ListInstances : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ListInstances() {
-      ::grpc::Service::MarkMethodGeneric(2);
+      ::grpc::Service::MarkMethodGeneric(6);
     }
     ~WithGenericMethod_ListInstances() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1194,7 +1858,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetInstance() {
-      ::grpc::Service::MarkMethodGeneric(3);
+      ::grpc::Service::MarkMethodGeneric(7);
     }
     ~WithGenericMethod_GetInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1211,7 +1875,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CreateInstance() {
-      ::grpc::Service::MarkMethodGeneric(4);
+      ::grpc::Service::MarkMethodGeneric(8);
     }
     ~WithGenericMethod_CreateInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1228,7 +1892,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateInstance() {
-      ::grpc::Service::MarkMethodGeneric(5);
+      ::grpc::Service::MarkMethodGeneric(9);
     }
     ~WithGenericMethod_UpdateInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1245,7 +1909,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteInstance() {
-      ::grpc::Service::MarkMethodGeneric(6);
+      ::grpc::Service::MarkMethodGeneric(10);
     }
     ~WithGenericMethod_DeleteInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1262,7 +1926,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodGeneric(7);
+      ::grpc::Service::MarkMethodGeneric(11);
     }
     ~WithGenericMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1279,7 +1943,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodGeneric(8);
+      ::grpc::Service::MarkMethodGeneric(12);
     }
     ~WithGenericMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1296,7 +1960,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodGeneric(9);
+      ::grpc::Service::MarkMethodGeneric(13);
     }
     ~WithGenericMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1348,12 +2012,92 @@ class InstanceAdmin final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_CreateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CreateInstanceConfig() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_CreateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCreateInstanceConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_UpdateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UpdateInstanceConfig() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_UpdateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateInstanceConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_DeleteInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_DeleteInstanceConfig() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_DeleteInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteInstanceConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ListInstanceConfigOperations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListInstanceConfigOperations() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_ListInstanceConfigOperations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListInstanceConfigOperations(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* /*request*/, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListInstanceConfigOperations(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_ListInstances : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ListInstances() {
-      ::grpc::Service::MarkMethodRaw(2);
+      ::grpc::Service::MarkMethodRaw(6);
     }
     ~WithRawMethod_ListInstances() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1364,7 +2108,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListInstances(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1373,7 +2117,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetInstance() {
-      ::grpc::Service::MarkMethodRaw(3);
+      ::grpc::Service::MarkMethodRaw(7);
     }
     ~WithRawMethod_GetInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1384,7 +2128,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetInstance(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1393,7 +2137,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CreateInstance() {
-      ::grpc::Service::MarkMethodRaw(4);
+      ::grpc::Service::MarkMethodRaw(8);
     }
     ~WithRawMethod_CreateInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1404,7 +2148,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateInstance(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1413,7 +2157,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateInstance() {
-      ::grpc::Service::MarkMethodRaw(5);
+      ::grpc::Service::MarkMethodRaw(9);
     }
     ~WithRawMethod_UpdateInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1424,7 +2168,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateInstance(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1433,7 +2177,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteInstance() {
-      ::grpc::Service::MarkMethodRaw(6);
+      ::grpc::Service::MarkMethodRaw(10);
     }
     ~WithRawMethod_DeleteInstance() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1444,7 +2188,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteInstance(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1453,7 +2197,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodRaw(7);
+      ::grpc::Service::MarkMethodRaw(11);
     }
     ~WithRawMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1464,7 +2208,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetIamPolicy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1473,7 +2217,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodRaw(8);
+      ::grpc::Service::MarkMethodRaw(12);
     }
     ~WithRawMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1484,7 +2228,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetIamPolicy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1493,7 +2237,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodRaw(9);
+      ::grpc::Service::MarkMethodRaw(13);
     }
     ~WithRawMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1504,7 +2248,7 @@ class InstanceAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestTestIamPermissions(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1552,12 +2296,100 @@ class InstanceAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_CreateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CreateInstanceConfig() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateInstanceConfig(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CreateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateInstanceConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateInstanceConfig() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateInstanceConfig(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateInstanceConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_DeleteInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_DeleteInstanceConfig() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteInstanceConfig(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_DeleteInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteInstanceConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ListInstanceConfigOperations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListInstanceConfigOperations() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListInstanceConfigOperations(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListInstanceConfigOperations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListInstanceConfigOperations(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* /*request*/, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListInstanceConfigOperations(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_ListInstances : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ListInstances() {
-      ::grpc::Service::MarkMethodRawCallback(2,
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListInstances(context, request, response); }));
@@ -1579,7 +2411,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetInstance() {
-      ::grpc::Service::MarkMethodRawCallback(3,
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetInstance(context, request, response); }));
@@ -1601,7 +2433,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_CreateInstance() {
-      ::grpc::Service::MarkMethodRawCallback(4,
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateInstance(context, request, response); }));
@@ -1623,7 +2455,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_UpdateInstance() {
-      ::grpc::Service::MarkMethodRawCallback(5,
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateInstance(context, request, response); }));
@@ -1645,7 +2477,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DeleteInstance() {
-      ::grpc::Service::MarkMethodRawCallback(6,
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteInstance(context, request, response); }));
@@ -1667,7 +2499,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodRawCallback(7,
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
@@ -1689,7 +2521,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodRawCallback(8,
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
@@ -1711,7 +2543,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodRawCallback(9,
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
@@ -1782,12 +2614,120 @@ class InstanceAdmin final {
     virtual ::grpc::Status StreamedGetInstanceConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::spanner::admin::instance::v1::GetInstanceConfigRequest,::google::spanner::admin::instance::v1::InstanceConfig>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_CreateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CreateInstanceConfig() {
+      ::grpc::Service::MarkMethodStreamed(2,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest, ::google::longrunning::Operation>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest, ::google::longrunning::Operation>* streamer) {
+                       return this->StreamedCreateInstanceConfig(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CreateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CreateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCreateInstanceConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::spanner::admin::instance::v1::CreateInstanceConfigRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_UpdateInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UpdateInstanceConfig() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest, ::google::longrunning::Operation>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest, ::google::longrunning::Operation>* streamer) {
+                       return this->StreamedUpdateInstanceConfig(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UpdateInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UpdateInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUpdateInstanceConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::spanner::admin::instance::v1::UpdateInstanceConfigRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DeleteInstanceConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_DeleteInstanceConfig() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest, ::google::protobuf::Empty>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest, ::google::protobuf::Empty>* streamer) {
+                       return this->StreamedDeleteInstanceConfig(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_DeleteInstanceConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DeleteInstanceConfig(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDeleteInstanceConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::spanner::admin::instance::v1::DeleteInstanceConfigRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ListInstanceConfigOperations : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListInstanceConfigOperations() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>* streamer) {
+                       return this->StreamedListInstanceConfigOperations(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListInstanceConfigOperations() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListInstanceConfigOperations(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest* /*request*/, ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListInstanceConfigOperations(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::spanner::admin::instance::v1::ListInstanceConfigOperationsRequest,::google::spanner::admin::instance::v1::ListInstanceConfigOperationsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_ListInstances : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ListInstances() {
-      ::grpc::Service::MarkMethodStreamed(2,
+      ::grpc::Service::MarkMethodStreamed(6,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::instance::v1::ListInstancesRequest, ::google::spanner::admin::instance::v1::ListInstancesResponse>(
             [this](::grpc::ServerContext* context,
@@ -1814,7 +2754,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetInstance() {
-      ::grpc::Service::MarkMethodStreamed(3,
+      ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::instance::v1::GetInstanceRequest, ::google::spanner::admin::instance::v1::Instance>(
             [this](::grpc::ServerContext* context,
@@ -1841,7 +2781,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CreateInstance() {
-      ::grpc::Service::MarkMethodStreamed(4,
+      ::grpc::Service::MarkMethodStreamed(8,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::instance::v1::CreateInstanceRequest, ::google::longrunning::Operation>(
             [this](::grpc::ServerContext* context,
@@ -1868,7 +2808,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateInstance() {
-      ::grpc::Service::MarkMethodStreamed(5,
+      ::grpc::Service::MarkMethodStreamed(9,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::instance::v1::UpdateInstanceRequest, ::google::longrunning::Operation>(
             [this](::grpc::ServerContext* context,
@@ -1895,7 +2835,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteInstance() {
-      ::grpc::Service::MarkMethodStreamed(6,
+      ::grpc::Service::MarkMethodStreamed(10,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::instance::v1::DeleteInstanceRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -1922,7 +2862,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodStreamed(7,
+      ::grpc::Service::MarkMethodStreamed(11,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](::grpc::ServerContext* context,
@@ -1949,7 +2889,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodStreamed(8,
+      ::grpc::Service::MarkMethodStreamed(12,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](::grpc::ServerContext* context,
@@ -1976,7 +2916,7 @@ class InstanceAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodStreamed(9,
+      ::grpc::Service::MarkMethodStreamed(13,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](::grpc::ServerContext* context,
@@ -1997,9 +2937,9 @@ class InstanceAdmin final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedTestIamPermissions(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::iam::v1::TestIamPermissionsRequest,::google::iam::v1::TestIamPermissionsResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ListInstanceConfigs<WithStreamedUnaryMethod_GetInstanceConfig<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_ListInstanceConfigs<WithStreamedUnaryMethod_GetInstanceConfig<WithStreamedUnaryMethod_CreateInstanceConfig<WithStreamedUnaryMethod_UpdateInstanceConfig<WithStreamedUnaryMethod_DeleteInstanceConfig<WithStreamedUnaryMethod_ListInstanceConfigOperations<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ListInstanceConfigs<WithStreamedUnaryMethod_GetInstanceConfig<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_ListInstanceConfigs<WithStreamedUnaryMethod_GetInstanceConfig<WithStreamedUnaryMethod_CreateInstanceConfig<WithStreamedUnaryMethod_UpdateInstanceConfig<WithStreamedUnaryMethod_DeleteInstanceConfig<WithStreamedUnaryMethod_ListInstanceConfigOperations<WithStreamedUnaryMethod_ListInstances<WithStreamedUnaryMethod_GetInstance<WithStreamedUnaryMethod_CreateInstance<WithStreamedUnaryMethod_UpdateInstance<WithStreamedUnaryMethod_DeleteInstance<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v1

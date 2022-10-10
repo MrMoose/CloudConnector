@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/spanner/admin/database/v1/spanner_database_admin.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -193,6 +193,25 @@ class DatabaseAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncCreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncCreateBackupRaw(context, request, cq));
     }
+    // Starts copying a Cloud Spanner Backup.
+    // The returned backup [long-running operation][google.longrunning.Operation]
+    // will have a name of the format
+    // `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation_id>`
+    // and can be used to track copying of the backup. The operation is associated
+    // with the destination backup.
+    // The [metadata][google.longrunning.Operation.metadata] field type is
+    // [CopyBackupMetadata][google.spanner.admin.database.v1.CopyBackupMetadata].
+    // The [response][google.longrunning.Operation.response] field type is
+    // [Backup][google.spanner.admin.database.v1.Backup], if successful. Cancelling the returned operation will stop the
+    // copying and delete the backup.
+    // Concurrent CopyBackup requests can run on the same source backup.
+    virtual ::grpc::Status CopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::google::longrunning::Operation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncCopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncCopyBackupRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncCopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncCopyBackupRaw(context, request, cq));
+    }
     // Gets metadata on a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
     virtual ::grpc::Status GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::google::spanner::admin::database::v1::Backup* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>> AsyncGetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::grpc::CompletionQueue* cq) {
@@ -283,6 +302,14 @@ class DatabaseAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>> PrepareAsyncListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>>(PrepareAsyncListBackupOperationsRaw(context, request, cq));
     }
+    // Lists Cloud Spanner database roles.
+    virtual ::grpc::Status ListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>> AsyncListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>>(AsyncListDatabaseRolesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>> PrepareAsyncListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>>(PrepareAsyncListDatabaseRolesRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -368,6 +395,20 @@ class DatabaseAdmin final {
       // of different databases can run concurrently.
       virtual void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Starts copying a Cloud Spanner Backup.
+      // The returned backup [long-running operation][google.longrunning.Operation]
+      // will have a name of the format
+      // `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation_id>`
+      // and can be used to track copying of the backup. The operation is associated
+      // with the destination backup.
+      // The [metadata][google.longrunning.Operation.metadata] field type is
+      // [CopyBackupMetadata][google.spanner.admin.database.v1.CopyBackupMetadata].
+      // The [response][google.longrunning.Operation.response] field type is
+      // [Backup][google.spanner.admin.database.v1.Backup], if successful. Cancelling the returned operation will stop the
+      // copying and delete the backup.
+      // Concurrent CopyBackup requests can run on the same source backup.
+      virtual void CopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Gets metadata on a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
       virtual void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -423,6 +464,9 @@ class DatabaseAdmin final {
       // from the most recently started operation.
       virtual void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Lists Cloud Spanner database roles.
+      virtual void ListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* request, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* request, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -448,6 +492,8 @@ class DatabaseAdmin final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>* PrepareAsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncCreateBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncCreateBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncCopyBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncCopyBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>* AsyncGetBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>* PrepareAsyncGetBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::Backup>* AsyncUpdateBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -462,6 +508,8 @@ class DatabaseAdmin final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>* PrepareAsyncListDatabaseOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>* AsyncListBackupOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>* PrepareAsyncListBackupOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>* AsyncListDatabaseRolesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>* PrepareAsyncListDatabaseRolesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -536,6 +584,13 @@ class DatabaseAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncCreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncCreateBackupRaw(context, request, cq));
     }
+    ::grpc::Status CopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::google::longrunning::Operation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncCopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncCopyBackupRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncCopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncCopyBackupRaw(context, request, cq));
+    }
     ::grpc::Status GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::google::spanner::admin::database::v1::Backup* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::Backup>> AsyncGetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::Backup>>(AsyncGetBackupRaw(context, request, cq));
@@ -585,6 +640,13 @@ class DatabaseAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>> PrepareAsyncListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>>(PrepareAsyncListBackupOperationsRaw(context, request, cq));
     }
+    ::grpc::Status ListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>> AsyncListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>>(AsyncListDatabaseRolesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>> PrepareAsyncListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>>(PrepareAsyncListDatabaseRolesRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -608,6 +670,8 @@ class DatabaseAdmin final {
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
       void CreateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
+      void CopyBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, std::function<void(::grpc::Status)>) override;
       void GetBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateBackup(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response, std::function<void(::grpc::Status)>) override;
@@ -622,6 +686,8 @@ class DatabaseAdmin final {
       void ListDatabaseOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, std::function<void(::grpc::Status)>) override;
       void ListBackupOperations(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* request, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListDatabaseRoles(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* request, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -653,6 +719,8 @@ class DatabaseAdmin final {
     ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>* PrepareAsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncCreateBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncCreateBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncCopyBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncCopyBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::Backup>* AsyncGetBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::Backup>* PrepareAsyncGetBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::Backup>* AsyncUpdateBackupRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -667,6 +735,8 @@ class DatabaseAdmin final {
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>* PrepareAsyncListDatabaseOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>* AsyncListBackupOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>* PrepareAsyncListBackupOperationsRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>* AsyncListDatabaseRolesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>* PrepareAsyncListDatabaseRolesRaw(::grpc::ClientContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_ListDatabases_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateDatabase_;
     const ::grpc::internal::RpcMethod rpcmethod_GetDatabase_;
@@ -677,6 +747,7 @@ class DatabaseAdmin final {
     const ::grpc::internal::RpcMethod rpcmethod_GetIamPolicy_;
     const ::grpc::internal::RpcMethod rpcmethod_TestIamPermissions_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateBackup_;
+    const ::grpc::internal::RpcMethod rpcmethod_CopyBackup_;
     const ::grpc::internal::RpcMethod rpcmethod_GetBackup_;
     const ::grpc::internal::RpcMethod rpcmethod_UpdateBackup_;
     const ::grpc::internal::RpcMethod rpcmethod_DeleteBackup_;
@@ -684,6 +755,7 @@ class DatabaseAdmin final {
     const ::grpc::internal::RpcMethod rpcmethod_RestoreDatabase_;
     const ::grpc::internal::RpcMethod rpcmethod_ListDatabaseOperations_;
     const ::grpc::internal::RpcMethod rpcmethod_ListBackupOperations_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListDatabaseRoles_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -763,6 +835,19 @@ class DatabaseAdmin final {
     // There can be only one pending backup creation per database. Backup creation
     // of different databases can run concurrently.
     virtual ::grpc::Status CreateBackup(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::CreateBackupRequest* request, ::google::longrunning::Operation* response);
+    // Starts copying a Cloud Spanner Backup.
+    // The returned backup [long-running operation][google.longrunning.Operation]
+    // will have a name of the format
+    // `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation_id>`
+    // and can be used to track copying of the backup. The operation is associated
+    // with the destination backup.
+    // The [metadata][google.longrunning.Operation.metadata] field type is
+    // [CopyBackupMetadata][google.spanner.admin.database.v1.CopyBackupMetadata].
+    // The [response][google.longrunning.Operation.response] field type is
+    // [Backup][google.spanner.admin.database.v1.Backup], if successful. Cancelling the returned operation will stop the
+    // copying and delete the backup.
+    // Concurrent CopyBackup requests can run on the same source backup.
+    virtual ::grpc::Status CopyBackup(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest* request, ::google::longrunning::Operation* response);
     // Gets metadata on a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
     virtual ::grpc::Status GetBackup(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response);
     // Updates a pending or completed [Backup][google.spanner.admin.database.v1.Backup].
@@ -811,6 +896,8 @@ class DatabaseAdmin final {
     // `operation.metadata.value.progress.start_time` in descending order starting
     // from the most recently started operation.
     virtual ::grpc::Status ListBackupOperations(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response);
+    // Lists Cloud Spanner database roles.
+    virtual ::grpc::Status ListDatabaseRoles(::grpc::ServerContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* request, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_ListDatabases : public BaseClass {
@@ -1013,12 +1100,32 @@ class DatabaseAdmin final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_CopyBackup : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CopyBackup() {
+      ::grpc::Service::MarkMethodAsync(10);
+    }
+    ~WithAsyncMethod_CopyBackup() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyBackup(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::CopyBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCopyBackup(::grpc::ServerContext* context, ::google::spanner::admin::database::v1::CopyBackupRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetBackup() {
-      ::grpc::Service::MarkMethodAsync(10);
+      ::grpc::Service::MarkMethodAsync(11);
     }
     ~WithAsyncMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1029,7 +1136,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBackup(::grpc::ServerContext* context, ::google::spanner::admin::database::v1::GetBackupRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::spanner::admin::database::v1::Backup>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1038,7 +1145,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodAsync(11);
+      ::grpc::Service::MarkMethodAsync(12);
     }
     ~WithAsyncMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1049,7 +1156,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateBackup(::grpc::ServerContext* context, ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::spanner::admin::database::v1::Backup>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1058,7 +1165,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodAsync(12);
+      ::grpc::Service::MarkMethodAsync(13);
     }
     ~WithAsyncMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1069,7 +1176,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteBackup(::grpc::ServerContext* context, ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1078,7 +1185,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ListBackups() {
-      ::grpc::Service::MarkMethodAsync(13);
+      ::grpc::Service::MarkMethodAsync(14);
     }
     ~WithAsyncMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1089,7 +1196,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListBackups(::grpc::ServerContext* context, ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::spanner::admin::database::v1::ListBackupsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1098,7 +1205,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_RestoreDatabase() {
-      ::grpc::Service::MarkMethodAsync(14);
+      ::grpc::Service::MarkMethodAsync(15);
     }
     ~WithAsyncMethod_RestoreDatabase() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1109,7 +1216,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRestoreDatabase(::grpc::ServerContext* context, ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1118,7 +1225,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ListDatabaseOperations() {
-      ::grpc::Service::MarkMethodAsync(15);
+      ::grpc::Service::MarkMethodAsync(16);
     }
     ~WithAsyncMethod_ListDatabaseOperations() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1129,7 +1236,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListDatabaseOperations(::grpc::ServerContext* context, ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1138,7 +1245,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ListBackupOperations() {
-      ::grpc::Service::MarkMethodAsync(16);
+      ::grpc::Service::MarkMethodAsync(17);
     }
     ~WithAsyncMethod_ListBackupOperations() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1149,10 +1256,30 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListBackupOperations(::grpc::ServerContext* context, ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::spanner::admin::database::v1::ListBackupOperationsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ListDatabases<WithAsyncMethod_CreateDatabase<WithAsyncMethod_GetDatabase<WithAsyncMethod_UpdateDatabaseDdl<WithAsyncMethod_DropDatabase<WithAsyncMethod_GetDatabaseDdl<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_CreateBackup<WithAsyncMethod_GetBackup<WithAsyncMethod_UpdateBackup<WithAsyncMethod_DeleteBackup<WithAsyncMethod_ListBackups<WithAsyncMethod_RestoreDatabase<WithAsyncMethod_ListDatabaseOperations<WithAsyncMethod_ListBackupOperations<Service > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_ListDatabaseRoles : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListDatabaseRoles() {
+      ::grpc::Service::MarkMethodAsync(18);
+    }
+    ~WithAsyncMethod_ListDatabaseRoles() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListDatabaseRoles(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListDatabaseRoles(::grpc::ServerContext* context, ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_ListDatabases<WithAsyncMethod_CreateDatabase<WithAsyncMethod_GetDatabase<WithAsyncMethod_UpdateDatabaseDdl<WithAsyncMethod_DropDatabase<WithAsyncMethod_GetDatabaseDdl<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_CreateBackup<WithAsyncMethod_CopyBackup<WithAsyncMethod_GetBackup<WithAsyncMethod_UpdateBackup<WithAsyncMethod_DeleteBackup<WithAsyncMethod_ListBackups<WithAsyncMethod_RestoreDatabase<WithAsyncMethod_ListDatabaseOperations<WithAsyncMethod_ListBackupOperations<WithAsyncMethod_ListDatabaseRoles<Service > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ListDatabases : public BaseClass {
    private:
@@ -1424,18 +1551,45 @@ class DatabaseAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::CreateBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_CopyBackup : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CopyBackup() {
+      ::grpc::Service::MarkMethodCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::CopyBackupRequest, ::google::longrunning::Operation>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::CopyBackupRequest* request, ::google::longrunning::Operation* response) { return this->CopyBackup(context, request, response); }));}
+    void SetMessageAllocatorFor_CopyBackup(
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::CopyBackupRequest, ::google::longrunning::Operation>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::CopyBackupRequest, ::google::longrunning::Operation>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CopyBackup() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyBackup(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::CopyBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CopyBackup(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::CopyBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetBackup() {
-      ::grpc::Service::MarkMethodCallback(10,
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::GetBackupRequest, ::google::spanner::admin::database::v1::Backup>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::GetBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response) { return this->GetBackup(context, request, response); }));}
     void SetMessageAllocatorFor_GetBackup(
         ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::GetBackupRequest, ::google::spanner::admin::database::v1::Backup>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::GetBackupRequest, ::google::spanner::admin::database::v1::Backup>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1456,13 +1610,13 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodCallback(11,
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::UpdateBackupRequest, ::google::spanner::admin::database::v1::Backup>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::UpdateBackupRequest* request, ::google::spanner::admin::database::v1::Backup* response) { return this->UpdateBackup(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateBackup(
         ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::UpdateBackupRequest, ::google::spanner::admin::database::v1::Backup>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::UpdateBackupRequest, ::google::spanner::admin::database::v1::Backup>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1483,13 +1637,13 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodCallback(12,
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::DeleteBackupRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::DeleteBackupRequest* request, ::google::protobuf::Empty* response) { return this->DeleteBackup(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteBackup(
         ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::DeleteBackupRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::DeleteBackupRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1510,13 +1664,13 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ListBackups() {
-      ::grpc::Service::MarkMethodCallback(13,
+      ::grpc::Service::MarkMethodCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListBackupsRequest, ::google::spanner::admin::database::v1::ListBackupsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::ListBackupsRequest* request, ::google::spanner::admin::database::v1::ListBackupsResponse* response) { return this->ListBackups(context, request, response); }));}
     void SetMessageAllocatorFor_ListBackups(
         ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::ListBackupsRequest, ::google::spanner::admin::database::v1::ListBackupsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListBackupsRequest, ::google::spanner::admin::database::v1::ListBackupsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1537,13 +1691,13 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_RestoreDatabase() {
-      ::grpc::Service::MarkMethodCallback(14,
+      ::grpc::Service::MarkMethodCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::RestoreDatabaseRequest, ::google::longrunning::Operation>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::RestoreDatabaseRequest* request, ::google::longrunning::Operation* response) { return this->RestoreDatabase(context, request, response); }));}
     void SetMessageAllocatorFor_RestoreDatabase(
         ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::RestoreDatabaseRequest, ::google::longrunning::Operation>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::RestoreDatabaseRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1564,13 +1718,13 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ListDatabaseOperations() {
-      ::grpc::Service::MarkMethodCallback(15,
+      ::grpc::Service::MarkMethodCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest* request, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse* response) { return this->ListDatabaseOperations(context, request, response); }));}
     void SetMessageAllocatorFor_ListDatabaseOperations(
         ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1591,13 +1745,13 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ListBackupOperations() {
-      ::grpc::Service::MarkMethodCallback(16,
+      ::grpc::Service::MarkMethodCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListBackupOperationsRequest, ::google::spanner::admin::database::v1::ListBackupOperationsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* request, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* response) { return this->ListBackupOperations(context, request, response); }));}
     void SetMessageAllocatorFor_ListBackupOperations(
         ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::ListBackupOperationsRequest, ::google::spanner::admin::database::v1::ListBackupOperationsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListBackupOperationsRequest, ::google::spanner::admin::database::v1::ListBackupOperationsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1612,7 +1766,34 @@ class DatabaseAdmin final {
     virtual ::grpc::ServerUnaryReactor* ListBackupOperations(
       ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* /*request*/, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ListDatabases<WithCallbackMethod_CreateDatabase<WithCallbackMethod_GetDatabase<WithCallbackMethod_UpdateDatabaseDdl<WithCallbackMethod_DropDatabase<WithCallbackMethod_GetDatabaseDdl<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_CreateBackup<WithCallbackMethod_GetBackup<WithCallbackMethod_UpdateBackup<WithCallbackMethod_DeleteBackup<WithCallbackMethod_ListBackups<WithCallbackMethod_RestoreDatabase<WithCallbackMethod_ListDatabaseOperations<WithCallbackMethod_ListBackupOperations<Service > > > > > > > > > > > > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_ListDatabaseRoles : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListDatabaseRoles() {
+      ::grpc::Service::MarkMethodCallback(18,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListDatabaseRolesRequest, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* request, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* response) { return this->ListDatabaseRoles(context, request, response); }));}
+    void SetMessageAllocatorFor_ListDatabaseRoles(
+        ::grpc::MessageAllocator< ::google::spanner::admin::database::v1::ListDatabaseRolesRequest, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::spanner::admin::database::v1::ListDatabaseRolesRequest, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListDatabaseRoles() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListDatabaseRoles(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListDatabaseRoles(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_ListDatabases<WithCallbackMethod_CreateDatabase<WithCallbackMethod_GetDatabase<WithCallbackMethod_UpdateDatabaseDdl<WithCallbackMethod_DropDatabase<WithCallbackMethod_GetDatabaseDdl<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_CreateBackup<WithCallbackMethod_CopyBackup<WithCallbackMethod_GetBackup<WithCallbackMethod_UpdateBackup<WithCallbackMethod_DeleteBackup<WithCallbackMethod_ListBackups<WithCallbackMethod_RestoreDatabase<WithCallbackMethod_ListDatabaseOperations<WithCallbackMethod_ListBackupOperations<WithCallbackMethod_ListDatabaseRoles<Service > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ListDatabases : public BaseClass {
@@ -1785,12 +1966,29 @@ class DatabaseAdmin final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_CopyBackup : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CopyBackup() {
+      ::grpc::Service::MarkMethodGeneric(10);
+    }
+    ~WithGenericMethod_CopyBackup() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyBackup(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::CopyBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetBackup() {
-      ::grpc::Service::MarkMethodGeneric(10);
+      ::grpc::Service::MarkMethodGeneric(11);
     }
     ~WithGenericMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1807,7 +2005,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodGeneric(11);
+      ::grpc::Service::MarkMethodGeneric(12);
     }
     ~WithGenericMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1824,7 +2022,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodGeneric(12);
+      ::grpc::Service::MarkMethodGeneric(13);
     }
     ~WithGenericMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1841,7 +2039,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ListBackups() {
-      ::grpc::Service::MarkMethodGeneric(13);
+      ::grpc::Service::MarkMethodGeneric(14);
     }
     ~WithGenericMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1858,7 +2056,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_RestoreDatabase() {
-      ::grpc::Service::MarkMethodGeneric(14);
+      ::grpc::Service::MarkMethodGeneric(15);
     }
     ~WithGenericMethod_RestoreDatabase() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1875,7 +2073,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ListDatabaseOperations() {
-      ::grpc::Service::MarkMethodGeneric(15);
+      ::grpc::Service::MarkMethodGeneric(16);
     }
     ~WithGenericMethod_ListDatabaseOperations() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1892,13 +2090,30 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ListBackupOperations() {
-      ::grpc::Service::MarkMethodGeneric(16);
+      ::grpc::Service::MarkMethodGeneric(17);
     }
     ~WithGenericMethod_ListBackupOperations() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
     ::grpc::Status ListBackupOperations(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListBackupOperationsRequest* /*request*/, ::google::spanner::admin::database::v1::ListBackupOperationsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ListDatabaseRoles : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListDatabaseRoles() {
+      ::grpc::Service::MarkMethodGeneric(18);
+    }
+    ~WithGenericMethod_ListDatabaseRoles() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListDatabaseRoles(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2104,12 +2319,32 @@ class DatabaseAdmin final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_CopyBackup : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CopyBackup() {
+      ::grpc::Service::MarkMethodRaw(10);
+    }
+    ~WithRawMethod_CopyBackup() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyBackup(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::CopyBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCopyBackup(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetBackup() {
-      ::grpc::Service::MarkMethodRaw(10);
+      ::grpc::Service::MarkMethodRaw(11);
     }
     ~WithRawMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2120,7 +2355,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBackup(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2129,7 +2364,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodRaw(11);
+      ::grpc::Service::MarkMethodRaw(12);
     }
     ~WithRawMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2140,7 +2375,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateBackup(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2149,7 +2384,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodRaw(12);
+      ::grpc::Service::MarkMethodRaw(13);
     }
     ~WithRawMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2160,7 +2395,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteBackup(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2169,7 +2404,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ListBackups() {
-      ::grpc::Service::MarkMethodRaw(13);
+      ::grpc::Service::MarkMethodRaw(14);
     }
     ~WithRawMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2180,7 +2415,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListBackups(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2189,7 +2424,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_RestoreDatabase() {
-      ::grpc::Service::MarkMethodRaw(14);
+      ::grpc::Service::MarkMethodRaw(15);
     }
     ~WithRawMethod_RestoreDatabase() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2200,7 +2435,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRestoreDatabase(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2209,7 +2444,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ListDatabaseOperations() {
-      ::grpc::Service::MarkMethodRaw(15);
+      ::grpc::Service::MarkMethodRaw(16);
     }
     ~WithRawMethod_ListDatabaseOperations() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2220,7 +2455,7 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListDatabaseOperations(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2229,7 +2464,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ListBackupOperations() {
-      ::grpc::Service::MarkMethodRaw(16);
+      ::grpc::Service::MarkMethodRaw(17);
     }
     ~WithRawMethod_ListBackupOperations() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2240,7 +2475,27 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListBackupOperations(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ListDatabaseRoles : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListDatabaseRoles() {
+      ::grpc::Service::MarkMethodRaw(18);
+    }
+    ~WithRawMethod_ListDatabaseRoles() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListDatabaseRoles(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListDatabaseRoles(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2464,12 +2719,34 @@ class DatabaseAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_CopyBackup : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CopyBackup() {
+      ::grpc::Service::MarkMethodRawCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CopyBackup(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CopyBackup() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CopyBackup(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::CopyBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CopyBackup(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetBackup() {
-      ::grpc::Service::MarkMethodRawCallback(10,
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBackup(context, request, response); }));
@@ -2491,7 +2768,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodRawCallback(11,
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateBackup(context, request, response); }));
@@ -2513,7 +2790,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodRawCallback(12,
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteBackup(context, request, response); }));
@@ -2535,7 +2812,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ListBackups() {
-      ::grpc::Service::MarkMethodRawCallback(13,
+      ::grpc::Service::MarkMethodRawCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBackups(context, request, response); }));
@@ -2557,7 +2834,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_RestoreDatabase() {
-      ::grpc::Service::MarkMethodRawCallback(14,
+      ::grpc::Service::MarkMethodRawCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RestoreDatabase(context, request, response); }));
@@ -2579,7 +2856,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ListDatabaseOperations() {
-      ::grpc::Service::MarkMethodRawCallback(15,
+      ::grpc::Service::MarkMethodRawCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDatabaseOperations(context, request, response); }));
@@ -2601,7 +2878,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ListBackupOperations() {
-      ::grpc::Service::MarkMethodRawCallback(16,
+      ::grpc::Service::MarkMethodRawCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBackupOperations(context, request, response); }));
@@ -2615,6 +2892,28 @@ class DatabaseAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* ListBackupOperations(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ListDatabaseRoles : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListDatabaseRoles() {
+      ::grpc::Service::MarkMethodRawCallback(18,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListDatabaseRoles(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListDatabaseRoles() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListDatabaseRoles(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListDatabaseRoles(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -2888,12 +3187,39 @@ class DatabaseAdmin final {
     virtual ::grpc::Status StreamedCreateBackup(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::spanner::admin::database::v1::CreateBackupRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_CopyBackup : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CopyBackup() {
+      ::grpc::Service::MarkMethodStreamed(10,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::spanner::admin::database::v1::CopyBackupRequest, ::google::longrunning::Operation>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::spanner::admin::database::v1::CopyBackupRequest, ::google::longrunning::Operation>* streamer) {
+                       return this->StreamedCopyBackup(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CopyBackup() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CopyBackup(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::CopyBackupRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCopyBackup(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::spanner::admin::database::v1::CopyBackupRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_GetBackup : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetBackup() {
-      ::grpc::Service::MarkMethodStreamed(10,
+      ::grpc::Service::MarkMethodStreamed(11,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::database::v1::GetBackupRequest, ::google::spanner::admin::database::v1::Backup>(
             [this](::grpc::ServerContext* context,
@@ -2920,7 +3246,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodStreamed(11,
+      ::grpc::Service::MarkMethodStreamed(12,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::database::v1::UpdateBackupRequest, ::google::spanner::admin::database::v1::Backup>(
             [this](::grpc::ServerContext* context,
@@ -2947,7 +3273,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodStreamed(12,
+      ::grpc::Service::MarkMethodStreamed(13,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::database::v1::DeleteBackupRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -2974,7 +3300,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ListBackups() {
-      ::grpc::Service::MarkMethodStreamed(13,
+      ::grpc::Service::MarkMethodStreamed(14,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::database::v1::ListBackupsRequest, ::google::spanner::admin::database::v1::ListBackupsResponse>(
             [this](::grpc::ServerContext* context,
@@ -3001,7 +3327,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_RestoreDatabase() {
-      ::grpc::Service::MarkMethodStreamed(14,
+      ::grpc::Service::MarkMethodStreamed(15,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::database::v1::RestoreDatabaseRequest, ::google::longrunning::Operation>(
             [this](::grpc::ServerContext* context,
@@ -3028,7 +3354,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ListDatabaseOperations() {
-      ::grpc::Service::MarkMethodStreamed(15,
+      ::grpc::Service::MarkMethodStreamed(16,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::database::v1::ListDatabaseOperationsRequest, ::google::spanner::admin::database::v1::ListDatabaseOperationsResponse>(
             [this](::grpc::ServerContext* context,
@@ -3055,7 +3381,7 @@ class DatabaseAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ListBackupOperations() {
-      ::grpc::Service::MarkMethodStreamed(16,
+      ::grpc::Service::MarkMethodStreamed(17,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::spanner::admin::database::v1::ListBackupOperationsRequest, ::google::spanner::admin::database::v1::ListBackupOperationsResponse>(
             [this](::grpc::ServerContext* context,
@@ -3076,9 +3402,36 @@ class DatabaseAdmin final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedListBackupOperations(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::spanner::admin::database::v1::ListBackupOperationsRequest,::google::spanner::admin::database::v1::ListBackupOperationsResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ListDatabases<WithStreamedUnaryMethod_CreateDatabase<WithStreamedUnaryMethod_GetDatabase<WithStreamedUnaryMethod_UpdateDatabaseDdl<WithStreamedUnaryMethod_DropDatabase<WithStreamedUnaryMethod_GetDatabaseDdl<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_CreateBackup<WithStreamedUnaryMethod_GetBackup<WithStreamedUnaryMethod_UpdateBackup<WithStreamedUnaryMethod_DeleteBackup<WithStreamedUnaryMethod_ListBackups<WithStreamedUnaryMethod_RestoreDatabase<WithStreamedUnaryMethod_ListDatabaseOperations<WithStreamedUnaryMethod_ListBackupOperations<Service > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ListDatabaseRoles : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListDatabaseRoles() {
+      ::grpc::Service::MarkMethodStreamed(18,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::spanner::admin::database::v1::ListDatabaseRolesRequest, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::spanner::admin::database::v1::ListDatabaseRolesRequest, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse>* streamer) {
+                       return this->StreamedListDatabaseRoles(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListDatabaseRoles() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListDatabaseRoles(::grpc::ServerContext* /*context*/, const ::google::spanner::admin::database::v1::ListDatabaseRolesRequest* /*request*/, ::google::spanner::admin::database::v1::ListDatabaseRolesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListDatabaseRoles(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::spanner::admin::database::v1::ListDatabaseRolesRequest,::google::spanner::admin::database::v1::ListDatabaseRolesResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_ListDatabases<WithStreamedUnaryMethod_CreateDatabase<WithStreamedUnaryMethod_GetDatabase<WithStreamedUnaryMethod_UpdateDatabaseDdl<WithStreamedUnaryMethod_DropDatabase<WithStreamedUnaryMethod_GetDatabaseDdl<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_CreateBackup<WithStreamedUnaryMethod_CopyBackup<WithStreamedUnaryMethod_GetBackup<WithStreamedUnaryMethod_UpdateBackup<WithStreamedUnaryMethod_DeleteBackup<WithStreamedUnaryMethod_ListBackups<WithStreamedUnaryMethod_RestoreDatabase<WithStreamedUnaryMethod_ListDatabaseOperations<WithStreamedUnaryMethod_ListBackupOperations<WithStreamedUnaryMethod_ListDatabaseRoles<Service > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ListDatabases<WithStreamedUnaryMethod_CreateDatabase<WithStreamedUnaryMethod_GetDatabase<WithStreamedUnaryMethod_UpdateDatabaseDdl<WithStreamedUnaryMethod_DropDatabase<WithStreamedUnaryMethod_GetDatabaseDdl<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_CreateBackup<WithStreamedUnaryMethod_GetBackup<WithStreamedUnaryMethod_UpdateBackup<WithStreamedUnaryMethod_DeleteBackup<WithStreamedUnaryMethod_ListBackups<WithStreamedUnaryMethod_RestoreDatabase<WithStreamedUnaryMethod_ListDatabaseOperations<WithStreamedUnaryMethod_ListBackupOperations<Service > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_ListDatabases<WithStreamedUnaryMethod_CreateDatabase<WithStreamedUnaryMethod_GetDatabase<WithStreamedUnaryMethod_UpdateDatabaseDdl<WithStreamedUnaryMethod_DropDatabase<WithStreamedUnaryMethod_GetDatabaseDdl<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_CreateBackup<WithStreamedUnaryMethod_CopyBackup<WithStreamedUnaryMethod_GetBackup<WithStreamedUnaryMethod_UpdateBackup<WithStreamedUnaryMethod_DeleteBackup<WithStreamedUnaryMethod_ListBackups<WithStreamedUnaryMethod_RestoreDatabase<WithStreamedUnaryMethod_ListDatabaseOperations<WithStreamedUnaryMethod_ListBackupOperations<WithStreamedUnaryMethod_ListDatabaseRoles<Service > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v1

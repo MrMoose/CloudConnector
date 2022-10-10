@@ -36,8 +36,9 @@ class CurlRequestBuilder {
  public:
   using RequestType = CurlRequest;
 
-  explicit CurlRequestBuilder(std::string base_url,
-                              std::shared_ptr<CurlHandleFactory> factory);
+  explicit CurlRequestBuilder(
+      std::string base_url,
+      std::shared_ptr<rest_internal::CurlHandleFactory> factory);
 
   /**
    * Creates a http request with the given payload.
@@ -172,7 +173,7 @@ class CurlRequestBuilder {
   std::string UserAgentSuffix() const;
 
   /// URL-escapes a string.
-  CurlString MakeEscapedString(std::string const& s) {
+  rest_internal::CurlString MakeEscapedString(std::string const& s) {
     return handle_.MakeEscapedString(s);
   }
 
@@ -184,10 +185,10 @@ class CurlRequestBuilder {
  private:
   void ValidateBuilderState(char const* where) const;
 
-  std::shared_ptr<CurlHandleFactory> factory_;
+  std::shared_ptr<rest_internal::CurlHandleFactory> factory_;
 
   CurlHandle handle_;
-  CurlHeaders headers_;
+  rest_internal::CurlHeaders headers_;
 
   std::string url_;
   char const* query_parameter_separator_;
@@ -196,7 +197,9 @@ class CurlRequestBuilder {
   bool logging_enabled_ = false;
   CurlHandle::SocketOptions socket_options_;
   std::chrono::seconds transfer_stall_timeout_;
+  std::uint32_t transfer_stall_minimum_rate_ = 0;
   std::chrono::seconds download_stall_timeout_;
+  std::uint32_t download_stall_minimum_rate_ = 0;
   std::string http_version_;
 };
 

@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/bigtable/v2/bigtable.proto
 // Original file comments:
-// Copyright 2019 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -109,6 +109,15 @@ class Bigtable final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::CheckAndMutateRowResponse>> PrepareAsyncCheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::CheckAndMutateRowResponse>>(PrepareAsyncCheckAndMutateRowRaw(context, request, cq));
     }
+    // Warm up associated instance metadata for this connection.
+    // This call is not required but may be useful for connection keep-alive.
+    virtual ::grpc::Status PingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::google::bigtable::v2::PingAndWarmResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::PingAndWarmResponse>> AsyncPingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::PingAndWarmResponse>>(AsyncPingAndWarmRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::PingAndWarmResponse>> PrepareAsyncPingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::PingAndWarmResponse>>(PrepareAsyncPingAndWarmRaw(context, request, cq));
+    }
     // Modifies a row atomically on the server. The method reads the latest
     // existing timestamp and value from the specified columns and writes a new
     // entry based on pre-defined read/modify/write rules. The new value for the
@@ -146,6 +155,10 @@ class Bigtable final {
       // Mutates a row atomically based on the output of a predicate Reader filter.
       virtual void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Warm up associated instance metadata for this connection.
+      // This call is not required but may be useful for connection keep-alive.
+      virtual void PingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest* request, ::google::bigtable::v2::PingAndWarmResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void PingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest* request, ::google::bigtable::v2::PingAndWarmResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Modifies a row atomically on the server. The method reads the latest
       // existing timestamp and value from the specified columns and writes a new
       // entry based on pre-defined read/modify/write rules. The new value for the
@@ -171,6 +184,8 @@ class Bigtable final {
     virtual ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::MutateRowsResponse>* PrepareAsyncMutateRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::CheckAndMutateRowResponse>* AsyncCheckAndMutateRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::CheckAndMutateRowResponse>* PrepareAsyncCheckAndMutateRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::PingAndWarmResponse>* AsyncPingAndWarmRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::PingAndWarmResponse>* PrepareAsyncPingAndWarmRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::ReadModifyWriteRowResponse>* AsyncReadModifyWriteRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::ReadModifyWriteRowResponse>* PrepareAsyncReadModifyWriteRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
@@ -218,6 +233,13 @@ class Bigtable final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::CheckAndMutateRowResponse>> PrepareAsyncCheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::CheckAndMutateRowResponse>>(PrepareAsyncCheckAndMutateRowRaw(context, request, cq));
     }
+    ::grpc::Status PingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::google::bigtable::v2::PingAndWarmResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::PingAndWarmResponse>> AsyncPingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::PingAndWarmResponse>>(AsyncPingAndWarmRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::PingAndWarmResponse>> PrepareAsyncPingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::PingAndWarmResponse>>(PrepareAsyncPingAndWarmRaw(context, request, cq));
+    }
     ::grpc::Status ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>> AsyncReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>>(AsyncReadModifyWriteRowRaw(context, request, cq));
@@ -235,6 +257,8 @@ class Bigtable final {
       void MutateRows(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::MutateRowsResponse>* reactor) override;
       void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, std::function<void(::grpc::Status)>) override;
       void CheckAndMutateRow(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void PingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest* request, ::google::bigtable::v2::PingAndWarmResponse* response, std::function<void(::grpc::Status)>) override;
+      void PingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest* request, ::google::bigtable::v2::PingAndWarmResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, std::function<void(::grpc::Status)>) override;
       void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
@@ -261,6 +285,8 @@ class Bigtable final {
     ::grpc::ClientAsyncReader< ::google::bigtable::v2::MutateRowsResponse>* PrepareAsyncMutateRowsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::MutateRowsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::CheckAndMutateRowResponse>* AsyncCheckAndMutateRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::CheckAndMutateRowResponse>* PrepareAsyncCheckAndMutateRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::PingAndWarmResponse>* AsyncPingAndWarmRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::PingAndWarmResponse>* PrepareAsyncPingAndWarmRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>* AsyncReadModifyWriteRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>* PrepareAsyncReadModifyWriteRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_ReadRows_;
@@ -268,6 +294,7 @@ class Bigtable final {
     const ::grpc::internal::RpcMethod rpcmethod_MutateRow_;
     const ::grpc::internal::RpcMethod rpcmethod_MutateRows_;
     const ::grpc::internal::RpcMethod rpcmethod_CheckAndMutateRow_;
+    const ::grpc::internal::RpcMethod rpcmethod_PingAndWarm_;
     const ::grpc::internal::RpcMethod rpcmethod_ReadModifyWriteRow_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -296,6 +323,9 @@ class Bigtable final {
     virtual ::grpc::Status MutateRows(::grpc::ServerContext* context, const ::google::bigtable::v2::MutateRowsRequest* request, ::grpc::ServerWriter< ::google::bigtable::v2::MutateRowsResponse>* writer);
     // Mutates a row atomically based on the output of a predicate Reader filter.
     virtual ::grpc::Status CheckAndMutateRow(::grpc::ServerContext* context, const ::google::bigtable::v2::CheckAndMutateRowRequest* request, ::google::bigtable::v2::CheckAndMutateRowResponse* response);
+    // Warm up associated instance metadata for this connection.
+    // This call is not required but may be useful for connection keep-alive.
+    virtual ::grpc::Status PingAndWarm(::grpc::ServerContext* context, const ::google::bigtable::v2::PingAndWarmRequest* request, ::google::bigtable::v2::PingAndWarmResponse* response);
     // Modifies a row atomically on the server. The method reads the latest
     // existing timestamp and value from the specified columns and writes a new
     // entry based on pre-defined read/modify/write rules. The new value for the
@@ -404,12 +434,32 @@ class Bigtable final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_PingAndWarm : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_PingAndWarm() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_PingAndWarm() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PingAndWarm(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::PingAndWarmRequest* /*request*/, ::google::bigtable::v2::PingAndWarmResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestPingAndWarm(::grpc::ServerContext* context, ::google::bigtable::v2::PingAndWarmRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::v2::PingAndWarmResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_ReadModifyWriteRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ReadModifyWriteRow() {
-      ::grpc::Service::MarkMethodAsync(5);
+      ::grpc::Service::MarkMethodAsync(6);
     }
     ~WithAsyncMethod_ReadModifyWriteRow() override {
       BaseClassMustBeDerivedFromService(this);
@@ -420,10 +470,10 @@ class Bigtable final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestReadModifyWriteRow(::grpc::ServerContext* context, ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::v2::ReadModifyWriteRowResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ReadRows<WithAsyncMethod_SampleRowKeys<WithAsyncMethod_MutateRow<WithAsyncMethod_MutateRows<WithAsyncMethod_CheckAndMutateRow<WithAsyncMethod_ReadModifyWriteRow<Service > > > > > > AsyncService;
+  typedef WithAsyncMethod_ReadRows<WithAsyncMethod_SampleRowKeys<WithAsyncMethod_MutateRow<WithAsyncMethod_MutateRows<WithAsyncMethod_CheckAndMutateRow<WithAsyncMethod_PingAndWarm<WithAsyncMethod_ReadModifyWriteRow<Service > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ReadRows : public BaseClass {
    private:
@@ -545,18 +595,45 @@ class Bigtable final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::CheckAndMutateRowRequest* /*request*/, ::google::bigtable::v2::CheckAndMutateRowResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_PingAndWarm : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_PingAndWarm() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::PingAndWarmRequest, ::google::bigtable::v2::PingAndWarmResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::PingAndWarmRequest* request, ::google::bigtable::v2::PingAndWarmResponse* response) { return this->PingAndWarm(context, request, response); }));}
+    void SetMessageAllocatorFor_PingAndWarm(
+        ::grpc::MessageAllocator< ::google::bigtable::v2::PingAndWarmRequest, ::google::bigtable::v2::PingAndWarmResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::PingAndWarmRequest, ::google::bigtable::v2::PingAndWarmResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_PingAndWarm() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PingAndWarm(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::PingAndWarmRequest* /*request*/, ::google::bigtable::v2::PingAndWarmResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* PingAndWarm(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::PingAndWarmRequest* /*request*/, ::google::bigtable::v2::PingAndWarmResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_ReadModifyWriteRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ReadModifyWriteRow() {
-      ::grpc::Service::MarkMethodCallback(5,
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::ReadModifyWriteRowRequest, ::google::bigtable::v2::ReadModifyWriteRowResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response) { return this->ReadModifyWriteRow(context, request, response); }));}
     void SetMessageAllocatorFor_ReadModifyWriteRow(
         ::grpc::MessageAllocator< ::google::bigtable::v2::ReadModifyWriteRowRequest, ::google::bigtable::v2::ReadModifyWriteRowResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::v2::ReadModifyWriteRowRequest, ::google::bigtable::v2::ReadModifyWriteRowResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -571,7 +648,7 @@ class Bigtable final {
     virtual ::grpc::ServerUnaryReactor* ReadModifyWriteRow(
       ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::ReadModifyWriteRowRequest* /*request*/, ::google::bigtable::v2::ReadModifyWriteRowResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ReadRows<WithCallbackMethod_SampleRowKeys<WithCallbackMethod_MutateRow<WithCallbackMethod_MutateRows<WithCallbackMethod_CheckAndMutateRow<WithCallbackMethod_ReadModifyWriteRow<Service > > > > > > CallbackService;
+  typedef WithCallbackMethod_ReadRows<WithCallbackMethod_SampleRowKeys<WithCallbackMethod_MutateRow<WithCallbackMethod_MutateRows<WithCallbackMethod_CheckAndMutateRow<WithCallbackMethod_PingAndWarm<WithCallbackMethod_ReadModifyWriteRow<Service > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ReadRows : public BaseClass {
@@ -659,12 +736,29 @@ class Bigtable final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_PingAndWarm : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_PingAndWarm() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_PingAndWarm() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PingAndWarm(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::PingAndWarmRequest* /*request*/, ::google::bigtable::v2::PingAndWarmResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_ReadModifyWriteRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ReadModifyWriteRow() {
-      ::grpc::Service::MarkMethodGeneric(5);
+      ::grpc::Service::MarkMethodGeneric(6);
     }
     ~WithGenericMethod_ReadModifyWriteRow() override {
       BaseClassMustBeDerivedFromService(this);
@@ -776,12 +870,32 @@ class Bigtable final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_PingAndWarm : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_PingAndWarm() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_PingAndWarm() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PingAndWarm(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::PingAndWarmRequest* /*request*/, ::google::bigtable::v2::PingAndWarmResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestPingAndWarm(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_ReadModifyWriteRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ReadModifyWriteRow() {
-      ::grpc::Service::MarkMethodRaw(5);
+      ::grpc::Service::MarkMethodRaw(6);
     }
     ~WithRawMethod_ReadModifyWriteRow() override {
       BaseClassMustBeDerivedFromService(this);
@@ -792,7 +906,7 @@ class Bigtable final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestReadModifyWriteRow(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -906,12 +1020,34 @@ class Bigtable final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_PingAndWarm : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_PingAndWarm() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PingAndWarm(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_PingAndWarm() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PingAndWarm(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::PingAndWarmRequest* /*request*/, ::google::bigtable::v2::PingAndWarmResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* PingAndWarm(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_ReadModifyWriteRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ReadModifyWriteRow() {
-      ::grpc::Service::MarkMethodRawCallback(5,
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ReadModifyWriteRow(context, request, response); }));
@@ -982,12 +1118,39 @@ class Bigtable final {
     virtual ::grpc::Status StreamedCheckAndMutateRow(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::v2::CheckAndMutateRowRequest,::google::bigtable::v2::CheckAndMutateRowResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_PingAndWarm : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_PingAndWarm() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::bigtable::v2::PingAndWarmRequest, ::google::bigtable::v2::PingAndWarmResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::bigtable::v2::PingAndWarmRequest, ::google::bigtable::v2::PingAndWarmResponse>* streamer) {
+                       return this->StreamedPingAndWarm(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_PingAndWarm() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status PingAndWarm(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::PingAndWarmRequest* /*request*/, ::google::bigtable::v2::PingAndWarmResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedPingAndWarm(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::v2::PingAndWarmRequest,::google::bigtable::v2::PingAndWarmResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_ReadModifyWriteRow : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ReadModifyWriteRow() {
-      ::grpc::Service::MarkMethodStreamed(5,
+      ::grpc::Service::MarkMethodStreamed(6,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::v2::ReadModifyWriteRowRequest, ::google::bigtable::v2::ReadModifyWriteRowResponse>(
             [this](::grpc::ServerContext* context,
@@ -1008,7 +1171,7 @@ class Bigtable final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedReadModifyWriteRow(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::v2::ReadModifyWriteRowRequest,::google::bigtable::v2::ReadModifyWriteRowResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_MutateRow<WithStreamedUnaryMethod_CheckAndMutateRow<WithStreamedUnaryMethod_ReadModifyWriteRow<Service > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_MutateRow<WithStreamedUnaryMethod_CheckAndMutateRow<WithStreamedUnaryMethod_PingAndWarm<WithStreamedUnaryMethod_ReadModifyWriteRow<Service > > > > StreamedUnaryService;
   template <class BaseClass>
   class WithSplitStreamingMethod_ReadRows : public BaseClass {
    private:
@@ -1091,7 +1254,7 @@ class Bigtable final {
     virtual ::grpc::Status StreamedMutateRows(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::google::bigtable::v2::MutateRowsRequest,::google::bigtable::v2::MutateRowsResponse>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_ReadRows<WithSplitStreamingMethod_SampleRowKeys<WithSplitStreamingMethod_MutateRows<Service > > > SplitStreamedService;
-  typedef WithSplitStreamingMethod_ReadRows<WithSplitStreamingMethod_SampleRowKeys<WithStreamedUnaryMethod_MutateRow<WithSplitStreamingMethod_MutateRows<WithStreamedUnaryMethod_CheckAndMutateRow<WithStreamedUnaryMethod_ReadModifyWriteRow<Service > > > > > > StreamedService;
+  typedef WithSplitStreamingMethod_ReadRows<WithSplitStreamingMethod_SampleRowKeys<WithStreamedUnaryMethod_MutateRow<WithSplitStreamingMethod_MutateRows<WithStreamedUnaryMethod_CheckAndMutateRow<WithStreamedUnaryMethod_PingAndWarm<WithStreamedUnaryMethod_ReadModifyWriteRow<Service > > > > > > > StreamedService;
 };
 
 }  // namespace v2

@@ -16,8 +16,9 @@
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_STORAGE_INTERNAL_CURL_HANDLE_H
 
 #include "google/cloud/storage/client_options.h"
-#include "google/cloud/storage/internal/curl_wrappers.h"
+#include "google/cloud/storage/internal/curl_handle_factory.h"
 #include "google/cloud/storage/version.h"
+#include "google/cloud/internal/curl_wrappers.h"
 #include "google/cloud/status_or.h"
 #include "absl/functional/function_ref.h"
 #include <curl/curl.h>
@@ -39,6 +40,12 @@ namespace internal {
  */
 class CurlHandle {
  public:
+  static CurlHandle MakeFromPool(rest_internal::CurlHandleFactory& factory);
+  static void ReturnToPool(rest_internal::CurlHandleFactory& factory,
+                           CurlHandle h);
+  static void DiscardFromPool(rest_internal::CurlHandleFactory& factory,
+                              CurlHandle h);
+
   explicit CurlHandle();
   ~CurlHandle();
 
@@ -65,8 +72,8 @@ class CurlHandle {
   void SetSocketCallback(SocketOptions const& options);
 
   /// URL-escapes a string.
-  CurlString MakeEscapedString(std::string const& s) {
-    return CurlString(
+  rest_internal::CurlString MakeEscapedString(std::string const& s) {
+    return rest_internal::CurlString(
         curl_easy_escape(handle_.get(), s.data(), static_cast<int>(s.length())),
         &curl_free);
   }
@@ -132,13 +139,15 @@ class CurlHandle {
   };
 
  private:
-  explicit CurlHandle(CurlPtr ptr) : handle_(std::move(ptr)) {}
+  struct InternalOnly {};
+  explicit CurlHandle(InternalOnly, rest_internal::CurlPtr ptr)
+      : handle_(std::move(ptr)) {}
 
   friend class CurlDownloadRequest;
   friend class CurlRequestBuilder;
   friend class CurlHandleFactory;
 
-  CurlPtr handle_;
+  rest_internal::CurlPtr handle_;
   std::shared_ptr<DebugInfo> debug_info_;
   SocketOptions socket_options_;
 };

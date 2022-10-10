@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/bigtable/admin/v2/bigtable_table_admin.proto
 // Original file comments:
-// Copyright 2020 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -99,6 +99,14 @@ class BigtableTableAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>> PrepareAsyncGetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>>(PrepareAsyncGetTableRaw(context, request, cq));
     }
+    // Updates a specified table.
+    virtual ::grpc::Status UpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::google::longrunning::Operation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncUpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncUpdateTableRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncUpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncUpdateTableRaw(context, request, cq));
+    }
     // Permanently deletes a specified table and all of its data.
     virtual ::grpc::Status DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::grpc::CompletionQueue* cq) {
@@ -106,6 +114,14 @@ class BigtableTableAdmin final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteTableRaw(context, request, cq));
+    }
+    // Restores a specified table which was accidentally deleted.
+    virtual ::grpc::Status UndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::google::longrunning::Operation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncUndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncUndeleteTableRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> PrepareAsyncUndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(PrepareAsyncUndeleteTableRaw(context, request, cq));
     }
     // Performs a series of column family modifications on the specified table.
     // Either all or none of the modifications will occur before this method
@@ -320,9 +336,15 @@ class BigtableTableAdmin final {
       // Gets metadata information about the specified table.
       virtual void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Updates a specified table.
+      virtual void UpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Permanently deletes a specified table and all of its data.
       virtual void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Restores a specified table which was accidentally deleted.
+      virtual void UndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Performs a series of column family modifications on the specified table.
       // Either all or none of the modifications will occur before this method
       // returns, but data requests received prior to that point may see a table
@@ -440,8 +462,12 @@ class BigtableTableAdmin final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::ListTablesResponse>* PrepareAsyncListTablesRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListTablesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>* AsyncGetTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>* PrepareAsyncGetTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncUpdateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncUpdateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* AsyncUndeleteTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>* PrepareAsyncUndeleteTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>* AsyncModifyColumnFamiliesRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::admin::v2::Table>* PrepareAsyncModifyColumnFamiliesRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDropRowRangeRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -508,12 +534,26 @@ class BigtableTableAdmin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>> PrepareAsyncGetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>>(PrepareAsyncGetTableRaw(context, request, cq));
     }
+    ::grpc::Status UpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::google::longrunning::Operation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncUpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncUpdateTableRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncUpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncUpdateTableRaw(context, request, cq));
+    }
     ::grpc::Status DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::google::protobuf::Empty* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteTableRaw(context, request, cq));
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteTableRaw(context, request, cq));
+    }
+    ::grpc::Status UndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::google::longrunning::Operation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> AsyncUndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(AsyncUndeleteTableRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>> PrepareAsyncUndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>>(PrepareAsyncUndeleteTableRaw(context, request, cq));
     }
     ::grpc::Status ModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest& request, ::google::bigtable::admin::v2::Table* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>> AsyncModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest& request, ::grpc::CompletionQueue* cq) {
@@ -645,8 +685,12 @@ class BigtableTableAdmin final {
       void ListTables(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, std::function<void(::grpc::Status)>) override;
       void GetTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
+      void UpdateTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
       void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
       void DeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) override;
+      void UndeleteTable(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response, std::function<void(::grpc::Status)>) override;
       void ModifyColumnFamilies(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response, ::grpc::ClientUnaryReactor* reactor) override;
       void DropRowRange(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
@@ -700,8 +744,12 @@ class BigtableTableAdmin final {
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::ListTablesResponse>* PrepareAsyncListTablesRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ListTablesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>* AsyncGetTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>* PrepareAsyncGetTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::GetTableRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncUpdateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncUpdateTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* AsyncUndeleteTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::longrunning::Operation>* PrepareAsyncUndeleteTableRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>* AsyncModifyColumnFamiliesRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::admin::v2::Table>* PrepareAsyncModifyColumnFamiliesRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDropRowRangeRaw(::grpc::ClientContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -740,7 +788,9 @@ class BigtableTableAdmin final {
     const ::grpc::internal::RpcMethod rpcmethod_CreateTableFromSnapshot_;
     const ::grpc::internal::RpcMethod rpcmethod_ListTables_;
     const ::grpc::internal::RpcMethod rpcmethod_GetTable_;
+    const ::grpc::internal::RpcMethod rpcmethod_UpdateTable_;
     const ::grpc::internal::RpcMethod rpcmethod_DeleteTable_;
+    const ::grpc::internal::RpcMethod rpcmethod_UndeleteTable_;
     const ::grpc::internal::RpcMethod rpcmethod_ModifyColumnFamilies_;
     const ::grpc::internal::RpcMethod rpcmethod_DropRowRange_;
     const ::grpc::internal::RpcMethod rpcmethod_GenerateConsistencyToken_;
@@ -782,8 +832,12 @@ class BigtableTableAdmin final {
     virtual ::grpc::Status ListTables(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::ListTablesRequest* request, ::google::bigtable::admin::v2::ListTablesResponse* response);
     // Gets metadata information about the specified table.
     virtual ::grpc::Status GetTable(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::GetTableRequest* request, ::google::bigtable::admin::v2::Table* response);
+    // Updates a specified table.
+    virtual ::grpc::Status UpdateTable(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest* request, ::google::longrunning::Operation* response);
     // Permanently deletes a specified table and all of its data.
     virtual ::grpc::Status DeleteTable(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response);
+    // Restores a specified table which was accidentally deleted.
+    virtual ::grpc::Status UndeleteTable(::grpc::ServerContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest* request, ::google::longrunning::Operation* response);
     // Performs a series of column family modifications on the specified table.
     // Either all or none of the modifications will occur before this method
     // returns, but data requests received prior to that point may see a table
@@ -953,12 +1007,32 @@ class BigtableTableAdmin final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_UpdateTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UpdateTable() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_UpdateTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateTable(::grpc::ServerContext* context, ::google::bigtable::admin::v2::UpdateTableRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_DeleteTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteTable() {
-      ::grpc::Service::MarkMethodAsync(4);
+      ::grpc::Service::MarkMethodAsync(5);
     }
     ~WithAsyncMethod_DeleteTable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -969,7 +1043,27 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteTable(::grpc::ServerContext* context, ::google::bigtable::admin::v2::DeleteTableRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_UndeleteTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UndeleteTable() {
+      ::grpc::Service::MarkMethodAsync(6);
+    }
+    ~WithAsyncMethod_UndeleteTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UndeleteTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UndeleteTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUndeleteTable(::grpc::ServerContext* context, ::google::bigtable::admin::v2::UndeleteTableRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -978,7 +1072,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ModifyColumnFamilies() {
-      ::grpc::Service::MarkMethodAsync(5);
+      ::grpc::Service::MarkMethodAsync(7);
     }
     ~WithAsyncMethod_ModifyColumnFamilies() override {
       BaseClassMustBeDerivedFromService(this);
@@ -989,7 +1083,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestModifyColumnFamilies(::grpc::ServerContext* context, ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::Table>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -998,7 +1092,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DropRowRange() {
-      ::grpc::Service::MarkMethodAsync(6);
+      ::grpc::Service::MarkMethodAsync(8);
     }
     ~WithAsyncMethod_DropRowRange() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1009,7 +1103,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDropRowRange(::grpc::ServerContext* context, ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1018,7 +1112,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GenerateConsistencyToken() {
-      ::grpc::Service::MarkMethodAsync(7);
+      ::grpc::Service::MarkMethodAsync(9);
     }
     ~WithAsyncMethod_GenerateConsistencyToken() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1029,7 +1123,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGenerateConsistencyToken(::grpc::ServerContext* context, ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1038,7 +1132,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CheckConsistency() {
-      ::grpc::Service::MarkMethodAsync(8);
+      ::grpc::Service::MarkMethodAsync(10);
     }
     ~WithAsyncMethod_CheckConsistency() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1049,7 +1143,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCheckConsistency(::grpc::ServerContext* context, ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::CheckConsistencyResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1058,7 +1152,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SnapshotTable() {
-      ::grpc::Service::MarkMethodAsync(9);
+      ::grpc::Service::MarkMethodAsync(11);
     }
     ~WithAsyncMethod_SnapshotTable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1069,7 +1163,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSnapshotTable(::grpc::ServerContext* context, ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1078,7 +1172,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetSnapshot() {
-      ::grpc::Service::MarkMethodAsync(10);
+      ::grpc::Service::MarkMethodAsync(12);
     }
     ~WithAsyncMethod_GetSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1089,7 +1183,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetSnapshot(::grpc::ServerContext* context, ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::Snapshot>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1098,7 +1192,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ListSnapshots() {
-      ::grpc::Service::MarkMethodAsync(11);
+      ::grpc::Service::MarkMethodAsync(13);
     }
     ~WithAsyncMethod_ListSnapshots() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1109,7 +1203,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListSnapshots(::grpc::ServerContext* context, ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::ListSnapshotsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1118,7 +1212,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteSnapshot() {
-      ::grpc::Service::MarkMethodAsync(12);
+      ::grpc::Service::MarkMethodAsync(14);
     }
     ~WithAsyncMethod_DeleteSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1129,7 +1223,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteSnapshot(::grpc::ServerContext* context, ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1138,7 +1232,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CreateBackup() {
-      ::grpc::Service::MarkMethodAsync(13);
+      ::grpc::Service::MarkMethodAsync(15);
     }
     ~WithAsyncMethod_CreateBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1149,7 +1243,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateBackup(::grpc::ServerContext* context, ::google::bigtable::admin::v2::CreateBackupRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1158,7 +1252,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetBackup() {
-      ::grpc::Service::MarkMethodAsync(14);
+      ::grpc::Service::MarkMethodAsync(16);
     }
     ~WithAsyncMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1169,7 +1263,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBackup(::grpc::ServerContext* context, ::google::bigtable::admin::v2::GetBackupRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::Backup>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1178,7 +1272,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodAsync(15);
+      ::grpc::Service::MarkMethodAsync(17);
     }
     ~WithAsyncMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1189,7 +1283,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateBackup(::grpc::ServerContext* context, ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::Backup>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1198,7 +1292,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodAsync(16);
+      ::grpc::Service::MarkMethodAsync(18);
     }
     ~WithAsyncMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1209,7 +1303,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteBackup(::grpc::ServerContext* context, ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1218,7 +1312,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ListBackups() {
-      ::grpc::Service::MarkMethodAsync(17);
+      ::grpc::Service::MarkMethodAsync(19);
     }
     ~WithAsyncMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1229,7 +1323,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListBackups(::grpc::ServerContext* context, ::google::bigtable::admin::v2::ListBackupsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::bigtable::admin::v2::ListBackupsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1238,7 +1332,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_RestoreTable() {
-      ::grpc::Service::MarkMethodAsync(18);
+      ::grpc::Service::MarkMethodAsync(20);
     }
     ~WithAsyncMethod_RestoreTable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1249,7 +1343,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRestoreTable(::grpc::ServerContext* context, ::google::bigtable::admin::v2::RestoreTableRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::longrunning::Operation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1258,7 +1352,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodAsync(19);
+      ::grpc::Service::MarkMethodAsync(21);
     }
     ~WithAsyncMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1269,7 +1363,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetIamPolicy(::grpc::ServerContext* context, ::google::iam::v1::GetIamPolicyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::Policy>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1278,7 +1372,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodAsync(20);
+      ::grpc::Service::MarkMethodAsync(22);
     }
     ~WithAsyncMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1289,7 +1383,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetIamPolicy(::grpc::ServerContext* context, ::google::iam::v1::SetIamPolicyRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::Policy>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1298,7 +1392,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodAsync(21);
+      ::grpc::Service::MarkMethodAsync(23);
     }
     ~WithAsyncMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1309,10 +1403,10 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestTestIamPermissions(::grpc::ServerContext* context, ::google::iam::v1::TestIamPermissionsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::iam::v1::TestIamPermissionsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CreateTable<WithAsyncMethod_CreateTableFromSnapshot<WithAsyncMethod_ListTables<WithAsyncMethod_GetTable<WithAsyncMethod_DeleteTable<WithAsyncMethod_ModifyColumnFamilies<WithAsyncMethod_DropRowRange<WithAsyncMethod_GenerateConsistencyToken<WithAsyncMethod_CheckConsistency<WithAsyncMethod_SnapshotTable<WithAsyncMethod_GetSnapshot<WithAsyncMethod_ListSnapshots<WithAsyncMethod_DeleteSnapshot<WithAsyncMethod_CreateBackup<WithAsyncMethod_GetBackup<WithAsyncMethod_UpdateBackup<WithAsyncMethod_DeleteBackup<WithAsyncMethod_ListBackups<WithAsyncMethod_RestoreTable<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_CreateTable<WithAsyncMethod_CreateTableFromSnapshot<WithAsyncMethod_ListTables<WithAsyncMethod_GetTable<WithAsyncMethod_UpdateTable<WithAsyncMethod_DeleteTable<WithAsyncMethod_UndeleteTable<WithAsyncMethod_ModifyColumnFamilies<WithAsyncMethod_DropRowRange<WithAsyncMethod_GenerateConsistencyToken<WithAsyncMethod_CheckConsistency<WithAsyncMethod_SnapshotTable<WithAsyncMethod_GetSnapshot<WithAsyncMethod_ListSnapshots<WithAsyncMethod_DeleteSnapshot<WithAsyncMethod_CreateBackup<WithAsyncMethod_GetBackup<WithAsyncMethod_UpdateBackup<WithAsyncMethod_DeleteBackup<WithAsyncMethod_ListBackups<WithAsyncMethod_RestoreTable<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CreateTable : public BaseClass {
    private:
@@ -1422,18 +1516,45 @@ class BigtableTableAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::GetTableRequest* /*request*/, ::google::bigtable::admin::v2::Table* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_UpdateTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateTable() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UpdateTableRequest, ::google::longrunning::Operation>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::UpdateTableRequest* request, ::google::longrunning::Operation* response) { return this->UpdateTable(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateTable(
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::UpdateTableRequest, ::google::longrunning::Operation>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UpdateTableRequest, ::google::longrunning::Operation>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateTable(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_DeleteTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DeleteTable() {
-      ::grpc::Service::MarkMethodCallback(4,
+      ::grpc::Service::MarkMethodCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteTableRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DeleteTableRequest* request, ::google::protobuf::Empty* response) { return this->DeleteTable(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteTable(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DeleteTableRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteTableRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1449,18 +1570,45 @@ class BigtableTableAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::DeleteTableRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_UndeleteTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UndeleteTable() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UndeleteTableRequest, ::google::longrunning::Operation>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::UndeleteTableRequest* request, ::google::longrunning::Operation* response) { return this->UndeleteTable(context, request, response); }));}
+    void SetMessageAllocatorFor_UndeleteTable(
+        ::grpc::MessageAllocator< ::google::bigtable::admin::v2::UndeleteTableRequest, ::google::longrunning::Operation>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UndeleteTableRequest, ::google::longrunning::Operation>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UndeleteTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UndeleteTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UndeleteTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UndeleteTable(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::admin::v2::UndeleteTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_ModifyColumnFamilies : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ModifyColumnFamilies() {
-      ::grpc::Service::MarkMethodCallback(5,
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest, ::google::bigtable::admin::v2::Table>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest* request, ::google::bigtable::admin::v2::Table* response) { return this->ModifyColumnFamilies(context, request, response); }));}
     void SetMessageAllocatorFor_ModifyColumnFamilies(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest, ::google::bigtable::admin::v2::Table>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest, ::google::bigtable::admin::v2::Table>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1481,13 +1629,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DropRowRange() {
-      ::grpc::Service::MarkMethodCallback(6,
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DropRowRangeRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DropRowRangeRequest* request, ::google::protobuf::Empty* response) { return this->DropRowRange(context, request, response); }));}
     void SetMessageAllocatorFor_DropRowRange(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DropRowRangeRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DropRowRangeRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1508,13 +1656,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GenerateConsistencyToken() {
-      ::grpc::Service::MarkMethodCallback(7,
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest* request, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse* response) { return this->GenerateConsistencyToken(context, request, response); }));}
     void SetMessageAllocatorFor_GenerateConsistencyToken(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1535,13 +1683,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_CheckConsistency() {
-      ::grpc::Service::MarkMethodCallback(8,
+      ::grpc::Service::MarkMethodCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CheckConsistencyRequest, ::google::bigtable::admin::v2::CheckConsistencyResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::CheckConsistencyRequest* request, ::google::bigtable::admin::v2::CheckConsistencyResponse* response) { return this->CheckConsistency(context, request, response); }));}
     void SetMessageAllocatorFor_CheckConsistency(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::CheckConsistencyRequest, ::google::bigtable::admin::v2::CheckConsistencyResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CheckConsistencyRequest, ::google::bigtable::admin::v2::CheckConsistencyResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1562,13 +1710,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_SnapshotTable() {
-      ::grpc::Service::MarkMethodCallback(9,
+      ::grpc::Service::MarkMethodCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::SnapshotTableRequest, ::google::longrunning::Operation>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::SnapshotTableRequest* request, ::google::longrunning::Operation* response) { return this->SnapshotTable(context, request, response); }));}
     void SetMessageAllocatorFor_SnapshotTable(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::SnapshotTableRequest, ::google::longrunning::Operation>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::SnapshotTableRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1589,13 +1737,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetSnapshot() {
-      ::grpc::Service::MarkMethodCallback(10,
+      ::grpc::Service::MarkMethodCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetSnapshotRequest, ::google::bigtable::admin::v2::Snapshot>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::GetSnapshotRequest* request, ::google::bigtable::admin::v2::Snapshot* response) { return this->GetSnapshot(context, request, response); }));}
     void SetMessageAllocatorFor_GetSnapshot(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::GetSnapshotRequest, ::google::bigtable::admin::v2::Snapshot>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetSnapshotRequest, ::google::bigtable::admin::v2::Snapshot>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1616,13 +1764,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ListSnapshots() {
-      ::grpc::Service::MarkMethodCallback(11,
+      ::grpc::Service::MarkMethodCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListSnapshotsRequest, ::google::bigtable::admin::v2::ListSnapshotsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::ListSnapshotsRequest* request, ::google::bigtable::admin::v2::ListSnapshotsResponse* response) { return this->ListSnapshots(context, request, response); }));}
     void SetMessageAllocatorFor_ListSnapshots(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::ListSnapshotsRequest, ::google::bigtable::admin::v2::ListSnapshotsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListSnapshotsRequest, ::google::bigtable::admin::v2::ListSnapshotsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1643,13 +1791,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DeleteSnapshot() {
-      ::grpc::Service::MarkMethodCallback(12,
+      ::grpc::Service::MarkMethodCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteSnapshotRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DeleteSnapshotRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSnapshot(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteSnapshot(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DeleteSnapshotRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteSnapshotRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1670,13 +1818,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_CreateBackup() {
-      ::grpc::Service::MarkMethodCallback(13,
+      ::grpc::Service::MarkMethodCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateBackupRequest, ::google::longrunning::Operation>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::CreateBackupRequest* request, ::google::longrunning::Operation* response) { return this->CreateBackup(context, request, response); }));}
     void SetMessageAllocatorFor_CreateBackup(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::CreateBackupRequest, ::google::longrunning::Operation>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::CreateBackupRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1697,13 +1845,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetBackup() {
-      ::grpc::Service::MarkMethodCallback(14,
+      ::grpc::Service::MarkMethodCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetBackupRequest, ::google::bigtable::admin::v2::Backup>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::GetBackupRequest* request, ::google::bigtable::admin::v2::Backup* response) { return this->GetBackup(context, request, response); }));}
     void SetMessageAllocatorFor_GetBackup(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::GetBackupRequest, ::google::bigtable::admin::v2::Backup>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::GetBackupRequest, ::google::bigtable::admin::v2::Backup>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1724,13 +1872,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodCallback(15,
+      ::grpc::Service::MarkMethodCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UpdateBackupRequest, ::google::bigtable::admin::v2::Backup>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::UpdateBackupRequest* request, ::google::bigtable::admin::v2::Backup* response) { return this->UpdateBackup(context, request, response); }));}
     void SetMessageAllocatorFor_UpdateBackup(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::UpdateBackupRequest, ::google::bigtable::admin::v2::Backup>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::UpdateBackupRequest, ::google::bigtable::admin::v2::Backup>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1751,13 +1899,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodCallback(16,
+      ::grpc::Service::MarkMethodCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteBackupRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::DeleteBackupRequest* request, ::google::protobuf::Empty* response) { return this->DeleteBackup(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteBackup(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::DeleteBackupRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::DeleteBackupRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1778,13 +1926,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ListBackups() {
-      ::grpc::Service::MarkMethodCallback(17,
+      ::grpc::Service::MarkMethodCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListBackupsRequest, ::google::bigtable::admin::v2::ListBackupsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::ListBackupsRequest* request, ::google::bigtable::admin::v2::ListBackupsResponse* response) { return this->ListBackups(context, request, response); }));}
     void SetMessageAllocatorFor_ListBackups(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::ListBackupsRequest, ::google::bigtable::admin::v2::ListBackupsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::ListBackupsRequest, ::google::bigtable::admin::v2::ListBackupsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1805,13 +1953,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_RestoreTable() {
-      ::grpc::Service::MarkMethodCallback(18,
+      ::grpc::Service::MarkMethodCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::RestoreTableRequest, ::google::longrunning::Operation>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::bigtable::admin::v2::RestoreTableRequest* request, ::google::longrunning::Operation* response) { return this->RestoreTable(context, request, response); }));}
     void SetMessageAllocatorFor_RestoreTable(
         ::grpc::MessageAllocator< ::google::bigtable::admin::v2::RestoreTableRequest, ::google::longrunning::Operation>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::bigtable::admin::v2::RestoreTableRequest, ::google::longrunning::Operation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1832,13 +1980,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodCallback(19,
+      ::grpc::Service::MarkMethodCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->GetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_GetIamPolicy(
         ::grpc::MessageAllocator< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1859,13 +2007,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodCallback(20,
+      ::grpc::Service::MarkMethodCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response) { return this->SetIamPolicy(context, request, response); }));}
     void SetMessageAllocatorFor_SetIamPolicy(
         ::grpc::MessageAllocator< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(22);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1886,13 +2034,13 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodCallback(21,
+      ::grpc::Service::MarkMethodCallback(23,
           new ::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response) { return this->TestIamPermissions(context, request, response); }));}
     void SetMessageAllocatorFor_TestIamPermissions(
         ::grpc::MessageAllocator< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(23);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1907,7 +2055,7 @@ class BigtableTableAdmin final {
     virtual ::grpc::ServerUnaryReactor* TestIamPermissions(
       ::grpc::CallbackServerContext* /*context*/, const ::google::iam::v1::TestIamPermissionsRequest* /*request*/, ::google::iam::v1::TestIamPermissionsResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_CreateTable<WithCallbackMethod_CreateTableFromSnapshot<WithCallbackMethod_ListTables<WithCallbackMethod_GetTable<WithCallbackMethod_DeleteTable<WithCallbackMethod_ModifyColumnFamilies<WithCallbackMethod_DropRowRange<WithCallbackMethod_GenerateConsistencyToken<WithCallbackMethod_CheckConsistency<WithCallbackMethod_SnapshotTable<WithCallbackMethod_GetSnapshot<WithCallbackMethod_ListSnapshots<WithCallbackMethod_DeleteSnapshot<WithCallbackMethod_CreateBackup<WithCallbackMethod_GetBackup<WithCallbackMethod_UpdateBackup<WithCallbackMethod_DeleteBackup<WithCallbackMethod_ListBackups<WithCallbackMethod_RestoreTable<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef WithCallbackMethod_CreateTable<WithCallbackMethod_CreateTableFromSnapshot<WithCallbackMethod_ListTables<WithCallbackMethod_GetTable<WithCallbackMethod_UpdateTable<WithCallbackMethod_DeleteTable<WithCallbackMethod_UndeleteTable<WithCallbackMethod_ModifyColumnFamilies<WithCallbackMethod_DropRowRange<WithCallbackMethod_GenerateConsistencyToken<WithCallbackMethod_CheckConsistency<WithCallbackMethod_SnapshotTable<WithCallbackMethod_GetSnapshot<WithCallbackMethod_ListSnapshots<WithCallbackMethod_DeleteSnapshot<WithCallbackMethod_CreateBackup<WithCallbackMethod_GetBackup<WithCallbackMethod_UpdateBackup<WithCallbackMethod_DeleteBackup<WithCallbackMethod_ListBackups<WithCallbackMethod_RestoreTable<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateTable : public BaseClass {
@@ -1978,12 +2126,29 @@ class BigtableTableAdmin final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_UpdateTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UpdateTable() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_UpdateTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_DeleteTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteTable() {
-      ::grpc::Service::MarkMethodGeneric(4);
+      ::grpc::Service::MarkMethodGeneric(5);
     }
     ~WithGenericMethod_DeleteTable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1995,12 +2160,29 @@ class BigtableTableAdmin final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_UndeleteTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UndeleteTable() {
+      ::grpc::Service::MarkMethodGeneric(6);
+    }
+    ~WithGenericMethod_UndeleteTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UndeleteTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UndeleteTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_ModifyColumnFamilies : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ModifyColumnFamilies() {
-      ::grpc::Service::MarkMethodGeneric(5);
+      ::grpc::Service::MarkMethodGeneric(7);
     }
     ~WithGenericMethod_ModifyColumnFamilies() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2017,7 +2199,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DropRowRange() {
-      ::grpc::Service::MarkMethodGeneric(6);
+      ::grpc::Service::MarkMethodGeneric(8);
     }
     ~WithGenericMethod_DropRowRange() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2034,7 +2216,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GenerateConsistencyToken() {
-      ::grpc::Service::MarkMethodGeneric(7);
+      ::grpc::Service::MarkMethodGeneric(9);
     }
     ~WithGenericMethod_GenerateConsistencyToken() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2051,7 +2233,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CheckConsistency() {
-      ::grpc::Service::MarkMethodGeneric(8);
+      ::grpc::Service::MarkMethodGeneric(10);
     }
     ~WithGenericMethod_CheckConsistency() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2068,7 +2250,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SnapshotTable() {
-      ::grpc::Service::MarkMethodGeneric(9);
+      ::grpc::Service::MarkMethodGeneric(11);
     }
     ~WithGenericMethod_SnapshotTable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2085,7 +2267,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetSnapshot() {
-      ::grpc::Service::MarkMethodGeneric(10);
+      ::grpc::Service::MarkMethodGeneric(12);
     }
     ~WithGenericMethod_GetSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2102,7 +2284,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ListSnapshots() {
-      ::grpc::Service::MarkMethodGeneric(11);
+      ::grpc::Service::MarkMethodGeneric(13);
     }
     ~WithGenericMethod_ListSnapshots() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2119,7 +2301,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteSnapshot() {
-      ::grpc::Service::MarkMethodGeneric(12);
+      ::grpc::Service::MarkMethodGeneric(14);
     }
     ~WithGenericMethod_DeleteSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2136,7 +2318,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CreateBackup() {
-      ::grpc::Service::MarkMethodGeneric(13);
+      ::grpc::Service::MarkMethodGeneric(15);
     }
     ~WithGenericMethod_CreateBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2153,7 +2335,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetBackup() {
-      ::grpc::Service::MarkMethodGeneric(14);
+      ::grpc::Service::MarkMethodGeneric(16);
     }
     ~WithGenericMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2170,7 +2352,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodGeneric(15);
+      ::grpc::Service::MarkMethodGeneric(17);
     }
     ~WithGenericMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2187,7 +2369,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodGeneric(16);
+      ::grpc::Service::MarkMethodGeneric(18);
     }
     ~WithGenericMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2204,7 +2386,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ListBackups() {
-      ::grpc::Service::MarkMethodGeneric(17);
+      ::grpc::Service::MarkMethodGeneric(19);
     }
     ~WithGenericMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2221,7 +2403,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_RestoreTable() {
-      ::grpc::Service::MarkMethodGeneric(18);
+      ::grpc::Service::MarkMethodGeneric(20);
     }
     ~WithGenericMethod_RestoreTable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2238,7 +2420,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodGeneric(19);
+      ::grpc::Service::MarkMethodGeneric(21);
     }
     ~WithGenericMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2255,7 +2437,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodGeneric(20);
+      ::grpc::Service::MarkMethodGeneric(22);
     }
     ~WithGenericMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2272,7 +2454,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodGeneric(21);
+      ::grpc::Service::MarkMethodGeneric(23);
     }
     ~WithGenericMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2364,12 +2546,32 @@ class BigtableTableAdmin final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_UpdateTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UpdateTable() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_UpdateTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateTable(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_DeleteTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteTable() {
-      ::grpc::Service::MarkMethodRaw(4);
+      ::grpc::Service::MarkMethodRaw(5);
     }
     ~WithRawMethod_DeleteTable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2380,7 +2582,27 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteTable(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_UndeleteTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UndeleteTable() {
+      ::grpc::Service::MarkMethodRaw(6);
+    }
+    ~WithRawMethod_UndeleteTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UndeleteTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UndeleteTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUndeleteTable(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2389,7 +2611,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ModifyColumnFamilies() {
-      ::grpc::Service::MarkMethodRaw(5);
+      ::grpc::Service::MarkMethodRaw(7);
     }
     ~WithRawMethod_ModifyColumnFamilies() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2400,7 +2622,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestModifyColumnFamilies(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2409,7 +2631,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DropRowRange() {
-      ::grpc::Service::MarkMethodRaw(6);
+      ::grpc::Service::MarkMethodRaw(8);
     }
     ~WithRawMethod_DropRowRange() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2420,7 +2642,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDropRowRange(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2429,7 +2651,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GenerateConsistencyToken() {
-      ::grpc::Service::MarkMethodRaw(7);
+      ::grpc::Service::MarkMethodRaw(9);
     }
     ~WithRawMethod_GenerateConsistencyToken() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2440,7 +2662,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGenerateConsistencyToken(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2449,7 +2671,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CheckConsistency() {
-      ::grpc::Service::MarkMethodRaw(8);
+      ::grpc::Service::MarkMethodRaw(10);
     }
     ~WithRawMethod_CheckConsistency() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2460,7 +2682,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCheckConsistency(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2469,7 +2691,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SnapshotTable() {
-      ::grpc::Service::MarkMethodRaw(9);
+      ::grpc::Service::MarkMethodRaw(11);
     }
     ~WithRawMethod_SnapshotTable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2480,7 +2702,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSnapshotTable(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2489,7 +2711,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetSnapshot() {
-      ::grpc::Service::MarkMethodRaw(10);
+      ::grpc::Service::MarkMethodRaw(12);
     }
     ~WithRawMethod_GetSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2500,7 +2722,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetSnapshot(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2509,7 +2731,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ListSnapshots() {
-      ::grpc::Service::MarkMethodRaw(11);
+      ::grpc::Service::MarkMethodRaw(13);
     }
     ~WithRawMethod_ListSnapshots() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2520,7 +2742,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListSnapshots(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2529,7 +2751,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteSnapshot() {
-      ::grpc::Service::MarkMethodRaw(12);
+      ::grpc::Service::MarkMethodRaw(14);
     }
     ~WithRawMethod_DeleteSnapshot() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2540,7 +2762,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteSnapshot(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2549,7 +2771,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CreateBackup() {
-      ::grpc::Service::MarkMethodRaw(13);
+      ::grpc::Service::MarkMethodRaw(15);
     }
     ~WithRawMethod_CreateBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2560,7 +2782,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestCreateBackup(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2569,7 +2791,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetBackup() {
-      ::grpc::Service::MarkMethodRaw(14);
+      ::grpc::Service::MarkMethodRaw(16);
     }
     ~WithRawMethod_GetBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2580,7 +2802,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetBackup(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2589,7 +2811,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodRaw(15);
+      ::grpc::Service::MarkMethodRaw(17);
     }
     ~WithRawMethod_UpdateBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2600,7 +2822,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUpdateBackup(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2609,7 +2831,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodRaw(16);
+      ::grpc::Service::MarkMethodRaw(18);
     }
     ~WithRawMethod_DeleteBackup() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2620,7 +2842,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteBackup(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2629,7 +2851,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ListBackups() {
-      ::grpc::Service::MarkMethodRaw(17);
+      ::grpc::Service::MarkMethodRaw(19);
     }
     ~WithRawMethod_ListBackups() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2640,7 +2862,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestListBackups(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2649,7 +2871,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_RestoreTable() {
-      ::grpc::Service::MarkMethodRaw(18);
+      ::grpc::Service::MarkMethodRaw(20);
     }
     ~WithRawMethod_RestoreTable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2660,7 +2882,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRestoreTable(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2669,7 +2891,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodRaw(19);
+      ::grpc::Service::MarkMethodRaw(21);
     }
     ~WithRawMethod_GetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2680,7 +2902,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetIamPolicy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2689,7 +2911,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodRaw(20);
+      ::grpc::Service::MarkMethodRaw(22);
     }
     ~WithRawMethod_SetIamPolicy() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2700,7 +2922,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetIamPolicy(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2709,7 +2931,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodRaw(21);
+      ::grpc::Service::MarkMethodRaw(23);
     }
     ~WithRawMethod_TestIamPermissions() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2720,7 +2942,7 @@ class BigtableTableAdmin final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestTestIamPermissions(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(23, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2812,12 +3034,34 @@ class BigtableTableAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_UpdateTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateTable() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateTable(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateTable(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_DeleteTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DeleteTable() {
-      ::grpc::Service::MarkMethodRawCallback(4,
+      ::grpc::Service::MarkMethodRawCallback(5,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteTable(context, request, response); }));
@@ -2834,12 +3078,34 @@ class BigtableTableAdmin final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_UndeleteTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UndeleteTable() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UndeleteTable(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UndeleteTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UndeleteTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UndeleteTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UndeleteTable(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_ModifyColumnFamilies : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ModifyColumnFamilies() {
-      ::grpc::Service::MarkMethodRawCallback(5,
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ModifyColumnFamilies(context, request, response); }));
@@ -2861,7 +3127,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DropRowRange() {
-      ::grpc::Service::MarkMethodRawCallback(6,
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DropRowRange(context, request, response); }));
@@ -2883,7 +3149,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GenerateConsistencyToken() {
-      ::grpc::Service::MarkMethodRawCallback(7,
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GenerateConsistencyToken(context, request, response); }));
@@ -2905,7 +3171,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_CheckConsistency() {
-      ::grpc::Service::MarkMethodRawCallback(8,
+      ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckConsistency(context, request, response); }));
@@ -2927,7 +3193,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_SnapshotTable() {
-      ::grpc::Service::MarkMethodRawCallback(9,
+      ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SnapshotTable(context, request, response); }));
@@ -2949,7 +3215,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetSnapshot() {
-      ::grpc::Service::MarkMethodRawCallback(10,
+      ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSnapshot(context, request, response); }));
@@ -2971,7 +3237,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ListSnapshots() {
-      ::grpc::Service::MarkMethodRawCallback(11,
+      ::grpc::Service::MarkMethodRawCallback(13,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSnapshots(context, request, response); }));
@@ -2993,7 +3259,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DeleteSnapshot() {
-      ::grpc::Service::MarkMethodRawCallback(12,
+      ::grpc::Service::MarkMethodRawCallback(14,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSnapshot(context, request, response); }));
@@ -3015,7 +3281,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_CreateBackup() {
-      ::grpc::Service::MarkMethodRawCallback(13,
+      ::grpc::Service::MarkMethodRawCallback(15,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateBackup(context, request, response); }));
@@ -3037,7 +3303,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetBackup() {
-      ::grpc::Service::MarkMethodRawCallback(14,
+      ::grpc::Service::MarkMethodRawCallback(16,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetBackup(context, request, response); }));
@@ -3059,7 +3325,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodRawCallback(15,
+      ::grpc::Service::MarkMethodRawCallback(17,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateBackup(context, request, response); }));
@@ -3081,7 +3347,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodRawCallback(16,
+      ::grpc::Service::MarkMethodRawCallback(18,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteBackup(context, request, response); }));
@@ -3103,7 +3369,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ListBackups() {
-      ::grpc::Service::MarkMethodRawCallback(17,
+      ::grpc::Service::MarkMethodRawCallback(19,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListBackups(context, request, response); }));
@@ -3125,7 +3391,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_RestoreTable() {
-      ::grpc::Service::MarkMethodRawCallback(18,
+      ::grpc::Service::MarkMethodRawCallback(20,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RestoreTable(context, request, response); }));
@@ -3147,7 +3413,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodRawCallback(19,
+      ::grpc::Service::MarkMethodRawCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIamPolicy(context, request, response); }));
@@ -3169,7 +3435,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodRawCallback(20,
+      ::grpc::Service::MarkMethodRawCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetIamPolicy(context, request, response); }));
@@ -3191,7 +3457,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodRawCallback(21,
+      ::grpc::Service::MarkMethodRawCallback(23,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TestIamPermissions(context, request, response); }));
@@ -3316,12 +3582,39 @@ class BigtableTableAdmin final {
     virtual ::grpc::Status StreamedGetTable(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::admin::v2::GetTableRequest,::google::bigtable::admin::v2::Table>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_UpdateTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UpdateTable() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::bigtable::admin::v2::UpdateTableRequest, ::google::longrunning::Operation>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::bigtable::admin::v2::UpdateTableRequest, ::google::longrunning::Operation>* streamer) {
+                       return this->StreamedUpdateTable(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UpdateTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UpdateTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UpdateTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUpdateTable(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::admin::v2::UpdateTableRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_DeleteTable : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteTable() {
-      ::grpc::Service::MarkMethodStreamed(4,
+      ::grpc::Service::MarkMethodStreamed(5,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::DeleteTableRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -3343,12 +3636,39 @@ class BigtableTableAdmin final {
     virtual ::grpc::Status StreamedDeleteTable(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::admin::v2::DeleteTableRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_UndeleteTable : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UndeleteTable() {
+      ::grpc::Service::MarkMethodStreamed(6,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::bigtable::admin::v2::UndeleteTableRequest, ::google::longrunning::Operation>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::bigtable::admin::v2::UndeleteTableRequest, ::google::longrunning::Operation>* streamer) {
+                       return this->StreamedUndeleteTable(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UndeleteTable() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UndeleteTable(::grpc::ServerContext* /*context*/, const ::google::bigtable::admin::v2::UndeleteTableRequest* /*request*/, ::google::longrunning::Operation* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUndeleteTable(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::bigtable::admin::v2::UndeleteTableRequest,::google::longrunning::Operation>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_ModifyColumnFamilies : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ModifyColumnFamilies() {
-      ::grpc::Service::MarkMethodStreamed(5,
+      ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::ModifyColumnFamiliesRequest, ::google::bigtable::admin::v2::Table>(
             [this](::grpc::ServerContext* context,
@@ -3375,7 +3695,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DropRowRange() {
-      ::grpc::Service::MarkMethodStreamed(6,
+      ::grpc::Service::MarkMethodStreamed(8,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::DropRowRangeRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -3402,7 +3722,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GenerateConsistencyToken() {
-      ::grpc::Service::MarkMethodStreamed(7,
+      ::grpc::Service::MarkMethodStreamed(9,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::GenerateConsistencyTokenRequest, ::google::bigtable::admin::v2::GenerateConsistencyTokenResponse>(
             [this](::grpc::ServerContext* context,
@@ -3429,7 +3749,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CheckConsistency() {
-      ::grpc::Service::MarkMethodStreamed(8,
+      ::grpc::Service::MarkMethodStreamed(10,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::CheckConsistencyRequest, ::google::bigtable::admin::v2::CheckConsistencyResponse>(
             [this](::grpc::ServerContext* context,
@@ -3456,7 +3776,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SnapshotTable() {
-      ::grpc::Service::MarkMethodStreamed(9,
+      ::grpc::Service::MarkMethodStreamed(11,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::SnapshotTableRequest, ::google::longrunning::Operation>(
             [this](::grpc::ServerContext* context,
@@ -3483,7 +3803,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetSnapshot() {
-      ::grpc::Service::MarkMethodStreamed(10,
+      ::grpc::Service::MarkMethodStreamed(12,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::GetSnapshotRequest, ::google::bigtable::admin::v2::Snapshot>(
             [this](::grpc::ServerContext* context,
@@ -3510,7 +3830,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ListSnapshots() {
-      ::grpc::Service::MarkMethodStreamed(11,
+      ::grpc::Service::MarkMethodStreamed(13,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::ListSnapshotsRequest, ::google::bigtable::admin::v2::ListSnapshotsResponse>(
             [this](::grpc::ServerContext* context,
@@ -3537,7 +3857,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteSnapshot() {
-      ::grpc::Service::MarkMethodStreamed(12,
+      ::grpc::Service::MarkMethodStreamed(14,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::DeleteSnapshotRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -3564,7 +3884,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CreateBackup() {
-      ::grpc::Service::MarkMethodStreamed(13,
+      ::grpc::Service::MarkMethodStreamed(15,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::CreateBackupRequest, ::google::longrunning::Operation>(
             [this](::grpc::ServerContext* context,
@@ -3591,7 +3911,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetBackup() {
-      ::grpc::Service::MarkMethodStreamed(14,
+      ::grpc::Service::MarkMethodStreamed(16,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::GetBackupRequest, ::google::bigtable::admin::v2::Backup>(
             [this](::grpc::ServerContext* context,
@@ -3618,7 +3938,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateBackup() {
-      ::grpc::Service::MarkMethodStreamed(15,
+      ::grpc::Service::MarkMethodStreamed(17,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::UpdateBackupRequest, ::google::bigtable::admin::v2::Backup>(
             [this](::grpc::ServerContext* context,
@@ -3645,7 +3965,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteBackup() {
-      ::grpc::Service::MarkMethodStreamed(16,
+      ::grpc::Service::MarkMethodStreamed(18,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::DeleteBackupRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -3672,7 +3992,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ListBackups() {
-      ::grpc::Service::MarkMethodStreamed(17,
+      ::grpc::Service::MarkMethodStreamed(19,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::ListBackupsRequest, ::google::bigtable::admin::v2::ListBackupsResponse>(
             [this](::grpc::ServerContext* context,
@@ -3699,7 +4019,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_RestoreTable() {
-      ::grpc::Service::MarkMethodStreamed(18,
+      ::grpc::Service::MarkMethodStreamed(20,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::bigtable::admin::v2::RestoreTableRequest, ::google::longrunning::Operation>(
             [this](::grpc::ServerContext* context,
@@ -3726,7 +4046,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetIamPolicy() {
-      ::grpc::Service::MarkMethodStreamed(19,
+      ::grpc::Service::MarkMethodStreamed(21,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::iam::v1::GetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](::grpc::ServerContext* context,
@@ -3753,7 +4073,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetIamPolicy() {
-      ::grpc::Service::MarkMethodStreamed(20,
+      ::grpc::Service::MarkMethodStreamed(22,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::iam::v1::SetIamPolicyRequest, ::google::iam::v1::Policy>(
             [this](::grpc::ServerContext* context,
@@ -3780,7 +4100,7 @@ class BigtableTableAdmin final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_TestIamPermissions() {
-      ::grpc::Service::MarkMethodStreamed(21,
+      ::grpc::Service::MarkMethodStreamed(23,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::iam::v1::TestIamPermissionsRequest, ::google::iam::v1::TestIamPermissionsResponse>(
             [this](::grpc::ServerContext* context,
@@ -3801,9 +4121,9 @@ class BigtableTableAdmin final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedTestIamPermissions(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::iam::v1::TestIamPermissionsRequest,::google::iam::v1::TestIamPermissionsResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_CreateTable<WithStreamedUnaryMethod_CreateTableFromSnapshot<WithStreamedUnaryMethod_ListTables<WithStreamedUnaryMethod_GetTable<WithStreamedUnaryMethod_DeleteTable<WithStreamedUnaryMethod_ModifyColumnFamilies<WithStreamedUnaryMethod_DropRowRange<WithStreamedUnaryMethod_GenerateConsistencyToken<WithStreamedUnaryMethod_CheckConsistency<WithStreamedUnaryMethod_SnapshotTable<WithStreamedUnaryMethod_GetSnapshot<WithStreamedUnaryMethod_ListSnapshots<WithStreamedUnaryMethod_DeleteSnapshot<WithStreamedUnaryMethod_CreateBackup<WithStreamedUnaryMethod_GetBackup<WithStreamedUnaryMethod_UpdateBackup<WithStreamedUnaryMethod_DeleteBackup<WithStreamedUnaryMethod_ListBackups<WithStreamedUnaryMethod_RestoreTable<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_CreateTable<WithStreamedUnaryMethod_CreateTableFromSnapshot<WithStreamedUnaryMethod_ListTables<WithStreamedUnaryMethod_GetTable<WithStreamedUnaryMethod_UpdateTable<WithStreamedUnaryMethod_DeleteTable<WithStreamedUnaryMethod_UndeleteTable<WithStreamedUnaryMethod_ModifyColumnFamilies<WithStreamedUnaryMethod_DropRowRange<WithStreamedUnaryMethod_GenerateConsistencyToken<WithStreamedUnaryMethod_CheckConsistency<WithStreamedUnaryMethod_SnapshotTable<WithStreamedUnaryMethod_GetSnapshot<WithStreamedUnaryMethod_ListSnapshots<WithStreamedUnaryMethod_DeleteSnapshot<WithStreamedUnaryMethod_CreateBackup<WithStreamedUnaryMethod_GetBackup<WithStreamedUnaryMethod_UpdateBackup<WithStreamedUnaryMethod_DeleteBackup<WithStreamedUnaryMethod_ListBackups<WithStreamedUnaryMethod_RestoreTable<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_CreateTable<WithStreamedUnaryMethod_CreateTableFromSnapshot<WithStreamedUnaryMethod_ListTables<WithStreamedUnaryMethod_GetTable<WithStreamedUnaryMethod_DeleteTable<WithStreamedUnaryMethod_ModifyColumnFamilies<WithStreamedUnaryMethod_DropRowRange<WithStreamedUnaryMethod_GenerateConsistencyToken<WithStreamedUnaryMethod_CheckConsistency<WithStreamedUnaryMethod_SnapshotTable<WithStreamedUnaryMethod_GetSnapshot<WithStreamedUnaryMethod_ListSnapshots<WithStreamedUnaryMethod_DeleteSnapshot<WithStreamedUnaryMethod_CreateBackup<WithStreamedUnaryMethod_GetBackup<WithStreamedUnaryMethod_UpdateBackup<WithStreamedUnaryMethod_DeleteBackup<WithStreamedUnaryMethod_ListBackups<WithStreamedUnaryMethod_RestoreTable<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_CreateTable<WithStreamedUnaryMethod_CreateTableFromSnapshot<WithStreamedUnaryMethod_ListTables<WithStreamedUnaryMethod_GetTable<WithStreamedUnaryMethod_UpdateTable<WithStreamedUnaryMethod_DeleteTable<WithStreamedUnaryMethod_UndeleteTable<WithStreamedUnaryMethod_ModifyColumnFamilies<WithStreamedUnaryMethod_DropRowRange<WithStreamedUnaryMethod_GenerateConsistencyToken<WithStreamedUnaryMethod_CheckConsistency<WithStreamedUnaryMethod_SnapshotTable<WithStreamedUnaryMethod_GetSnapshot<WithStreamedUnaryMethod_ListSnapshots<WithStreamedUnaryMethod_DeleteSnapshot<WithStreamedUnaryMethod_CreateBackup<WithStreamedUnaryMethod_GetBackup<WithStreamedUnaryMethod_UpdateBackup<WithStreamedUnaryMethod_DeleteBackup<WithStreamedUnaryMethod_ListBackups<WithStreamedUnaryMethod_RestoreTable<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<Service > > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v2

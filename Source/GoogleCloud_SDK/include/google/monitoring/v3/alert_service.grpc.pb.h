@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/monitoring/v3/alert_service.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -45,14 +45,14 @@ namespace monitoring {
 namespace v3 {
 
 // The AlertPolicyService API is used to manage (list, create, delete,
-// edit) alert policies in Stackdriver Monitoring. An alerting policy is
+// edit) alert policies in Cloud Monitoring. An alerting policy is
 // a description of the conditions under which some aspect of your
 // system is considered to be "unhealthy" and the ways to notify
 // people or services about this state. In addition to using this API, alert
 // policies can also be managed through
-// [Stackdriver Monitoring](https://cloud.google.com/monitoring/docs/),
+// [Cloud Monitoring](https://cloud.google.com/monitoring/docs/),
 // which can be reached by clicking the "Monitoring" tab in
-// [Cloud Console](https://console.cloud.google.com/).
+// [Cloud console](https://console.cloud.google.com/).
 class AlertPolicyService final {
  public:
   static constexpr char const* service_full_name() {

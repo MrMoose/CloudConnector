@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/logging/v2/logging.proto
 // Original file comments:
-// Copyright 2020 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -53,10 +53,10 @@ class LoggingServiceV2 final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    // Deletes all the log entries in a log. The log reappears if it receives new
-    // entries. Log entries written shortly before the delete operation might not
-    // be deleted. Entries received after the delete operation with a timestamp
-    // before the operation will be deleted.
+    // Deletes all the log entries in a log for the _Default Log Bucket. The log
+    // reappears if it receives new entries. Log entries written shortly before
+    // the delete operation might not be deleted. Entries received after the
+    // delete operation with a timestamp before the operation will be deleted.
     virtual ::grpc::Status DeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteLogRaw(context, request, cq));
@@ -120,10 +120,10 @@ class LoggingServiceV2 final {
     class async_interface {
      public:
       virtual ~async_interface() {}
-      // Deletes all the log entries in a log. The log reappears if it receives new
-      // entries. Log entries written shortly before the delete operation might not
-      // be deleted. Entries received after the delete operation with a timestamp
-      // before the operation will be deleted.
+      // Deletes all the log entries in a log for the _Default Log Bucket. The log
+      // reappears if it receives new entries. Log entries written shortly before
+      // the delete operation might not be deleted. Entries received after the
+      // delete operation with a timestamp before the operation will be deleted.
       virtual void DeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteLog(::grpc::ClientContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Writes log entries to Logging. This API method is the
@@ -268,10 +268,10 @@ class LoggingServiceV2 final {
    public:
     Service();
     virtual ~Service();
-    // Deletes all the log entries in a log. The log reappears if it receives new
-    // entries. Log entries written shortly before the delete operation might not
-    // be deleted. Entries received after the delete operation with a timestamp
-    // before the operation will be deleted.
+    // Deletes all the log entries in a log for the _Default Log Bucket. The log
+    // reappears if it receives new entries. Log entries written shortly before
+    // the delete operation might not be deleted. Entries received after the
+    // delete operation with a timestamp before the operation will be deleted.
     virtual ::grpc::Status DeleteLog(::grpc::ServerContext* context, const ::google::logging::v2::DeleteLogRequest* request, ::google::protobuf::Empty* response);
     // Writes log entries to Logging. This API method is the
     // only way to send log entries to Logging. This method

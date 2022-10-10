@@ -21,6 +21,7 @@
 #include "google/cloud/storage/version.h"
 #include "google/cloud/future.h"
 #include "google/cloud/internal/filesystem.h"
+#include "google/cloud/internal/type_list.h"
 #include "google/cloud/status_or.h"
 #include "absl/memory/memory.h"
 #include "absl/types/optional.h"
@@ -31,6 +32,7 @@
 #include <mutex>
 #include <string>
 #include <tuple>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -1006,6 +1008,26 @@ struct PrepareParallelUploadApplyHelper {
   std::string const& prefix;
 };
 
+using ParallelUploadFileSupportedOptions = google::cloud::internal::TypeList<
+    DestinationPredefinedAcl, EncryptionKey, IfGenerationMatch,
+    IfMetagenerationMatch, KmsKeyName, MaxStreams, MinStreamSize, QuotaUser,
+    UserIp, UserProject, WithObjectMetadata, UseResumableUploadSession>;
+
+template <typename T>
+using SupportsParallelOption =
+    google::cloud::internal::TypeListHasType<ParallelUploadFileSupportedOptions,
+                                             std::decay_t<T>>;
+
+template <typename... Provided>
+struct IsOptionSupportedWithParallelUpload
+    : std::integral_constant<
+          bool,
+          std::is_same<
+              std::tuple_size<std::tuple<Provided...>>,
+              std::tuple_size<typename google::cloud::internal::TypeListFilter<
+                  SupportsParallelOption, std::tuple<Provided...>>::type>>::
+              value> {};
+
 struct CreateParallelUploadShards {
   /**
    * Prepare a parallel upload of a given file.
@@ -1162,6 +1184,10 @@ StatusOr<ObjectMetadata> ParallelUploadFile(
     Client client, std::string file_name, std::string bucket_name,
     std::string object_name, std::string prefix, bool ignore_cleanup_failures,
     Options&&... options) {
+  static_assert(
+      internal::IsOptionSupportedWithParallelUpload<Options...>::value,
+      "Provided Option not found in ParallelUploadFileSupportedOptions.");
+
   auto shards = internal::CreateParallelUploadShards::Create(
       std::move(client), std::move(file_name), std::move(bucket_name),
       std::move(object_name), std::move(prefix),
