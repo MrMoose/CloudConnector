@@ -45,7 +45,7 @@ class GooglePubsubImpl : public ICloudPubsub {
 	private:
 
 		void receive_message(google::cloud::pubsub::Message const &n_message, 
-				const FPubsubMessageReceived &n_handler, google::cloud::pubsub::AckHandler &&n_ack_handler);
+				const FPubsubMessageReceived &n_handler, google::cloud::pubsub::ExactlyOnceAckHandler &&n_ack_handler);
 
 		// internal information to maintain a subscription
 		// including a future to shut it down.

@@ -120,6 +120,7 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 		}
 	} else {
 		UE_LOG(LogCloudConnector, Display, TEXT("Subscription id preset by user to '%s'"), *n_subscription.Id);
+		n_subscription.Reused = true;
 	}
 
 	{
@@ -130,32 +131,35 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 		}
 	}
 
-	// So, let's see if we can create a subscription for us
-	pubsub::SubscriptionAdminClient subscription_admin_client(pubsub::MakeSubscriptionAdminConnection());
+	pubsub::Subscription sub{ TCHAR_TO_UTF8(*m_project_id), TCHAR_TO_UTF8(*n_subscription.Id) };
 
-	const pubsub::Topic topic(TCHAR_TO_UTF8(*m_project_id), TCHAR_TO_UTF8(*n_subscription.Topic));
-	pubsub::Subscription sub(TCHAR_TO_UTF8(*m_project_id), TCHAR_TO_UTF8(*n_subscription.Id));
+	if (!n_subscription.Reused) {
+		// So, let's see if we can create a subscription for us
+		pubsub::SubscriptionAdminClient subscription_admin_client(pubsub::MakeSubscriptionAdminConnection());
+		const pubsub::Topic topic(TCHAR_TO_UTF8(*m_project_id), TCHAR_TO_UTF8(*n_subscription.Topic));
 
-	// Subscription parameters
-	pubsub::SubscriptionBuilder sboptions;
-	sboptions.set_ack_deadline(std::chrono::seconds(FGenericPlatformMath::Min<uint32>(m_visibility_timeout, 600)));
-	sboptions.set_retain_acked_messages(false);
+		// Subscription parameters
+		pubsub::SubscriptionBuilder sboptions;
+		sboptions.set_ack_deadline(std::chrono::seconds(FGenericPlatformMath::Min<uint32>(m_visibility_timeout, 600)));
+		sboptions.set_retain_acked_messages(false);
+		sboptions.enable_exactly_once_delivery(true);
 
-	// Create it. This can take a while.
-	gc::StatusOr<google::pubsub::v1::Subscription> subscription = subscription_admin_client.CreateSubscription(topic, sub, sboptions);
+		// Create it. This can take a while.
+		gc::StatusOr<google::pubsub::v1::Subscription> subscription = subscription_admin_client.CreateSubscription(topic, sub, sboptions);
 	
-	if (subscription.status().code() == google::cloud::StatusCode::kAlreadyExists) {
-		UE_LOG(LogCloudConnector, Display, TEXT("Subscription '%s' already exists. Using it."), *n_subscription.Id);
-		n_subscription.Reused = true;
-	} else {
-		if (!subscription.ok()) {
-			UE_LOG(LogCloudConnector, Error, TEXT("Could not create Subscription '%s' to topic '%s': [%s] %s"),
-				*n_subscription.Id, *n_subscription.Topic, UTF8_TO_TCHAR(StatusCodeToString(subscription.status().code()).c_str()),
-				UTF8_TO_TCHAR(subscription.status().message().c_str()));
-			return false;
+		if (subscription.status().code() == google::cloud::StatusCode::kAlreadyExists) {
+			UE_LOG(LogCloudConnector, Display, TEXT("Subscription '%s' already exists. Using it."), *n_subscription.Id);
+			n_subscription.Reused = true;
+		} else {
+			if (!subscription.ok()) {
+				UE_LOG(LogCloudConnector, Error, TEXT("Could not create Subscription '%s' to topic '%s': [%s] %s"),
+					*n_subscription.Id, *n_subscription.Topic, UTF8_TO_TCHAR(StatusCodeToString(subscription.status().code()).c_str()),
+					UTF8_TO_TCHAR(subscription.status().message().c_str()));
+				return false;
+			}
+			n_subscription.Reused = false;
+			UE_LOG(LogCloudConnector, Display, TEXT("Successfully created subscription '%s'"), *n_subscription.Id);
 		}
-		n_subscription.Reused = false;
-		UE_LOG(LogCloudConnector, Display, TEXT("Successfully created subscription '%s'"), *n_subscription.Id);
 	}
 
 	// Now we should have a subscription for us. Next step is to hook up to it.
@@ -195,7 +199,7 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 
 	// Hook up our handler function
 	new_entry->m_handle = s.Subscribe(
-		[this, n_handler](pubsub::Message const &n_message, pubsub::AckHandler n_ack_handler) {
+		[this, n_handler](pubsub::Message const &n_message, pubsub::ExactlyOnceAckHandler n_ack_handler) {
 
 			// call message processing function which will do the rest
 			this->receive_message(n_message, n_handler, std::move(n_ack_handler));
@@ -206,7 +210,7 @@ bool GooglePubsubImpl::subscribe(const FString &n_topic, FSubscription &n_subscr
 	return true;
 }
 
-void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const FPubsubMessageReceived &n_handler, pubsub::AckHandler &&n_ack_handler) {
+void GooglePubsubImpl::receive_message(pubsub::Message const &n_message, const FPubsubMessageReceived &n_handler, pubsub::ExactlyOnceAckHandler &&n_ack_handler) {
 
 	// We have received a message. We are in the worker thread here.
 	FPubsubMessage message;
