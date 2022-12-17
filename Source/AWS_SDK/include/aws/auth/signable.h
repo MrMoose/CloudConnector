@@ -4,6 +4,7 @@
 #include <aws/auth/auth.h>
 
 struct aws_http_message;
+struct aws_http_headers;
 struct aws_input_stream;
 struct aws_signable;
 struct aws_string;
@@ -198,6 +199,22 @@ AWS_AUTH_API
 struct aws_signable *aws_signable_new_chunk(
     struct aws_allocator *allocator,
     struct aws_input_stream *chunk_data,
+    struct aws_byte_cursor previous_signature);
+
+/**
+ * Creates a signable wrapper around a set of headers.
+ *
+ * @param allocator memory allocator use to create the signable
+ * @param trailing_headers http headers to create a signable for
+ * @param previous_signature the signature computed in the most recent signing that preceded this one.  It can be
+ * found by copying the "signature" property from the signing_result of that most recent signing.
+ *
+ * @return the new signable object, or NULL if failure
+ */
+AWS_AUTH_API
+struct aws_signable *aws_signable_new_trailing_headers(
+    struct aws_allocator *allocator,
+    struct aws_http_headers *trailing_headers,
     struct aws_byte_cursor previous_signature);
 
 /**

@@ -140,20 +140,20 @@ struct aws_websocket_client_connection_options {
      * Required.
      * aws_websocket_client_connect() makes a copy.
      */
-    struct aws_socket_options *socket_options;
+    const struct aws_socket_options *socket_options;
 
     /**
      * Optional.
      * aws_websocket_client_connect() deep-copies all contents except the `aws_tls_ctx`,
      * which must outlive the the connection.
      */
-    struct aws_tls_connection_options *tls_options;
+    const struct aws_tls_connection_options *tls_options;
 
     /**
      * Optional
      * Configuration options related to http proxy usage.
      */
-    struct aws_http_proxy_options *proxy_options;
+    const struct aws_http_proxy_options *proxy_options;
 
     /**
      * Required.
@@ -248,6 +248,14 @@ struct aws_websocket_client_connection_options {
      * reaches 0, no further data will be received.
      */
     bool manual_window_management;
+
+    /**
+     * Optional
+     * If set, requests that a specific event loop be used to seat the connection, rather than the next one
+     * in the event loop group.  Useful for serializing all io and external events related to a client onto
+     * a single thread.
+     */
+    struct aws_event_loop *requested_event_loop;
 };
 
 /**

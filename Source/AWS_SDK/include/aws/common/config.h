@@ -18,5 +18,6 @@
 /* #undef AWS_HAVE_POSIX_LARGE_FILE_SUPPORT */
 /* #undef AWS_HAVE_EXECINFO */
 #define AWS_HAVE_WINAPI_DESKTOP
+/* #undef AWS_HAVE_LINUX_IF_LINK_H */
 
 #endif

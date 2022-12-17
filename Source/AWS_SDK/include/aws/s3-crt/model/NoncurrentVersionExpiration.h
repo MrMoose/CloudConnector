@@ -29,20 +29,20 @@ namespace Model
    * href="http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/NoncurrentVersionExpiration">AWS
    * API Reference</a></p>
    */
-  class AWS_S3CRT_API NoncurrentVersionExpiration
+  class NoncurrentVersionExpiration
   {
   public:
-    NoncurrentVersionExpiration();
-    NoncurrentVersionExpiration(const Aws::Utils::Xml::XmlNode& xmlNode);
-    NoncurrentVersionExpiration& operator=(const Aws::Utils::Xml::XmlNode& xmlNode);
+    AWS_S3CRT_API NoncurrentVersionExpiration();
+    AWS_S3CRT_API NoncurrentVersionExpiration(const Aws::Utils::Xml::XmlNode& xmlNode);
+    AWS_S3CRT_API NoncurrentVersionExpiration& operator=(const Aws::Utils::Xml::XmlNode& xmlNode);
 
-    void AddToNode(Aws::Utils::Xml::XmlNode& parentNode) const;
+    AWS_S3CRT_API void AddToNode(Aws::Utils::Xml::XmlNode& parentNode) const;
 
 
     /**
      * <p>Specifies the number of days an object is noncurrent before Amazon S3 can
-     * perform the associated action. For information about the noncurrent days
-     * calculations, see <a
+     * perform the associated action. The value must be a non-zero positive integer.
+     * For information about the noncurrent days calculations, see <a
      * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations">How
      * Amazon S3 Calculates When an Object Became Noncurrent</a> in the <i>Amazon S3
      * User Guide</i>.</p>
@@ -51,8 +51,8 @@ namespace Model
 
     /**
      * <p>Specifies the number of days an object is noncurrent before Amazon S3 can
-     * perform the associated action. For information about the noncurrent days
-     * calculations, see <a
+     * perform the associated action. The value must be a non-zero positive integer.
+     * For information about the noncurrent days calculations, see <a
      * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations">How
      * Amazon S3 Calculates When an Object Became Noncurrent</a> in the <i>Amazon S3
      * User Guide</i>.</p>
@@ -61,8 +61,8 @@ namespace Model
 
     /**
      * <p>Specifies the number of days an object is noncurrent before Amazon S3 can
-     * perform the associated action. For information about the noncurrent days
-     * calculations, see <a
+     * perform the associated action. The value must be a non-zero positive integer.
+     * For information about the noncurrent days calculations, see <a
      * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations">How
      * Amazon S3 Calculates When an Object Became Noncurrent</a> in the <i>Amazon S3
      * User Guide</i>.</p>
@@ -71,8 +71,8 @@ namespace Model
 
     /**
      * <p>Specifies the number of days an object is noncurrent before Amazon S3 can
-     * perform the associated action. For information about the noncurrent days
-     * calculations, see <a
+     * perform the associated action. The value must be a non-zero positive integer.
+     * For information about the noncurrent days calculations, see <a
      * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations">How
      * Amazon S3 Calculates When an Object Became Noncurrent</a> in the <i>Amazon S3
      * User Guide</i>.</p>
@@ -119,10 +119,10 @@ namespace Model
   private:
 
     int m_noncurrentDays;
-    bool m_noncurrentDaysHasBeenSet;
+    bool m_noncurrentDaysHasBeenSet = false;
 
     int m_newerNoncurrentVersions;
-    bool m_newerNoncurrentVersionsHasBeenSet;
+    bool m_newerNoncurrentVersionsHasBeenSet = false;
   };
 
 } // namespace Model

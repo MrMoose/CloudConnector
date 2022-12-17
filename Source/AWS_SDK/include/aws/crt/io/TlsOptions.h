@@ -19,12 +19,19 @@ namespace Aws
     {
         namespace Io
         {
+            class Pkcs11Lib;
+            class TlsContextPkcs11Options;
+
             enum class TlsMode
             {
                 CLIENT,
                 SERVER,
             };
 
+            /**
+             * Top-level tls configuration options.  These options are used to create a context from which
+             * per-connection TLS contexts can be created.
+             */
             class AWS_CRT_CPP_API TlsContextOptions
             {
                 friend class TlsContext;
@@ -36,10 +43,12 @@ namespace Aws
                 TlsContextOptions &operator=(const TlsContextOptions &) noexcept = delete;
                 TlsContextOptions(TlsContextOptions &&) noexcept;
                 TlsContextOptions &operator=(TlsContextOptions &&) noexcept;
+
                 /**
                  * @return true if the instance is in a valid state, false otherwise.
                  */
                 explicit operator bool() const noexcept { return m_isInit; }
+
                 /**
                  * @return the value of the last aws error encountered by operations on this instance.
                  */
@@ -49,66 +58,96 @@ namespace Aws
                  * Initializes TlsContextOptions with secure by default options, with
                  * no client certificates.
                  */
-                static TlsContextOptions InitDefaultClient(Allocator *allocator = g_allocator) noexcept;
+                static TlsContextOptions InitDefaultClient(Allocator *allocator = ApiAllocator()) noexcept;
+
                 /**
-                 * Initializes TlsContextOptions with secure by default options, with
+                 * Initializes TlsContextOptions for mutual TLS (mTLS), with
                  * client certificate and private key. These are paths to a file on disk. These files
                  * must be in the PEM format.
+                 *
+                 * NOTE: This is unsupported on iOS.
+                 *
                  * @param cert_path: Path to certificate file.
                  * @param pkey_path: Path to private key file.
+                 * @param allocator Memory allocator to use.
                  */
                 static TlsContextOptions InitClientWithMtls(
                     const char *cert_path,
                     const char *pkey_path,
-                    Allocator *allocator = g_allocator) noexcept;
+                    Allocator *allocator = ApiAllocator()) noexcept;
 
                 /**
-                 * Initializes TlsContextOptions with secure by default options, with
+                 * Initializes TlsContextOptions for mutual TLS (mTLS), with
                  * client certificate and private key. These are in memory buffers. These buffers
                  * must be in the PEM format.
+                 *
+                 * NOTE: This is unsupported on iOS.
+                 *
                  * @param cert: Certificate contents in memory.
                  * @param pkey: Private key contents in memory.
+                 * @param allocator Memory allocator to use.
                  */
                 static TlsContextOptions InitClientWithMtls(
                     const ByteCursor &cert,
                     const ByteCursor &pkey,
-                    Allocator *allocator = g_allocator) noexcept;
+                    Allocator *allocator = ApiAllocator()) noexcept;
 
-#ifdef __APPLE__
                 /**
-                 * Initializes TlsContextOptions with secure by default options, with
-                 * client certificateand private key in the PKCS#12 format.
-                 * NOTE: This configuration only works on Apple devices.
+                 * Initializes TlsContextOptions for mutual TLS (mTLS),
+                 * using a PKCS#11 library for private key operations.
+                 *
+                 * NOTE: This only works on Unix devices.
+                 *
+                 * @param pkcs11Options PKCS#11 options
+                 * @param allocator Memory allocator to use.
+                 */
+                static TlsContextOptions InitClientWithMtlsPkcs11(
+                    const TlsContextPkcs11Options &pkcs11Options,
+                    Allocator *allocator = ApiAllocator()) noexcept;
+
+                /**
+                 * Initializes TlsContextOptions for mutual TLS (mTLS), with
+                 * client certificate and private key in the PKCS#12 format.
+                 *
+                 * NOTE: This only works on Apple devices.
+                 *
                  * @param pkcs12_path: Path to PKCS #12 file. The file is loaded from disk and stored internally. It
                  * must remain in memory for the lifetime of the returned object.
                  * @param pkcs12_pwd: Password to PKCS #12 file. It must remain in memory for the lifetime of the
                  * returned object.
+                 * @param allocator Memory allocator to use.
                  */
                 static TlsContextOptions InitClientWithMtlsPkcs12(
                     const char *pkcs12_path,
                     const char *pkcs12_pwd,
-                    Allocator *allocator = g_allocator) noexcept;
+                    Allocator *allocator = ApiAllocator()) noexcept;
 
                 /**
+                 * @deprecated Custom keychain management is deprecated.
+                 *
                  * By default the certificates and private keys are stored in the default keychain
                  * of the account of the process. If you instead wish to provide your own keychain
                  * for storing them, this makes the TlsContext to use that instead.
                  * NOTE: The password of your keychain must be empty.
+                 *
+                 * NOTE: This only works on MacOS.
                  */
                 bool SetKeychainPath(ByteCursor &keychain_path) noexcept;
-#endif
 
-#ifdef _WIN32
                 /**
-                 * Initializes options for use with mutual tls in client mode.
-                 * This function is only available on windows.
-                 * @param registryPath Path to a system installed certficate/private key pair.
-                 * Example: "CurrentUser\\MY\\<thumprint>"
+                 * Initializes TlsContextOptions for mutual TLS (mTLS),
+                 * using a client certificate in a Windows certificate store.
+                 *
+                 * NOTE: This only works on Windows.
+                 *
+                 * @param windowsCertStorePath Path to certificate in a Windows certificate store.
+                 *    The path must use backslashes and end with the certificate's thumbprint.
+                 *    Example: `CurrentUser\MY\A11F8A9B5DF5B98BA3508FBCA575D09570E0D2C6`
+                 * @param allocator The memory allocator to use.
                  */
                 static TlsContextOptions InitClientWithMtlsSystemPath(
-                    const char *registryPath,
-                    Allocator *allocator = g_allocator) noexcept;
-#endif /* _WIN32 */
+                    const char *windowsCertStorePath,
+                    Allocator *allocator = ApiAllocator()) noexcept;
 
                 /**
                  * @return true if alpn is supported by the underlying security provider, false
@@ -140,6 +179,12 @@ namespace Aws
                 void SetMinimumTlsVersion(aws_tls_versions minimumTlsVersion);
 
                 /**
+                 * Sets the preferred TLS Cipher List
+                 * @param cipher_pref: The preferred TLS cipher list.
+                 */
+                void SetTlsCipherPreference(aws_tls_cipher_pref cipher_pref);
+
+                /**
                  * Overrides the default system trust store.
                  * @param caPath: Path to directory containing trusted certificates, which will overrides the
                  * default trust store. Only useful on Unix style systems where all anchors are stored in a directory
@@ -148,6 +193,7 @@ namespace Aws
                  * string must remain in memory for the lifetime of this object.
                  */
                 bool OverrideDefaultTrustStore(const char *caPath, const char *caFile) noexcept;
+
                 /**
                  * Overrides the default system trust store.
                  * @param ca: PEM armored chain of trusted CA certificates.
@@ -160,6 +206,84 @@ namespace Aws
               private:
                 aws_tls_ctx_options m_options;
                 bool m_isInit;
+            };
+
+            /**
+             * Options for TLS, when using a PKCS#11 library for private key operations.
+             *
+             * @see TlsContextOptions::InitClientWithMtlsPkcs11()
+             */
+            class AWS_CRT_CPP_API TlsContextPkcs11Options final
+            {
+              public:
+                /**
+                 * @param pkcs11Lib use this PKCS#11 library
+                 * @param allocator Memory allocator to use.
+                 */
+                TlsContextPkcs11Options(
+                    const std::shared_ptr<Pkcs11Lib> &pkcs11Lib,
+                    Allocator *allocator = ApiAllocator()) noexcept;
+
+                /**
+                 * Use this PIN to log the user into the PKCS#11 token.
+                 * Leave unspecified to log into a token with a "protected authentication path".
+                 *
+                 * @param pin PIN
+                 */
+                void SetUserPin(const String &pin) noexcept;
+
+                /**
+                 * Specify the slot ID containing a PKCS#11 token.
+                 * If not specified, the token will be chosen based on other criteria (such as token label).
+                 *
+                 * @param id slot ID
+                 */
+                void SetSlotId(const uint64_t id) noexcept;
+
+                /**
+                 * Specify the label of the PKCS#11 token to use.
+                 * If not specified, the token will be chosen based on other criteria (such as slot ID).
+                 *
+                 * @param label label of token
+                 */
+                void SetTokenLabel(const String &label) noexcept;
+
+                /**
+                 * Specify the label of the private key object on the PKCS#11 token.
+                 * If not specified, the key will be chosen based on other criteria
+                 * (such as being the only available private key on the token).
+                 *
+                 * @param label label of private key object
+                 */
+                void SetPrivateKeyObjectLabel(const String &label) noexcept;
+
+                /**
+                 * Use this X.509 certificate (file on disk).
+                 * The certificate may be specified by other means instead (ex: SetCertificateFileContents())
+                 *
+                 * @param path path to PEM-formatted certificate file on disk.
+                 */
+                void SetCertificateFilePath(const String &path) noexcept;
+
+                /**
+                 * Use this X.509 certificate (contents in memory).
+                 * The certificate may be specified by other means instead (ex: SetCertificateFilePath())
+                 *
+                 * @param contents contents of PEM-formatted certificate file.
+                 */
+                void SetCertificateFileContents(const String &contents) noexcept;
+
+                /// @private
+                aws_tls_ctx_pkcs11_options GetUnderlyingHandle() const noexcept;
+
+              private:
+                std::shared_ptr<Pkcs11Lib> m_pkcs11Lib;
+                Optional<uint64_t> m_slotId;
+                Optional<String> m_userPin;
+                Optional<String> m_tokenLabel;
+                Optional<String> m_privateKeyObjectLabel;
+                Optional<String> m_certificateFilePath;
+                Optional<String> m_certificateFileContents;
             };
 
             /**
@@ -189,14 +313,17 @@ namespace Aws
                  * @return true if the copy succeeded, or false otherwise.
                  */
                 bool SetAlpnList(const char *alpnList) noexcept;
+
                 /**
                  * @return true if the instance is in a valid state, false otherwise.
                  */
                 explicit operator bool() const noexcept { return isValid(); }
+
                 /**
                  * @return the value of the last aws error encountered by operations on this instance.
                  */
                 int LastError() const noexcept { return m_lastError; }
+
                 /// @private
                 const aws_tls_connection_options *GetUnderlyingHandle() const noexcept
                 {
@@ -215,28 +342,39 @@ namespace Aws
                 friend class TlsContext;
             };
 
+            /**
+             * Stateful context for TLS with a given configuration.  Per-connection TLS "contexts"
+             * (TlsConnectionOptions) are instantiated from this as needed.
+             */
             class AWS_CRT_CPP_API TlsContext final
             {
               public:
                 TlsContext() noexcept;
-                TlsContext(TlsContextOptions &options, TlsMode mode, Allocator *allocator = g_allocator) noexcept;
+                TlsContext(TlsContextOptions &options, TlsMode mode, Allocator *allocator = ApiAllocator()) noexcept;
                 ~TlsContext() = default;
                 TlsContext(const TlsContext &) noexcept = default;
                 TlsContext &operator=(const TlsContext &) noexcept = default;
                 TlsContext(TlsContext &&) noexcept = default;
                 TlsContext &operator=(TlsContext &&) noexcept = default;
 
+                /**
+                 * @return a new connection-specific TLS context that can be configured with per-connection options
+                 * (server name, peer verification, etc...)
+                 */
                 TlsConnectionOptions NewConnectionOptions() const noexcept;
+
                 /**
                  * @return true if the instance is in a valid state, false otherwise.
                  */
                 explicit operator bool() const noexcept { return isValid(); }
+
                 /**
                  * @return the value of the last aws error encountered by operations on this instance.
                  */
                 int GetInitializationError() const noexcept { return m_initializationError; }
 
-                aws_tls_ctx *GetUnderlyingHandle() noexcept { return m_ctx.get(); }
+                /// @private
+                aws_tls_ctx *GetUnderlyingHandle() const noexcept { return m_ctx.get(); }
 
               private:
                 bool isValid() const noexcept { return m_ctx && m_initializationError == AWS_ERROR_SUCCESS; }
@@ -258,7 +396,7 @@ namespace Aws
                 virtual ~TlsChannelHandler();
 
                 /**
-                 * Return negotiated protocol (or empty string if no agreed upon protocol)
+                 * @return negotiated protocol (or empty string if no agreed upon protocol)
                  */
                 virtual String GetProtocol() const = 0;
 
@@ -266,7 +404,7 @@ namespace Aws
                 TlsChannelHandler(
                     struct aws_channel_slot *slot,
                     const struct aws_tls_connection_options &options,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
 
                 /**
                  * Invoke this function from inside your handler after TLS negotiation completes. errorCode ==
@@ -302,7 +440,7 @@ namespace Aws
                 ClientTlsChannelHandler(
                     struct aws_channel_slot *slot,
                     const struct aws_tls_connection_options &options,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
             };
 
             using NewClientTlsHandlerCallback = std::function<std::shared_ptr<ClientTlsChannelHandler>(

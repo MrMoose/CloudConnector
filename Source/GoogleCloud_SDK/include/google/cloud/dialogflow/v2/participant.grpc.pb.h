@@ -99,6 +99,30 @@ class Participants final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::AnalyzeContentResponse>> PrepareAsyncAnalyzeContent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::AnalyzeContentResponse>>(PrepareAsyncAnalyzeContentRaw(context, request, cq));
     }
+    // Adds a text (chat, for example), or audio (phone recording, for example)
+    // message from a participant into the conversation.
+    // Note: This method is only available through the gRPC API (not REST).
+    //
+    // The top-level message sent to the client by the server is
+    // `StreamingAnalyzeContentResponse`. Multiple response messages can be
+    // returned in order. The first one or more messages contain the
+    // `recognition_result` field. Each result represents a more complete
+    // transcript of what the user said. The next message contains the
+    // `reply_text` field and potentially the `reply_audio` field. The message can
+    // also contain the `automated_agent_reply` field.
+    //
+    // Note: Always use agent versions for production traffic
+    // sent to virtual agents. See [Versions and
+    // environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
+    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>> StreamingAnalyzeContent(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>>(StreamingAnalyzeContentRaw(context));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>> AsyncStreamingAnalyzeContent(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>>(AsyncStreamingAnalyzeContentRaw(context, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>> PrepareAsyncStreamingAnalyzeContent(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>>(PrepareAsyncStreamingAnalyzeContentRaw(context, cq));
+    }
     // Gets suggested articles for a participant based on specific historical
     // messages.
     virtual ::grpc::Status SuggestArticles(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest& request, ::google::cloud::dialogflow::v2::SuggestArticlesResponse* response) = 0;
@@ -149,6 +173,22 @@ class Participants final {
       // environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
       virtual void AnalyzeContent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest* request, ::google::cloud::dialogflow::v2::AnalyzeContentResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void AnalyzeContent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest* request, ::google::cloud::dialogflow::v2::AnalyzeContentResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Adds a text (chat, for example), or audio (phone recording, for example)
+      // message from a participant into the conversation.
+      // Note: This method is only available through the gRPC API (not REST).
+      //
+      // The top-level message sent to the client by the server is
+      // `StreamingAnalyzeContentResponse`. Multiple response messages can be
+      // returned in order. The first one or more messages contain the
+      // `recognition_result` field. Each result represents a more complete
+      // transcript of what the user said. The next message contains the
+      // `reply_text` field and potentially the `reply_audio` field. The message can
+      // also contain the `automated_agent_reply` field.
+      //
+      // Note: Always use agent versions for production traffic
+      // sent to virtual agents. See [Versions and
+      // environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
+      virtual void StreamingAnalyzeContent(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest,::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>* reactor) = 0;
       // Gets suggested articles for a participant based on specific historical
       // messages.
       virtual void SuggestArticles(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest* request, ::google::cloud::dialogflow::v2::SuggestArticlesResponse* response, std::function<void(::grpc::Status)>) = 0;
@@ -176,6 +216,9 @@ class Participants final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Participant>* PrepareAsyncUpdateParticipantRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateParticipantRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::AnalyzeContentResponse>* AsyncAnalyzeContentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::AnalyzeContentResponse>* PrepareAsyncAnalyzeContentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderWriterInterface< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>* StreamingAnalyzeContentRaw(::grpc::ClientContext* context) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>* AsyncStreamingAnalyzeContentRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>* PrepareAsyncStreamingAnalyzeContentRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SuggestArticlesResponse>* AsyncSuggestArticlesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SuggestArticlesResponse>* PrepareAsyncSuggestArticlesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SuggestFaqAnswersResponse>* AsyncSuggestFaqAnswersRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestFaqAnswersRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -221,6 +264,15 @@ class Participants final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::AnalyzeContentResponse>> PrepareAsyncAnalyzeContent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::AnalyzeContentResponse>>(PrepareAsyncAnalyzeContentRaw(context, request, cq));
     }
+    std::unique_ptr< ::grpc::ClientReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>> StreamingAnalyzeContent(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>>(StreamingAnalyzeContentRaw(context));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>> AsyncStreamingAnalyzeContent(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>>(AsyncStreamingAnalyzeContentRaw(context, cq, tag));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>> PrepareAsyncStreamingAnalyzeContent(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>>(PrepareAsyncStreamingAnalyzeContentRaw(context, cq));
+    }
     ::grpc::Status SuggestArticles(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest& request, ::google::cloud::dialogflow::v2::SuggestArticlesResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestArticlesResponse>> AsyncSuggestArticles(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestArticlesResponse>>(AsyncSuggestArticlesRaw(context, request, cq));
@@ -255,6 +307,7 @@ class Participants final {
       void UpdateParticipant(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateParticipantRequest* request, ::google::cloud::dialogflow::v2::Participant* response, ::grpc::ClientUnaryReactor* reactor) override;
       void AnalyzeContent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest* request, ::google::cloud::dialogflow::v2::AnalyzeContentResponse* response, std::function<void(::grpc::Status)>) override;
       void AnalyzeContent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest* request, ::google::cloud::dialogflow::v2::AnalyzeContentResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void StreamingAnalyzeContent(::grpc::ClientContext* context, ::grpc::ClientBidiReactor< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest,::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>* reactor) override;
       void SuggestArticles(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest* request, ::google::cloud::dialogflow::v2::SuggestArticlesResponse* response, std::function<void(::grpc::Status)>) override;
       void SuggestArticles(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest* request, ::google::cloud::dialogflow::v2::SuggestArticlesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void SuggestFaqAnswers(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestFaqAnswersRequest* request, ::google::cloud::dialogflow::v2::SuggestFaqAnswersResponse* response, std::function<void(::grpc::Status)>) override;
@@ -282,6 +335,9 @@ class Participants final {
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::Participant>* PrepareAsyncUpdateParticipantRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateParticipantRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::AnalyzeContentResponse>* AsyncAnalyzeContentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::AnalyzeContentResponse>* PrepareAsyncAnalyzeContentRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>* StreamingAnalyzeContentRaw(::grpc::ClientContext* context) override;
+    ::grpc::ClientAsyncReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>* AsyncStreamingAnalyzeContentRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>* PrepareAsyncStreamingAnalyzeContentRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestArticlesResponse>* AsyncSuggestArticlesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestArticlesResponse>* PrepareAsyncSuggestArticlesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestFaqAnswersResponse>* AsyncSuggestFaqAnswersRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestFaqAnswersRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -293,6 +349,7 @@ class Participants final {
     const ::grpc::internal::RpcMethod rpcmethod_ListParticipants_;
     const ::grpc::internal::RpcMethod rpcmethod_UpdateParticipant_;
     const ::grpc::internal::RpcMethod rpcmethod_AnalyzeContent_;
+    const ::grpc::internal::RpcMethod rpcmethod_StreamingAnalyzeContent_;
     const ::grpc::internal::RpcMethod rpcmethod_SuggestArticles_;
     const ::grpc::internal::RpcMethod rpcmethod_SuggestFaqAnswers_;
     const ::grpc::internal::RpcMethod rpcmethod_SuggestSmartReplies_;
@@ -318,6 +375,22 @@ class Participants final {
     // sent to virtual agents. See [Versions and
     // environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
     virtual ::grpc::Status AnalyzeContent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest* request, ::google::cloud::dialogflow::v2::AnalyzeContentResponse* response);
+    // Adds a text (chat, for example), or audio (phone recording, for example)
+    // message from a participant into the conversation.
+    // Note: This method is only available through the gRPC API (not REST).
+    //
+    // The top-level message sent to the client by the server is
+    // `StreamingAnalyzeContentResponse`. Multiple response messages can be
+    // returned in order. The first one or more messages contain the
+    // `recognition_result` field. Each result represents a more complete
+    // transcript of what the user said. The next message contains the
+    // `reply_text` field and potentially the `reply_audio` field. The message can
+    // also contain the `automated_agent_reply` field.
+    //
+    // Note: Always use agent versions for production traffic
+    // sent to virtual agents. See [Versions and
+    // environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
+    virtual ::grpc::Status StreamingAnalyzeContent(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest>* stream);
     // Gets suggested articles for a participant based on specific historical
     // messages.
     virtual ::grpc::Status SuggestArticles(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest* request, ::google::cloud::dialogflow::v2::SuggestArticlesResponse* response);
@@ -429,12 +502,32 @@ class Participants final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_StreamingAnalyzeContent : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_StreamingAnalyzeContent() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_StreamingAnalyzeContent() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamingAnalyzeContent(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestStreamingAnalyzeContent(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(5, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_SuggestArticles : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SuggestArticles() {
-      ::grpc::Service::MarkMethodAsync(5);
+      ::grpc::Service::MarkMethodAsync(6);
     }
     ~WithAsyncMethod_SuggestArticles() override {
       BaseClassMustBeDerivedFromService(this);
@@ -445,7 +538,7 @@ class Participants final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSuggestArticles(::grpc::ServerContext* context, ::google::cloud::dialogflow::v2::SuggestArticlesRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::dialogflow::v2::SuggestArticlesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -454,7 +547,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SuggestFaqAnswers() {
-      ::grpc::Service::MarkMethodAsync(6);
+      ::grpc::Service::MarkMethodAsync(7);
     }
     ~WithAsyncMethod_SuggestFaqAnswers() override {
       BaseClassMustBeDerivedFromService(this);
@@ -465,7 +558,7 @@ class Participants final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSuggestFaqAnswers(::grpc::ServerContext* context, ::google::cloud::dialogflow::v2::SuggestFaqAnswersRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::dialogflow::v2::SuggestFaqAnswersResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -474,7 +567,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SuggestSmartReplies() {
-      ::grpc::Service::MarkMethodAsync(7);
+      ::grpc::Service::MarkMethodAsync(8);
     }
     ~WithAsyncMethod_SuggestSmartReplies() override {
       BaseClassMustBeDerivedFromService(this);
@@ -485,10 +578,10 @@ class Participants final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSuggestSmartReplies(::grpc::ServerContext* context, ::google::cloud::dialogflow::v2::SuggestSmartRepliesRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::dialogflow::v2::SuggestSmartRepliesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CreateParticipant<WithAsyncMethod_GetParticipant<WithAsyncMethod_ListParticipants<WithAsyncMethod_UpdateParticipant<WithAsyncMethod_AnalyzeContent<WithAsyncMethod_SuggestArticles<WithAsyncMethod_SuggestFaqAnswers<WithAsyncMethod_SuggestSmartReplies<Service > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_CreateParticipant<WithAsyncMethod_GetParticipant<WithAsyncMethod_ListParticipants<WithAsyncMethod_UpdateParticipant<WithAsyncMethod_AnalyzeContent<WithAsyncMethod_StreamingAnalyzeContent<WithAsyncMethod_SuggestArticles<WithAsyncMethod_SuggestFaqAnswers<WithAsyncMethod_SuggestSmartReplies<Service > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CreateParticipant : public BaseClass {
    private:
@@ -625,18 +718,41 @@ class Participants final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::AnalyzeContentRequest* /*request*/, ::google::cloud::dialogflow::v2::AnalyzeContentResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_StreamingAnalyzeContent : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_StreamingAnalyzeContent() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackBidiHandler< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->StreamingAnalyzeContent(context); }));
+    }
+    ~WithCallbackMethod_StreamingAnalyzeContent() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamingAnalyzeContent(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse>* StreamingAnalyzeContent(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_SuggestArticles : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_SuggestArticles() {
-      ::grpc::Service::MarkMethodCallback(5,
+      ::grpc::Service::MarkMethodCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SuggestArticlesRequest, ::google::cloud::dialogflow::v2::SuggestArticlesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::SuggestArticlesRequest* request, ::google::cloud::dialogflow::v2::SuggestArticlesResponse* response) { return this->SuggestArticles(context, request, response); }));}
     void SetMessageAllocatorFor_SuggestArticles(
         ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::SuggestArticlesRequest, ::google::cloud::dialogflow::v2::SuggestArticlesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SuggestArticlesRequest, ::google::cloud::dialogflow::v2::SuggestArticlesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -657,13 +773,13 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_SuggestFaqAnswers() {
-      ::grpc::Service::MarkMethodCallback(6,
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SuggestFaqAnswersRequest, ::google::cloud::dialogflow::v2::SuggestFaqAnswersResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::SuggestFaqAnswersRequest* request, ::google::cloud::dialogflow::v2::SuggestFaqAnswersResponse* response) { return this->SuggestFaqAnswers(context, request, response); }));}
     void SetMessageAllocatorFor_SuggestFaqAnswers(
         ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::SuggestFaqAnswersRequest, ::google::cloud::dialogflow::v2::SuggestFaqAnswersResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SuggestFaqAnswersRequest, ::google::cloud::dialogflow::v2::SuggestFaqAnswersResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -684,13 +800,13 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_SuggestSmartReplies() {
-      ::grpc::Service::MarkMethodCallback(7,
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SuggestSmartRepliesRequest, ::google::cloud::dialogflow::v2::SuggestSmartRepliesResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::SuggestSmartRepliesRequest* request, ::google::cloud::dialogflow::v2::SuggestSmartRepliesResponse* response) { return this->SuggestSmartReplies(context, request, response); }));}
     void SetMessageAllocatorFor_SuggestSmartReplies(
         ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::SuggestSmartRepliesRequest, ::google::cloud::dialogflow::v2::SuggestSmartRepliesResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SuggestSmartRepliesRequest, ::google::cloud::dialogflow::v2::SuggestSmartRepliesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -705,7 +821,7 @@ class Participants final {
     virtual ::grpc::ServerUnaryReactor* SuggestSmartReplies(
       ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SuggestSmartRepliesRequest* /*request*/, ::google::cloud::dialogflow::v2::SuggestSmartRepliesResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_CreateParticipant<WithCallbackMethod_GetParticipant<WithCallbackMethod_ListParticipants<WithCallbackMethod_UpdateParticipant<WithCallbackMethod_AnalyzeContent<WithCallbackMethod_SuggestArticles<WithCallbackMethod_SuggestFaqAnswers<WithCallbackMethod_SuggestSmartReplies<Service > > > > > > > > CallbackService;
+  typedef WithCallbackMethod_CreateParticipant<WithCallbackMethod_GetParticipant<WithCallbackMethod_ListParticipants<WithCallbackMethod_UpdateParticipant<WithCallbackMethod_AnalyzeContent<WithCallbackMethod_StreamingAnalyzeContent<WithCallbackMethod_SuggestArticles<WithCallbackMethod_SuggestFaqAnswers<WithCallbackMethod_SuggestSmartReplies<Service > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateParticipant : public BaseClass {
@@ -793,12 +909,29 @@ class Participants final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_StreamingAnalyzeContent : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_StreamingAnalyzeContent() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_StreamingAnalyzeContent() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamingAnalyzeContent(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_SuggestArticles : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SuggestArticles() {
-      ::grpc::Service::MarkMethodGeneric(5);
+      ::grpc::Service::MarkMethodGeneric(6);
     }
     ~WithGenericMethod_SuggestArticles() override {
       BaseClassMustBeDerivedFromService(this);
@@ -815,7 +948,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SuggestFaqAnswers() {
-      ::grpc::Service::MarkMethodGeneric(6);
+      ::grpc::Service::MarkMethodGeneric(7);
     }
     ~WithGenericMethod_SuggestFaqAnswers() override {
       BaseClassMustBeDerivedFromService(this);
@@ -832,7 +965,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SuggestSmartReplies() {
-      ::grpc::Service::MarkMethodGeneric(7);
+      ::grpc::Service::MarkMethodGeneric(8);
     }
     ~WithGenericMethod_SuggestSmartReplies() override {
       BaseClassMustBeDerivedFromService(this);
@@ -944,12 +1077,32 @@ class Participants final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_StreamingAnalyzeContent : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_StreamingAnalyzeContent() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_StreamingAnalyzeContent() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamingAnalyzeContent(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestStreamingAnalyzeContent(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(5, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_SuggestArticles : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SuggestArticles() {
-      ::grpc::Service::MarkMethodRaw(5);
+      ::grpc::Service::MarkMethodRaw(6);
     }
     ~WithRawMethod_SuggestArticles() override {
       BaseClassMustBeDerivedFromService(this);
@@ -960,7 +1113,7 @@ class Participants final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSuggestArticles(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -969,7 +1122,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SuggestFaqAnswers() {
-      ::grpc::Service::MarkMethodRaw(6);
+      ::grpc::Service::MarkMethodRaw(7);
     }
     ~WithRawMethod_SuggestFaqAnswers() override {
       BaseClassMustBeDerivedFromService(this);
@@ -980,7 +1133,7 @@ class Participants final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSuggestFaqAnswers(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -989,7 +1142,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SuggestSmartReplies() {
-      ::grpc::Service::MarkMethodRaw(7);
+      ::grpc::Service::MarkMethodRaw(8);
     }
     ~WithRawMethod_SuggestSmartReplies() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1000,7 +1153,7 @@ class Participants final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSuggestSmartReplies(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1114,12 +1267,35 @@ class Participants final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_StreamingAnalyzeContent : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_StreamingAnalyzeContent() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context) { return this->StreamingAnalyzeContent(context); }));
+    }
+    ~WithRawCallbackMethod_StreamingAnalyzeContent() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamingAnalyzeContent(::grpc::ServerContext* /*context*/, ::grpc::ServerReaderWriter< ::google::cloud::dialogflow::v2::StreamingAnalyzeContentResponse, ::google::cloud::dialogflow::v2::StreamingAnalyzeContentRequest>* /*stream*/)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* StreamingAnalyzeContent(
+      ::grpc::CallbackServerContext* /*context*/)
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_SuggestArticles : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_SuggestArticles() {
-      ::grpc::Service::MarkMethodRawCallback(5,
+      ::grpc::Service::MarkMethodRawCallback(6,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SuggestArticles(context, request, response); }));
@@ -1141,7 +1317,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_SuggestFaqAnswers() {
-      ::grpc::Service::MarkMethodRawCallback(6,
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SuggestFaqAnswers(context, request, response); }));
@@ -1163,7 +1339,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_SuggestSmartReplies() {
-      ::grpc::Service::MarkMethodRawCallback(7,
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SuggestSmartReplies(context, request, response); }));
@@ -1320,7 +1496,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SuggestArticles() {
-      ::grpc::Service::MarkMethodStreamed(5,
+      ::grpc::Service::MarkMethodStreamed(6,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::cloud::dialogflow::v2::SuggestArticlesRequest, ::google::cloud::dialogflow::v2::SuggestArticlesResponse>(
             [this](::grpc::ServerContext* context,
@@ -1347,7 +1523,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SuggestFaqAnswers() {
-      ::grpc::Service::MarkMethodStreamed(6,
+      ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::cloud::dialogflow::v2::SuggestFaqAnswersRequest, ::google::cloud::dialogflow::v2::SuggestFaqAnswersResponse>(
             [this](::grpc::ServerContext* context,
@@ -1374,7 +1550,7 @@ class Participants final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SuggestSmartReplies() {
-      ::grpc::Service::MarkMethodStreamed(7,
+      ::grpc::Service::MarkMethodStreamed(8,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::cloud::dialogflow::v2::SuggestSmartRepliesRequest, ::google::cloud::dialogflow::v2::SuggestSmartRepliesResponse>(
             [this](::grpc::ServerContext* context,

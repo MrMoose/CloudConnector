@@ -43,7 +43,14 @@ namespace Aws
                     ByteCursor secret_access_key,
                     ByteCursor session_token,
                     uint64_t expiration_timepoint_in_seconds,
-                    Allocator *allocator = g_allocator) noexcept;
+                    Allocator *allocator = ApiAllocator()) noexcept;
+
+                /**
+                 * Create new anonymous Credentials.
+                 * Use anonymous Credentials when you want to skip signing.
+                 * @param allocator
+                 */
+                Credentials(Allocator *allocator = ApiAllocator()) noexcept;
 
                 ~Credentials();
 
@@ -209,6 +216,9 @@ namespace Aws
                 /**
                  * Connection bootstrap to use to create the http connection required to
                  * query credentials from the Ec2 instance metadata service
+                 *
+                 * Note: If null, then the default ClientBootstrap is used
+                 * (see Aws::Crt::ApiHandle::GetOrCreateStaticDefaultClientBootstrap)
                  */
                 Io::ClientBootstrap *Bootstrap;
             };
@@ -258,6 +268,9 @@ namespace Aws
 
                 /**
                  * Connection bootstrap to use for any network connections made while sourcing credentials.
+                 *
+                 * Note: If null, then the default ClientBootstrap is used
+                 * (see Aws::Crt::ApiHandle::GetOrCreateStaticDefaultClientBootstrap)
                  */
                 Io::ClientBootstrap *Bootstrap;
 
@@ -284,6 +297,9 @@ namespace Aws
                 /**
                  * Connection bootstrap to use to create the http connection required to
                  * query credentials from the x509 provider
+                 *
+                 * Note: If null, then the default ClientBootstrap is used
+                 * (see Aws::Crt::ApiHandle::GetOrCreateStaticDefaultClientBootstrap)
                  */
                 Io::ClientBootstrap *Bootstrap;
 
@@ -320,6 +336,118 @@ namespace Aws
             };
 
             /**
+             * A pair defining an identity provider and a valid login token sourced from it.
+             */
+            struct AWS_CRT_CPP_API CognitoLoginPair
+            {
+
+                /**
+                 * Name of an identity provider
+                 */
+                String IdentityProviderName;
+
+                /**
+                 * Valid login token source from the identity provider
+                 */
+                String IdentityProviderToken;
+            };
+
+            /**
+             * Configuration options for the Cognito credentials provider
+             */
+            struct AWS_CRT_CPP_API CredentialsProviderCognitoConfig
+            {
+                CredentialsProviderCognitoConfig();
+
+                /**
+                 * Cognito service regional endpoint to source credentials from.
+                 */
+                String Endpoint;
+
+                /**
+                 * Cognito identity to fetch credentials relative to.
+                 */
+                String Identity;
+
+                /**
+                 * Optional set of identity provider token pairs to allow for authenticated identity access.
+                 */
+                Optional<Vector<CognitoLoginPair>> Logins;
+
+                /**
+                 * Optional ARN of the role to be assumed when multiple roles were received in the token from the
+                 * identity provider.
+                 */
+                Optional<String> CustomRoleArn;
+
+                /**
+                 * Connection bootstrap to use to create the http connection required to
+                 * query credentials from the cognito provider
+                 *
+                 * Note: If null, then the default ClientBootstrap is used
+                 * (see Aws::Crt::ApiHandle::GetOrCreateStaticDefaultClientBootstrap)
+                 */
+                Io::ClientBootstrap *Bootstrap;
+
+                /**
+                 * TLS configuration for secure socket connections.
+                 */
+                Io::TlsContext TlsCtx;
+
+                /**
+                 * (Optional) Http proxy configuration for the http request that fetches credentials
+                 */
+                Optional<Http::HttpClientConnectionProxyOptions> ProxyOptions;
+            };
+
+            /**
+             * Configuration options for the STS credentials provider
+             */
+            struct AWS_CRT_CPP_API CredentialsProviderSTSConfig
+            {
+                CredentialsProviderSTSConfig();
+
+                /**
+                 * Credentials provider to be used to sign the requests made to STS to fetch credentials.
+                 */
+                std::shared_ptr<ICredentialsProvider> Provider;
+
+                /**
+                 * Arn of the role to assume by fetching credentials for
+                 */
+                String RoleArn;
+
+                /**
+                 * Assumed role session identifier to be associated with the sourced credentials
+                 */
+                String SessionName;
+
+                /**
+                 * How long sourced credentials should remain valid for, in seconds.  900 is the minimum allowed value.
+                 */
+                uint16_t DurationSeconds;
+
+                /**
+                 * Connection bootstrap to use to create the http connection required to
+                 * query credentials from the STS provider
+                 *
+                 * Note: If null, then the default ClientBootstrap is used
+                 * (see Aws::Crt::ApiHandle::GetOrCreateStaticDefaultClientBootstrap)
+                 */
+                Io::ClientBootstrap *Bootstrap;
+
+                /**
+                 * TLS configuration for secure socket connections.
+                 */
+                Io::TlsContext TlsCtx;
+
+                /**
+                 * (Optional) Http proxy configuration for the http request that fetches credentials
+                 */
+                Optional<Http::HttpClientConnectionProxyOptions> ProxyOptions;
+            };
+
+            /**
              * Simple credentials provider implementation that wraps one of the internal C-based implementations.
              *
              * Contains a set of static factory methods for building each supported provider, as well as one for the
@@ -328,7 +456,7 @@ namespace Aws
             class AWS_CRT_CPP_API CredentialsProvider : public ICredentialsProvider
             {
               public:
-                CredentialsProvider(aws_credentials_provider *provider, Allocator *allocator = g_allocator) noexcept;
+                CredentialsProvider(aws_credentials_provider *provider, Allocator *allocator = ApiAllocator()) noexcept;
 
                 virtual ~CredentialsProvider();
 
@@ -354,8 +482,6 @@ namespace Aws
 
                 /*
                  * Factory methods for all of the basic credentials provider types
-                 *
-                 * NYI: X509, ECS
                  */
 
                 /**
@@ -363,27 +489,34 @@ namespace Aws
                  */
                 static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderStatic(
                     const CredentialsProviderStaticConfig &config,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
+
+                /**
+                 * Creates an anonymous provider that have anonymous credentials
+                 * Use anonymous credentials when you want to skip signing
+                 */
+                static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderAnonymous(
+                    Allocator *allocator = ApiAllocator());
 
                 /**
                  * Creates a provider that returns credentials sourced from environment variables
                  */
                 static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderEnvironment(
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
 
                 /**
                  * Creates a provider that returns credentials sourced from config files
                  */
                 static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderProfile(
                     const CredentialsProviderProfileConfig &config,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
 
                 /**
                  * Creates a provider that returns credentials sourced from Ec2 instance metadata service
                  */
                 static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderImds(
                     const CredentialsProviderImdsConfig &config,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
 
                 /**
                  * Creates a provider that sources credentials by querying a series of providers and
@@ -391,7 +524,7 @@ namespace Aws
                  */
                 static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderChain(
                     const CredentialsProviderChainConfig &config,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
 
                 /*
                  * Creates a provider that puts a simple time-based cache in front of its queries
@@ -399,7 +532,7 @@ namespace Aws
                  */
                 static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderCached(
                     const CredentialsProviderCachedConfig &config,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
 
                 /**
                  * Creates the SDK-standard default credentials provider which is a cache-fronted chain of:
@@ -409,7 +542,7 @@ namespace Aws
                  */
                 static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderChainDefault(
                     const CredentialsProviderChainDefaultConfig &config,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
 
                 /**
                  * Creates a provider that sources credentials from the IoT X509 provider service
@@ -417,7 +550,7 @@ namespace Aws
                  */
                 static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderX509(
                     const CredentialsProviderX509Config &config,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
 
                 /**
                  * Creates a provider that sources credentials from the provided function.
@@ -425,7 +558,21 @@ namespace Aws
                  */
                 static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderDelegate(
                     const CredentialsProviderDelegateConfig &config,
-                    Allocator *allocator = g_allocator);
+                    Allocator *allocator = ApiAllocator());
+
+                /**
+                 * Creates a provider that sources credentials from the Cognito Identity service
+                 */
+                static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderCognito(
+                    const CredentialsProviderCognitoConfig &config,
+                    Allocator *allocator = ApiAllocator());
+
+                /**
+                 * Creates a provider that sources credentials from STS
+                 */
+                static std::shared_ptr<ICredentialsProvider> CreateCredentialsProviderSTS(
+                    const CredentialsProviderSTSConfig &config,
+                    Allocator *allocator = ApiAllocator());
 
               private:
                 static void s_onCredentialsResolved(aws_credentials *credentials, int error_code, void *user_data);

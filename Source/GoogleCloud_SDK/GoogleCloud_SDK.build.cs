@@ -176,10 +176,10 @@ public class GoogleCloud_SDK : ModuleRules {
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "crc32c.lib"));
 
 		// Ssh2
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libssh2.lib"));
+		// PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libssh2.lib"));
 
 		// ZLib
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "zlibstat.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "zlibstatic.lib"));
 
 
 	}

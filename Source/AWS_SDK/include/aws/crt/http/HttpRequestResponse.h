@@ -44,18 +44,51 @@ namespace Aws
 
                 /**
                  * Sets the input stream representing the message body
+                 * @param body the input stream representing the message body
+                 * @return success/failure
                  */
                 bool SetBody(const std::shared_ptr<Aws::Crt::Io::IStream> &body) noexcept;
 
+                /**
+                 * Sets the input stream representing the message body
+                 * @param body the input stream representing the message body
+                 * @return success/failure
+                 */
                 bool SetBody(const std::shared_ptr<Aws::Crt::Io::InputStream> &body) noexcept;
 
+                /**
+                 * Gets the number of headers contained in this request
+                 * @return the number of headers contained in this request
+                 */
                 size_t GetHeaderCount() const noexcept;
+
+                /**
+                 * Gets a particular header in the request
+                 * @param index index of the header to fetch
+                 * @return an option containing the requested header if the index is in bounds
+                 */
                 Optional<HttpHeader> GetHeader(size_t index) const noexcept;
+
+                /**
+                 * Adds a header to the request
+                 * @param header header to add
+                 * @return success/failure
+                 */
                 bool AddHeader(const HttpHeader &header) noexcept;
+
+                /**
+                 * Removes a header from the request
+                 * @param index index of the header to remove
+                 * @return success/failure
+                 */
                 bool EraseHeader(size_t index) noexcept;
 
+                /**
+                 * @return true/false if the underlying object is valid
+                 */
                 operator bool() const noexcept { return m_message != nullptr; }
 
+                /// @private
                 struct aws_http_message *GetUnderlyingMessage() const noexcept { return m_message; }
 
               protected:
@@ -74,10 +107,10 @@ namespace Aws
                 friend class Mqtt::MqttConnection;
 
               public:
-                HttpRequest(Allocator *allocator = g_allocator);
+                HttpRequest(Allocator *allocator = ApiAllocator());
 
                 /**
-                 * Gets the value of the Http method associated with this request
+                 * @return the value of the Http method associated with this request
                  */
                 Optional<ByteCursor> GetMethod() const noexcept;
 
@@ -87,7 +120,7 @@ namespace Aws
                 bool SetMethod(ByteCursor method) noexcept;
 
                 /**
-                 * Gets the value of the URI-path associated with this request
+                 * @return the value of the URI-path associated with this request
                  */
                 Optional<ByteCursor> GetPath() const noexcept;
 
@@ -106,10 +139,10 @@ namespace Aws
             class AWS_CRT_CPP_API HttpResponse : public HttpMessage
             {
               public:
-                HttpResponse(Allocator *allocator = g_allocator);
+                HttpResponse(Allocator *allocator = ApiAllocator());
 
                 /**
-                 * Gets the integral Http response code associated with this response
+                 * @return the integral Http response code associated with this response
                  */
                 Optional<int> GetResponseCode() const noexcept;
 

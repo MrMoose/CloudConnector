@@ -40,6 +40,9 @@ namespace Aws
                 /**
                  * Connection bootstrap to use to create the http connection required to
                  * query resource from the Ec2 instance metadata service
+                 *
+                 * Note: If null, then the default ClientBootstrap is used
+                 * (see Aws::Crt::ApiHandle::GetOrCreateStaticDefaultClientBootstrap)
                  */
                 Io::ClientBootstrap *Bootstrap;
 
@@ -137,7 +140,7 @@ namespace Aws
             class AWS_CRT_CPP_API ImdsClient
             {
               public:
-                ImdsClient(const ImdsClientConfig &config, Allocator *allocator = g_allocator) noexcept;
+                ImdsClient(const ImdsClientConfig &config, Allocator *allocator = ApiAllocator()) noexcept;
 
                 ~ImdsClient();
 

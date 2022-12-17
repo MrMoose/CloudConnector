@@ -23,10 +23,10 @@ namespace Model
 
   /**
    */
-  class AWS_CLOUDWATCH_API GetMetricDataRequest : public CloudWatchRequest
+  class GetMetricDataRequest : public CloudWatchRequest
   {
   public:
-    GetMetricDataRequest();
+    AWS_CLOUDWATCH_API GetMetricDataRequest();
 
     // Service request name is the Operation name which will send this request out,
     // each operation should has unique request name, so that we can get operation's name from this request.
@@ -34,74 +34,74 @@ namespace Model
     // so we can not get operation's name from response.
     inline virtual const char* GetServiceRequestName() const override { return "GetMetricData"; }
 
-    Aws::String SerializePayload() const override;
+    AWS_CLOUDWATCH_API Aws::String SerializePayload() const override;
 
   protected:
-    void DumpBodyToUrl(Aws::Http::URI& uri ) const override;
+    AWS_CLOUDWATCH_API void DumpBodyToUrl(Aws::Http::URI& uri ) const override;
 
   public:
 
     /**
      * <p>The metric queries to be returned. A single <code>GetMetricData</code> call
      * can include as many as 500 <code>MetricDataQuery</code> structures. Each of
-     * these structures can specify either a metric to retrieve, or a math expression
-     * to perform on retrieved data. </p>
+     * these structures can specify either a metric to retrieve, a Metrics Insights
+     * query, or a math expression to perform on retrieved data. </p>
      */
     inline const Aws::Vector<MetricDataQuery>& GetMetricDataQueries() const{ return m_metricDataQueries; }
 
     /**
      * <p>The metric queries to be returned. A single <code>GetMetricData</code> call
      * can include as many as 500 <code>MetricDataQuery</code> structures. Each of
-     * these structures can specify either a metric to retrieve, or a math expression
-     * to perform on retrieved data. </p>
+     * these structures can specify either a metric to retrieve, a Metrics Insights
+     * query, or a math expression to perform on retrieved data. </p>
      */
     inline bool MetricDataQueriesHasBeenSet() const { return m_metricDataQueriesHasBeenSet; }
 
     /**
      * <p>The metric queries to be returned. A single <code>GetMetricData</code> call
      * can include as many as 500 <code>MetricDataQuery</code> structures. Each of
-     * these structures can specify either a metric to retrieve, or a math expression
-     * to perform on retrieved data. </p>
+     * these structures can specify either a metric to retrieve, a Metrics Insights
+     * query, or a math expression to perform on retrieved data. </p>
      */
     inline void SetMetricDataQueries(const Aws::Vector<MetricDataQuery>& value) { m_metricDataQueriesHasBeenSet = true; m_metricDataQueries = value; }
 
     /**
      * <p>The metric queries to be returned. A single <code>GetMetricData</code> call
      * can include as many as 500 <code>MetricDataQuery</code> structures. Each of
-     * these structures can specify either a metric to retrieve, or a math expression
-     * to perform on retrieved data. </p>
+     * these structures can specify either a metric to retrieve, a Metrics Insights
+     * query, or a math expression to perform on retrieved data. </p>
      */
     inline void SetMetricDataQueries(Aws::Vector<MetricDataQuery>&& value) { m_metricDataQueriesHasBeenSet = true; m_metricDataQueries = std::move(value); }
 
     /**
      * <p>The metric queries to be returned. A single <code>GetMetricData</code> call
      * can include as many as 500 <code>MetricDataQuery</code> structures. Each of
-     * these structures can specify either a metric to retrieve, or a math expression
-     * to perform on retrieved data. </p>
+     * these structures can specify either a metric to retrieve, a Metrics Insights
+     * query, or a math expression to perform on retrieved data. </p>
      */
     inline GetMetricDataRequest& WithMetricDataQueries(const Aws::Vector<MetricDataQuery>& value) { SetMetricDataQueries(value); return *this;}
 
     /**
      * <p>The metric queries to be returned. A single <code>GetMetricData</code> call
      * can include as many as 500 <code>MetricDataQuery</code> structures. Each of
-     * these structures can specify either a metric to retrieve, or a math expression
-     * to perform on retrieved data. </p>
+     * these structures can specify either a metric to retrieve, a Metrics Insights
+     * query, or a math expression to perform on retrieved data. </p>
      */
     inline GetMetricDataRequest& WithMetricDataQueries(Aws::Vector<MetricDataQuery>&& value) { SetMetricDataQueries(std::move(value)); return *this;}
 
     /**
      * <p>The metric queries to be returned. A single <code>GetMetricData</code> call
      * can include as many as 500 <code>MetricDataQuery</code> structures. Each of
-     * these structures can specify either a metric to retrieve, or a math expression
-     * to perform on retrieved data. </p>
+     * these structures can specify either a metric to retrieve, a Metrics Insights
+     * query, or a math expression to perform on retrieved data. </p>
      */
     inline GetMetricDataRequest& AddMetricDataQueries(const MetricDataQuery& value) { m_metricDataQueriesHasBeenSet = true; m_metricDataQueries.push_back(value); return *this; }
 
     /**
      * <p>The metric queries to be returned. A single <code>GetMetricData</code> call
      * can include as many as 500 <code>MetricDataQuery</code> structures. Each of
-     * these structures can specify either a metric to retrieve, or a math expression
-     * to perform on retrieved data. </p>
+     * these structures can specify either a metric to retrieve, a Metrics Insights
+     * query, or a math expression to perform on retrieved data. </p>
      */
     inline GetMetricDataRequest& AddMetricDataQueries(MetricDataQuery&& value) { m_metricDataQueriesHasBeenSet = true; m_metricDataQueries.push_back(std::move(value)); return *this; }
 
@@ -510,25 +510,25 @@ namespace Model
   private:
 
     Aws::Vector<MetricDataQuery> m_metricDataQueries;
-    bool m_metricDataQueriesHasBeenSet;
+    bool m_metricDataQueriesHasBeenSet = false;
 
     Aws::Utils::DateTime m_startTime;
-    bool m_startTimeHasBeenSet;
+    bool m_startTimeHasBeenSet = false;
 
     Aws::Utils::DateTime m_endTime;
-    bool m_endTimeHasBeenSet;
+    bool m_endTimeHasBeenSet = false;
 
     Aws::String m_nextToken;
-    bool m_nextTokenHasBeenSet;
+    bool m_nextTokenHasBeenSet = false;
 
     ScanBy m_scanBy;
-    bool m_scanByHasBeenSet;
+    bool m_scanByHasBeenSet = false;
 
     int m_maxDatapoints;
-    bool m_maxDatapointsHasBeenSet;
+    bool m_maxDatapointsHasBeenSet = false;
 
     LabelOptions m_labelOptions;
-    bool m_labelOptionsHasBeenSet;
+    bool m_labelOptionsHasBeenSet = false;
   };
 
 } // namespace Model
