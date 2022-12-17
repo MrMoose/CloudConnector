@@ -168,7 +168,7 @@ def openssl_build_install(local_directory,
             run_in_shell("perl .\\Configure no-shared zlib no-zlib-dynamic threads no-unit-test "
                          f"--with-zlib-include={zlib_include_path} "
                          f"--with-zlib-lib={zlib_library_path} "
-                         f"--prefix={prefix} --openssldir={prefix} "
+                         f"--prefix={install_prefix} --openssldir={install_prefix} "
                          "VC-WIN64A")
 
             # OpenSSL always assumes /MT when building statically. Looks like this cannot be overridden
@@ -202,7 +202,7 @@ def openssl_build_install(local_directory,
             with open("built_and_installed.txt", "w") as lockfile:
                 lockfile.write("built")
 
-    return prefix
+    return install_prefix
 
 
 def cmake_build_install(local_directory, prefix=global_prefix, cmake_args: list[tuple[str, str]] = [],
