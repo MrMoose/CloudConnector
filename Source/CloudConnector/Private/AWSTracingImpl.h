@@ -11,10 +11,11 @@
  */
 class AWSTracingImpl : public ICloudTracing {
 
-	protected:
+	public:
+		ICloudTracePtr start_trace(const FString &n_trace_id) override;
+		void finish_trace(ICloudTrace *n_trace) override;
 		
-		void write_trace_document(CloudTrace &n_trace) override;
-
-	private:
-		TSharedPtr<class FJsonObject>create_trace_document(const TracePayload &n_trace) const;
+	protected:
+		void write_trace_document(class AWSTrace &n_trace);
+		TSharedPtr<class FJsonObject> create_trace_document(const TracePayload &n_trace) const;
 };

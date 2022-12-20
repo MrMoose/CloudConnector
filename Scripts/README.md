@@ -46,6 +46,18 @@ The script will build all the dependencies and install them
 in the provided CloudConnector tree. Previously installed binary and 
 header deps will be implicitly removed.
 
+## Pitfalls
+
+### 256 Character Filenames
+
+If you run this from a bit of a subdir like
+`C:\Work\Unreal\MyProjects\Workplace\MyUnrealProject\Plugins\CloudConnector\Scripts`
+you may encounter linker errors while building 
+gRPC or the Google Cloud SDK. Those will say that filenames longer than
+260 characters are not supported. In order to avoid this you should 
+run the script from a shorter subdir and specify the install
+location to your actual dir using the `--cc_dir` parameter.
+
 ## Disclaimer
 
 This is highly experimental. Use it at you own risk.

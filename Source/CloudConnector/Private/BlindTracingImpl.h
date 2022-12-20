@@ -11,6 +11,9 @@
  */
 class BlindTracingImpl : public ICloudTracing {
 
-	protected:
-		void write_trace_document(CloudTrace &n_trace) override;
+	public:
+		ICloudTracePtr start_trace(const FString &n_trace_id) override;
+
+	private:
+		void finish_trace(ICloudTrace *n_trace) override;
 };

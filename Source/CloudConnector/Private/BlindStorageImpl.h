@@ -16,10 +16,10 @@ class BlindStorageImpl : public ICloudStorage {
 		/** see ICloudStorage for docs
 		 */
 		bool exists(const FCloudStorageKey &n_key, const FCloudStorageExistsFinishedDelegate n_completion,
-				CloudTracePtr n_trace = CloudTracePtr{}) override;
+				ICloudTracePtr n_trace = ICloudTracePtr{}) override;
 
 		/** see ICloudStorage for docs
 		 */
 		bool write(const FCloudStorageKey &n_key, const TArrayView<const uint8> n_data,
-				const FCloudStorageWriteFinishedDelegate n_completion, CloudTracePtr n_trace = CloudTracePtr{}) override;
+				const FCloudStorageWriteFinishedDelegate n_completion, ICloudTracePtr n_trace = ICloudTracePtr{}) override;
 };

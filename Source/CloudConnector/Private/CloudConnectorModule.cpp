@@ -8,14 +8,18 @@
 #include "BlindQueueImpl.h"
 #include "BlindPubsubImpl.h"
 #include "BlindTracingImpl.h"
+#include "BlindMetricsImpl.h"
+#include "AWSMemoryManager.h"
 #include "AWSStorageImpl.h"
 #include "AWSQueueImpl.h"
 #include "AWSPubsubImpl.h"
 #include "AWSTracingImpl.h"
+#include "AWSMetricsImpl.h"
 #include "GoogleCloudStorageImpl.h"
 #include "GoogleQueueImpl.h"
 #include "GooglePubsubImpl.h"
-#include "GoogleTracingImpl.h"
+#include "OpenTelemetryTracingImpl.h"
+#include "OpenTelemetryMetricsImpl.h"
 #include "Utilities.h"
 #include "CloudWatchLogOutputDevice.h"
 #include "GoogleLoggingOutputDevice.h"
@@ -67,6 +71,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				m_queue = MakeUnique<BlindQueueImpl>();
 				m_pubsub = MakeUnique<BlindPubsubImpl>();
 				m_tracing = MakeUnique<BlindTracingImpl>();
+				m_metrics = MakeUnique<BlindMetricsImpl>();
 				break;
 
 			case ECloudProvider::AWS:
@@ -76,6 +81,8 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				// the AWS SDK but at this point I'll have to deal with that later
 				if (!s_aws_sdk_initialized) {
 					s_aws_sdk_options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Info;
+					// Yes, a dangling memory manager. Let's see who catches this ;-)
+					s_aws_sdk_options.memoryManagementOptions.memoryManager = new AWSMemoryManager();
 					Aws::InitAPI(s_aws_sdk_options);
 					s_aws_sdk_initialized.store(true);
 				}
@@ -113,7 +120,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 				m_storage = MakeUnique<AWSStorageImpl>();
 				m_queue = MakeUnique<AWSQueueImpl>(n_config);
 				m_pubsub  = MakeUnique<AWSPubsubImpl>(n_config);
-				
+				m_metrics = MakeUnique<AWSMetricsImpl>(n_config);
 				break;
 
 			case ECloudProvider::GOOGLE:
@@ -128,12 +135,12 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 					GLog->AddOutputDevice(m_log_device.Get());
 				}
 #else
-				m_pubsub = MakeUnique<BlindQueueImpl>();
+				m_queue = MakeUnique<BlindQueueImpl>();
 				m_pubsub = MakeUnique<BlindPubsubImpl>();
 #endif
 
 				if (tracing_enabled(n_config->Tracing)) {
-					m_tracing = MakeUnique<GoogleTracingImpl>();
+					m_tracing = MakeUnique<OpenTelemetryTracingImpl>();
 				} else {
 					m_tracing = MakeUnique<BlindTracingImpl>();
 				}
@@ -168,7 +175,7 @@ void FCloudConnectorModule::init_actor_config(const ACloudConnector *n_config) {
 					// https://github.com/MrMoose/CloudConnector/issues/3
 					// It will crash when using SQS because there's no way of shutting  down outstanding 
 					// requests gracefully
-				//	Aws::ShutdownAPI(s_aws_sdk_options);
+					Aws::ShutdownAPI(s_aws_sdk_options);
 					s_aws_sdk_initialized.store(false);
 				}
 
@@ -217,6 +224,12 @@ ICloudTracing &FCloudConnectorModule::tracing() const {
 
 	checkf(m_tracing, TEXT("You are calling this too early or too late, please wait for the game to start"))
 	return *m_tracing;
+}
+
+ICloudMetrics &FCloudConnectorModule::metrics() const {
+
+	checkf(m_metrics, TEXT("You are calling this too early or too late, please wait for the game to start"))
+	return *m_metrics;
 }
 
 #undef LOCTEXT_NAMESPACE

@@ -10,6 +10,7 @@
 #include "ICloudStorage.h"
 #include "ICloudQueue.h"
 #include "ICloudPubsub.h"
+#include "ICloudMetrics.h"
 
 #include "Modules/ModuleInterface.h"
 #include "Modules/ModuleManager.h"
@@ -37,6 +38,7 @@ class CLOUDCONNECTOR_API ICloudConnector : public IModuleInterface {
 		virtual ICloudQueue   &queue() const = 0;
 		virtual ICloudPubsub  &pubsub() const = 0;
 		virtual ICloudTracing &tracing() const = 0;
+		virtual ICloudMetrics &metrics() const = 0;
 
 	private:
 		friend class ACloudConnector;

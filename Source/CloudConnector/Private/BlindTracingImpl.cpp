@@ -4,8 +4,19 @@
  */
 #include "BlindTracingImpl.h"
 #include "ICloudConnector.h"
+#include "BlindTrace.h"
 
-void BlindTracingImpl::write_trace_document(CloudTrace &n_trace) {
 
-	UE_LOG(LogCloudConnector, Display, TEXT("Ignore trace document (%s)."), *n_trace.m_payload->m_trace_id);
+ICloudTracePtr BlindTracingImpl::start_trace(const FString &n_trace_id) {
+	
+	return MakeShared<BlindTrace, ESPMode::ThreadSafe>(n_trace_id);
+}
+
+void BlindTracingImpl::finish_trace(ICloudTrace *n_trace) {
+
+	if (n_trace) {
+		UE_LOG(LogCloudConnector, Display, TEXT("Ignore finish trace of (%s)."), *n_trace->id());
+	} else {
+		UE_LOG(LogCloudConnector, Display, TEXT("Ignore finish null trace"));
+	}
 }
