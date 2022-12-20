@@ -10,6 +10,11 @@
 #include <chrono>
 #include <string>
 
+inline double epoch_millis() {
+	return std::chrono::duration_cast<std::chrono::milliseconds>(
+		std::chrono::system_clock::now().time_since_epoch()).count() / 1000.0;
+}
+
 inline long long millis_since_epoch() {
 
 	return std::chrono::duration_cast<std::chrono::milliseconds>(

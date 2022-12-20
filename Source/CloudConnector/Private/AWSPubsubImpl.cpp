@@ -343,7 +343,8 @@ class SQSSubscription {
 			// exists but return the ARN anyway
 
 			CreateTopicRequest request;
-			request.SetName(TCHAR_TO_UTF8(*m_subscription.Topic));
+			request.SetName(TCHAR_TO_ANSI(*m_subscription.Topic));
+
 			// I roll with defaults here until I know which values make sense
 			// If I do add parameters (such as tags) and the topic already exists 
 			// with different ones I get an error and no ARN. This might be a problem
@@ -352,11 +353,11 @@ class SQSSubscription {
 			if (!outcome.IsSuccess()) {
 				// If the topic already exists we get success return value
 				UE_LOG(LogCloudConnector, Warning, TEXT("AWS refused to create topic: %s"),
-						UTF8_TO_TCHAR(outcome.GetError().GetMessage().c_str()));
+						ANSI_TO_TCHAR(outcome.GetError().GetMessage().c_str()));
 				return false;
 			} else {
 				m_topic_arn = outcome.GetResult().GetTopicArn();
-				UE_LOG(LogCloudConnector, Display, TEXT("Got Topic ARN: %s"), UTF8_TO_TCHAR(m_topic_arn.c_str()));
+				UE_LOG(LogCloudConnector, Display, TEXT("Got Topic ARN: %s"), ANSI_TO_TCHAR(m_topic_arn.c_str()));
 			}
 			return true;
 		}
@@ -371,13 +372,13 @@ class SQSSubscription {
 				request.AddTags("created_by", "CloudConnector");
 				//cqr.AddAttributes(QueueAttributeName::FifoQueue, "true");
 				request.AddAttributes(QueueAttributeName::DelaySeconds, "0");
-				request.AddAttributes(QueueAttributeName::VisibilityTimeout, std::to_string(m_visibility_timeout));
+				request.AddAttributes(QueueAttributeName::VisibilityTimeout, Aws::String{ std::to_string(m_visibility_timeout) });
 				request.AddAttributes(QueueAttributeName::ReceiveMessageWaitTimeSeconds, "4");
 
 				// We need to set a policy document in order to allow SNS to post into our Q.
 				// This document sadly appears to have to contain the ARN of the Q we have not yet created as Resource field.
 				// So I have to predict the ARN it's gonna get. Very bad all this but I see no other way
-				hacky_predicted_queue_arn = hacky_arn_prefix(UTF8_TO_TCHAR(m_topic_arn.c_str()), m_subscription.Id);
+				hacky_predicted_queue_arn = hacky_arn_prefix(ANSI_TO_TCHAR(m_topic_arn.c_str()), m_subscription.Id);
 
 				const FString policy = FString::Printf(TEXT(
 					"{\
@@ -396,9 +397,9 @@ class SQSSubscription {
 								}\
 							}\
 						}]\
-					}"), *hacky_predicted_queue_arn, UTF8_TO_TCHAR(m_topic_arn.c_str()));
+					}"), *hacky_predicted_queue_arn, ANSI_TO_TCHAR(m_topic_arn.c_str()));
 
-				request.AddAttributes(QueueAttributeName::Policy, TCHAR_TO_UTF8(*policy));
+				request.AddAttributes(QueueAttributeName::Policy, TCHAR_TO_ANSI(*policy));
 
 				const CreateQueueOutcome outcome = m_sqs->CreateQueue(request);
 
@@ -455,6 +456,13 @@ class SQSSubscription {
 
 		// Hook up our temporary Q twe created for us
 		bool subscribe_to_q() const {
+
+			if (m_subscription.Reused) {
+				// If we re-use an existing subscription (Queue)
+				// we have to assume it's already subscribed to the topic
+				UE_LOG(LogCloudConnector, Display, TEXT("Assuming Q is already subscribed to topic '%s'"), *m_subscription.Topic);
+				return true;
+			}
 
 			SubscribeRequest s_req;
 			s_req.SetTopicArn(m_topic_arn);

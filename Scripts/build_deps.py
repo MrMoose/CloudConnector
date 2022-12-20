@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+# (c) 2022 by Stephan Menzel
+# Licensed under the Apache License, Version 2.0.
+# See attached file LICENSE for full details
+#
+
 import argparse
 import glob
 import os
@@ -11,7 +16,7 @@ import multiprocessing
 import math
 import shutil
 import typing
-import zipfile
+import xml.etree.ElementTree as ET
 
 # Versions to fetch and build
 # Note that they _have_ to match together and make sense in their context
@@ -26,8 +31,8 @@ re2_tag = "2022-12-01"
 crc32c_tag = "1.1.2"
 grpc_tag = "v1.49.2"
 gcloud_sdk_tag = "v2.5.0"
+opentelemetry_tag = "v1.8.1"
 aws_sdk_tag = "1.10.31"
-
 cmake_config_flag = ""
 cmake_toolset = ""
 
@@ -125,7 +130,6 @@ def pushd(new_dir):
 
 
 def get_local_prefix(prefix):
-
     p = os.path.join(prefix, os.path.basename(os.getcwd()))
     if os.name == 'posix':
         if not "PKG_CONFIG_PATH" in os.environ:
@@ -133,15 +137,6 @@ def get_local_prefix(prefix):
         os.environ["PKG_CONFIG_PATH"] += os.pathsep + os.path.join(p, 'lib', 'pkg_config')
         file_and_console_log("PKG_CONFIG_PATH = " + os.environ["PKG_CONFIG_PATH"])
     return p
-
-
-def unix_configure_make_install(prefix=global_prefix,
-                                make_prefix='', configure_args='', make_args=''):
-    if not os.path.isfile('Makefile') or not os.path.isfile('configure.log'):
-        # prefix = get_local_prefix(prefix)
-        run_in_shell(f'./configure --prefix={prefix} {configure_args}')
-
-    run_in_shell(f"{make_prefix} make -j{number_of_jobs} install")
 
 
 def openssl_build_install(local_directory,
@@ -205,8 +200,52 @@ def openssl_build_install(local_directory,
     return install_prefix
 
 
+def hack_opentelemetry_build(prefix: typing.Union[str, bytes, os.PathLike],
+                             abseil_prefix: typing.Union[str, bytes, os.PathLike],
+                             grpc_prefix: typing.Union[str, bytes, os.PathLike]):
+    """Try to fix the broken OpenTelemetry build system. Missing include dependencies
+        to absl and grpc were added during CMake but the resulting solution still contains
+        one broken project. This modifies directly the offending "opentelemetry_proto"
+        project by adding the dependencies there.
+        Note that this is very ugly and prone to break at any moment.
+        If you find yourself reading this, try to exclude this and see if the problem
+        was fixed by upstream.
+    """
+
+    if os.name != "nt":
+        return
+
+    if "opentelemetry" not in prefix:
+        return
+
+    ET.register_namespace(prefix="", uri="http://schemas.microsoft.com/developer/msbuild/2003")
+    tree = ET.parse("opentelemetry_proto.vcxproj")
+    root = tree.getroot()
+    for child in root:
+        if "ItemDefinitionGroup" in child.tag:
+            for idchild in child:
+                if "ClCompile" in idchild.tag:
+                    for clchild in idchild:
+                        if "AdditionalIncludeDirectories" in clchild.tag:
+                            new_text = ""
+                            tokens = clchild.text.split(sep=";")
+                            tokens.append(os.path.join(abseil_prefix, "include"))
+                            tokens.append(os.path.join(grpc_prefix, "include"))
+
+                            for t in tokens:
+                                new_text += t + ";"
+                            new_text = new_text[:-1]  # slice away last ";"
+                            clchild.text = new_text
+
+    tree.write("opentelemetry_proto.vcxproj")
+
+
 def cmake_build_install(local_directory, prefix=global_prefix, cmake_args: list[tuple[str, str]] = [],
-                        job_count=number_of_jobs, build_target_list=[]):
+                        job_count=number_of_jobs,
+                        # those are hacked in super ugly cause I want them to disappear as
+                        # soon as OpenTelemetry fixes their build system
+                        abseil_prefix: typing.Union[str, bytes, os.PathLike] = "",
+                        grpc_prefix: typing.Union[str, bytes, os.PathLike] = ""):
     argstr = ""
 
     # Create flags string out of args tuples
@@ -230,9 +269,8 @@ def cmake_build_install(local_directory, prefix=global_prefix, cmake_args: list[
                 return install_prefix
             run_in_shell(
                 f"cmake .. {cmake_toolset} -D{cmake_config_flag} {argstr} -DCMAKE_INSTALL_PREFIX={install_prefix}")
-            for t in build_target_list:
-                target, cores = t
-                run_in_shell(f'cmake --build . --config Release --parallel {cores} --target {target}')
+
+            hack_opentelemetry_build(install_prefix, abseil_prefix, grpc_prefix)
 
             run_in_shell(f'cmake --build . --config Release --parallel {job_count}')
             run_in_shell(f'cmake --install .')
@@ -285,18 +323,7 @@ def clone_git_tag(git_repository, git_tag: str, backup_existing=False, delete_ex
     return local_dir if os.path.isdir(local_dir) else None
 
 
-def create_lib64_if_missing_and_not_windows(component_install_path):
-    if os.name == 'nt':
-        return
-
-    lib64_dir = os.path.join(component_install_path, 'lib64')
-    if not os.path.exists(lib64_dir):
-        with pushd(component_install_path):
-            os.symlink('lib', 'lib64')
-
-
 def copy_libs(install_path: typing.Union[str, bytes, os.PathLike], destination: typing.Union[str, bytes, os.PathLike]):
-
     for libfile in glob.glob(os.path.join(install_path, "lib", lib_wildcard)):
         shutil.copy(libfile, destination)
 
@@ -342,7 +369,8 @@ if __name__ == '__main__':
         ("CURL_USE_LIBPSL", "OFF"),
         ("CURL_USE_LIBSSH", "OFF"),
         ("CURL_USE_LIBSSH2", "OFF"),
-        ("CURL_USE_OPENSSL", "ON"),
+        ("CURL_USE_OPENSSL", "OFF"),
+        ("CURL_USE_SCHANNEL", "ON"),   # This may cause trouble on linux
         ("OPENSSL_ROOT_DIR:PATH", openssl_install_path),
         ("OPENSSL_USE_STATIC_LIBS:BOOL", "ON"),
         ("CURL_STATIC_CRT", "OFF"),
@@ -377,6 +405,7 @@ if __name__ == '__main__':
         ("protobuf_BUILD_TESTS", "OFF"),
         ("protobuf_MODULE_COMPATIBLE", "ON"),
         ("protobuf_MSVC_STATIC_RUNTIME", "OFF"),
+        ("protobuf_DISABLE_RTTI:BOOL", "ON"),
         ("ZLIB_ROOT:PATH", zlib_install_path),
         ("ZLIB_USE_STATIC_LIBS:BOOL", "ON"),  # doesn't appear to do its job
         ("ZLIB_LIBRARY_RELEASE:FILEPATH", os.path.join(zlib_install_path, "lib", zlib_static_lib_name)),
@@ -448,10 +477,6 @@ if __name__ == '__main__':
         ("CARES_STATIC_PIC", "ON"),
         ("CARES_MSVC_STATIC_RUNTIME", "OFF"),
 
-        ("protobuf_BUILD_EXAMPLES", "False"),
-        ("protobuf_BUILD_EXAMPLES", "OFF"),
-        ("protobuf_BUILD_SHARED_LIBS", "OFF"),
-        ("protobuf_BUILD_TESTS", "OFF"),
         ("Protobuf_USE_STATIC_LIBS", "ON"),
         ("protobuf_MSVC_STATIC_RUNTIME", "OFF"),
 
@@ -467,7 +492,7 @@ if __name__ == '__main__':
     # This doesn't work however, even though the warnings show up as disabled in the VS solution.
     # If you know why, plz fix this.
     if os.name == "nt":
-        grpc_cmake_args.append(("CMAKE_CXX_FLAGS", "\"/EHsc /wd4090 /wd4146 /wd4334 /wd5105\""))
+        grpc_cmake_args.append(("CMAKE_CXX_FLAGS", "\"/D_HAS_EXCEPTIONS=0 /wd4090 /wd4146 /wd4334 /wd5105\""))
 
     grpc_dir = clone_git_tag("https://github.com/grpc/grpc.git", git_tag=grpc_tag, recursive=False)
     grpc_install_path = cmake_build_install(grpc_dir, cmake_args=grpc_cmake_args)
@@ -522,6 +547,7 @@ if __name__ == '__main__':
         ("GOOGLE_CLOUD_CPP_ENABLE_LOGGING:BOOL", "ON"),
         ("GOOGLE_CLOUD_CPP_ENABLE_PUBSUB:BOOL", "ON"),
         ("GOOGLE_CLOUD_CPP_ENABLE_SPANNER:BOOL", "OFF"),
+        ("GOOGLE_CLOUD_CPP_ENABLE_CXX_EXCEPTIONS:BOOL", "OFF"),
 
         ("gRPC_CPP_PLUGIN_EXECUTABLE:FILEPATH", os.path.join(grpc_install_path, "bin", "grpc_cpp_plugin.exe")),
         ("gRPC_ZLIB_PROVIDER", "package"),
@@ -530,9 +556,59 @@ if __name__ == '__main__':
         ("ZLIB_LIBRARY_RELEASE", os.path.join(zlib_install_path, "lib", zlib_static_lib_name)),
         ("ZLIB_LIBRARY_DEBUG", os.path.join(zlib_install_path, "lib", zlib_static_lib_name))  # We are on fake debug
     ]
+
+    if os.name == "nt":
+        gcloud_sdk_cmake_args.append(("CMAKE_CXX_FLAGS", "\"/D_HAS_EXCEPTIONS=0 \""))
+
     gcloud_sdk_dir = clone_git_tag("https://github.com/googleapis/google-cloud-cpp.git", git_tag=gcloud_sdk_tag,
                                    recursive=False)
     gcloud_sdk_install_path = cmake_build_install(gcloud_sdk_dir, cmake_args=gcloud_sdk_cmake_args)
+
+    print_banner("Building OpenTelemetry C++ lib")
+    opentelemetry_cmake_args = [
+        ("WITH_EXAMPLES:BOOL", "OFF"),
+        ("WITH_OTLP:BOOL", "ON"),
+        ("WITH_OTLP_GRPC:BOOL", "ON"),
+        ("WITH_OTLP_HTTP:BOOL", "ON"),
+        ("WITH_STL:BOOL", "ON"),
+
+        ("c-ares_DIR:PATH", os.path.join(cares_install_path, "lib", "cmake", "c-ares")),
+        ("re2_DIR:PATH", os.path.join(re2_install_path, "lib", "cmake", "re2")),
+        ("gRPC_DIR:PATH", os.path.join(grpc_install_path, "lib", "cmake", "grpc")),
+        ("absl_DIR:PATH", os.path.join(abseil_install_path, "lib", "cmake", "absl")),
+        ("WITH_ABSEIL:BOOL", "ON"),
+        ("nlohmann_json_DIR:PATH", os.path.join(nlohmann_install_path, "share", "cmake", "nlohmann_json")),
+        ("CURL_DIR:PATH", os.path.join(curl_install_path, "lib", "cmake", "CURL")),
+
+        ("OPENSSL_ROOT_DIR:PATH", openssl_install_path),
+        ("OPENSSL_USE_STATIC_LIBS:BOOL", "ON"),
+
+        ("Protobuf_DIR:PATH", os.path.join(protobuf_install_path, "cmake")),
+        ("Protobuf_PROTOC_EXECUTABLE:FILEPATH", os.path.join(protobuf_install_path, "bin", "protoc.exe")),
+
+        # Some proto files appear to include stuff from protobuf itself.
+        # This is what they seem to be looking for
+        ("PROTO_INCLUDE_DIR:FILEPATH", os.path.join(protobuf_install_path, "include", "google", "protobuf")),
+
+        # OpenTelemetry pulls in various includes from within grpc's include dir but doesn't add
+        # them to the include paths. Injecting the flags will fix most of the
+        # projects, except one: opentelemetry_proto, which is apparently not honoring those flags.
+        ("CMAKE_CXX_FLAGS",
+            f"/D_HAS_EXCEPTIONS=0 /I{os.path.join(grpc_install_path, 'include')} /I{os.path.join(abseil_install_path, 'include')}"),
+
+        ("gRPC_CPP_PLUGIN_EXECUTABLE:FILEPATH", os.path.join(grpc_install_path, "bin", "grpc_cpp_plugin.exe")),
+        ("gRPC_ZLIB_PROVIDER", "package"),
+        ("ZLIB_ROOT", zlib_install_path),
+        ("ZLIB_USE_STATIC_LIBS", "True"),
+        ("ZLIB_LIBRARY_RELEASE", os.path.join(zlib_install_path, "lib", zlib_static_lib_name)),
+        ("ZLIB_LIBRARY_DEBUG", os.path.join(zlib_install_path, "lib", zlib_static_lib_name))  # We are on fake debug
+    ]
+    opentelemetry_dir = clone_git_tag("https://github.com/open-telemetry/opentelemetry-cpp.git",
+                                      git_tag=opentelemetry_tag,
+                                      recursive=False)
+    opentelemetry_install_path = cmake_build_install(opentelemetry_dir, cmake_args=opentelemetry_cmake_args,
+                                                     abseil_prefix=abseil_install_path,
+                                                     grpc_prefix=grpc_install_path)
 
     # So, compared to all this building and installing the AWS SDK will seem like a walk in the park.
     # Only the clone takes forever as I clone it recursively. I cannot be arsed to init all the
@@ -541,9 +617,11 @@ if __name__ == '__main__':
     aws_sdk_cmake_args = [
         ("AUTORUN_UNIT_TESTS:BOOL", "OFF"),
         ("ENABLE_TESTING:BOOL", "OFF"),
+        ("ENABLE_RTTI:BOOL", "OFF"),
         ("CPP_STANDARD:STRING", "17"),
+        ("CUSTOM_MEMORY_MANAGEMENT", "ON"),
         ("BUILD_DEPS:BOOL", "ON"),
-        ("BUILD_SHARED_LIBS:BOOL", "ON"),   # DLLs are okay for the AWS SDK. I'll override the global flag
+        ("BUILD_SHARED_LIBS:BOOL", "ON"),  # DLLs are okay for the AWS SDK. I'll override the global flag
         ("BUILD_ONLY:STRING", "s3;sqs;xray;monitoring;logs;s3-crt;sns"),
         ("USE_OPENSSL:BOOL", "ON"),
         ("OPENSSL_ROOT_DIR:PATH", openssl_install_path),
@@ -605,6 +683,8 @@ if __name__ == '__main__':
                     os.path.join(cc_google_sdk_include_dir, "google"))
     shutil.copytree(os.path.join(protobuf_install_path, "include", "google", "protobuf"),
                     os.path.join(cc_google_sdk_include_dir, "google", "protobuf"))
+    shutil.copytree(os.path.join(opentelemetry_install_path, "include", "opentelemetry"),
+                    os.path.join(cc_google_sdk_include_dir, "opentelemetry"))
 
     copy_libs(cares_install_path, cc_google_sdk_lib_dir)
     copy_libs(crc32c_install_path, cc_google_sdk_lib_dir)
@@ -616,6 +696,7 @@ if __name__ == '__main__':
     copy_libs(protobuf_install_path, cc_google_sdk_lib_dir)
     copy_libs(grpc_install_path, cc_google_sdk_lib_dir)
     copy_libs(gcloud_sdk_install_path, cc_google_sdk_lib_dir)
+    copy_libs(opentelemetry_install_path, cc_google_sdk_lib_dir)
 
     # Copy all the AWS SDK includes, libs and DLLs
     shutil.copytree(os.path.join(aws_sdk_install_path, "include", "aws"),

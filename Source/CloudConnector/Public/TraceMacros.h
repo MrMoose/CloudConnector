@@ -9,6 +9,7 @@
 
 #include "Misc/TVariant.h"
 
+
 // To enable scoped trace macros, this mocks up one that can be created 
 // without an actual trace. It just logs
 class CLOUDCONNECTOR_API BlindScopedSegment final {
@@ -46,12 +47,12 @@ if (trace) {                                      \
  * but beware, you cannot have two overlapping scoped segments
  * because they have the same symbol name
  */
-using ScopedTraceVariant = TVariant<BlindScopedSegment, CloudTrace::ScopedSegment>;
+using ScopedTraceVariant = TVariant<BlindScopedSegment, ScopedSegment>;
 
 #define CC_SCOPED_TRACE_SEGMENT(trace, name)                          \
 ScopedTraceVariant scoped_trace_segment_obfuscated_name;              \
 if (trace) {                                                          \
-	scoped_trace_segment_obfuscated_name.Emplace<CloudTrace::ScopedSegment>(trace->scoped_segment(name));  \
+	scoped_trace_segment_obfuscated_name.Emplace<ScopedSegment>(trace->scoped_segment(name));  \
 } else {                                                              \
 	scoped_trace_segment_obfuscated_name.Emplace<BlindScopedSegment>(name); \
 }
@@ -63,7 +64,7 @@ switch (scoped_trace_segment_obfuscated_name.GetIndex()) {            \
 		scoped_trace_segment_obfuscated_name.Get<BlindScopedSegment>().set_error(true);  \
 		break;                                                        \
 	case 1:                                                           \
-		scoped_trace_segment_obfuscated_name.Get<CloudTrace::ScopedSegment>().set_error(true); \
+		scoped_trace_segment_obfuscated_name.Get<ScopedSegment>().set_error(true); \
 		break;                                                        \
 }
 

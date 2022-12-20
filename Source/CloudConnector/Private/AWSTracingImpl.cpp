@@ -3,6 +3,7 @@
  * See attached file LICENSE for full details
  */
 #include "AWSTracingImpl.h"
+#include "AWSTrace.h"
 #include "ICloudConnector.h"
 #include "Utilities.h"
 #include "ClientFactory.h"
@@ -11,6 +12,8 @@
 #include "Serialization/JsonSerializer.h"
 #include "Json/Public/Policies/CondensedJsonPrintPolicy.h"
 #include "Async/Async.h"
+#include "Templates/SharedPointer.h"
+#include "Templates/Casts.h"
 
  // AWS SDK
 #include "Windows/PreWindowsApi.h"
@@ -27,13 +30,43 @@
 // std
 #include <string>
 
-/* Those objects are supposedly threadsafe and tests have shown that they really appear to be so
+
+ICloudTracePtr AWSTracingImpl::start_trace(const FString &n_trace_id) {
+
+	if (n_trace_id.IsEmpty()) {
+		return {};
+	}
+
+	ICloudTracePtr new_trace = MakeShared<AWSTrace, ESPMode::ThreadSafe>(n_trace_id);
+	//ICloudTracePtr new_trace{ new AWSTrace(n_trace_id) };
+	return new_trace;
+}
+
+void AWSTracingImpl::finish_trace(ICloudTrace *n_trace) {
+
+	AWSTrace *aws_trace = static_cast<AWSTrace *>(n_trace);
+
+	// We check if the user has forgotten to close any open segments.
+	// I don't want this in the serialization
+	for (TracePayload::Segment &s : aws_trace->m_payload->m_segments) {
+		if (s.m_end < 1.0) {
+			s.m_end = epoch_millis();
+		}
+	}
+
+	aws_trace->m_payload->m_end = epoch_millis();
+
+	return write_trace_document(*aws_trace);
+}
+
+/*
+ * Those objects are supposedly threadsafe and tests have shown that they really appear to be so
  * it seems to be safe to concurrently access this from multiple threads at once
  */
 static Aws::UniquePtr<Aws::XRay::XRayClient> s_xray_client;
 
-void AWSTracingImpl::write_trace_document(CloudTrace &n_trace) {
-
+void AWSTracingImpl::write_trace_document(AWSTrace &n_trace) {
+	
 	checkf(n_trace.m_payload, TEXT("Broken trace object. What happened to you?"));
 
 	// We go async right away to not block the game thread for this.

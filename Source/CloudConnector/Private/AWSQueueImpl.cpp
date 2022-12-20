@@ -103,9 +103,9 @@ class SQSRunner {
 			// When this object lives on the stack it will crash in the d'tor
 			// for unknown reasons. So I have to create it dynamic and leak it intentionally.
 			//
-			Aws::UniquePtr<ReceiveMessageRequest> rm_req = Aws::MakeUnique<ReceiveMessageRequest>("SQSREQ");
-			rm_req->SetQueueUrl(m_queue_url);
-			rm_req->SetMaxNumberOfMessages(1);
+			ReceiveMessageRequest rm_req;
+			rm_req.SetQueueUrl(m_queue_url);
+			rm_req.SetMaxNumberOfMessages(1);
 
 			// This is not a timeout per se but long polling, which means the call will return
 			// After this many seconds even if there are no messages, which is not an error.
@@ -113,22 +113,22 @@ class SQSRunner {
 			//
 			// I am hard-choosing 4 here as values of 5 and above caused weird errors in testing.
 			//
-			rm_req->SetWaitTimeSeconds(4);
+			rm_req.SetWaitTimeSeconds(4);
 
 			// For X-Ray tracing, I need an AWSTraceHeader, which in the C++ SDK 
 			// seems to be not in the enum like the others. To have it included in the response,
 			// only All will do the trick.
-			rm_req->AddAttributeNames(QueueAttributeName::All);
-			rm_req->AddAttributeNames(QueueAttributeName::SentTimestamp);
-			rm_req->AddAttributeNames(QueueAttributeName::ApproximateReceiveCount);
+			rm_req.AddAttributeNames(QueueAttributeName::All);
+			rm_req.AddAttributeNames(QueueAttributeName::SentTimestamp);
+			rm_req.AddAttributeNames(QueueAttributeName::ApproximateReceiveCount);
 
 			// This is how it's supposed to work but it doesn't. Hence the 'All' above
-			rm_req->AddMessageAttributeNames(
+			rm_req.AddMessageAttributeNames(
 					MessageSystemAttributeNameMapper::GetNameForMessageSystemAttributeName(
 							MessageSystemAttributeName::AWSTraceHeader));
 
 			while (!m_interrupted.load()) 	{
-				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(*rm_req);
+				ReceiveMessageOutcome rm_out = m_sqs->ReceiveMessage(rm_req);
 				if (!rm_out.IsSuccess()) {
 					UE_LOG(LogCloudConnector, Warning, TEXT("Failed to retrieve message from queue '%s': '%s'"),
 							UTF8_TO_TCHAR(m_queue_url.c_str()), UTF8_TO_TCHAR(rm_out.GetError().GetMessage().c_str()));
@@ -149,10 +149,6 @@ class SQSRunner {
 
 				// Rinse, repeat until interrupted
 			}
-
-			//rm_req.release(); // yes, sad.
-							  // Leaking this object is the only way I found around
-							  // https://github.com/MrMoose/CloudConnector/issues/3
 		}
 
 		/// Stops the runnable object from foreign thread

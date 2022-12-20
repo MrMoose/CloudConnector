@@ -17,6 +17,10 @@ public class GoogleCloud_SDK : ModuleRules {
 		// add any macros that need to be set. This is just an example define.
 		PublicDefinitions.Add("WITH_GOOGLECLOUD_SDK=1");
 
+		// OpenTelemetry is built with STL support.
+		// This convinces the headers of this fact.
+		PublicDefinitions.Add("HAVE_CPP_STDLIB=1");
+
 		// include path is public for the module. Can it be private and 
 		// still be used by other modules of the same plugin?
 		PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "include"));
@@ -72,6 +76,25 @@ public class GoogleCloud_SDK : ModuleRules {
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_type_postal_address_protos.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_type_quaternion_protos.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "google_cloud_cpp_type_timeofday_protos.lib"));
+		
+		// OpenTelemetry
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_common.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_exporter_in_memory.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_exporter_ostream_span.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_exporter_otlp_grpc.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_exporter_otlp_grpc_client.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_exporter_otlp_grpc_log.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_exporter_otlp_grpc_metrics.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_exporter_otlp_http.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_exporter_otlp_http_client.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_exporter_otlp_http_metric.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_metrics.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_http_client_curl.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_otlp_recordable.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_proto.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_resources.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_trace.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "opentelemetry_version.lib"));
 
 		// Now all those are indirect dependencies. As all google stuff links statically,
 		// I have to pull them in as well. Sadly not knowing which ones are actually needed.
@@ -175,12 +198,7 @@ public class GoogleCloud_SDK : ModuleRules {
 		// Crc32c
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "crc32c.lib"));
 
-		// Ssh2
-		// PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libssh2.lib"));
-
 		// ZLib
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "zlibstatic.lib"));
-
-
 	}
 }

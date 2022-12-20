@@ -78,7 +78,7 @@ bool valid_s3_object_key(const FString &n_object_key) {
 } // anon ns
 
 bool AWSStorageImpl::exists(const FCloudStorageKey &n_key, 
-		const FCloudStorageExistsFinishedDelegate n_completion, CloudTracePtr n_trace /*= CloudTracePtr{}*/) {
+		const FCloudStorageExistsFinishedDelegate n_completion, ICloudTracePtr n_trace /*= CloudTracePtr{}*/) {
 
 	CC_START_TRACE_SEGMENT(n_trace, s_s3_exists_segment);
 
@@ -145,7 +145,7 @@ bool AWSStorageImpl::exists(const FCloudStorageKey &n_key,
 }
 
 bool AWSStorageImpl::write(const FCloudStorageKey &n_key, const TArrayView<const uint8> n_data,
-		const FCloudStorageWriteFinishedDelegate n_completion, CloudTracePtr n_trace /* = CloudTracePtr{}*/) {
+		const FCloudStorageWriteFinishedDelegate n_completion, ICloudTracePtr n_trace /* = CloudTracePtr{}*/) {
 
 	CC_START_TRACE_SEGMENT(n_trace, s_s3_write_segment);
 

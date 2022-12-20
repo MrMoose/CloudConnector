@@ -11,7 +11,7 @@
 #include "ICloudStorage.generated.h"
 
 /** A key for cloud storage of objects.
- *  At AWS this will refer to S3, for Google Cloud it's "Storage"
+ *  At AWS this refers to S3, for Google Cloud it's "Storage"
  */  
 USTRUCT(BlueprintType, Category = "CloudConnector")
 struct CLOUDCONNECTOR_API FCloudStorageKey {
@@ -72,7 +72,7 @@ class CLOUDCONNECTOR_API ICloudStorage {
 		 *  @return true when the operation was successfully started, in which case the delegate will always fire
 		 */
 		virtual bool exists(const FCloudStorageKey &n_key, const FCloudStorageExistsFinishedDelegate n_completion, 
-				CloudTracePtr n_trace = CloudTracePtr{}) = 0;
+				ICloudTracePtr n_trace = ICloudTracePtr{}) = 0;
 
 		/** @brief write the contents of the buffer to storage
 		 *  potentially existing object of same key may or may not be overwritten.
@@ -86,7 +86,7 @@ class CLOUDCONNECTOR_API ICloudStorage {
 		 *  @return true when the operation was successfully started, in which case the delegate will always fire
 		 */
 		virtual bool write(const FCloudStorageKey &n_key, const TArrayView<const uint8> n_data,
-				const FCloudStorageWriteFinishedDelegate n_completion, CloudTracePtr n_trace = CloudTracePtr{}) = 0;
+				const FCloudStorageWriteFinishedDelegate n_completion, ICloudTracePtr n_trace = ICloudTracePtr{}) = 0;
 
 };
 

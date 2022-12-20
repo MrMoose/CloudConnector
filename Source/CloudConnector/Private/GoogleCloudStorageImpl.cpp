@@ -59,7 +59,7 @@ inline bool valid_google_object_key(const FString &n_object_key) {
 
 
 bool GoogleCloudStorageImpl::exists(const FCloudStorageKey &n_key, 
-		const FCloudStorageExistsFinishedDelegate n_completion, CloudTracePtr n_trace /* = CloudTracePtr{} */) {
+		const FCloudStorageExistsFinishedDelegate n_completion, ICloudTracePtr n_trace /* = ICloudTracePtr{} */) {
 
 	CC_START_TRACE_SEGMENT(n_trace, s_googlestorage_exists_segment);
 
@@ -76,13 +76,17 @@ bool GoogleCloudStorageImpl::exists(const FCloudStorageKey &n_key,
 
 	// go async here and do the actual network IO in the thread pool
 	Async(EAsyncExecution::ThreadPool, [n_key, n_completion, n_trace] {
-
+		
 		const std::string bucket_name{ TCHAR_TO_ANSI(*n_key.BucketName) };
 		const std::string object_key{ TCHAR_TO_ANSI(*n_key.ObjectKey) };
 
 		// This appears to be the recommended way of creating the GC client.
 		// It's basically an optional holding either the client or an error message
-		gc::StatusOr<gcs::Client> client = gcs::Client::CreateDefaultClient();
+		// gc::StatusOr<gcs::Client> client = gcs::Client::CreateDefaultClient();
+
+		gc::Options options;
+		gc::StatusOr<gcs::Client> client = gcs::Client::Client(options);
+
 		if (!client) {
 			const FString msg = FString::Printf(TEXT("Failed to create client for Google Storage bucket '%s': %s"),
 				*n_key.BucketName, UTF8_TO_TCHAR(client.status().message().c_str()));
@@ -141,7 +145,7 @@ bool GoogleCloudStorageImpl::exists(const FCloudStorageKey &n_key,
 }
 
 bool GoogleCloudStorageImpl::write(const FCloudStorageKey &n_key, const TArrayView<const uint8> n_data,
-		const FCloudStorageWriteFinishedDelegate n_completion, CloudTracePtr n_trace /* = CloudTracePtr{} */) {
+		const FCloudStorageWriteFinishedDelegate n_completion, ICloudTracePtr n_trace /* = ICloudTracePtr{} */) {
 	
 	CC_START_TRACE_SEGMENT(n_trace, s_googlestorage_write_segment);
 

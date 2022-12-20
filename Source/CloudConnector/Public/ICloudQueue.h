@@ -66,7 +66,7 @@ struct CLOUDCONNECTOR_API FQueueMessage {
 		/** A trace object which (if present) allows for
 		 *  performance tracing using ICloudTracing
 		 */
-		CloudTracePtr m_trace = nullptr;
+		ICloudTracePtr m_trace = nullptr;
 
 		/**
 		 * age is in milliseconds
