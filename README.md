@@ -746,7 +746,7 @@ unusual outside of the game engine world but Unreal users expect a Plugin to be 
 contained. So all the libraries and DLLs are part of the source tree.
 
 If you do not want to link and execute some binaries downloaded from a less
-than trustworthy dude in the internet, you can use [a script]("/tree/master/Scripts")
+than trustworthy dude in the internet, you can use [a script]("/Scripts")
 to build them yourself.
 
 
