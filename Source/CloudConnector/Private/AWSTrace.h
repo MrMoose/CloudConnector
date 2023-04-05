@@ -52,7 +52,7 @@ class AWSTrace final : public ICloudTrace {
 
 	private:
 		// only ICloudTracing may create such objects
-		template <typename ObjectType>
+		template <typename ObjectType, ESPMode Mode>
 		friend class SharedPointerInternals::TIntrusiveReferenceController;
 		friend class ICloudTracing;
 		friend class AWSTracingImpl;
