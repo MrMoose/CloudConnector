@@ -9,7 +9,7 @@
 #include "Components/SceneComponent.h"
 #include "Components/BillboardComponent.h"
 #include "Templates/Atomic.h"
-
+#include "Engine/Texture2D.h"
 
 ACloudConnector::ACloudConnector()
 		: AActor() {

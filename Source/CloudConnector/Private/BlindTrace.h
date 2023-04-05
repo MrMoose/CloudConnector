@@ -21,7 +21,7 @@ class BlindTrace final : public ICloudTrace {
 		const FString &id() const noexcept override;
 
 	private:
-		template <typename ObjectType>
+		template <typename ObjectType, ESPMode Mode>
 		friend class SharedPointerInternals::TIntrusiveReferenceController;
 		friend class ICloudTracing;
 		friend class BlindTracingImpl;
