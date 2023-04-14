@@ -17,6 +17,7 @@
 
 #include "google/cloud/storage/version.h"
 #include "absl/types/optional.h"
+#include <cstdint>
 #include <iosfwd>
 #include <tuple>
 #include <utility>
@@ -51,7 +52,7 @@ struct CorsEntry {
   std::vector<std::string> response_header;
 };
 
-//@{
+///@{
 /// @name Comparison operators for CorsEntry.
 inline bool operator==(CorsEntry const& lhs, CorsEntry const& rhs) {
   return std::tie(lhs.max_age_seconds, lhs.method, lhs.origin,
@@ -82,7 +83,7 @@ inline bool operator<=(CorsEntry const& lhs, CorsEntry const& rhs) {
 inline bool operator>=(CorsEntry const& lhs, CorsEntry const& rhs) {
   return std::rel_ops::operator>=(lhs, rhs);
 }
-//@}
+///@}
 
 std::ostream& operator<<(std::ostream& os, CorsEntry const& rhs);
 

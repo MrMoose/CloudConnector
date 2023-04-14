@@ -36,11 +36,15 @@ public:
    * with the other Resource. In case of a collision, the other Resource takes
    * precedence.
    *
+   * The specification notes that if schema urls collide, the resulting
+   * schema url is implementation-defined. In the C++ implementation, the
+   * schema url of @param other is picked.
+   *
    * @param other the Resource that will be merged with this.
    * @returns the newly merged Resource.
    */
 
-  Resource Merge(const Resource &other) noexcept;
+  Resource Merge(const Resource &other) const noexcept;
 
   /**
    * Returns a newly created Resource with the specified attributes.

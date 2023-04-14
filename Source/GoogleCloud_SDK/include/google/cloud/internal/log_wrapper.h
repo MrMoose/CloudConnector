@@ -18,8 +18,11 @@
 #include "google/cloud/completion_queue.h"
 #include "google/cloud/future.h"
 #include "google/cloud/grpc_error_delegate.h"
+#include "google/cloud/internal/debug_future_status.h"
+#include "google/cloud/internal/debug_string.h"
+#include "google/cloud/internal/debug_string_protobuf.h"
+#include "google/cloud/internal/debug_string_status.h"
 #include "google/cloud/internal/invoke_result.h"
-#include "google/cloud/internal/log_wrapper_helpers.h"
 #include "google/cloud/log.h"
 #include "google/cloud/status_or.h"
 #include "google/cloud/tracing_options.h"
@@ -218,6 +221,60 @@ Result LogWrapper(Functor&& functor, google::cloud::CompletionQueue& cq,
     auto response = f.get();
     GCP_LOG(DEBUG) << prefix
                    << " >> response=" << DebugString(response, options);
+    return response;
+  });
+}
+
+template <typename Functor, typename Request, typename Context,
+          typename Result = google::cloud::internal::invoke_result_t<
+              Functor, google::cloud::CompletionQueue&,
+              std::unique_ptr<Context>, Request const&>,
+          typename std::enable_if<IsFutureStatus<Result>::value, int>::type = 0>
+Result LogWrapper(Functor&& functor, google::cloud::CompletionQueue& cq,
+                  std::unique_ptr<Context> context, Request const& request,
+                  char const* where, TracingOptions const& options) {
+  // Because this is an asynchronous request we need a unique identifier so
+  // applications can match the request and response in the log.
+  auto prefix = std::string(where) + "(" + RequestIdForLogging() + ")";
+  GCP_LOG(DEBUG) << prefix << " << " << DebugString(request, options);
+  auto response = functor(cq, std::move(context), request);
+  GCP_LOG(DEBUG) << prefix << " >> future_status="
+                 << DebugFutureStatus(
+                        response.wait_for(std::chrono::microseconds(0)));
+  return response.then([prefix, options](future<Status> f) {
+    auto response = f.get();
+    GCP_LOG(DEBUG) << prefix
+                   << " >> response=" << DebugString(response, options);
+    return response;
+  });
+}
+
+template <
+    typename Functor, typename Request, typename Context,
+    typename Result = google::cloud::internal::invoke_result_t<
+        Functor, google::cloud::CompletionQueue&, std::unique_ptr<Context>,
+        Request const&>,
+    typename std::enable_if<IsFutureStatusOr<Result>::value, int>::type = 0>
+Result LogWrapper(Functor&& functor, google::cloud::CompletionQueue& cq,
+                  std::unique_ptr<Context> context, Request const& request,
+                  char const* where, TracingOptions const& options) {
+  // Because this is an asynchronous request we need a unique identifier so
+  // applications can match the request and response in the log.
+  auto prefix = std::string(where) + "(" + RequestIdForLogging() + ")";
+  GCP_LOG(DEBUG) << prefix << " << " << DebugString(request, options);
+  auto response = functor(cq, std::move(context), request);
+  GCP_LOG(DEBUG) << prefix << " >> future_status="
+                 << DebugFutureStatus(
+                        response.wait_for(std::chrono::microseconds(0)));
+  return response.then([prefix, options](decltype(response) f) {
+    auto response = f.get();
+    if (!response) {
+      GCP_LOG(DEBUG) << prefix << " >> status="
+                     << DebugString(response.status(), options);
+    } else {
+      GCP_LOG(DEBUG) << prefix
+                     << " >> response=" << DebugString(*response, options);
+    }
     return response;
   });
 }

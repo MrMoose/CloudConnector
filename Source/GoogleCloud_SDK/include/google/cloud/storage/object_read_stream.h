@@ -125,16 +125,13 @@ class ObjectReadStream : public std::basic_istream<char> {
    *
    * @warning The contents of these headers may change without notice. Unless
    *     documented in the API, headers may be removed or added by the service.
-   *     Also note that the client library uses both the XML and JSON API,
-   *     choosing between them based on the feature set (some functionality is
-   *     only available through the JSON API), and performance.  Consequently,
-   *     the headers may be different on requests using different features.
-   *     Likewise, the headers may change from one version of the library to the
-   *     next, as we find more (or different) opportunities for optimization.
+   *     Furthermore, the headers may change from one version of the library to
+   *     the next, as we find more (or different) opportunities for
+   *     optimization.
    */
   HeadersMap const& headers() const { return buf_->headers(); }
 
-  //@{
+  ///@{
   /**
    * @name Object metadata information.
    *
@@ -177,7 +174,7 @@ class ObjectReadStream : public std::basic_istream<char> {
    * [object transcoding]: https://cloud.google.com/storage/docs/transcoding
    */
   absl::optional<std::uint64_t> const& size() const { return buf_->size(); }
-  //@}
+  ///@}
 
  private:
   std::unique_ptr<internal::ObjectReadStreambuf> buf_;

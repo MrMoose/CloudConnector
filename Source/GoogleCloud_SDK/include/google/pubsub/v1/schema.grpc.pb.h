@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/pubsub/v1/schema.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,23 +22,23 @@
 #include "google/pubsub/v1/schema.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace pubsub {
@@ -77,6 +77,38 @@ class SchemaService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemasResponse>> PrepareAsyncListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemasResponse>>(PrepareAsyncListSchemasRaw(context, request, cq));
     }
+    // Lists all schema revisions for the named schema.
+    virtual ::grpc::Status ListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::google::pubsub::v1::ListSchemaRevisionsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemaRevisionsResponse>> AsyncListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemaRevisionsResponse>>(AsyncListSchemaRevisionsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemaRevisionsResponse>> PrepareAsyncListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemaRevisionsResponse>>(PrepareAsyncListSchemaRevisionsRaw(context, request, cq));
+    }
+    // Commits a new schema revision to an existing schema.
+    virtual ::grpc::Status CommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::google::pubsub::v1::Schema* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>> AsyncCommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>>(AsyncCommitSchemaRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>> PrepareAsyncCommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>>(PrepareAsyncCommitSchemaRaw(context, request, cq));
+    }
+    // Creates a new schema revision that is a copy of the provided revision_id.
+    virtual ::grpc::Status RollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::google::pubsub::v1::Schema* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>> AsyncRollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>>(AsyncRollbackSchemaRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>> PrepareAsyncRollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>>(PrepareAsyncRollbackSchemaRaw(context, request, cq));
+    }
+    // Deletes a specific schema revision.
+    virtual ::grpc::Status DeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::google::pubsub::v1::Schema* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>> AsyncDeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>>(AsyncDeleteSchemaRevisionRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>> PrepareAsyncDeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>>(PrepareAsyncDeleteSchemaRevisionRaw(context, request, cq));
+    }
     // Deletes a schema.
     virtual ::grpc::Status DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest& request, ::grpc::CompletionQueue* cq) {
@@ -113,6 +145,18 @@ class SchemaService final {
       // Lists schemas in a project.
       virtual void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Lists all schema revisions for the named schema.
+      virtual void ListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest* request, ::google::pubsub::v1::ListSchemaRevisionsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest* request, ::google::pubsub::v1::ListSchemaRevisionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Commits a new schema revision to an existing schema.
+      virtual void CommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Creates a new schema revision that is a copy of the provided revision_id.
+      virtual void RollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Deletes a specific schema revision.
+      virtual void DeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Deletes a schema.
       virtual void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -133,6 +177,14 @@ class SchemaService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* PrepareAsyncGetSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemasResponse>* AsyncListSchemasRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemasResponse>* PrepareAsyncListSchemasRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemaRevisionsResponse>* AsyncListSchemaRevisionsRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ListSchemaRevisionsResponse>* PrepareAsyncListSchemaRevisionsRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* AsyncCommitSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* PrepareAsyncCommitSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* AsyncRollbackSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* PrepareAsyncRollbackSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* AsyncDeleteSchemaRevisionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Schema>* PrepareAsyncDeleteSchemaRevisionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::ValidateSchemaResponse>* AsyncValidateSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateSchemaRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -164,6 +216,34 @@ class SchemaService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemasResponse>> PrepareAsyncListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemasResponse>>(PrepareAsyncListSchemasRaw(context, request, cq));
     }
+    ::grpc::Status ListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::google::pubsub::v1::ListSchemaRevisionsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemaRevisionsResponse>> AsyncListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemaRevisionsResponse>>(AsyncListSchemaRevisionsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemaRevisionsResponse>> PrepareAsyncListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemaRevisionsResponse>>(PrepareAsyncListSchemaRevisionsRaw(context, request, cq));
+    }
+    ::grpc::Status CommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::google::pubsub::v1::Schema* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>> AsyncCommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>>(AsyncCommitSchemaRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>> PrepareAsyncCommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>>(PrepareAsyncCommitSchemaRaw(context, request, cq));
+    }
+    ::grpc::Status RollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::google::pubsub::v1::Schema* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>> AsyncRollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>>(AsyncRollbackSchemaRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>> PrepareAsyncRollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>>(PrepareAsyncRollbackSchemaRaw(context, request, cq));
+    }
+    ::grpc::Status DeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::google::pubsub::v1::Schema* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>> AsyncDeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>>(AsyncDeleteSchemaRevisionRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>> PrepareAsyncDeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>>(PrepareAsyncDeleteSchemaRevisionRaw(context, request, cq));
+    }
     ::grpc::Status DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest& request, ::google::protobuf::Empty* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteSchemaRaw(context, request, cq));
@@ -194,6 +274,14 @@ class SchemaService final {
       void GetSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, std::function<void(::grpc::Status)>) override;
       void ListSchemas(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest* request, ::google::pubsub::v1::ListSchemaRevisionsResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListSchemaRevisions(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest* request, ::google::pubsub::v1::ListSchemaRevisionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) override;
+      void CommitSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void RollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) override;
+      void RollbackSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void DeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* request, ::google::pubsub::v1::Schema* response, std::function<void(::grpc::Status)>) override;
+      void DeleteSchemaRevision(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* request, ::google::pubsub::v1::Schema* response, ::grpc::ClientUnaryReactor* reactor) override;
       void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
       void DeleteSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ValidateSchema(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response, std::function<void(::grpc::Status)>) override;
@@ -217,6 +305,14 @@ class SchemaService final {
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* PrepareAsyncGetSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemasResponse>* AsyncListSchemasRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemasResponse>* PrepareAsyncListSchemasRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemasRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemaRevisionsResponse>* AsyncListSchemaRevisionsRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ListSchemaRevisionsResponse>* PrepareAsyncListSchemaRevisionsRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* AsyncCommitSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* PrepareAsyncCommitSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::CommitSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* AsyncRollbackSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* PrepareAsyncRollbackSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::RollbackSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* AsyncDeleteSchemaRevisionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::Schema>* PrepareAsyncDeleteSchemaRevisionRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::DeleteSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::pubsub::v1::ValidateSchemaResponse>* AsyncValidateSchemaRaw(::grpc::ClientContext* context, const ::google::pubsub::v1::ValidateSchemaRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -226,6 +322,10 @@ class SchemaService final {
     const ::grpc::internal::RpcMethod rpcmethod_CreateSchema_;
     const ::grpc::internal::RpcMethod rpcmethod_GetSchema_;
     const ::grpc::internal::RpcMethod rpcmethod_ListSchemas_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListSchemaRevisions_;
+    const ::grpc::internal::RpcMethod rpcmethod_CommitSchema_;
+    const ::grpc::internal::RpcMethod rpcmethod_RollbackSchema_;
+    const ::grpc::internal::RpcMethod rpcmethod_DeleteSchemaRevision_;
     const ::grpc::internal::RpcMethod rpcmethod_DeleteSchema_;
     const ::grpc::internal::RpcMethod rpcmethod_ValidateSchema_;
     const ::grpc::internal::RpcMethod rpcmethod_ValidateMessage_;
@@ -242,6 +342,14 @@ class SchemaService final {
     virtual ::grpc::Status GetSchema(::grpc::ServerContext* context, const ::google::pubsub::v1::GetSchemaRequest* request, ::google::pubsub::v1::Schema* response);
     // Lists schemas in a project.
     virtual ::grpc::Status ListSchemas(::grpc::ServerContext* context, const ::google::pubsub::v1::ListSchemasRequest* request, ::google::pubsub::v1::ListSchemasResponse* response);
+    // Lists all schema revisions for the named schema.
+    virtual ::grpc::Status ListSchemaRevisions(::grpc::ServerContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest* request, ::google::pubsub::v1::ListSchemaRevisionsResponse* response);
+    // Commits a new schema revision to an existing schema.
+    virtual ::grpc::Status CommitSchema(::grpc::ServerContext* context, const ::google::pubsub::v1::CommitSchemaRequest* request, ::google::pubsub::v1::Schema* response);
+    // Creates a new schema revision that is a copy of the provided revision_id.
+    virtual ::grpc::Status RollbackSchema(::grpc::ServerContext* context, const ::google::pubsub::v1::RollbackSchemaRequest* request, ::google::pubsub::v1::Schema* response);
+    // Deletes a specific schema revision.
+    virtual ::grpc::Status DeleteSchemaRevision(::grpc::ServerContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* request, ::google::pubsub::v1::Schema* response);
     // Deletes a schema.
     virtual ::grpc::Status DeleteSchema(::grpc::ServerContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response);
     // Validates a schema.
@@ -310,12 +418,92 @@ class SchemaService final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_ListSchemaRevisions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ListSchemaRevisions() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_ListSchemaRevisions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListSchemaRevisions(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::ListSchemaRevisionsRequest* /*request*/, ::google::pubsub::v1::ListSchemaRevisionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListSchemaRevisions(::grpc::ServerContext* context, ::google::pubsub::v1::ListSchemaRevisionsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::pubsub::v1::ListSchemaRevisionsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_CommitSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_CommitSchema() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_CommitSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CommitSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::CommitSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCommitSchema(::grpc::ServerContext* context, ::google::pubsub::v1::CommitSchemaRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::pubsub::v1::Schema>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_RollbackSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_RollbackSchema() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_RollbackSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RollbackSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::RollbackSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestRollbackSchema(::grpc::ServerContext* context, ::google::pubsub::v1::RollbackSchemaRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::pubsub::v1::Schema>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_DeleteSchemaRevision : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_DeleteSchemaRevision() {
+      ::grpc::Service::MarkMethodAsync(6);
+    }
+    ~WithAsyncMethod_DeleteSchemaRevision() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteSchemaRevision(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteSchemaRevision(::grpc::ServerContext* context, ::google::pubsub::v1::DeleteSchemaRevisionRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::pubsub::v1::Schema>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_DeleteSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteSchema() {
-      ::grpc::Service::MarkMethodAsync(3);
+      ::grpc::Service::MarkMethodAsync(7);
     }
     ~WithAsyncMethod_DeleteSchema() override {
       BaseClassMustBeDerivedFromService(this);
@@ -326,7 +514,7 @@ class SchemaService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteSchema(::grpc::ServerContext* context, ::google::pubsub::v1::DeleteSchemaRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -335,7 +523,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ValidateSchema() {
-      ::grpc::Service::MarkMethodAsync(4);
+      ::grpc::Service::MarkMethodAsync(8);
     }
     ~WithAsyncMethod_ValidateSchema() override {
       BaseClassMustBeDerivedFromService(this);
@@ -346,7 +534,7 @@ class SchemaService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestValidateSchema(::grpc::ServerContext* context, ::google::pubsub::v1::ValidateSchemaRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::pubsub::v1::ValidateSchemaResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -355,7 +543,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ValidateMessage() {
-      ::grpc::Service::MarkMethodAsync(5);
+      ::grpc::Service::MarkMethodAsync(9);
     }
     ~WithAsyncMethod_ValidateMessage() override {
       BaseClassMustBeDerivedFromService(this);
@@ -366,10 +554,10 @@ class SchemaService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestValidateMessage(::grpc::ServerContext* context, ::google::pubsub::v1::ValidateMessageRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::pubsub::v1::ValidateMessageResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CreateSchema<WithAsyncMethod_GetSchema<WithAsyncMethod_ListSchemas<WithAsyncMethod_DeleteSchema<WithAsyncMethod_ValidateSchema<WithAsyncMethod_ValidateMessage<Service > > > > > > AsyncService;
+  typedef WithAsyncMethod_CreateSchema<WithAsyncMethod_GetSchema<WithAsyncMethod_ListSchemas<WithAsyncMethod_ListSchemaRevisions<WithAsyncMethod_CommitSchema<WithAsyncMethod_RollbackSchema<WithAsyncMethod_DeleteSchemaRevision<WithAsyncMethod_DeleteSchema<WithAsyncMethod_ValidateSchema<WithAsyncMethod_ValidateMessage<Service > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CreateSchema : public BaseClass {
    private:
@@ -452,18 +640,126 @@ class SchemaService final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSchemasRequest* /*request*/, ::google::pubsub::v1::ListSchemasResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_ListSchemaRevisions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ListSchemaRevisions() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListSchemaRevisionsRequest, ::google::pubsub::v1::ListSchemaRevisionsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ListSchemaRevisionsRequest* request, ::google::pubsub::v1::ListSchemaRevisionsResponse* response) { return this->ListSchemaRevisions(context, request, response); }));}
+    void SetMessageAllocatorFor_ListSchemaRevisions(
+        ::grpc::MessageAllocator< ::google::pubsub::v1::ListSchemaRevisionsRequest, ::google::pubsub::v1::ListSchemaRevisionsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ListSchemaRevisionsRequest, ::google::pubsub::v1::ListSchemaRevisionsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ListSchemaRevisions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListSchemaRevisions(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::ListSchemaRevisionsRequest* /*request*/, ::google::pubsub::v1::ListSchemaRevisionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListSchemaRevisions(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ListSchemaRevisionsRequest* /*request*/, ::google::pubsub::v1::ListSchemaRevisionsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CommitSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CommitSchema() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::CommitSchemaRequest, ::google::pubsub::v1::Schema>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::CommitSchemaRequest* request, ::google::pubsub::v1::Schema* response) { return this->CommitSchema(context, request, response); }));}
+    void SetMessageAllocatorFor_CommitSchema(
+        ::grpc::MessageAllocator< ::google::pubsub::v1::CommitSchemaRequest, ::google::pubsub::v1::Schema>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::CommitSchemaRequest, ::google::pubsub::v1::Schema>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CommitSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CommitSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::CommitSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CommitSchema(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::CommitSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_RollbackSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_RollbackSchema() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::RollbackSchemaRequest, ::google::pubsub::v1::Schema>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::RollbackSchemaRequest* request, ::google::pubsub::v1::Schema* response) { return this->RollbackSchema(context, request, response); }));}
+    void SetMessageAllocatorFor_RollbackSchema(
+        ::grpc::MessageAllocator< ::google::pubsub::v1::RollbackSchemaRequest, ::google::pubsub::v1::Schema>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::RollbackSchemaRequest, ::google::pubsub::v1::Schema>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_RollbackSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RollbackSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::RollbackSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RollbackSchema(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::RollbackSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_DeleteSchemaRevision : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_DeleteSchemaRevision() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSchemaRevisionRequest, ::google::pubsub::v1::Schema>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* request, ::google::pubsub::v1::Schema* response) { return this->DeleteSchemaRevision(context, request, response); }));}
+    void SetMessageAllocatorFor_DeleteSchemaRevision(
+        ::grpc::MessageAllocator< ::google::pubsub::v1::DeleteSchemaRevisionRequest, ::google::pubsub::v1::Schema>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSchemaRevisionRequest, ::google::pubsub::v1::Schema>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_DeleteSchemaRevision() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteSchemaRevision(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteSchemaRevision(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_DeleteSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_DeleteSchema() {
-      ::grpc::Service::MarkMethodCallback(3,
+      ::grpc::Service::MarkMethodCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSchemaRequest, ::google::protobuf::Empty>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::DeleteSchemaRequest* request, ::google::protobuf::Empty* response) { return this->DeleteSchema(context, request, response); }));}
     void SetMessageAllocatorFor_DeleteSchema(
         ::grpc::MessageAllocator< ::google::pubsub::v1::DeleteSchemaRequest, ::google::protobuf::Empty>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::DeleteSchemaRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -484,13 +780,13 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ValidateSchema() {
-      ::grpc::Service::MarkMethodCallback(4,
+      ::grpc::Service::MarkMethodCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ValidateSchemaRequest, ::google::pubsub::v1::ValidateSchemaResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ValidateSchemaRequest* request, ::google::pubsub::v1::ValidateSchemaResponse* response) { return this->ValidateSchema(context, request, response); }));}
     void SetMessageAllocatorFor_ValidateSchema(
         ::grpc::MessageAllocator< ::google::pubsub::v1::ValidateSchemaRequest, ::google::pubsub::v1::ValidateSchemaResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ValidateSchemaRequest, ::google::pubsub::v1::ValidateSchemaResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -511,13 +807,13 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_ValidateMessage() {
-      ::grpc::Service::MarkMethodCallback(5,
+      ::grpc::Service::MarkMethodCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ValidateMessageRequest, ::google::pubsub::v1::ValidateMessageResponse>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::google::pubsub::v1::ValidateMessageRequest* request, ::google::pubsub::v1::ValidateMessageResponse* response) { return this->ValidateMessage(context, request, response); }));}
     void SetMessageAllocatorFor_ValidateMessage(
         ::grpc::MessageAllocator< ::google::pubsub::v1::ValidateMessageRequest, ::google::pubsub::v1::ValidateMessageResponse>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::google::pubsub::v1::ValidateMessageRequest, ::google::pubsub::v1::ValidateMessageResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -532,7 +828,7 @@ class SchemaService final {
     virtual ::grpc::ServerUnaryReactor* ValidateMessage(
       ::grpc::CallbackServerContext* /*context*/, const ::google::pubsub::v1::ValidateMessageRequest* /*request*/, ::google::pubsub::v1::ValidateMessageResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_CreateSchema<WithCallbackMethod_GetSchema<WithCallbackMethod_ListSchemas<WithCallbackMethod_DeleteSchema<WithCallbackMethod_ValidateSchema<WithCallbackMethod_ValidateMessage<Service > > > > > > CallbackService;
+  typedef WithCallbackMethod_CreateSchema<WithCallbackMethod_GetSchema<WithCallbackMethod_ListSchemas<WithCallbackMethod_ListSchemaRevisions<WithCallbackMethod_CommitSchema<WithCallbackMethod_RollbackSchema<WithCallbackMethod_DeleteSchemaRevision<WithCallbackMethod_DeleteSchema<WithCallbackMethod_ValidateSchema<WithCallbackMethod_ValidateMessage<Service > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateSchema : public BaseClass {
@@ -586,12 +882,80 @@ class SchemaService final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_ListSchemaRevisions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ListSchemaRevisions() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_ListSchemaRevisions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListSchemaRevisions(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::ListSchemaRevisionsRequest* /*request*/, ::google::pubsub::v1::ListSchemaRevisionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_CommitSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_CommitSchema() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_CommitSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CommitSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::CommitSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_RollbackSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_RollbackSchema() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_RollbackSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RollbackSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::RollbackSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DeleteSchemaRevision : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_DeleteSchemaRevision() {
+      ::grpc::Service::MarkMethodGeneric(6);
+    }
+    ~WithGenericMethod_DeleteSchemaRevision() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteSchemaRevision(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_DeleteSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteSchema() {
-      ::grpc::Service::MarkMethodGeneric(3);
+      ::grpc::Service::MarkMethodGeneric(7);
     }
     ~WithGenericMethod_DeleteSchema() override {
       BaseClassMustBeDerivedFromService(this);
@@ -608,7 +972,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ValidateSchema() {
-      ::grpc::Service::MarkMethodGeneric(4);
+      ::grpc::Service::MarkMethodGeneric(8);
     }
     ~WithGenericMethod_ValidateSchema() override {
       BaseClassMustBeDerivedFromService(this);
@@ -625,7 +989,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ValidateMessage() {
-      ::grpc::Service::MarkMethodGeneric(5);
+      ::grpc::Service::MarkMethodGeneric(9);
     }
     ~WithGenericMethod_ValidateMessage() override {
       BaseClassMustBeDerivedFromService(this);
@@ -697,12 +1061,92 @@ class SchemaService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_ListSchemaRevisions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ListSchemaRevisions() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_ListSchemaRevisions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListSchemaRevisions(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::ListSchemaRevisionsRequest* /*request*/, ::google::pubsub::v1::ListSchemaRevisionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestListSchemaRevisions(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_CommitSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_CommitSchema() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_CommitSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CommitSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::CommitSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestCommitSchema(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_RollbackSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_RollbackSchema() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_RollbackSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RollbackSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::RollbackSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestRollbackSchema(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_DeleteSchemaRevision : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_DeleteSchemaRevision() {
+      ::grpc::Service::MarkMethodRaw(6);
+    }
+    ~WithRawMethod_DeleteSchemaRevision() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteSchemaRevision(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDeleteSchemaRevision(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_DeleteSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteSchema() {
-      ::grpc::Service::MarkMethodRaw(3);
+      ::grpc::Service::MarkMethodRaw(7);
     }
     ~WithRawMethod_DeleteSchema() override {
       BaseClassMustBeDerivedFromService(this);
@@ -713,7 +1157,7 @@ class SchemaService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestDeleteSchema(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(7, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -722,7 +1166,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ValidateSchema() {
-      ::grpc::Service::MarkMethodRaw(4);
+      ::grpc::Service::MarkMethodRaw(8);
     }
     ~WithRawMethod_ValidateSchema() override {
       BaseClassMustBeDerivedFromService(this);
@@ -733,7 +1177,7 @@ class SchemaService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestValidateSchema(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(8, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -742,7 +1186,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ValidateMessage() {
-      ::grpc::Service::MarkMethodRaw(5);
+      ::grpc::Service::MarkMethodRaw(9);
     }
     ~WithRawMethod_ValidateMessage() override {
       BaseClassMustBeDerivedFromService(this);
@@ -753,7 +1197,7 @@ class SchemaService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestValidateMessage(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -823,12 +1267,100 @@ class SchemaService final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_ListSchemaRevisions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ListSchemaRevisions() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListSchemaRevisions(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ListSchemaRevisions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ListSchemaRevisions(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::ListSchemaRevisionsRequest* /*request*/, ::google::pubsub::v1::ListSchemaRevisionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ListSchemaRevisions(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CommitSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CommitSchema() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CommitSchema(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CommitSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CommitSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::CommitSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CommitSchema(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_RollbackSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_RollbackSchema() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RollbackSchema(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_RollbackSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RollbackSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::RollbackSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RollbackSchema(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_DeleteSchemaRevision : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_DeleteSchemaRevision() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSchemaRevision(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_DeleteSchemaRevision() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteSchemaRevision(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteSchemaRevision(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_DeleteSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_DeleteSchema() {
-      ::grpc::Service::MarkMethodRawCallback(3,
+      ::grpc::Service::MarkMethodRawCallback(7,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteSchema(context, request, response); }));
@@ -850,7 +1382,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ValidateSchema() {
-      ::grpc::Service::MarkMethodRawCallback(4,
+      ::grpc::Service::MarkMethodRawCallback(8,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ValidateSchema(context, request, response); }));
@@ -872,7 +1404,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_ValidateMessage() {
-      ::grpc::Service::MarkMethodRawCallback(5,
+      ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ValidateMessage(context, request, response); }));
@@ -970,12 +1502,120 @@ class SchemaService final {
     virtual ::grpc::Status StreamedListSchemas(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::pubsub::v1::ListSchemasRequest,::google::pubsub::v1::ListSchemasResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_ListSchemaRevisions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ListSchemaRevisions() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::pubsub::v1::ListSchemaRevisionsRequest, ::google::pubsub::v1::ListSchemaRevisionsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::pubsub::v1::ListSchemaRevisionsRequest, ::google::pubsub::v1::ListSchemaRevisionsResponse>* streamer) {
+                       return this->StreamedListSchemaRevisions(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_ListSchemaRevisions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ListSchemaRevisions(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::ListSchemaRevisionsRequest* /*request*/, ::google::pubsub::v1::ListSchemaRevisionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedListSchemaRevisions(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::pubsub::v1::ListSchemaRevisionsRequest,::google::pubsub::v1::ListSchemaRevisionsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_CommitSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_CommitSchema() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::pubsub::v1::CommitSchemaRequest, ::google::pubsub::v1::Schema>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::pubsub::v1::CommitSchemaRequest, ::google::pubsub::v1::Schema>* streamer) {
+                       return this->StreamedCommitSchema(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_CommitSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status CommitSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::CommitSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedCommitSchema(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::pubsub::v1::CommitSchemaRequest,::google::pubsub::v1::Schema>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_RollbackSchema : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_RollbackSchema() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::pubsub::v1::RollbackSchemaRequest, ::google::pubsub::v1::Schema>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::pubsub::v1::RollbackSchemaRequest, ::google::pubsub::v1::Schema>* streamer) {
+                       return this->StreamedRollbackSchema(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_RollbackSchema() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status RollbackSchema(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::RollbackSchemaRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedRollbackSchema(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::pubsub::v1::RollbackSchemaRequest,::google::pubsub::v1::Schema>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DeleteSchemaRevision : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_DeleteSchemaRevision() {
+      ::grpc::Service::MarkMethodStreamed(6,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::pubsub::v1::DeleteSchemaRevisionRequest, ::google::pubsub::v1::Schema>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::pubsub::v1::DeleteSchemaRevisionRequest, ::google::pubsub::v1::Schema>* streamer) {
+                       return this->StreamedDeleteSchemaRevision(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_DeleteSchemaRevision() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DeleteSchemaRevision(::grpc::ServerContext* /*context*/, const ::google::pubsub::v1::DeleteSchemaRevisionRequest* /*request*/, ::google::pubsub::v1::Schema* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDeleteSchemaRevision(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::pubsub::v1::DeleteSchemaRevisionRequest,::google::pubsub::v1::Schema>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_DeleteSchema : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteSchema() {
-      ::grpc::Service::MarkMethodStreamed(3,
+      ::grpc::Service::MarkMethodStreamed(7,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::pubsub::v1::DeleteSchemaRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
@@ -1002,7 +1642,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ValidateSchema() {
-      ::grpc::Service::MarkMethodStreamed(4,
+      ::grpc::Service::MarkMethodStreamed(8,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::pubsub::v1::ValidateSchemaRequest, ::google::pubsub::v1::ValidateSchemaResponse>(
             [this](::grpc::ServerContext* context,
@@ -1029,7 +1669,7 @@ class SchemaService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ValidateMessage() {
-      ::grpc::Service::MarkMethodStreamed(5,
+      ::grpc::Service::MarkMethodStreamed(9,
         new ::grpc::internal::StreamedUnaryHandler<
           ::google::pubsub::v1::ValidateMessageRequest, ::google::pubsub::v1::ValidateMessageResponse>(
             [this](::grpc::ServerContext* context,
@@ -1050,9 +1690,9 @@ class SchemaService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedValidateMessage(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::pubsub::v1::ValidateMessageRequest,::google::pubsub::v1::ValidateMessageResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_CreateSchema<WithStreamedUnaryMethod_GetSchema<WithStreamedUnaryMethod_ListSchemas<WithStreamedUnaryMethod_DeleteSchema<WithStreamedUnaryMethod_ValidateSchema<WithStreamedUnaryMethod_ValidateMessage<Service > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_CreateSchema<WithStreamedUnaryMethod_GetSchema<WithStreamedUnaryMethod_ListSchemas<WithStreamedUnaryMethod_ListSchemaRevisions<WithStreamedUnaryMethod_CommitSchema<WithStreamedUnaryMethod_RollbackSchema<WithStreamedUnaryMethod_DeleteSchemaRevision<WithStreamedUnaryMethod_DeleteSchema<WithStreamedUnaryMethod_ValidateSchema<WithStreamedUnaryMethod_ValidateMessage<Service > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_CreateSchema<WithStreamedUnaryMethod_GetSchema<WithStreamedUnaryMethod_ListSchemas<WithStreamedUnaryMethod_DeleteSchema<WithStreamedUnaryMethod_ValidateSchema<WithStreamedUnaryMethod_ValidateMessage<Service > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_CreateSchema<WithStreamedUnaryMethod_GetSchema<WithStreamedUnaryMethod_ListSchemas<WithStreamedUnaryMethod_ListSchemaRevisions<WithStreamedUnaryMethod_CommitSchema<WithStreamedUnaryMethod_RollbackSchema<WithStreamedUnaryMethod_DeleteSchemaRevision<WithStreamedUnaryMethod_DeleteSchema<WithStreamedUnaryMethod_ValidateSchema<WithStreamedUnaryMethod_ValidateMessage<Service > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v1

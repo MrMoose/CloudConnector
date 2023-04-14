@@ -15,9 +15,9 @@
 #ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_INTERNAL_SHA256_HASH_H
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_INTERNAL_SHA256_HASH_H
 
+#include "google/cloud/internal/sha256_type.h"
 #include "google/cloud/version.h"
 #include "absl/types/span.h"
-#include <array>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -26,9 +26,6 @@ namespace google {
 namespace cloud {
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
 namespace internal {
-
-// (8 bits per byte) * 32 bytes = 256 bits
-using Sha256Type = std::array<std::uint8_t, 32>;
 
 /// Return the SHA256 hash (as raw bytes) of @p str.
 Sha256Type Sha256Hash(std::string const& str);

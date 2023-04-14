@@ -38,7 +38,7 @@ class PolicyDocumentCondition {
 
   std::vector<std::string> const& elements() const { return elements_; }
 
-  //@{
+  ///@{
   /**
    * @name Creates different types of PolicyDocumentCondition matchers.
    */
@@ -79,7 +79,7 @@ class PolicyDocumentCondition {
     result.emplace_back(std::to_string(max_range));
     return result;
   }
-  //@}
+  ///@}
 
  private:
   std::vector<std::string> elements_;
@@ -169,7 +169,7 @@ std::ostream& operator<<(std::ostream& os, PolicyDocumentV4 const& rhs);
 /**
  * Define a policy document result.
  *
- * `access_id` is the the Cloud Storage email form of the client ID. `policy`
+ * `access_id` is the Cloud Storage email form of the client ID. `policy`
  * is the base64 encoded form of the plain-text policy document and `signature`
  * is the signed policy document.
  */
@@ -185,7 +185,7 @@ std::ostream& operator<<(std::ostream& os, PolicyDocumentResult const& rhs);
 /**
  * Define a policy document result V4.
  *
- * `access_id` is the the Cloud Storage email form of the client ID. `policy`
+ * `access_id` is the Cloud Storage email form of the client ID. `policy`
  * is the base64 encoded form of the plain-text policy document and `signature`
  * is the signed policy document.
  */

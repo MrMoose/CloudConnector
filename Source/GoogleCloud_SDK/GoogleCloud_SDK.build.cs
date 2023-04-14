@@ -114,27 +114,14 @@ public class GoogleCloud_SDK : ModuleRules {
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_cordz_handle.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_cordz_info.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_cordz_sample_token.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_crc_cord_state.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_crc_cpu_detect.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_crc_internal.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_crc32c.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_debugging_internal.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_demangle_internal.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_examine_stack.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_exponential_biased.lib"));
-	
-		/* Some are not needed as determined by trial and error
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_failure_signal_handler.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_commandlineflag.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_commandlineflag_internal.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_config.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_internal.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_marshalling.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_parse.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_private_handle_accessor.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_program_name.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_reflection.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_usage.lib"));
-		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_flags_usage_internal.lib"));
-		*/
-
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_graphcycles_internal.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_hash.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "absl_low_level_hash.lib"));
@@ -170,6 +157,7 @@ public class GoogleCloud_SDK : ModuleRules {
 		// OpenSSL
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libcrypto.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libssl.lib"));
+
 		PublicSystemLibraries.Add("crypt32.lib");   // indirect dependencies coming in via OpenSSL. Windows only.
 		PublicSystemLibraries.Add("Wldap32.lib");
 
@@ -186,11 +174,16 @@ public class GoogleCloud_SDK : ModuleRules {
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "grpcpp_channelz.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "grpc_plugin_support.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "grpc_unsecure.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "grpc_authorization_provider.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "re2.lib"));
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "upb.lib"));
 
 		// Protobuf
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libprotobuf.lib"));
+		
+		// utf8-range
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "utf8_range.lib"));
+		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "utf8_validity.lib"));
 
 		// CURL
 		PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, "libcurl.lib"));

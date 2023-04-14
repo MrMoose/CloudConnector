@@ -84,10 +84,18 @@ struct DownloadStallMinimumRateOption {
   using Type = std::int32_t;
 };
 
+/**
+ * Endpoint for querying and cancelling longrunning operations.
+ */
+struct LongrunningEndpointOption {
+  using Type = std::string;
+};
+
 /// The complete list of options accepted by `CurlRestClient`
 using RestInternalOptionList = ::google::cloud::OptionList<
     TransferStallTimeoutOption, TransferStallMinimumRateOption,
-    DownloadStallTimeoutOption, DownloadStallMinimumRateOption>;
+    DownloadStallTimeoutOption, DownloadStallMinimumRateOption,
+    LongrunningEndpointOption>;
 
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace rest_internal

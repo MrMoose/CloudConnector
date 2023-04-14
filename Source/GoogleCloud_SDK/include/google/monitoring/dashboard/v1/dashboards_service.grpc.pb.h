@@ -22,23 +22,23 @@
 #include "google/monitoring/dashboard/v1/dashboards_service.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace monitoring {
@@ -55,8 +55,12 @@ class DashboardsService final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    // Creates a new custom dashboard. For examples on how you can use this API to create dashboards, see [Managing dashboards by API](https://cloud.google.com/monitoring/dashboards/api-dashboard).
-    // This method requires the `monitoring.dashboards.create` permission on the specified project. For more information about permissions, see [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    // Creates a new custom dashboard. For examples on how you can use this API to
+    // create dashboards, see [Managing dashboards by
+    // API](https://cloud.google.com/monitoring/dashboards/api-dashboard). This
+    // method requires the `monitoring.dashboards.create` permission on the
+    // specified project. For more information about permissions, see [Cloud
+    // Identity and Access Management](https://cloud.google.com/iam).
     virtual ::grpc::Status CreateDashboard(::grpc::ClientContext* context, const ::google::monitoring::dashboard::v1::CreateDashboardRequest& request, ::google::monitoring::dashboard::v1::Dashboard* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::dashboard::v1::Dashboard>> AsyncCreateDashboard(::grpc::ClientContext* context, const ::google::monitoring::dashboard::v1::CreateDashboardRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::monitoring::dashboard::v1::Dashboard>>(AsyncCreateDashboardRaw(context, request, cq));
@@ -115,8 +119,12 @@ class DashboardsService final {
     class async_interface {
      public:
       virtual ~async_interface() {}
-      // Creates a new custom dashboard. For examples on how you can use this API to create dashboards, see [Managing dashboards by API](https://cloud.google.com/monitoring/dashboards/api-dashboard).
-      // This method requires the `monitoring.dashboards.create` permission on the specified project. For more information about permissions, see [Cloud Identity and Access Management](https://cloud.google.com/iam).
+      // Creates a new custom dashboard. For examples on how you can use this API to
+      // create dashboards, see [Managing dashboards by
+      // API](https://cloud.google.com/monitoring/dashboards/api-dashboard). This
+      // method requires the `monitoring.dashboards.create` permission on the
+      // specified project. For more information about permissions, see [Cloud
+      // Identity and Access Management](https://cloud.google.com/iam).
       virtual void CreateDashboard(::grpc::ClientContext* context, const ::google::monitoring::dashboard::v1::CreateDashboardRequest* request, ::google::monitoring::dashboard::v1::Dashboard* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateDashboard(::grpc::ClientContext* context, const ::google::monitoring::dashboard::v1::CreateDashboardRequest* request, ::google::monitoring::dashboard::v1::Dashboard* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Lists the existing dashboards.
@@ -247,8 +255,12 @@ class DashboardsService final {
    public:
     Service();
     virtual ~Service();
-    // Creates a new custom dashboard. For examples on how you can use this API to create dashboards, see [Managing dashboards by API](https://cloud.google.com/monitoring/dashboards/api-dashboard).
-    // This method requires the `monitoring.dashboards.create` permission on the specified project. For more information about permissions, see [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    // Creates a new custom dashboard. For examples on how you can use this API to
+    // create dashboards, see [Managing dashboards by
+    // API](https://cloud.google.com/monitoring/dashboards/api-dashboard). This
+    // method requires the `monitoring.dashboards.create` permission on the
+    // specified project. For more information about permissions, see [Cloud
+    // Identity and Access Management](https://cloud.google.com/iam).
     virtual ::grpc::Status CreateDashboard(::grpc::ServerContext* context, const ::google::monitoring::dashboard::v1::CreateDashboardRequest* request, ::google::monitoring::dashboard::v1::Dashboard* response);
     // Lists the existing dashboards.
     //

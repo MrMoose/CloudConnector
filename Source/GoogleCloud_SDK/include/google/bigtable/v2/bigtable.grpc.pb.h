@@ -22,23 +22,23 @@
 #include "google/bigtable/v2/bigtable.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace bigtable {
@@ -130,6 +130,32 @@ class Bigtable final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::ReadModifyWriteRowResponse>> PrepareAsyncReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::ReadModifyWriteRowResponse>>(PrepareAsyncReadModifyWriteRowRaw(context, request, cq));
     }
+    // NOTE: This API is intended to be used by Apache Beam BigtableIO.
+    // Returns the current list of partitions that make up the table's
+    // change stream. The union of partitions will cover the entire keyspace.
+    // Partitions can be read with `ReadChangeStream`.
+    std::unique_ptr< ::grpc::ClientReaderInterface< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>> GenerateInitialChangeStreamPartitions(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request) {
+      return std::unique_ptr< ::grpc::ClientReaderInterface< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>>(GenerateInitialChangeStreamPartitionsRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>> AsyncGenerateInitialChangeStreamPartitions(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>>(AsyncGenerateInitialChangeStreamPartitionsRaw(context, request, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>> PrepareAsyncGenerateInitialChangeStreamPartitions(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>>(PrepareAsyncGenerateInitialChangeStreamPartitionsRaw(context, request, cq));
+    }
+    // NOTE: This API is intended to be used by Apache Beam BigtableIO.
+    // Reads changes from a table's change stream. Changes will
+    // reflect both user-initiated mutations and mutations that are caused by
+    // garbage collection.
+    std::unique_ptr< ::grpc::ClientReaderInterface< ::google::bigtable::v2::ReadChangeStreamResponse>> ReadChangeStream(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request) {
+      return std::unique_ptr< ::grpc::ClientReaderInterface< ::google::bigtable::v2::ReadChangeStreamResponse>>(ReadChangeStreamRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::ReadChangeStreamResponse>> AsyncReadChangeStream(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::ReadChangeStreamResponse>>(AsyncReadChangeStreamRaw(context, request, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::ReadChangeStreamResponse>> PrepareAsyncReadChangeStream(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::ReadChangeStreamResponse>>(PrepareAsyncReadChangeStreamRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -166,6 +192,16 @@ class Bigtable final {
       // time. The method returns the new contents of all modified cells.
       virtual void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // NOTE: This API is intended to be used by Apache Beam BigtableIO.
+      // Returns the current list of partitions that make up the table's
+      // change stream. The union of partitions will cover the entire keyspace.
+      // Partitions can be read with `ReadChangeStream`.
+      virtual void GenerateInitialChangeStreamPartitions(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* reactor) = 0;
+      // NOTE: This API is intended to be used by Apache Beam BigtableIO.
+      // Reads changes from a table's change stream. Changes will
+      // reflect both user-initiated mutations and mutations that are caused by
+      // garbage collection.
+      virtual void ReadChangeStream(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::ReadChangeStreamResponse>* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -188,6 +224,12 @@ class Bigtable final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::PingAndWarmResponse>* PrepareAsyncPingAndWarmRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::ReadModifyWriteRowResponse>* AsyncReadModifyWriteRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::bigtable::v2::ReadModifyWriteRowResponse>* PrepareAsyncReadModifyWriteRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderInterface< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* GenerateInitialChangeStreamPartitionsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* AsyncGenerateInitialChangeStreamPartitionsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* PrepareAsyncGenerateInitialChangeStreamPartitionsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientReaderInterface< ::google::bigtable::v2::ReadChangeStreamResponse>* ReadChangeStreamRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::ReadChangeStreamResponse>* AsyncReadChangeStreamRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::google::bigtable::v2::ReadChangeStreamResponse>* PrepareAsyncReadChangeStreamRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -247,6 +289,24 @@ class Bigtable final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>> PrepareAsyncReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>>(PrepareAsyncReadModifyWriteRowRaw(context, request, cq));
     }
+    std::unique_ptr< ::grpc::ClientReader< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>> GenerateInitialChangeStreamPartitions(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request) {
+      return std::unique_ptr< ::grpc::ClientReader< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>>(GenerateInitialChangeStreamPartitionsRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>> AsyncGenerateInitialChangeStreamPartitions(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>>(AsyncGenerateInitialChangeStreamPartitionsRaw(context, request, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>> PrepareAsyncGenerateInitialChangeStreamPartitions(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>>(PrepareAsyncGenerateInitialChangeStreamPartitionsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientReader< ::google::bigtable::v2::ReadChangeStreamResponse>> ReadChangeStream(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request) {
+      return std::unique_ptr< ::grpc::ClientReader< ::google::bigtable::v2::ReadChangeStreamResponse>>(ReadChangeStreamRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::google::bigtable::v2::ReadChangeStreamResponse>> AsyncReadChangeStream(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::google::bigtable::v2::ReadChangeStreamResponse>>(AsyncReadChangeStreamRaw(context, request, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::google::bigtable::v2::ReadChangeStreamResponse>> PrepareAsyncReadChangeStream(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::google::bigtable::v2::ReadChangeStreamResponse>>(PrepareAsyncReadChangeStreamRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -261,6 +321,8 @@ class Bigtable final {
       void PingAndWarm(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest* request, ::google::bigtable::v2::PingAndWarmResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, std::function<void(::grpc::Status)>) override;
       void ReadModifyWriteRow(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GenerateInitialChangeStreamPartitions(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* reactor) override;
+      void ReadChangeStream(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest* request, ::grpc::ClientReadReactor< ::google::bigtable::v2::ReadChangeStreamResponse>* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -289,6 +351,12 @@ class Bigtable final {
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::PingAndWarmResponse>* PrepareAsyncPingAndWarmRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::PingAndWarmRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>* AsyncReadModifyWriteRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::bigtable::v2::ReadModifyWriteRowResponse>* PrepareAsyncReadModifyWriteRowRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientReader< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* GenerateInitialChangeStreamPartitionsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request) override;
+    ::grpc::ClientAsyncReader< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* AsyncGenerateInitialChangeStreamPartitionsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReader< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* PrepareAsyncGenerateInitialChangeStreamPartitionsRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientReader< ::google::bigtable::v2::ReadChangeStreamResponse>* ReadChangeStreamRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request) override;
+    ::grpc::ClientAsyncReader< ::google::bigtable::v2::ReadChangeStreamResponse>* AsyncReadChangeStreamRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReader< ::google::bigtable::v2::ReadChangeStreamResponse>* PrepareAsyncReadChangeStreamRaw(::grpc::ClientContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_ReadRows_;
     const ::grpc::internal::RpcMethod rpcmethod_SampleRowKeys_;
     const ::grpc::internal::RpcMethod rpcmethod_MutateRow_;
@@ -296,6 +364,8 @@ class Bigtable final {
     const ::grpc::internal::RpcMethod rpcmethod_CheckAndMutateRow_;
     const ::grpc::internal::RpcMethod rpcmethod_PingAndWarm_;
     const ::grpc::internal::RpcMethod rpcmethod_ReadModifyWriteRow_;
+    const ::grpc::internal::RpcMethod rpcmethod_GenerateInitialChangeStreamPartitions_;
+    const ::grpc::internal::RpcMethod rpcmethod_ReadChangeStream_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -332,6 +402,16 @@ class Bigtable final {
     // timestamp is the greater of the existing timestamp or the current server
     // time. The method returns the new contents of all modified cells.
     virtual ::grpc::Status ReadModifyWriteRow(::grpc::ServerContext* context, const ::google::bigtable::v2::ReadModifyWriteRowRequest* request, ::google::bigtable::v2::ReadModifyWriteRowResponse* response);
+    // NOTE: This API is intended to be used by Apache Beam BigtableIO.
+    // Returns the current list of partitions that make up the table's
+    // change stream. The union of partitions will cover the entire keyspace.
+    // Partitions can be read with `ReadChangeStream`.
+    virtual ::grpc::Status GenerateInitialChangeStreamPartitions(::grpc::ServerContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* request, ::grpc::ServerWriter< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* writer);
+    // NOTE: This API is intended to be used by Apache Beam BigtableIO.
+    // Reads changes from a table's change stream. Changes will
+    // reflect both user-initiated mutations and mutations that are caused by
+    // garbage collection.
+    virtual ::grpc::Status ReadChangeStream(::grpc::ServerContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest* request, ::grpc::ServerWriter< ::google::bigtable::v2::ReadChangeStreamResponse>* writer);
   };
   template <class BaseClass>
   class WithAsyncMethod_ReadRows : public BaseClass {
@@ -473,7 +553,47 @@ class Bigtable final {
       ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ReadRows<WithAsyncMethod_SampleRowKeys<WithAsyncMethod_MutateRow<WithAsyncMethod_MutateRows<WithAsyncMethod_CheckAndMutateRow<WithAsyncMethod_PingAndWarm<WithAsyncMethod_ReadModifyWriteRow<Service > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GenerateInitialChangeStreamPartitions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GenerateInitialChangeStreamPartitions() {
+      ::grpc::Service::MarkMethodAsync(7);
+    }
+    ~WithAsyncMethod_GenerateInitialChangeStreamPartitions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateInitialChangeStreamPartitions(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGenerateInitialChangeStreamPartitions(::grpc::ServerContext* context, ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* request, ::grpc::ServerAsyncWriter< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncServerStreaming(7, context, request, writer, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ReadChangeStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ReadChangeStream() {
+      ::grpc::Service::MarkMethodAsync(8);
+    }
+    ~WithAsyncMethod_ReadChangeStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReadChangeStream(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::ReadChangeStreamRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::ReadChangeStreamResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestReadChangeStream(::grpc::ServerContext* context, ::google::bigtable::v2::ReadChangeStreamRequest* request, ::grpc::ServerAsyncWriter< ::google::bigtable::v2::ReadChangeStreamResponse>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncServerStreaming(8, context, request, writer, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_ReadRows<WithAsyncMethod_SampleRowKeys<WithAsyncMethod_MutateRow<WithAsyncMethod_MutateRows<WithAsyncMethod_CheckAndMutateRow<WithAsyncMethod_PingAndWarm<WithAsyncMethod_ReadModifyWriteRow<WithAsyncMethod_GenerateInitialChangeStreamPartitions<WithAsyncMethod_ReadChangeStream<Service > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ReadRows : public BaseClass {
    private:
@@ -648,7 +768,51 @@ class Bigtable final {
     virtual ::grpc::ServerUnaryReactor* ReadModifyWriteRow(
       ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::ReadModifyWriteRowRequest* /*request*/, ::google::bigtable::v2::ReadModifyWriteRowResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ReadRows<WithCallbackMethod_SampleRowKeys<WithCallbackMethod_MutateRow<WithCallbackMethod_MutateRows<WithCallbackMethod_CheckAndMutateRow<WithCallbackMethod_PingAndWarm<WithCallbackMethod_ReadModifyWriteRow<Service > > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_GenerateInitialChangeStreamPartitions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GenerateInitialChangeStreamPartitions() {
+      ::grpc::Service::MarkMethodCallback(7,
+          new ::grpc::internal::CallbackServerStreamingHandler< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest, ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* request) { return this->GenerateInitialChangeStreamPartitions(context, request); }));
+    }
+    ~WithCallbackMethod_GenerateInitialChangeStreamPartitions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateInitialChangeStreamPartitions(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerWriteReactor< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* GenerateInitialChangeStreamPartitions(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* /*request*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ReadChangeStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ReadChangeStream() {
+      ::grpc::Service::MarkMethodCallback(8,
+          new ::grpc::internal::CallbackServerStreamingHandler< ::google::bigtable::v2::ReadChangeStreamRequest, ::google::bigtable::v2::ReadChangeStreamResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::bigtable::v2::ReadChangeStreamRequest* request) { return this->ReadChangeStream(context, request); }));
+    }
+    ~WithCallbackMethod_ReadChangeStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReadChangeStream(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::ReadChangeStreamRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::ReadChangeStreamResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerWriteReactor< ::google::bigtable::v2::ReadChangeStreamResponse>* ReadChangeStream(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::bigtable::v2::ReadChangeStreamRequest* /*request*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_ReadRows<WithCallbackMethod_SampleRowKeys<WithCallbackMethod_MutateRow<WithCallbackMethod_MutateRows<WithCallbackMethod_CheckAndMutateRow<WithCallbackMethod_PingAndWarm<WithCallbackMethod_ReadModifyWriteRow<WithCallbackMethod_GenerateInitialChangeStreamPartitions<WithCallbackMethod_ReadChangeStream<Service > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ReadRows : public BaseClass {
@@ -765,6 +929,40 @@ class Bigtable final {
     }
     // disable synchronous version of this method
     ::grpc::Status ReadModifyWriteRow(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::ReadModifyWriteRowRequest* /*request*/, ::google::bigtable::v2::ReadModifyWriteRowResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GenerateInitialChangeStreamPartitions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GenerateInitialChangeStreamPartitions() {
+      ::grpc::Service::MarkMethodGeneric(7);
+    }
+    ~WithGenericMethod_GenerateInitialChangeStreamPartitions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateInitialChangeStreamPartitions(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ReadChangeStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ReadChangeStream() {
+      ::grpc::Service::MarkMethodGeneric(8);
+    }
+    ~WithGenericMethod_ReadChangeStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReadChangeStream(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::ReadChangeStreamRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::ReadChangeStreamResponse>* /*writer*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -907,6 +1105,46 @@ class Bigtable final {
     }
     void RequestReadModifyWriteRow(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GenerateInitialChangeStreamPartitions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GenerateInitialChangeStreamPartitions() {
+      ::grpc::Service::MarkMethodRaw(7);
+    }
+    ~WithRawMethod_GenerateInitialChangeStreamPartitions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateInitialChangeStreamPartitions(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGenerateInitialChangeStreamPartitions(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncWriter< ::grpc::ByteBuffer>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncServerStreaming(7, context, request, writer, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ReadChangeStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ReadChangeStream() {
+      ::grpc::Service::MarkMethodRaw(8);
+    }
+    ~WithRawMethod_ReadChangeStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReadChangeStream(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::ReadChangeStreamRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::ReadChangeStreamResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestReadChangeStream(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncWriter< ::grpc::ByteBuffer>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncServerStreaming(8, context, request, writer, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1062,6 +1300,50 @@ class Bigtable final {
     }
     virtual ::grpc::ServerUnaryReactor* ReadModifyWriteRow(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GenerateInitialChangeStreamPartitions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GenerateInitialChangeStreamPartitions() {
+      ::grpc::Service::MarkMethodRawCallback(7,
+          new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->GenerateInitialChangeStreamPartitions(context, request); }));
+    }
+    ~WithRawCallbackMethod_GenerateInitialChangeStreamPartitions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GenerateInitialChangeStreamPartitions(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* GenerateInitialChangeStreamPartitions(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ReadChangeStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ReadChangeStream() {
+      ::grpc::Service::MarkMethodRawCallback(8,
+          new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->ReadChangeStream(context, request); }));
+    }
+    ~WithRawCallbackMethod_ReadChangeStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReadChangeStream(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::ReadChangeStreamRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::ReadChangeStreamResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* ReadChangeStream(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_MutateRow : public BaseClass {
@@ -1253,8 +1535,62 @@ class Bigtable final {
     // replace default version of method with split streamed
     virtual ::grpc::Status StreamedMutateRows(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::google::bigtable::v2::MutateRowsRequest,::google::bigtable::v2::MutateRowsResponse>* server_split_streamer) = 0;
   };
-  typedef WithSplitStreamingMethod_ReadRows<WithSplitStreamingMethod_SampleRowKeys<WithSplitStreamingMethod_MutateRows<Service > > > SplitStreamedService;
-  typedef WithSplitStreamingMethod_ReadRows<WithSplitStreamingMethod_SampleRowKeys<WithStreamedUnaryMethod_MutateRow<WithSplitStreamingMethod_MutateRows<WithStreamedUnaryMethod_CheckAndMutateRow<WithStreamedUnaryMethod_PingAndWarm<WithStreamedUnaryMethod_ReadModifyWriteRow<Service > > > > > > > StreamedService;
+  template <class BaseClass>
+  class WithSplitStreamingMethod_GenerateInitialChangeStreamPartitions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithSplitStreamingMethod_GenerateInitialChangeStreamPartitions() {
+      ::grpc::Service::MarkMethodStreamed(7,
+        new ::grpc::internal::SplitServerStreamingHandler<
+          ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest, ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerSplitStreamer<
+                     ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest, ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* streamer) {
+                       return this->StreamedGenerateInitialChangeStreamPartitions(context,
+                         streamer);
+                  }));
+    }
+    ~WithSplitStreamingMethod_GenerateInitialChangeStreamPartitions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GenerateInitialChangeStreamPartitions(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with split streamed
+    virtual ::grpc::Status StreamedGenerateInitialChangeStreamPartitions(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::google::bigtable::v2::GenerateInitialChangeStreamPartitionsRequest,::google::bigtable::v2::GenerateInitialChangeStreamPartitionsResponse>* server_split_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithSplitStreamingMethod_ReadChangeStream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithSplitStreamingMethod_ReadChangeStream() {
+      ::grpc::Service::MarkMethodStreamed(8,
+        new ::grpc::internal::SplitServerStreamingHandler<
+          ::google::bigtable::v2::ReadChangeStreamRequest, ::google::bigtable::v2::ReadChangeStreamResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerSplitStreamer<
+                     ::google::bigtable::v2::ReadChangeStreamRequest, ::google::bigtable::v2::ReadChangeStreamResponse>* streamer) {
+                       return this->StreamedReadChangeStream(context,
+                         streamer);
+                  }));
+    }
+    ~WithSplitStreamingMethod_ReadChangeStream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ReadChangeStream(::grpc::ServerContext* /*context*/, const ::google::bigtable::v2::ReadChangeStreamRequest* /*request*/, ::grpc::ServerWriter< ::google::bigtable::v2::ReadChangeStreamResponse>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with split streamed
+    virtual ::grpc::Status StreamedReadChangeStream(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::google::bigtable::v2::ReadChangeStreamRequest,::google::bigtable::v2::ReadChangeStreamResponse>* server_split_streamer) = 0;
+  };
+  typedef WithSplitStreamingMethod_ReadRows<WithSplitStreamingMethod_SampleRowKeys<WithSplitStreamingMethod_MutateRows<WithSplitStreamingMethod_GenerateInitialChangeStreamPartitions<WithSplitStreamingMethod_ReadChangeStream<Service > > > > > SplitStreamedService;
+  typedef WithSplitStreamingMethod_ReadRows<WithSplitStreamingMethod_SampleRowKeys<WithStreamedUnaryMethod_MutateRow<WithSplitStreamingMethod_MutateRows<WithStreamedUnaryMethod_CheckAndMutateRow<WithStreamedUnaryMethod_PingAndWarm<WithStreamedUnaryMethod_ReadModifyWriteRow<WithSplitStreamingMethod_GenerateInitialChangeStreamPartitions<WithSplitStreamingMethod_ReadChangeStream<Service > > > > > > > > > StreamedService;
 };
 
 }  // namespace v2

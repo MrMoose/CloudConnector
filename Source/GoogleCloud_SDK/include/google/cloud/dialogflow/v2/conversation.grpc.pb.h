@@ -22,30 +22,31 @@
 #include "google/cloud/dialogflow/v2/conversation.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace cloud {
 namespace dialogflow {
 namespace v2 {
 
-// Service for managing [Conversations][google.cloud.dialogflow.v2.Conversation].
+// Service for managing
+// [Conversations][google.cloud.dialogflow.v2.Conversation].
 class Conversations final {
  public:
   static constexpr char const* service_full_name() {
@@ -67,11 +68,14 @@ class Conversations final {
     // For Assist Stage, there's no dialogflow agent responding to user queries.
     // But we will provide suggestions which are generated from conversation.
     //
-    // If [Conversation.conversation_profile][google.cloud.dialogflow.v2.Conversation.conversation_profile] is configured for a dialogflow
-    // agent, conversation will start from `Automated Agent Stage`, otherwise, it
-    // will start from `Assist Stage`. And during `Automated Agent Stage`, once an
-    // [Intent][google.cloud.dialogflow.v2.Intent] with [Intent.live_agent_handoff][google.cloud.dialogflow.v2.Intent.live_agent_handoff] is triggered, conversation
-    // will transfer to Assist Stage.
+    // If
+    // [Conversation.conversation_profile][google.cloud.dialogflow.v2.Conversation.conversation_profile]
+    // is configured for a dialogflow agent, conversation will start from
+    // `Automated Agent Stage`, otherwise, it will start from `Assist Stage`. And
+    // during `Automated Agent Stage`, once an
+    // [Intent][google.cloud.dialogflow.v2.Intent] with
+    // [Intent.live_agent_handoff][google.cloud.dialogflow.v2.Intent.live_agent_handoff]
+    // is triggered, conversation will transfer to Assist Stage.
     virtual ::grpc::Status CreateConversation(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationRequest& request, ::google::cloud::dialogflow::v2::Conversation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Conversation>> AsyncCreateConversation(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Conversation>>(AsyncCreateConversationRaw(context, request, cq));
@@ -116,6 +120,16 @@ class Conversations final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListMessagesResponse>> PrepareAsyncListMessages(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListMessagesResponse>>(PrepareAsyncListMessagesRaw(context, request, cq));
     }
+    // Suggests summary for a conversation based on specific historical messages.
+    // The range of the messages to be used for summary can be specified in the
+    // request.
+    virtual ::grpc::Status SuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>> AsyncSuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>>(AsyncSuggestConversationSummaryRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>> PrepareAsyncSuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>>(PrepareAsyncSuggestConversationSummaryRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -132,11 +146,14 @@ class Conversations final {
       // For Assist Stage, there's no dialogflow agent responding to user queries.
       // But we will provide suggestions which are generated from conversation.
       //
-      // If [Conversation.conversation_profile][google.cloud.dialogflow.v2.Conversation.conversation_profile] is configured for a dialogflow
-      // agent, conversation will start from `Automated Agent Stage`, otherwise, it
-      // will start from `Assist Stage`. And during `Automated Agent Stage`, once an
-      // [Intent][google.cloud.dialogflow.v2.Intent] with [Intent.live_agent_handoff][google.cloud.dialogflow.v2.Intent.live_agent_handoff] is triggered, conversation
-      // will transfer to Assist Stage.
+      // If
+      // [Conversation.conversation_profile][google.cloud.dialogflow.v2.Conversation.conversation_profile]
+      // is configured for a dialogflow agent, conversation will start from
+      // `Automated Agent Stage`, otherwise, it will start from `Assist Stage`. And
+      // during `Automated Agent Stage`, once an
+      // [Intent][google.cloud.dialogflow.v2.Intent] with
+      // [Intent.live_agent_handoff][google.cloud.dialogflow.v2.Intent.live_agent_handoff]
+      // is triggered, conversation will transfer to Assist Stage.
       virtual void CreateConversation(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationRequest* request, ::google::cloud::dialogflow::v2::Conversation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateConversation(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationRequest* request, ::google::cloud::dialogflow::v2::Conversation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Returns the list of all conversations in the specified project.
@@ -156,6 +173,11 @@ class Conversations final {
       // [first item's create_time of previous request]` and empty page_token.
       virtual void ListMessages(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest* request, ::google::cloud::dialogflow::v2::ListMessagesResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ListMessages(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest* request, ::google::cloud::dialogflow::v2::ListMessagesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Suggests summary for a conversation based on specific historical messages.
+      // The range of the messages to be used for summary can be specified in the
+      // request.
+      virtual void SuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* request, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* request, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -171,6 +193,8 @@ class Conversations final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::Conversation>* PrepareAsyncCompleteConversationRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CompleteConversationRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListMessagesResponse>* AsyncListMessagesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ListMessagesResponse>* PrepareAsyncListMessagesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>* AsyncSuggestConversationSummaryRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>* PrepareAsyncSuggestConversationSummaryRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -210,6 +234,13 @@ class Conversations final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListMessagesResponse>> PrepareAsyncListMessages(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListMessagesResponse>>(PrepareAsyncListMessagesRaw(context, request, cq));
     }
+    ::grpc::Status SuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>> AsyncSuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>>(AsyncSuggestConversationSummaryRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>> PrepareAsyncSuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>>(PrepareAsyncSuggestConversationSummaryRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -223,6 +254,8 @@ class Conversations final {
       void CompleteConversation(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CompleteConversationRequest* request, ::google::cloud::dialogflow::v2::Conversation* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ListMessages(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest* request, ::google::cloud::dialogflow::v2::ListMessagesResponse* response, std::function<void(::grpc::Status)>) override;
       void ListMessages(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest* request, ::google::cloud::dialogflow::v2::ListMessagesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void SuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* request, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* response, std::function<void(::grpc::Status)>) override;
+      void SuggestConversationSummary(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* request, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -244,11 +277,14 @@ class Conversations final {
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::Conversation>* PrepareAsyncCompleteConversationRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CompleteConversationRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListMessagesResponse>* AsyncListMessagesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::ListMessagesResponse>* PrepareAsyncListMessagesRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>* AsyncSuggestConversationSummaryRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>* PrepareAsyncSuggestConversationSummaryRaw(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_CreateConversation_;
     const ::grpc::internal::RpcMethod rpcmethod_ListConversations_;
     const ::grpc::internal::RpcMethod rpcmethod_GetConversation_;
     const ::grpc::internal::RpcMethod rpcmethod_CompleteConversation_;
     const ::grpc::internal::RpcMethod rpcmethod_ListMessages_;
+    const ::grpc::internal::RpcMethod rpcmethod_SuggestConversationSummary_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -269,11 +305,14 @@ class Conversations final {
     // For Assist Stage, there's no dialogflow agent responding to user queries.
     // But we will provide suggestions which are generated from conversation.
     //
-    // If [Conversation.conversation_profile][google.cloud.dialogflow.v2.Conversation.conversation_profile] is configured for a dialogflow
-    // agent, conversation will start from `Automated Agent Stage`, otherwise, it
-    // will start from `Assist Stage`. And during `Automated Agent Stage`, once an
-    // [Intent][google.cloud.dialogflow.v2.Intent] with [Intent.live_agent_handoff][google.cloud.dialogflow.v2.Intent.live_agent_handoff] is triggered, conversation
-    // will transfer to Assist Stage.
+    // If
+    // [Conversation.conversation_profile][google.cloud.dialogflow.v2.Conversation.conversation_profile]
+    // is configured for a dialogflow agent, conversation will start from
+    // `Automated Agent Stage`, otherwise, it will start from `Assist Stage`. And
+    // during `Automated Agent Stage`, once an
+    // [Intent][google.cloud.dialogflow.v2.Intent] with
+    // [Intent.live_agent_handoff][google.cloud.dialogflow.v2.Intent.live_agent_handoff]
+    // is triggered, conversation will transfer to Assist Stage.
     virtual ::grpc::Status CreateConversation(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::CreateConversationRequest* request, ::google::cloud::dialogflow::v2::Conversation* response);
     // Returns the list of all conversations in the specified project.
     virtual ::grpc::Status ListConversations(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ListConversationsRequest* request, ::google::cloud::dialogflow::v2::ListConversationsResponse* response);
@@ -288,6 +327,10 @@ class Conversations final {
     // `create_time_epoch_microseconds >
     // [first item's create_time of previous request]` and empty page_token.
     virtual ::grpc::Status ListMessages(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ListMessagesRequest* request, ::google::cloud::dialogflow::v2::ListMessagesResponse* response);
+    // Suggests summary for a conversation based on specific historical messages.
+    // The range of the messages to be used for summary can be specified in the
+    // request.
+    virtual ::grpc::Status SuggestConversationSummary(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* request, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_CreateConversation : public BaseClass {
@@ -389,7 +432,27 @@ class Conversations final {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_CreateConversation<WithAsyncMethod_ListConversations<WithAsyncMethod_GetConversation<WithAsyncMethod_CompleteConversation<WithAsyncMethod_ListMessages<Service > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_SuggestConversationSummary : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_SuggestConversationSummary() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_SuggestConversationSummary() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SuggestConversationSummary(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* /*request*/, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSuggestConversationSummary(::grpc::ServerContext* context, ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_CreateConversation<WithAsyncMethod_ListConversations<WithAsyncMethod_GetConversation<WithAsyncMethod_CompleteConversation<WithAsyncMethod_ListMessages<WithAsyncMethod_SuggestConversationSummary<Service > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_CreateConversation : public BaseClass {
    private:
@@ -525,7 +588,34 @@ class Conversations final {
     virtual ::grpc::ServerUnaryReactor* ListMessages(
       ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListMessagesRequest* /*request*/, ::google::cloud::dialogflow::v2::ListMessagesResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_CreateConversation<WithCallbackMethod_ListConversations<WithCallbackMethod_GetConversation<WithCallbackMethod_CompleteConversation<WithCallbackMethod_ListMessages<Service > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_SuggestConversationSummary : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SuggestConversationSummary() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* request, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* response) { return this->SuggestConversationSummary(context, request, response); }));}
+    void SetMessageAllocatorFor_SuggestConversationSummary(
+        ::grpc::MessageAllocator< ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SuggestConversationSummary() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SuggestConversationSummary(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* /*request*/, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SuggestConversationSummary(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* /*request*/, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_CreateConversation<WithCallbackMethod_ListConversations<WithCallbackMethod_GetConversation<WithCallbackMethod_CompleteConversation<WithCallbackMethod_ListMessages<WithCallbackMethod_SuggestConversationSummary<Service > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_CreateConversation : public BaseClass {
@@ -608,6 +698,23 @@ class Conversations final {
     }
     // disable synchronous version of this method
     ::grpc::Status ListMessages(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::ListMessagesRequest* /*request*/, ::google::cloud::dialogflow::v2::ListMessagesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_SuggestConversationSummary : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_SuggestConversationSummary() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_SuggestConversationSummary() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SuggestConversationSummary(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* /*request*/, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -710,6 +817,26 @@ class Conversations final {
     }
     void RequestListMessages(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_SuggestConversationSummary : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_SuggestConversationSummary() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_SuggestConversationSummary() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SuggestConversationSummary(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* /*request*/, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSuggestConversationSummary(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -820,6 +947,28 @@ class Conversations final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* ListMessages(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SuggestConversationSummary : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SuggestConversationSummary() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SuggestConversationSummary(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SuggestConversationSummary() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SuggestConversationSummary(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* /*request*/, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SuggestConversationSummary(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -957,9 +1106,36 @@ class Conversations final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedListMessages(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::dialogflow::v2::ListMessagesRequest,::google::cloud::dialogflow::v2::ListMessagesResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_CreateConversation<WithStreamedUnaryMethod_ListConversations<WithStreamedUnaryMethod_GetConversation<WithStreamedUnaryMethod_CompleteConversation<WithStreamedUnaryMethod_ListMessages<Service > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_SuggestConversationSummary : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_SuggestConversationSummary() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>* streamer) {
+                       return this->StreamedSuggestConversationSummary(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_SuggestConversationSummary() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status SuggestConversationSummary(::grpc::ServerContext* /*context*/, const ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest* /*request*/, ::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedSuggestConversationSummary(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::cloud::dialogflow::v2::SuggestConversationSummaryRequest,::google::cloud::dialogflow::v2::SuggestConversationSummaryResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_CreateConversation<WithStreamedUnaryMethod_ListConversations<WithStreamedUnaryMethod_GetConversation<WithStreamedUnaryMethod_CompleteConversation<WithStreamedUnaryMethod_ListMessages<WithStreamedUnaryMethod_SuggestConversationSummary<Service > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_CreateConversation<WithStreamedUnaryMethod_ListConversations<WithStreamedUnaryMethod_GetConversation<WithStreamedUnaryMethod_CompleteConversation<WithStreamedUnaryMethod_ListMessages<Service > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_CreateConversation<WithStreamedUnaryMethod_ListConversations<WithStreamedUnaryMethod_GetConversation<WithStreamedUnaryMethod_CompleteConversation<WithStreamedUnaryMethod_ListMessages<WithStreamedUnaryMethod_SuggestConversationSummary<Service > > > > > > StreamedService;
 };
 
 }  // namespace v2

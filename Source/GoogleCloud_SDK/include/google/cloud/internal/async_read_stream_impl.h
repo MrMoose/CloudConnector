@@ -163,11 +163,11 @@ class AsyncReadStreamImpl
     cq_ = std::move(cq);
     auto callback = std::make_shared<NotifyStart>(this->shared_from_this());
     cq_->StartOperation(std::move(callback), [&](void* tag) {
-      // @note If the the `CompletionQueue` has been `Shutdown()` this lambda is
+      // @note If the `CompletionQueue` has been `Shutdown()` this lambda is
       //     never called. We leave `reader_` null in this case; other methods
       //     must make the same `tag != nullptr` check prior to accessing
       //     `reader_`.  This is safe since `Shutdown()` cannot be undone.
-      reader_ = async_call(context_.get(), request, &cq_->cq());
+      reader_ = async_call(context_.get(), request, cq_->cq());
       reader_->StartCall(tag);
     });
   }

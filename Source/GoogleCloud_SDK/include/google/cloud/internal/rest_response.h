@@ -19,6 +19,7 @@
 #include "google/cloud/options.h"
 #include "google/cloud/status_or.h"
 #include "google/cloud/version.h"
+#include <cstdint>
 #include <map>
 
 namespace google {
@@ -81,6 +82,12 @@ class RestResponse {
 
 /// Convert a HTTP status code to a google::cloud::StatusCode.
 StatusCode MapHttpCodeToStatus(std::int32_t code);
+
+/// Determines if @p response contains a successful result.
+bool IsHttpSuccess(RestResponse const& response);
+
+/// Determines if @p response contains an error.
+bool IsHttpError(RestResponse const& response);
 
 /**
  * Maps a response to a `Status`.

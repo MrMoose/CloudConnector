@@ -20,6 +20,7 @@
 #include "google/cloud/status_or.h"
 #include "google/cloud/version.h"
 #include <chrono>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -55,19 +56,7 @@ class Credentials {
    *     considered.
    */
   virtual StatusOr<internal::AccessToken> GetToken(
-      std::chrono::system_clock::time_point tp);
-
-  /**
-   * Attempts to obtain a value for the Authorization HTTP header.
-   *
-   * If unable to obtain a value for the Authorization header, which could
-   * happen for `Credentials` that need to be periodically refreshed, the
-   * underlying `Status` will indicate failure details from the refresh HTTP
-   * request. Otherwise, the returned value will contain the Authorization
-   * header to be used in HTTP requests.
-   */
-  virtual StatusOr<std::pair<std::string, std::string>>
-  AuthorizationHeader() = 0;
+      std::chrono::system_clock::time_point tp) = 0;
 
   /**
    * Try to sign @p string_to_sign using @p service_account.

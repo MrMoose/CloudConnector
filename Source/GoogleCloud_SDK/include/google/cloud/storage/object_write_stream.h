@@ -180,7 +180,7 @@ class ObjectWriteStream : public std::basic_ostream<char> {
    */
   void Close();
 
-  //@{
+  ///@{
   /**
    * Access the upload results.
    *
@@ -232,18 +232,15 @@ class ObjectWriteStream : public std::basic_ostream<char> {
    *
    * @warning The contents of these headers may change without notice. Unless
    *     documented in the API, headers may be removed or added by the service.
-   *     Also note that the client library uses both the XML and JSON API,
-   *     choosing between them based on the feature set (some functionality is
-   *     only available through the JSON API), and performance.  Consequently,
-   *     the headers may be different on requests using different features.
-   *     Likewise, the headers may change from one version of the library to the
-   *     next, as we find more (or different) opportunities for optimization.
+   *     Furthermore, he headers may change from one version of the library to
+   *     the next, as we find more (or different) opportunities for
+   *     optimization.
    */
   HeadersMap const& headers() const { return headers_; }
 
   /// The returned payload as a raw string, for debugging only.
   std::string const& payload() const { return payload_; }
-  //@}
+  ///@}
 
   /**
    * Returns the resumable upload session id for this upload.

@@ -22,23 +22,23 @@
 #include "google/cloud/dialogflow/v2/agent.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace cloud {
@@ -125,7 +125,8 @@ class Agents final {
     //
     // - `metadata`: An empty [Struct
     //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
-    // - `response`: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]
+    // - `response`:
+    // [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]
     virtual ::grpc::Status ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncExportAgentRaw(context, request, cq));
@@ -137,11 +138,13 @@ class Agents final {
     //
     // Uploads new intents and entity types without deleting the existing ones.
     // Intents and entity types with the same name are replaced with the new
-    // versions from [ImportAgentRequest][google.cloud.dialogflow.v2.ImportAgentRequest]. After the import, the imported draft
-    // agent will be trained automatically (unless disabled in agent settings).
-    // However, once the import is done, training may not be completed yet. Please
-    // call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it returns in order to train
-    // explicitly.
+    // versions from
+    // [ImportAgentRequest][google.cloud.dialogflow.v2.ImportAgentRequest]. After
+    // the import, the imported draft agent will be trained automatically (unless
+    // disabled in agent settings). However, once the import is done, training may
+    // not be completed yet. Please call
+    // [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the
+    // operation it returns in order to train explicitly.
     //
     // This method is a [long-running
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
@@ -171,8 +174,9 @@ class Agents final {
     // entity types in the older version are deleted. After the restore, the
     // restored draft agent will be trained automatically (unless disabled in
     // agent settings). However, once the restore is done, training may not be
-    // completed yet. Please call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it
-    // returns in order to train explicitly.
+    // completed yet. Please call
+    // [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the
+    // operation it returns in order to train explicitly.
     //
     // This method is a [long-running
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
@@ -254,18 +258,21 @@ class Agents final {
       //
       // - `metadata`: An empty [Struct
       //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
-      // - `response`: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]
+      // - `response`:
+      // [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]
       virtual void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ExportAgent(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Imports the specified agent from a ZIP file.
       //
       // Uploads new intents and entity types without deleting the existing ones.
       // Intents and entity types with the same name are replaced with the new
-      // versions from [ImportAgentRequest][google.cloud.dialogflow.v2.ImportAgentRequest]. After the import, the imported draft
-      // agent will be trained automatically (unless disabled in agent settings).
-      // However, once the import is done, training may not be completed yet. Please
-      // call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it returns in order to train
-      // explicitly.
+      // versions from
+      // [ImportAgentRequest][google.cloud.dialogflow.v2.ImportAgentRequest]. After
+      // the import, the imported draft agent will be trained automatically (unless
+      // disabled in agent settings). However, once the import is done, training may
+      // not be completed yet. Please call
+      // [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the
+      // operation it returns in order to train explicitly.
       //
       // This method is a [long-running
       // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
@@ -290,8 +297,9 @@ class Agents final {
       // entity types in the older version are deleted. After the restore, the
       // restored draft agent will be trained automatically (unless disabled in
       // agent settings). However, once the restore is done, training may not be
-      // completed yet. Please call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it
-      // returns in order to train explicitly.
+      // completed yet. Please call
+      // [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the
+      // operation it returns in order to train explicitly.
       //
       // This method is a [long-running
       // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
@@ -511,17 +519,20 @@ class Agents final {
     //
     // - `metadata`: An empty [Struct
     //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#struct)
-    // - `response`: [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]
+    // - `response`:
+    // [ExportAgentResponse][google.cloud.dialogflow.v2.ExportAgentResponse]
     virtual ::grpc::Status ExportAgent(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ExportAgentRequest* request, ::google::longrunning::Operation* response);
     // Imports the specified agent from a ZIP file.
     //
     // Uploads new intents and entity types without deleting the existing ones.
     // Intents and entity types with the same name are replaced with the new
-    // versions from [ImportAgentRequest][google.cloud.dialogflow.v2.ImportAgentRequest]. After the import, the imported draft
-    // agent will be trained automatically (unless disabled in agent settings).
-    // However, once the import is done, training may not be completed yet. Please
-    // call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it returns in order to train
-    // explicitly.
+    // versions from
+    // [ImportAgentRequest][google.cloud.dialogflow.v2.ImportAgentRequest]. After
+    // the import, the imported draft agent will be trained automatically (unless
+    // disabled in agent settings). However, once the import is done, training may
+    // not be completed yet. Please call
+    // [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the
+    // operation it returns in order to train explicitly.
     //
     // This method is a [long-running
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
@@ -545,8 +556,9 @@ class Agents final {
     // entity types in the older version are deleted. After the restore, the
     // restored draft agent will be trained automatically (unless disabled in
     // agent settings). However, once the restore is done, training may not be
-    // completed yet. Please call [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the operation it
-    // returns in order to train explicitly.
+    // completed yet. Please call
+    // [TrainAgent][google.cloud.dialogflow.v2.Agents.TrainAgent] and wait for the
+    // operation it returns in order to train explicitly.
     //
     // This method is a [long-running
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).

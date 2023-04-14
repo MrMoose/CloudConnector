@@ -22,23 +22,23 @@
 #include "google/pubsub/v1/pubsub.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace pubsub {
@@ -1670,9 +1670,7 @@ class Subscriber final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncAcknowledge(::grpc::ClientContext* context, const ::google::pubsub::v1::AcknowledgeRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncAcknowledgeRaw(context, request, cq));
     }
-    // Pulls messages from the server. The server may return `UNAVAILABLE` if
-    // there are too many concurrent pull requests pending for the given
-    // subscription.
+    // Pulls messages from the server.
     virtual ::grpc::Status Pull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest& request, ::google::pubsub::v1::PullResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::PullResponse>> AsyncPull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::PullResponse>>(AsyncPullRaw(context, request, cq));
@@ -1710,10 +1708,10 @@ class Subscriber final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncModifyPushConfigRaw(context, request, cq));
     }
     // Gets the configuration details of a snapshot. Snapshots are used in
-    // <a href="https://cloud.google.com/pubsub/docs/replay-overview">Seek</a>
-    // operations, which allow you to manage message acknowledgments in bulk. That
-    // is, you can set the acknowledgment state of messages in an existing
-    // subscription to the state captured by a snapshot.
+    // [Seek](https://cloud.google.com/pubsub/docs/replay-overview) operations,
+    // which allow you to manage message acknowledgments in bulk. That is, you can
+    // set the acknowledgment state of messages in an existing subscription to the
+    // state captured by a snapshot.
     virtual ::grpc::Status GetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest& request, ::google::pubsub::v1::Snapshot* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Snapshot>> AsyncGetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Snapshot>>(AsyncGetSnapshotRaw(context, request, cq));
@@ -1757,11 +1755,10 @@ class Subscriber final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Snapshot>>(PrepareAsyncCreateSnapshotRaw(context, request, cq));
     }
     // Updates an existing snapshot. Snapshots are used in
-    // <a href="https://cloud.google.com/pubsub/docs/replay-overview">Seek</a>
-    // operations, which allow
-    // you to manage message acknowledgments in bulk. That is, you can set the
-    // acknowledgment state of messages in an existing subscription to the state
-    // captured by a snapshot.
+    // [Seek](https://cloud.google.com/pubsub/docs/replay-overview) operations,
+    // which allow you to manage message acknowledgments in bulk. That is, you can
+    // set the acknowledgment state of messages in an existing subscription to the
+    // state captured by a snapshot.
     virtual ::grpc::Status UpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest& request, ::google::pubsub::v1::Snapshot* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Snapshot>> AsyncUpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::pubsub::v1::Snapshot>>(AsyncUpdateSnapshotRaw(context, request, cq));
@@ -1848,9 +1845,7 @@ class Subscriber final {
       // than once will not result in an error.
       virtual void Acknowledge(::grpc::ClientContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Acknowledge(::grpc::ClientContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Pulls messages from the server. The server may return `UNAVAILABLE` if
-      // there are too many concurrent pull requests pending for the given
-      // subscription.
+      // Pulls messages from the server.
       virtual void Pull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Pull(::grpc::ClientContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Establishes a stream with the server, which sends messages down to the
@@ -1870,10 +1865,10 @@ class Subscriber final {
       virtual void ModifyPushConfig(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ModifyPushConfig(::grpc::ClientContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Gets the configuration details of a snapshot. Snapshots are used in
-      // <a href="https://cloud.google.com/pubsub/docs/replay-overview">Seek</a>
-      // operations, which allow you to manage message acknowledgments in bulk. That
-      // is, you can set the acknowledgment state of messages in an existing
-      // subscription to the state captured by a snapshot.
+      // [Seek](https://cloud.google.com/pubsub/docs/replay-overview) operations,
+      // which allow you to manage message acknowledgments in bulk. That is, you can
+      // set the acknowledgment state of messages in an existing subscription to the
+      // state captured by a snapshot.
       virtual void GetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Lists the existing snapshots. Snapshots are used in [Seek](
@@ -1902,11 +1897,10 @@ class Subscriber final {
       virtual void CreateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Updates an existing snapshot. Snapshots are used in
-      // <a href="https://cloud.google.com/pubsub/docs/replay-overview">Seek</a>
-      // operations, which allow
-      // you to manage message acknowledgments in bulk. That is, you can set the
-      // acknowledgment state of messages in an existing subscription to the state
-      // captured by a snapshot.
+      // [Seek](https://cloud.google.com/pubsub/docs/replay-overview) operations,
+      // which allow you to manage message acknowledgments in bulk. That is, you can
+      // set the acknowledgment state of messages in an existing subscription to the
+      // state captured by a snapshot.
       virtual void UpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateSnapshot(::grpc::ClientContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Removes an existing snapshot. Snapshots are used in [Seek]
@@ -2225,9 +2219,7 @@ class Subscriber final {
     // but such a message may be redelivered later. Acknowledging a message more
     // than once will not result in an error.
     virtual ::grpc::Status Acknowledge(::grpc::ServerContext* context, const ::google::pubsub::v1::AcknowledgeRequest* request, ::google::protobuf::Empty* response);
-    // Pulls messages from the server. The server may return `UNAVAILABLE` if
-    // there are too many concurrent pull requests pending for the given
-    // subscription.
+    // Pulls messages from the server.
     virtual ::grpc::Status Pull(::grpc::ServerContext* context, const ::google::pubsub::v1::PullRequest* request, ::google::pubsub::v1::PullResponse* response);
     // Establishes a stream with the server, which sends messages down to the
     // client. The client streams acknowledgements and ack deadline modifications
@@ -2245,10 +2237,10 @@ class Subscriber final {
     // continuously through the call regardless of changes to the `PushConfig`.
     virtual ::grpc::Status ModifyPushConfig(::grpc::ServerContext* context, const ::google::pubsub::v1::ModifyPushConfigRequest* request, ::google::protobuf::Empty* response);
     // Gets the configuration details of a snapshot. Snapshots are used in
-    // <a href="https://cloud.google.com/pubsub/docs/replay-overview">Seek</a>
-    // operations, which allow you to manage message acknowledgments in bulk. That
-    // is, you can set the acknowledgment state of messages in an existing
-    // subscription to the state captured by a snapshot.
+    // [Seek](https://cloud.google.com/pubsub/docs/replay-overview) operations,
+    // which allow you to manage message acknowledgments in bulk. That is, you can
+    // set the acknowledgment state of messages in an existing subscription to the
+    // state captured by a snapshot.
     virtual ::grpc::Status GetSnapshot(::grpc::ServerContext* context, const ::google::pubsub::v1::GetSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response);
     // Lists the existing snapshots. Snapshots are used in [Seek](
     // https://cloud.google.com/pubsub/docs/replay-overview) operations, which
@@ -2274,11 +2266,10 @@ class Subscriber final {
     // REST API requests, you must specify a name in the request.
     virtual ::grpc::Status CreateSnapshot(::grpc::ServerContext* context, const ::google::pubsub::v1::CreateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response);
     // Updates an existing snapshot. Snapshots are used in
-    // <a href="https://cloud.google.com/pubsub/docs/replay-overview">Seek</a>
-    // operations, which allow
-    // you to manage message acknowledgments in bulk. That is, you can set the
-    // acknowledgment state of messages in an existing subscription to the state
-    // captured by a snapshot.
+    // [Seek](https://cloud.google.com/pubsub/docs/replay-overview) operations,
+    // which allow you to manage message acknowledgments in bulk. That is, you can
+    // set the acknowledgment state of messages in an existing subscription to the
+    // state captured by a snapshot.
     virtual ::grpc::Status UpdateSnapshot(::grpc::ServerContext* context, const ::google::pubsub::v1::UpdateSnapshotRequest* request, ::google::pubsub::v1::Snapshot* response);
     // Removes an existing snapshot. Snapshots are used in [Seek]
     // (https://cloud.google.com/pubsub/docs/replay-overview) operations, which

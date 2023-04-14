@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/devtools/cloudtrace/v2/tracing.proto
 // Original file comments:
-// Copyright 2020 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,34 +22,36 @@
 #include "google/devtools/cloudtrace/v2/tracing.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace devtools {
 namespace cloudtrace {
 namespace v2 {
 
-// This file describes an API for collecting and viewing traces and spans
-// within a trace.  A Trace is a collection of spans corresponding to a single
-// operation or set of operations for an application. A span is an individual
-// timed event which forms a node of the trace tree. A single trace may
-// contain span(s) from multiple services.
+// Service for collecting and viewing traces and spans within a trace.
+//
+// A trace is a collection of spans corresponding to a single
+// operation or a set of operations in an application.
+//
+// A span is an individual timed event which forms a node of the trace tree.
+// A single trace can contain spans from multiple services.
 class TraceService final {
  public:
   static constexpr char const* service_full_name() {
@@ -58,7 +60,7 @@ class TraceService final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    // Sends new spans to new or existing traces. You cannot update
+    // Batch writes new spans to new or existing traces. You cannot update
     // existing spans.
     virtual ::grpc::Status BatchWriteSpans(::grpc::ClientContext* context, const ::google::devtools::cloudtrace::v2::BatchWriteSpansRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncBatchWriteSpans(::grpc::ClientContext* context, const ::google::devtools::cloudtrace::v2::BatchWriteSpansRequest& request, ::grpc::CompletionQueue* cq) {
@@ -78,7 +80,7 @@ class TraceService final {
     class async_interface {
      public:
       virtual ~async_interface() {}
-      // Sends new spans to new or existing traces. You cannot update
+      // Batch writes new spans to new or existing traces. You cannot update
       // existing spans.
       virtual void BatchWriteSpans(::grpc::ClientContext* context, const ::google::devtools::cloudtrace::v2::BatchWriteSpansRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void BatchWriteSpans(::grpc::ClientContext* context, const ::google::devtools::cloudtrace::v2::BatchWriteSpansRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -143,7 +145,7 @@ class TraceService final {
    public:
     Service();
     virtual ~Service();
-    // Sends new spans to new or existing traces. You cannot update
+    // Batch writes new spans to new or existing traces. You cannot update
     // existing spans.
     virtual ::grpc::Status BatchWriteSpans(::grpc::ServerContext* context, const ::google::devtools::cloudtrace::v2::BatchWriteSpansRequest* request, ::google::protobuf::Empty* response);
     // Creates a new span.

@@ -16,13 +16,10 @@
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_INTERNAL_OAUTH2_GOOGLE_CREDENTIALS_H
 
 #include "google/cloud/internal/oauth2_credentials.h"
-#include "google/cloud/optional.h"
+#include "google/cloud/internal/oauth2_http_client_factory.h"
 #include "google/cloud/options.h"
 #include "google/cloud/version.h"
-#include "absl/types/optional.h"
 #include <memory>
-#include <set>
-#include <string>
 
 namespace google {
 namespace cloud {
@@ -35,14 +32,14 @@ GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_BEGIN
  * If the GOOGLE_APPLICATION_CREDENTIALS environment variable is set, the JSON
  * file it points to will be loaded and used to create a credential of the
  * specified type. Otherwise, if running on a Google-hosted environment (e.g.
- * Compute Engine), credentials for the the environment's default service
+ * Compute Engine), credentials for the environment's default service
  * account will be used.
  *
  * @see https://cloud.google.com/docs/authentication/production for details
  * about Application Default %Credentials.
  */
 StatusOr<std::shared_ptr<Credentials>> GoogleDefaultCredentials(
-    Options const& options = {});
+    Options const& options, HttpClientFactory client_factory);
 
 GOOGLE_CLOUD_CPP_INLINE_NAMESPACE_END
 }  // namespace oauth2_internal

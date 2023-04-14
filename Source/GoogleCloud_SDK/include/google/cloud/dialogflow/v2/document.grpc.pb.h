@@ -22,30 +22,31 @@
 #include "google/cloud/dialogflow/v2/document.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace cloud {
 namespace dialogflow {
 namespace v2 {
 
-// Service for managing knowledge [Documents][google.cloud.dialogflow.v2.Document].
+// Service for managing knowledge
+// [Documents][google.cloud.dialogflow.v2.Document].
 class Documents final {
  public:
   static constexpr char const* service_full_name() {
@@ -76,7 +77,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: [Document][google.cloud.dialogflow.v2.Document]
     virtual ::grpc::Status CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateDocumentRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncCreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateDocumentRequest& request, ::grpc::CompletionQueue* cq) {
@@ -93,8 +95,10 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
-    // - `response`: [ImportDocumentsResponse][google.cloud.dialogflow.v2.ImportDocumentsResponse]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `response`:
+    // [ImportDocumentsResponse][google.cloud.dialogflow.v2.ImportDocumentsResponse]
     virtual ::grpc::Status ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportDocumentsRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportDocumentsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncImportDocumentsRaw(context, request, cq));
@@ -108,7 +112,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: An [Empty
     //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     virtual ::grpc::Status DeleteDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteDocumentRequest& request, ::google::longrunning::Operation* response) = 0;
@@ -124,7 +129,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: [Document][google.cloud.dialogflow.v2.Document]
     virtual ::grpc::Status UpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateDocumentRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncUpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateDocumentRequest& request, ::grpc::CompletionQueue* cq) {
@@ -142,7 +148,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: [Document][google.cloud.dialogflow.v2.Document]
     //
     // Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
@@ -161,7 +168,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: [Document][google.cloud.dialogflow.v2.Document]
     virtual ::grpc::Status ExportDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportDocumentRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncExportDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportDocumentRequest& request, ::grpc::CompletionQueue* cq) {
@@ -185,7 +193,8 @@ class Documents final {
       // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+      // - `metadata`:
+      // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
       // - `response`: [Document][google.cloud.dialogflow.v2.Document]
       virtual void CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -197,8 +206,10 @@ class Documents final {
       // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
-      // - `response`: [ImportDocumentsResponse][google.cloud.dialogflow.v2.ImportDocumentsResponse]
+      // - `metadata`:
+      // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+      // - `response`:
+      // [ImportDocumentsResponse][google.cloud.dialogflow.v2.ImportDocumentsResponse]
       virtual void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ImportDocuments(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportDocumentsRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Deletes the specified document.
@@ -207,7 +218,8 @@ class Documents final {
       // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+      // - `metadata`:
+      // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
       // - `response`: An [Empty
       //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
       virtual void DeleteDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
@@ -218,7 +230,8 @@ class Documents final {
       // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+      // - `metadata`:
+      // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
       // - `response`: [Document][google.cloud.dialogflow.v2.Document]
       virtual void UpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -231,7 +244,8 @@ class Documents final {
       // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+      // - `metadata`:
+      // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
       // - `response`: [Document][google.cloud.dialogflow.v2.Document]
       //
       // Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
@@ -245,7 +259,8 @@ class Documents final {
       // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+      // - `metadata`:
+      // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
       // - `response`: [Document][google.cloud.dialogflow.v2.Document]
       virtual void ExportDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportDocumentRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ExportDocument(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ExportDocumentRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -401,7 +416,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: [Document][google.cloud.dialogflow.v2.Document]
     virtual ::grpc::Status CreateDocument(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::CreateDocumentRequest* request, ::google::longrunning::Operation* response);
     // Creates documents by importing data from external sources.
@@ -412,8 +428,10 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
-    // - `response`: [ImportDocumentsResponse][google.cloud.dialogflow.v2.ImportDocumentsResponse]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `response`:
+    // [ImportDocumentsResponse][google.cloud.dialogflow.v2.ImportDocumentsResponse]
     virtual ::grpc::Status ImportDocuments(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ImportDocumentsRequest* request, ::google::longrunning::Operation* response);
     // Deletes the specified document.
     //
@@ -421,7 +439,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: An [Empty
     //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     virtual ::grpc::Status DeleteDocument(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::DeleteDocumentRequest* request, ::google::longrunning::Operation* response);
@@ -431,7 +450,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: [Document][google.cloud.dialogflow.v2.Document]
     virtual ::grpc::Status UpdateDocument(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::UpdateDocumentRequest* request, ::google::longrunning::Operation* response);
     // Reloads the specified document from its specified source, content_uri or
@@ -443,7 +463,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: [Document][google.cloud.dialogflow.v2.Document]
     //
     // Note: The `projects.agent.knowledgeBases.documents` resource is deprecated;
@@ -456,7 +477,8 @@ class Documents final {
     // operation](https://cloud.google.com/dialogflow/cx/docs/how/long-running-operation).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
+    // - `metadata`:
+    // [KnowledgeOperationMetadata][google.cloud.dialogflow.v2.KnowledgeOperationMetadata]
     // - `response`: [Document][google.cloud.dialogflow.v2.Document]
     virtual ::grpc::Status ExportDocument(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ExportDocumentRequest* request, ::google::longrunning::Operation* response);
   };

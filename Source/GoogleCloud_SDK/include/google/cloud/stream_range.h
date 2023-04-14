@@ -15,7 +15,7 @@
 #ifndef GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_STREAM_RANGE_H
 #define GOOGLE_CLOUD_CPP_GOOGLE_CLOUD_STREAM_RANGE_H
 
-#include "google/cloud/options.h"
+#include "google/cloud/internal/call_context.h"
 #include "google/cloud/status.h"
 #include "google/cloud/status_or.h"
 #include "google/cloud/version.h"
@@ -42,7 +42,7 @@ namespace internal {
  * `Status` indicating either success or an error. This function will not be
  * invoked any more after it returns any `Status`.
  *
- * @par Example `StreamReader` that returns the integers from 1-10.
+ * @par Example: returning the integers from 1-10.
  *
  * @code
  * int counter = 0;
@@ -161,19 +161,19 @@ class StreamRange {
   StreamRange() = default;
 
   ~StreamRange() {
-    internal::OptionsSpan span(options_);
+    internal::ScopedCallContext scope(call_context_);
     reader_ = nullptr;
   }
 
-  //@{
-  // @name Move-only
+  ///@{
+  /// @name Move-only
   StreamRange(StreamRange const&) = delete;
   StreamRange& operator=(StreamRange const&) = delete;
   // NOLINTNEXTLINE(performance-noexcept-move-constructor)
   StreamRange(StreamRange&&) = default;
   // NOLINTNEXTLINE(performance-noexcept-move-constructor)
   StreamRange& operator=(StreamRange&&) = default;
-  //@}
+  ///@}
 
   iterator begin() { return iterator(this); }
   iterator end() { return iterator(); }
@@ -198,7 +198,7 @@ class StreamRange {
         sr.current_ = std::move(t);
       }
     };
-    internal::OptionsSpan span(options_);
+    internal::ScopedCallContext scope(call_context_);
     auto v = reader_();
     absl::visit(UnpackVariant{*this}, std::move(v));
   }
@@ -237,7 +237,7 @@ class StreamRange {
     Next();
   }
 
-  Options options_ = internal::CurrentOptions();
+  internal::CallContext call_context_;
   internal::StreamReader<T> reader_;
   StatusOr<T> current_;
   bool current_ok_ = false;

@@ -2,11 +2,14 @@
 // If you make any local change, they will be lost.
 // source: opentelemetry/proto/collector/metrics/v1/metrics_service.proto
 
+#ifndef GRPC_MOCK_opentelemetry_2fproto_2fcollector_2fmetrics_2fv1_2fmetrics_5fservice_2eproto__INCLUDED
+#define GRPC_MOCK_opentelemetry_2fproto_2fcollector_2fmetrics_2fv1_2fmetrics_5fservice_2eproto__INCLUDED
+
 #include "opentelemetry/proto/collector/metrics/v1/metrics_service.pb.h"
 #include "opentelemetry/proto/collector/metrics/v1/metrics_service.grpc.pb.h"
 
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/sync_stream.h>
 #include <gmock/gmock.h>
 namespace opentelemetry {
 namespace proto {
@@ -21,9 +24,11 @@ class MockMetricsServiceStub : public MetricsService::StubInterface {
   MOCK_METHOD3(PrepareAsyncExportRaw, ::grpc::ClientAsyncResponseReaderInterface< ::opentelemetry::proto::collector::metrics::v1::ExportMetricsServiceResponse>*(::grpc::ClientContext* context, const ::opentelemetry::proto::collector::metrics::v1::ExportMetricsServiceRequest& request, ::grpc::CompletionQueue* cq));
 };
 
-} // namespace opentelemetry
-} // namespace proto
-} // namespace collector
-} // namespace metrics
-} // namespace v1
+}  // namespace v1
+}  // namespace metrics
+}  // namespace collector
+}  // namespace proto
+}  // namespace opentelemetry
 
+
+#endif  // GRPC_MOCK_opentelemetry_2fproto_2fcollector_2fmetrics_2fv1_2fmetrics_5fservice_2eproto__INCLUDED

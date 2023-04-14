@@ -2,19 +2,24 @@
 // If you make any local change, they will be lost.
 // source: opentelemetry/proto/metrics/v1/metrics.proto
 
+#ifndef GRPC_MOCK_opentelemetry_2fproto_2fmetrics_2fv1_2fmetrics_2eproto__INCLUDED
+#define GRPC_MOCK_opentelemetry_2fproto_2fmetrics_2fv1_2fmetrics_2eproto__INCLUDED
+
 #include "opentelemetry/proto/metrics/v1/metrics.pb.h"
 #include "opentelemetry/proto/metrics/v1/metrics.grpc.pb.h"
 
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/sync_stream.h>
 #include <gmock/gmock.h>
 namespace opentelemetry {
 namespace proto {
 namespace metrics {
 namespace v1 {
 
-} // namespace opentelemetry
-} // namespace proto
-} // namespace metrics
-} // namespace v1
+}  // namespace v1
+}  // namespace metrics
+}  // namespace proto
+}  // namespace opentelemetry
 
+
+#endif  // GRPC_MOCK_opentelemetry_2fproto_2fmetrics_2fv1_2fmetrics_2eproto__INCLUDED

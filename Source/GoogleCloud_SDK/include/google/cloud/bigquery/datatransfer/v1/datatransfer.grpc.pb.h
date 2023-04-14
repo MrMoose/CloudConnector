@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: google/cloud/bigquery/datatransfer/v1/datatransfer.proto
 // Original file comments:
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,23 +22,23 @@
 #include "google/cloud/bigquery/datatransfer/v1/datatransfer.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace cloud {
@@ -180,10 +180,12 @@ class DataTransferService final {
     }
     // Enroll data sources in a user project. This allows users to create transfer
     // configurations for these data sources. They will also appear in the
-    // ListDataSources RPC and as such, will appear in the BigQuery UI
-    // 'https://bigquery.cloud.google.com' (and the documents can be found at
-    // https://cloud.google.com/bigquery/bigquery-web-ui and
-    // https://cloud.google.com/bigquery/docs/working-with-transfers).
+    // ListDataSources RPC and as such, will appear in the
+    // [BigQuery UI](https://console.cloud.google.com/bigquery), and the documents
+    // can be found in the public guide for
+    // [BigQuery Web UI](https://cloud.google.com/bigquery/bigquery-web-ui) and
+    // [Data Transfer
+    // Service](https://cloud.google.com/bigquery/docs/working-with-transfers).
     virtual ::grpc::Status EnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::google::protobuf::Empty* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncEnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncEnrollDataSourcesRaw(context, request, cq));
@@ -249,10 +251,12 @@ class DataTransferService final {
       virtual void CheckValidCreds(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Enroll data sources in a user project. This allows users to create transfer
       // configurations for these data sources. They will also appear in the
-      // ListDataSources RPC and as such, will appear in the BigQuery UI
-      // 'https://bigquery.cloud.google.com' (and the documents can be found at
-      // https://cloud.google.com/bigquery/bigquery-web-ui and
-      // https://cloud.google.com/bigquery/docs/working-with-transfers).
+      // ListDataSources RPC and as such, will appear in the
+      // [BigQuery UI](https://console.cloud.google.com/bigquery), and the documents
+      // can be found in the public guide for
+      // [BigQuery Web UI](https://cloud.google.com/bigquery/bigquery-web-ui) and
+      // [Data Transfer
+      // Service](https://cloud.google.com/bigquery/docs/working-with-transfers).
       virtual void EnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
       virtual void EnrollDataSources(::grpc::ClientContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
@@ -536,10 +540,12 @@ class DataTransferService final {
     virtual ::grpc::Status CheckValidCreds(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsRequest* request, ::google::cloud::bigquery::datatransfer::v1::CheckValidCredsResponse* response);
     // Enroll data sources in a user project. This allows users to create transfer
     // configurations for these data sources. They will also appear in the
-    // ListDataSources RPC and as such, will appear in the BigQuery UI
-    // 'https://bigquery.cloud.google.com' (and the documents can be found at
-    // https://cloud.google.com/bigquery/bigquery-web-ui and
-    // https://cloud.google.com/bigquery/docs/working-with-transfers).
+    // ListDataSources RPC and as such, will appear in the
+    // [BigQuery UI](https://console.cloud.google.com/bigquery), and the documents
+    // can be found in the public guide for
+    // [BigQuery Web UI](https://cloud.google.com/bigquery/bigquery-web-ui) and
+    // [Data Transfer
+    // Service](https://cloud.google.com/bigquery/docs/working-with-transfers).
     virtual ::grpc::Status EnrollDataSources(::grpc::ServerContext* context, const ::google::cloud::bigquery::datatransfer::v1::EnrollDataSourcesRequest* request, ::google::protobuf::Empty* response);
   };
   template <class BaseClass>

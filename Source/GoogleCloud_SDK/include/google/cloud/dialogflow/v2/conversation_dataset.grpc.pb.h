@@ -22,23 +22,23 @@
 #include "google/cloud/dialogflow/v2/conversation_dataset.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace cloud {
@@ -63,8 +63,10 @@ class ConversationDatasets final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [CreateConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.CreateConversationDatasetOperationMetadata]
-    // - `response`: [ConversationDataset][google.cloud.dialogflow.v2.ConversationDataset]
+    // - `metadata`:
+    // [CreateConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.CreateConversationDatasetOperationMetadata]
+    // - `response`:
+    // [ConversationDataset][google.cloud.dialogflow.v2.ConversationDataset]
     virtual ::grpc::Status CreateConversationDataset(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationDatasetRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncCreateConversationDataset(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationDatasetRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncCreateConversationDatasetRaw(context, request, cq));
@@ -95,7 +97,8 @@ class ConversationDatasets final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [DeleteConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.DeleteConversationDatasetOperationMetadata]
+    // - `metadata`:
+    // [DeleteConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.DeleteConversationDatasetOperationMetadata]
     // - `response`: An [Empty
     //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     virtual ::grpc::Status DeleteConversationDataset(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationDatasetRequest& request, ::google::longrunning::Operation* response) = 0;
@@ -113,8 +116,10 @@ class ConversationDatasets final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [ImportConversationDataOperationMetadata][google.cloud.dialogflow.v2.ImportConversationDataOperationMetadata]
-    // - `response`: [ImportConversationDataOperationResponse][google.cloud.dialogflow.v2.ImportConversationDataOperationResponse]
+    // - `metadata`:
+    // [ImportConversationDataOperationMetadata][google.cloud.dialogflow.v2.ImportConversationDataOperationMetadata]
+    // - `response`:
+    // [ImportConversationDataOperationResponse][google.cloud.dialogflow.v2.ImportConversationDataOperationResponse]
     virtual ::grpc::Status ImportConversationData(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportConversationDataRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncImportConversationData(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportConversationDataRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncImportConversationDataRaw(context, request, cq));
@@ -131,8 +136,10 @@ class ConversationDatasets final {
       // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [CreateConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.CreateConversationDatasetOperationMetadata]
-      // - `response`: [ConversationDataset][google.cloud.dialogflow.v2.ConversationDataset]
+      // - `metadata`:
+      // [CreateConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.CreateConversationDatasetOperationMetadata]
+      // - `response`:
+      // [ConversationDataset][google.cloud.dialogflow.v2.ConversationDataset]
       virtual void CreateConversationDataset(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationDatasetRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateConversationDataset(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationDatasetRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves the specified conversation dataset.
@@ -148,7 +155,8 @@ class ConversationDatasets final {
       // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [DeleteConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.DeleteConversationDatasetOperationMetadata]
+      // - `metadata`:
+      // [DeleteConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.DeleteConversationDatasetOperationMetadata]
       // - `response`: An [Empty
       //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
       virtual void DeleteConversationDataset(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationDatasetRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
@@ -161,8 +169,10 @@ class ConversationDatasets final {
       // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [ImportConversationDataOperationMetadata][google.cloud.dialogflow.v2.ImportConversationDataOperationMetadata]
-      // - `response`: [ImportConversationDataOperationResponse][google.cloud.dialogflow.v2.ImportConversationDataOperationResponse]
+      // - `metadata`:
+      // [ImportConversationDataOperationMetadata][google.cloud.dialogflow.v2.ImportConversationDataOperationMetadata]
+      // - `response`:
+      // [ImportConversationDataOperationResponse][google.cloud.dialogflow.v2.ImportConversationDataOperationResponse]
       virtual void ImportConversationData(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportConversationDataRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ImportConversationData(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ImportConversationDataRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
@@ -271,8 +281,10 @@ class ConversationDatasets final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [CreateConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.CreateConversationDatasetOperationMetadata]
-    // - `response`: [ConversationDataset][google.cloud.dialogflow.v2.ConversationDataset]
+    // - `metadata`:
+    // [CreateConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.CreateConversationDatasetOperationMetadata]
+    // - `response`:
+    // [ConversationDataset][google.cloud.dialogflow.v2.ConversationDataset]
     virtual ::grpc::Status CreateConversationDataset(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::CreateConversationDatasetRequest* request, ::google::longrunning::Operation* response);
     // Retrieves the specified conversation dataset.
     virtual ::grpc::Status GetConversationDataset(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::GetConversationDatasetRequest* request, ::google::cloud::dialogflow::v2::ConversationDataset* response);
@@ -285,7 +297,8 @@ class ConversationDatasets final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [DeleteConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.DeleteConversationDatasetOperationMetadata]
+    // - `metadata`:
+    // [DeleteConversationDatasetOperationMetadata][google.cloud.dialogflow.v2.DeleteConversationDatasetOperationMetadata]
     // - `response`: An [Empty
     //   message](https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#empty)
     virtual ::grpc::Status DeleteConversationDataset(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationDatasetRequest* request, ::google::longrunning::Operation* response);
@@ -297,8 +310,10 @@ class ConversationDatasets final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [ImportConversationDataOperationMetadata][google.cloud.dialogflow.v2.ImportConversationDataOperationMetadata]
-    // - `response`: [ImportConversationDataOperationResponse][google.cloud.dialogflow.v2.ImportConversationDataOperationResponse]
+    // - `metadata`:
+    // [ImportConversationDataOperationMetadata][google.cloud.dialogflow.v2.ImportConversationDataOperationMetadata]
+    // - `response`:
+    // [ImportConversationDataOperationResponse][google.cloud.dialogflow.v2.ImportConversationDataOperationResponse]
     virtual ::grpc::Status ImportConversationData(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ImportConversationDataRequest* request, ::google::longrunning::Operation* response);
   };
   template <class BaseClass>

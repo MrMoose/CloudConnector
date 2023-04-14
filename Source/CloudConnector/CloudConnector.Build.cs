@@ -41,7 +41,7 @@ public class CloudConnector : ModuleRules {
 			"AWS_SDK",
 			"Json",
 			"JsonUtilities",
-			"Http"
+			"HTTP"
 		});
 
 		if (SupportGoogleCloud) {

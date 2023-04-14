@@ -23,6 +23,9 @@
 /* Max header name length is 127 bytes */
 #define AWS_EVENT_STREAM_HEADER_NAME_LEN_MAX (INT8_MAX)
 
+/* Max header static value length is 16 bytes */
+#define AWS_EVENT_STREAM_HEADER_STATIC_VALUE_LEN_MAX (16)
+
 enum aws_event_stream_errors {
     AWS_ERROR_EVENT_STREAM_BUFFER_LENGTH_MISMATCH = AWS_ERROR_ENUM_BEGIN_RANGE(AWS_C_EVENT_STREAM_PACKAGE_ID),
     AWS_ERROR_EVENT_STREAM_INSUFFICIENT_BUFFER_LEN,
@@ -85,7 +88,7 @@ struct aws_event_stream_header_value_pair {
     enum aws_event_stream_header_value_type header_value_type;
     union {
         uint8_t *variable_len_val;
-        uint8_t static_val[16];
+        uint8_t static_val[AWS_EVENT_STREAM_HEADER_STATIC_VALUE_LEN_MAX];
     } header_value;
 
     uint16_t header_value_len;
@@ -130,6 +133,15 @@ typedef void(aws_event_stream_header_received_fn)(
     void *user_data);
 
 /**
+ * Called by aws_aws_event_stream_streaming_decoder when a message decoding is complete
+ * and crc is verified.
+ */
+typedef void(aws_event_stream_on_complete_fn)(
+    struct aws_event_stream_streaming_decoder *decoder,
+    uint32_t message_crc,
+    void *user_data);
+
+/**
  * Called by aws_aws_event_stream_streaming_decoder when an error is encountered. The decoder is not in a good state for
  * usage after this callback.
  */
@@ -153,10 +165,48 @@ struct aws_event_stream_streaming_decoder {
     aws_event_stream_process_on_payload_segment_fn *on_payload;
     aws_event_stream_prelude_received_fn *on_prelude;
     aws_event_stream_header_received_fn *on_header;
+    aws_event_stream_on_complete_fn *on_complete;
     aws_event_stream_on_error_fn *on_error;
     void *user_context;
 };
 
+struct aws_event_stream_streaming_decoder_options {
+    /**
+     * (Required)
+     * Invoked repeatedly as payload segment are received.
+     * See `aws_event_stream_process_on_payload_segment_fn`.
+     */
+    aws_event_stream_process_on_payload_segment_fn *on_payload_segment;
+    /**
+     * (Required)
+     * Invoked when when a new message has arrived. The prelude will contain metadata about the message.
+     * See `aws_event_stream_prelude_received_fn`.
+     */
+    aws_event_stream_prelude_received_fn *on_prelude;
+    /**
+     * (Required)
+     * Invoked repeatedly as headers are received.
+     * See `aws_event_stream_header_received_fn`.
+     */
+    aws_event_stream_header_received_fn *on_header;
+    /**
+     * (Optional)
+     * Invoked if a message is decoded successfully.
+     * See `aws_event_stream_on_complete_fn`.
+     */
+    aws_event_stream_on_complete_fn *on_complete;
+    /**
+     * (Required)
+     * Invoked when an error is encountered. The decoder is not in a good state for usage after this callback.
+     * See `aws_event_stream_on_error_fn`.
+     */
+    aws_event_stream_on_error_fn *on_error;
+    /**
+     * (Optional)
+     * user_data passed to callbacks.
+     */
+    void *user_data;
+};
 AWS_EXTERN_C_BEGIN
 
 /**
@@ -167,8 +217,8 @@ AWS_EXTERN_C_BEGIN
 AWS_EVENT_STREAM_API int aws_event_stream_message_init(
     struct aws_event_stream_message *message,
     struct aws_allocator *alloc,
-    struct aws_array_list *headers,
-    struct aws_byte_buf *payload);
+    const struct aws_array_list *headers,
+    const struct aws_byte_buf *payload);
 
 /**
  * Zero allocation, Zero copy. The message will simply wrap the buffer. The message functions are only useful as long as
@@ -275,7 +325,19 @@ AWS_EVENT_STREAM_API int aws_event_stream_read_headers_from_buffer(
     struct aws_array_list *headers,
     const uint8_t *buffer,
     size_t headers_len);
+
 /**
+ * Initialize a streaming decoder for messages with callbacks for usage
+ * and an optional user context pointer.
+ */
+AWS_EVENT_STREAM_API
+void aws_event_stream_streaming_decoder_init_from_options(
+    struct aws_event_stream_streaming_decoder *decoder,
+    struct aws_allocator *allocator,
+    const struct aws_event_stream_streaming_decoder_options *options);
+
+/**
+ * Deprecated. Use aws_event_stream_streaming_decoder_init_from_options instead.
  * Initialize a streaming decoder for messages with callbacks for usage and an optional user context pointer.
  */
 AWS_EVENT_STREAM_API void aws_event_stream_streaming_decoder_init(
@@ -400,6 +462,14 @@ AWS_EVENT_STREAM_API int aws_event_stream_add_uuid_header(
     const char *name,
     uint8_t name_len,
     const uint8_t *value);
+
+/**
+ * Adds a generic header to the list of headers.
+ * Makes a copy of the underlaying data.
+ */
+AWS_EVENT_STREAM_API int aws_event_stream_add_header(
+    struct aws_array_list *headers,
+    const struct aws_event_stream_header_value_pair *header);
 
 /**
  * Returns the header name. Note: this value is not null terminated

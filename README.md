@@ -7,7 +7,7 @@
 CloudConnector is a plugin for the
 [Unreal Engine](https://www.unrealengine.com/) which 
 implements elementary cloud native connectivity functions
-for use within C++ Unreal Engine 4 projects.
+for use within C++ Unreal Engine 5 projects.
 Primary use case are cloud based remote rendering 
 applications in industry contexts.
 It focuses on queue message handling logging, tracing and monitoring
@@ -29,11 +29,9 @@ If you are interested in any other,
 contact [MrMoose](https://github.com/MrMoose).
 
 Supported Engine versions:
-* 4.26
-* 4.27
+* 5.1
 
-Unreal Engine 5 might work. Users reported having done this but
-it is not tested right now.
+For the last 4.x releases please check out the previous releases v1.1.0 and below
 
 ## Quickstart
 

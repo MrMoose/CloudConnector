@@ -55,7 +55,16 @@ public:
     }
   }
 
-  bool ForceFlush(std::chrono::microseconds /* timeout */) noexcept override { return true; }
+  bool ForceFlush(
+      std::chrono::microseconds timeout = (std::chrono::microseconds::max)()) noexcept override
+  {
+    if (exporter_ != nullptr)
+    {
+      return exporter_->ForceFlush(timeout);
+    }
+
+    return true;
+  }
 
   bool Shutdown(
       std::chrono::microseconds timeout = (std::chrono::microseconds::max)()) noexcept override
@@ -73,7 +82,12 @@ public:
 private:
   std::unique_ptr<SpanExporter> exporter_;
   opentelemetry::common::SpinLockMutex lock_;
+#if defined(__cpp_lib_atomic_value_initialization) && \
+    __cpp_lib_atomic_value_initialization >= 201911L
+  std::atomic_flag shutdown_latch_{};
+#else
   std::atomic_flag shutdown_latch_ = ATOMIC_FLAG_INIT;
+#endif
 };
 }  // namespace trace
 }  // namespace sdk

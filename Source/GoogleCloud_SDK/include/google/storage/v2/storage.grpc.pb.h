@@ -22,23 +22,23 @@
 #include "google/storage/v2/storage.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace storage {
@@ -114,6 +114,9 @@ class Storage final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(PrepareAsyncLockBucketRetentionPolicyRaw(context, request, cq));
     }
     // Gets the IAM policy for a specified bucket or object.
+    // The `resource` field in the request should be
+    // projects/_/buckets/<bucket_name> for a bucket or
+    // projects/_/buckets/<bucket_name>/objects/<object_name> for an object.
     virtual ::grpc::Status GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::google::iam::v1::Policy* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> AsyncGetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(AsyncGetIamPolicyRaw(context, request, cq));
@@ -122,6 +125,9 @@ class Storage final {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(PrepareAsyncGetIamPolicyRaw(context, request, cq));
     }
     // Updates an IAM policy for the specified bucket or object.
+    // The `resource` field in the request should be
+    // projects/_/buckets/<bucket_name> for a bucket or
+    // projects/_/buckets/<bucket_name>/objects/<object_name> for an object.
     virtual ::grpc::Status SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::google::iam::v1::Policy* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>> AsyncSetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::Policy>>(AsyncSetIamPolicyRaw(context, request, cq));
@@ -131,6 +137,9 @@ class Storage final {
     }
     // Tests a set of permissions on the given bucket or object to see which, if
     // any, are held by the caller.
+    // The `resource` field in the request should be
+    // projects/_/buckets/<bucket_name> for a bucket or
+    // projects/_/buckets/<bucket_name>/objects/<object_name> for an object.
     virtual ::grpc::Status TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::google::iam::v1::TestIamPermissionsResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>> AsyncTestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>>(AsyncTestIamPermissionsRaw(context, request, cq));
@@ -146,40 +155,40 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>> PrepareAsyncUpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>>(PrepareAsyncUpdateBucketRaw(context, request, cq));
     }
-    // Permanently deletes a notification subscription.
-    virtual ::grpc::Status DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::google::protobuf::Empty* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteNotificationRaw(context, request, cq));
+    // Permanently deletes a NotificationConfig.
+    virtual ::grpc::Status DeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::google::protobuf::Empty* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> AsyncDeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(AsyncDeleteNotificationConfigRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteNotificationRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>> PrepareAsyncDeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>>(PrepareAsyncDeleteNotificationConfigRaw(context, request, cq));
     }
-    // View a notification config.
-    virtual ::grpc::Status GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::google::storage::v2::Notification* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>> AsyncGetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>>(AsyncGetNotificationRaw(context, request, cq));
+    // View a NotificationConfig.
+    virtual ::grpc::Status GetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::google::storage::v2::NotificationConfig* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>> AsyncGetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>>(AsyncGetNotificationConfigRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>> PrepareAsyncGetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>>(PrepareAsyncGetNotificationRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>> PrepareAsyncGetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>>(PrepareAsyncGetNotificationConfigRaw(context, request, cq));
     }
-    // Creates a notification subscription for a given bucket.
-    // These notifications, when triggered, publish messages to the specified
-    // Pub/Sub topics.
-    // See https://cloud.google.com/storage/docs/pubsub-notifications.
-    virtual ::grpc::Status CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::google::storage::v2::Notification* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>> AsyncCreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>>(AsyncCreateNotificationRaw(context, request, cq));
+    // Creates a NotificationConfig for a given bucket.
+    // These NotificationConfigs, when triggered, publish messages to the
+    // specified Pub/Sub topics. See
+    // https://cloud.google.com/storage/docs/pubsub-notifications.
+    virtual ::grpc::Status CreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::google::storage::v2::NotificationConfig* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>> AsyncCreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>>(AsyncCreateNotificationConfigRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>> PrepareAsyncCreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>>(PrepareAsyncCreateNotificationRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>> PrepareAsyncCreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>>(PrepareAsyncCreateNotificationConfigRaw(context, request, cq));
     }
-    // Retrieves a list of notification subscriptions for a given bucket.
-    virtual ::grpc::Status ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::google::storage::v2::ListNotificationsResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>> AsyncListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>>(AsyncListNotificationsRaw(context, request, cq));
+    // Retrieves a list of NotificationConfigs for a given bucket.
+    virtual ::grpc::Status ListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::google::storage::v2::ListNotificationConfigsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationConfigsResponse>> AsyncListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationConfigsResponse>>(AsyncListNotificationConfigsRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>> PrepareAsyncListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>>(PrepareAsyncListNotificationsRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationConfigsResponse>> PrepareAsyncListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationConfigsResponse>>(PrepareAsyncListNotificationConfigsRaw(context, request, cq));
     }
     // Concatenates a list of existing objects into a new object in the same
     // bucket.
@@ -273,8 +282,9 @@ class Storage final {
     //     returned `persisted_size`; in this case, the service will skip data at
     //     offsets that were already persisted (without checking that it matches
     //     the previously written data), and write only the data starting from the
-    //     persisted offset. This behavior can make client-side handling simpler
-    //     in some cases.
+    //     persisted offset. Even though the data isn't written, it may still
+    //     incur a performance cost over resuming at the correct write offset.
+    //     This behavior can make client-side handling simpler in some cases.
     //
     // The service will not view the object as complete until the client has
     // sent a `WriteObjectRequest` with `finish_write` set to `true`. Sending any
@@ -409,33 +419,42 @@ class Storage final {
       virtual void LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) = 0;
       virtual void LockBucketRetentionPolicy(::grpc::ClientContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Gets the IAM policy for a specified bucket or object.
+      // The `resource` field in the request should be
+      // projects/_/buckets/<bucket_name> for a bucket or
+      // projects/_/buckets/<bucket_name>/objects/<object_name> for an object.
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Updates an IAM policy for the specified bucket or object.
+      // The `resource` field in the request should be
+      // projects/_/buckets/<bucket_name> for a bucket or
+      // projects/_/buckets/<bucket_name>/objects/<object_name> for an object.
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, std::function<void(::grpc::Status)>) = 0;
       virtual void SetIamPolicy(::grpc::ClientContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Tests a set of permissions on the given bucket or object to see which, if
       // any, are held by the caller.
+      // The `resource` field in the request should be
+      // projects/_/buckets/<bucket_name> for a bucket or
+      // projects/_/buckets/<bucket_name>/objects/<object_name> for an object.
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
       virtual void UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Permanently deletes a notification subscription.
-      virtual void DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // View a notification config.
-      virtual void GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Creates a notification subscription for a given bucket.
-      // These notifications, when triggered, publish messages to the specified
-      // Pub/Sub topics.
-      // See https://cloud.google.com/storage/docs/pubsub-notifications.
-      virtual void CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      // Retrieves a list of notification subscriptions for a given bucket.
-      virtual void ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Permanently deletes a NotificationConfig.
+      virtual void DeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // View a NotificationConfig.
+      virtual void GetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Creates a NotificationConfig for a given bucket.
+      // These NotificationConfigs, when triggered, publish messages to the
+      // specified Pub/Sub topics. See
+      // https://cloud.google.com/storage/docs/pubsub-notifications.
+      virtual void CreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Retrieves a list of NotificationConfigs for a given bucket.
+      virtual void ListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest* request, ::google::storage::v2::ListNotificationConfigsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest* request, ::google::storage::v2::ListNotificationConfigsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Concatenates a list of existing objects into a new object in the same
       // bucket.
       virtual void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) = 0;
@@ -495,8 +514,9 @@ class Storage final {
       //     returned `persisted_size`; in this case, the service will skip data at
       //     offsets that were already persisted (without checking that it matches
       //     the previously written data), and write only the data starting from the
-      //     persisted offset. This behavior can make client-side handling simpler
-      //     in some cases.
+      //     persisted offset. Even though the data isn't written, it may still
+      //     incur a performance cost over resuming at the correct write offset.
+      //     This behavior can make client-side handling simpler in some cases.
       //
       // The service will not view the object as complete until the client has
       // sent a `WriteObjectRequest` with `finish_write` set to `true`. Sending any
@@ -577,14 +597,14 @@ class Storage final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::iam::v1::TestIamPermissionsResponse>* PrepareAsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* AsyncUpdateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Bucket>* PrepareAsyncUpdateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>* AsyncGetNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>* PrepareAsyncGetNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>* AsyncCreateNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Notification>* PrepareAsyncCreateNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>* AsyncListNotificationsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationsResponse>* PrepareAsyncListNotificationsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* PrepareAsyncDeleteNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>* AsyncGetNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>* PrepareAsyncGetNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>* AsyncCreateNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::NotificationConfig>* PrepareAsyncCreateNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationConfigsResponse>* AsyncListNotificationConfigsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::ListNotificationConfigsResponse>* PrepareAsyncListNotificationConfigsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* AsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::storage::v2::Object>* PrepareAsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::google::protobuf::Empty>* AsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -688,33 +708,33 @@ class Storage final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>> PrepareAsyncUpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>>(PrepareAsyncUpdateBucketRaw(context, request, cq));
     }
-    ::grpc::Status DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::google::protobuf::Empty* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteNotificationRaw(context, request, cq));
+    ::grpc::Status DeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::google::protobuf::Empty* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> AsyncDeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(AsyncDeleteNotificationConfigRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteNotificationRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>> PrepareAsyncDeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>>(PrepareAsyncDeleteNotificationConfigRaw(context, request, cq));
     }
-    ::grpc::Status GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::google::storage::v2::Notification* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>> AsyncGetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>>(AsyncGetNotificationRaw(context, request, cq));
+    ::grpc::Status GetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::google::storage::v2::NotificationConfig* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>> AsyncGetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>>(AsyncGetNotificationConfigRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>> PrepareAsyncGetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>>(PrepareAsyncGetNotificationRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>> PrepareAsyncGetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>>(PrepareAsyncGetNotificationConfigRaw(context, request, cq));
     }
-    ::grpc::Status CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::google::storage::v2::Notification* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>> AsyncCreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>>(AsyncCreateNotificationRaw(context, request, cq));
+    ::grpc::Status CreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::google::storage::v2::NotificationConfig* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>> AsyncCreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>>(AsyncCreateNotificationConfigRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>> PrepareAsyncCreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>>(PrepareAsyncCreateNotificationRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>> PrepareAsyncCreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>>(PrepareAsyncCreateNotificationConfigRaw(context, request, cq));
     }
-    ::grpc::Status ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::google::storage::v2::ListNotificationsResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>> AsyncListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>>(AsyncListNotificationsRaw(context, request, cq));
+    ::grpc::Status ListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::google::storage::v2::ListNotificationConfigsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationConfigsResponse>> AsyncListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationConfigsResponse>>(AsyncListNotificationConfigsRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>> PrepareAsyncListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>>(PrepareAsyncListNotificationsRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationConfigsResponse>> PrepareAsyncListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationConfigsResponse>>(PrepareAsyncListNotificationConfigsRaw(context, request, cq));
     }
     ::grpc::Status ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::google::storage::v2::Object* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>> AsyncComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) {
@@ -860,14 +880,14 @@ class Storage final {
       void TestIamPermissions(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response, std::function<void(::grpc::Status)>) override;
       void UpdateBucket(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
-      void DeleteNotification(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response, std::function<void(::grpc::Status)>) override;
-      void GetNotification(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response, std::function<void(::grpc::Status)>) override;
-      void CreateNotification(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response, std::function<void(::grpc::Status)>) override;
-      void ListNotifications(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void DeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
+      void DeleteNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest* request, ::google::protobuf::Empty* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response, std::function<void(::grpc::Status)>) override;
+      void GetNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void CreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response, std::function<void(::grpc::Status)>) override;
+      void CreateNotificationConfig(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest* request, ::google::storage::v2::ListNotificationConfigsResponse* response, std::function<void(::grpc::Status)>) override;
+      void ListNotificationConfigs(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest* request, ::google::storage::v2::ListNotificationConfigsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, std::function<void(::grpc::Status)>) override;
       void ComposeObject(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response, ::grpc::ClientUnaryReactor* reactor) override;
       void DeleteObject(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest* request, ::google::protobuf::Empty* response, std::function<void(::grpc::Status)>) override;
@@ -929,14 +949,14 @@ class Storage final {
     ::grpc::ClientAsyncResponseReader< ::google::iam::v1::TestIamPermissionsResponse>* PrepareAsyncTestIamPermissionsRaw(::grpc::ClientContext* context, const ::google::iam::v1::TestIamPermissionsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* AsyncUpdateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Bucket>* PrepareAsyncUpdateBucketRaw(::grpc::ClientContext* context, const ::google::storage::v2::UpdateBucketRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>* AsyncGetNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>* PrepareAsyncGetNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>* AsyncCreateNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Notification>* PrepareAsyncCreateNotificationRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>* AsyncListNotificationsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationsResponse>* PrepareAsyncListNotificationsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* PrepareAsyncDeleteNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>* AsyncGetNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>* PrepareAsyncGetNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::GetNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>* AsyncCreateNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::NotificationConfig>* PrepareAsyncCreateNotificationConfigRaw(::grpc::ClientContext* context, const ::google::storage::v2::CreateNotificationConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationConfigsResponse>* AsyncListNotificationConfigsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::google::storage::v2::ListNotificationConfigsResponse>* PrepareAsyncListNotificationConfigsRaw(::grpc::ClientContext* context, const ::google::storage::v2::ListNotificationConfigsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* AsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::storage::v2::Object>* PrepareAsyncComposeObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::ComposeObjectRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::google::protobuf::Empty>* AsyncDeleteObjectRaw(::grpc::ClientContext* context, const ::google::storage::v2::DeleteObjectRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -982,10 +1002,10 @@ class Storage final {
     const ::grpc::internal::RpcMethod rpcmethod_SetIamPolicy_;
     const ::grpc::internal::RpcMethod rpcmethod_TestIamPermissions_;
     const ::grpc::internal::RpcMethod rpcmethod_UpdateBucket_;
-    const ::grpc::internal::RpcMethod rpcmethod_DeleteNotification_;
-    const ::grpc::internal::RpcMethod rpcmethod_GetNotification_;
-    const ::grpc::internal::RpcMethod rpcmethod_CreateNotification_;
-    const ::grpc::internal::RpcMethod rpcmethod_ListNotifications_;
+    const ::grpc::internal::RpcMethod rpcmethod_DeleteNotificationConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetNotificationConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_CreateNotificationConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_ListNotificationConfigs_;
     const ::grpc::internal::RpcMethod rpcmethod_ComposeObject_;
     const ::grpc::internal::RpcMethod rpcmethod_DeleteObject_;
     const ::grpc::internal::RpcMethod rpcmethod_CancelResumableWrite_;
@@ -1021,25 +1041,34 @@ class Storage final {
     // Locks retention policy on a bucket.
     virtual ::grpc::Status LockBucketRetentionPolicy(::grpc::ServerContext* context, const ::google::storage::v2::LockBucketRetentionPolicyRequest* request, ::google::storage::v2::Bucket* response);
     // Gets the IAM policy for a specified bucket or object.
+    // The `resource` field in the request should be
+    // projects/_/buckets/<bucket_name> for a bucket or
+    // projects/_/buckets/<bucket_name>/objects/<object_name> for an object.
     virtual ::grpc::Status GetIamPolicy(::grpc::ServerContext* context, const ::google::iam::v1::GetIamPolicyRequest* request, ::google::iam::v1::Policy* response);
     // Updates an IAM policy for the specified bucket or object.
+    // The `resource` field in the request should be
+    // projects/_/buckets/<bucket_name> for a bucket or
+    // projects/_/buckets/<bucket_name>/objects/<object_name> for an object.
     virtual ::grpc::Status SetIamPolicy(::grpc::ServerContext* context, const ::google::iam::v1::SetIamPolicyRequest* request, ::google::iam::v1::Policy* response);
     // Tests a set of permissions on the given bucket or object to see which, if
     // any, are held by the caller.
+    // The `resource` field in the request should be
+    // projects/_/buckets/<bucket_name> for a bucket or
+    // projects/_/buckets/<bucket_name>/objects/<object_name> for an object.
     virtual ::grpc::Status TestIamPermissions(::grpc::ServerContext* context, const ::google::iam::v1::TestIamPermissionsRequest* request, ::google::iam::v1::TestIamPermissionsResponse* response);
     // Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
     virtual ::grpc::Status UpdateBucket(::grpc::ServerContext* context, const ::google::storage::v2::UpdateBucketRequest* request, ::google::storage::v2::Bucket* response);
-    // Permanently deletes a notification subscription.
-    virtual ::grpc::Status DeleteNotification(::grpc::ServerContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response);
-    // View a notification config.
-    virtual ::grpc::Status GetNotification(::grpc::ServerContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response);
-    // Creates a notification subscription for a given bucket.
-    // These notifications, when triggered, publish messages to the specified
-    // Pub/Sub topics.
-    // See https://cloud.google.com/storage/docs/pubsub-notifications.
-    virtual ::grpc::Status CreateNotification(::grpc::ServerContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response);
-    // Retrieves a list of notification subscriptions for a given bucket.
-    virtual ::grpc::Status ListNotifications(::grpc::ServerContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response);
+    // Permanently deletes a NotificationConfig.
+    virtual ::grpc::Status DeleteNotificationConfig(::grpc::ServerContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest* request, ::google::protobuf::Empty* response);
+    // View a NotificationConfig.
+    virtual ::grpc::Status GetNotificationConfig(::grpc::ServerContext* context, const ::google::storage::v2::GetNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response);
+    // Creates a NotificationConfig for a given bucket.
+    // These NotificationConfigs, when triggered, publish messages to the
+    // specified Pub/Sub topics. See
+    // https://cloud.google.com/storage/docs/pubsub-notifications.
+    virtual ::grpc::Status CreateNotificationConfig(::grpc::ServerContext* context, const ::google::storage::v2::CreateNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response);
+    // Retrieves a list of NotificationConfigs for a given bucket.
+    virtual ::grpc::Status ListNotificationConfigs(::grpc::ServerContext* context, const ::google::storage::v2::ListNotificationConfigsRequest* request, ::google::storage::v2::ListNotificationConfigsResponse* response);
     // Concatenates a list of existing objects into a new object in the same
     // bucket.
     virtual ::grpc::Status ComposeObject(::grpc::ServerContext* context, const ::google::storage::v2::ComposeObjectRequest* request, ::google::storage::v2::Object* response);
@@ -1094,8 +1123,9 @@ class Storage final {
     //     returned `persisted_size`; in this case, the service will skip data at
     //     offsets that were already persisted (without checking that it matches
     //     the previously written data), and write only the data starting from the
-    //     persisted offset. This behavior can make client-side handling simpler
-    //     in some cases.
+    //     persisted offset. Even though the data isn't written, it may still
+    //     incur a performance cost over resuming at the correct write offset.
+    //     This behavior can make client-side handling simpler in some cases.
     //
     // The service will not view the object as complete until the client has
     // sent a `WriteObjectRequest` with `finish_write` set to `true`. Sending any
@@ -1325,82 +1355,82 @@ class Storage final {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_DeleteNotification : public BaseClass {
+  class WithAsyncMethod_DeleteNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_DeleteNotification() {
+    WithAsyncMethod_DeleteNotificationConfig() {
       ::grpc::Service::MarkMethodAsync(9);
     }
-    ~WithAsyncMethod_DeleteNotification() override {
+    ~WithAsyncMethod_DeleteNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+    ::grpc::Status DeleteNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDeleteNotification(::grpc::ServerContext* context, ::google::storage::v2::DeleteNotificationRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDeleteNotificationConfig(::grpc::ServerContext* context, ::google::storage::v2::DeleteNotificationConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::protobuf::Empty>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_GetNotification : public BaseClass {
+  class WithAsyncMethod_GetNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_GetNotification() {
+    WithAsyncMethod_GetNotificationConfig() {
       ::grpc::Service::MarkMethodAsync(10);
     }
-    ~WithAsyncMethod_GetNotification() override {
+    ~WithAsyncMethod_GetNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status GetNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGetNotification(::grpc::ServerContext* context, ::google::storage::v2::GetNotificationRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Notification>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGetNotificationConfig(::grpc::ServerContext* context, ::google::storage::v2::GetNotificationConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::NotificationConfig>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_CreateNotification : public BaseClass {
+  class WithAsyncMethod_CreateNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_CreateNotification() {
+    WithAsyncMethod_CreateNotificationConfig() {
       ::grpc::Service::MarkMethodAsync(11);
     }
-    ~WithAsyncMethod_CreateNotification() override {
+    ~WithAsyncMethod_CreateNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status CreateNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCreateNotification(::grpc::ServerContext* context, ::google::storage::v2::CreateNotificationRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::Notification>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestCreateNotificationConfig(::grpc::ServerContext* context, ::google::storage::v2::CreateNotificationConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::NotificationConfig>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_ListNotifications : public BaseClass {
+  class WithAsyncMethod_ListNotificationConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_ListNotifications() {
+    WithAsyncMethod_ListNotificationConfigs() {
       ::grpc::Service::MarkMethodAsync(12);
     }
-    ~WithAsyncMethod_ListNotifications() override {
+    ~WithAsyncMethod_ListNotificationConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+    ::grpc::Status ListNotificationConfigs(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationConfigsRequest* /*request*/, ::google::storage::v2::ListNotificationConfigsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestListNotifications(::grpc::ServerContext* context, ::google::storage::v2::ListNotificationsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ListNotificationsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestListNotificationConfigs(::grpc::ServerContext* context, ::google::storage::v2::ListNotificationConfigsRequest* request, ::grpc::ServerAsyncResponseWriter< ::google::storage::v2::ListNotificationConfigsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -1744,7 +1774,7 @@ class Storage final {
       ::grpc::Service::RequestAsyncUnary(29, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_DeleteBucket<WithAsyncMethod_GetBucket<WithAsyncMethod_CreateBucket<WithAsyncMethod_ListBuckets<WithAsyncMethod_LockBucketRetentionPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_UpdateBucket<WithAsyncMethod_DeleteNotification<WithAsyncMethod_GetNotification<WithAsyncMethod_CreateNotification<WithAsyncMethod_ListNotifications<WithAsyncMethod_ComposeObject<WithAsyncMethod_DeleteObject<WithAsyncMethod_CancelResumableWrite<WithAsyncMethod_GetObject<WithAsyncMethod_ReadObject<WithAsyncMethod_UpdateObject<WithAsyncMethod_WriteObject<WithAsyncMethod_ListObjects<WithAsyncMethod_RewriteObject<WithAsyncMethod_StartResumableWrite<WithAsyncMethod_QueryWriteStatus<WithAsyncMethod_GetServiceAccount<WithAsyncMethod_CreateHmacKey<WithAsyncMethod_DeleteHmacKey<WithAsyncMethod_GetHmacKey<WithAsyncMethod_ListHmacKeys<WithAsyncMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_DeleteBucket<WithAsyncMethod_GetBucket<WithAsyncMethod_CreateBucket<WithAsyncMethod_ListBuckets<WithAsyncMethod_LockBucketRetentionPolicy<WithAsyncMethod_GetIamPolicy<WithAsyncMethod_SetIamPolicy<WithAsyncMethod_TestIamPermissions<WithAsyncMethod_UpdateBucket<WithAsyncMethod_DeleteNotificationConfig<WithAsyncMethod_GetNotificationConfig<WithAsyncMethod_CreateNotificationConfig<WithAsyncMethod_ListNotificationConfigs<WithAsyncMethod_ComposeObject<WithAsyncMethod_DeleteObject<WithAsyncMethod_CancelResumableWrite<WithAsyncMethod_GetObject<WithAsyncMethod_ReadObject<WithAsyncMethod_UpdateObject<WithAsyncMethod_WriteObject<WithAsyncMethod_ListObjects<WithAsyncMethod_RewriteObject<WithAsyncMethod_StartResumableWrite<WithAsyncMethod_QueryWriteStatus<WithAsyncMethod_GetServiceAccount<WithAsyncMethod_CreateHmacKey<WithAsyncMethod_DeleteHmacKey<WithAsyncMethod_GetHmacKey<WithAsyncMethod_ListHmacKeys<WithAsyncMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_DeleteBucket : public BaseClass {
    private:
@@ -1989,112 +2019,112 @@ class Storage final {
       ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::UpdateBucketRequest* /*request*/, ::google::storage::v2::Bucket* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_DeleteNotification : public BaseClass {
+  class WithCallbackMethod_DeleteNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_DeleteNotification() {
+    WithCallbackMethod_DeleteNotificationConfig() {
       ::grpc::Service::MarkMethodCallback(9,
-          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>(
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteNotificationConfigRequest, ::google::protobuf::Empty>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::DeleteNotificationRequest* request, ::google::protobuf::Empty* response) { return this->DeleteNotification(context, request, response); }));}
-    void SetMessageAllocatorFor_DeleteNotification(
-        ::grpc::MessageAllocator< ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::DeleteNotificationConfigRequest* request, ::google::protobuf::Empty* response) { return this->DeleteNotificationConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_DeleteNotificationConfig(
+        ::grpc::MessageAllocator< ::google::storage::v2::DeleteNotificationConfigRequest, ::google::protobuf::Empty>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::DeleteNotificationConfigRequest, ::google::protobuf::Empty>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_DeleteNotification() override {
+    ~WithCallbackMethod_DeleteNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+    ::grpc::Status DeleteNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* DeleteNotification(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* DeleteNotificationConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_GetNotification : public BaseClass {
+  class WithCallbackMethod_GetNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_GetNotification() {
+    WithCallbackMethod_GetNotificationConfig() {
       ::grpc::Service::MarkMethodCallback(10,
-          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>(
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetNotificationConfigRequest, ::google::storage::v2::NotificationConfig>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetNotificationRequest* request, ::google::storage::v2::Notification* response) { return this->GetNotification(context, request, response); }));}
-    void SetMessageAllocatorFor_GetNotification(
-        ::grpc::MessageAllocator< ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::GetNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response) { return this->GetNotificationConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_GetNotificationConfig(
+        ::grpc::MessageAllocator< ::google::storage::v2::GetNotificationConfigRequest, ::google::storage::v2::NotificationConfig>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::GetNotificationConfigRequest, ::google::storage::v2::NotificationConfig>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_GetNotification() override {
+    ~WithCallbackMethod_GetNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status GetNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* GetNotification(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* GetNotificationConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::GetNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_CreateNotification : public BaseClass {
+  class WithCallbackMethod_CreateNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_CreateNotification() {
+    WithCallbackMethod_CreateNotificationConfig() {
       ::grpc::Service::MarkMethodCallback(11,
-          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>(
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateNotificationConfigRequest, ::google::storage::v2::NotificationConfig>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::CreateNotificationRequest* request, ::google::storage::v2::Notification* response) { return this->CreateNotification(context, request, response); }));}
-    void SetMessageAllocatorFor_CreateNotification(
-        ::grpc::MessageAllocator< ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::CreateNotificationConfigRequest* request, ::google::storage::v2::NotificationConfig* response) { return this->CreateNotificationConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_CreateNotificationConfig(
+        ::grpc::MessageAllocator< ::google::storage::v2::CreateNotificationConfigRequest, ::google::storage::v2::NotificationConfig>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::CreateNotificationConfigRequest, ::google::storage::v2::NotificationConfig>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_CreateNotification() override {
+    ~WithCallbackMethod_CreateNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status CreateNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* CreateNotification(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* CreateNotificationConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::CreateNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_ListNotifications : public BaseClass {
+  class WithCallbackMethod_ListNotificationConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_ListNotifications() {
+    WithCallbackMethod_ListNotificationConfigs() {
       ::grpc::Service::MarkMethodCallback(12,
-          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>(
+          new ::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListNotificationConfigsRequest, ::google::storage::v2::ListNotificationConfigsResponse>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::ListNotificationsRequest* request, ::google::storage::v2::ListNotificationsResponse* response) { return this->ListNotifications(context, request, response); }));}
-    void SetMessageAllocatorFor_ListNotifications(
-        ::grpc::MessageAllocator< ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>* allocator) {
+                   ::grpc::CallbackServerContext* context, const ::google::storage::v2::ListNotificationConfigsRequest* request, ::google::storage::v2::ListNotificationConfigsResponse* response) { return this->ListNotificationConfigs(context, request, response); }));}
+    void SetMessageAllocatorFor_ListNotificationConfigs(
+        ::grpc::MessageAllocator< ::google::storage::v2::ListNotificationConfigsRequest, ::google::storage::v2::ListNotificationConfigsResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::storage::v2::ListNotificationConfigsRequest, ::google::storage::v2::ListNotificationConfigsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_ListNotifications() override {
+    ~WithCallbackMethod_ListNotificationConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+    ::grpc::Status ListNotificationConfigs(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationConfigsRequest* /*request*/, ::google::storage::v2::ListNotificationConfigsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ListNotifications(
-      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/)  { return nullptr; }
+    virtual ::grpc::ServerUnaryReactor* ListNotificationConfigs(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::ListNotificationConfigsRequest* /*request*/, ::google::storage::v2::ListNotificationConfigsResponse* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithCallbackMethod_ComposeObject : public BaseClass {
@@ -2545,7 +2575,7 @@ class Storage final {
     virtual ::grpc::ServerUnaryReactor* UpdateHmacKey(
       ::grpc::CallbackServerContext* /*context*/, const ::google::storage::v2::UpdateHmacKeyRequest* /*request*/, ::google::storage::v2::HmacKeyMetadata* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_DeleteBucket<WithCallbackMethod_GetBucket<WithCallbackMethod_CreateBucket<WithCallbackMethod_ListBuckets<WithCallbackMethod_LockBucketRetentionPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_UpdateBucket<WithCallbackMethod_DeleteNotification<WithCallbackMethod_GetNotification<WithCallbackMethod_CreateNotification<WithCallbackMethod_ListNotifications<WithCallbackMethod_ComposeObject<WithCallbackMethod_DeleteObject<WithCallbackMethod_CancelResumableWrite<WithCallbackMethod_GetObject<WithCallbackMethod_ReadObject<WithCallbackMethod_UpdateObject<WithCallbackMethod_WriteObject<WithCallbackMethod_ListObjects<WithCallbackMethod_RewriteObject<WithCallbackMethod_StartResumableWrite<WithCallbackMethod_QueryWriteStatus<WithCallbackMethod_GetServiceAccount<WithCallbackMethod_CreateHmacKey<WithCallbackMethod_DeleteHmacKey<WithCallbackMethod_GetHmacKey<WithCallbackMethod_ListHmacKeys<WithCallbackMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef WithCallbackMethod_DeleteBucket<WithCallbackMethod_GetBucket<WithCallbackMethod_CreateBucket<WithCallbackMethod_ListBuckets<WithCallbackMethod_LockBucketRetentionPolicy<WithCallbackMethod_GetIamPolicy<WithCallbackMethod_SetIamPolicy<WithCallbackMethod_TestIamPermissions<WithCallbackMethod_UpdateBucket<WithCallbackMethod_DeleteNotificationConfig<WithCallbackMethod_GetNotificationConfig<WithCallbackMethod_CreateNotificationConfig<WithCallbackMethod_ListNotificationConfigs<WithCallbackMethod_ComposeObject<WithCallbackMethod_DeleteObject<WithCallbackMethod_CancelResumableWrite<WithCallbackMethod_GetObject<WithCallbackMethod_ReadObject<WithCallbackMethod_UpdateObject<WithCallbackMethod_WriteObject<WithCallbackMethod_ListObjects<WithCallbackMethod_RewriteObject<WithCallbackMethod_StartResumableWrite<WithCallbackMethod_QueryWriteStatus<WithCallbackMethod_GetServiceAccount<WithCallbackMethod_CreateHmacKey<WithCallbackMethod_DeleteHmacKey<WithCallbackMethod_GetHmacKey<WithCallbackMethod_ListHmacKeys<WithCallbackMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_DeleteBucket : public BaseClass {
@@ -2701,69 +2731,69 @@ class Storage final {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_DeleteNotification : public BaseClass {
+  class WithGenericMethod_DeleteNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_DeleteNotification() {
+    WithGenericMethod_DeleteNotificationConfig() {
       ::grpc::Service::MarkMethodGeneric(9);
     }
-    ~WithGenericMethod_DeleteNotification() override {
+    ~WithGenericMethod_DeleteNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+    ::grpc::Status DeleteNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_GetNotification : public BaseClass {
+  class WithGenericMethod_GetNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_GetNotification() {
+    WithGenericMethod_GetNotificationConfig() {
       ::grpc::Service::MarkMethodGeneric(10);
     }
-    ~WithGenericMethod_GetNotification() override {
+    ~WithGenericMethod_GetNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status GetNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_CreateNotification : public BaseClass {
+  class WithGenericMethod_CreateNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_CreateNotification() {
+    WithGenericMethod_CreateNotificationConfig() {
       ::grpc::Service::MarkMethodGeneric(11);
     }
-    ~WithGenericMethod_CreateNotification() override {
+    ~WithGenericMethod_CreateNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status CreateNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_ListNotifications : public BaseClass {
+  class WithGenericMethod_ListNotificationConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_ListNotifications() {
+    WithGenericMethod_ListNotificationConfigs() {
       ::grpc::Service::MarkMethodGeneric(12);
     }
-    ~WithGenericMethod_ListNotifications() override {
+    ~WithGenericMethod_ListNotificationConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+    ::grpc::Status ListNotificationConfigs(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationConfigsRequest* /*request*/, ::google::storage::v2::ListNotificationConfigsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -3238,82 +3268,82 @@ class Storage final {
     }
   };
   template <class BaseClass>
-  class WithRawMethod_DeleteNotification : public BaseClass {
+  class WithRawMethod_DeleteNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_DeleteNotification() {
+    WithRawMethod_DeleteNotificationConfig() {
       ::grpc::Service::MarkMethodRaw(9);
     }
-    ~WithRawMethod_DeleteNotification() override {
+    ~WithRawMethod_DeleteNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+    ::grpc::Status DeleteNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDeleteNotification(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDeleteNotificationConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(9, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_GetNotification : public BaseClass {
+  class WithRawMethod_GetNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_GetNotification() {
+    WithRawMethod_GetNotificationConfig() {
       ::grpc::Service::MarkMethodRaw(10);
     }
-    ~WithRawMethod_GetNotification() override {
+    ~WithRawMethod_GetNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status GetNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestGetNotification(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestGetNotificationConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_CreateNotification : public BaseClass {
+  class WithRawMethod_CreateNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_CreateNotification() {
+    WithRawMethod_CreateNotificationConfig() {
       ::grpc::Service::MarkMethodRaw(11);
     }
-    ~WithRawMethod_CreateNotification() override {
+    ~WithRawMethod_CreateNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status CreateNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestCreateNotification(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestCreateNotificationConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_ListNotifications : public BaseClass {
+  class WithRawMethod_ListNotificationConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_ListNotifications() {
+    WithRawMethod_ListNotificationConfigs() {
       ::grpc::Service::MarkMethodRaw(12);
     }
-    ~WithRawMethod_ListNotifications() override {
+    ~WithRawMethod_ListNotificationConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+    ::grpc::Status ListNotificationConfigs(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationConfigsRequest* /*request*/, ::google::storage::v2::ListNotificationConfigsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestListNotifications(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestListNotificationConfigs(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -3856,91 +3886,91 @@ class Storage final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_DeleteNotification : public BaseClass {
+  class WithRawCallbackMethod_DeleteNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_DeleteNotification() {
+    WithRawCallbackMethod_DeleteNotificationConfig() {
       ::grpc::Service::MarkMethodRawCallback(9,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteNotification(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteNotificationConfig(context, request, response); }));
     }
-    ~WithRawCallbackMethod_DeleteNotification() override {
+    ~WithRawCallbackMethod_DeleteNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+    ::grpc::Status DeleteNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* DeleteNotification(
+    virtual ::grpc::ServerUnaryReactor* DeleteNotificationConfig(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_GetNotification : public BaseClass {
+  class WithRawCallbackMethod_GetNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_GetNotification() {
+    WithRawCallbackMethod_GetNotificationConfig() {
       ::grpc::Service::MarkMethodRawCallback(10,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetNotification(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetNotificationConfig(context, request, response); }));
     }
-    ~WithRawCallbackMethod_GetNotification() override {
+    ~WithRawCallbackMethod_GetNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status GetNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* GetNotification(
+    virtual ::grpc::ServerUnaryReactor* GetNotificationConfig(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_CreateNotification : public BaseClass {
+  class WithRawCallbackMethod_CreateNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_CreateNotification() {
+    WithRawCallbackMethod_CreateNotificationConfig() {
       ::grpc::Service::MarkMethodRawCallback(11,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateNotification(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateNotificationConfig(context, request, response); }));
     }
-    ~WithRawCallbackMethod_CreateNotification() override {
+    ~WithRawCallbackMethod_CreateNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status CreateNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* CreateNotification(
+    virtual ::grpc::ServerUnaryReactor* CreateNotificationConfig(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_ListNotifications : public BaseClass {
+  class WithRawCallbackMethod_ListNotificationConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_ListNotifications() {
+    WithRawCallbackMethod_ListNotificationConfigs() {
       ::grpc::Service::MarkMethodRawCallback(12,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListNotifications(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ListNotificationConfigs(context, request, response); }));
     }
-    ~WithRawCallbackMethod_ListNotifications() override {
+    ~WithRawCallbackMethod_ListNotificationConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+    ::grpc::Status ListNotificationConfigs(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationConfigsRequest* /*request*/, ::google::storage::v2::ListNotificationConfigsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* ListNotifications(
+    virtual ::grpc::ServerUnaryReactor* ListNotificationConfigs(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -4561,112 +4591,112 @@ class Storage final {
     virtual ::grpc::Status StreamedUpdateBucket(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::UpdateBucketRequest,::google::storage::v2::Bucket>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_DeleteNotification : public BaseClass {
+  class WithStreamedUnaryMethod_DeleteNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_DeleteNotification() {
+    WithStreamedUnaryMethod_DeleteNotificationConfig() {
       ::grpc::Service::MarkMethodStreamed(9,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>(
+          ::google::storage::v2::DeleteNotificationConfigRequest, ::google::protobuf::Empty>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::google::storage::v2::DeleteNotificationRequest, ::google::protobuf::Empty>* streamer) {
-                       return this->StreamedDeleteNotification(context,
+                     ::google::storage::v2::DeleteNotificationConfigRequest, ::google::protobuf::Empty>* streamer) {
+                       return this->StreamedDeleteNotificationConfig(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_DeleteNotification() override {
+    ~WithStreamedUnaryMethod_DeleteNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status DeleteNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
+    ::grpc::Status DeleteNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::DeleteNotificationConfigRequest* /*request*/, ::google::protobuf::Empty* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedDeleteNotification(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::DeleteNotificationRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedDeleteNotificationConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::DeleteNotificationConfigRequest,::google::protobuf::Empty>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_GetNotification : public BaseClass {
+  class WithStreamedUnaryMethod_GetNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_GetNotification() {
+    WithStreamedUnaryMethod_GetNotificationConfig() {
       ::grpc::Service::MarkMethodStreamed(10,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>(
+          ::google::storage::v2::GetNotificationConfigRequest, ::google::storage::v2::NotificationConfig>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::google::storage::v2::GetNotificationRequest, ::google::storage::v2::Notification>* streamer) {
-                       return this->StreamedGetNotification(context,
+                     ::google::storage::v2::GetNotificationConfigRequest, ::google::storage::v2::NotificationConfig>* streamer) {
+                       return this->StreamedGetNotificationConfig(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_GetNotification() override {
+    ~WithStreamedUnaryMethod_GetNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status GetNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::GetNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedGetNotification(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::GetNotificationRequest,::google::storage::v2::Notification>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedGetNotificationConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::GetNotificationConfigRequest,::google::storage::v2::NotificationConfig>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_CreateNotification : public BaseClass {
+  class WithStreamedUnaryMethod_CreateNotificationConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_CreateNotification() {
+    WithStreamedUnaryMethod_CreateNotificationConfig() {
       ::grpc::Service::MarkMethodStreamed(11,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>(
+          ::google::storage::v2::CreateNotificationConfigRequest, ::google::storage::v2::NotificationConfig>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::google::storage::v2::CreateNotificationRequest, ::google::storage::v2::Notification>* streamer) {
-                       return this->StreamedCreateNotification(context,
+                     ::google::storage::v2::CreateNotificationConfigRequest, ::google::storage::v2::NotificationConfig>* streamer) {
+                       return this->StreamedCreateNotificationConfig(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_CreateNotification() override {
+    ~WithStreamedUnaryMethod_CreateNotificationConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CreateNotification(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationRequest* /*request*/, ::google::storage::v2::Notification* /*response*/) override {
+    ::grpc::Status CreateNotificationConfig(::grpc::ServerContext* /*context*/, const ::google::storage::v2::CreateNotificationConfigRequest* /*request*/, ::google::storage::v2::NotificationConfig* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedCreateNotification(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::CreateNotificationRequest,::google::storage::v2::Notification>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedCreateNotificationConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::CreateNotificationConfigRequest,::google::storage::v2::NotificationConfig>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_ListNotifications : public BaseClass {
+  class WithStreamedUnaryMethod_ListNotificationConfigs : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_ListNotifications() {
+    WithStreamedUnaryMethod_ListNotificationConfigs() {
       ::grpc::Service::MarkMethodStreamed(12,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>(
+          ::google::storage::v2::ListNotificationConfigsRequest, ::google::storage::v2::ListNotificationConfigsResponse>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::google::storage::v2::ListNotificationsRequest, ::google::storage::v2::ListNotificationsResponse>* streamer) {
-                       return this->StreamedListNotifications(context,
+                     ::google::storage::v2::ListNotificationConfigsRequest, ::google::storage::v2::ListNotificationConfigsResponse>* streamer) {
+                       return this->StreamedListNotificationConfigs(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_ListNotifications() override {
+    ~WithStreamedUnaryMethod_ListNotificationConfigs() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ListNotifications(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationsRequest* /*request*/, ::google::storage::v2::ListNotificationsResponse* /*response*/) override {
+    ::grpc::Status ListNotificationConfigs(::grpc::ServerContext* /*context*/, const ::google::storage::v2::ListNotificationConfigsRequest* /*request*/, ::google::storage::v2::ListNotificationConfigsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedListNotifications(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::ListNotificationsRequest,::google::storage::v2::ListNotificationsResponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedListNotificationConfigs(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::ListNotificationConfigsRequest,::google::storage::v2::ListNotificationConfigsResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_ComposeObject : public BaseClass {
@@ -5073,7 +5103,7 @@ class Storage final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedUpdateHmacKey(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::storage::v2::UpdateHmacKeyRequest,::google::storage::v2::HmacKeyMetadata>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotification<WithStreamedUnaryMethod_GetNotification<WithStreamedUnaryMethod_CreateNotification<WithStreamedUnaryMethod_ListNotifications<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_CancelResumableWrite<WithStreamedUnaryMethod_GetObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotificationConfig<WithStreamedUnaryMethod_GetNotificationConfig<WithStreamedUnaryMethod_CreateNotificationConfig<WithStreamedUnaryMethod_ListNotificationConfigs<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_CancelResumableWrite<WithStreamedUnaryMethod_GetObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   template <class BaseClass>
   class WithSplitStreamingMethod_ReadObject : public BaseClass {
    private:
@@ -5102,7 +5132,7 @@ class Storage final {
     virtual ::grpc::Status StreamedReadObject(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::google::storage::v2::ReadObjectRequest,::google::storage::v2::ReadObjectResponse>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_ReadObject<Service > SplitStreamedService;
-  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotification<WithStreamedUnaryMethod_GetNotification<WithStreamedUnaryMethod_CreateNotification<WithStreamedUnaryMethod_ListNotifications<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_CancelResumableWrite<WithStreamedUnaryMethod_GetObject<WithSplitStreamingMethod_ReadObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_DeleteBucket<WithStreamedUnaryMethod_GetBucket<WithStreamedUnaryMethod_CreateBucket<WithStreamedUnaryMethod_ListBuckets<WithStreamedUnaryMethod_LockBucketRetentionPolicy<WithStreamedUnaryMethod_GetIamPolicy<WithStreamedUnaryMethod_SetIamPolicy<WithStreamedUnaryMethod_TestIamPermissions<WithStreamedUnaryMethod_UpdateBucket<WithStreamedUnaryMethod_DeleteNotificationConfig<WithStreamedUnaryMethod_GetNotificationConfig<WithStreamedUnaryMethod_CreateNotificationConfig<WithStreamedUnaryMethod_ListNotificationConfigs<WithStreamedUnaryMethod_ComposeObject<WithStreamedUnaryMethod_DeleteObject<WithStreamedUnaryMethod_CancelResumableWrite<WithStreamedUnaryMethod_GetObject<WithSplitStreamingMethod_ReadObject<WithStreamedUnaryMethod_UpdateObject<WithStreamedUnaryMethod_ListObjects<WithStreamedUnaryMethod_RewriteObject<WithStreamedUnaryMethod_StartResumableWrite<WithStreamedUnaryMethod_QueryWriteStatus<WithStreamedUnaryMethod_GetServiceAccount<WithStreamedUnaryMethod_CreateHmacKey<WithStreamedUnaryMethod_DeleteHmacKey<WithStreamedUnaryMethod_GetHmacKey<WithStreamedUnaryMethod_ListHmacKeys<WithStreamedUnaryMethod_UpdateHmacKey<Service > > > > > > > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace v2

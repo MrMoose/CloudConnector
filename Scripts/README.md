@@ -23,10 +23,11 @@ recommended for power users.
 
 In order to use this script on Windows 10 you need:
 
-* [Python](https://www.python.org/downloads/) (3.9 is the one I used)
+* [Python](https://www.python.org/downloads/) (3.10 is the one I used)
 * Perl ([StrawberryPerl](https://strawberryperl.com) works well)
 * [CMake](https://cmake.org/download/)
-* Microsoft Visual Studio 2019, latest patches
+* Microsoft Visual Studio 2019, latest patches. Visual Studio 2022 might also work 
+generally but if are using it, it is required to install the additional toolset MSVC142 (Compiler version 14.29).
 * Quite a bit of disc space
 
 CMake, Perl and Python need to be in the PATH for your user.

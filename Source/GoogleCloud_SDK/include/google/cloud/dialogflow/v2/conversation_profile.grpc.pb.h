@@ -22,30 +22,31 @@
 #include "google/cloud/dialogflow/v2/conversation_profile.pb.h"
 
 #include <functional>
-#include <grpcpp/impl/codegen/async_generic_service.h>
-#include <grpcpp/impl/codegen/async_stream.h>
-#include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/client_context.h>
-#include <grpcpp/impl/codegen/completion_queue.h>
-#include <grpcpp/impl/codegen/message_allocator.h>
-#include <grpcpp/impl/codegen/method_handler.h>
-#include <grpcpp/impl/codegen/proto_utils.h>
-#include <grpcpp/impl/codegen/rpc_method.h>
-#include <grpcpp/impl/codegen/server_callback.h>
-#include <grpcpp/impl/codegen/server_callback_handlers.h>
-#include <grpcpp/impl/codegen/server_context.h>
-#include <grpcpp/impl/codegen/service_type.h>
-#include <grpcpp/impl/codegen/status.h>
-#include <grpcpp/impl/codegen/stub_options.h>
-#include <grpcpp/impl/codegen/sync_stream.h>
+#include <grpcpp/generic/async_generic_service.h>
+#include <grpcpp/support/async_stream.h>
+#include <grpcpp/support/async_unary_call.h>
+#include <grpcpp/support/client_callback.h>
+#include <grpcpp/client_context.h>
+#include <grpcpp/completion_queue.h>
+#include <grpcpp/support/message_allocator.h>
+#include <grpcpp/support/method_handler.h>
+#include <grpcpp/impl/proto_utils.h>
+#include <grpcpp/impl/rpc_method.h>
+#include <grpcpp/support/server_callback.h>
+#include <grpcpp/impl/server_callback_handlers.h>
+#include <grpcpp/server_context.h>
+#include <grpcpp/impl/service_type.h>
+#include <grpcpp/support/status.h>
+#include <grpcpp/support/stub_options.h>
+#include <grpcpp/support/sync_stream.h>
 
 namespace google {
 namespace cloud {
 namespace dialogflow {
 namespace v2 {
 
-// Service for managing [ConversationProfiles][google.cloud.dialogflow.v2.ConversationProfile].
+// Service for managing
+// [ConversationProfiles][google.cloud.dialogflow.v2.ConversationProfile].
 class ConversationProfiles final {
  public:
   static constexpr char const* service_full_name() {
@@ -74,7 +75,8 @@ class ConversationProfiles final {
     //
     // [ConversationProfile.CreateTime][] and [ConversationProfile.UpdateTime][]
     // aren't populated in the response. You can retrieve them via
-    // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile] API.
+    // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]
+    // API.
     virtual ::grpc::Status CreateConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationProfileRequest& request, ::google::cloud::dialogflow::v2::ConversationProfile* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ConversationProfile>> AsyncCreateConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationProfileRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ConversationProfile>>(AsyncCreateConversationProfileRaw(context, request, cq));
@@ -86,7 +88,8 @@ class ConversationProfiles final {
     //
     // [ConversationProfile.CreateTime][] and [ConversationProfile.UpdateTime][]
     // aren't populated in the response. You can retrieve them via
-    // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile] API.
+    // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]
+    // API.
     virtual ::grpc::Status UpdateConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateConversationProfileRequest& request, ::google::cloud::dialogflow::v2::ConversationProfile* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ConversationProfile>> AsyncUpdateConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateConversationProfileRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::cloud::dialogflow::v2::ConversationProfile>>(AsyncUpdateConversationProfileRaw(context, request, cq));
@@ -111,8 +114,10 @@ class ConversationProfiles final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [SetSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.SetSuggestionFeatureConfigOperationMetadata]
-    // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+    // - `metadata`:
+    // [SetSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.SetSuggestionFeatureConfigOperationMetadata]
+    // - `response`:
+    // [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
     //
     // If a long running operation to add or update suggestion feature
     // config for the same conversation profile, participant role and suggestion
@@ -132,8 +137,10 @@ class ConversationProfiles final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [ClearSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.ClearSuggestionFeatureConfigOperationMetadata]
-    // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+    // - `metadata`:
+    // [ClearSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.ClearSuggestionFeatureConfigOperationMetadata]
+    // - `response`:
+    // [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
     virtual ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::google::longrunning::Operation* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>> AsyncClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::google::longrunning::Operation>>(AsyncClearSuggestionFeatureConfigRaw(context, request, cq));
@@ -154,14 +161,16 @@ class ConversationProfiles final {
       //
       // [ConversationProfile.CreateTime][] and [ConversationProfile.UpdateTime][]
       // aren't populated in the response. You can retrieve them via
-      // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile] API.
+      // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]
+      // API.
       virtual void CreateConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationProfileRequest* request, ::google::cloud::dialogflow::v2::ConversationProfile* response, std::function<void(::grpc::Status)>) = 0;
       virtual void CreateConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::CreateConversationProfileRequest* request, ::google::cloud::dialogflow::v2::ConversationProfile* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Updates the specified conversation profile.
       //
       // [ConversationProfile.CreateTime][] and [ConversationProfile.UpdateTime][]
       // aren't populated in the response. You can retrieve them via
-      // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile] API.
+      // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]
+      // API.
       virtual void UpdateConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateConversationProfileRequest* request, ::google::cloud::dialogflow::v2::ConversationProfile* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UpdateConversationProfile(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::UpdateConversationProfileRequest* request, ::google::cloud::dialogflow::v2::ConversationProfile* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Deletes the specified conversation profile.
@@ -176,8 +185,10 @@ class ConversationProfiles final {
       // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [SetSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.SetSuggestionFeatureConfigOperationMetadata]
-      // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+      // - `metadata`:
+      // [SetSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.SetSuggestionFeatureConfigOperationMetadata]
+      // - `response`:
+      // [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
       //
       // If a long running operation to add or update suggestion feature
       // config for the same conversation profile, participant role and suggestion
@@ -192,8 +203,10 @@ class ConversationProfiles final {
       // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
       // The returned `Operation` type has the following method-specific fields:
       //
-      // - `metadata`: [ClearSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.ClearSuggestionFeatureConfigOperationMetadata]
-      // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+      // - `metadata`:
+      // [ClearSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.ClearSuggestionFeatureConfigOperationMetadata]
+      // - `response`:
+      // [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
       virtual void ClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, std::function<void(::grpc::Status)>) = 0;
       virtual void ClearSuggestionFeatureConfig(::grpc::ClientContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
@@ -332,13 +345,15 @@ class ConversationProfiles final {
     //
     // [ConversationProfile.CreateTime][] and [ConversationProfile.UpdateTime][]
     // aren't populated in the response. You can retrieve them via
-    // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile] API.
+    // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]
+    // API.
     virtual ::grpc::Status CreateConversationProfile(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::CreateConversationProfileRequest* request, ::google::cloud::dialogflow::v2::ConversationProfile* response);
     // Updates the specified conversation profile.
     //
     // [ConversationProfile.CreateTime][] and [ConversationProfile.UpdateTime][]
     // aren't populated in the response. You can retrieve them via
-    // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile] API.
+    // [GetConversationProfile][google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]
+    // API.
     virtual ::grpc::Status UpdateConversationProfile(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::UpdateConversationProfileRequest* request, ::google::cloud::dialogflow::v2::ConversationProfile* response);
     // Deletes the specified conversation profile.
     virtual ::grpc::Status DeleteConversationProfile(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::DeleteConversationProfileRequest* request, ::google::protobuf::Empty* response);
@@ -351,8 +366,10 @@ class ConversationProfiles final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [SetSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.SetSuggestionFeatureConfigOperationMetadata]
-    // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+    // - `metadata`:
+    // [SetSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.SetSuggestionFeatureConfigOperationMetadata]
+    // - `response`:
+    // [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
     //
     // If a long running operation to add or update suggestion feature
     // config for the same conversation profile, participant role and suggestion
@@ -366,8 +383,10 @@ class ConversationProfiles final {
     // operation](https://cloud.google.com/dialogflow/es/docs/how/long-running-operations).
     // The returned `Operation` type has the following method-specific fields:
     //
-    // - `metadata`: [ClearSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.ClearSuggestionFeatureConfigOperationMetadata]
-    // - `response`: [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
+    // - `metadata`:
+    // [ClearSuggestionFeatureConfigOperationMetadata][google.cloud.dialogflow.v2.ClearSuggestionFeatureConfigOperationMetadata]
+    // - `response`:
+    // [ConversationProfile][google.cloud.dialogflow.v2.ConversationProfile]
     virtual ::grpc::Status ClearSuggestionFeatureConfig(::grpc::ServerContext* context, const ::google::cloud::dialogflow::v2::ClearSuggestionFeatureConfigRequest* request, ::google::longrunning::Operation* response);
   };
   template <class BaseClass>

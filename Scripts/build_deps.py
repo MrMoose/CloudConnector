@@ -21,18 +21,19 @@ import xml.etree.ElementTree as ET
 # Versions to fetch and build
 # Note that they _have_ to match together and make sense in their context
 zlib_tag = "v1.2.13"
-openssl_tag = "1_1_1s"
-cares_tag = "1_18_1"
-curl_tag = "7_86_0"
+openssl_tag = "1_1_1t"
+cares_tag = "1_19_0"
+curl_tag = "7_88_1"
 nlohmann_tag = "v3.11.2"
-protobuf_tag = "v3.21.11"
-abseil_tag = "20220623.1"
+utf8_range_tag = "main"
+abseil_tag = "20230125.2"
+protobuf_tag = "v21.12"
 re2_tag = "2022-12-01"
 crc32c_tag = "1.1.2"
-grpc_tag = "v1.49.2"
-gcloud_sdk_tag = "v2.5.0"
-opentelemetry_tag = "v1.8.1"
-aws_sdk_tag = "1.10.31"
+grpc_tag = "v1.52.1"
+gcloud_sdk_tag = "v2.8.0"
+opentelemetry_tag = "v1.9.0"
+aws_sdk_tag = "1.10.57"
 cmake_config_flag = ""
 cmake_toolset = ""
 
@@ -45,7 +46,7 @@ if os.name == "posix":
 elif os.name == "nt":  # Windows
     zlib_static_lib_name = "zlibstatic.lib"
     cmake_config_flag = "CMAKE_CONFIGURATION_TYPES:STRING=Release"
-    cmake_toolset = "-T v142"
+    cmake_toolset = "-T v142,version=14.29"
     lib_wildcard = "*.lib"
     dll_wildcard = "*.dll"
 else:
@@ -59,7 +60,7 @@ cmake_global_flags = [
     ("CMAKE_CXX_STANDARD_REQUIRED:BOOL", "ON"),
     ("CMAKE_MSVC_RUNTIME_LIBRARY:STRING", "MultiThreadedDLL"),
     ("CMAKE_POSITION_INDEPENDENT_CODE:BOOL", "ON"),
-
+    #("CMAKE_VS_PLATFORM_TOOLSET_VERSION:STRING", "14.29"),
     ("PROTOBUF_USE_DLLS:BOOL", "OFF")
 ]
 
@@ -334,12 +335,6 @@ if __name__ == '__main__':
 
     file_and_console_log("Installing to: " + global_prefix)
 
-    # if os.name == "nt":
-    # run_in_shell(
-    #    "'C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Common7\\Tools\\Launch-VsDevShell.ps1' -Arch amd64 -HostArch amd64")
-    # run_in_shell(
-    #     "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat")
-
     print_banner("Building ZLIB")
     zlib_dir = clone_git_tag("https://github.com/madler/zlib.git", git_tag=zlib_tag)
     zlib_install_path = cmake_build_install(zlib_dir)
@@ -375,7 +370,6 @@ if __name__ == '__main__':
         ("OPENSSL_USE_STATIC_LIBS:BOOL", "ON"),
         ("CURL_STATIC_CRT", "OFF"),
         ("ENABLE_ARES", "ON"),
-        # ("c-ares_DIR", os.path.join(cares_install_path, "lib", "cmake", "c-ares")),
         ("CARES_INCLUDE_DIR", os.path.join(cares_install_path, "include")),
         ("CARES_LIBRARY", os.path.join(cares_install_path, "lib", "cares.lib")),
         ("ZLIB_ROOT", zlib_install_path),
@@ -394,6 +388,26 @@ if __name__ == '__main__':
     nlohmann_dir = clone_git_tag('https://github.com/nlohmann/json.git', git_tag=nlohmann_tag)
     nlohmann_install_path = cmake_build_install(nlohmann_dir, cmake_args=nlohmann_cmake_args)
 
+    print_banner("Building Abseil")
+    abseil_cmake_args = [
+        ("ABSL_BUILD_TESTING", "OFF"),
+        ("ABSL_ENABLE_INSTALL", "ON"),
+        ("ABSL_PROPAGATE_CXX_STD", "ON"),
+        ("ABSL_USE_EXTERNAL_GOOGLETEST", "OFF")
+    ]
+    abseil_dir = clone_git_tag("https://github.com/abseil/abseil-cpp.git", git_tag=abseil_tag, recursive=False)
+    abseil_install_path = cmake_build_install(abseil_dir, cmake_args=abseil_cmake_args)
+
+    print_banner("Building utf8_range")
+    utf8_range_cmake_args = [
+        ("BUILD_TESTING:BOOL", "OFF"),
+        ("utf8_range_ENABLE_TESTS:BOOL", "OFF"),
+        ("utf8_range_ENABLE_INSTALL:BOOL", "ON"),
+        ("absl_DIR:PATH", os.path.join(abseil_install_path, "lib", "cmake", "absl"))
+    ]
+    utf8_range_dir = clone_git_tag("https://github.com/protocolbuffers/utf8_range.git", git_tag=utf8_range_tag, recursive=False)
+    utf8_range_install_path = cmake_build_install(utf8_range_dir, cmake_args=utf8_range_cmake_args)
+
     # Now for the rough part. Google stuff. Buckle up!
     # Note that Google build systems are highly unstable and subject to
     # rapid unannounced changes, particularly on Windows. So if you have changed version tags
@@ -406,6 +420,8 @@ if __name__ == '__main__':
         ("protobuf_MODULE_COMPATIBLE", "ON"),
         ("protobuf_MSVC_STATIC_RUNTIME", "OFF"),
         ("protobuf_DISABLE_RTTI:BOOL", "ON"),
+        ("protobuf_ABSL_PROVIDER", "package"),
+        ("absl_DIR:PATH", os.path.join(abseil_install_path, "lib", "cmake", "absl")),
         ("ZLIB_ROOT:PATH", zlib_install_path),
         ("ZLIB_USE_STATIC_LIBS:BOOL", "ON"),  # doesn't appear to do its job
         ("ZLIB_LIBRARY_RELEASE:FILEPATH", os.path.join(zlib_install_path, "lib", zlib_static_lib_name)),
@@ -415,16 +431,6 @@ if __name__ == '__main__':
     protobuf_dir = clone_git_tag("https://github.com/protocolbuffers/protobuf.git", git_tag=protobuf_tag,
                                  recursive=False)
     protobuf_install_path = cmake_build_install(protobuf_dir, cmake_args=protobuf_cmake_args)
-
-    print_banner("Building Abseil")
-    abseil_cmake_args = [
-        ("ABSL_BUILD_TESTING", "OFF"),
-        ("ABSL_ENABLE_INSTALL", "ON"),
-        ("ABSL_PROPAGATE_CXX_STD", "ON"),
-        ("ABSL_USE_EXTERNAL_GOOGLETEST", "OFF")
-    ]
-    abseil_dir = clone_git_tag("https://github.com/abseil/abseil-cpp.git", git_tag=abseil_tag, recursive=False)
-    abseil_install_path = cmake_build_install(abseil_dir, cmake_args=abseil_cmake_args)
 
     print_banner("Building Re2 regular expression lib")
     re2_cmake_args = [
@@ -447,6 +453,7 @@ if __name__ == '__main__':
     print_banner("Building gRPC")
     grpc_cmake_args = [
         ("gRPC_MSVC_STATIC_RUNTIME:BOOL", "OFF"),
+        ("gRPC_BUILD_CODEGEN:BOOL", "ON"),
         ("gRPC_BUILD_CSHARP_EXT:BOOL", "OFF"),
         ("gRPC_BUILD_GRPC_CSHARP_PLUGIN:BOOL", "OFF"),
         ("gRPC_BUILD_GRPC_CPP_PLUGIN:BOOL", "ON"),
@@ -458,6 +465,8 @@ if __name__ == '__main__':
 
         ("absl_DIR:PATH", os.path.join(abseil_install_path, "lib", "cmake", "absl")),
         ("gRPC_ABSL_PROVIDER", "package"),
+
+        ("utf8_range_DIR:PATH", os.path.join(utf8_range_install_path, "lib", "cmake", "utf8_range")),
 
         ("re2_DIR:PATH", os.path.join(re2_install_path, "lib", "cmake", "re2")),
         ("gRPC_RE2_PROVIDER", "package"),
@@ -673,6 +682,8 @@ if __name__ == '__main__':
                     os.path.join(cc_google_sdk_include_dir, "absl"))
     shutil.copytree(os.path.join(re2_install_path, "include", "re2"),
                     os.path.join(cc_google_sdk_include_dir, "re2"))
+    for file in glob.glob(os.path.join(utf8_range_install_path, "include", "*.h")):
+        shutil.copy(file, cc_google_sdk_include_dir)
     shutil.copytree(os.path.join(grpc_install_path, "include", "grpc"),
                     os.path.join(cc_google_sdk_include_dir, "grpc"))
     shutil.copytree(os.path.join(grpc_install_path, "include", "grpc++"),
@@ -693,6 +704,7 @@ if __name__ == '__main__':
     copy_libs(abseil_install_path, cc_google_sdk_lib_dir)
     copy_libs(openssl_install_path, cc_google_sdk_lib_dir)
     copy_libs(curl_install_path, cc_google_sdk_lib_dir)
+    copy_libs(utf8_range_install_path, cc_google_sdk_lib_dir)
     copy_libs(protobuf_install_path, cc_google_sdk_lib_dir)
     copy_libs(grpc_install_path, cc_google_sdk_lib_dir)
     copy_libs(gcloud_sdk_install_path, cc_google_sdk_lib_dir)

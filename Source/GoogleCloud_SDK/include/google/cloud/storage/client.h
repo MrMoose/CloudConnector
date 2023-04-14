@@ -89,7 +89,7 @@ struct ClientImplDetails;
  *
  * Note that the application may (at times) use more connections than the
  * maximum size of the pool. For example if N downloads are in progress the
- * library may need N connections, even if the the pool size is smaller.
+ * library may need N connections, even if the pool size is smaller.
  *
  * Two clients that compare equal share the same connection pool. Two clients
  * created with the default constructor or with the constructor from a
@@ -1009,15 +1009,15 @@ class Client {
         SpanOptions(std::forward<Options>(options)...));
     internal::ListObjectsRequest request(bucket_name);
     request.set_multiple_options(std::forward<Options>(options)...);
-    auto& client = raw_client_;
     return google::cloud::internal::MakePaginationRange<
         ListObjectsAndPrefixesReader>(
         request,
-        [client](internal::ListObjectsRequest const& r) {
+        [client = raw_client_](internal::ListObjectsRequest const& r) {
           return client->ListObjects(r);
         },
         [](internal::ListObjectsResponse r) {
           std::vector<ObjectOrPrefix> result;
+          result.reserve(r.items.size() + r.prefixes.size());
           for (auto& item : r.items) {
             result.emplace_back(std::move(item));
           }

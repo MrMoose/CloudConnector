@@ -1,4 +1,4 @@
-// Copyright 2022 Google LLC
+// Copyright 2023 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -49,6 +49,22 @@ class SchemaServiceLogging : public SchemaServiceStub {
   StatusOr<google::pubsub::v1::ListSchemasResponse> ListSchemas(
       grpc::ClientContext& context,
       google::pubsub::v1::ListSchemasRequest const& request) override;
+
+  StatusOr<google::pubsub::v1::ListSchemaRevisionsResponse> ListSchemaRevisions(
+      grpc::ClientContext& context,
+      google::pubsub::v1::ListSchemaRevisionsRequest const& request) override;
+
+  StatusOr<google::pubsub::v1::Schema> CommitSchema(
+      grpc::ClientContext& context,
+      google::pubsub::v1::CommitSchemaRequest const& request) override;
+
+  StatusOr<google::pubsub::v1::Schema> RollbackSchema(
+      grpc::ClientContext& context,
+      google::pubsub::v1::RollbackSchemaRequest const& request) override;
+
+  StatusOr<google::pubsub::v1::Schema> DeleteSchemaRevision(
+      grpc::ClientContext& context,
+      google::pubsub::v1::DeleteSchemaRevisionRequest const& request) override;
 
   Status DeleteSchema(
       grpc::ClientContext& context,
